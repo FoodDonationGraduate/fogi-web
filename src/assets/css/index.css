@@ -1,0 +1,46 @@
+.btn-primary.authen, .btn-primary.authen:active, .btn-primary.authen:visited {
+  background-color: #82CD47 !important;
+  border: 1px solid #82CD47 !important;
+}
+
+.btn-primary.authen:hover {
+  background-color: #5A9829 !important;
+  border: 1px solid #5A9829 !important;
+}
+
+a.authen {
+  color: #82CD47 !important;
+  text-decoration: none !important;
+}
+
+a.authen:link {
+  color: #82CD47 !important;
+  text-decoration: none !important;
+}
+
+a.authen:visited {
+  color: #82CD47 !important;
+  text-decoration: none !important;
+}
+
+a.authen:hover {
+  color: #82CD47 !important;
+  text-decoration: none !important;
+}
+
+a.authen:active {
+  color: #82CD47 !important;
+  text-decoration: none !important;
+}
+
+.logo {
+  background-image: url('../images/logo.svg');
+  width: 68px;
+  height: 64px;
+  background-repeat: no-repeat;
+}
+
+.error {
+  color: #bf1650;
+  font-size: 14px;
+}

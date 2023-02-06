@@ -4,13 +4,15 @@ import {BrowserRouter, Navigate, Route, Routes, useLocation, useNavigate} from "
 import { Provider } from "react-redux";
 
 import store from "./components/redux/store.jsx";
-import HomePage from "./components/guest/home_page/HomePage.jsx"
+import HomePage from "./components/guest/home_page/HomePage.jsx";
+import LoginPage from "./components/guest/authentication/LoginPage.jsx";
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
      <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage/>} />
+        <Route path="/login" element={<LoginPage/>} />
       </Routes>
      </BrowserRouter >
   </Provider>

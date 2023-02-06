@@ -1,0 +1,10 @@
+.authen-bg {
+  min-height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.authen-bg-1 {
+  background-image: url('../../../assets/images/bg-1.jpg');
+}
