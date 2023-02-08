@@ -1,0 +1,17 @@
+.category-section-body {
+    padding-top: 15px;
+}
+.category-image {
+    width: 128px;
+    height: 128px;
+    border-radius: 64px;
+    margin: 20px 10px 15px;
+}
+
+.category-title {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 23px;
+}

@@ -3,13 +3,14 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 
-import Logo from '../../assets/images/Logo.png'
-import '../../assets/css/TopBar.css'
-function CollapsibleExample() {
-    return (
+import Logo from 'assets/images/Logo.png'
+import 'assets/css/TopBar.css'
+function TopBar() {
+  return (
+    <div className='top-bar-header'>
       <Navbar className='top-bar' collapseOnSelect expand="md" variant="dark">
         <Container className='mx-6'>
-          <Navbar.Brand className='brand' href="#home">
+          <Navbar.Brand className='brand px-2' href="#home">
             <img className='logo' src={Logo} ></img>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -28,7 +29,8 @@ function CollapsibleExample() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-    );
-  }
-  
-  export default CollapsibleExample;
+    </div>
+  );
+}
+
+export default TopBar;
