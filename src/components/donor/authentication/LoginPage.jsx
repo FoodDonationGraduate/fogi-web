@@ -9,8 +9,6 @@ import * as Yup from 'yup';
 
 // Assets imports
 import { FaExclamationTriangle } from "react-icons/fa";
-import Facebook from "../../../assets/images/facebook.svg";
-import Google from "../../../assets/images/google.svg";
 
 // Style imports
 import '../../../assets/css/Authentication.css';
@@ -38,15 +36,15 @@ const Login = () => {
               <div className='mb-3 mt-md-4 mx-4'>
                 <Row className='mb-4'>
                   <Col lg={3}>
-                    <div className='logo' />
+                    <div className='logo-donor' />
                   </Col>
                   <Col>
                     <h2 className='fw-bold'>
                       Login
                     </h2>
                     <p className='text-secondary mb-0'>
-                      New to Fogi?{' '}
-                      <a href='/signup' className='fogi fw-bold'>
+                      Don't have an account?{' '}
+                      <a href='/donor/signup' className='fogi fw-bold'>
                         Sign up
                       </a>
                     </p>
@@ -95,27 +93,6 @@ const Login = () => {
                       </Button>
                     </div>
                   </Form>
-                  
-                  <hr />
-                  
-                  <Row lg={2}>
-                    <Col className='d-grid ps-0'>
-                      <Button
-                        variant='outline-secondary'
-                      >
-                        <img className='me-2' src={Facebook} width='24px' height='24px' alt='facebook' />
-                        Facebook
-                      </Button>
-                    </Col>
-                    <Col className='d-grid pe-0'>
-                      <Button
-                        variant='outline-secondary'
-                      >
-                        <img className='me-2' src={Google} width='24px' height='24px' alt='google' />
-                        Google
-                      </Button>
-                    </Col>
-                  </Row>
                 </div>
               </div>
             </Card.Body>

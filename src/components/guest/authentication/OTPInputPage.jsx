@@ -16,8 +16,8 @@ const OTPInput = () => {
   };
 
   return (
-    <Container fluid className='fogi-bg authen-bg-user'>
-      <Row className='vh-100 d-flex justify-content-center align-items-center'>
+    <Container fluid className='fogi-bg authen-bg authen-bg-user'>
+      <Row className='py-4 d-flex justify-content-center align-items-center'>
         <Col lg={4}>
           <Card className='shadow'>
             <Card.Body>
