@@ -1,34 +1,34 @@
-.btn-primary.authen, .btn-primary.authen:active, .btn-primary.authen:visited {
+.btn-primary.fogi, .btn-primary.fogi:active, .btn-primary.fogi:visited {
   background-color: #82CD47 !important;
   border: 1px solid #82CD47 !important;
 }
 
-.btn-primary.authen:hover {
+.btn-primary.fogi:hover {
   background-color: #5A9829 !important;
   border: 1px solid #5A9829 !important;
 }
 
-a.authen {
+a.fogi {
   color: #82CD47 !important;
   text-decoration: none !important;
 }
 
-a.authen:link {
+a.fogi:link {
   color: #82CD47 !important;
   text-decoration: none !important;
 }
 
-a.authen:visited {
+a.fogi:visited {
   color: #82CD47 !important;
   text-decoration: none !important;
 }
 
-a.authen:hover {
+a.fogi:hover {
   color: #82CD47 !important;
   text-decoration: none !important;
 }
 
-a.authen:active {
+a.fogi:active {
   color: #82CD47 !important;
   text-decoration: none !important;
 }

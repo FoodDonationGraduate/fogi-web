@@ -13,8 +13,8 @@ import Facebook from "../../../assets/images/facebook.svg";
 import Google from "../../../assets/images/google.svg";
 
 // Style imports
-import './Authentication.css';
-import '../../../assets/css/index.css';
+import '../../../assets/css/Authentication.css';
+import '../../../assets/css/Fogi.css';
 
 const Signup = () => {
   const formSchema = Yup.object().shape({
@@ -35,7 +35,7 @@ const Signup = () => {
   };
  
   return (
-    <Container fluid className='authen-bg authen-bg-1'>
+    <Container fluid className='fogi-bg authen-bg-user'>
       <Row className='vh-100 d-flex justify-content-center align-items-center'>
         <Col lg={4}>
           <Card className='shadow'>
@@ -51,7 +51,7 @@ const Signup = () => {
                     </h2>
                     <p className='text-secondary mb-0'>
                       Already have an account?{' '}
-                      <a className='authen fw-bold'>
+                      <a className='fogi fw-bold'>
                         Login
                       </a>
                     </p>
@@ -115,7 +115,7 @@ const Signup = () => {
                     </Form.Group>
 
                     <div className='d-grid'>
-                      <Button className='authen' variant='primary' type='submit'>
+                      <Button className='fogi' variant='primary' type='submit'>
                         Continue
                       </Button>
                     </div>

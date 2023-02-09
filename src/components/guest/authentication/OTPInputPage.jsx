@@ -6,8 +6,8 @@ import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 
 // Style imports
-import './Authentication.css';
-import '../../../assets/css/index.css';
+import '../../../assets/css/Authentication.css';
+import '../../../assets/css/Fogi.css';
 
 const OTPInput = () => {
   const { handleSubmit } = useForm();
@@ -16,7 +16,7 @@ const OTPInput = () => {
   };
 
   return (
-    <Container fluid className='authen-bg authen-bg-1'>
+    <Container fluid className='fogi-bg authen-bg-user'>
       <Row className='vh-100 d-flex justify-content-center align-items-center'>
         <Col lg={4}>
           <Card className='shadow'>
@@ -41,7 +41,7 @@ const OTPInput = () => {
                       {Array.from({ length: 6 }).map((_) => (
                         <Col>
                           <Form.Group className='text-center mb-3'>
-                            <Form.Control maxLength='1' />
+                            <Form.Control maxLength='1' style={{textAlign: 'center'}} />
                           </Form.Group>
                         </Col>
                       ))}
@@ -50,10 +50,10 @@ const OTPInput = () => {
                 </div>
                 <div className='mb-3'>
                   <div className='d-grid'>
-                    <Button className='authen' variant='primary'>
+                    <Button className='fogi' variant='primary'>
                       Confirm
                     </Button>
-                    <Button className='authen mt-2' variant='outline-dark'>
+                    <Button className='fogi mt-2' variant='outline-dark'>
                       Resend OTP code
                     </Button>
                     <Button className='mt-2' variant='outline-secondary'>

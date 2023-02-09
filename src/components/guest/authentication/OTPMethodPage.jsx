@@ -6,13 +6,13 @@ import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 
 // Style imports
-import './Authentication.css';
-import '../../../assets/css/index.css';
+import '../../../assets/css/Authentication.css';
+import '../../../assets/css/Fogi.css';
 
 const OTPMethod = () => {
  
   return (
-    <Container fluid className='authen-bg authen-bg-1'>
+    <Container fluid className='fogi-bg authen-bg-user'>
       <Row className='vh-100 d-flex justify-content-center align-items-center'>
         <Col lg={4}>
           <Card className='shadow'>
@@ -33,10 +33,10 @@ const OTPMethod = () => {
                 </Row>
                 <div className='mb-3'>
                   <div className='d-grid'>
-                    <Button className='authen' variant='primary'>
+                    <Button className='fogi' variant='primary'>
                       Get OTP by email
                     </Button>
-                    <Button className='authen mt-2' variant='primary'>
+                    <Button className='fogi mt-2' variant='primary'>
                       Get OTP by phone number
                     </Button>
                     <Button className='mt-2' variant='outline-secondary'>

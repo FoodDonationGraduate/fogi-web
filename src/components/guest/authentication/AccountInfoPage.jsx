@@ -11,8 +11,8 @@ import * as Yup from 'yup';
 import { FaExclamationTriangle } from "react-icons/fa";
 
 // Style imports
-import './Authentication.css';
-import '../../../assets/css/index.css';
+import '../../../assets/css/Authentication.css';
+import '../../../assets/css/Fogi.css';
 
 const AccountInfo = () => {
   const formSchema = Yup.object().shape({
@@ -30,7 +30,7 @@ const AccountInfo = () => {
   };
  
   return (
-    <Container fluid className='authen-bg authen-bg-1'>
+    <Container fluid className='fogi-bg authen-bg-user'>
       <Row className='vh-100 d-flex justify-content-center align-items-center'>
         <Col lg={4}>
           <Card className='shadow'>
@@ -83,6 +83,7 @@ const AccountInfo = () => {
                         Phone number
                       </Form.Label>
                       <Form.Control
+                        type='number'
                         {...register("phonenumber")}
                       />
                       {errors.phonenumber && errors.phonenumber.type === "required" && (
@@ -107,7 +108,7 @@ const AccountInfo = () => {
                     </Form.Group>
 
                     <div className='d-grid'>
-                      <Button className='authen' variant='primary' type='submit'>
+                      <Button className='fogi' variant='primary' type='submit'>
                         Continue
                       </Button>
                       <Button className='mt-2' variant='outline-secondary'>
