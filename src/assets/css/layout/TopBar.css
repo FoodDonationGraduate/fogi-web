@@ -3,9 +3,6 @@
     display: flex;
     justify-content: center;
     padding: 0px;}
-    .top-bar .container {
-    padding: 0px 4px;
-    }
 
 .logo {
     left: 0px;
@@ -14,11 +11,6 @@
     color: white;
     overflow: hidden;
     margin: 5px 0px;
-}
-
-.nav-link-row {
-    margin-left: 50px;
-    width: 300px;
 }
 
 .nav-link {

@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 
 import BarFilter from "assets/images/bar_filter.png"
-import "assets/css/SearchingBar.css"
+import'assets/css/guest/home_pape/SearchingBar.css'
 function SearchingBar() {
   return (
     <div className='searching-bar-header'>
@@ -25,7 +25,7 @@ function SearchingBar() {
           <Col xs={12} md={3} className='searching-bar-section pt-2'>
             <Dropdown className='dropdown-box d-flex'>
               <Dropdown.Toggle id="dropdown-basic" className='dropdown-toggle d-flex justify-content-right'>
-                  <img className='bar-filter bar-filter-img' src={BarFilter}></img>
+                  <img className='bar-filter bar-filter-img' src={BarFilter} alt='filter icon'></img>
                   <p className='bar-filter bar-filter-title'>Sort by...</p>
               </Dropdown.Toggle >
               <Dropdown.Menu className='dropdown-menu'>

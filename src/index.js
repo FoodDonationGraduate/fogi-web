@@ -12,6 +12,7 @@ import AccountInfoPage from "./components/guest/authentication/AccountInfoPage.j
 import OTPMethodPage from "./components/guest/authentication/OTPMethodPage.jsx";
 import OTPInputPage from "./components/guest/authentication/OTPInputPage.jsx";
 
+import ProfilePage from "./components/user/profile_page/ProfilePage.jsx"
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
      <BrowserRouter>
@@ -23,6 +24,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/accountinfo" element={<AccountInfoPage/>} />
         <Route path="/otpmethod" element={<OTPMethodPage/>} />
         <Route path="/otpinput" element={<OTPInputPage/>} />
+
+        <Route path="/profile" element={<ProfilePage/>} />
       </Routes>
      </BrowserRouter >
   </Provider>

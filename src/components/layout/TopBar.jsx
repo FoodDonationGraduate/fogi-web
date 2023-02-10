@@ -1,27 +1,33 @@
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import Button from 'react-bootstrap/Button';
-
+import {Container, Nav, Navbar, Button, Row, Col} from 'react-bootstrap';
 import Logo from 'assets/images/Logo.png'
-import 'assets/css/TopBar.css'
+import 'assets/css/layout/TopBar.css'
 function TopBar() {
   return (
     <div className='top-bar-header'>
       <Navbar className='top-bar' collapseOnSelect expand="md" variant="dark">
         <Container className='mx-6'>
           <Navbar.Brand className='brand px-2' href="#home">
-            <img className='logo' src={Logo} ></img>
+            <img className='logo' src={Logo} alt='logo'></img>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="nav-link-row col-12">
-              <Nav.Link className='nav-link col-4' href="">About</Nav.Link>
-              <Nav.Link className='nav-link col-4' href="">Pricing</Nav.Link>
-              <Nav.Link className='nav-link col-4' href="">News</Nav.Link>
-              <Nav.Link className='nav-link d-md-none' href="">Login</Nav.Link>
-              <Nav.Link className='nav-link d-md-none' href="">Sign up</Nav.Link>
-            </Nav>
+            <Row className='w-100 d-flex justify-content-center'>
+              <Col xs={12} md={1} className='d-flex justify-content-center'>
+                <Nav.Link className='nav-link' href="">About</Nav.Link>
+              </Col>
+              <Col xs={12} md={1} className='d-flex justify-content-center'>
+                <Nav.Link className='nav-link' href="">Pricing</Nav.Link>
+              </Col>
+              <Col xs={12} md={1} className='d-flex justify-content-center'>
+                <Nav.Link className='nav-link' href="">News</Nav.Link>
+              </Col>
+              <Col xs={12} md={4} className='d-flex justify-content-center'>
+                <Nav.Link className='nav-link d-md-none' href="">Login</Nav.Link>
+              </Col>
+              <Col xs={12} md={5} className='d-flex justify-content-center'>
+                <Nav.Link className='nav-link d-md-none' href="">Sign up</Nav.Link>
+              </Col>
+            </Row>
             <Nav className="nav-button-row d-none d-md-flex">
               <Button className='nav-button login-button' id="login-button"> Login</Button>
               <Button className='nav-button signup-button'  id="signup-button">Sign up</Button>
