@@ -35,8 +35,8 @@ const Signup = () => {
   };
  
   return (
-    <Container fluid className='fogi-bg authen-bg-user'>
-      <Row className='vh-100 d-flex justify-content-center align-items-center'>
+    <Container fluid className='fogi-bg authen-bg authen-bg-user'>
+      <Row className='py-4 d-flex justify-content-center align-items-center'>
         <Col lg={4}>
           <Card className='shadow'>
             <Card.Body>
@@ -51,7 +51,7 @@ const Signup = () => {
                     </h2>
                     <p className='text-secondary mb-0'>
                       Already have an account?{' '}
-                      <a className='fogi fw-bold'>
+                      <a href='/login' className='fogi fw-bold'>
                         Login
                       </a>
                     </p>
@@ -124,7 +124,7 @@ const Signup = () => {
                   <hr />
                   
                   <Row lg={2}>
-                    <Col className='d-grid'>
+                    <Col className='d-grid ps-0'>
                       <Button
                         variant='outline-secondary'
                       >
@@ -132,7 +132,7 @@ const Signup = () => {
                         Facebook
                       </Button>
                     </Col>
-                    <Col className='d-grid'>
+                    <Col className='d-grid pe-0'>
                       <Button
                         variant='outline-secondary'
                       >

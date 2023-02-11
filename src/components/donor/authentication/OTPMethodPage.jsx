@@ -17,7 +17,7 @@ const OTPMethod = () => {
               <div className='mb-3 mt-md-4 mx-4'>
                 <Row className='mb-4'>
                   <Col lg={3}>
-                    <div className='logo' />
+                    <div className='logo-donor' />
                   </Col>
                   <Col>
                     <h2 className='fw-bold'>

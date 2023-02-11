@@ -1,13 +1,20 @@
 // Essentials
 import * as React from 'react';
-import { Button, Card, Col, Container, Row } from 'react-bootstrap';
+import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
+
+// Form handling
+import { useForm } from 'react-hook-form';
 
 // Style imports
 import '../../../assets/css/Authentication.css';
 import '../../../assets/css/Fogi.css';
 
-const OTPMethod = () => {
- 
+const OTPInput = () => {
+  const { handleSubmit } = useForm();
+  const onSubmit = () => {
+    console.log('login');
+  };
+
   return (
     <Container fluid className='fogi-bg authen-bg authen-bg-user'>
       <Row className='py-4 d-flex justify-content-center align-items-center'>
@@ -17,27 +24,40 @@ const OTPMethod = () => {
               <div className='mb-3 mt-md-4 mx-4'>
                 <Row className='mb-4'>
                   <Col lg={3}>
-                    <div className='logo' />
+                    <div className='logo-volunteer' />
                   </Col>
                   <Col>
                     <h2 className='fw-bold'>
                       Verification
                     </h2>
                     <p className='text-secondary mb-0'>
-                      Select a method to receive the OTP code
+                      Enter the OTP code
                     </p>
                   </Col>
                 </Row>
                 <div className='mb-3'>
+                  <Form onSubmit={handleSubmit(onSubmit)}>
+                    <Row lg={6}>
+                      {Array.from({ length: 6 }).map((_) => (
+                        <Col>
+                          <Form.Group className='text-center mb-3'>
+                            <Form.Control maxLength='1' style={{textAlign: 'center'}} />
+                          </Form.Group>
+                        </Col>
+                      ))}
+                    </Row>
+                  </Form>
+                </div>
+                <div className='mb-3'>
                   <div className='d-grid'>
                     <Button className='fogi' variant='primary'>
-                      Get OTP by email
+                      Confirm
                     </Button>
-                    <Button className='fogi mt-2' variant='primary'>
-                      Get OTP by phone number
+                    <Button className='fogi mt-2' variant='outline-dark'>
+                      Resend OTP code
                     </Button>
                     <Button className='mt-2' variant='outline-secondary'>
-                      Return
+                      Try another method
                     </Button>
                   </div>
                 </div>
@@ -50,4 +70,4 @@ const OTPMethod = () => {
   );
 };
 
-export default OTPMethod;
+export default OTPInput;

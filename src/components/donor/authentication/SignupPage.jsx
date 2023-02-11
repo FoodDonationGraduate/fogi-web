@@ -14,12 +14,16 @@ import { FaExclamationTriangle } from "react-icons/fa";
 import '../../../assets/css/Authentication.css';
 import '../../../assets/css/Fogi.css';
 
-const AccountInfo = () => {
+const Signup = () => {
   const formSchema = Yup.object().shape({
-    fullname: Yup.string().required(''),
-    dob: Yup.string().required(''),
+    email: Yup.string().required('Email is required'),
     phonenumber: Yup.string().required(''),
-    address: Yup.string().required('')
+    password: Yup.string()
+      .required('Password is required')
+      .min(6, "Password must contain at least 6 characters"),
+    confirm: Yup.string()
+      .required("Confirm password is required")
+      .oneOf([Yup.ref("password")], "Password does not match")
   });
   const formOptions = { resolver: yupResolver(formSchema) };
   const { register, handleSubmit, formState } = useForm(formOptions);
@@ -38,42 +42,35 @@ const AccountInfo = () => {
               <div className='mb-3 mt-md-4 mx-4'>
                 <Row className='mb-4'>
                   <Col lg={3}>
-                    <div className='logo' />
+                    <div className='logo-donor' />
                   </Col>
                   <Col>
                     <h2 className='fw-bold'>
-                      Account Information
+                      Sign up
                     </h2>
+                    <p className='text-secondary mb-0'>
+                      Already have an account?{' '}
+                      <a href='/donor/login' className='fogi fw-bold'>
+                        Login
+                      </a>
+                    </p>
                   </Col>
                 </Row>
                 <div className='mb-3'>
                   <Form onSubmit={handleSubmit(onSubmit)}>
                     <Form.Group className='mb-3'>
                       <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
-                        Full name
-                      </Form.Label>
-                      <Form.Control {...register("fullname")} />
-                      {errors.fullname && errors.fullname.type === "required" && (
-                        <p className="mt-2 error">
-                          <FaExclamationTriangle className="mx-2" />
-                          Full name is required
-                        </p>
-                      )}
-                    </Form.Group>
-
-                    <Form.Group className='mb-3'>
-                      <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
-                        Date of birth
+                        Email address
                       </Form.Label>
                       <Form.Control
-                        type='date'
-                        placeholders='Select Date of Birth'
-                        {...register("dob")}
+                        type="email"
+                        placeholder="name@example.com"
+                        {...register("email")}
                       />
-                      {errors.dob && errors.dob.type === "required" && (
+                      {errors.email && errors.email.type === "required" && (
                         <p className="mt-2 error">
                           <FaExclamationTriangle className="mx-2" />
-                          Date of Birth is required
+                          Email is required
                         </p>
                       )}
                     </Form.Group>
@@ -96,23 +93,45 @@ const AccountInfo = () => {
 
                     <Form.Group className='mb-3'>
                       <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
-                        Address
+                        Password
                       </Form.Label>
-                      <Form.Control {...register("fullname")} />
-                      {errors.address && errors.address.type === "required" && (
-                        <p className="mt-2 error">
-                          <FaExclamationTriangle className="mx-2" />
-                          Address is required
-                        </p>
-                      )}
+                      <Form.Control type="password" {...register("password")} />
+                    {errors.password && errors.password.type === "required" && (
+                      <p className="mt-2 error">
+                        <FaExclamationTriangle className="mx-2" />
+                        Password is required
+                      </p>
+                    )}
+                    {errors.password && errors.password.type === "min" && (
+                      <p className="mt-2 error">
+                        <FaExclamationTriangle className="mx-2" />
+                        Password must contain at least 6 characters
+                      </p>
+                    )}
+                    </Form.Group>
+
+                    <Form.Group className='mb-3'>
+                      <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
+                        Confirm Password
+                      </Form.Label>
+                      <Form.Control type="password" {...register("confirm")} />
+                    {errors.confirm && errors.confirm.type === "required" && (
+                      <p className="mt-2 error">
+                        <FaExclamationTriangle className="mx-2" />
+                        You must re-enter your password here
+                      </p>
+                    )}
+                    {errors.confirm && errors.confirm.type === "oneOf" && (
+                      <p className="mt-2 error">
+                        <FaExclamationTriangle className="mx-2" />
+                        Password does not match
+                      </p>
+                    )}
                     </Form.Group>
 
                     <div className='d-grid'>
                       <Button className='fogi' variant='primary' type='submit'>
                         Continue
-                      </Button>
-                      <Button className='mt-2' variant='outline-secondary'>
-                        Return
                       </Button>
                     </div>
                   </Form>
@@ -126,4 +145,4 @@ const AccountInfo = () => {
   );
 };
 
-export default AccountInfo;
+export default Signup;
