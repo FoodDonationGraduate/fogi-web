@@ -1,14 +1,14 @@
-import React, {useState} from 'react'
+import React from 'react'
 
 import TopBar from "../../layout/TopBar.jsx";
+import Footer from '../../layout/Footer.jsx'
 import SearchingBar from './components/SearchingBar.jsx';
 import LocationBar from './components/LocationBar.jsx'
 import Banner from './components/Banner.jsx'
 import CategorySection from './components/CategorySection.jsx'
 import ProductSection from './components/ProductSection.jsx'
 import DonorSection from './components/DonorSection.jsx'
-import Footer from '../../layout/Footer.jsx'
-import 'assets/css/HomePage.css'
+import 'assets/css/guest/home_pape/HomePage.css'
 
 function HomePage(){
     return (

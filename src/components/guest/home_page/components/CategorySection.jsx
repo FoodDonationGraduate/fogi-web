@@ -1,5 +1,5 @@
 import {Card, Col, Row, Container} from 'react-bootstrap';
-import 'assets/css/CategorySection.css'
+import 'assets/css/guest/home_pape/CategorySection.css'
 import {CATEGORY_DATA} from 'utils/constants/Category.jsx'
 function CategorySection() {
   return (

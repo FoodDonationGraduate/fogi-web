@@ -1,6 +1,6 @@
 import {Carousel, Container} from 'react-bootstrap';
 import AdBanner from 'assets/images/AdBanner.svg'
-import 'assets/css/Banner.css'
+import 'assets/css/guest/home_pape/Banner.css'
 function Banner() {
   return (
     <div className='ad-banner-body'>

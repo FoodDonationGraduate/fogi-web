@@ -1,5 +1,5 @@
 import {Card, Col, Row, Container, Button} from 'react-bootstrap';
-import 'assets/css/ProductSection.css'
+import 'assets/css/guest/home_pape/ProductSection.css'
 import {PRODUCT_DATA} from 'utils/constants/Product.jsx'
 import { convertNumberToVnd } from 'utils/helpers/Money.jsx';
 function ProductSection() {
@@ -20,9 +20,9 @@ function ProductSection() {
                                 <Card.Title className='product-price'>{convertNumberToVnd(item.price)}</Card.Title>
                             </Card.Body>
                             <Card.Footer className='d-block justify-content-left px-2 py-2' >
-                                <Card.Title className='donar-product-title d-flex justify-content-left mb-1'>
-                                    <img className='donar-product-logo' src={item.donorLogo}></img>
-                                    <p className='donar-product-name pt-1'>{item.donorName}</p>
+                                <Card.Title className='donor-product-title d-flex justify-content-left mb-1'>
+                                    <img className='donor-product-logo' src={item.donorLogo} alt='donor logo'></img>
+                                    <p className='donor-product-name pt-1'>{item.donorName}</p>
                                 </Card.Title>
                                 <Button className='add-to-cart-button'>Add to cart</Button>
                             </Card.Footer>

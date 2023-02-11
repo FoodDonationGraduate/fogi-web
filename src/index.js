@@ -26,6 +26,7 @@ import VolunteerInfo from "./components/volunteer/authentication/InformationForm
 
 // Donor
 
+import ProfilePage from "./components/user/profile_page/ProfilePage.jsx"
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
      <BrowserRouter>
@@ -49,6 +50,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/volunteer/otpmethod" element={<VolunteerOTPMethod/>} />
         <Route path="/volunteer/otpinput" element={<VolunteerOTPInput/>} />
         <Route path="/volunteer/infoform" element={<VolunteerInfo/>} />
+
+        <Route path="/profile" element={<ProfilePage/>} />
       </Routes>
      </BrowserRouter >
   </Provider>
