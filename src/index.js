@@ -4,7 +4,7 @@ import {BrowserRouter, Navigate, Route, Routes, useLocation, useNavigate} from "
 import { Provider } from "react-redux";
 
 import store from "./components/redux/store.jsx";
-import HomePage from "./components/guest/home_page/HomePage.jsx";
+import HomePage from "./components/guest/home/HomePage.jsx";
 import ProductListPage from './components/guest/product/ProductListPage.jsx';
 import ProductDetailsPage from './components/guest/product/ProductDetailsPage.jsx';
 

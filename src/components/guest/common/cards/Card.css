@@ -3,8 +3,16 @@
   height: 40px;
   border-radius: 50%;
 }
+
 .donor-logo-m {
   width: 88px;
   height: 88px;
   border-radius: 50%;
+}
+
+.category-logo {
+  width: 65%;
+  aspect-ratio : 1 / 1;
+  border-radius: 50%;
+  margin-top: 20px;
 }

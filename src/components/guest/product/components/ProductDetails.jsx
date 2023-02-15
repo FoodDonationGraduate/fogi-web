@@ -24,20 +24,20 @@ const ProductDetails = ({product}) => {
         <Card.Title style={{ color: '#82CD47' }}>
           {convertNumberToVnd(product.price)}
         </Card.Title>
-        <div>
-          <small className='me-4' style={{ color: 'gray' }}>
+        <Stack direction='horizontal' gap={4}>
+          <header className='me-4' style={{ color: 'gray' }}>
             <FaRegClock className='me-2 mb-1' />
             2 days left
-          </small>
-          <small style={{ color: 'gray' }}>
+          </header>
+          <header style={{ color: 'gray' }}>
             <MdAllInbox className='me-2 mb-1' />
             63 in store
-          </small>
-          <p className='mt-2'>
-            This paragraph is used to describe the product.
-            The donor can write anything about this product such as ingredients, flavors,...
-          </p>
-        </div>
+          </header>
+        </Stack>
+        <p className='mt-2'>
+          This paragraph is used to describe the product.
+          The donor can write anything about this product such as ingredients, flavors,...
+        </p>
       </Card.Body>
       <Card.Body className='mt-4'>
         <Stack direction='horizontal' gap={2}>

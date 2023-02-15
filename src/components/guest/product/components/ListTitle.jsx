@@ -9,16 +9,14 @@ const ListTitle = () => {
   return (
     <div className='bg'>
       <Container>
-        <Row className='pt-4 pb-2'>
+        <Row className='pt-4'>
           <Col>
             <h2>Product List</h2>
           </Col>
-          <Col md={2} lg={2}>
+          <Col className='d-flex justify-content-end' md={2} lg={2}>
             <DropdownButton
-              className='d-grid'
               variant='outline-secondary'
               title='Sort by'
-              style={{ backgroundColor: 'white' }}
             >
               <Dropdown.Item>Price</Dropdown.Item>
               <Dropdown.Item>Date</Dropdown.Item>
