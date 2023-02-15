@@ -24,7 +24,7 @@ function ProductSection() {
                                     <img className='donor-product-logo' src={item.donorLogo} alt='donor logo'></img>
                                     <p className='donor-product-name pt-1'>{item.donorName}</p>
                                 </Card.Title>
-                                <Button className='add-to-cart-button'>Add to cart</Button>
+                                <Button className='card-green-button add-to-cart-button'>Add to cart</Button>
                             </Card.Footer>
                         </Card>
                     </Col>
@@ -32,7 +32,7 @@ function ProductSection() {
             </Row>
         </div>
         <div className='product-section-footer d-flex justify-content-center'>
-            <Button className='view-more-button'>View More</Button>
+            <Button className='card-white-button view-more-button'>View More</Button>
         </div>
       </Container>
     </div>
