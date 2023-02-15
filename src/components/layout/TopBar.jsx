@@ -1,6 +1,5 @@
 import {Container, Nav, Navbar, Button, Row, Col} from 'react-bootstrap';
 import Logo from 'assets/images/Logo.png'
-import 'assets/css/layout/TopBar.css'
 function TopBar() {
   return (
     <div className='top-bar-header'>

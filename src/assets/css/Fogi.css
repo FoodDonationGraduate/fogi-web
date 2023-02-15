@@ -1,11 +1,49 @@
 .btn-primary.fogi, .btn-primary.fogi:active, .btn-primary.fogi:visited {
   background-color: #82CD47 !important;
-  border: 1px solid #82CD47 !important;
+  border-color: #82CD47 !important;
 }
 
 .btn-primary.fogi:hover {
   background-color: #5A9829 !important;
-  border: 1px solid #5A9829 !important;
+  border-color: #5A9829 !important;
+}
+
+.btn {
+  border: 2px solid;
+  font-weight: bold;
+}
+
+.btn-primary, .btn-secondary, .btn-danger, .btn-light, .btn-dark {
+  border: 2px solid;
+}
+
+.btn-primary {
+  background-color: #82CD47;
+  border-color: #82CD47;
+}
+
+.btn-secondary {
+  background-color: gray;
+  border-color: gray;
+}
+
+.btn-danger {
+  background-color: red;
+  border-color: red;
+}
+
+.btn-light {
+  background-color: white;
+  border-color: white;
+}
+
+.btn-dark {
+  background-color: black;
+  border-color: black;
+}
+
+.navbar.fogi {
+  background-color: #82CD47 !important;
 }
 
 a.fogi {

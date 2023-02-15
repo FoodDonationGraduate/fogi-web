@@ -5,6 +5,8 @@ import { Provider } from "react-redux";
 
 import store from "./components/redux/store.jsx";
 import HomePage from "./components/guest/home_page/HomePage.jsx";
+import ProductListPage from './components/guest/product/ProductListPage.jsx';
+import ProductDetailsPage from './components/guest/product/ProductDetailsPage.jsx';
 
 import UserLogin from "./components/guest/authentication/LoginPage.jsx";
 import UserSignup from "./components/guest/authentication/SignupPage.jsx";
@@ -24,14 +26,15 @@ import VolunteerOTPMethod from "./components/volunteer/authentication/OTPMethodP
 import VolunteerOTPInput from "./components/volunteer/authentication/OTPInputPage.jsx";
 import VolunteerInfo from "./components/volunteer/authentication/InformationForm.jsx";
 
-// Donor
-
 import ProfilePage from "./components/user/profile_page/ProfilePage.jsx"
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
      <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage/>} />
+        <Route path="/productlist" element={<ProductListPage />} />
+        <Route path="/productdetails" element={<ProductDetailsPage />} />
 
         <Route path="/login" element={<UserLogin/>} />
         <Route path="/signup" element={<UserSignup/>} />
