@@ -15,7 +15,6 @@ import { FaExclamationTriangle, FaArrowLeft } from 'react-icons/fa';
 
 // Style imports
 import '../../../assets/css/Authentication.css';
-import '../../../assets/css/Form.css';
 import '../../../assets/css/Fogi.css';
 
 const InformationForm = () => {

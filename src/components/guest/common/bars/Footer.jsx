@@ -5,6 +5,8 @@ import WebIcon from 'assets/images/WebIcon.png';
 import FacebookIcon from 'assets/images/FacebookIcon.png';
 import InstagramIcon from 'assets/images/InstagramIcon.png';
 import YoutubeIcon from 'assets/images/YoutubeIcon.png';
+import 'assets/css/layout/Footer.css';
+
 function Footer() {
   return (
     <div className='footer'>

@@ -1,26 +1,30 @@
 // Essentials
 import * as React from 'react';
-import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
+import { Button, Card, Col, Container, Form, Row, Stack } from 'react-bootstrap';
 
 // Form handling
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 
+// Components
+import UploadButton from 'components/common/UploadButton';
+
 // Assets imports
-import { FaExclamationTriangle } from "react-icons/fa";
-import { ReactComponent as Logo } from 'assets/images/logo.svg';
+import { FaExclamationTriangle, FaQuestionCircle } from "react-icons/fa";
+import { ReactComponent as Logo } from 'assets/images/logo-donor.svg';
 
 // Style imports
-import '../../../assets/css/Authentication.css';
-import '../../../assets/css/Fogi.css';
+import 'assets/css/Authentication.css';
+import 'assets/css/Form.css';
+import 'assets/css/Fogi.css';
 
 const AccountInfo = () => {
   const formSchema = Yup.object().shape({
-    fullname: Yup.string().required(''),
-    dob: Yup.string().required(''),
-    phonenumber: Yup.string().required(''),
-    address: Yup.string().required('')
+    brandname: Yup.string().required(''),
+    address: Yup.string().required(''),
+    openhours: Yup.string().required(''),
+    ownername: Yup.string().required('')
   });
   const formOptions = { resolver: yupResolver(formSchema) };
   const { register, handleSubmit, formState } = useForm(formOptions);
@@ -49,48 +53,18 @@ const AccountInfo = () => {
                 </Row>
                 <div className='mb-3'>
                   <Form onSubmit={handleSubmit(onSubmit)}>
+                    <header className='form-header mb-3'>
+                      Donor's Information
+                    </header>
                     <Form.Group className='mb-3'>
                       <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
-                        Full name
+                        Brand name
                       </Form.Label>
-                      <Form.Control {...register("fullname")} />
-                      {errors.fullname && errors.fullname.type === "required" && (
+                      <Form.Control {...register("brandname")} />
+                      {errors.brandname && errors.brandname.type === "required" && (
                         <p className="mt-2 error">
                           <FaExclamationTriangle className="mx-2" />
-                          Full name is required
-                        </p>
-                      )}
-                    </Form.Group>
-
-                    <Form.Group className='mb-3'>
-                      <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
-                        Date of birth
-                      </Form.Label>
-                      <Form.Control
-                        type='date'
-                        placeholders='Select Date of Birth'
-                        {...register("dob")}
-                      />
-                      {errors.dob && errors.dob.type === "required" && (
-                        <p className="mt-2 error">
-                          <FaExclamationTriangle className="mx-2" />
-                          Date of Birth is required
-                        </p>
-                      )}
-                    </Form.Group>
-
-                    <Form.Group className='mb-3'>
-                      <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
-                        Phone number
-                      </Form.Label>
-                      <Form.Control
-                        type='number'
-                        {...register("phonenumber")}
-                      />
-                      {errors.phonenumber && errors.phonenumber.type === "required" && (
-                        <p className="mt-2 error">
-                          <FaExclamationTriangle className="mx-2" />
-                          Phone number is required
+                          Brand name is required
                         </p>
                       )}
                     </Form.Group>
@@ -99,13 +73,56 @@ const AccountInfo = () => {
                       <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
                         Address
                       </Form.Label>
-                      <Form.Control {...register("fullname")} />
+                      <Form.Control
+                        {...register("address")}
+                      />
                       {errors.address && errors.address.type === "required" && (
                         <p className="mt-2 error">
                           <FaExclamationTriangle className="mx-2" />
                           Address is required
                         </p>
                       )}
+                    </Form.Group>
+
+                    <Form.Group className='mb-3'>
+                      <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
+                        Open hours
+                      </Form.Label>
+                      <Form.Control {...register("openhours")} />
+                      {errors.openhours && errors.openhours.type === "required" && (
+                        <p className="mt-2 error">
+                          <FaExclamationTriangle className="mx-2" />
+                          Open hours is required
+                        </p>
+                      )}
+                    </Form.Group>
+
+                    <header className='form-header mb-3'>
+                      Owner's Information
+                    </header>
+                    <Form.Group className='mb-3'>
+                      <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
+                        Owner's name
+                      </Form.Label>
+                      <Form.Control
+                        {...register("ownername")}
+                      />
+                      {errors.ownername && errors.ownername.type === "required" && (
+                        <p className="mt-2 error">
+                          <FaExclamationTriangle className="mx-2" />
+                          Owner's name is required
+                        </p>
+                      )}
+                    </Form.Group>
+
+                    <Form.Group className='mb-3'>
+                      <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
+                        Image of Identity Card/Passport
+                      </Form.Label>
+                      <Stack direction='horizontal' gap={2}>
+                        <UploadButton label='Upload front side' />
+                        <UploadButton label='Upload back side' />
+                      </Stack>
                     </Form.Group>
 
                     <div className='d-grid'>

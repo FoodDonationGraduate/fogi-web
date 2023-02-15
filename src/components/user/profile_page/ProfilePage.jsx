@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container, Row, Col } from 'react-bootstrap';
-import TopBar from "components/layout/TopBar.jsx";
-import Footer from 'components/layout/Footer.jsx'
+import TopBar from "components/guest/common/bars/TopBar.jsx";
+import Footer from 'components/guest/common/bars/Footer.jsx'
 import StatsCard from './components/StatsCard'
 import UserProfile from './components/UserProfile'
 import ButtonCard from './components/ButtonCard'

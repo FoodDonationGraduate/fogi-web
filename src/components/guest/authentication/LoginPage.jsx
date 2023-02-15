@@ -9,6 +9,7 @@ import * as Yup from 'yup';
 
 // Assets imports
 import { FaExclamationTriangle } from "react-icons/fa";
+import { ReactComponent as Logo } from 'assets/images/logo.svg';
 import Facebook from "../../../assets/images/facebook.svg";
 import Google from "../../../assets/images/google.svg";
 
@@ -38,7 +39,7 @@ const Login = () => {
               <div className='mb-3 mt-md-4 mx-4'>
                 <Row className='mb-4'>
                   <Col lg={3}>
-                    <div className='logo' />
+                    <Logo fill='#82CD47' />
                   </Col>
                   <Col>
                     <h2 className='fw-bold'>

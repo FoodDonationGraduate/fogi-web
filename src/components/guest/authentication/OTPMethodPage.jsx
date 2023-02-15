@@ -2,6 +2,9 @@
 import * as React from 'react';
 import { Button, Card, Col, Container, Row } from 'react-bootstrap';
 
+// Assets imports
+import { ReactComponent as Logo } from 'assets/images/logo.svg';
+
 // Style imports
 import '../../../assets/css/Authentication.css';
 import '../../../assets/css/Fogi.css';
@@ -17,7 +20,7 @@ const OTPMethod = () => {
               <div className='mb-3 mt-md-4 mx-4'>
                 <Row className='mb-4'>
                   <Col lg={3}>
-                    <div className='logo' />
+                    <Logo fill='#82CD47' />
                   </Col>
                   <Col>
                     <h2 className='fw-bold'>
