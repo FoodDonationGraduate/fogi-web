@@ -8,7 +8,8 @@ import Banner from './components/Banner.jsx'
 import CategorySection from './components/CategorySection.jsx'
 import ProductSection from './components/ProductSection.jsx'
 import DonorSection from './components/DonorSection.jsx'
-// import 'assets/css/guest/home_pape/HomePage.css'
+import 'assets/css/guest/home_pape/HomePage.css'
+import 'assets/css/Common.css'
 
 function HomePage(){
     return (

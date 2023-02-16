@@ -1,6 +1,10 @@
 // Essentials
-import * as React from 'react';
+import {useState} from 'react';
+import { useNavigate, useLocation } from "react-router-dom";
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux'
+import {getUserInfo, getUserToken} from 'components/redux/reducer/AuthenticationReducer.jsx'
+import axiosInstance from "services/axios/axiosConfig.js";
 
 // Form handling
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -10,12 +14,13 @@ import * as Yup from 'yup';
 // Assets imports
 import { FaExclamationTriangle } from "react-icons/fa";
 import { ReactComponent as Logo } from 'assets/images/logo.svg';
-import Facebook from "../../../assets/images/facebook.svg";
-import Google from "../../../assets/images/google.svg";
+import Facebook from "assets/images/facebook.svg";
+import Google from "assets/images/google.svg";
 
 // Style imports
-import '../../../assets/css/Authentication.css';
-import '../../../assets/css/Fogi.css';
+import 'assets/css/Authentication.css';
+import 'assets/css/Fogi.css';
+
 
 const Login = () => {
   const formSchema = Yup.object().shape({
@@ -25,9 +30,24 @@ const Login = () => {
   const formOptions = { resolver: yupResolver(formSchema) };
   const { register, handleSubmit, formState } = useForm(formOptions);
   const { errors } = formState;
+  const [ failAuthentication, setFailAuthentication ] = useState(false);
 
-  const onSubmit = () => {
-    console.log('login');
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const onSubmit = (data) => {
+    setFailAuthentication(false);
+    axiosInstance.post(`/login`, {
+      email: data.email,
+      password: data.password
+    }).then((res) => {
+        dispatch(getUserInfo(res.data.user))
+        dispatch(getUserToken(res.data.token))
+        navigate('/')
+    }).catch((err) => {
+        setFailAuthentication(true);
+        console.log(err)
+    });
   };
  
   return (
@@ -60,7 +80,7 @@ const Login = () => {
                         Email address
                       </Form.Label>
                       <Form.Control
-                        type="email"
+                        type="text"
                         placeholder="name@example.com"
                         {...register("email")}
                       />
@@ -84,6 +104,13 @@ const Login = () => {
                       </p>
                     )}
                     </Form.Group>
+                    { failAuthentication && 
+                      <div className='text-center'>
+                        <a className='fw-bold text-danger text-decoration-none'>
+                          Wrong username or password
+                        </a>
+                      </div> 
+                    }
                     <div className='mb-3 text-end'>
                       <a className='fogi fw-bold'>
                         Forgot password
