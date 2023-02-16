@@ -1,5 +1,5 @@
 import {Card, Col, Row, Container, Button} from 'react-bootstrap';
-import 'assets/css/guest/home_pape/DonorSection.css'
+// import 'assets/css/guest/home_pape/DonorSection.css'
 import {DONOR_DATA} from 'utils/constants/Donor.jsx'
 function DonorSection() {
   return (
@@ -11,7 +11,7 @@ function DonorSection() {
         <div className='donor-section-body'>
             <Row xs={1} md={3} className="g-4">
                 {DONOR_DATA.map((item) => (
-                    <Col>
+                    <Col key={item.id}>
                         <Card>
                             <Card.Img className='donor-cover mx-auto' variant="top" src={item.cover} />
                             <Card.Body className='d-block justify-content-left px-2 py-2' >
@@ -26,7 +26,7 @@ function DonorSection() {
             </Row>
         </div>
         <div className='donar-section-footer d-flex justify-content-center'>
-            <Button className='view-more-button'>View More</Button>
+            <Button className='card-white-button view-more-button'>View More</Button>
         </div>
       </Container>
     </div>

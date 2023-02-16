@@ -5,6 +5,9 @@ import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 // Form handling
 import { useForm } from 'react-hook-form';
 
+// Assets imports
+import { ReactComponent as Logo } from 'assets/images/logo-volunteer.svg';
+
 // Style imports
 import '../../../assets/css/Authentication.css';
 import '../../../assets/css/Fogi.css';
@@ -24,7 +27,7 @@ const OTPInput = () => {
               <div className='mb-3 mt-md-4 mx-4'>
                 <Row className='mb-4'>
                   <Col lg={3}>
-                    <div className='logo-volunteer' />
+                    <Logo fill='#82CD47' />
                   </Col>
                   <Col>
                     <h2 className='fw-bold'>

@@ -9,6 +9,7 @@ import * as Yup from 'yup';
 
 // Assets imports
 import { FaExclamationTriangle } from "react-icons/fa";
+import { ReactComponent as Logo } from 'assets/images/logo-donor.svg';
 
 // Style imports
 import '../../../assets/css/Authentication.css';
@@ -42,7 +43,7 @@ const Signup = () => {
               <div className='mb-3 mt-md-4 mx-4'>
                 <Row className='mb-4'>
                   <Col lg={3}>
-                    <div className='logo-donor' />
+                    <Logo fill='#82CD47' />
                   </Col>
                   <Col>
                     <h2 className='fw-bold'>

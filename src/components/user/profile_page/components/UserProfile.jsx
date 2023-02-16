@@ -8,6 +8,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 import { FaExclamationTriangle } from "react-icons/fa";
+import { ReactComponent as Logo } from 'assets/images/logo.svg';
 
 function UserProfile() {
     const [avatar, setAvatar] = React.useState(UserAvatar);
@@ -89,20 +90,6 @@ function UserProfile() {
                                             <p className="mt-2 error">
                                                 <FaExclamationTriangle className="mx-2" />
                                                 Date of Birth is required
-                                            </p>
-                                        )}
-                                    </Form.Group>
-
-                                    <Form.Group className='mb-3'>
-                                        <Form.Control
-                                            type='text'
-                                            placeholder='Female'
-                                            {...register("sex")}
-                                        />
-                                        {errors.sex && errors.sex.type === "required" && (
-                                            <p className="mt-2 error">
-                                                <FaExclamationTriangle className="mx-2" />
-                                                Sex is required
                                             </p>
                                         )}
                                     </Form.Group>
