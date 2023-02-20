@@ -42,7 +42,7 @@ const Login = () => {
     }).then((res) => {
         dispatch(getUserInfo(res.data.user))
         dispatch(getUserToken(res.data.token))
-        navigate('/')
+        navigate('/profile')
     }).catch((err) => {
         setFailAuthentication(true);
         console.log(err)
