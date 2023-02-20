@@ -1,24 +1,27 @@
 // Essentials
 import * as React from 'react';
-import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
+import { Button, Card, Col, Container, Form, Row, Stack } from 'react-bootstrap';
 
 // Form handling
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 
+// Components
+import UploadButton from 'components/common/UploadButton';
+
 // Assets imports
 import { FaExclamationTriangle } from "react-icons/fa";
-import { ReactComponent as Logo } from 'assets/images/logo-donor.svg';
+import { ReactComponent as Logo } from 'assets/images/logo-volunteer.svg';
 
 // Style imports
-import '../../../assets/css/Authentication.css';
-import '../../../assets/css/Fogi.css';
+import 'assets/css/Authentication.css';
+import 'assets/css/Form.css';
+import 'assets/css/Fogi.css';
 
-const Login = () => {
+const AccountInfo = () => {
   const formSchema = Yup.object().shape({
-    email: Yup.string().required('Email is required'),
-    password: Yup.string().required('Password is required')
+    fullname: Yup.string().required('')
   });
   const formOptions = { resolver: yupResolver(formSchema) };
   const { register, handleSubmit, formState } = useForm(formOptions);
@@ -41,56 +44,41 @@ const Login = () => {
                   </Col>
                   <Col>
                     <h2 className='fw-bold'>
-                      Login
+                      Account Information
                     </h2>
-                    <p className='text-secondary mb-0'>
-                      Don't have an account?{' '}
-                      <a href='/donor/signup' className='fogi fw-bold'>
-                        Sign up
-                      </a>
-                    </p>
                   </Col>
                 </Row>
                 <div className='mb-3'>
                   <Form onSubmit={handleSubmit(onSubmit)}>
                     <Form.Group className='mb-3'>
                       <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
-                        Email address
+                        Full name
                       </Form.Label>
-                      <Form.Control
-                        type="email"
-                        placeholder="name@example.com"
-                        {...register("email")}
-                      />
-                      {errors.email && errors.email.type === "required" && (
+                      <Form.Control {...register("fullname")} />
+                      {errors.fullname && errors.fullname.type === "required" && (
                         <p className="mt-2 error">
                           <FaExclamationTriangle className="mx-2" />
-                          Email is required
+                          Full name is required
                         </p>
                       )}
                     </Form.Group>
 
                     <Form.Group className='mb-3'>
                       <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
-                        Password
+                        Image of Identity Card/Passport
                       </Form.Label>
-                      <Form.Control type="password" {...register("password")} />
-                    {errors.password && errors.password.type === "required" && (
-                      <p className="mt-2 error">
-                        <FaExclamationTriangle className="mx-2" />
-                        Password is required
-                      </p>
-                    )}
+                      <Stack direction='horizontal' gap={2}>
+                        <UploadButton label='Upload front side' />
+                        <UploadButton label='Upload back side' />
+                      </Stack>
                     </Form.Group>
-                    <div className='mb-3 text-end'>
-                      <a className='fogi fw-bold'>
-                        Forgot password
-                      </a>
-                    </div>
 
                     <div className='d-grid'>
                       <Button className='fogi' variant='primary' type='submit'>
-                        Login
+                        Continue
+                      </Button>
+                      <Button className='mt-2' variant='outline-secondary'>
+                        Return
                       </Button>
                     </div>
                   </Form>
@@ -104,4 +92,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default AccountInfo;

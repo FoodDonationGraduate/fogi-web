@@ -1,5 +1,5 @@
 import DonorCover from 'assets/images/DonorCover.png'
-import DonorLogo from 'assets/images/DonorLogo.png'
+import DonorLogo from 'assets/images/DonorLogo.jpg'
 export const DONOR_DATA = [
     {
         cover: DonorCover,

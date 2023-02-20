@@ -1,5 +1,5 @@
 import {Card, Col, Row, Container, Button} from 'react-bootstrap';
-import 'assets/css/guest/home_pape/DonorSection.css'
+// import 'assets/css/guest/home_pape/DonorSection.css'
 import {DONOR_DATA} from 'utils/constants/Donor.jsx'
 function DonorSection() {
   return (

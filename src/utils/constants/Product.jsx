@@ -1,5 +1,5 @@
-import ProductImage from 'assets/images/ProductImage.png'
-import DonorLogo from 'assets/images/DonorLogo.png'
+import ProductImage from 'assets/images/ProductImage.jpg'
+import DonorLogo from 'assets/images/DonorLogo.jpg'
 export const PRODUCT_DATA = [
     {
         img: ProductImage,
