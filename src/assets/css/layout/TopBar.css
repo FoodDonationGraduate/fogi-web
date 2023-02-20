@@ -10,8 +10,7 @@
     height: 40px;
     color: white;
     overflow: hidden;
-    margin: 5px 0px;
-}
+    margin: 5px 0px;}
 
 .nav-link {
     color: white;
@@ -23,26 +22,41 @@
 .nav-button-row {
     margin-left: auto; 
     margin-right: 0;
-    width: 210px;
-}
+    width: 210px;}
 
-.nav-button {
-    width: 105px;
-    height: 40px;
-    font-family: 'Times New Roman', Times, serif;
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 19px;}
-    .login-button {
+    .nav-button {
+        width: 105px;
+        height: 40px;
+        font-family: 'Roboto';
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 19px;}
+        .login-button {
+            background-color: #82CD47;
+            color: white;
+            border: 2px solid #fff; 
+            border-radius: 8px;}
+        .signup-button {
+            background-color: white;
+            color: black;
+            border: 2px solid #fff;
+            border-radius: 8px;
+            margin-left: 16px;};
+
+    .nav-profile-button {
         background-color: #82CD47;
-        color: white;
-        border: 2px solid #fff; 
-        border-radius: 8px;
-    }
-    .signup-button {
-        background-color: white;
-        color: black;
-        border: 2px solid #fff;
-        border-radius: 8px;
-        margin-left: 16px;
-    };
+        display: flex;
+        justify-content: center;
+        align-items: center;}
+        #notification-icon{
+            width: 32px;
+            height: 39px;
+        }
+        #cartridge-icon{
+            width: 40px;
+            height: 40px;
+        }
+        #profile-icon{
+            width: 64px;
+            height: 64px;
+        }   
