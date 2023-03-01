@@ -1,47 +1,68 @@
 import * as React from 'react';
 import {Card, Container, Button, Form} from 'react-bootstrap';
-import 'assets/css/user/profile_page/UserProfile.css'
-import UserAvatar from 'assets/images/UserAvatar.png'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from "react-router-dom";
+import { updateProfile } from 'components/redux/reducer/AuthenticationReducer.jsx'
+import { setModalMessage, showModal, cancelModal } from 'components/redux/reducer/ModalReducer';
 
 // Form handling
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 import { FaExclamationTriangle } from "react-icons/fa";
-import { ReactComponent as Logo } from 'assets/images/logo.svg';
+import UserAvatar from 'assets/images/UserAvatar.png'
+
+import 'assets/css/user/profile_page/UserProfile.css'
+import AvatarSection from './AvatarSection';
 
 function UserProfile() {
     const [avatar, setAvatar] = React.useState(UserAvatar);
+    const [data, setData] = React.useState({})
+    const userInfo = useSelector(state => state.authenticationReducer.user)
+    const userToken = useSelector(state => state.authenticationReducer.token)
+    const modalLogic = useSelector(state => state.modalReducer.logic)
+
     const formSchema = Yup.object().shape({
         fullname: Yup.string().required('Name is required'),
         email: Yup.string().required('Email is required'),
         phonenumber: Yup.string().required('Phone number is required'),
         dob: Yup.string().required('Date of birth is required'),
-        sex: Yup.string().required('Sex is required'),
         address: Yup.string().required('Address is required')
     });
     const formOptions = { resolver: yupResolver(formSchema) };
     const { register, handleSubmit, formState } = useForm(formOptions);
     const { errors } = formState;
 
-    const onSubmit = () => {
-        console.log('login');
-    };
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const onSubmit = (data) => {
+        dispatch(setModalMessage("Do you want to save this change?"))
+        dispatch(showModal())
+        setData(data)
+    }
+
+    React.useEffect(() => {
+        if (modalLogic) {
+            dispatch(cancelModal())
+            dispatch(updateProfile(data, {userInfo, userToken},navigate))
+        }
+    })
+    
     return (
         <div className='user-profile-body'>
             <Container className='user-profile d-block'>
                 <div className='user-profile-body'>
                     <Card className='p-2'>
                         <Card.Body className='d-block justify-content-left p-0' >
-                            <div className='user-profile-picture d-flex justify-content-left align-items-center'>
-                                <img className='user-avatar' src={avatar}></img>
-                                <Button className='card-buton card-grey-button change-avatar-button'>Change Profile Picture</Button>
-                            </div>
+                            <AvatarSection/>
                             <div className='user-profile-info mt-4'>
                                 <Form className='d-block' onSubmit={handleSubmit(onSubmit)}>
                                     <Form.Group className='mb-3'>
                                         <Form.Control 
+                                            type='text'
                                             placeholder='Nguyen Thi C'
+                                            defaultValue={userInfo.name ? userInfo.name : ''}
                                             {...register("fullname")} />
                                         {errors.fullname && errors.fullname.type === "required" && (
                                             <p className="mt-2 error">
@@ -55,6 +76,8 @@ function UserProfile() {
                                         <Form.Control
                                             type="email"
                                             placeholder="nguyenthic123@gmail.com"
+                                            defaultValue={userInfo.email ? userInfo.email : ''}
+                                            readOnly
                                             {...register("email")}
                                         />
                                         {errors.email && errors.email.type === "required" && (
@@ -70,6 +93,7 @@ function UserProfile() {
                                         <Form.Control
                                             type='number'
                                             placeholder='0920101010'
+                                            defaultValue={userInfo.phone ? userInfo.phone : ''}
                                             {...register("phonenumber")}
                                         />
                                         {errors.phonenumber && errors.phonenumber.type === "required" && (
@@ -83,7 +107,8 @@ function UserProfile() {
                                     <Form.Group className='mb-3'>
                                         <Form.Control
                                             type='date'
-                                            placeholders='01-01-2001'
+                                            placeholders='31-12-2001'
+                                            defaultValue={userInfo.dob ? userInfo.dob : ''}
                                             {...register("dob")}
                                         />
                                         {errors.dob && errors.dob.type === "required" && (
@@ -98,6 +123,7 @@ function UserProfile() {
                                         <Form.Control 
                                             type='text'
                                             placeholder='227 Nguyen Van Cu'
+                                            defaultValue={userInfo.address ? userInfo.address : ''}
                                             {...register("address")} 
                                         />
                                         {errors.address && errors.address.type === "required" && (
@@ -112,7 +138,6 @@ function UserProfile() {
                                             Save changes
                                         </Button>
                                     </div>
-                                    
                                 </Form>
                             </div>
                         </Card.Body>

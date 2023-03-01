@@ -3,7 +3,7 @@ import {useState} from 'react';
 import { useNavigate, useLocation } from "react-router-dom";
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux'
-import {getUserInfo, getUserToken} from 'components/redux/reducer/AuthenticationReducer.jsx'
+import {setUserInfo, setUserToken} from 'components/redux/reducer/AuthenticationReducer.jsx'
 import axiosInstance from "services/axios/axiosConfig.js";
 
 // Form handling
@@ -41,8 +41,8 @@ const Login = () => {
       email: data.email,
       password: data.password
     }).then((res) => {
-        dispatch(getUserInfo(res.data.user))
-        dispatch(getUserToken(res.data.token))
+        dispatch(setUserInfo(res.data.user))
+        dispatch(setUserToken(res.data.token))
         navigate('/profile')
     }).catch((err) => {
         setFailAuthentication(true);
