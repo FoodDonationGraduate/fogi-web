@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import ReactDOM from 'react-dom/client'
-import {BrowserRouter, Navigate, Route, Routes, useLocation, useNavigate} from "react-router-dom";
+import {BrowserRouter, Navigate, Route, Routes, useLocation, useNavigate, Outlet} from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux'
 import { Provider } from "react-redux";
 
 import store from "./components/redux/store.jsx";
@@ -26,7 +27,7 @@ import VolunteerOTPMethod from "./components/volunteer/authentication/OTPMethodP
 import VolunteerOTPInput from "./components/volunteer/authentication/OTPInputPage.jsx";
 import VolunteerAccountInfo from "./components/volunteer/authentication/AccountInfoPage.jsx";
 
-import ProfilePage from "./components/user/profile_page/ProfilePage.jsx"
+import ProfileUserPage from "./components/user/profile_page/ProfilePage.jsx"
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
@@ -53,9 +54,52 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/volunteer/otpmethod" element={<VolunteerOTPMethod/>} />
         <Route path="/volunteer/otpinput" element={<VolunteerOTPInput/>} />
         <Route path="/volunteer/accountinfo" element={<VolunteerAccountInfo/>} />
-
-        <Route path="/profile" element={<ProfilePage/>} />
+        
+        <Route path="/" element={
+            <Auth allowedRoles={["user", "donor", "volunteer"]} />}
+        >
+          <Route path="/profile" element={
+            <Monitor allowedPages={[<ProfileUserPage/>, <ProfileUserPage/>, <ProfileUserPage/>]}/> } 
+          />
+          
+        </Route>
+        <Route path="/donor" element={
+            <Auth allowedRoles={["donor"]} />}
+        >
+        </Route>
+        <Route path="/volunteer" element={
+            <Auth allowedRoles={["volunteer"]} />}
+        >
+        </Route>
       </Routes>
      </BrowserRouter >
   </Provider>
 );
+
+function Auth ({ allowedRoles }) {
+  const userInfo = useSelector(state => state.authenticationReducer.user)
+  const location = useLocation();
+
+  localStorage.allowedRoles = allowedRoles;
+  let user = localStorage.user;
+
+  // console.log("[+] user:" + user + user["email"]);
+  // console.log(userInfo);
+
+  return userInfo === undefined || Object.keys(userInfo).length === 0 ? (
+    <Navigate to="/login" state={{ from: location }} replace />
+  ) : (
+    allowedRoles.find((role) => userInfo.user_type.includes(role)) ? (
+      <Outlet />
+    ) : (
+      <Navigate to="/login" state={{ from: location }} replace />
+    ) 
+  );
+};
+
+function Monitor ({allowedPages}) {
+  const userInfo = useSelector(state => state.authenticationReducer.user)
+  return Object.keys(localStorage.allowedRoles).length === 1 ? 
+    allowedPages[0] :
+    allowedPages[localStorage.allowedRoles.indexOf(userInfo.user_type)]
+}

@@ -10,6 +10,7 @@ import UserAvatar from 'assets/images/UserAvatar.png'
 import 'assets/css/layout/TopBar.css'
 
 function TopBar() {
+
   const navigate = useNavigate(); 
   const toHomePage = () => { navigate('/')}
   const toLoginForm = () => { navigate('/login');}
@@ -17,6 +18,7 @@ function TopBar() {
   const toProfileForm = () => { navigate('/profile');}
   const userInfo = useSelector(state => state.authenticationReducer.user)
   const userToken = useSelector(state => state.authenticationReducer.token)
+  
   return (
     <div className='top-bar-header'>
       <Navbar className='top-bar' collapseOnSelect expand="md" variant="dark">
@@ -43,7 +45,7 @@ function TopBar() {
                 <Nav.Link href="/signup" className='nav-link d-md-none' >Sign up</Nav.Link>
               </Col>
             </Row>
-            {userInfo === undefined ? 
+            {userInfo === undefined || Object.keys(userInfo).length === 0 ? 
               <Nav className="nav-button-row d-none d-md-flex">
                 <Button onClick={toLoginForm} className='nav-button login-button' id="login-button"> Login</Button>
                 <Button onClick={toSignupForm} className='nav-button signup-button'  id="signup-button">Sign up</Button>
@@ -56,7 +58,7 @@ function TopBar() {
                   <img className='nav-profile-icon' src={CartridgeIcon} alt='cartridge'  id="cartridge-icon"></img>
                 </div>
                 <div onClick={toProfileForm} className='d-flex align-items-center px-2'>
-                  <img className='nav-profile-icon' src={UserAvatar} alt='profile' id="profile-icon"></img>
+                  <img className='nav-profile-icon'  src={`data:image/jpeg;base64,${userInfo.avatar}`} alt='profile' id="profile-icon"></img>
                 </div>
               </Nav>
             }

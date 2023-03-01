@@ -1,13 +1,28 @@
-import React from 'react'
+import {useEffect} from 'react'
 import { Container, Row, Col } from 'react-bootstrap';
-import TopBar from "components/guest/common/bars/TopBar.jsx";
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from "react-router-dom";
+import { retrieveProfile } from 'components/redux/reducer/AuthenticationReducer.jsx'
+
+import TopBar from "components/layout/TopBar.jsx";
 import Footer from 'components/guest/common/bars/Footer.jsx'
+import Modal from "components/layout/Modal.jsx";
 import StatsCard from './components/StatsCard'
 import UserProfile from './components/UserProfile'
 import ButtonCard from './components/ButtonCard'
+
 import 'assets/css/user/profile_page/ProfilePage.css'
 
-function HomePage(){
+function ProfilePage(){
+    const userInfo = useSelector(state => state.authenticationReducer.user)
+    const userToken = useSelector(state => state.authenticationReducer.token)
+    
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+     
+    useEffect(() => {
+        dispatch(retrieveProfile({userInfo, userToken}, navigate))
+    },[])
     return (
         <div className="profile-page">
             <div className="page-header">
@@ -37,9 +52,10 @@ function HomePage(){
             </div>
             <div className="page-footer">
                 <Footer/>
+                <Modal/>
             </div>
         </div>
     )
 }
 
-export default HomePage
+export default ProfilePage
