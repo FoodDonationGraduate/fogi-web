@@ -14,6 +14,10 @@ import UserSignup from "./components/guest/authentication/SignupPage.jsx";
 import UserAccountInfo from "./components/guest/authentication/AccountInfoPage.jsx";
 import UserOTPMethod from "./components/guest/authentication/OTPMethodPage.jsx";
 import UserOTPInputPage from "./components/guest/authentication/OTPInputPage.jsx";
+import SuccessSignup from "./components/guest/authentication/SuccessSignupPage.jsx";
+import SuccessVerify from "./components/guest/authentication/SuccessVerifyPage.jsx";
+import Verification from "./components/guest/authentication/VerificationPage.jsx";
+import AccountType from "./components/guest/authentication/AccountTypePage.jsx";
 
 import DonorLogin from "./components/donor/authentication/LoginPage.jsx";
 import DonorSignup from "./components/donor/authentication/SignupPage.jsx";
@@ -42,6 +46,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/accountinfo" element={<UserAccountInfo/>} />
         <Route path="/otpmethod" element={<UserOTPMethod/>} />
         <Route path="/otpinput" element={<UserOTPInputPage/>} />
+        <Route path="/signupsuccess" element={<SuccessSignup/>} />
+        <Route path="/verifysuccess" element={<SuccessVerify/>} />
+        <Route path="/verification" element={<Verification/>} />
+        <Route path="/accounttype" element={<AccountType/>} />
 
         <Route path="/donor/login" element={<DonorLogin/>} />
         <Route path="/donor/signup" element={<DonorSignup/>} />
