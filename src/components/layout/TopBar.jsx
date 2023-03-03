@@ -1,12 +1,10 @@
 import {Container, Nav, Navbar, Button, Row, Col} from 'react-bootstrap';
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux'
-import {useState} from 'react';
 
 import Logo from 'assets/images/Logo.png'
 import NotificationIcon from 'assets/images/NotificationIcon.png'
 import CartridgeIcon from 'assets/images/CartridgeIcon.png'
-import UserAvatar from 'assets/images/UserAvatar.png'
 import 'assets/css/layout/TopBar.css'
 
 function TopBar() {
@@ -14,7 +12,7 @@ function TopBar() {
   const navigate = useNavigate(); 
   const toHomePage = () => { navigate('/')}
   const toLoginForm = () => { navigate('/login');}
-  const toSignupForm = () => { navigate('/signup');}
+  const toSignupForm = () => { navigate('/accounttype');}
   const toProfileForm = () => { navigate('/profile');}
   const userInfo = useSelector(state => state.authenticationReducer.user)
   const userToken = useSelector(state => state.authenticationReducer.token)

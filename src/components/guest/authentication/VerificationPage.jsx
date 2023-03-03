@@ -1,16 +1,33 @@
 // Essentials
 import * as React from 'react';
 import { Button, Card, Col, Container, Row } from 'react-bootstrap';
-
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import { resendVerificationEmail } from 'components/redux/reducer/AuthenticationReducer';
 // Assets imports
 import { ReactComponent as Logo } from 'assets/images/logo.svg';
 
 // Style imports
-import '../../../assets/css/Authentication.css';
-import '../../../assets/css/Fogi.css';
+import 'assets/css/Authentication.css';
+import 'assets/css/Fogi.css';
+import { setModalMessage, showModal } from 'components/redux/reducer/ModalReducer';
 
 const Verification = () => {
- 
+  const registeredUser = useSelector(state => state.authenticationReducer.registeredUser)
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const toHomePage = () => {navigate('/');}
+  const resendEmail = () => {
+    if (registeredUser.email !== undefined) {
+      dispatch(resendVerificationEmail({email: registeredUser.email}, navigate))
+    } else {
+      dispatch(setModalMessage('You need to register new account before verifying email!'))
+      dispatch(showModal())
+    }
+  }
+  
   return (
     <Container fluid className='fogi-bg authen-bg authen-bg-user'>
       <Row className='py-4 d-flex justify-content-center align-items-center'>
@@ -33,10 +50,10 @@ const Verification = () => {
                 </Row>
                 <div className='mb-3'>
                   <div className='d-grid'>
-                    <Button className='mt-2' variant='outline-secondary'>
+                    <Button className='mt-2' variant='outline-secondary' onClick={resendEmail}>
                       Resend verification email
                     </Button>
-                    <Button className='fogi mt-2' variant='primary'>
+                    <Button className='fogi mt-2' variant='primary' onClick={toHomePage}>
                       Back to Home page
                     </Button>
                   </div>

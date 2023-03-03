@@ -4,6 +4,7 @@ import * as React from 'react';
 // Components
 import TopBar from 'components/layout/TopBar';
 import LocationBar from 'components/guest/common/bars/LocationBar';
+import Modal from 'components/layout/Modal'
 import Footer from 'components/guest/common/bars/Footer';
 import AdBanner from './components/AdBanner';
 import CategorySection from './components/CategorySection';
@@ -28,6 +29,7 @@ const ProductListPage = () => {
       </div>
       <div>
         <Footer />
+        <Modal />
       </div>
     </>
   );

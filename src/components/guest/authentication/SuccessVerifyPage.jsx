@@ -1,16 +1,18 @@
 // Essentials
 import * as React from 'react';
 import { Button, Card, Col, Container, Row } from 'react-bootstrap';
+import { useNavigate } from "react-router-dom";
 
 // Assets imports
 import { ReactComponent as Check } from 'assets/images/check-circle.svg';
 
 // Style imports
-import '../../../assets/css/Authentication.css';
-import '../../../assets/css/Fogi.css';
+import 'assets/css/Authentication.css';
+import 'assets/css/Fogi.css';
 
 const SuccessVerify = () => {
- 
+  const navigate = useNavigate();
+  const toHomePage = () => {navigate('/');}
   return (
     <Container fluid className='fogi-bg authen-bg authen-bg-user'>
       <Row className='py-4 d-flex justify-content-center align-items-center'>
@@ -29,7 +31,7 @@ const SuccessVerify = () => {
                 </Row>
                 <div className='mb-3'>
                   <div className='d-grid'>
-                    <Button className='fogi' variant='primary'>
+                    <Button className='fogi' variant='primary' onClick={toHomePage}>
                       Back to Home page
                     </Button>
                   </div>

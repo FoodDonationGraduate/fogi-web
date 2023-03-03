@@ -1,16 +1,21 @@
 // Essentials
 import * as React from 'react';
 import { Button, Card, Col, Container, Row } from 'react-bootstrap';
+import { useNavigate } from 'react-router';
 
 // Assets imports
 import { ReactComponent as Logo } from 'assets/images/logo.svg';
 
 // Style imports
-import '../../../assets/css/Authentication.css';
-import '../../../assets/css/Fogi.css';
+import 'assets/css/Authentication.css';
+import 'assets/css/Fogi.css';
 
 const AccountType = () => {
- 
+  const navigate = useNavigate()
+  const toSignupForUser = () => {navigate('/signup')}
+  const toSignupForDonor = () => {navigate('/donor/signup')}
+  const toSignupForVolunteer = () => {navigate('/volunteer/signup')}
+
   return (
     <Container fluid className='fogi-bg authen-bg authen-bg-user'>
       <Row className='py-4 d-flex justify-content-center align-items-center'>
@@ -33,13 +38,13 @@ const AccountType = () => {
                 </Row>
                 <div className='mb-3'>
                   <div className='d-grid'>
-                    <Button className='fogi mt-2' variant='primary'>
+                    <Button className='fogi mt-2' variant='primary' onClick={toSignupForUser}>
                       Donee
                     </Button>
-                    <Button className='fogi mt-2' variant='primary'>
+                    <Button className='fogi mt-2' variant='primary' onClick={toSignupForDonor}>
                       Doner
                     </Button>
-                    <Button className='fogi mt-2' variant='primary'>
+                    <Button className='fogi mt-2' variant='primary' onClick={toSignupForVolunteer}>
                       Volunteer
                     </Button>
                   </div>

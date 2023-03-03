@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import axiosInstance from "services/axios/axiosConfig.js";
+import { setModalMessage, showModal, cancelModal } from 'components/redux/reducer/ModalReducer';
 
 const initialState = {
     user: localStorage.getItem("user") !== undefined 
@@ -7,7 +8,10 @@ const initialState = {
         ? JSON.parse(localStorage.getItem("user")) : {},
     token: localStorage.getItem("token") !== undefined 
         && localStorage.getItem("token") !== null 
-        ? localStorage.getItem("token") : ''
+        ? localStorage.getItem("token") : '',
+    registeredUser: localStorage.getItem("registeredUser") !== undefined 
+        && localStorage.getItem("registeredUser") !== null 
+        ? JSON.parse(localStorage.getItem("registeredUser")) : {},
 }
 
 const authenticationReducer = createSlice({
@@ -21,12 +25,22 @@ const authenticationReducer = createSlice({
         setUserToken: (state, action) => {
             state.token = action.payload
             localStorage.setItem('token', action.payload)
+        },
+        signupUserAccount: (state, action) => {
+            state.registeredUser = action.payload
+            localStorage.setItem('registeredUser', JSON.stringify(action.payload))
+        },
+        signupUserInfo: (state, action) => {
+            state.registeredUser = {...state.registeredUser, ...action.payload}
+            localStorage.setItem('registeredUser', JSON.stringify(state.registeredUser))
+            console.log(state.registeredUser)
         }
     }
 })
 
 export const { 
-    setUserInfo, setUserToken
+    setUserInfo, setUserToken,
+    signupUserAccount, signupUserInfo
 } = authenticationReducer.actions
 
 export default authenticationReducer.reducer
@@ -73,6 +87,63 @@ export const logout = (navigate) => {
             dispatch(setUserInfo({}))
             dispatch(setUserToken(''))
             navigate('/login')
+        } catch (err) {
+            console.log(err)
+            navigate('/')
+        }
+    }
+}
+
+export const signup = (data, navigate) => {
+    return async dispatch => {
+        try {
+            console.log("signup for user")
+            await axiosInstance.post(`/signup`, {
+                email: data.email,
+                user_type: 'user',
+                password: data.password,
+                address: data.address,
+                dob: data.dob,
+                phone: data.phonenumber,
+                name: data.fullname,
+                avatar: '',
+                reputation: 0
+            }).then((res) => {
+                if (res.data.message === 'Signup successfully') {
+                    navigate('/signupsuccess')
+                } else {
+                    navigate('/signup')
+                    dispatch(setModalMessage("Signup unsuccessfully! Please signup again."))
+                    dispatch(showModal())
+                }
+            })
+            .catch((err) => {
+                console.log(err.response.data)
+                navigate('/')
+            });
+        } catch (err) {
+            console.log(err)
+            navigate('/')
+        }
+    }
+}
+
+export const resendVerificationEmail = (data, navigate) => {
+    return async dispatch => {
+        try {
+            console.log("resend verification email")
+            await axiosInstance.get(`/verify/send`, {
+                email: data.email
+            }).then((res) => {
+                if (res.data.message === 'Verification email sent') {
+                    dispatch(setModalMessage("Verification email was sent! Please verify your email."))
+                    dispatch(showModal())
+                }
+            })
+            .catch((err) => {
+                console.log(err.response.data)
+                navigate('/')
+            });
         } catch (err) {
             console.log(err)
             navigate('/')
