@@ -3,17 +3,19 @@ import {useState} from 'react';
 import { useNavigate, useLocation } from "react-router-dom";
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux'
-import {setUserInfo, setUserToken} from 'components/redux/reducer/AuthenticationReducer.jsx'
-import axiosInstance from "services/axios/axiosConfig.js";
 
 // Form handling
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 
+// Components
+import Logo from 'components/common/Logo';
+import {login} from 'components/redux/reducer/AuthenticationReducer.jsx'
+import Modal from 'components/layout/Modal'
+
 // Assets imports
 import { FaExclamationTriangle } from "react-icons/fa";
-import { ReactComponent as Logo } from 'assets/images/logo.svg';
 import Facebook from "assets/images/facebook.svg";
 import Google from "assets/images/google.svg";
 
@@ -37,17 +39,7 @@ const Login = () => {
 
   const onSubmit = (data) => {
     setFailAuthentication(false);
-    axiosInstance.post(`/login`, {
-      email: data.email,
-      password: data.password
-    }).then((res) => {
-        dispatch(setUserInfo(res.data.user))
-        dispatch(setUserToken(res.data.token))
-        navigate('/profile')
-    }).catch((err) => {
-        setFailAuthentication(true);
-        console.log(err)
-    });
+    dispatch(login(data, navigate, setFailAuthentication))
   };
  
   return (
@@ -59,7 +51,7 @@ const Login = () => {
               <div className='mb-3 mt-md-4 mx-4'>
                 <Row className='mb-4'>
                   <Col lg={3}>
-                    <Logo fill='#82CD47' />
+                    <Logo usertype={0} />
                   </Col>
                   <Col>
                     <h2 className='fw-bold'>
@@ -112,7 +104,7 @@ const Login = () => {
                       </div> 
                     }
                     <div className='mb-3 text-end'>
-                      <a className='fogi fw-bold'>
+                      <a href='/forgotpassword' className='fogi fw-bold'>
                         Forgot password
                       </a>
                     </div>
@@ -150,6 +142,7 @@ const Login = () => {
           </Card>
         </Col>
       </Row>
+      <Modal />
     </Container>
   );
 };

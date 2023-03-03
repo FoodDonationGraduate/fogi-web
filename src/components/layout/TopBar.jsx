@@ -1,12 +1,10 @@
 import {Container, Nav, Navbar, Button, Row, Col} from 'react-bootstrap';
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux'
-import {useState} from 'react';
 
 import Logo from 'assets/images/Logo.png'
 import NotificationIcon from 'assets/images/NotificationIcon.png'
 import CartridgeIcon from 'assets/images/CartridgeIcon.png'
-import UserAvatar from 'assets/images/UserAvatar.png'
 import 'assets/css/layout/TopBar.css'
 
 function TopBar() {
@@ -14,7 +12,7 @@ function TopBar() {
   const navigate = useNavigate(); 
   const toHomePage = () => { navigate('/')}
   const toLoginForm = () => { navigate('/login');}
-  const toSignupForm = () => { navigate('/signup');}
+  const toSignupForm = () => { navigate('/accounttype');}
   const toProfileForm = () => { navigate('/profile');}
   const userInfo = useSelector(state => state.authenticationReducer.user)
   const userToken = useSelector(state => state.authenticationReducer.token)
@@ -24,7 +22,7 @@ function TopBar() {
       <Navbar className='top-bar' collapseOnSelect expand="md" variant="dark">
         <Container className='mx-6'>
           <Navbar.Brand className='brand px-2' onClick={toHomePage}>
-            <img className='logo' src={Logo} alt='logo'></img>
+            <img className='logo-nav' src={Logo} alt='logo'></img>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
@@ -48,7 +46,7 @@ function TopBar() {
             {userInfo === undefined || Object.keys(userInfo).length === 0 ? 
               <Nav className="nav-button-row d-none d-md-flex">
                 <Button onClick={toLoginForm} className='nav-button login-button' id="login-button"> Login</Button>
-                <Button onClick={toSignupForm} className='nav-button signup-button'  id="signup-button">Sign up</Button>
+                <Button onClick={toSignupForm} className='nav-button signup-button' id="signup-button">Sign up</Button>
               </Nav> :
               <Nav className='nav-button-row d-none d-md-flex'>
                 <div className='d-flex align-items-center px-2'>

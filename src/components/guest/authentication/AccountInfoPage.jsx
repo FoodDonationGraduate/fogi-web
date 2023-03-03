@@ -1,21 +1,28 @@
 // Essentials
 import * as React from 'react';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from "react-router-dom";
 
 // Form handling
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 
+// Components
+import Logo from 'components/common/Logo';
+
 // Assets imports
 import { FaExclamationTriangle } from "react-icons/fa";
-import { ReactComponent as Logo } from 'assets/images/logo.svg';
 
 // Style imports
 import '../../../assets/css/Authentication.css';
 import '../../../assets/css/Fogi.css';
+import { signup, signupUserInfo } from 'components/redux/reducer/AuthenticationReducer';
 
 const AccountInfo = () => {
+  const registeredUser = useSelector(state => state.authenticationReducer.registeredUser)
+
   const formSchema = Yup.object().shape({
     fullname: Yup.string().required(''),
     dob: Yup.string().required(''),
@@ -26,8 +33,12 @@ const AccountInfo = () => {
   const { register, handleSubmit, formState } = useForm(formOptions);
   const { errors } = formState;
 
-  const onSubmit = () => {
-    console.log('login');
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const onSubmit = async (data) => {
+    await dispatch(signupUserInfo(data))
+    dispatch(signup(JSON.parse(localStorage.getItem("registeredUser")), navigate))  
   };
  
   return (
@@ -39,7 +50,7 @@ const AccountInfo = () => {
               <div className='mb-3 mt-md-4 mx-4'>
                 <Row className='mb-4'>
                   <Col lg={3}>
-                    <Logo fill='#82CD47' />
+                    <Logo usertype={0} />
                   </Col>
                   <Col>
                     <h2 className='fw-bold'>
@@ -99,7 +110,7 @@ const AccountInfo = () => {
                       <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
                         Address
                       </Form.Label>
-                      <Form.Control {...register("fullname")} />
+                      <Form.Control {...register("address")} />
                       {errors.address && errors.address.type === "required" && (
                         <p className="mt-2 error">
                           <FaExclamationTriangle className="mx-2" />
@@ -110,7 +121,7 @@ const AccountInfo = () => {
 
                     <div className='d-grid'>
                       <Button className='fogi' variant='primary' type='submit'>
-                        Continue
+                        Sign up
                       </Button>
                       <Button className='mt-2' variant='outline-secondary'>
                         Return

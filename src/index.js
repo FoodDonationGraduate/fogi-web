@@ -12,20 +12,21 @@ import ProductDetailsPage from './components/guest/product/ProductDetailsPage.js
 import UserLogin from "./components/guest/authentication/LoginPage.jsx";
 import UserSignup from "./components/guest/authentication/SignupPage.jsx";
 import UserAccountInfo from "./components/guest/authentication/AccountInfoPage.jsx";
-import UserOTPMethod from "./components/guest/authentication/OTPMethodPage.jsx";
-import UserOTPInputPage from "./components/guest/authentication/OTPInputPage.jsx";
+import SuccessSignup from "./components/guest/authentication/SuccessSignupPage.jsx";
+import SuccessVerify from "./components/guest/authentication/SuccessVerifyPage.jsx";
+import Verification from "./components/guest/authentication/VerificationPage.jsx";
+import AccountType from "./components/guest/authentication/AccountTypePage.jsx";
+import ForgotPassword from "./components/guest/authentication/ForgotPasswordPage.jsx";
 
 import DonorLogin from "./components/donor/authentication/LoginPage.jsx";
 import DonorSignup from "./components/donor/authentication/SignupPage.jsx";
-import DonorOTPMethod from "./components/donor/authentication/OTPMethodPage.jsx";
-import DonorOTPInput from "./components/donor/authentication/OTPInputPage.jsx";
 import DonorAccountInfo from "./components/donor/authentication/AccountInfoPage.jsx";
+import DonorForgotPassword from "./components/donor/authentication/ForgotPasswordPage.jsx";
 
 import VolunteerLogin from "./components/volunteer/authentication/LoginPage.jsx";
 import VolunteerSignup from "./components/volunteer/authentication/SignupPage.jsx";
-import VolunteerOTPMethod from "./components/volunteer/authentication/OTPMethodPage.jsx";
-import VolunteerOTPInput from "./components/volunteer/authentication/OTPInputPage.jsx";
 import VolunteerAccountInfo from "./components/volunteer/authentication/AccountInfoPage.jsx";
+import VolunteerForgotPassword from "./components/volunteer/authentication/ForgotPasswordPage.jsx";
 
 import ProfileUserPage from "./components/user/profile_page/ProfilePage.jsx"
 
@@ -38,22 +39,22 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/productdetails" element={<ProductDetailsPage />} />
 
         <Route path="/login" element={<UserLogin/>} />
+        <Route path="/accounttype" element={<AccountType/>} />
         <Route path="/signup" element={<UserSignup/>} />
         <Route path="/accountinfo" element={<UserAccountInfo/>} />
-        <Route path="/otpmethod" element={<UserOTPMethod/>} />
-        <Route path="/otpinput" element={<UserOTPInputPage/>} />
+        <Route path="/signupsuccess" element={<SuccessSignup/>} />
+        <Route path="/verification" element={<Verification/>} />
+        <Route path="/forgotpassword" element={<ForgotPassword/>} />
 
         <Route path="/donor/login" element={<DonorLogin/>} />
         <Route path="/donor/signup" element={<DonorSignup/>} />
-        <Route path="/donor/otpmethod" element={<DonorOTPMethod/>} />
-        <Route path="/donor/otpinput" element={<DonorOTPInput/>} />
         <Route path="/donor/accountinfo" element={<DonorAccountInfo/>} />
+        <Route path="/donor/forgotpassword" element={<DonorForgotPassword/>} />
 
         <Route path="/volunteer/login" element={<VolunteerLogin/>} />
         <Route path="/volunteer/signup" element={<VolunteerSignup/>} />
-        <Route path="/volunteer/otpmethod" element={<VolunteerOTPMethod/>} />
-        <Route path="/volunteer/otpinput" element={<VolunteerOTPInput/>} />
         <Route path="/volunteer/accountinfo" element={<VolunteerAccountInfo/>} />
+        <Route path="/volunteer/forgotpassword" element={<VolunteerForgotPassword/>} />
         
         <Route path="/" element={
             <Auth allowedRoles={["user", "donor", "volunteer"]} />}

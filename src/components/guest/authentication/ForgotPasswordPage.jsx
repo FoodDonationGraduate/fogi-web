@@ -1,6 +1,10 @@
 // Essentials
-import * as React from 'react';
+import {useState} from 'react';
+import { useNavigate, useLocation } from "react-router-dom";
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux'
+import {setUserInfo, setUserToken} from 'components/redux/reducer/AuthenticationReducer.jsx'
+import axiosInstance from "services/axios/axiosConfig.js";
 
 // Form handling
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -13,22 +17,23 @@ import Logo from 'components/common/Logo';
 // Assets imports
 import { FaExclamationTriangle } from "react-icons/fa";
 
-
 // Style imports
-import '../../../assets/css/Authentication.css';
-import '../../../assets/css/Fogi.css';
+import 'assets/css/Authentication.css';
+import 'assets/css/Fogi.css';
 
-const Login = () => {
+const ForgotPassword = () => {
   const formSchema = Yup.object().shape({
-    email: Yup.string().required('Email is required'),
-    password: Yup.string().required('Password is required')
+    email: Yup.string().required('Email is required')
   });
   const formOptions = { resolver: yupResolver(formSchema) };
   const { register, handleSubmit, formState } = useForm(formOptions);
   const { errors } = formState;
 
-  const onSubmit = () => {
-    console.log('login');
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const onSubmit = (data) => {
+    console.log("siuuu");
   };
  
   return (
@@ -40,17 +45,14 @@ const Login = () => {
               <div className='mb-3 mt-md-4 mx-4'>
                 <Row className='mb-4'>
                   <Col lg={3}>
-                    <Logo usertype={1} />
+                    <Logo usertype={0} />
                   </Col>
                   <Col>
                     <h2 className='fw-bold'>
-                      Login
+                      Forgot Password
                     </h2>
                     <p className='text-secondary mb-0'>
-                      Don't have an account?{' '}
-                      <a href='/donor/signup' className='fogi fw-bold'>
-                        Sign up
-                      </a>
+                      Enter your email to receive the reset password link
                     </p>
                   </Col>
                 </Row>
@@ -61,7 +63,7 @@ const Login = () => {
                         Email address
                       </Form.Label>
                       <Form.Control
-                        type="email"
+                        type="text"
                         placeholder="name@example.com"
                         {...register("email")}
                       />
@@ -73,27 +75,9 @@ const Login = () => {
                       )}
                     </Form.Group>
 
-                    <Form.Group className='mb-3'>
-                      <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
-                        Password
-                      </Form.Label>
-                      <Form.Control type="password" {...register("password")} />
-                    {errors.password && errors.password.type === "required" && (
-                      <p className="mt-2 error">
-                        <FaExclamationTriangle className="mx-2" />
-                        Password is required
-                      </p>
-                    )}
-                    </Form.Group>
-                    <div className='mb-3 text-end'>
-                      <a href='/donor/forgotpassword' className='fogi fw-bold'>
-                        Forgot password
-                      </a>
-                    </div>
-
                     <div className='d-grid'>
                       <Button className='fogi' variant='primary' type='submit'>
-                        Login
+                        Confirm
                       </Button>
                     </div>
                   </Form>
@@ -107,4 +91,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default ForgotPassword;

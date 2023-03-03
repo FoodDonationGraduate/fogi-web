@@ -4,7 +4,7 @@
     justify-content: center;
     padding: 0px;}
 
-.logo {
+.logo-nav {
     left: 0px;
     width: 40px;
     height: 40px;
@@ -31,17 +31,27 @@
         font-weight: 700;
         font-size: 16px;
         line-height: 19px;}
-        .login-button {
+        .btn.login-button {
             background-color: #82CD47;
             color: white;
             border: 2px solid #fff; 
             border-radius: 8px;}
-        .signup-button {
+        .btn.login-button:hover {
+            background-color: #fff;
+            color: black;
+            border: 2px solid #fff; 
+            border-radius: 8px;}
+        .btn.signup-button {
             background-color: white;
             color: black;
             border: 2px solid #fff;
             border-radius: 8px;
-            margin-left: 16px;};
+            margin-left: 16px;}
+        .btn.signup-button:hover {
+            background-color: #ccc;
+            color: black;
+            border: 2px solid #ccc; 
+            border-radius: 8px;};
 
     .nav-profile-button {
         background-color: #82CD47;
@@ -57,6 +67,6 @@
             height: 40px;
         }
         #profile-icon{
-            width: 64px;
-            height: 64px;
+            aspect-ratio : 1 / 1;
+            height: 50px;
         }   

@@ -16,7 +16,6 @@ import 'assets/css/user/profile_page/UserProfile.css'
 import AvatarSection from './AvatarSection';
 
 function UserProfile() {
-    const [avatar, setAvatar] = React.useState(UserAvatar);
     const [data, setData] = React.useState({})
     const userInfo = useSelector(state => state.authenticationReducer.user)
     const userToken = useSelector(state => state.authenticationReducer.token)

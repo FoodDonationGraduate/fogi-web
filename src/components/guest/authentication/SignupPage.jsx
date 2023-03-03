@@ -1,6 +1,8 @@
 // Essentials
 import * as React from 'react';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from "react-router-dom";
 
 // Form handling
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -9,13 +11,16 @@ import * as Yup from 'yup';
 
 // Assets imports
 import { FaExclamationTriangle } from "react-icons/fa";
-import { ReactComponent as Logo } from 'assets/images/logo.svg';
-import Facebook from "../../../assets/images/facebook.svg";
-import Google from "../../../assets/images/google.svg";
+import Facebook from "assets/images/facebook.svg";
+import Google from "assets/images/google.svg";
 
 // Style imports
-import '../../../assets/css/Authentication.css';
-import '../../../assets/css/Fogi.css';
+import 'assets/css/Authentication.css';
+import 'assets/css/Fogi.css';
+
+// Components
+import { signupUserAccount } from 'components/redux/reducer/AuthenticationReducer';
+import Logo from 'components/common/Logo';
 
 const Signup = () => {
   const formSchema = Yup.object().shape({
@@ -31,8 +36,12 @@ const Signup = () => {
   const { register, handleSubmit, formState } = useForm(formOptions);
   const { errors } = formState;
 
-  const onSubmit = () => {
-    console.log('login');
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const onSubmit = (data) => {
+    dispatch(signupUserAccount(data))
+    navigate('/accountinfo')
   };
  
   return (
@@ -44,7 +53,7 @@ const Signup = () => {
               <div className='mb-3 mt-md-4 mx-4'>
                 <Row className='mb-4'>
                   <Col lg={3}>
-                    <Logo fill='#82CD47' />
+                    <Logo usertype={0} />
                   </Col>
                   <Col>
                     <h2 className='fw-bold'>
