@@ -2,8 +2,8 @@
 import * as React from 'react';
 import { Button, Card, Col, Container, Row } from 'react-bootstrap';
 
-// Assets imports
-import { ReactComponent as Logo } from 'assets/images/logo.svg';
+// Components
+import Logo from 'components/common/Logo';
 
 // Style imports
 import '../../../assets/css/Authentication.css';
@@ -20,7 +20,7 @@ const AccountType = () => {
               <div className='mb-3 mt-md-4 mx-4'>
                 <Row className='mb-4'>
                   <Col lg={3}>
-                    <Logo fill='#82CD47' />
+                    <Logo usertype={0} />
                   </Col>
                   <Col>
                     <h2 className='fw-bold'>

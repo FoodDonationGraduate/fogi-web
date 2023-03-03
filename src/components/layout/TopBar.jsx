@@ -24,7 +24,7 @@ function TopBar() {
       <Navbar className='top-bar' collapseOnSelect expand="md" variant="dark">
         <Container className='mx-6'>
           <Navbar.Brand className='brand px-2' onClick={toHomePage}>
-            <img className='logo' src={Logo} alt='logo'></img>
+            <img className='logo-nav' src={Logo} alt='logo'></img>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
@@ -48,7 +48,7 @@ function TopBar() {
             {userInfo === undefined || Object.keys(userInfo).length === 0 ? 
               <Nav className="nav-button-row d-none d-md-flex">
                 <Button onClick={toLoginForm} className='nav-button login-button' id="login-button"> Login</Button>
-                <Button onClick={toSignupForm} className='nav-button signup-button'  id="signup-button">Sign up</Button>
+                <Button onClick={toSignupForm} className='nav-button signup-button' id="signup-button">Sign up</Button>
               </Nav> :
               <Nav className='nav-button-row d-none d-md-flex'>
                 <div className='d-flex align-items-center px-2'>

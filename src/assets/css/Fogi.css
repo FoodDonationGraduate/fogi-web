@@ -72,31 +72,12 @@ a.fogi:active {
 }
 
 .logo {
-  background-image: url('../images/logo.svg');
-  width: 68px;
-  height: 64px;
-  background-repeat: no-repeat;
+  fill: #82CD47;
 }
 
-.logo-director {
-  background-image: url('../images/logo-director.svg');
-  width: 68px;
-  height: 84px;
-  background-repeat: no-repeat;
-}
-
-.logo-donor {
-  background-image: url('../images/logo-donor.svg');
-  width: 68px;
-  height: 90px;
-  background-repeat: no-repeat;
-}
-
-.logo-volunteer {
-  background-image: url('../images/logo-volunteer.svg');
-  width: 67px;
-  height: 80px;
-  background-repeat: no-repeat;
+.logo:hover {
+  fill: #ADDE87;
+  cursor: pointer;
 }
 
 .bg {
