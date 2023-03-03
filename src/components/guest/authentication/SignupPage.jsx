@@ -11,7 +11,6 @@ import * as Yup from 'yup';
 
 // Assets imports
 import { FaExclamationTriangle } from "react-icons/fa";
-import { ReactComponent as Logo } from 'assets/images/logo.svg';
 import Facebook from "assets/images/facebook.svg";
 import Google from "assets/images/google.svg";
 
@@ -21,6 +20,7 @@ import 'assets/css/Fogi.css';
 
 // Components
 import { signupUserAccount } from 'components/redux/reducer/AuthenticationReducer';
+import Logo from 'components/common/Logo';
 
 const Signup = () => {
   const formSchema = Yup.object().shape({

@@ -4,13 +4,12 @@ import { Button, Card, Col, Container, Row } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { resendVerificationEmail } from 'components/redux/reducer/AuthenticationReducer';
-// Assets imports
-import { ReactComponent as Logo } from 'assets/images/logo.svg';
 // Style imports
 import 'assets/css/Authentication.css';
 import 'assets/css/Fogi.css';
 // Components
 import { setModalMessage, showModal } from 'components/redux/reducer/ModalReducer';
+import Logo from 'components/common/Logo';
 
 const Verification = () => {
   const registeredUser = useSelector(state => state.authenticationReducer.registeredUser)
