@@ -18,6 +18,7 @@ import SuccessSignup from "./components/guest/authentication/SuccessSignupPage.j
 import SuccessVerify from "./components/guest/authentication/SuccessVerifyPage.jsx";
 import Verification from "./components/guest/authentication/VerificationPage.jsx";
 import AccountType from "./components/guest/authentication/AccountTypePage.jsx";
+import ForgotPassword from "./components/guest/authentication/ForgotPasswordPage.jsx";
 
 import DonorLogin from "./components/donor/authentication/LoginPage.jsx";
 import DonorSignup from "./components/donor/authentication/SignupPage.jsx";
@@ -50,6 +51,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/verifysuccess" element={<SuccessVerify/>} />
         <Route path="/verification" element={<Verification/>} />
         <Route path="/accounttype" element={<AccountType/>} />
+        <Route path="/forgotpassword" element={<ForgotPassword/>} />
 
         <Route path="/donor/login" element={<DonorLogin/>} />
         <Route path="/donor/signup" element={<DonorSignup/>} />

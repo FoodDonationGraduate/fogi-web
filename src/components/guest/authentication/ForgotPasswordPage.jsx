@@ -16,40 +16,24 @@ import Logo from 'components/common/Logo';
 
 // Assets imports
 import { FaExclamationTriangle } from "react-icons/fa";
-import Facebook from "assets/images/facebook.svg";
-import Google from "assets/images/google.svg";
 
 // Style imports
 import 'assets/css/Authentication.css';
 import 'assets/css/Fogi.css';
 
-
-const Login = () => {
+const ForgotPassword = () => {
   const formSchema = Yup.object().shape({
-    email: Yup.string().required('Email is required'),
-    password: Yup.string().required('Password is required')
+    email: Yup.string().required('Email is required')
   });
   const formOptions = { resolver: yupResolver(formSchema) };
   const { register, handleSubmit, formState } = useForm(formOptions);
   const { errors } = formState;
-  const [ failAuthentication, setFailAuthentication ] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const onSubmit = (data) => {
-    setFailAuthentication(false);
-    axiosInstance.post(`/login`, {
-      email: data.email,
-      password: data.password
-    }).then((res) => {
-        dispatch(setUserInfo(res.data.user))
-        dispatch(setUserToken(res.data.token))
-        navigate('/profile')
-    }).catch((err) => {
-        setFailAuthentication(true);
-        console.log(err)
-    });
+    console.log("siuuu");
   };
  
   return (
@@ -65,13 +49,10 @@ const Login = () => {
                   </Col>
                   <Col>
                     <h2 className='fw-bold'>
-                      Login
+                      Forgot Password
                     </h2>
                     <p className='text-secondary mb-0'>
-                      New to Fogi?{' '}
-                      <a href='/signup' className='fogi fw-bold'>
-                        Sign up
-                      </a>
+                      Enter your email to receive the reset password link
                     </p>
                   </Col>
                 </Row>
@@ -94,58 +75,12 @@ const Login = () => {
                       )}
                     </Form.Group>
 
-                    <Form.Group className='mb-3'>
-                      <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
-                        Password
-                      </Form.Label>
-                      <Form.Control type="password" {...register("password")} />
-                    {errors.password && errors.password.type === "required" && (
-                      <p className="mt-2 error">
-                        <FaExclamationTriangle className="mx-2" />
-                        Password is required
-                      </p>
-                    )}
-                    </Form.Group>
-                    { failAuthentication && 
-                      <div className='text-center'>
-                        <a className='fw-bold text-danger text-decoration-none'>
-                          Wrong username or password
-                        </a>
-                      </div> 
-                    }
-                    <div className='mb-3 text-end'>
-                      <a href='/forgotpassword' className='fogi fw-bold'>
-                        Forgot password
-                      </a>
-                    </div>
-
                     <div className='d-grid'>
                       <Button className='fogi' variant='primary' type='submit'>
-                        Login
+                        Confirm
                       </Button>
                     </div>
                   </Form>
-                  
-                  <hr />
-                  
-                  <Row lg={2}>
-                    <Col className='d-grid ps-0'>
-                      <Button
-                        variant='outline-secondary'
-                      >
-                        <img className='me-2' src={Facebook} width='24px' height='24px' alt='facebook' />
-                        Facebook
-                      </Button>
-                    </Col>
-                    <Col className='d-grid pe-0'>
-                      <Button
-                        variant='outline-secondary'
-                      >
-                        <img className='me-2' src={Google} width='24px' height='24px' alt='google' />
-                        Google
-                      </Button>
-                    </Col>
-                  </Row>
                 </div>
               </div>
             </Card.Body>
@@ -156,4 +91,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default ForgotPassword;
