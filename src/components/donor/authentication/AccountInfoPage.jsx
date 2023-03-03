@@ -9,10 +9,10 @@ import * as Yup from 'yup';
 
 // Components
 import UploadButton from 'components/common/UploadButton';
+import Logo from 'components/common/Logo';
 
 // Assets imports
 import { FaExclamationTriangle, FaQuestionCircle } from "react-icons/fa";
-import { ReactComponent as Logo } from 'assets/images/logo-donor.svg';
 
 // Style imports
 import 'assets/css/Authentication.css';
@@ -43,7 +43,7 @@ const AccountInfo = () => {
               <div className='mb-3 mt-md-4 mx-4'>
                 <Row className='mb-4'>
                   <Col lg={3}>
-                    <Logo fill='#82CD47' />
+                    <Logo usertype={1} />
                   </Col>
                   <Col>
                     <h2 className='fw-bold'>

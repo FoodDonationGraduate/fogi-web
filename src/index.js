@@ -16,14 +16,17 @@ import SuccessSignup from "./components/guest/authentication/SuccessSignupPage.j
 import SuccessVerify from "./components/guest/authentication/SuccessVerifyPage.jsx";
 import Verification from "./components/guest/authentication/VerificationPage.jsx";
 import AccountType from "./components/guest/authentication/AccountTypePage.jsx";
+import ForgotPassword from "./components/guest/authentication/ForgotPasswordPage.jsx";
 
 import DonorLogin from "./components/donor/authentication/LoginPage.jsx";
 import DonorSignup from "./components/donor/authentication/SignupPage.jsx";
 import DonorAccountInfo from "./components/donor/authentication/AccountInfoPage.jsx";
+import DonorForgotPassword from "./components/donor/authentication/ForgotPasswordPage.jsx";
 
 import VolunteerLogin from "./components/volunteer/authentication/LoginPage.jsx";
 import VolunteerSignup from "./components/volunteer/authentication/SignupPage.jsx";
 import VolunteerAccountInfo from "./components/volunteer/authentication/AccountInfoPage.jsx";
+import VolunteerForgotPassword from "./components/volunteer/authentication/ForgotPasswordPage.jsx";
 
 import ProfileUserPage from "./components/user/profile_page/ProfilePage.jsx"
 
@@ -42,14 +45,17 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/signupsuccess" element={<SuccessSignup/>} />
         <Route path="/verification" element={<Verification/>} />
         <Route path="/verifysuccess" element={<SuccessVerify/>} />
+        <Route path="/forgotpassword" element={<ForgotPassword/>} />
 
         <Route path="/donor/login" element={<DonorLogin/>} />
         <Route path="/donor/signup" element={<DonorSignup/>} />
         <Route path="/donor/accountinfo" element={<DonorAccountInfo/>} />
+        <Route path="/donor/forgotpassword" element={<DonorForgotPassword/>} />
 
         <Route path="/volunteer/login" element={<VolunteerLogin/>} />
         <Route path="/volunteer/signup" element={<VolunteerSignup/>} />
         <Route path="/volunteer/accountinfo" element={<VolunteerAccountInfo/>} />
+        <Route path="/volunteer/forgotpassword" element={<VolunteerForgotPassword/>} />
         
         <Route path="/" element={
             <Auth allowedRoles={["user", "donor", "volunteer"]} />}

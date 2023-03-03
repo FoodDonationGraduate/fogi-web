@@ -11,9 +11,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 
+// Components
+import Logo from 'components/common/Logo';
+
 // Assets imports
 import { FaExclamationTriangle } from "react-icons/fa";
-import { ReactComponent as Logo } from 'assets/images/logo.svg';
 import Facebook from "assets/images/facebook.svg";
 import Google from "assets/images/google.svg";
 
@@ -59,7 +61,7 @@ const Login = () => {
               <div className='mb-3 mt-md-4 mx-4'>
                 <Row className='mb-4'>
                   <Col lg={3}>
-                    <Logo fill='#82CD47' />
+                    <Logo usertype={0} />
                   </Col>
                   <Col>
                     <h2 className='fw-bold'>
@@ -112,7 +114,7 @@ const Login = () => {
                       </div> 
                     }
                     <div className='mb-3 text-end'>
-                      <a className='fogi fw-bold'>
+                      <a href='/forgotpassword' className='fogi fw-bold'>
                         Forgot password
                       </a>
                     </div>

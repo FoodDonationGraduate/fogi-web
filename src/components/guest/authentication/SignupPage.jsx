@@ -53,7 +53,7 @@ const Signup = () => {
               <div className='mb-3 mt-md-4 mx-4'>
                 <Row className='mb-4'>
                   <Col lg={3}>
-                    <Logo fill='#82CD47' />
+                    <Logo usertype={0} />
                   </Col>
                   <Col>
                     <h2 className='fw-bold'>

@@ -6,10 +6,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { resendVerificationEmail } from 'components/redux/reducer/AuthenticationReducer';
 // Assets imports
 import { ReactComponent as Logo } from 'assets/images/logo.svg';
-
 // Style imports
 import 'assets/css/Authentication.css';
 import 'assets/css/Fogi.css';
+// Components
 import { setModalMessage, showModal } from 'components/redux/reducer/ModalReducer';
 
 const Verification = () => {
@@ -37,7 +37,7 @@ const Verification = () => {
               <div className='mb-3 mt-md-4 mx-4'>
                 <Row className='mb-4'>
                   <Col lg={3}>
-                    <Logo fill='#82CD47' />
+                    <Logo usertype={0} />
                   </Col>
                   <Col>
                     <h2 className='fw-bold'>
