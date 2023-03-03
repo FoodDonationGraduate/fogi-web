@@ -10,6 +10,7 @@ import 'assets/css/Fogi.css';
 // Components
 import { setModalMessage, showModal } from 'components/redux/reducer/ModalReducer';
 import Logo from 'components/common/Logo';
+import Modal from 'components/layout/Modal'
 
 const Verification = () => {
   const registeredUser = useSelector(state => state.authenticationReducer.registeredUser)
@@ -18,6 +19,7 @@ const Verification = () => {
   const dispatch = useDispatch();
 
   const toHomePage = () => {navigate('/');}
+  const toLoginPage = () => {navigate('/login')}
   const resendEmail = () => {
     if (registeredUser.email !== undefined) {
       dispatch(resendVerificationEmail({email: registeredUser.email}, navigate))
@@ -55,6 +57,9 @@ const Verification = () => {
                     <Button className='fogi mt-2' variant='primary' onClick={toHomePage}>
                       Back to Home page
                     </Button>
+                    <Button className='fogi mt-2' variant='primary' onClick={toLoginPage}>
+                      Back to Login page
+                    </Button>
                   </div>
                 </div>
               </div>
@@ -62,6 +67,7 @@ const Verification = () => {
           </Card>
         </Col>
       </Row>
+      <Modal />
     </Container>
   );
 };

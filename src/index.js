@@ -44,7 +44,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/accountinfo" element={<UserAccountInfo/>} />
         <Route path="/signupsuccess" element={<SuccessSignup/>} />
         <Route path="/verification" element={<Verification/>} />
-        <Route path="/verifysuccess" element={<SuccessVerify/>} />
         <Route path="/forgotpassword" element={<ForgotPassword/>} />
 
         <Route path="/donor/login" element={<DonorLogin/>} />

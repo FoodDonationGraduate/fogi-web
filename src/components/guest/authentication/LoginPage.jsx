@@ -3,8 +3,6 @@ import {useState} from 'react';
 import { useNavigate, useLocation } from "react-router-dom";
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux'
-import {setUserInfo, setUserToken} from 'components/redux/reducer/AuthenticationReducer.jsx'
-import axiosInstance from "services/axios/axiosConfig.js";
 
 // Form handling
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -13,6 +11,8 @@ import * as Yup from 'yup';
 
 // Components
 import Logo from 'components/common/Logo';
+import {login} from 'components/redux/reducer/AuthenticationReducer.jsx'
+import Modal from 'components/layout/Modal'
 
 // Assets imports
 import { FaExclamationTriangle } from "react-icons/fa";
@@ -39,17 +39,7 @@ const Login = () => {
 
   const onSubmit = (data) => {
     setFailAuthentication(false);
-    axiosInstance.post(`/login`, {
-      email: data.email,
-      password: data.password
-    }).then((res) => {
-        dispatch(setUserInfo(res.data.user))
-        dispatch(setUserToken(res.data.token))
-        navigate('/profile')
-    }).catch((err) => {
-        setFailAuthentication(true);
-        console.log(err)
-    });
+    dispatch(login(data, navigate, setFailAuthentication))
   };
  
   return (
@@ -152,6 +142,7 @@ const Login = () => {
           </Card>
         </Col>
       </Row>
+      <Modal />
     </Container>
   );
 };

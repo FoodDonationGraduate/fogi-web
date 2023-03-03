@@ -55,7 +55,7 @@ function handleExpiredToken (res, dispatch, navigate) {
 }
 // ----------- THUNK ----------------------
 
-export const login = (data, navigate) => {
+export const login = (data, navigate, setFailAuthentication) => {
     
     return async dispatch => {
         try {
@@ -63,16 +63,22 @@ export const login = (data, navigate) => {
                 email: data.email,
                 password: data.password
             }).then((res) => {
-                if (res.data.user === undefined) {
-                    dispatch(setUserInfo({}))
-                    dispatch(setUserToken(''))
-                    navigate('/login')
-                }
                 dispatch(setUserInfo(res.data.user))
                 dispatch(setUserToken(res.data.token))
+                navigate('/profile')
             })
             .catch((err) => {
                 console.log(err.response.data)
+                if (err.response.data.message === 'User email is not verified') {
+                    navigate('/verification')
+                    dispatch(setModalMessage(`You need to verify your email first!`))
+                    dispatch(showModal())
+                } else if (err.response.data.message === 'Email or password is wrong') {
+                    setFailAuthentication(true);
+                } else {
+                    dispatch(setModalMessage(`Something went wrong!`))
+                    dispatch(showModal())
+                }
             });
         } catch (err) {
             console.log(err)
@@ -111,15 +117,18 @@ export const signup = (data, navigate) => {
             }).then((res) => {
                 if (res.data.message === 'Signup successfully') {
                     navigate('/signupsuccess')
-                } else {
-                    navigate('/signup')
-                    dispatch(setModalMessage("Signup unsuccessfully! Please signup again."))
-                    dispatch(showModal())
                 }
             })
             .catch((err) => {
-                console.log(err.response.data)
-                navigate('/')
+                if (err.response.data.message == 'Email is already existed') {
+                    navigate('/signup')
+                    dispatch(setModalMessage(`Signup unsuccessfully! ${err.response.data.message}. Please signup again.`))
+                    dispatch(showModal())
+                } else {
+                    console.log(err.response.data)
+                    navigate('/')
+                }
+                
             });
         } catch (err) {
             console.log(err)
