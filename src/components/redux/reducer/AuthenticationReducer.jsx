@@ -3,17 +3,16 @@ import axiosInstance from "services/axios/axiosConfig.js";
 import { setModalMessage, showModal, cancelModal } from 'components/redux/reducer/ModalReducer';
 
 const initialState = {
-    user: localStorage.getItem("user") !== undefined 
+    user: localStorage.getItem("user") !== "undefined" 
         && localStorage.getItem("user") !== null 
         ? JSON.parse(localStorage.getItem("user")) : {},
-    token: localStorage.getItem("token") !== undefined 
+    token: localStorage.getItem("token") !== "undefined" 
         && localStorage.getItem("token") !== null 
         ? localStorage.getItem("token") : '',
-    registeredUser: localStorage.getItem("registeredUser") !== undefined 
+    registeredUser: localStorage.getItem("registeredUser") !== "undefined" 
         && localStorage.getItem("registeredUser") !== null 
-        ? JSON.parse(localStorage.getItem("registeredUser")) : {},
+        ? JSON.parse(localStorage.getItem("registeredUser")) : {}
 }
-
 const authenticationReducer = createSlice({
     name: "authenticationReducer",
     initialState,
@@ -33,7 +32,6 @@ const authenticationReducer = createSlice({
         signupUserInfo: (state, action) => {
             state.registeredUser = {...state.registeredUser, ...action.payload}
             localStorage.setItem('registeredUser', JSON.stringify(state.registeredUser))
-            console.log(state.registeredUser)
         }
     }
 })
@@ -68,8 +66,9 @@ export const login = (data, navigate, setFailAuthentication) => {
                 navigate('/profile')
             })
             .catch((err) => {
-                console.log(err.response.data)
                 if (err.response.data.message === 'User email is not verified') {
+                    dispatch(signupUserAccount())
+                    localStorage.setItem('currentEmail', data.email)
                     navigate('/verification')
                     dispatch(setModalMessage(`You need to verify your email first!`))
                     dispatch(showModal())
@@ -142,7 +141,7 @@ export const resendVerificationEmail = (data, navigate) => {
         try {
             console.log("resend verification email")
             await axiosInstance.get(`/verify/send`, {
-                email: data.email
+                body: JSON.stringify({email: data.email})
             }).then((res) => {
                 if (res.data.message === 'Verification email sent') {
                     dispatch(setModalMessage("Verification email was sent! Please verify your email."))

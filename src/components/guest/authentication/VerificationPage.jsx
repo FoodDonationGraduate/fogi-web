@@ -21,8 +21,10 @@ const Verification = () => {
   const toHomePage = () => {navigate('/');}
   const toLoginPage = () => {navigate('/login')}
   const resendEmail = () => {
-    if (registeredUser.email !== undefined) {
+    if (registeredUser !== undefined && registeredUser.email !== undefined) {
       dispatch(resendVerificationEmail({email: registeredUser.email}, navigate))
+    } else if (localStorage.getItem('currentEmail') !== undefined) {
+      dispatch(resendVerificationEmail({email: localStorage.getItem('currentEmail')}, navigate))
     } else {
       dispatch(setModalMessage('You need to register new account before verifying email!'))
       dispatch(showModal())
