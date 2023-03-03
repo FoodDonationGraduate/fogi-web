@@ -25,12 +25,14 @@ import DonorSignup from "./components/donor/authentication/SignupPage.jsx";
 import DonorOTPMethod from "./components/donor/authentication/OTPMethodPage.jsx";
 import DonorOTPInput from "./components/donor/authentication/OTPInputPage.jsx";
 import DonorAccountInfo from "./components/donor/authentication/AccountInfoPage.jsx";
+import DonorForgotPassword from "./components/donor/authentication/ForgotPasswordPage.jsx";
 
 import VolunteerLogin from "./components/volunteer/authentication/LoginPage.jsx";
 import VolunteerSignup from "./components/volunteer/authentication/SignupPage.jsx";
 import VolunteerOTPMethod from "./components/volunteer/authentication/OTPMethodPage.jsx";
 import VolunteerOTPInput from "./components/volunteer/authentication/OTPInputPage.jsx";
 import VolunteerAccountInfo from "./components/volunteer/authentication/AccountInfoPage.jsx";
+import VolunteerForgotPassword from "./components/volunteer/authentication/ForgotPasswordPage.jsx";
 
 import ProfileUserPage from "./components/user/profile_page/ProfilePage.jsx"
 
@@ -58,12 +60,14 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/donor/otpmethod" element={<DonorOTPMethod/>} />
         <Route path="/donor/otpinput" element={<DonorOTPInput/>} />
         <Route path="/donor/accountinfo" element={<DonorAccountInfo/>} />
+        <Route path="/donor/forgotpassword" element={<DonorForgotPassword/>} />
 
         <Route path="/volunteer/login" element={<VolunteerLogin/>} />
         <Route path="/volunteer/signup" element={<VolunteerSignup/>} />
         <Route path="/volunteer/otpmethod" element={<VolunteerOTPMethod/>} />
         <Route path="/volunteer/otpinput" element={<VolunteerOTPInput/>} />
         <Route path="/volunteer/accountinfo" element={<VolunteerAccountInfo/>} />
+        <Route path="/volunteer/forgotpassword" element={<VolunteerForgotPassword/>} />
         
         <Route path="/" element={
             <Auth allowedRoles={["user", "donor", "volunteer"]} />}

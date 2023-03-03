@@ -86,7 +86,7 @@ const Login = () => {
                     )}
                     </Form.Group>
                     <div className='mb-3 text-end'>
-                      <a className='fogi fw-bold'>
+                      <a href='/volunteer/forgotpassword' className='fogi fw-bold'>
                         Forgot password
                       </a>
                     </div>
