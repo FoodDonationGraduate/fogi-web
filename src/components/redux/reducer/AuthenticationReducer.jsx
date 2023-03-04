@@ -140,8 +140,8 @@ export const resendVerificationEmail = (data, navigate) => {
     return async dispatch => {
         try {
             console.log("resend verification email")
-            await axiosInstance.get(`/verify/send`, {
-                body: JSON.stringify({email: data.email})
+            await axiosInstance.post(`/verify/send`, {
+                email: data.email
             }).then((res) => {
                 if (res.data.message === 'Verification email sent') {
                     dispatch(setModalMessage("Verification email was sent! Please verify your email."))
