@@ -18,7 +18,7 @@ const ProductDetails = ({product}) => {
   };
 
   return (
-    <Card>
+    <Card className='h-100'>
       <Card.Body>
         <Card.Title>{product.title}</Card.Title>
         <Card.Title style={{ color: '#82CD47' }}>
@@ -39,7 +39,7 @@ const ProductDetails = ({product}) => {
           The donor can write anything about this product such as ingredients, flavors,...
         </p>
       </Card.Body>
-      <Card.Body className='mt-4'>
+      <Card.Body className='position-absolute w-100' style={{ bottom: '0' }}>
         <Stack direction='horizontal' gap={2}>
           <header className='me-2'>Count</header>
           <Button
