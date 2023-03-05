@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 const Logo = ({
   usertype,
-  isWhite = false // false -> white
+  isWhite = false
 }) => {
 
   const navigate = useNavigate(); 

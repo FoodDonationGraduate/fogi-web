@@ -50,7 +50,7 @@
         border: 1px solid #82CD47 !important;
     }
     .card-white-button:active, .card-green:visited {
-        background-color: #82CD47;
+        background-color: #5A9829 !important;
         color: white;
     }
 

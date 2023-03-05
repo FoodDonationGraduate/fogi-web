@@ -49,8 +49,8 @@
         color: white  !important;
         border: 1px solid #82CD47 !important;
     }
-    .card-white-button:active, .card-green:visited {
-        background-color: #82CD47;
+    .card-white-button:active {
+        background-color: #5A9829;
         color: white;
     }
 
