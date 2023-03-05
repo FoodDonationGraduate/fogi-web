@@ -6,11 +6,26 @@
 
 .logo-nav {
     left: 0px;
-    width: 40px;
-    height: 40px;
+    height: 60px;
     color: white;
     overflow: hidden;
     margin: 5px 0px;}
+
+.top-bar-icon {
+    width: 40px;
+    height: 40px;
+    color: white;
+}
+
+.top-bar-icon:hover {
+    color: #ccc;
+    cursor: pointer;
+}
+
+.top-bar-icon:active {
+    color: #999;
+    cursor: pointer;
+}
 
 .nav-link {
     color: white;
