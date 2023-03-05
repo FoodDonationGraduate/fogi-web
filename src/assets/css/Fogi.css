@@ -80,6 +80,15 @@ a.fogi:active {
   cursor: pointer;
 }
 
+.logo-alt {
+  fill: white;
+}
+
+.logo-alt:hover {
+  fill: #ccc;
+  cursor: pointer;
+}
+
 .bg {
   background-color: #F2F2F2;
 }

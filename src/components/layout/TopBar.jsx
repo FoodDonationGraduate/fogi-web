@@ -1,11 +1,14 @@
-import {Container, Nav, Navbar, Button, Row, Col} from 'react-bootstrap';
+import {Container, Nav, Navbar, Button, Row, Col, Stack} from 'react-bootstrap';
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux'
 
-import Logo from 'assets/images/Logo.png'
-import NotificationIcon from 'assets/images/NotificationIcon.png'
-import CartridgeIcon from 'assets/images/CartridgeIcon.png'
 import 'assets/css/layout/TopBar.css'
+
+// Components
+import Logo from 'components/common/Logo';
+
+// Assets
+import { MdOutlineNotificationsNone, MdOutlineShoppingCart } from 'react-icons/md';
 
 function TopBar() {
 
@@ -21,8 +24,8 @@ function TopBar() {
     <div className='top-bar-header'>
       <Navbar className='top-bar' collapseOnSelect expand="md" variant="dark">
         <Container className='mx-6'>
-          <Navbar.Brand className='brand px-2' onClick={toHomePage}>
-            <img className='logo-nav' src={Logo} alt='logo'></img>
+          <Navbar.Brand className='brand px-2 py-2' onClick={toHomePage}>
+            <Logo isWhite={true} usertype={0} />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
@@ -48,16 +51,14 @@ function TopBar() {
                 <Button onClick={toLoginForm} className='nav-button login-button' id="login-button"> Login</Button>
                 <Button onClick={toSignupForm} className='nav-button signup-button' id="signup-button">Sign up</Button>
               </Nav> :
-              <Nav className='nav-button-row d-none d-md-flex'>
-                <div className='d-flex align-items-center px-2'>
-                  <img className='nav-profile-icon' src={NotificationIcon} alt='notification' id="notification-icon"></img>
-                </div>
-                <div className='d-flex align-items-center px-2'>
-                  <img className='nav-profile-icon' src={CartridgeIcon} alt='cartridge'  id="cartridge-icon"></img>
-                </div>
-                <div onClick={toProfileForm} className='d-flex align-items-center px-2'>
-                  <img className='nav-profile-icon'  src={`data:image/jpeg;base64,${userInfo.avatar}`} alt='profile' id="profile-icon"></img>
-                </div>
+              <Nav>
+                <Stack direction='horizontal' gap={4}>
+                  <MdOutlineNotificationsNone className='top-bar-icon' />
+                  <MdOutlineShoppingCart className='top-bar-icon' />
+                  <div onClick={toProfileForm} className='d-flex align-items-center'>
+                    <img className='nav-profile-icon'  src={`data:image/jpeg;base64,${userInfo.avatar}`} alt='profile' id="profile-icon"></img>
+                  </div>
+                </Stack>
               </Nav>
             }
           </Navbar.Collapse>

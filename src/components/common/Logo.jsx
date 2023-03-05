@@ -7,21 +7,25 @@ import { ReactComponent as LogoVolunteer } from 'assets/images/logo-volunteer.sv
 import { useNavigate } from "react-router-dom";
 
 
-const Logo = ({usertype}) => {
+const Logo = ({
+  usertype,
+  isWhite = false
+}) => {
 
   const navigate = useNavigate(); 
-  const toHomePage = () => { navigate('/') }
+  const toHomePage = () => { navigate('/') };
+  const className = 'logo' + (isWhite ? '-alt' : '');
 
   return (
     <>
       {usertype == 0 && (
-        <LogoDonee className='logo' onClick={toHomePage} />
+        <LogoDonee className={className} onClick={toHomePage} />
       )}
       {usertype == 1 && (
-        <LogoDonor className='logo' />
+        <LogoDonor className={className} />
       )}
       {usertype == 2 && (
-        <LogoVolunteer className='logo' />
+        <LogoVolunteer className={className} />
       )}
     </>
   );
