@@ -11,7 +11,7 @@ import FogiPagination from 'components/common/pagination/Pagination';
 import { PRODUCT_DATA } from 'utils/constants/ProductLarge.jsx'
 
 const ProductList = () => {
-  const PRODUCT_COUNT = 6; // per page
+  const PRODUCT_COUNT = 18; // per page
   const [page, setPage] = useState(0); // a.k.a activeIdx
   const onChangePage = (idx) => {
     setPage(idx);
@@ -20,14 +20,14 @@ const ProductList = () => {
   return (
     <div className='bg'>
       <Container>
-        <Row className='py-4' xs={2} md={3} lg={6} >
+        <Row className='pt-4' xs={2} md={3} lg={6} >
           {PRODUCT_DATA.slice(page * PRODUCT_COUNT, (page + 1) * PRODUCT_COUNT).map((product) => (
             <Col className='pb-4'>
               <ProductCard product={product} />
             </Col>
           ))}
         </Row>
-        <Row>
+        {/* <Row>
           <Col className='d-flex justify-content-center'>
             <Pagination>
               {Array.from({ length: Math.ceil(PRODUCT_DATA.length / PRODUCT_COUNT) }).map((_, idx) => (
@@ -41,7 +41,7 @@ const ProductList = () => {
               ))}
             </Pagination>
           </Col>
-        </Row>
+        </Row> */}
         <Row className='pb-4'>
           <Col className='d-flex justify-content-center'>
             <FogiPagination

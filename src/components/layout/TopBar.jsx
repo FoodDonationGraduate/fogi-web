@@ -56,7 +56,7 @@ function TopBar() {
                   <MdOutlineNotificationsNone className='top-bar-icon' />
                   <MdOutlineShoppingCart className='top-bar-icon' />
                   <div onClick={toProfileForm} className='d-flex align-items-center'>
-                    <img className='nav-profile-icon'  src={`data:image/jpeg;base64,${userInfo.avatar}`} alt='profile' id="profile-icon"></img>
+                    <img className='nav-profile-icon' src={`data:image/jpeg;base64,${userInfo.avatar}`} alt='profile' id="profile-icon"></img>
                   </div>
                 </Stack>
               </Nav>

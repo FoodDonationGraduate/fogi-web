@@ -84,4 +84,11 @@
         #profile-icon{
             aspect-ratio : 1 / 1;
             height: 50px;
-        }   
+        }
+        #profile-icon {
+            border-radius: 50%;
+            border: 3px solid #ccc;
+        }
+        #profile-icon:hover{
+            border-color: white;
+        }

@@ -1,5 +1,6 @@
 // Essentials
 import * as React from 'react';
+import { useState } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 
 // Form handling
@@ -31,9 +32,12 @@ const ChangePasswordModal = ({
   const formOptions = { resolver: yupResolver(formSchema) };
   const { register, handleSubmit, formState } = useForm(formOptions);
   const { errors } = formState;
+  
+  // New password matches with the current one
+  const [isSame, setIsSame] = useState(false);
 
-  const onSubmit = () => {
-    console.log('change password');
+  const onSubmit = (data) => {
+    setIsSame(data.curPassword === data.newPassword);
   };
 
   return (
@@ -57,7 +61,7 @@ const ChangePasswordModal = ({
             {errors.curPassword && errors.curPassword.type === "required" && (
               <p className="mt-2 error">
                 <FaExclamationTriangle className="mx-2" />
-                Current Password is required
+                Current password is required
               </p>
             )}
           </Form.Group>
@@ -70,7 +74,7 @@ const ChangePasswordModal = ({
             {errors.newPassword && errors.newPassword.type === "required" && (
               <p className="mt-2 error">
                 <FaExclamationTriangle className="mx-2" />
-                New Password is required
+                New password is required
               </p>
             )}
             {errors.newPassword && errors.newPassword.type === "min" && (
@@ -99,6 +103,13 @@ const ChangePasswordModal = ({
             </p>
           )}
           </Form.Group>
+          {isSame && 
+            <div className='text-center mb-3'>
+              <a className='fw-bold text-danger text-decoration-none'>
+                Current and New password must not match
+              </a>
+            </div> 
+          }
 
           <div className='d-grid'>
             <Button className='fogi' variant='primary' type='submit'>
