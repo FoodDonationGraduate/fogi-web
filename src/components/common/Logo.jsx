@@ -6,7 +6,6 @@ import { ReactComponent as LogoVolunteer } from 'assets/images/logo-volunteer.sv
 
 import { useNavigate } from "react-router-dom";
 
-
 const Logo = ({
   usertype,
   isWhite = false
