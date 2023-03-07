@@ -29,6 +29,8 @@ import VolunteerAccountInfo from "./components/volunteer/authentication/AccountI
 import VolunteerForgotPassword from "./components/volunteer/authentication/ForgotPasswordPage.jsx";
 
 import ProfileUserPage from "./components/user/profile_page/ProfilePage.jsx"
+import ProfileVolunteerPage from "./components/volunteer/profile_page/ProfilePage.jsx"
+import ProfileDonorPage from "./components/donor/profile_page/ProfilePage.jsx"
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
@@ -44,6 +46,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/accountinfo" element={<UserAccountInfo/>} />
         <Route path="/signupsuccess" element={<SuccessSignup/>} />
         <Route path="/verification" element={<Verification/>} />
+        <Route path="/verifysuccess" element={<SuccessVerify/>} />
         <Route path="/forgotpassword" element={<ForgotPassword/>} />
 
         <Route path="/donor/login" element={<DonorLogin/>} />
@@ -60,7 +63,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             <Auth allowedRoles={["user", "donor", "volunteer"]} />}
         >
           <Route path="/profile" element={
-            <Monitor allowedPages={[<ProfileUserPage/>, <ProfileUserPage/>, <ProfileUserPage/>]}/> } 
+            <Monitor allowedPages={[<ProfileUserPage/>, <ProfileDonorPage/>, <ProfileVolunteerPage/>]}/> } 
           />
           
         </Route>
@@ -81,7 +84,7 @@ function Auth ({ allowedRoles }) {
   const userInfo = useSelector(state => state.authenticationReducer.user)
   const location = useLocation();
 
-  localStorage.allowedRoles = allowedRoles;
+  localStorage.allowedRoles = JSON.stringify(allowedRoles);
   let user = localStorage.user;
 
   // console.log("[+] user:" + user + user["email"]);
@@ -100,7 +103,10 @@ function Auth ({ allowedRoles }) {
 
 function Monitor ({allowedPages}) {
   const userInfo = useSelector(state => state.authenticationReducer.user)
+  const allowedRolesObj = JSON.parse(localStorage.allowedRoles)
+  const allowedRolesArr = [];
+  Object.keys(allowedRolesObj).map((key) => allowedRolesArr.push(allowedRolesObj[key]));
   return Object.keys(localStorage.allowedRoles).length === 1 ? 
     allowedPages[0] :
-    allowedPages[localStorage.allowedRoles.indexOf(userInfo.user_type)]
+    allowedPages[allowedRolesObj.indexOf(userInfo.user_type)]
 }

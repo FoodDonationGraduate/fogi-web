@@ -32,13 +32,17 @@ const authenticationReducer = createSlice({
         signupUserInfo: (state, action) => {
             state.registeredUser = {...state.registeredUser, ...action.payload}
             localStorage.setItem('registeredUser', JSON.stringify(state.registeredUser))
+        },
+        removeRegisterdUser: (state, action) => {
+            state.registeredUser = {}
+            localStorage.setItem('registeredUser', JSON.stringify(state.registeredUser))
         }
     }
 })
 
 export const { 
     setUserInfo, setUserToken,
-    signupUserAccount, signupUserInfo
+    signupUserAccount, signupUserInfo, removeRegisterdUser
 } = authenticationReducer.actions
 
 export default authenticationReducer.reducer
@@ -120,14 +124,100 @@ export const signup = (data, navigate) => {
             })
             .catch((err) => {
                 if (err.response.data.message == 'Email is already existed') {
+                    dispatch(removeRegisterdUser())
                     navigate('/signup')
                     dispatch(setModalMessage(`Signup unsuccessfully! ${err.response.data.message}. Please signup again.`))
                     dispatch(showModal())
                 } else {
                     console.log(err.response.data)
-                    navigate('/')
+                    dispatch(removeRegisterdUser())
+                    navigate('/signup')
+                     dispatch(showModal())
                 }
                 
+            });
+        } catch (err) {
+            console.log(err)
+            navigate('/')
+        }
+    }
+}
+
+export const signupForDonor = (data, navigate) => {
+    return async dispatch => {
+        try {
+            console.log("signup for donor")
+            await axiosInstance.post(`/signup`, {
+                email: data.email,
+                user_type: 'donor',
+                password: data.password,
+                address: data.address,
+                phone: data.phonenumber,
+                owner_name: data.ownername,
+                open_time: data.openhours,
+                close_time: data.closehours,
+                description: data.description,
+                name: data.brandname,
+                avatar: '',
+                storefront: '',
+                owner_id_front: data.owner_id_front,
+                owner_id_back: data.owner_id_back
+            }).then((res) => {
+                if (res.data.message === 'Signup successfully') {
+                    navigate('/signupsuccess')
+                }
+            })
+            .catch((err) => {
+                if (err.response.data.message == 'Email is already existed') {
+                    dispatch(removeRegisterdUser())
+                    navigate('/donor/signup')
+                    dispatch(setModalMessage(`Signup unsuccessfully! ${err.response.data.message}. Please signup again.`))
+                    dispatch(showModal())
+                } else {
+                    console.log(err.response.data)
+                    dispatch(removeRegisterdUser())
+                    navigate('/donor/signup')
+                     dispatch(showModal())
+                }
+            });
+        } catch (err) {
+            console.log(err)
+            navigate('/')
+        }
+    }
+}
+
+export const signupForVolunteer = (data, navigate) => {
+    return async dispatch => {
+        try {
+            console.log("signup for volunteer")
+            await axiosInstance.post(`/signup`, {
+                email: data.email,
+                user_type: 'volunteer',
+                password: data.password,
+                address: data.address,
+                phone: data.phonenumber,
+                name: data.fullname,
+                avatar: '',
+                id_front: data.id_front,
+                id_back: data.id_back
+            }).then((res) => {
+                if (res.data.message === 'Signup successfully') {
+                    navigate('/signupsuccess')
+                }
+            })
+            .catch((err) => {
+                if (err.response.data.message == 'Email is already existed') {
+                    dispatch(removeRegisterdUser())
+                    navigate('/volunteer/signup')
+                    dispatch(setModalMessage(`Signup unsuccessfully! ${err.response.data.message}. Please signup again.`))
+                    dispatch(showModal())
+                } else {
+                    console.log(err.response.data)
+                    dispatch(removeRegisterdUser())
+                    navigate('/volunteer/signup')
+                     dispatch(showModal())
+                }
             });
         } catch (err) {
             console.log(err)
@@ -192,6 +282,29 @@ export const updateProfile = (data, user, navigate) => {
                 name: data.fullname,
                 phone: data.phonenumber,
                 address: data.address
+            }).then((res) => {
+                handleExpiredToken(res, dispatch, navigate)
+                dispatch(retrieveProfile(user,navigate))
+            }).catch((err) => {
+                console.log(err)
+                navigate('/')
+            });
+        } catch (err) {
+            console.log(err)
+            navigate('/')
+        }
+    }
+}
+
+export const patchProfile = (data, user, navigate) => {
+    return async dispatch => {
+        try {
+            console.log("update profile")
+            axiosInstance.patch(`/profile`, {
+                email: user.userInfo.email,
+                token: user.userToken,
+                user_type: user.userInfo.user_type,
+                ...data
             }).then((res) => {
                 handleExpiredToken(res, dispatch, navigate)
                 dispatch(retrieveProfile(user,navigate))

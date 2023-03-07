@@ -10,16 +10,17 @@ const reduceString = (str) => {
   return str;
 };
 
-const UploadButton = ({label}) => {
+const UploadButton = ({label, type, setValue}) => {
   const [fileName, setFileName] = useState(null);
   const inputRef = useRef(null);
 
   const handleUpload = () => {
     inputRef.current?.click();
-  };
+   };
 
   const handleDisplayFileDetails = () => {
     inputRef.current?.files && setFileName(inputRef.current.files[0].name);
+    setValue(inputRef.current.files[0])
   };
 
   return (
@@ -27,6 +28,7 @@ const UploadButton = ({label}) => {
       <input
         ref={inputRef}
         onChange={handleDisplayFileDetails}
+        accept={type}
         className='d-none'
         type='file'
       />

@@ -1,6 +1,8 @@
 // Essentials
 import * as React from 'react';
 import { Button, Card, Col, Container, Form, Row, Stack } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from "react-router-dom";
 
 // Form handling
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -10,6 +12,7 @@ import * as Yup from 'yup';
 // Components
 import UploadButton from 'components/common/UploadButton';
 import Logo from 'components/common/Logo';
+import { signupForDonor, signupUserInfo } from 'components/redux/reducer/AuthenticationReducer';
 
 // Assets imports
 import { FaExclamationTriangle, FaQuestionCircle } from "react-icons/fa";
@@ -20,19 +23,54 @@ import 'assets/css/Form.css';
 import 'assets/css/Fogi.css';
 
 const AccountInfo = () => {
+  const imageOnly = 'image/png, image/gif, image/jpeg';
+  const [frontImage, setFrontImage] = React.useState(undefined);
+  const [backImage, setBackImage] = React.useState(undefined);
+  const [owner_id_front, setFrontImgBase64] = React.useState('');
+  const [owner_id_back, setBackImgBase64] = React.useState('');
+
   const formSchema = Yup.object().shape({
     brandname: Yup.string().required(''),
+    description:  Yup.string().required(''),
     address: Yup.string().required(''),
     openhours: Yup.string().required(''),
+    closehours: Yup.string().required(''),
     ownername: Yup.string().required('')
   });
   const formOptions = { resolver: yupResolver(formSchema) };
   const { register, handleSubmit, formState } = useForm(formOptions);
   const { errors } = formState;
 
-  const onSubmit = () => {
-    console.log('login');
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const onSubmit = async (data) => {
+    await dispatch(signupUserInfo(data))
+    await dispatch(signupUserInfo({owner_id_front, owner_id_back}))
+    console.log(JSON.parse(localStorage.getItem("registeredUser")))
+    dispatch(signupForDonor(JSON.parse(localStorage.getItem("registeredUser")), navigate))  
   };
+
+  React.useEffect(() => {
+    if ( frontImage !== undefined ) {
+      const reader = new FileReader();
+      reader.onload = function () {
+        var base64String = reader.result.replace("data:", "")
+            .replace(/^.+,/, "");
+        setFrontImgBase64(base64String)
+      }
+      reader.readAsDataURL(frontImage);
+    }
+    if (backImage !== undefined) {
+      const reader = new FileReader();
+      reader.onload = function () {
+        var base64String = reader.result.replace("data:", "")
+            .replace(/^.+,/, "");
+        setBackImgBase64(base64String)
+      }
+      reader.readAsDataURL(backImage);
+    }
+  })
  
   return (
     <Container fluid className='fogi-bg authen-bg authen-bg-user'>
@@ -71,6 +109,19 @@ const AccountInfo = () => {
 
                     <Form.Group className='mb-3'>
                       <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
+                        Description
+                      </Form.Label>
+                      <Form.Control {...register("description")} />
+                      {errors.description && errors.description.type === "required" && (
+                        <p className="mt-2 error">
+                          <FaExclamationTriangle className="mx-2" />
+                          Description is required
+                        </p>
+                      )}
+                    </Form.Group>
+
+                    <Form.Group className='mb-3'>
+                      <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
                         Address
                       </Form.Label>
                       <Form.Control
@@ -88,11 +139,24 @@ const AccountInfo = () => {
                       <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
                         Open hours
                       </Form.Label>
-                      <Form.Control {...register("openhours")} />
+                      <Form.Control type='time' {...register("openhours")} />
                       {errors.openhours && errors.openhours.type === "required" && (
                         <p className="mt-2 error">
                           <FaExclamationTriangle className="mx-2" />
                           Open hours is required
+                        </p>
+                      )}
+                    </Form.Group>
+
+                    <Form.Group className='mb-3'>
+                      <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
+                        Close hours
+                      </Form.Label>
+                      <Form.Control type='time' {...register("closehours")} />
+                      {errors.closehours && errors.closehours.type === "required" && (
+                        <p className="mt-2 error">
+                          <FaExclamationTriangle className="mx-2" />
+                          Close hours is required
                         </p>
                       )}
                     </Form.Group>
@@ -120,8 +184,8 @@ const AccountInfo = () => {
                         Image of Identity Card/Passport
                       </Form.Label>
                       <Stack direction='horizontal' gap={2}>
-                        <UploadButton label='Upload front side' />
-                        <UploadButton label='Upload back side' />
+                        <UploadButton label='Upload front side' type={imageOnly} setValue={setFrontImage}/>
+                        <UploadButton label='Upload back side' type={imageOnly} setValue={setBackImage}/>
                       </Stack>
                     </Form.Group>
 
