@@ -2,17 +2,17 @@ import * as React from 'react';
 import {Card, Container, Button, Form} from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from "react-router-dom";
+import { updateProfile } from 'components/redux/reducer/AuthenticationReducer.jsx'
+import { setModalMessage, showModal, cancelModal } from 'components/redux/reducer/ModalReducer';
 
 // Form handling
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 import { FaExclamationTriangle } from "react-icons/fa";
+import UserAvatar from 'assets/images/UserAvatar.png'
 
 import 'assets/css/user/profile_page/UserProfile.css'
-
-import { updateProfile } from 'components/redux/reducer/AuthenticationReducer.jsx'
-import { setModalMessage, showModal, cancelModal } from 'components/redux/reducer/ModalReducer';
 import AvatarSection from './AvatarSection';
 
 function UserProfile() {

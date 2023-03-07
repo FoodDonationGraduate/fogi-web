@@ -3,6 +3,7 @@ import * as React from 'react';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from "react-router-dom";
+import { signup, signupUserInfo } from 'components/redux/reducer/AuthenticationReducer';
 
 // Form handling
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -16,9 +17,8 @@ import Logo from 'components/common/Logo';
 import { FaExclamationTriangle } from "react-icons/fa";
 
 // Style imports
-import '../../../assets/css/Authentication.css';
-import '../../../assets/css/Fogi.css';
-import { signup, signupUserInfo } from 'components/redux/reducer/AuthenticationReducer';
+import 'assets/css/Authentication.css';
+import 'assets/css/Fogi.css';
 
 const AccountInfo = () => {
   const registeredUser = useSelector(state => state.authenticationReducer.registeredUser)

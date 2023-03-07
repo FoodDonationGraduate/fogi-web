@@ -1,6 +1,8 @@
 // Essentials
 import * as React from 'react';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from "react-router-dom";
 
 // Form handling
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -9,14 +11,14 @@ import * as Yup from 'yup';
 
 // Components
 import Logo from 'components/common/Logo';
+import { signupUserAccount } from 'components/redux/reducer/AuthenticationReducer';
 
 // Assets imports
 import { FaExclamationTriangle } from "react-icons/fa";
 
-
 // Style imports
-import '../../../assets/css/Authentication.css';
-import '../../../assets/css/Fogi.css';
+import 'assets/css/Authentication.css';
+import 'assets/css/Fogi.css';
 
 const Signup = () => {
   const formSchema = Yup.object().shape({
@@ -33,8 +35,12 @@ const Signup = () => {
   const { register, handleSubmit, formState } = useForm(formOptions);
   const { errors } = formState;
 
-  const onSubmit = () => {
-    console.log('login');
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const onSubmit = (data) => {
+    dispatch(signupUserAccount(data))
+    navigate('/volunteer/accountinfo')
   };
  
   return (
