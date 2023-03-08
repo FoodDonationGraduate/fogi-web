@@ -7,7 +7,6 @@ import { retrieveProfile } from 'components/redux/reducer/AuthenticationReducer.
 import TopBar from "components/layout/TopBar.jsx";
 import Footer from 'components/guest/common/bars/Footer.jsx'
 import Modal from "components/layout/Modal.jsx";
-import StatsCard from './components/StatsCard'
 import UserProfile from './components/UserProfile'
 import ButtonCard from './components/ButtonCard'
 
@@ -31,20 +30,14 @@ function ProfilePage(){
             <div className="page-body">
                 <div className='profile-section-body'>
                     <Container className='profile-section mx-6'>
-                        <div className='section-title'>
-                            My Profile
-                        </div>
                         <div className='profile-section-body'>
                             <Row xs={1} lg={3} className="g-4">
                                 <Col xs={12} lg={3}>
-                                    <StatsCard/>
-                                </Col>
-                                <Col xs={12} lg={6}>
-                                    <UserProfile/>
-                                </Col>
-                                <Col xs={12} lg={3}>
                                     <ButtonCard/>
                                 </Col> 
+                                <Col xs={12} lg={9}>
+                                    <UserProfile/>
+                                </Col>
                             </Row>
                         </div>
                     </Container>

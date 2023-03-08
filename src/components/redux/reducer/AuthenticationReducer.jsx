@@ -197,7 +197,7 @@ export const signupForVolunteer = (data, navigate) => {
                 password: data.password,
                 address: data.address,
                 phone: data.phonenumber,
-                name: data.fullname,
+                name: data.name,
                 avatar: '',
                 id_front: data.id_front,
                 id_back: data.id_back

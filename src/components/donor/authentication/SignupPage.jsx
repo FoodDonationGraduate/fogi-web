@@ -12,6 +12,7 @@ import * as Yup from 'yup';
 // Components
 import Logo from 'components/common/Logo';
 import { signupUserAccount } from 'components/redux/reducer/AuthenticationReducer';
+import Modal from "components/layout/Modal.jsx";
 
 // Assets imports
 import { FaExclamationTriangle } from "react-icons/fa";
@@ -151,6 +152,7 @@ const Signup = () => {
           </Card>
         </Col>
       </Row>
+      <Modal />
     </Container>
   );
 };
