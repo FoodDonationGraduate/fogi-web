@@ -32,8 +32,7 @@ function UserProfile() {
         phone: Yup.string().required('Phone number is required'),
         name: Yup.string().required('Brand name is required'),
         address: Yup.string().required('Address is required'),
-        open_time: Yup.string().required('Open time is required'),
-        close_time: Yup.string().required('Close time is required')
+        description: Yup.string().required('Address is required')
     });
     const formOptions = { resolver: yupResolver(formSchema) };
     const { register, handleSubmit, formState } = useForm(formOptions);
@@ -51,6 +50,7 @@ function UserProfile() {
     React.useEffect(() => {
         if (modalLogic) {
             dispatch(cancelModal())
+            data.storefront = storefront ? storefront : ''
             dispatch(patchProfile(data, {userInfo, userToken},navigate))
         }
         if ( image !== undefined ) {
@@ -137,7 +137,7 @@ function UserProfile() {
                                     </Form.Group>
 
                                     <header className='form-header mb-3'>
-                                        Donor's Information
+                                        Brand's Information
                                     </header>
 
                                     <Form.Group className='mb-3 d-flex'>
@@ -179,45 +179,26 @@ function UserProfile() {
                                             )}
                                         </Col>
                                     </Form.Group>
-
+                                    
                                     <Form.Group className='mb-3 d-flex'>
                                         <Form.Label column sm="3">
-                                            Open Time
+                                            Description
                                         </Form.Label>
                                         <Col sm={9}>
-                                            <Form.Control 
-                                                type='time'
-                                                defaultValue={userInfo.open_time ? userInfo.open_time : ''}
-                                                {...register("open_time")} 
+                                            <Form.Control
+                                                type='text'
+                                                placeholder='Top 1 Bakery Store'
+                                                defaultValue={userInfo.description ? userInfo.description : ''}
+                                                {...register("description")}
                                             />
-                                            {errors.open_time && errors.open_time.type === "required" && (
+                                            {errors.description && errors.description.type === "required" && (
                                                 <p className="mt-2 error">
                                                 <FaExclamationTriangle className="mx-2" />
-                                                Open Time is required
+                                                Description is required
                                                 </p>
                                             )}
                                         </Col>
                                     </Form.Group>
-
-                                    <Form.Group className='mb-4 d-flex'>
-                                        <Form.Label column sm="3">
-                                            Closed Time
-                                        </Form.Label>
-                                        <Col sm={9}>
-                                            <Form.Control 
-                                                type='time'
-                                                defaultValue={userInfo.close_time ? userInfo.close_time : ''}
-                                                {...register("close_time")} 
-                                            />
-                                            {errors.close_time && errors.close_time.type === "required" && (
-                                                <p className="mt-2 error">
-                                                <FaExclamationTriangle className="mx-2" />
-                                                Close Time is required
-                                                </p>
-                                            )}
-                                        </Col>
-                                    </Form.Group>
-
                                     <Form.Group className='mb-4 d-flex'>
                                         <Form.Label column sm="3">
                                             Image of Storefront

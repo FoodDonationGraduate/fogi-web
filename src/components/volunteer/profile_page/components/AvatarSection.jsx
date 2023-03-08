@@ -5,7 +5,9 @@ import Avatar from "react-avatar-edit";
 import { useNavigate } from "react-router-dom";
 
 import 'assets/css/user/profile_page/UserProfile.css'
+
 import UserAvatar from 'assets/images/UserAvatar.png'
+
 import { updateAvatar } from 'components/redux/reducer/AuthenticationReducer';
 
 function AvatarSection() {

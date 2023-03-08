@@ -21,8 +21,6 @@ function ButtonCard() {
                     <Card className='p-2'>
                         <Card.Body className='d-block justify-content-left p-0' >
                             <Button className='card-button card-white-button change-password-button w-100 my-1'>Change Password</Button>
-                            <Button className='card-button card-white-button order-history-button w-100 my-1'>Order History</Button>
-                            <Button className='card-button card-white-button favorite-donors-button w-100 my-1'>Favorite Donors</Button>
                         </Card.Body>
                         <Card.Footer className='d-block justify-content-left p-0' >
                             <Button className='card-button card-white-button setiings-button w-100 my-1'>Setiings</Button>

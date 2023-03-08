@@ -13,6 +13,8 @@ import * as Yup from 'yup';
 import UploadButton from 'components/common/UploadButton';
 import Logo from 'components/common/Logo';
 import { signupForVolunteer, signupUserInfo } from 'components/redux/reducer/AuthenticationReducer';
+import { setModalMessage, showModal } from 'components/redux/reducer/ModalReducer';
+import Modal from "components/layout/Modal.jsx";
 
 // Assets imports
 import { FaExclamationTriangle } from "react-icons/fa";
@@ -22,6 +24,7 @@ import 'assets/css/Authentication.css';
 import 'assets/css/Form.css';
 import 'assets/css/Fogi.css';
 
+
 const AccountInfo = () => {
   const imageOnly = 'image/png, image/gif, image/jpeg';
   const [frontImage, setFrontImage] = React.useState(undefined);
@@ -30,7 +33,7 @@ const AccountInfo = () => {
   const [id_back, setBackImgBase64] = React.useState('');
 
   const formSchema = Yup.object().shape({
-    fullname: Yup.string().required(''),
+    name: Yup.string().required(''),
     address: Yup.string().required('')
   });
   const formOptions = { resolver: yupResolver(formSchema) };
@@ -41,10 +44,15 @@ const AccountInfo = () => {
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
-    await dispatch(signupUserInfo(data))
-    await dispatch(signupUserInfo({id_front, id_back}))
-    console.log(JSON.parse(localStorage.getItem("registeredUser")))
-    dispatch(signupForVolunteer(JSON.parse(localStorage.getItem("registeredUser")), navigate))  
+    if (id_front !== '' && id_back !== '') {
+      await dispatch(signupUserInfo(data))
+      await dispatch(signupUserInfo({id_front, id_back}))
+      console.log(JSON.parse(localStorage.getItem("registeredUser")))
+      dispatch(signupForVolunteer(JSON.parse(localStorage.getItem("registeredUser")), navigate))  
+    } else {
+      dispatch(setModalMessage('You need to upload your image of Identity Card/Passport!'))
+      dispatch(showModal())
+    }
   };
 
   React.useEffect(() => {
@@ -90,8 +98,8 @@ const AccountInfo = () => {
                       <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
                         Full name
                       </Form.Label>
-                      <Form.Control {...register("fullname")} />
-                      {errors.fullname && errors.fullname.type === "required" && (
+                      <Form.Control {...register("name")} />
+                      {errors.name && errors.name.type === "required" && (
                         <p className="mt-2 error">
                           <FaExclamationTriangle className="mx-2" />
                           Full name is required
@@ -139,6 +147,7 @@ const AccountInfo = () => {
           </Card>
         </Col>
       </Row>
+      <Modal/>
     </Container>
   );
 };

@@ -13,6 +13,8 @@ import * as Yup from 'yup';
 import UploadButton from 'components/common/UploadButton';
 import Logo from 'components/common/Logo';
 import { signupForDonor, signupUserInfo } from 'components/redux/reducer/AuthenticationReducer';
+import { setModalMessage, showModal } from 'components/redux/reducer/ModalReducer';
+import Modal from "components/layout/Modal.jsx";
 
 // Assets imports
 import { FaExclamationTriangle, FaQuestionCircle } from "react-icons/fa";
@@ -33,8 +35,6 @@ const AccountInfo = () => {
     brandname: Yup.string().required(''),
     description:  Yup.string().required(''),
     address: Yup.string().required(''),
-    openhours: Yup.string().required(''),
-    closehours: Yup.string().required(''),
     ownername: Yup.string().required('')
   });
   const formOptions = { resolver: yupResolver(formSchema) };
@@ -45,10 +45,15 @@ const AccountInfo = () => {
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
-    await dispatch(signupUserInfo(data))
-    await dispatch(signupUserInfo({owner_id_front, owner_id_back}))
-    console.log(JSON.parse(localStorage.getItem("registeredUser")))
-    dispatch(signupForDonor(JSON.parse(localStorage.getItem("registeredUser")), navigate))  
+    if (owner_id_front !== '' && owner_id_back !== '') {
+      await dispatch(signupUserInfo(data))
+      await dispatch(signupUserInfo({owner_id_front, owner_id_back}))
+      console.log(JSON.parse(localStorage.getItem("registeredUser")))
+      dispatch(signupForDonor(JSON.parse(localStorage.getItem("registeredUser")), navigate))
+    } else {
+      dispatch(setModalMessage('You need to upload your image of Identity Card/Passport!'))
+      dispatch(showModal())
+    }
   };
 
   React.useEffect(() => {
@@ -135,35 +140,10 @@ const AccountInfo = () => {
                       )}
                     </Form.Group>
 
-                    <Form.Group className='mb-3'>
-                      <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
-                        Open hours
-                      </Form.Label>
-                      <Form.Control type='time' {...register("openhours")} />
-                      {errors.openhours && errors.openhours.type === "required" && (
-                        <p className="mt-2 error">
-                          <FaExclamationTriangle className="mx-2" />
-                          Open hours is required
-                        </p>
-                      )}
-                    </Form.Group>
-
-                    <Form.Group className='mb-3'>
-                      <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
-                        Close hours
-                      </Form.Label>
-                      <Form.Control type='time' {...register("closehours")} />
-                      {errors.closehours && errors.closehours.type === "required" && (
-                        <p className="mt-2 error">
-                          <FaExclamationTriangle className="mx-2" />
-                          Close hours is required
-                        </p>
-                      )}
-                    </Form.Group>
-
                     <header className='form-header mb-3'>
                       Owner's Information
                     </header>
+
                     <Form.Group className='mb-3'>
                       <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
                         Owner's name
@@ -204,6 +184,7 @@ const AccountInfo = () => {
           </Card>
         </Col>
       </Row>
+      <Modal />
     </Container>
   );
 };
