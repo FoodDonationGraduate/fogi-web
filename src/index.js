@@ -17,6 +17,7 @@ import SuccessVerify from "./components/guest/authentication/SuccessVerifyPage.j
 import Verification from "./components/guest/authentication/VerificationPage.jsx";
 import AccountType from "./components/guest/authentication/AccountTypePage.jsx";
 import ForgotPassword from "./components/guest/authentication/ForgotPasswordPage.jsx";
+import ChangePassword from "./components/guest/authentication/ChangePasswordPage.jsx";
 
 import DonorLogin from "./components/donor/authentication/LoginPage.jsx";
 import DonorSignup from "./components/donor/authentication/SignupPage.jsx";
@@ -40,14 +41,15 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/productlist" element={<ProductListPage />} />
         <Route path="/productdetails" element={<ProductDetailsPage />} />
 
-        <Route path="/login" element={<UserLogin/>} />
-        <Route path="/accounttype" element={<AccountType/>} />
-        <Route path="/signup" element={<UserSignup/>} />
-        <Route path="/accountinfo" element={<UserAccountInfo/>} />
-        <Route path="/signupsuccess" element={<SuccessSignup/>} />
-        <Route path="/verification" element={<Verification/>} />
-        <Route path="/verifysuccess" element={<SuccessVerify/>} />
-        <Route path="/forgotpassword" element={<ForgotPassword/>} />
+        <Route path="/login" element={<UserLogin />} />
+        <Route path="/accounttype" element={<AccountType />} />
+        <Route path="/signup" element={<UserSignup />} />
+        <Route path="/accountinfo" element={<UserAccountInfo />} />
+        <Route path="/signupsuccess" element={<SuccessSignup />} />
+        <Route path="/verification" element={<Verification />} />
+        <Route path="/verifysuccess" element={<SuccessVerify />} />
+        <Route path="/forgotpassword" element={<ForgotPassword />} />
+        <Route path="/changepassword" element={<ChangePassword />} />
 
         <Route path="/donor/login" element={<DonorLogin/>} />
         <Route path="/donor/signup" element={<DonorSignup/>} />
