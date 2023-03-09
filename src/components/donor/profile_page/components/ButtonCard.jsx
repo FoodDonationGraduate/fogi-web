@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux'
 
 import 'assets/css/user/profile_page/ButtonCard.css'
+
+import ChangePasswordModal from './ChangePasswordModal';
 import { logout } from 'components/redux/reducer/AuthenticationReducer';
 
 function ButtonCard() {
@@ -14,22 +16,31 @@ function ButtonCard() {
     const LogOut = () => {
         dispatch(logout(navigate))
     }
+
+    // Change Password Modal
+    const [show, setShow] = React.useState(false);
+    const onClose = () => setShow(false);
+    const onShow = () => setShow(true);
     return (
-        <div className='button-card-body'>
-            <Container className='button-card d-block'>
-                <div className='button-card-body'>
-                    <Card className='p-2'>
-                        <Card.Body className='d-block justify-content-left p-0' >
-                            <Button className='card-button card-white-button change-password-button w-100 my-1'>Change Password</Button>
-                        </Card.Body>
-                        <Card.Footer className='d-block justify-content-left p-0' >
-                            <Button className='card-button card-white-button setiings-button w-100 my-1'>Setiings</Button>
-                            <Button className='card-button card-white-button logout-button w-100 my-1' onClick={() => LogOut()}>Logout</Button>
-                        </Card.Footer>
-                    </Card>
-                </div>
-            </Container>
-        </div>
+        <>
+            <ChangePasswordModal show={show} onClose={onClose} />
+            <div className='button-card-body'>
+                <Container className='button-card d-block'>
+                    <div className='button-card-body'>
+                        <Card className='p-2'>
+                            <Card.Body className='d-block justify-content-left p-0' >
+                                <Button className='card-button card-white-button change-password-button w-100 my-1'>Change Password</Button>
+                            </Card.Body>
+                            <Card.Footer className='d-block justify-content-left p-0' >
+                                <Button className='card-button card-white-button setiings-button w-100 my-1'>Setiings</Button>
+                                <Button className='card-button card-white-button logout-button w-100 my-1' onClick={() => LogOut()}>Logout</Button>
+                            </Card.Footer>
+                        </Card>
+                    </div>
+                </Container>
+            </div>
+        </>
+        
     );
 }
 

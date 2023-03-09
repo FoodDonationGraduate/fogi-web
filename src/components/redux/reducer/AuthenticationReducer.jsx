@@ -341,3 +341,26 @@ export const updateAvatar = (data, user, navigate) => {
         }
     }
 }
+
+export const changePassword = (data, user, navigate) => {
+    return async dispatch => {
+        try {
+            console.log("change password")
+            axiosInstance.post(`/forgot`, {
+                email: user.userInfo.email,
+                token: user.userToken,
+                password: data.password,
+                new_password: data.new_password
+            }).then((res) => {
+                handleExpiredToken(res, dispatch, navigate)
+                dispatch(logout(navigate))
+            }).catch((err) => {
+                console.log(err)
+                navigate('/')
+            });
+        } catch (err) {
+            console.log(err)
+            navigate('/')
+        }
+    }
+}

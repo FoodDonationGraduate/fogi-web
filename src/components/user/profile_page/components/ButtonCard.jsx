@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux'
 
 import 'assets/css/user/profile_page/ButtonCard.css'
+
 import ChangePasswordModal from './ChangePasswordModal';
 import { logout } from 'components/redux/reducer/AuthenticationReducer';
 
