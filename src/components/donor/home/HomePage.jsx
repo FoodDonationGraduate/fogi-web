@@ -1,9 +1,11 @@
 // Essentials
 import * as React from 'react';
 import { useState } from 'react';
+import { Container, Col, Row } from 'react-bootstrap';
 
 // Components
 import SideMenu from './components/SideMenu';
+import UserProfile from '../profile_page/components/UserProfile';
 
 // Styles
 import './HomePage.css';
@@ -14,10 +16,21 @@ const HomePage = () => {
   return (
     <>
       <div className='bg'>
-        <SideMenu
-          activeIdx={activeIdx}
-          setActiveIdx={setActiveIdx}
-        />
+        <Row>
+          <SideMenu
+            activeIdx={activeIdx}
+            setActiveIdx={setActiveIdx}
+          />
+          <Col>
+            <Container className='workspace'>
+              <Row>
+                <Col>
+                  {activeIdx === 4 && <UserProfile />}
+                </Col>
+              </Row>
+            </Container>
+          </Col>
+        </Row>
       </div>
     </>
   );
