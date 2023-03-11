@@ -22,6 +22,7 @@ import DonorLogin from "./components/donor/authentication/LoginPage.jsx";
 import DonorSignup from "./components/donor/authentication/SignupPage.jsx";
 import DonorAccountInfo from "./components/donor/authentication/AccountInfoPage.jsx";
 import DonorForgotPassword from "./components/donor/authentication/ForgotPasswordPage.jsx";
+import DonorHome from "./components/donor/home/HomePage.jsx";
 
 import VolunteerLogin from "./components/volunteer/authentication/LoginPage.jsx";
 import VolunteerSignup from "./components/volunteer/authentication/SignupPage.jsx";
@@ -65,7 +66,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/profile" element={
             <Monitor allowedPages={[<ProfileUserPage/>, <ProfileDonorPage/>, <ProfileVolunteerPage/>]}/> } 
           />
-          
+          <Route path="/home" element={
+            <Monitor allowedPages={[<ProfileUserPage/>, <DonorHome />, <ProfileVolunteerPage/>]}/> } 
+          />
         </Route>
         <Route path="/donor" element={
             <Auth allowedRoles={["donor"]} />}
