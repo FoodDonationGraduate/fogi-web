@@ -17,9 +17,9 @@ const DonorItem = () => {
           <img className='donor-logo-sm' src={DonorLogo} />
         </Col>
         <Col className='pt-4'>
-          <header className='fw-bold ms-3'>
+          <h5 className='fw-bold ps-2'>
             AP Store
-          </header>
+          </h5>
         </Col>
       </Row>
     </div>

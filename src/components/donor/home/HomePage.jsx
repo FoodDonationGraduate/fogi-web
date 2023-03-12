@@ -3,15 +3,16 @@ import * as React from 'react';
 import { useState } from 'react';
 import { Container, Col, Row } from 'react-bootstrap';
 
-// Components
+// Components & Pages
 import SideMenu from './components/SideMenu';
-import UserProfile from '../profile_page/components/UserProfile';
+
+import ProductListPage from './pages/products/ProductListPage';
 
 // Styles
 import './HomePage.css';
 
 const HomePage = () => {
-  const [activeIdx, setActiveIdx] = useState(0);
+  const [activeIdx, setActiveIdx] = useState(1);
 
   return (
     <>
@@ -25,7 +26,7 @@ const HomePage = () => {
             <Container className='workspace py-4'>
               <Row>
                 <Col>
-                
+                  {activeIdx === 1 && <ProductListPage />}
                 </Col>
               </Row>
             </Container>
