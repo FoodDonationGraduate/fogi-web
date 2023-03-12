@@ -22,10 +22,10 @@ const HomePage = () => {
             setActiveIdx={setActiveIdx}
           />
           <Col>
-            <Container className='workspace'>
+            <Container className='workspace py-4'>
               <Row>
                 <Col>
-                  {activeIdx === 4 && <UserProfile />}
+                
                 </Col>
               </Row>
             </Container>

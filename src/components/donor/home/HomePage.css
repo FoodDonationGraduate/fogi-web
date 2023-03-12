@@ -14,9 +14,14 @@
   color: #ccc;
   border-radius: 8px;
   cursor: pointer;
+  user-select: none;
 }
   .side-menu-item:hover {
     background-color: #F2F2F2;
+    color: #999;
+  }
+  .side-menu-item:active {
+    background-color: #ccc;
     color: #999;
   }
   .side-menu-item-active {
@@ -53,6 +58,18 @@
   background-color: #82CD47;
 }
 
+.side-menu-donor-item {
+  border-radius: 8px;
+  user-select: none;
+  cursor: pointer;
+}
+  .side-menu-donor-item:hover {
+    background-color: #F2F2F2;
+  }
+  .side-menu-donor-item:active {
+    background-color: #ccc;
+  }
+
 .workspace {
   height: 100vh;
   overflow-y: scroll;
@@ -63,7 +80,6 @@
   ::-webkit-scrollbar-track {
     background: #ccc;
     border-radius: 3px;
-    margin: 8px 0px;
   }
   ::-webkit-scrollbar-thumb {
     background: black;
