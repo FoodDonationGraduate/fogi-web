@@ -16,3 +16,11 @@
   border-radius: 50%;
   margin-top: 20px;
 }
+
+.product-card:hover {
+  box-shadow: 0 0 11px rgba(33,33,33,.2); 
+}
+.product-card-img {
+  width: 100%;
+  aspect-ratio : 1 / 1;
+}

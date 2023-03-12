@@ -7,6 +7,8 @@ import { Provider } from "react-redux";
 import store from "./components/redux/store.jsx";
 import HomePage from "./components/guest/home/HomePage.jsx";
 import ProductListPage from './components/guest/product/ProductListPage.jsx';
+import NewProductListPage from './components/guest/product/NewProductListPage.jsx';
+import AmootProductListPage from './components/guest/product/AmootProductListPage.jsx';
 import ProductDetailsPage from './components/guest/product/ProductDetailsPage.jsx';
 
 import UserLogin from "./components/guest/authentication/LoginPage.jsx";
@@ -37,8 +39,12 @@ ReactDOM.createRoot(document.getElementById('root')).render(
      <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage/>} />
-        <Route path="/productlist" element={<ProductListPage />} />
-        <Route path="/productdetails" element={<ProductDetailsPage />} />
+        <Route path="/products" element={<ProductListPage />} /> 
+        <Route path="/new-products" element={<NewProductListPage />} />  
+        <Route path="/almost-out-of-stock-products" element={<AmootProductListPage />} />  
+        <Route path="/category" element={<ProductDetailsPage />} />
+        <Route path="/product/:id" element={<ProductDetailsPage />} />
+        <Route path="/store/:id" element={<ProductDetailsPage />} />
 
         <Route path="/login" element={<UserLogin/>} />
         <Route path="/accounttype" element={<AccountType/>} />
@@ -65,7 +71,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/profile" element={
             <Monitor allowedPages={[<ProfileUserPage/>, <ProfileDonorPage/>, <ProfileVolunteerPage/>]}/> } 
           />
-          
         </Route>
         <Route path="/donor" element={
             <Auth allowedRoles={["donor"]} />}

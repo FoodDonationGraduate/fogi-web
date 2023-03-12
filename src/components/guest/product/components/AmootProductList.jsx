@@ -4,46 +4,45 @@ import { useState } from 'react';
 import { Container, Col, Pagination, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router';
-import { EqualHeight } from 'react-equal-height';
 
 // Components
 import ProductCard from 'components/guest/common/cards/ProductCard01';
 import FogiPagination from 'components/common/pagination/Pagination';
-import { searchProduct } from 'components/redux/reducer/ProductReducer';
+import { retrieveAmootProducts } from 'components/redux/reducer/ProductReducer';
+
+// Data
+import { PRODUCT_DATA } from 'utils/constants/ProductLarge.jsx'
 
 const ProductList = () => {
-  const searchingProducts = useSelector(state => state.productReducer.searchingProducts)
-  const searchingQuery = useSelector(state => state.productReducer.searchingQuery)
+  const amootProducts = useSelector(state => state.productReducer.amootProducts)
   const sort = useSelector(state => state.productReducer.sort)
   const PRODUCT_COUNT = 12; // per page
   const [page, setPage] = useState(0); // a.k.a activeIdx
   const onChangePage = async (idx) => {
     setPage(idx);
-    await dispatch(searchProduct({name: searchingQuery, limit: PRODUCT_COUNT, offset: idx * PRODUCT_COUNT, sort_field: sort}, navigate))
+    await dispatch(retrieveAmootProducts({limit: PRODUCT_COUNT, offset: idx * PRODUCT_COUNT, sort_field: sort}, navigate))
   };
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   React.useEffect(()=>{
-    dispatch(searchProduct({name: searchingQuery, limit: PRODUCT_COUNT, offset: page * PRODUCT_COUNT, sort_field: sort}, navigate))
+    dispatch(retrieveAmootProducts({limit: PRODUCT_COUNT, offset: page * PRODUCT_COUNT, sort_field: sort}, navigate))
   }, [sort])
   return (
     <div className='bg'>
       <Container>
         <Row className='pt-4' xs={2} md={3} lg={6} >
-        <EqualHeight>
-          {Object.keys(searchingProducts).length !== 0 && searchingProducts.products.map((product) => (
+          {Object.keys(amootProducts).length !== 0 && amootProducts.products.map((product) => (
             <Col className='pb-4' key={product.id}>
               <ProductCard product={product}/>
             </Col>
           ))}
-        </EqualHeight>
         </Row>
         <Row className='pb-4'>
           <Col className='d-flex justify-content-center'>
             <FogiPagination
-              pageCount={Math.ceil(100   / PRODUCT_COUNT)}
+              pageCount={Math.ceil(100 / PRODUCT_COUNT)}
               activeIdx={page}
               onChangePage={onChangePage}
             />
