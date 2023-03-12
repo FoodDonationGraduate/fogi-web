@@ -3,7 +3,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import { Container, Col, Pagination, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import { EqualHeight } from 'react-equal-height';
 
 // Components
@@ -13,21 +13,25 @@ import { searchProduct } from 'components/redux/reducer/ProductReducer';
 
 const ProductList = () => {
   const searchingProducts = useSelector(state => state.productReducer.searchingProducts)
-  const searchingQuery = useSelector(state => state.productReducer.searchingQuery)
   const sort = useSelector(state => state.productReducer.sort)
+
   const PRODUCT_COUNT = 12; // per page
   const [page, setPage] = useState(0); // a.k.a activeIdx
   const onChangePage = async (idx) => {
     setPage(idx);
-    await dispatch(searchProduct({name: searchingQuery, limit: PRODUCT_COUNT, offset: idx * PRODUCT_COUNT, sort_field: sort}, navigate))
+    await dispatch(searchProduct({name: name ? name : '', limit: PRODUCT_COUNT, offset: idx * PRODUCT_COUNT, sort_field: sort}, navigate))
   };
+
+  const search = useLocation().search;
+  const name = new URLSearchParams(search).get('query');
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  React.useEffect(()=>{
-    dispatch(searchProduct({name: searchingQuery, limit: PRODUCT_COUNT, offset: page * PRODUCT_COUNT, sort_field: sort}, navigate))
+  React.useEffect(() => {
+    dispatch(searchProduct({name: name ? name : '', limit: PRODUCT_COUNT, offset: page * PRODUCT_COUNT, sort_field: sort}, navigate))
   }, [sort])
+
   return (
     <div className='bg'>
       <Container>
@@ -38,12 +42,14 @@ const ProductList = () => {
               <ProductCard product={product}/>
             </Col>
           ))}
+          {searchingProducts.number_of_products === 0 && <div>We cannot find anything</div>
+          }
         </EqualHeight>
         </Row>
         <Row className='pb-4'>
           <Col className='d-flex justify-content-center'>
             <FogiPagination
-              pageCount={Math.ceil(100   / PRODUCT_COUNT)}
+              pageCount={Math.ceil(searchingProducts.total_products / PRODUCT_COUNT)}
               activeIdx={page}
               onChangePage={onChangePage}
             />

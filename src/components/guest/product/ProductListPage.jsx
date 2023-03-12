@@ -19,7 +19,7 @@ const ProductListPage = () => {
         <LocationBar />
       </div>
       <div className='bg'>
-        <ListTitle />
+        <ListTitle title='Result Product List'/>
         <ProductList />
       </div>
       <div>

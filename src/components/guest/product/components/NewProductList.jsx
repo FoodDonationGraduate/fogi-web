@@ -11,9 +11,6 @@ import ProductCard from 'components/guest/common/cards/ProductCard01';
 import FogiPagination from 'components/common/pagination/Pagination';
 import { retrieveNewProducts } from 'components/redux/reducer/ProductReducer';
 
-// Data
-import { PRODUCT_DATA } from 'utils/constants/ProductLarge.jsx'
-
 const ProductList = () => {
   const newProducts = useSelector(state => state.productReducer.newProducts)
   const sort = useSelector(state => state.productReducer.sort)
@@ -26,7 +23,6 @@ const ProductList = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   React.useEffect(()=>{
     dispatch(retrieveNewProducts({limit: PRODUCT_COUNT, offset: page * PRODUCT_COUNT, sort_field: sort}, navigate))
   }, [sort])
@@ -45,7 +41,7 @@ const ProductList = () => {
         <Row className='pb-4'>
           <Col className='d-flex justify-content-center'>
             <FogiPagination
-              pageCount={Math.ceil(100   / PRODUCT_COUNT)}
+              pageCount={Math.ceil(newProducts.total_products / PRODUCT_COUNT)}
               activeIdx={page}
               onChangePage={onChangePage}
             />

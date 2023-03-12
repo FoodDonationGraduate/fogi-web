@@ -6,7 +6,6 @@ const initialState = {
     newProducts: {},
     amootProducts: {},
     searchingProducts: {},
-    searchingQuery: '',
     sort: ''
 }
 const productReducer = createSlice({
@@ -33,7 +32,7 @@ const productReducer = createSlice({
 
 export const { 
     setNewProducts, setAmootProducts, setSearchingProducts, 
-    setSearchinQuery, setTypeOfSort
+    setTypeOfSort
 } = productReducer.actions
 
 export default productReducer.reducer
@@ -92,7 +91,8 @@ export const searchProduct = (data, navigate) => {
             await axiosInstance.post(`/search/product`, {
                 name: data.name,
                 limit: data.limit,
-                offset: data.offset
+                offset: data.offset,
+                sort_field: data.sort_field
             }).then((res) => {
                 dispatch(setSearchingProducts(res.data))
             })

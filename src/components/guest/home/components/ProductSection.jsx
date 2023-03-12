@@ -1,7 +1,7 @@
 // Essentials
 import * as React from 'react';
 import { Button, Container, Col, Row } from 'react-bootstrap';
-
+import { useNavigate } from 'react-router';
 // Components
 import ProductCard from 'components/guest/common/cards/ProductCard';
 
@@ -12,6 +12,7 @@ import 'assets/css/Fogi.css';
 import { PRODUCT_DATA } from 'utils/constants/Product.jsx'
 
 const ProductSection = () => {
+  const navigate = useNavigate();
   return (
     <div className='bg'>
       <Container>
@@ -29,7 +30,7 @@ const ProductSection = () => {
         </Row>
         <Row>
           <Col className='d-flex justify-content-center'>
-            <Button variant='light'>View more</Button>
+            <Button variant='light' onClick={() => navigate('/almost-out-of-stock-products')}>View more</Button>
           </Col>
         </Row>
       </Container>

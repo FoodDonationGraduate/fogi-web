@@ -27,11 +27,6 @@ const CategorySection = () => {
             </Col>
           ))}
         </Row>
-        <Row>
-          <Col className='d-flex justify-content-center'>
-            <Button variant='light'>View more</Button>
-          </Col>
-        </Row>
       </Container>
     </div>
   );

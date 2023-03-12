@@ -53,20 +53,22 @@ const ProductCard = ({product}) => {
           </div>
         </EqualHeightElement>
         <hr />
-        <div>
-          <Row>
-            <Col className='ps-0' md={3} lg={4} xl={3}>
-              <img className='donor-logo-s' 
-                src={`https://bachkhoi.online/static/${product.donor.avatar_filename}`}
-                onClick={() => navigate(`/store/${product.id}`)} />
-            </Col>
-            <Col md={9} lg={8} xl={9}>
-              <header style={{ fontWeight: 'bold' }}>
-                {product.donor.name}
-              </header>
-            </Col>
-          </Row>
-        </div>
+        <EqualHeightElement name="product-store">
+          <div>
+            <Row>
+              <Col className='ps-0' md={3} lg={4} xl={3}>
+                <img className='donor-logo-s' 
+                  src={`https://bachkhoi.online/static/${product.donor.avatar_filename}`}
+                  onClick={() => navigate(`/store/${product.id}`)} />
+              </Col>
+              <Col md={9} lg={8} xl={9}>
+                <header style={{ fontWeight: 'bold' }}>
+                  {product.donor.name}
+                </header>
+              </Col>
+            </Row>
+          </div>
+        </EqualHeightElement>
         <div className='d-grid'>
           <Button className='fogi mt-2' variant='primary'>
             Add to Cart
