@@ -88,3 +88,22 @@
   ::-webkit-scrollbar-thumb:hover {
     background: #333; 
   }
+
+.upload-tag {
+  padding: 4px 8px;
+  margin: 4px 0px;
+  background-color: #f2f2f2;
+  color: #999;
+  border: 1px solid #999;
+  border-radius: 4px;
+}
+  .upload-tag-close {
+    margin-right: 0;
+    margin-left: auto;
+  }
+  .upload-tag-close:hover {
+    color: #666;
+  }
+  .upload-tag-close:active {
+    color: black;
+  }
