@@ -10,7 +10,7 @@ const CategoryCard = ({category}) => {
     <Card>
       <Card.Img className='category-logo mx-auto' src={category.img} />
       <Card.Body className='text-center'>
-        <Card.Title className='mt-4'>{category.title}</Card.Title>
+        <Card.Title >{category.name}</Card.Title>
       </Card.Body>
     </Card>
   );

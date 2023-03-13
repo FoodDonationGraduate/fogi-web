@@ -1,17 +1,16 @@
-.category-section-body {
-    padding-top: 15px;
+.carousel-control-next {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(calc(35% - 0px));
 }
-.category-image {
-    width: 65%;
-    aspect-ratio : 1 / 1;
-    border-radius: 50%;
-    margin: 20px 10px 15px;
+.carousel-control-prev {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(calc(-35% + 0px));
+}
+.carousel-control-next-icon {
+    transition: width .1s cubic-bezier(.4,0,.6,1);
+    color: rgba(0,0,0,.54);
+    fill: rgba(0,0,0,.54);
 }
 
-.category-title {
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 23px;
-}
