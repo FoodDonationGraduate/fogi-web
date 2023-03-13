@@ -107,3 +107,32 @@
   .upload-tag-close:active {
     color: black;
   }
+
+.donor-product-item {
+  padding: 16px;
+  user-select: none;
+  border-color: #ffffff00;
+}
+  .donor-product-image {
+    border-radius: 8px;
+  }
+  .donor-product-label {
+    color: #999;
+    font-weight: bold;
+  }
+  .donor-product-tail {
+    border-color: #ffffff00;
+    background-color: #FF5A5F;
+    height: 100%;
+  }
+    .donor-product-tail:hover {
+      background-color: #FF9EA1;
+    }
+    .donor-product-tail:active {
+      background-color: #F50007;
+    }
+  .donor-product-icon {
+    width: 48px;
+    height: 48px;
+    color: white;
+  }

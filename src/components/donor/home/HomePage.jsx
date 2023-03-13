@@ -9,7 +9,7 @@ import SideMenu from './components/SideMenu';
 import ProductListPage from './pages/products/ProductListPage';
 
 // Styles
-import './HomePage.css';
+import 'assets/css/donor/HomePage.css';
 
 const HomePage = () => {
   const [activeIdx, setActiveIdx] = useState(1);

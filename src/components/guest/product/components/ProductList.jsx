@@ -1,11 +1,11 @@
 // Essentials
 import * as React from 'react';
 import { useState } from 'react';
-import { Container, Col, Pagination, Row } from 'react-bootstrap';
+import { Container, Col, Row } from 'react-bootstrap';
 
 // Components
 import ProductCard from 'components/guest/common/cards/ProductCard';
-import FogiPagination from 'components/common/pagination/Pagination';
+import Pagination from 'components/common/pagination/Pagination';
 
 // Data
 import { PRODUCT_DATA } from 'utils/constants/ProductLarge.jsx'
@@ -44,7 +44,7 @@ const ProductList = () => {
         </Row> */}
         <Row className='pb-4'>
           <Col className='d-flex justify-content-center'>
-            <FogiPagination
+            <Pagination
               pageCount={Math.ceil(PRODUCT_DATA.length / PRODUCT_COUNT)}
               activeIdx={page}
               onChangePage={onChangePage}

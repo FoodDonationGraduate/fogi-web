@@ -5,6 +5,7 @@ import { useState } from 'react';
 // Components
 import ListTitle from './components/ListTitle';
 import PostProductModal from './components/PostProductModal';
+import ProductList from './components/ProductList';
 
 const ProductListPage = () => {
   // Post Product Modal
@@ -18,6 +19,7 @@ const ProductListPage = () => {
 
       <div>
         <ListTitle onShow={onShow} />
+        <ProductList />
       </div>
     </>
   );

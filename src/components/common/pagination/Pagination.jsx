@@ -19,6 +19,7 @@ const Pagination = ({
       <Stack direction='horizontal' gap={2}>
         {Array.from({ length: pageCount }).map((_, idx) => (
           <Pill
+            key={idx}
             idx={idx}
             isActive={idx === activeIdx}
             onChangePage={onChangePage}

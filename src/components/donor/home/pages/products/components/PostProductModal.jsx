@@ -13,7 +13,7 @@ import * as Yup from 'yup';
 
 // Components
 import UploadButton from 'components/common/UploadButton';
-import FogiTooltip from 'components/common/FogiTooltip';
+import Tooltip from 'components/common/Tooltip';
 
 // Assets imports
 import { FaExclamationTriangle } from 'react-icons/fa';
@@ -115,7 +115,7 @@ const PostProductModal = ({
             <Form.Group className='mb-3'>
               <Form.Label style={{ fontWeight: 'bold' }}>
                 Price{' '}
-                <FogiTooltip tip={"'000' will be added at the end automatically"} />
+                <Tooltip tip={"'000' will be added at the end automatically"} />
               </Form.Label>
               <InputGroup>
                 <Form.Control
@@ -189,7 +189,7 @@ const PostProductModal = ({
             <Form.Group className='mb-3'>
               <Form.Label style={{ fontWeight: 'bold' }}>
                 Product Images{' '}
-                <FogiTooltip tip={"At least 1 image is required"} />
+                <Tooltip tip={"At least 1 image is required"} />
               </Form.Label>
               <UploadButton
                 label='Upload'
