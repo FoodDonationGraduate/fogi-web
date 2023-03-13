@@ -23,7 +23,7 @@ const ProductList = () => {
         <div className='mb-4'>
           {PRODUCT_DATA.slice(page * PRODUCT_COUNT, (page + 1) * PRODUCT_COUNT).map((product) => (
             <div className='mb-2'>
-              <ProductItem />
+              <ProductItem product={product} />
             </div>
           ))}
         </div>

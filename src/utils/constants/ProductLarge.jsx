@@ -45,7 +45,7 @@ export const PRODUCT_DATA = [
     },
     {
         img: ProductImage,
-        title: "Salad",
+        title: "Dalas",
         price: 10000,
         donorName: 'AP Store',
         donorLogo: DonorLogo

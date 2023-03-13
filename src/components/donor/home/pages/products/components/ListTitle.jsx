@@ -13,7 +13,7 @@ const ListTitle = ({
       <Col className='ps-0'>
         <h2 className='fw-bold'>Your Products</h2>
       </Col>
-      <Col className='pe-0 d-flex justify-content-end' md={2} lg={2}>
+      <Col className='pe-0 d-flex justify-content-end' sm={4} md={3} lg={3}>
         <Button
           className='fogi' variant='primary'
           onClick={onShow}

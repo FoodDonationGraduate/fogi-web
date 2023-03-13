@@ -1,6 +1,6 @@
 // Essentials
 import * as React from 'react';
-import { Col, Row } from 'react-bootstrap';
+import { Stack } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 
 // Asset
@@ -11,18 +11,21 @@ const DonorItem = () => {
   const toProfilePage = () => { navigate('/profile') }
   
   return (
-    <div className='side-menu-donor-item' onClick={toProfilePage}>
-      <Row>
-        <Col className='py-2' md={3} lg={3}>
+    <>
+      {window.innerWidth >= 992 && (
+        <div className='side-menu-donor-item' onClick={toProfilePage}>
+          <Stack direction='horizontal' gap={4}>
+            <img className='donor-logo-sm' src={DonorLogo} />
+            <h5 className='fw-bold'>AP Store</h5>
+          </Stack>
+        </div>
+      )}
+      {window.innerWidth >= 768 && window.innerWidth < 992 && (
+        <Stack className='side-menu-donor-item align-items-center' direction='vertical' onClick={toProfilePage}>
           <img className='donor-logo-sm' src={DonorLogo} />
-        </Col>
-        <Col className='pt-4'>
-          <h5 className='fw-bold ps-2'>
-            AP Store
-          </h5>
-        </Col>
-      </Row>
-    </div>
+        </Stack>
+      )}
+    </>
   );
 };
 

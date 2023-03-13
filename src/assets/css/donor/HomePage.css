@@ -30,6 +30,12 @@
     border-radius: 8px;
     cursor: default;
   }
+  .side-menu-item-active-md {
+    padding: 8px 12px;
+    background-color: #82CD47;
+    border-radius: 8px;
+    cursor: default;
+  }
 
 .side-menu-icon {
   width: 32px;
@@ -39,6 +45,11 @@
     width: 32px;
     height: 32px;
     color: #82CD47;
+  }
+  .side-menu-icon-active-md {
+    width: 32px;
+    height: 32px;
+    color: white;
   }
 
 .side-menu-label {

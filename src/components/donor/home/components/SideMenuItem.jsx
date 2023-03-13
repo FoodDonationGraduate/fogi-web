@@ -34,24 +34,47 @@ const SideMenuItem = ({
   }, []);
 
   useEffect(() => {
+    if (isActive) {
+      if (window.innerWidth >= 992) setActive('-active');
+      else setActive('-active-md');
+    }
+  }, [window.innerWidth]);
+
+  useEffect(() => {
     if (isActive) setActive('-active');
     else setActive('');
   }, [isActive]);
 
   return (
-    <div className='mb-2' onClick={handleOnClick}>
-      <Stack className={`side-menu-item${active}`} direction='horizontal' gap={4}>
-        <Stack direction='horizontal' gap={4}>
-          {type === 0 && <MdOutlineAnalytics className={`side-menu-icon${active}`} />}
-          {type === 1 && <MdOutlineFastfood className={`side-menu-icon${active}`} />}
-          {type === 2 && <MdOutlineAssignment className={`side-menu-icon${active}`} />}
-          {type === 3 && <MdOutlineNotifications className={`side-menu-icon${active}`} />}
+    <>
+      {window.innerWidth >= 992 && (
+        <div className='mb-2' onClick={handleOnClick}>
+          <Stack className={`side-menu-item${active}`} direction='horizontal' gap={4}>
+            <Stack direction='horizontal' gap={4}>
+              {type === 0 && <MdOutlineAnalytics className={`side-menu-icon${active}`} />}
+              {type === 1 && <MdOutlineFastfood className={`side-menu-icon${active}`} />}
+              {type === 2 && <MdOutlineAssignment className={`side-menu-icon${active}`} />}
+              {type === 3 && <MdOutlineNotifications className={`side-menu-icon${active}`} />}
 
-          <header className={`side-menu-label${active}`}>{label}</header>
-        </Stack>
-        {isActive && <div className='side-menu-tail' />}
-      </Stack>
-    </div>
+              <header className={`side-menu-label${active}`}>{label}</header>
+            </Stack>
+            {isActive && (
+              <div className='side-menu-tail' />
+            )}
+          </Stack>
+        </div>
+      )}
+      {window.innerWidth >= 768 && window.innerWidth < 992 && (
+        <div className='mb-2' onClick={handleOnClick}>
+          <Stack className={`side-menu-item${active} align-items-center`} direction='vertical' gap={4}>
+            {type === 0 && <MdOutlineAnalytics className={`side-menu-icon${active}`} />}
+            {type === 1 && <MdOutlineFastfood className={`side-menu-icon${active}`} />}
+            {type === 2 && <MdOutlineAssignment className={`side-menu-icon${active}`} />}
+            {type === 3 && <MdOutlineNotifications className={`side-menu-icon${active}`} />}
+          </Stack>
+        </div>
+      )}
+    </>
   );
 };
 

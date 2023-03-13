@@ -1,6 +1,7 @@
 // Essentials
 import * as React from 'react';
-import { Col, Row, Stack } from 'react-bootstrap';
+import { useState, useEffect } from 'react';
+import { Col, Stack } from 'react-bootstrap';
 
 // Components
 import SideMenuItem from './SideMenuItem';
@@ -11,9 +12,22 @@ const SideMenu = ({
   setActiveIdx
 }) => {
 
+  const [_, setSize] = useState(2);
+  const handleResize = () => {
+    if (window.innerWidth < 992) {
+      setSize(1);
+    } else {
+      setSize(2);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+  });
+
   return (
     <>
-      <Col className='side-menu' lg={3}>
+      <Col className='side-menu' md={2} lg={3}>
         <DonorItem className='mb-4' />
         
         <Stack className='mt-4' direction='vertical'>
