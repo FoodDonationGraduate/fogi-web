@@ -1,5 +1,6 @@
 // Essentials
 import * as React from 'react';
+import { Container } from 'react-bootstrap';
 
 // Components
 import TopBar from 'components/layout/TopBar';
@@ -22,10 +23,12 @@ const ProductListPage = () => {
         <LocationBar />
       </div>
       <div className='bg py-4'>
-        <AdBanner />
-        <CategorySection />
-        <ProductSection />
-        <DonorSection />
+        <Container>
+          <AdBanner />
+          <CategorySection />
+          <ProductSection />
+          <DonorSection />
+        </Container>
       </div>
       <div>
         <Footer />

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 export function useResizer() {
-  const [size, setSize] = useState(3);
+  const [size, setSize] = useState(4);
 
   const handleResize = () => {
     if (window.innerWidth < 576) {
@@ -10,8 +10,10 @@ export function useResizer() {
       setSize(1);
     } else if (window.innerWidth < 992) {
       setSize(2);
-    } else {
+    } else if (window.innerWidth < 1200) {
       setSize(3);
+    } else {
+      setSize(4);
     }
   };
 

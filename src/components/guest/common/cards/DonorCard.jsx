@@ -1,6 +1,6 @@
 // Essentials
 import * as React from 'react';
-import { Button, Card, Stack } from 'react-bootstrap';
+import { Card, Col, Row, Stack } from 'react-bootstrap';
 
 // Sources
 import { MdOutlineLocationOn, MdLinearScale, MdOutlineAccessTime } from 'react-icons/md';
@@ -17,20 +17,36 @@ const DonorCard = ({donor}) => {
           <img className='donor-logo-m' src={donor.logo} />
           <Stack direction='vertical' gap={1}>
             <h4>{donor.name}</h4>
-            <Stack direction='vertical'>
-              <small style={{ color: 'gray' }}>
+            <Row>
+              <Col className='ps-0' xs={2}>
                 <MdOutlineLocationOn className='me-2 mb-1' />
-                227 Nguyen Van Cu, Ward 4, District 5
-              </small>
-              <small style={{ color: 'gray' }}>
+              </Col>
+              <Col className='ps-0'>
+                <small style={{ color: 'gray' }}>
+                  227 Nguyen Van Cu, Ward 4, District 5
+                </small>
+              </Col>
+            </Row>
+            <Row>
+              <Col className='ps-0' xs={2}>
                 <MdLinearScale className='me-2 mb-1' />
-                1.2 km away
-              </small>
-              <small style={{ color: 'gray' }}>
+              </Col>
+              <Col className='ps-0'>
+                <small style={{ color: 'gray' }}>
+                  1.2 km away
+                </small>
+              </Col>
+            </Row>
+            <Row>
+              <Col className='ps-0' xs={2}>
                 <MdOutlineAccessTime className='me-2 mb-1' />
-                09h00 - 21h00
-              </small>
-            </Stack>
+              </Col>
+              <Col className='ps-0'>
+                <small style={{ color: 'gray' }}>
+                  09h00 - 21h00
+                </small>
+              </Col>
+            </Row>
           </Stack>
         </Stack>
         <p className='mt-2 mb-0'>

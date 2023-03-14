@@ -1,10 +1,10 @@
-import { Carousel, Container } from 'react-bootstrap';
+import { Carousel, Row } from 'react-bootstrap';
 import Banner from 'assets/images/AdBanner.svg';
 
 const AdBanner = () => {
   return (
     <div className='ad-banner-body'>
-      <Container className='ad-banner mx-6 d-flex'>
+      <Row>
         <Carousel>
             <Carousel.Item interval={4000}>
                 <img
@@ -28,7 +28,7 @@ const AdBanner = () => {
                 />
             </Carousel.Item>
         </Carousel>
-      </Container>
+      </Row>
     </div>
   );
 };
