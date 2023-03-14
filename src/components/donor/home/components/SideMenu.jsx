@@ -1,29 +1,20 @@
 // Essentials
 import * as React from 'react';
-import { useState, useEffect } from 'react';
 import { Col, Stack } from 'react-bootstrap';
 
 // Components
 import SideMenuItem from './SideMenuItem';
 import DonorItem from './DonorItem';
 
+// Utility
+import { useResizer } from 'utils/helpers/Resizer.jsx';
+
 const SideMenu = ({
   activeIdx,
   setActiveIdx
 }) => {
 
-  const [_, setSize] = useState(2);
-  const handleResize = () => {
-    if (window.innerWidth < 992) {
-      setSize(1);
-    } else {
-      setSize(2);
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener('resize', handleResize);
-  });
+  let size = useResizer();
 
   return (
     <>

@@ -11,6 +11,9 @@ import {
   MdOutlineNotifications, // 3
 } from 'react-icons/md';
 
+// Utility
+import { useResizer } from 'utils/helpers/Resizer.jsx';
+
 const SideMenuItem = ({
   type,
   isActive,
@@ -18,10 +21,11 @@ const SideMenuItem = ({
 }) => {
   const [label, setLabel] = useState('');
   const [active, setActive] = useState('');
+  let size = useResizer();
 
   // Handle all the onClick events
   const handleOnClick = () => {
-    if (type !== 6) setActiveIdx(type);
+    setActiveIdx(type);
   };
 
   useEffect(() => {
@@ -35,10 +39,10 @@ const SideMenuItem = ({
 
   useEffect(() => {
     if (isActive) {
-      if (window.innerWidth >= 992) setActive('-active');
-      else setActive('-active-md');
+      if (size === 2) setActive('-active-md');
+      else setActive('-active');
     }
-  }, [window.innerWidth]);
+  });
 
   useEffect(() => {
     if (isActive) setActive('-active');
@@ -47,7 +51,7 @@ const SideMenuItem = ({
 
   return (
     <>
-      {window.innerWidth >= 992 && (
+      {size !== 2 && (
         <div className='mb-2' onClick={handleOnClick}>
           <Stack className={`side-menu-item${active}`} direction='horizontal' gap={4}>
             <Stack direction='horizontal' gap={4}>
@@ -64,7 +68,7 @@ const SideMenuItem = ({
           </Stack>
         </div>
       )}
-      {window.innerWidth >= 768 && window.innerWidth < 992 && (
+      {size === 2 && (
         <div className='mb-2' onClick={handleOnClick}>
           <Stack className={`side-menu-item${active} align-items-center`} direction='vertical' gap={4}>
             {type === 0 && <MdOutlineAnalytics className={`side-menu-icon${active}`} />}
