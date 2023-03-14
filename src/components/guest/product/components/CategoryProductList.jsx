@@ -8,7 +8,7 @@ import { EqualHeight } from 'react-equal-height';
 import { useParams } from 'react-router-dom'
 
 // Components
-import ProductCard from 'components/guest/common/cards/ProductCard01';
+import ProductCard from 'components/guest/common/cards/ProductCard';
 import FogiPagination from 'components/common/pagination/Pagination';
 import { retrieveCategoryProducts } from 'components/redux/reducer/ProductReducer';
 

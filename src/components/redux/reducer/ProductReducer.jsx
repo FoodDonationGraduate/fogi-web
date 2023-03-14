@@ -7,6 +7,7 @@ const initialState = {
     amootProducts: {},
     categoryProducts: {},
     searchingProducts: {},
+    currentProduct: {},
     sort: ''
 }
 const productReducer = createSlice({
@@ -25,6 +26,9 @@ const productReducer = createSlice({
         setCategoryProducts: (state, action) => {
             state.categoryProducts = action.payload
         },
+        setCurrentProduct: (state, action) => {
+            state.currentProduct = action.payload
+        },
         setTypeOfSort: (state, action) => {
             state.sort = action.payload
         }
@@ -32,7 +36,7 @@ const productReducer = createSlice({
 })
 
 export const { 
-    setNewProducts, setAmootProducts, setSearchingProducts, setCategoryProducts,
+    setNewProducts, setAmootProducts, setSearchingProducts, setCategoryProducts, setCurrentProduct,
     setTypeOfSort
 } = productReducer.actions
 
@@ -119,6 +123,26 @@ export const retrieveCategoryProducts = (data, navigate) => {
                 sort_field: data.sort_field
             }}).then((res) => {
                 dispatch(setCategoryProducts(res.data))
+            })
+            .catch((err) => {
+                console.log(err.response.data)
+                navigate('/')
+            });
+        } catch (err) {
+            console.log(err)
+            navigate('/')
+        }
+    }
+}
+
+export const retrieveCurrentProduct = (data, navigate) => {
+    return async dispatch => {
+        try {
+            console.log("retrieve product with id:" + data.id)
+            await axiosInstance.get(`/product`, {params: {
+                id: data.id
+            }}).then((res) => {
+                dispatch(setCurrentProduct(res.data))
             })
             .catch((err) => {
                 console.log(err.response.data)

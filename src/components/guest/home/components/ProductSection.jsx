@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { EqualHeight } from 'react-equal-height';
 
 // Components
-import ProductCard from 'components/guest/common/cards/ProductCard01';
+import ProductCard from 'components/guest/common/cards/ProductCard';
 import { retrieveAmootProducts } from 'components/redux/reducer/ProductReducer';
 
 // Styling

@@ -9,6 +9,7 @@ import { MdAllInbox, MdOutlineShare } from 'react-icons/md';
 
 // Utility
 import { convertNumberToVnd } from 'utils/helpers/Money.jsx';
+import { distanceTime } from 'utils/helpers/Time';
 
 const ProductDetails = ({product}) => {
   const [count, setCount] = useState(0);
@@ -20,23 +21,22 @@ const ProductDetails = ({product}) => {
   return (
     <Card className='h-100'>
       <Card.Body>
-        <Card.Title>{product.title}</Card.Title>
+        <Card.Title>{product.name}</Card.Title>
         <Card.Title style={{ color: '#82CD47' }}>
           {convertNumberToVnd(product.price)}
         </Card.Title>
         <Stack direction='horizontal' gap={4}>
           <header className='me-4' style={{ color: 'gray' }}>
             <FaRegClock className='me-2 mb-1' />
-            2 days left
+            {distanceTime(product.expired_time)}
           </header>
           <header style={{ color: 'gray' }}>
             <MdAllInbox className='me-2 mb-1' />
-            63 in store
+            {product.stock} {product.unit} còn lại
           </header>
         </Stack>
         <p className='mt-2'>
-          This paragraph is used to describe the product.
-          The donor can write anything about this product such as ingredients, flavors,...
+          {product.description}
         </p>
       </Card.Body>
       <Card.Body className='position-absolute w-100' style={{ bottom: '0' }}>
