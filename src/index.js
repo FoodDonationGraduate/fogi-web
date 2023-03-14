@@ -11,6 +11,7 @@ import NewProductListPage from './components/guest/product/NewProductListPage.js
 import AmootProductListPage from './components/guest/product/AmootProductListPage.jsx';
 import ProductDetailsPage from './components/guest/product/ProductDetailsPage.jsx';
 import CategoryProductListPage from './components/guest/product/CategoryProductListPage.jsx';
+import DonorListPage from './components/guest/donor/DonorListPage.jsx';
 
 import UserLogin from "./components/guest/authentication/LoginPage.jsx";
 import UserSignup from "./components/guest/authentication/SignupPage.jsx";
@@ -41,6 +42,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <Routes>
         <Route path="/" element={<HomePage/>} />
         <Route path="/products" element={<ProductListPage />} /> 
+        <Route path="/donors" element={<DonorListPage />} /> 
         <Route path="/new-products" element={<NewProductListPage />} />  
         <Route path="/almost-out-of-stock-products" element={<AmootProductListPage />} />  
         

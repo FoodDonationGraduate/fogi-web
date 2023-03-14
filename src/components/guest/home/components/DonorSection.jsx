@@ -43,7 +43,7 @@ const ProductSection = () => {
         </Row>
         <Row>
           <Col className='d-flex justify-content-center'>
-            <Button variant='light'>View more</Button>
+            <Button variant='light' onClick={() => navigate('/donors')}>View more</Button>
           </Col>
         </Row>
       </Container>
