@@ -1,6 +1,6 @@
 // Essentials
 import * as React from 'react';
-import { Button, Stack } from 'react-bootstrap';
+import { Stack } from 'react-bootstrap';
 
 // Components
 import Pill from './Pill';
@@ -19,6 +19,7 @@ const Pagination = ({
       <Stack direction='horizontal' gap={2}>
         {Array.from({ length: pageCount }).map((_, idx) => (
           <Pill
+            key={idx}
             idx={idx}
             isActive={idx === activeIdx}
             onChangePage={onChangePage}

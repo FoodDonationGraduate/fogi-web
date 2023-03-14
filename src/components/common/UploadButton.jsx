@@ -10,17 +10,24 @@ const reduceString = (str) => {
   return str;
 };
 
-const UploadButton = ({label, type, setValue}) => {
+const UploadButton = ({
+  label,
+  type,
+  setValue,
+  allowMultiple=false
+}) => {
   const [fileName, setFileName] = useState(null);
   const inputRef = useRef(null);
 
   const handleUpload = () => {
     inputRef.current?.click();
-   };
+  };
 
   const handleDisplayFileDetails = () => {
     inputRef.current?.files && setFileName(inputRef.current.files[0].name);
-    setValue(inputRef.current.files[0])
+    const files = inputRef.current.files;
+    if (!allowMultiple) setValue(files[0]);
+    else setValue(files);
   };
 
   return (
@@ -31,13 +38,14 @@ const UploadButton = ({label, type, setValue}) => {
         accept={type}
         className='d-none'
         type='file'
+        multiple={allowMultiple}
       />
-      {!fileName && (
+      {(!fileName || allowMultiple) && (
         <Button onClick={handleUpload} variant='outline-secondary'>
           {label}
         </Button>
       )}
-      {fileName && (
+      {(fileName && !allowMultiple) && (
         <Button className='fogi' onClick={handleUpload} variant='primary'>
           {reduceString(fileName)}
         </Button>
