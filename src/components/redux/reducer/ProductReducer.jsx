@@ -5,6 +5,7 @@ import { setModalMessage, showModal, cancelModal } from 'components/redux/reduce
 const initialState = {
     newProducts: {},
     amootProducts: {},
+    categoryProducts: {},
     searchingProducts: {},
     sort: ''
 }
@@ -21,8 +22,8 @@ const productReducer = createSlice({
         setSearchingProducts: (state, action) => {
             state.searchingProducts = action.payload
         },
-        setSearchinQuery: (state, action) => {
-            state.searchingQuery = action.payload
+        setCategoryProducts: (state, action) => {
+            state.categoryProducts = action.payload
         },
         setTypeOfSort: (state, action) => {
             state.sort = action.payload
@@ -31,7 +32,7 @@ const productReducer = createSlice({
 })
 
 export const { 
-    setNewProducts, setAmootProducts, setSearchingProducts, 
+    setNewProducts, setAmootProducts, setSearchingProducts, setCategoryProducts,
     setTypeOfSort
 } = productReducer.actions
 
@@ -57,7 +58,7 @@ export const retrieveNewProducts = (data, navigate) => {
             });
         } catch (err) {
             console.log(err)
-            // navigate('/')
+            navigate('/')
         }
     }
 }
@@ -95,6 +96,29 @@ export const searchProduct = (data, navigate) => {
                 sort_field: data.sort_field
             }).then((res) => {
                 dispatch(setSearchingProducts(res.data))
+            })
+            .catch((err) => {
+                console.log(err.response.data)
+                navigate('/')
+            });
+        } catch (err) {
+            console.log(err)
+            navigate('/')
+        }
+    }
+}
+
+export const retrieveCategoryProducts = (data, navigate) => {
+    return async dispatch => {
+        try {
+            console.log("retrieve category products")
+            await axiosInstance.get(`/product`, {params: {
+                category_name: data.name,
+                limit: data.limit,
+                offset: data.offset,
+                sort_field: data.sort_field
+            }}).then((res) => {
+                dispatch(setCategoryProducts(res.data))
             })
             .catch((err) => {
                 console.log(err.response.data)

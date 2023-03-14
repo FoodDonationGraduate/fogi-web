@@ -10,6 +10,7 @@ import ProductListPage from './components/guest/product/ProductListPage.jsx';
 import NewProductListPage from './components/guest/product/NewProductListPage.jsx';
 import AmootProductListPage from './components/guest/product/AmootProductListPage.jsx';
 import ProductDetailsPage from './components/guest/product/ProductDetailsPage.jsx';
+import CategoryProductListPage from './components/guest/product/CategoryProductListPage.jsx';
 
 import UserLogin from "./components/guest/authentication/LoginPage.jsx";
 import UserSignup from "./components/guest/authentication/SignupPage.jsx";
@@ -42,7 +43,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/products" element={<ProductListPage />} /> 
         <Route path="/new-products" element={<NewProductListPage />} />  
         <Route path="/almost-out-of-stock-products" element={<AmootProductListPage />} />  
-        <Route path="/category" element={<ProductDetailsPage />} />
+        
+        <Route path="/category/:name" element={<CategoryProductListPage />} />
         <Route path="/product/:id" element={<ProductDetailsPage />} />
         <Route path="/store/:id" element={<ProductDetailsPage />} />
 

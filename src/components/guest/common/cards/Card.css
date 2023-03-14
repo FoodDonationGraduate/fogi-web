@@ -17,10 +17,15 @@
   margin-top: 20px;
 }
 
-.product-card:hover {
+.product-card:hover, .donor-card:hover, .category-card:hover  {
   box-shadow: 0 0 11px rgba(33,33,33,.2); 
 }
 .product-card-img {
   width: 100%;
   aspect-ratio : 1 / 1;
+}
+
+.donor-card-storefront {
+  width: 100%;
+  aspect-ratio : 5 / 2;
 }

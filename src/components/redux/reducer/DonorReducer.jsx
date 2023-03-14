@@ -3,20 +3,20 @@ import axiosInstance from "services/axios/axiosConfig.js";
 import { setModalMessage, showModal, cancelModal } from 'components/redux/reducer/ModalReducer';
 
 const initialState = {
-    allCategories: {}
+    allDonors: {}
 }
 const categoryReducer = createSlice({
-    name: "categoryReducer",
+    name: "donorReducer",
     initialState,
     reducers: {
-        setAllCategories: (state, action) => {
-            state.allCategories = action.payload
+        setAllDonors: (state, action) => {
+            state.allDonors = action.payload
         }
     }
 })
 
 export const { 
-    setAllCategories
+    setAllDonors
 } = categoryReducer.actions
 
 export default categoryReducer.reducer
@@ -24,12 +24,15 @@ export default categoryReducer.reducer
 
 // ----------- THUNK ----------------------
 
-export const retrieveAllCategories = (navigate) => {
+export const retrieveAllDonors = (data, navigate) => {
     return async dispatch => {
         try {
             console.log("retrieve all categories")
-            await axiosInstance.get(`/category`).then((res) => {
-                dispatch(setAllCategories(res.data))
+            await axiosInstance.get(`/donor`, {params: {
+                limit: data.limit,
+                offset: data.offset
+            }}).then((res) => {
+                dispatch(setAllDonors(res.data))
             })
             .catch((err) => {
                 console.log(err)

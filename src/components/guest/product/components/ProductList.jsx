@@ -15,15 +15,15 @@ const ProductList = () => {
   const searchingProducts = useSelector(state => state.productReducer.searchingProducts)
   const sort = useSelector(state => state.productReducer.sort)
 
+  const search = useLocation().search;
+  const name = new URLSearchParams(search).get('query');
+
   const PRODUCT_COUNT = 12; // per page
   const [page, setPage] = useState(0); // a.k.a activeIdx
   const onChangePage = async (idx) => {
     setPage(idx);
     await dispatch(searchProduct({name: name ? name : '', limit: PRODUCT_COUNT, offset: idx * PRODUCT_COUNT, sort_field: sort}, navigate))
   };
-
-  const search = useLocation().search;
-  const name = new URLSearchParams(search).get('query');
 
   const dispatch = useDispatch();
   const navigate = useNavigate();

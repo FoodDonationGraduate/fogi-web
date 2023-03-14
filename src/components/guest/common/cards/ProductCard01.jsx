@@ -22,7 +22,6 @@ const ProductCard = ({product}) => {
   const navigate = useNavigate();
   return (
     <Card className='product-card h-100'>
-      
       <Card.Img className='product-card-img' 
         src={`https://bachkhoi.online/static/product/${product.image_filename}`} 
         alt={product.description}
