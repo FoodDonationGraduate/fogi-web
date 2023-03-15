@@ -4,6 +4,12 @@
   border-radius: 50%;
 }
 
+.donor-logo-sm {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+}
+
 .donor-logo-m {
   width: 88px;
   height: 88px;

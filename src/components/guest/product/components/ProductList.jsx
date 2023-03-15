@@ -11,6 +11,7 @@ import ProductCard from 'components/guest/common/cards/ProductCard';
 import FogiPagination from 'components/common/pagination/Pagination';
 import { searchProduct } from 'components/redux/reducer/ProductReducer';
 
+
 const ProductList = () => {
   const searchingProducts = useSelector(state => state.productReducer.searchingProducts)
   const sort = useSelector(state => state.productReducer.sort)

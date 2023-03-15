@@ -1,6 +1,6 @@
 // Essentials
 import * as React from 'react';
-import { Button, Stack } from 'react-bootstrap';
+import { Stack } from 'react-bootstrap';
 
 // Components
 import Pill from './Pill';

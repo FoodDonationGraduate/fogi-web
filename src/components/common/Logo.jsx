@@ -13,6 +13,7 @@ const Logo = ({
 
   const navigate = useNavigate(); 
   const toHomePage = () => { navigate('/') };
+  const toDonorHomePage = () => { navigate('/home') };
   const className = 'logo' + (isWhite ? '-alt' : '');
 
   return (
@@ -21,7 +22,7 @@ const Logo = ({
         <LogoDonee className={className} onClick={toHomePage} />
       )}
       {usertype == 1 && (
-        <LogoDonor className={className} />
+        <LogoDonor className={className} onClick={toDonorHomePage} />
       )}
       {usertype == 2 && (
         <LogoVolunteer className={className} />
