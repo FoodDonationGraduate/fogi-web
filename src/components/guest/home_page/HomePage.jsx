@@ -1,33 +1,14 @@
-import React from 'react'
-
+import React, {useState} from 'react'
 import TopBar from "../../layout/TopBar.jsx";
-import Footer from '../../layout/Footer.jsx'
-import SearchingBar from './components/SearchingBar.jsx';
-import LocationBar from './components/LocationBar.jsx'
-import Banner from './components/Banner.jsx'
-import CategorySection from './components/CategorySection.jsx'
-import ProductSection from './components/ProductSection.jsx'
-import DonorSection from './components/DonorSection.jsx'
-import 'assets/css/guest/home_pape/HomePage.css'
-import 'assets/css/Common.css'
-
 function HomePage(){
     return (
         <div className="home-page">
             <div className="page-header">
                 <TopBar/>
-                <SearchingBar/>
-                <hr className='m-0'/>
-                <LocationBar/>
             </div>
-            <div className="page-body">
-                <Banner/>
-                <CategorySection/>
-                <ProductSection/>
-                <DonorSection/>
+            <div className="page-body mx-2">
             </div>
             <div className="page-footer">
-                <Footer/>
             </div>
         </div>
     )
