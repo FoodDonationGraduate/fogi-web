@@ -1,0 +1,33 @@
+.footer {
+    padding-bottom: 40px;
+}
+.footer-logo {
+    width: 100%;
+    max-width: 150px;
+}
+.footer-section {
+    padding-left: 30px;
+}
+.footer-section-title {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+    padding-bottom: 15px;
+}
+.footer-section-link {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    color: #999999;
+    padding: 5px 0px;
+}
+.footer-section-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 5px;
+}

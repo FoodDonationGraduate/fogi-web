@@ -1,0 +1,38 @@
+.view-more-button {
+    width: 125px;
+    height: 43px;
+    background: #FFFFFF;
+    color: black;
+    border-radius: 8px;
+    padding: 12px 12px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+}
+
+.dropdown-box {
+    height: 40px;}
+    .dropdown-box .dropdown-toggle {
+        margin-left: auto; 
+        margin-right: 0;
+        width: 100%;
+        background-color: white;
+        border: 2px solid #CCCCCC;
+        border-radius: 8px;
+        color: black;
+        align-items: center;}
+        .dropdown-box .dropdown-toggle .bar-filter {
+            margin: 0px;
+        }
+        .dropdown-box .dropdown-toggle .bar-filter-title {
+            padding-left: 10px;
+        }
+        .dropdown-box .dropdown-toggle::after {
+            margin-left: auto;
+            margin-right: 0px;
+        }
+    .dropdown-box .dropdown-menu {
+        width: 100%;
+    }

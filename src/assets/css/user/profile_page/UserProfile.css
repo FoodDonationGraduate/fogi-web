@@ -1,0 +1,8 @@
+.user-avatar {
+    width: 22%;
+    aspect-ratio: 1/1;
+}
+.change-avatar-button {
+    height: 20%;
+    margin-left: 20px
+}
