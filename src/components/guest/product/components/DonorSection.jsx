@@ -8,7 +8,7 @@ import { MdOutlineLocationOn, MdLinearScale, MdOutlineAccessTime } from 'react-i
 // Styling
 import 'assets/css/Fogi.css';
 
-const ProductSection = ({product}) => {
+const ProductSection = ({donor}) => {
   return (
     <Container className='py-4'>
       <Row>
@@ -18,9 +18,9 @@ const ProductSection = ({product}) => {
               <Row>
                 <Col md={4} lg={4}>
                   <Stack direction='horizontal' gap={4}>
-                    <img className='donor-logo-m' src={product.donorLogo} />
+                    <img className='donor-logo-m' src={`https://bachkhoi.online/static/${donor.avatar_filename}`} />
                     <Stack direction='vertical' gap={1}>
-                      <h4>{product.donorName}</h4>
+                      <h4>{donor.name}</h4>
                       <Button variant='outline-dark'>Visit Donor</Button>
                     </Stack>
                   </Stack>
@@ -30,16 +30,16 @@ const ProductSection = ({product}) => {
                   <div>
                     <header style={{ color: 'gray' }}>
                       <MdOutlineLocationOn className='me-2 mb-1' />
-                      227 Nguyen Van Cu, Ward 4, District 5
+                      {donor.address}
                     </header>
-                    <header style={{ color: 'gray' }}>
+                    {/* <header style={{ color: 'gray' }}>
                       <MdLinearScale className='me-2 mb-1' />
                       1.2 km away
                     </header>
                     <header style={{ color: 'gray' }}>
                       <MdOutlineAccessTime className='me-2 mb-1' />
                       09h00 - 21h00
-                    </header>
+                    </header> */}
                   </div>
                 </Col>
               </Row>

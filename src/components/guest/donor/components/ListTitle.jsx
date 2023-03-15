@@ -20,7 +20,7 @@ const ListTitle = ({title}) => {
           <Col>
             <h2>{title}</h2>
           </Col>
-          <Col className='d-flex justify-content-end' md={2} lg={2}>
+          {/* <Col className='d-flex justify-content-end' md={2} lg={2}>
             <DropdownButton
               variant='outline-secondary'
               title={sort !== '' ? (sort === 'price' ? 'Price' : (sort === 'expired_time' ? 'Date' : 'Count')) : 'Sort by'}
@@ -30,7 +30,7 @@ const ListTitle = ({title}) => {
               <Dropdown.Item onClick={() => dispatch(setTypeOfSort('stock'))}>Count</Dropdown.Item>
               <Dropdown.Item onClick={() => dispatch(setTypeOfSort(''))}>None</Dropdown.Item>
             </DropdownButton>
-          </Col>
+          </Col> */}
         </Row>
       </Container>
     </div>

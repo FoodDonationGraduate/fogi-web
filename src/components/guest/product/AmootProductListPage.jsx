@@ -6,7 +6,7 @@ import TopBar from 'components/layout/TopBar';
 import LocationBar from 'components/guest/common/bars/LocationBar';
 import Footer from 'components/guest/common/bars/Footer';
 import ListTitle from './components/ListTitle';
-import ProductList from './components/ProductList';
+import AmootProductList from './components/AmootProductList';
 
 // Styling
 import 'assets/css/Fogi.css';
@@ -19,8 +19,8 @@ const ProductListPage = () => {
         <LocationBar />
       </div>
       <div className='bg'>
-        <ListTitle title='Result Product List'/>
-        <ProductList />
+        <ListTitle title='Almost Out Of Stock Product List'/>
+        <AmootProductList />
       </div>
       <div>
         <Footer />

@@ -41,7 +41,7 @@ function ButtonCard() {
                                 <Button className='card-button card-white-button favorite-donors-button w-100 my-1'>Favorite Donors</Button>
                             </Card.Body>
                             <Card.Footer className='d-block justify-content-left p-0' >
-                                <Button className='card-button card-white-button setiings-button w-100 my-1'>Settings</Button>
+                                <Button className='card-button card-white-button settings-button w-100 my-1'>Settings</Button>
                                 <Button className='card-button card-white-button logout-button w-100 my-1' onClick={() => LogOut()}>Logout</Button>
                             </Card.Footer>
                         </Card>
