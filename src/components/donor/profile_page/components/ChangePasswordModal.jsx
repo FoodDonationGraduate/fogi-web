@@ -25,10 +25,13 @@ const ChangePasswordModal = ({
 
   const formSchema = Yup.object().shape({
     password: Yup.string()
-      .required('You must enter your current password'),
+      .required('You must enter your current password')
+      .min(8, "Password must contain at least 8 characters")
+      .matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,32}$/, "Password must contain at least 1 letter, 1 number and 1 special character"),
     new_password: Yup.string()
       .required('Password is required')
-      .min(6, "Password must contain at least 6 characters")
+      .min(8, "Password must contain at least 8 characters")
+      .matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,32}$/, "Password must contain at least 1 letter, 1 number and 1 special character")
       .notOneOf([Yup.ref("password")], "Old password and new password must not be the same"),
     confirm_password: Yup.string()
       .required("Confirm password is required")
@@ -68,6 +71,18 @@ const ChangePasswordModal = ({
                 Current password is required
               </p>
             )}
+            {errors.password && errors.password.type === "min" && (
+              <p className="mt-2 error">
+                <FaExclamationTriangle className="mx-2" />
+                Password must contain at least 8 characters
+              </p>
+            )}
+            {errors.password && errors.password.type === "matches" && (
+              <p className="mt-2 error">
+                <FaExclamationTriangle className="mx-2" />
+                Password must contain at least 1 letter, 1 number and 1 special character
+              </p>
+            )}
           </Form.Group>
 
           <Form.Group className='mb-3'>
@@ -84,7 +99,13 @@ const ChangePasswordModal = ({
             {errors.new_password && errors.new_password.type === "min" && (
               <p className="mt-2 error">
                 <FaExclamationTriangle className="mx-2" />
-                Password must contain at least 6 characters
+                Password must contain at least 8 characters
+              </p>
+            )}
+            {errors.new_password && errors.new_password.type === "matches" && (
+              <p className="mt-2 error">
+                <FaExclamationTriangle className="mx-2" />
+                Password must contain at least 1 letter, 1 number and 1 special character
               </p>
             )}
             {errors.new_password && errors.new_password.type === "notOneOf" && (

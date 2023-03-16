@@ -1,8 +1,8 @@
 // Essentials
 import * as React from 'react';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from "react-router-dom";
+import { useDispatch } from 'react-redux'
+import { useLocation } from 'react-router';
 
 // Form handling
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -11,22 +11,22 @@ import * as Yup from 'yup';
 
 // Assets imports
 import { FaExclamationTriangle } from "react-icons/fa";
-import Facebook from "assets/images/facebook.svg";
-import Google from "assets/images/google.svg";
 
 // Style imports
 import 'assets/css/Authentication.css';
 import 'assets/css/Fogi.css';
 
 // Components
-import { signupUserAccount } from 'components/redux/reducer/AuthenticationReducer';
 import Logo from 'components/common/Logo';
+import { setModalMessage, showModal } from 'components/redux/reducer/ModalReducer';
+import Modal from "components/layout/Modal.jsx";
 
 const ChangePassword = () => {
   const formSchema = Yup.object().shape({
     password: Yup.string()
       .required('Password is required')
-      .min(6, "Password must contain at least 6 characters"),
+      .min(8, "Password must contain at least 8 characters")
+      .matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,32}$/, "Password must contain at least 1 letter, 1 number and 1 special character"),
     confirm: Yup.string()
       .required("Confirm password is required")
       .oneOf([Yup.ref("password")], "Password does not match")
@@ -36,10 +36,20 @@ const ChangePassword = () => {
   const { errors } = formState;
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+
+  const search = useLocation().search;
+  const token = new URLSearchParams(search).get('token');
+  const email = new URLSearchParams(search).get('email');
 
   const onSubmit = (data) => {
-    console.log('change password for forgot password')
+    if (token && email) {
+      console.log(token)
+      console.log(email)
+    } else {
+      dispatch(setModalMessage('We cannot find your email and token in url'))
+      dispatch(showModal())
+    }
   };
  
   return (
@@ -78,7 +88,13 @@ const ChangePassword = () => {
                     {errors.password && errors.password.type === "min" && (
                       <p className="mt-2 error">
                         <FaExclamationTriangle className="mx-2" />
-                        Password must contain at least 6 characters
+                        Password must contain at least 8 characters
+                      </p>
+                    )}
+                    {errors.password && errors.password.type === "matches" && (
+                      <p className="mt-2 error">
+                        <FaExclamationTriangle className="mx-2" />
+                        Password must contain at least 1 letter, 1 number and 1 special character
                       </p>
                     )}
                     </Form.Group>
@@ -114,6 +130,7 @@ const ChangePassword = () => {
           </Card>
         </Col>
       </Row>
+      <Modal />
     </Container>
   );
 };

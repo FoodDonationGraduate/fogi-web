@@ -1,7 +1,7 @@
 // Essentials
 import * as React from 'react';
 import { Button, Card, Col, Container, Form, Row, Stack } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useNavigate } from "react-router-dom";
 
 // Form handling
@@ -17,7 +17,7 @@ import { setModalMessage, showModal } from 'components/redux/reducer/ModalReduce
 import Modal from "components/layout/Modal.jsx";
 
 // Assets imports
-import { FaExclamationTriangle, FaQuestionCircle } from "react-icons/fa";
+import { FaExclamationTriangle } from "react-icons/fa";
 
 // Style imports
 import 'assets/css/Authentication.css';

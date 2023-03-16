@@ -1,7 +1,7 @@
-import React, {useState} from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom/client'
-import {BrowserRouter, Navigate, Route, Routes, useLocation, useNavigate, Outlet} from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux'
+import {BrowserRouter, Navigate, Route, Routes, useLocation, Outlet} from "react-router-dom";
+import { useSelector } from 'react-redux'
 import { Provider } from "react-redux";
 
 import store from "./components/redux/store.jsx";
@@ -19,20 +19,16 @@ import UserAccountInfo from "./components/guest/authentication/AccountInfoPage.j
 import SuccessSignup from "./components/guest/authentication/SuccessSignupPage.jsx";
 import SuccessVerify from "./components/guest/authentication/SuccessVerifyPage.jsx";
 import Verification from "./components/guest/authentication/VerificationPage.jsx";
+import VerifyEmail from "./components/guest/authentication/VerifyEmailPage.jsx";
 import AccountType from "./components/guest/authentication/AccountTypePage.jsx";
 import ForgotPassword from "./components/guest/authentication/ForgotPasswordPage.jsx";
 import ChangePassword from "./components/guest/authentication/ChangePasswordPage.jsx";
 
-import DonorLogin from "./components/donor/authentication/LoginPage.jsx";
 import DonorSignup from "./components/donor/authentication/SignupPage.jsx";
 import DonorAccountInfo from "./components/donor/authentication/AccountInfoPage.jsx";
-import DonorForgotPassword from "./components/donor/authentication/ForgotPasswordPage.jsx";
-import DonorHome from "./components/donor/home/HomePage.jsx";
 
-import VolunteerLogin from "./components/volunteer/authentication/LoginPage.jsx";
 import VolunteerSignup from "./components/volunteer/authentication/SignupPage.jsx";
 import VolunteerAccountInfo from "./components/volunteer/authentication/AccountInfoPage.jsx";
-import VolunteerForgotPassword from "./components/volunteer/authentication/ForgotPasswordPage.jsx";
 
 import ProfileUserPage from "./components/user/profile_page/ProfilePage.jsx"
 import ProfileVolunteerPage from "./components/volunteer/profile_page/ProfilePage.jsx"
@@ -58,19 +54,16 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/accountinfo" element={<UserAccountInfo />} />
         <Route path="/signupsuccess" element={<SuccessSignup />} />
         <Route path="/verification" element={<Verification />} />
+        <Route path="/verifyemail" element={<VerifyEmail />} />
         <Route path="/verifysuccess" element={<SuccessVerify />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route path="/changepassword" element={<ChangePassword />} />
 
-        <Route path="/donor/login" element={<DonorLogin/>} />
         <Route path="/donor/signup" element={<DonorSignup/>} />
         <Route path="/donor/accountinfo" element={<DonorAccountInfo/>} />
-        <Route path="/donor/forgotpassword" element={<DonorForgotPassword/>} />
 
-        <Route path="/volunteer/login" element={<VolunteerLogin/>} />
         <Route path="/volunteer/signup" element={<VolunteerSignup/>} />
         <Route path="/volunteer/accountinfo" element={<VolunteerAccountInfo/>} />
-        <Route path="/volunteer/forgotpassword" element={<VolunteerForgotPassword/>} />
         
         <Route path="/" element={
             <Auth allowedRoles={["user", "donor", "volunteer"]} />}
@@ -97,10 +90,6 @@ function Auth ({ allowedRoles }) {
   const location = useLocation();
 
   localStorage.allowedRoles = JSON.stringify(allowedRoles);
-  let user = localStorage.user;
-
-  // console.log("[+] user:" + user + user["email"]);
-  // console.log(userInfo);
 
   return userInfo === undefined || Object.keys(userInfo).length === 0 ? (
     <Navigate to="/login" state={{ from: location }} replace />

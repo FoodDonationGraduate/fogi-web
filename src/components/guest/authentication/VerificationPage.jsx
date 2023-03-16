@@ -2,35 +2,22 @@
 import * as React from 'react';
 import { Button, Card, Col, Container, Row } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux';
-import { resendVerificationEmail } from 'components/redux/reducer/AuthenticationReducer';
+
 // Style imports
 import 'assets/css/Authentication.css';
 import 'assets/css/Fogi.css';
+
 // Components
-import { setModalMessage, showModal } from 'components/redux/reducer/ModalReducer';
 import Logo from 'components/common/Logo';
 import Modal from 'components/layout/Modal'
 
 const Verification = () => {
-  const registeredUser = useSelector(state => state.authenticationReducer.registeredUser)
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const toHomePage = () => {navigate('/');}
   const toLoginPage = () => {navigate('/login')}
-  const resendEmail = () => {
-    if (registeredUser !== undefined && registeredUser.email !== undefined) {
-      dispatch(resendVerificationEmail({email: registeredUser.email}, navigate))
-    } else if (localStorage.getItem('currentEmail') !== undefined) {
-      dispatch(resendVerificationEmail({email: localStorage.getItem('currentEmail')}, navigate))
-    } else {
-      dispatch(setModalMessage('You need to register new account before verifying email!'))
-      dispatch(showModal())
-    }
-  }
-  
+  const resendEmail = () => {navigate('/verifyemail')}
   return (
     <Container fluid className='fogi-bg authen-bg authen-bg-user'>
       <Row className='py-4 d-flex justify-content-center align-items-center'>
