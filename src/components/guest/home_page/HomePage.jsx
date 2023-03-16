@@ -2,7 +2,7 @@ import React from 'react'
 
 import TopBar from "../../layout/TopBar.jsx";
 import Footer from '../../layout/Footer.jsx'
-import SearchingBar from './components/SearchingBar.jsx';
+import SearchingBar from '../../layout/SearchBar.jsx';
 import LocationBar from './components/LocationBar.jsx'
 import Banner from './components/Banner.jsx'
 import CategorySection from './components/CategorySection.jsx'

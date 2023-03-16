@@ -23,7 +23,7 @@ const LocationBar = () => {
 
   return (
     <div style={{ backgroundColor: 'white' }}>
-      <Container className='py-3'>
+      <Container className='pt-1 pb-2'>
         <h3>
           <FaMapMarkerAlt className='fogi me-4' style={{ color: '#82CD47' }} />
           {location}
