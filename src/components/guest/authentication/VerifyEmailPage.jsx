@@ -1,6 +1,9 @@
 // Essentials
 import * as React from 'react';
+import { useNavigate } from "react-router-dom";
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
+import { useDispatch } from 'react-redux'
+import { resendVerificationEmail } from 'components/redux/reducer/AuthenticationReducer';
 
 // Form handling
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -13,25 +16,23 @@ import Logo from 'components/common/Logo';
 // Assets imports
 import { FaExclamationTriangle } from "react-icons/fa";
 
-
 // Style imports
 import 'assets/css/Authentication.css';
 import 'assets/css/Fogi.css';
 
-const Login = () => {
+const VerifyEmail = () => {
   const formSchema = Yup.object().shape({
-    email: Yup.string().required('Email is required'),
-    password: Yup.string()
-      .required('Password is required')
-      .min(8, "Password must contain at least 8 characters")
-      .matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,32}$/, "Password must contain at least 1 letter, 1 number and 1 special character")
+    email: Yup.string().required('Email is required')
   });
   const formOptions = { resolver: yupResolver(formSchema) };
   const { register, handleSubmit, formState } = useForm(formOptions);
   const { errors } = formState;
 
-  const onSubmit = () => {
-    console.log('login');
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const onSubmit = (data) => {
+    dispatch(resendVerificationEmail(data, navigate))
   };
  
   return (
@@ -43,17 +44,14 @@ const Login = () => {
               <div className='mb-3 mt-md-4 mx-4'>
                 <Row className='mb-4'>
                   <Col lg={3}>
-                    <Logo usertype={1} />
+                    <Logo usertype={0} />
                   </Col>
                   <Col>
                     <h2 className='fw-bold'>
-                      Login
+                      Verify Email
                     </h2>
                     <p className='text-secondary mb-0'>
-                      Don't have an account?{' '}
-                      <a href='/donor/signup' className='fogi fw-bold'>
-                        Sign up
-                      </a>
+                      Enter your email to receive the verified email
                     </p>
                   </Col>
                 </Row>
@@ -64,7 +62,7 @@ const Login = () => {
                         Email address
                       </Form.Label>
                       <Form.Control
-                        type="email"
+                        type="text"
                         placeholder="name@example.com"
                         {...register("email")}
                       />
@@ -76,39 +74,9 @@ const Login = () => {
                       )}
                     </Form.Group>
 
-                    <Form.Group className='mb-3'>
-                      <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
-                        Password
-                      </Form.Label>
-                      <Form.Control type="password" {...register("password")} />
-                      {errors.password && errors.password.type === "required" && (
-                        <p className="mt-2 error">
-                          <FaExclamationTriangle className="mx-2" />
-                          Password is required
-                        </p>
-                      )}
-                      {errors.password && errors.password.type === "min" && (
-                        <p className="mt-2 error">
-                          <FaExclamationTriangle className="mx-2" />
-                          Password must contain at least 8 characters
-                        </p>
-                      )}
-                      {errors.password && errors.password.type === "matches" && (
-                        <p className="mt-2 error">
-                          <FaExclamationTriangle className="mx-2" />
-                          Password must contain at least 1 letter, 1 number and 1 special character
-                        </p>
-                      )}
-                    </Form.Group>
-                    <div className='mb-3 text-end'>
-                      <a href='/donor/forgotpassword' className='fogi fw-bold'>
-                        Forgot password
-                      </a>
-                    </div>
-
                     <div className='d-grid'>
                       <Button className='fogi' variant='primary' type='submit'>
-                        Login
+                        Confirm
                       </Button>
                     </div>
                   </Form>
@@ -122,4 +90,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default VerifyEmail;

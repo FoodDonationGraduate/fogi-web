@@ -133,7 +133,6 @@ const ChangePasswordModal = ({
               Password does not match
             </p>
           )}
-
           </Form.Group>
 
           <div className='d-grid'>

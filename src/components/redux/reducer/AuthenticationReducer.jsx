@@ -240,7 +240,8 @@ export const resendVerificationEmail = (data, navigate) => {
             })
             .catch((err) => {
                 console.log(err.response.data)
-                navigate('/')
+                dispatch(setModalMessage("Something went wrong!"))
+                dispatch(showModal())
             });
         } catch (err) {
             console.log(err)
@@ -331,6 +332,49 @@ export const updateAvatar = (data, user, navigate) => {
             }).then((res) => {
                 handleExpiredToken(res, dispatch, navigate)
                 dispatch(retrieveProfile(user,navigate))
+            }).catch((err) => {
+                console.log(err)
+                navigate('/')
+            });
+        } catch (err) {
+            console.log(err)
+            navigate('/')
+        }
+    }
+}
+
+export const changePassword = (data, user, navigate) => {
+    return async dispatch => {
+        try {
+            console.log("change password")
+            axiosInstance.post(`/forgot`, {
+                email: user.userInfo.email,
+                token: user.userToken,
+                password: data.password,
+                new_password: data.new_password
+            }).then((res) => {
+                handleExpiredToken(res, dispatch, navigate)
+                dispatch(logout(navigate))
+            }).catch((err) => {
+                console.log(err)
+                navigate('/')
+            });
+        } catch (err) {
+            console.log(err)
+            navigate('/')
+        }
+    }
+}
+
+export const forgotPassword = (data, navigate) => {
+    return async dispatch => {
+        try {
+            console.log("change password")
+            axiosInstance.post(`/forgot`, {
+                email: data.email,
+            }).then((res) => {
+                handleExpiredToken(res, dispatch, navigate)
+                dispatch(logout(navigate))
             }).catch((err) => {
                 console.log(err)
                 navigate('/')

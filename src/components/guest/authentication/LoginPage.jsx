@@ -1,8 +1,8 @@
 // Essentials
 import {useState} from 'react';
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 // Form handling
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -28,6 +28,9 @@ const Login = () => {
   const formSchema = Yup.object().shape({
     email: Yup.string().required('Email is required'),
     password: Yup.string().required('Password is required')
+      .required('Password is required')
+      .min(8, "Password must contain at least 8 characters")
+      .matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,32}$/, "Password must contain at least 1 letter, 1 number and 1 special character")
   });
   const formOptions = { resolver: yupResolver(formSchema) };
   const { register, handleSubmit, formState } = useForm(formOptions);
@@ -89,12 +92,24 @@ const Login = () => {
                         Password
                       </Form.Label>
                       <Form.Control type="password" {...register("password")} />
-                    {errors.password && errors.password.type === "required" && (
-                      <p className="mt-2 error">
-                        <FaExclamationTriangle className="mx-2" />
-                        Password is required
-                      </p>
-                    )}
+                      {errors.password && errors.password.type === "required" && (
+                        <p className="mt-2 error">
+                          <FaExclamationTriangle className="mx-2" />
+                          New password is required
+                        </p>
+                      )}
+                      {errors.password && errors.password.type === "min" && (
+                        <p className="mt-2 error">
+                          <FaExclamationTriangle className="mx-2" />
+                          Password must contain at least 8 characters
+                        </p>
+                      )}
+                      {errors.password && errors.password.type === "matches" && (
+                        <p className="mt-2 error">
+                          <FaExclamationTriangle className="mx-2" />
+                          Password must contain at least 1 letter, 1 number and 1 special character
+                        </p>
+                      )}
                     </Form.Group>
                     { failAuthentication && 
                       <div className='text-center'>

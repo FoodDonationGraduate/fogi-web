@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { useDispatch } from 'react-redux'
-import { useNavigate } from "react-router-dom";
+import { useLocation } from 'react-router';
 
 // Form handling
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -11,20 +11,18 @@ import * as Yup from 'yup';
 
 // Assets imports
 import { FaExclamationTriangle } from "react-icons/fa";
-import Facebook from "assets/images/facebook.svg";
-import Google from "assets/images/google.svg";
 
 // Style imports
 import 'assets/css/Authentication.css';
 import 'assets/css/Fogi.css';
 
 // Components
-import { signupUserAccount } from 'components/redux/reducer/AuthenticationReducer';
 import Logo from 'components/common/Logo';
+import { setModalMessage, showModal } from 'components/redux/reducer/ModalReducer';
+import Modal from "components/layout/Modal.jsx";
 
-const Signup = () => {
+const ChangePassword = () => {
   const formSchema = Yup.object().shape({
-    email: Yup.string().required('Email is required'),
     password: Yup.string()
       .required('Password is required')
       .min(8, "Password must contain at least 8 characters")
@@ -38,11 +36,20 @@ const Signup = () => {
   const { errors } = formState;
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+
+  const search = useLocation().search;
+  const token = new URLSearchParams(search).get('token');
+  const email = new URLSearchParams(search).get('email');
 
   const onSubmit = (data) => {
-    dispatch(signupUserAccount(data))
-    navigate('/accountinfo')
+    if (token && email) {
+      console.log(token)
+      console.log(email)
+    } else {
+      dispatch(setModalMessage('We cannot find your email and token in url'))
+      dispatch(showModal())
+    }
   };
  
   return (
@@ -58,13 +65,10 @@ const Signup = () => {
                   </Col>
                   <Col>
                     <h2 className='fw-bold'>
-                      Sign up
+                      Change Password
                     </h2>
                     <p className='text-secondary mb-0'>
-                      Already have an account?{' '}
-                      <a href='/login' className='fogi fw-bold'>
-                        Login
-                      </a>
+                      Enter your new password
                     </p>
                   </Col>
                 </Row>
@@ -72,55 +76,38 @@ const Signup = () => {
                   <Form onSubmit={handleSubmit(onSubmit)}>
                     <Form.Group className='mb-3'>
                       <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
-                        Email address
-                      </Form.Label>
-                      <Form.Control
-                        type="email"
-                        placeholder="name@example.com"
-                        {...register("email")}
-                      />
-                      {errors.email && errors.email.type === "required" && (
-                        <p className="mt-2 error">
-                          <FaExclamationTriangle className="mx-2" />
-                          Email is required
-                        </p>
-                      )}
-                    </Form.Group>
-
-                    <Form.Group className='mb-3'>
-                      <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
-                        Password
+                        New Password
                       </Form.Label>
                       <Form.Control type="password" {...register("password")} />
-                      {errors.password && errors.password.type === "required" && (
-                        <p className="mt-2 error">
-                          <FaExclamationTriangle className="mx-2" />
-                          Password is required
-                        </p>
-                      )}
-                      {errors.password && errors.password.type === "min" && (
-                        <p className="mt-2 error">
-                          <FaExclamationTriangle className="mx-2" />
-                          Password must contain at least 8 characters
-                        </p>
-                      )}
-                      {errors.password && errors.password.type === "matches" && (
-                        <p className="mt-2 error">
-                          <FaExclamationTriangle className="mx-2" />
-                          Password must contain at least 1 letter, 1 number and 1 special character
-                        </p>
-                      )}
+                    {errors.password && errors.password.type === "required" && (
+                      <p className="mt-2 error">
+                        <FaExclamationTriangle className="mx-2" />
+                        New password is required
+                      </p>
+                    )}
+                    {errors.password && errors.password.type === "min" && (
+                      <p className="mt-2 error">
+                        <FaExclamationTriangle className="mx-2" />
+                        Password must contain at least 8 characters
+                      </p>
+                    )}
+                    {errors.password && errors.password.type === "matches" && (
+                      <p className="mt-2 error">
+                        <FaExclamationTriangle className="mx-2" />
+                        Password must contain at least 1 letter, 1 number and 1 special character
+                      </p>
+                    )}
                     </Form.Group>
 
                     <Form.Group className='mb-3'>
                       <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
-                        Confirm Password
+                        Confirm New Password
                       </Form.Label>
                       <Form.Control type="password" {...register("confirm")} />
                     {errors.confirm && errors.confirm.type === "required" && (
                       <p className="mt-2 error">
                         <FaExclamationTriangle className="mx-2" />
-                        You must re-enter your password here
+                        You must re-enter your new password here
                       </p>
                     )}
                     {errors.confirm && errors.confirm.type === "oneOf" && (
@@ -133,39 +120,19 @@ const Signup = () => {
 
                     <div className='d-grid'>
                       <Button className='fogi' variant='primary' type='submit'>
-                        Continue
+                        Submit
                       </Button>
                     </div>
                   </Form>
-                  
-                  <hr />
-                  
-                  <Row lg={2}>
-                    <Col className='d-grid ps-0'>
-                      <Button
-                        variant='outline-secondary'
-                      >
-                        <img className='me-2' src={Facebook} width='24px' height='24px' alt='facebook' />
-                        Facebook
-                      </Button>
-                    </Col>
-                    <Col className='d-grid pe-0'>
-                      <Button
-                        variant='outline-secondary'
-                      >
-                        <img className='me-2' src={Google} width='24px' height='24px' alt='google' />
-                        Google
-                      </Button>
-                    </Col>
-                  </Row>
                 </div>
               </div>
             </Card.Body>
           </Card>
         </Col>
       </Row>
+      <Modal />
     </Container>
   );
 };
 
-export default Signup;
+export default ChangePassword;
