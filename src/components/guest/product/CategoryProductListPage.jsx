@@ -3,8 +3,7 @@ import * as React from 'react';
 import { useParams } from 'react-router-dom'
 
 // Components
-import TopBar from 'components/layout/TopBar';
-import LocationBar from 'components/guest/common/bars/LocationBar';
+import TopSection from 'components/layout/TopSection';
 import Footer from 'components/guest/common/bars/Footer';
 import ListTitle from './components/ListTitle';
 import CategoryProductList from './components/CategoryProductList';
@@ -17,8 +16,7 @@ const ProductListPage = () => {
     return (
         <>
         <div>
-            <TopBar />
-            <LocationBar />
+            <TopSection />
         </div>
         <div className='bg'>
             <ListTitle title={name}/>

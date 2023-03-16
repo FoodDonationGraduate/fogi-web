@@ -1,6 +1,7 @@
 // Essentials
 import * as React from 'react';
-import { Button, Container, Col, Row, Carousel } from 'react-bootstrap';
+import { useState, useEffect } from 'react';
+import { Container, Col, Row, Carousel } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 
@@ -11,6 +12,9 @@ import { retrieveAllCategories } from 'components/redux/reducer/CategoryReducer'
 // Styling
 import 'assets/css/Fogi.css';
 import 'assets/css/guest/home_pape/CategorySection.css'
+
+// Utility
+import { useResizer } from 'utils/helpers/Resizer';
 
 const CategorySection = () => {
   const allCategories = useSelector(state => state.categoryReducer.allCategories);
@@ -26,7 +30,26 @@ const CategorySection = () => {
 
   React.useEffect(() => {
     dispatch(retrieveAllCategories(navigate))
-  }, [])
+  }, []);
+
+  // Responsive handling
+  let size = useResizer();
+
+  const [shownCategories, setShownCategories] = useState([]);
+
+  useEffect(() => {
+    let length = 6;
+    switch (size) {
+      case 0: length = 2; break;
+      case 1: length = 3; break;
+      case 2: length = 4; break;
+      case 3: length = 4; break;
+      default: length = 6;
+    }
+    if (Object.keys(allCategories).length !== 0) {
+      setShownCategories(splitArray(allCategories.categories, length));
+    }
+  }, [size, allCategories]);
 
   return (
     <div className='bg'>
@@ -38,9 +61,9 @@ const CategorySection = () => {
         </Row>
         <Carousel interval={null}>
           {Object.keys(allCategories).length !== 0 && 
-            splitArray(allCategories.categories, 6).map((categories) => (
+            shownCategories.map((categories) => (
               <Carousel.Item>
-                <Row className='py-3' xs={2} md={3} lg={6} >
+                <Row className='py-3' xs={2} sm={3} md={4} xl={6}>
                   {categories.map((category) => (
                     <Col>
                       <CategoryCard category={category} key={category.id}/>

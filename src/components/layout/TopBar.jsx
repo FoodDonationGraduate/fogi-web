@@ -10,7 +10,11 @@ import Logo from 'components/common/Logo';
 // Assets
 import { MdOutlineNotificationsNone, MdOutlineShoppingCart } from 'react-icons/md';
 
+// Utility
+import { useResizer } from 'utils/helpers/Resizer';
+
 function TopBar() {
+  const size = useResizer();
 
   const navigate = useNavigate(); 
   const toHomePage = () => { navigate('/')}
@@ -29,7 +33,7 @@ function TopBar() {
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
-            <Row className='w-100 d-flex justify-content-center'>
+            <Row className='w-100 d-flex justify-content-left'>
               <Col xs={12} md={2} lg={1} className='d-flex justify-content-center'>
                 <Nav.Link className='nav-link' href="">About</Nav.Link>
               </Col>
@@ -39,18 +43,37 @@ function TopBar() {
               <Col xs={12} md={2} lg={1} className='d-flex justify-content-center'>
                 <Nav.Link className='nav-link' href="">News</Nav.Link>
               </Col>
-              <Col xs={12} md={3} lg={4} className='d-flex justify-content-center'>
-                <Nav.Link href="/login" className='nav-link d-md-none' >Login</Nav.Link>
-              </Col>
-              <Col xs={12} md={3} lg={5} className='d-flex justify-content-center'>
-                <Nav.Link href="/signup" className='nav-link d-md-none' >Sign up</Nav.Link>
-              </Col>
+              {userInfo === undefined && size <= 1 && (
+                <>
+                  <Col xs={12} md={2} lg={1} className='d-flex justify-content-center'>
+                    <Nav.Link href="/login" className='nav-link d-md-none'>Login</Nav.Link>
+                  </Col>
+                  <Col xs={12} md={2} lg={1} className='d-flex justify-content-center'>
+                    <Nav.Link href="/signup" className='nav-link d-md-none'>Sign up</Nav.Link>
+                  </Col>
+                </>
+              )}
+              {userInfo !== undefined && size <= 1 && (
+                <>
+                  <Col xs={12} md={2} lg={1} className='d-flex justify-content-center'>
+                    <Nav.Link className='nav-link' href="">Notifications</Nav.Link>
+                  </Col>
+                  <Col xs={12} md={2} lg={1} className='d-flex justify-content-center'>
+                    <Nav.Link className='nav-link' href="">Cart</Nav.Link>
+                  </Col>
+                  <Col xs={12} md={2} lg={1} className='d-flex justify-content-center'>
+                    <Nav.Link className='nav-link' href="/profile">My Profile</Nav.Link>
+                  </Col>
+                </>
+              )}
             </Row>
-            {userInfo === undefined || Object.keys(userInfo).length === 0 ? 
+            {(userInfo === undefined || Object.keys(userInfo).length === 0) && 
               <Nav className="nav-button-row d-none d-md-flex">
-                <Button onClick={toLoginForm} className='nav-button login-button' id="login-button"> Login</Button>
+                <Button onClick={toLoginForm} className='nav-button login-button' id="login-button">Login</Button>
                 <Button onClick={toSignupForm} className='nav-button signup-button' id="signup-button">Sign up</Button>
-              </Nav> :
+              </Nav>
+            }
+            {(userInfo !== undefined && Object.keys(userInfo).length > 0 && size > 1) && (
               <Nav>
                 <Stack direction='horizontal' gap={4}>
                   <MdOutlineNotificationsNone className='top-bar-icon' />
@@ -60,7 +83,7 @@ function TopBar() {
                   </div>
                 </Stack>
               </Nav>
-            }
+            )}
           </Navbar.Collapse>
         </Container>
       </Navbar>

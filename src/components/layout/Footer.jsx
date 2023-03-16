@@ -46,7 +46,7 @@ function Footer() {
                     </Nav.Link>
                 </div>
             </Col>
-            <Col xs={6} md={3} lg={2} className='footer-section d-inline pt-4'>
+            {/* <Col xs={6} md={3} lg={2} className='footer-section d-inline pt-4'>
                 <Dropdown className='dropdown-box d-flex'>
                 <Dropdown.Toggle id="dropdown-basic" className='dropdown-toggle d-flex justify-content-right'>
                     <img className='bar-filter bar-filter-img' src={WebIcon} alt='web icon'></img>
@@ -57,7 +57,7 @@ function Footer() {
                     <Dropdown.Item href="#/action-2">Vietnamese</Dropdown.Item>
                 </Dropdown.Menu>
                 </Dropdown>
-            </Col>
+            </Col> */}
         </Row>
       </Container>
     </div>

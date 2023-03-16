@@ -12,6 +12,8 @@ import AmootProductListPage from './components/guest/product/AmootProductListPag
 import ProductDetailsPage from './components/guest/product/ProductDetailsPage.jsx';
 import CategoryProductListPage from './components/guest/product/CategoryProductListPage.jsx';
 import DonorListPage from './components/guest/donor/DonorListPage.jsx';
+import EmptyProductListPage from './components/guest/product/EmptyProductListPage.jsx';
+import NotFoundPage from './components/common/NotFoundPage.jsx';
 
 import UserLogin from "./components/guest/authentication/LoginPage.jsx";
 import UserSignup from "./components/guest/authentication/SignupPage.jsx";
@@ -43,6 +45,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/donors" element={<DonorListPage />} /> 
         <Route path="/new-products" element={<NewProductListPage />} />  
         <Route path="/almost-out-of-stock-products" element={<AmootProductListPage />} />  
+        <Route path="/empty-products" element={<EmptyProductListPage />} />  
+        
+        <Route path="/404" element={<NotFoundPage />} />
         
         <Route path="/category/:name" element={<CategoryProductListPage />} />
         <Route path="/product/:id" element={<ProductDetailsPage />} />
@@ -70,6 +75,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         >
           <Route path="/profile" element={
             <Monitor allowedPages={[<ProfileUserPage/>, <ProfileDonorPage/>, <ProfileVolunteerPage/>]}/> } 
+          />
+          <Route path="/home" element={
+            <Monitor allowedPages={[<ProfileUserPage/>, <DonorHome />, <ProfileVolunteerPage/>]}/> } 
           />
         </Route>
         <Route path="/donor" element={

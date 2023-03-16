@@ -1,6 +1,6 @@
 // Essentials
 import * as React from 'react';
-import { Button, Card, Col, Row } from 'react-bootstrap';
+import { Button, Card, Col, Row, Stack } from 'react-bootstrap';
 import { useNavigate } from 'react-router';
 import { EqualHeightElement } from 'react-equal-height';
 
@@ -53,22 +53,20 @@ const ProductCard = ({product}) => {
         </EqualHeightElement>
         <hr />
         <EqualHeightElement name="product-store">
-          <div>
-            <Row>
-              <Col className='ps-0' md={3} lg={4} xl={3}>
-                <img className='donor-logo-s' 
-                  src={`https://bachkhoi.online/static/${product.donor.avatar_filename}`}
-                  onClick={() => navigate(`/store/${product.id}`)} />
-              </Col>
-              <Col md={9} lg={8} xl={9}>
-                <header style={{ fontWeight: 'bold' }}>
-                  {product.donor.name}
-                </header>
-              </Col>
-            </Row>
-          </div>
+          <Stack direction='horizontal' gap={2}>
+            <div>
+              <img className='donor-logo-s' 
+                src={`https://bachkhoi.online/static/${product.donor.avatar_filename}`}
+                onClick={() => navigate(`/store/${product.id}`)} />
+            </div>
+            <div>
+              <header style={{ fontWeight: 'bold' }}>
+                {product.donor.name}
+              </header>
+            </div>
+          </Stack>
         </EqualHeightElement>
-        <div className='d-grid'>
+        <div className='d-grid mt-2'>
           <Button className='fogi mt-2' variant='primary'>
             Add to Cart
           </Button>
