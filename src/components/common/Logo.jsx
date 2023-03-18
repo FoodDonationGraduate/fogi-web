@@ -13,7 +13,7 @@ const Logo = ({
 
   const navigate = useNavigate(); 
   const toHomePage = () => { navigate('/') };
-  const toDonorHomePage = () => { navigate('/home') };
+  const toDonorHomePage = () => { navigate('/donor/home') };
   const className = 'logo' + (isWhite ? '-alt' : '');
 
   return (

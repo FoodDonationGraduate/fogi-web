@@ -65,8 +65,8 @@ const CategorySection = () => {
               <Carousel.Item>
                 <Row className='py-3' xs={2} sm={3} md={4} xl={6}>
                   {categories.map((category) => (
-                    <Col>
-                      <CategoryCard category={category} key={category.id}/>
+                    <Col key={category.id}>
+                      <CategoryCard category={category}/>
                     </Col>
                   ))}
                 </Row>

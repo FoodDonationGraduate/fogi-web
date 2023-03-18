@@ -48,8 +48,8 @@ export const {
 export default authenticationReducer.reducer
 // ----------- HELPER ---------------------
 
-function handleExpiredToken (res, dispatch, navigate) {
-    if (res.data.token === "unauthorized") {
+function handleExpiredToken (data, dispatch, navigate) {
+    if (data.message === "unauthorized") {
         dispatch(setUserInfo({}))
         dispatch(setUserToken(''))
         navigate('/login')
@@ -258,10 +258,10 @@ export const retrieveProfile = (user, navigate) => {
                 email: user.userInfo.email,
                 token: user.userToken
             }).then((res) => {
-                handleExpiredToken(res, dispatch, navigate)
                 dispatch(setUserInfo(res.data.user))
             })
             .catch((err) => {
+                handleExpiredToken(err.response.data, dispatch, navigate)
                 console.log(err.response.data)
                 navigate('/')
             });
