@@ -33,11 +33,13 @@ const ProductSection = () => {
         </Row>
         <Row xs={2} md={3} lg={6} >
           <EqualHeight>
-            {Object.keys(amootProducts).length !== 0 && amootProducts.products.map((product) => (
-              <Col className='pb-4'>
-                <ProductCard product={product} key={product.id}/>
-              </Col>
-            ))}
+            {Object.keys(amootProducts).length !== 0 && 
+              amootProducts.products.map((product, idx) => (
+                <Col className='pb-4' key={product.id}>
+                  <ProductCard product={product}/>
+                </Col>
+              ))
+            }
           </EqualHeight>
         </Row>
         <Row>

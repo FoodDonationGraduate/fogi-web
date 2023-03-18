@@ -62,7 +62,7 @@ const Login = () => {
                     </h2>
                     <p className='text-secondary mb-0'>
                       New to Fogi?{' '}
-                      <a href='/signup' className='fogi fw-bold'>
+                      <a href='/accounttype' className='fogi fw-bold'>
                         Sign up
                       </a>
                     </p>
