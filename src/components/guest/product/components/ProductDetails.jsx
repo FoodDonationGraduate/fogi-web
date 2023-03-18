@@ -19,7 +19,7 @@ const ProductDetails = ({product}) => {
   };
 
   return (
-    <Card className='h-100'>
+    <Card>
       <Card.Body>
         <Card.Title>{product.name}</Card.Title>
         <Card.Title style={{ color: '#82CD47' }}>
@@ -39,7 +39,7 @@ const ProductDetails = ({product}) => {
           {product.description}
         </p>
       </Card.Body>
-      <Card.Body className='position-absolute w-100' style={{ bottom: '0' }}>
+      <Card.Body style={{ bottom: '0' }}>
         <Stack direction='horizontal' gap={2}>
           <header className='me-2'>Count</header>
           <Button

@@ -5,8 +5,7 @@ import { useNavigate } from 'react-router';
 import { useParams } from 'react-router-dom'
 
 // Components
-import TopBar from 'components/layout/TopBar';
-import LocationBar from 'components/guest/common/bars/LocationBar';
+import TopSection from 'components/layout/TopSection';
 import Footer from 'components/guest/common/bars/Footer';
 import ProductSection from './components/ProductSection';
 import DonorSection from './components/DonorSection';
@@ -37,14 +36,13 @@ const ProductDetailsPage = () => {
   return (
     <>
       <div>
-        <TopBar />
-        <LocationBar />
+        <TopSection />
       </div>
       {Object.keys(product).length !== 0 && 
         <div className='bg'>
           <ProductSection product={product.product} />
           <DonorSection donor={product.product.donor} />
-      </div>
+        </div>
       }
       <div>
         <Footer />

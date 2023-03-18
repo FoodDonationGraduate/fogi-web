@@ -2,8 +2,7 @@
 import * as React from 'react';
 
 // Components
-import TopBar from 'components/layout/TopBar';
-import LocationBar from 'components/guest/common/bars/LocationBar';
+import TopSection from 'components/layout/TopSection';
 import Footer from 'components/guest/common/bars/Footer';
 import ListTitle from './components/ListTitle';
 import NewProductList from './components/NewProductList';
@@ -15,8 +14,7 @@ const ProductListPage = () => {
   return (
     <>
       <div>
-        <TopBar />
-        <LocationBar />
+        <TopSection />
       </div>
       <div className='bg'>
         <ListTitle title='New Product List'/>

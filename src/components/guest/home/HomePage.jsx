@@ -2,8 +2,7 @@
 import * as React from 'react';
 
 // Components
-import TopBar from 'components/layout/TopBar';
-import LocationBar from 'components/guest/common/bars/LocationBar';
+import TopSection from 'components/layout/TopSection';
 import Modal from 'components/layout/Modal'
 import Footer from 'components/guest/common/bars/Footer';
 import AdBanner from './components/AdBanner';
@@ -18,8 +17,7 @@ const ProductListPage = () => {
   return (
     <>
       <div>
-        <TopBar />
-        <LocationBar />
+        <TopSection />
       </div>
       <div className='bg py-4'>
         <AdBanner />
