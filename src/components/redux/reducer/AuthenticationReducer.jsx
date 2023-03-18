@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import axiosInstance from "services/axios/axiosConfig.js";
-import { setModalMessage, showModal, cancelModal } from 'components/redux/reducer/ModalReducer';
+import { setModalMessage, showModal } from 'components/redux/reducer/ModalReducer';
 
 const initialState = {
     user: localStorage.getItem("user") !== "undefined" 
@@ -123,7 +123,7 @@ export const signup = (data, navigate) => {
                 }
             })
             .catch((err) => {
-                if (err.response.data.message == 'Email is already existed') {
+                if (err.response.data.message === 'Email is already existed') {
                     dispatch(removeRegisterdUser())
                     navigate('/signup')
                     dispatch(setModalMessage(`Signup unsuccessfully! ${err.response.data.message}. Please signup again.`))
@@ -168,7 +168,7 @@ export const signupForDonor = (data, navigate) => {
                 }
             })
             .catch((err) => {
-                if (err.response.data.message == 'Email is already existed') {
+                if (err.response.data.message === 'Email is already existed') {
                     dispatch(removeRegisterdUser())
                     navigate('/donor/signup')
                     dispatch(setModalMessage(`Signup unsuccessfully! ${err.response.data.message}. Please signup again.`))
@@ -207,7 +207,7 @@ export const signupForVolunteer = (data, navigate) => {
                 }
             })
             .catch((err) => {
-                if (err.response.data.message == 'Email is already existed') {
+                if (err.response.data.message === 'Email is already existed') {
                     dispatch(removeRegisterdUser())
                     navigate('/volunteer/signup')
                     dispatch(setModalMessage(`Signup unsuccessfully! ${err.response.data.message}. Please signup again.`))
@@ -347,7 +347,7 @@ export const changePassword = (data, user, navigate) => {
     return async dispatch => {
         try {
             console.log("change password")
-            axiosInstance.post(`/forgot`, {
+            axiosInstance.post(`/change_password`, {
                 email: user.userInfo.email,
                 token: user.userToken,
                 password: data.password,
@@ -369,15 +369,42 @@ export const changePassword = (data, user, navigate) => {
 export const forgotPassword = (data, navigate) => {
     return async dispatch => {
         try {
-            console.log("change password")
-            axiosInstance.post(`/forgot`, {
+            console.log("forgot password")
+            axiosInstance.post(`/forgot_password`, {
                 email: data.email,
             }).then((res) => {
                 handleExpiredToken(res, dispatch, navigate)
-                dispatch(logout(navigate))
+                dispatch(setModalMessage("Reset password email was sent! Please verify your email."))
+                dispatch(showModal())
             }).catch((err) => {
                 console.log(err)
-                navigate('/')
+                dispatch(setModalMessage("Something went wrong"))
+                dispatch(showModal())
+            });
+        } catch (err) {
+            console.log(err)
+            navigate('/')
+        }
+    }
+}
+
+export const resetPassword = (data, navigate) => {
+    return async dispatch => {
+        try {
+            console.log("reset password")
+            axiosInstance.post(`/callback/forgot_password`, {
+                email: data.email,
+                token: data.token,
+                password: data.password
+            }).then((res) => {
+                handleExpiredToken(res, dispatch, navigate)
+                dispatch(setModalMessage("Reset password successfully! Please login again"))
+                dispatch(showModal())
+                navigate('/login')
+            }).catch((err) => {
+                console.log(err)
+                dispatch(setModalMessage("Something went wrong"))
+                dispatch(showModal())
             });
         } catch (err) {
             console.log(err)

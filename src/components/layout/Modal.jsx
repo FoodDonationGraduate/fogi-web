@@ -1,6 +1,6 @@
 import { Modal, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux'
-import { showModal, hideModal, confirmModal } from 'components/redux/reducer/ModalReducer';
+import { hideModal, confirmModal } from 'components/redux/reducer/ModalReducer';
 import { useEffect } from 'react';
 
 function MainModal() {

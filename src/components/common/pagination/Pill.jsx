@@ -1,6 +1,5 @@
 // Essentials
 import * as React from 'react';
-import { useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 
 // Style imports
@@ -11,7 +10,7 @@ const Pill = ({
   isActive,
   onChangePage
 }) => {
-  const handleOnClick = () => {
+  const handleOnClick = (idx) => {
     onChangePage(idx);
   };
 
@@ -20,7 +19,7 @@ const Pill = ({
       <Button
         className='fogi pagination-pill'
         variant={(isActive ? 'primary' : 'outline-secondary')}
-        onClick={() => { if (idx !== -1) onChangePage(idx); }}
+        onClick={() => { if (idx !== -1) handleOnClick(idx); }}
       >
         {idx === - 1 ? '...' : idx + 1}
       </Button>

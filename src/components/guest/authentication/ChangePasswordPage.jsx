@@ -3,6 +3,7 @@ import * as React from 'react';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { useDispatch } from 'react-redux'
 import { useLocation } from 'react-router';
+import { useNavigate } from "react-router-dom";
 
 // Form handling
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -20,6 +21,7 @@ import 'assets/css/Fogi.css';
 import Logo from 'components/common/Logo';
 import { setModalMessage, showModal } from 'components/redux/reducer/ModalReducer';
 import Modal from "components/layout/Modal.jsx";
+import { resetPassword } from 'components/redux/reducer/AuthenticationReducer';
 
 const ChangePassword = () => {
   const formSchema = Yup.object().shape({
@@ -36,7 +38,7 @@ const ChangePassword = () => {
   const { errors } = formState;
 
   const dispatch = useDispatch();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const search = useLocation().search;
   const token = new URLSearchParams(search).get('token');
@@ -44,8 +46,7 @@ const ChangePassword = () => {
 
   const onSubmit = (data) => {
     if (token && email) {
-      console.log(token)
-      console.log(email)
+      dispatch(resetPassword({token, email, password: data.password}, navigate))
     } else {
       dispatch(setModalMessage('We cannot find your email and token in url'))
       dispatch(showModal())

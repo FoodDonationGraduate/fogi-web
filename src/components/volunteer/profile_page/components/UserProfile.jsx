@@ -12,7 +12,6 @@ import { FaExclamationTriangle } from "react-icons/fa";
 import 'assets/css/user/profile_page/UserProfile.css'
 
 import AvatarSection from './AvatarSection';
-import UploadButton from 'components/common/UploadButton';
 import { patchProfile } from 'components/redux/reducer/AuthenticationReducer.jsx'
 import { setModalMessage, showModal, cancelModal } from 'components/redux/reducer/ModalReducer';
 
@@ -21,10 +20,6 @@ function UserProfile() {
     const userInfo = useSelector(state => state.authenticationReducer.user)
     const userToken = useSelector(state => state.authenticationReducer.token)
     const modalLogic = useSelector(state => state.modalReducer.logic)
-
-    const imageOnly = 'image/png, image/gif, image/jpeg';
-    const [image, setImage] = React.useState(undefined);
-    const [storefront, setImgBase64] = React.useState('');
     
     const formSchema = Yup.object().shape({
         name: Yup.string().required('Full name is required'),

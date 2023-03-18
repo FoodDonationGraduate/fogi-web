@@ -3,7 +3,7 @@ import {useState} from 'react';
 import { useNavigate, useLocation } from "react-router-dom";
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux'
-import {setUserInfo, setUserToken} from 'components/redux/reducer/AuthenticationReducer.jsx'
+import { forgotPassword } from 'components/redux/reducer/AuthenticationReducer.jsx'
 import axiosInstance from "services/axios/axiosConfig.js";
 
 // Form handling
@@ -33,7 +33,7 @@ const ForgotPassword = () => {
   const navigate = useNavigate();
 
   const onSubmit = (data) => {
-    console.log("siuuu");
+    dispatch(forgotPassword(data, navigate))
   };
  
   return (

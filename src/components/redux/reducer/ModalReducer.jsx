@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-import axiosInstance from "services/axios/axiosConfig.js";
 
 const initialState = {
     message: '',

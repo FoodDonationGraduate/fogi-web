@@ -63,7 +63,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/verifyemail" element={<VerifyEmail />} />
         <Route path="/verifysuccess" element={<SuccessVerify />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
-        <Route path="/changepassword" element={<ChangePassword />} />
+        <Route path="/callback/forgotpassword" element={<ChangePassword />} />
 
         <Route path="/donor/signup" element={<DonorSignup/>} />
         <Route path="/donor/accountinfo" element={<DonorAccountInfo/>} />

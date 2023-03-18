@@ -1,7 +1,6 @@
-import {Container, Dropdown, Nav, Col, Row } from 'react-bootstrap';
+import {Container, Nav, Col, Row } from 'react-bootstrap';
 
 import Logo from 'assets/images/BigLogo.png'
-import WebIcon from 'assets/images/WebIcon.png'
 import FacebookIcon from 'assets/images/FacebookIcon.png'
 import InstagramIcon from 'assets/images/InstagramIcon.png'
 import YoutubeIcon from 'assets/images/YoutubeIcon.png'

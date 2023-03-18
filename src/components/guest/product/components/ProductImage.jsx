@@ -1,6 +1,5 @@
 // Essentials
 import * as React from 'react';
-import { useEffect } from 'react';
 import { Carousel } from 'react-bootstrap';
 
 const ProductImage = ({product}) => {
@@ -12,7 +11,8 @@ const ProductImage = ({product}) => {
           <Carousel.Item>
             <img
               className='d-block w-100'
-              src={`https://bachkhoi.online/static/product/${image}`} />
+              src={`https://bachkhoi.online/static/product/${image}`} 
+              alt='product image'/>
           </Carousel.Item>
         ))}
       </Carousel>

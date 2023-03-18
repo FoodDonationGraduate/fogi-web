@@ -5,11 +5,9 @@ import Avatar from "react-avatar-edit";
 import { useNavigate } from "react-router-dom";
 
 import 'assets/css/user/profile_page/UserProfile.css'
-import UserAvatar from 'assets/images/UserAvatar.png'
 import { updateAvatar } from 'components/redux/reducer/AuthenticationReducer';
 
 function AvatarSection() {
-    const [avatar, setAvatar] = React.useState(UserAvatar);
     const [showModal, setShowModal] = React.useState(false);
     const userInfo = useSelector(state => state.authenticationReducer.user)
     const userToken = useSelector(state => state.authenticationReducer.token)
@@ -38,7 +36,7 @@ function AvatarSection() {
     return (
         <div className='avartar-section'>
             <div className='user-profile-picture d-flex justify-content-left align-items-center'>
-                <img className='user-avatar' src={`data:image/jpeg;base64,${userInfo.avatar}`}></img>
+                <img className='user-avatar' src={`data:image/jpeg;base64,${userInfo.avatar}`} alt='user avatar'></img>
                 <Button className='card-buton card-grey-button change-avatar-button' onClick={() => setShowModal(true)}>Change Profile Picture</Button>
             </div>
             <Modal className="mw-80" show={showModal} onHide={() => setShowModal(false)}>

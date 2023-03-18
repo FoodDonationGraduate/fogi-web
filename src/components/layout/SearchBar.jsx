@@ -1,8 +1,6 @@
-import { Form, Button, Dropdown, Container, Row, Col } from 'react-bootstrap';
+import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
-
-import BarFilter from "assets/images/bar_filter.png"
 
 function SearchingBar() {
   return (
