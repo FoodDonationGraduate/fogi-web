@@ -25,6 +25,7 @@ import VerifyEmail from "./components/guest/authentication/VerifyEmailPage.jsx";
 import AccountType from "./components/guest/authentication/AccountTypePage.jsx";
 import ForgotPassword from "./components/guest/authentication/ForgotPasswordPage.jsx";
 import ChangePassword from "./components/guest/authentication/ChangePasswordPage.jsx";
+import CartPage from './components/user/cart/CartPage.jsx';
 
 import DonorSignup from "./components/donor/authentication/SignupPage.jsx";
 import DonorAccountInfo from "./components/donor/authentication/AccountInfoPage.jsx";
@@ -53,6 +54,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/category/:name" element={<CategoryProductListPage />} />
         <Route path="/product/:id" element={<ProductDetailsPage />} />
         <Route path="/store/:id" element={<ProductDetailsPage />} />
+
+        <Route path="/cart" element={<CartPage />} />
 
         <Route path="/login" element={<UserLogin />} />
         <Route path="/accounttype" element={<AccountType />} />

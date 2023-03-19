@@ -1,6 +1,6 @@
 // Essentials
 import React, { useState, useEffect } from 'react';
-import { Button, Container } from 'react-bootstrap';
+import { Button, Container, Col, Row } from 'react-bootstrap';
 
 // Assets
 import { FaMapMarkerAlt, FaEdit } from 'react-icons/fa';
@@ -24,14 +24,18 @@ const LocationBar = () => {
   return (
     <div style={{ backgroundColor: 'white' }}>
       <Container className='pt-1 pb-2'>
-        <h3>
-          <FaMapMarkerAlt className='fogi me-4' style={{ color: '#82CD47' }} />
-          {location}
-          <Button className='ms-4' variant='outline-secondary'>
-            {size < 3 && <FaEdit className='mb-1' />}
-            {size >= 3 && 'Change your location'}
-          </Button>
-        </h3>
+        <Row>
+          <Col>
+            <h3>
+              <FaMapMarkerAlt className='fogi me-4' style={{ color: '#82CD47' }} />
+              {location}
+              <Button className='ms-4' variant='outline-secondary'>
+                {size < 3 && <FaEdit className='mb-1' />}
+                {size >= 3 && 'Change your location'}
+              </Button>
+            </h3>
+          </Col>
+        </Row>
       </Container>
     </div>
   );

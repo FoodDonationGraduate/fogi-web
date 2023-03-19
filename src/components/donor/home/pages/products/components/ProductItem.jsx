@@ -18,12 +18,12 @@ const ProductItem = ({
   return (
     <Row>
       <Col className='px-0'>
-        <Card className='donor-product-item'>
+        <Card className='long-product-item'>
           <Row>
             <Col className='ps-0' md={6} lg={7}>
               <Stack direction='horizontal'>
                 <img
-                  className='donor-product-image'
+                  className='long-product-image'
                   src={ProductImage}
                   width='96' height='96'
                 />
@@ -31,7 +31,7 @@ const ProductItem = ({
                   <h5 className='fw-bold mb-3'>
                     {product.title}
                   </h5>
-                  <span className='donor-product-type'>
+                  <span className='long-product-type'>
                     Product type
                   </span>
                 </div>
@@ -42,10 +42,10 @@ const ProductItem = ({
               <Row>
                 <Col xs={1} sm={3} md={5} lg={5}>
                   {size === 0 && (
-                    <MdMonetizationOn className='donor-product-label-icon' />
+                    <MdMonetizationOn className='long-product-label-icon' />
                   )}
                   {size > 0 && (
-                    <header className='donor-product-label'>Price</header>
+                    <header className='long-product-label'>Price</header>
                   )}
                 </Col>
                 <Col>
@@ -55,10 +55,10 @@ const ProductItem = ({
               <Row>
                 <Col xs={1} sm={3} md={5} lg={5}>
                   {size === 0 && (
-                    <MdAllInbox className='donor-product-label-icon' />
+                    <MdAllInbox className='long-product-label-icon' />
                   )}
                   {size > 0 && (
-                    <header className='donor-product-label'>In store</header>
+                    <header className='long-product-label'>In store</header>
                   )}
                 </Col>
                 <Col>
@@ -68,10 +68,10 @@ const ProductItem = ({
               <Row>
                 <Col xs={1} sm={3} md={5} lg={5}>
                   {size === 0 && (
-                    <MdAccessTime className='donor-product-label-icon' />
+                    <MdAccessTime className='long-product-label-icon' />
                   )}
                   {size > 0 && (
-                    <header className='donor-product-label'>Time left</header>
+                    <header className='long-product-label'>Time left</header>
                   )}
                 </Col>
                 <Col>
@@ -85,8 +85,8 @@ const ProductItem = ({
       </Col>
       
       <Col className='px-0' md={1} lg={1}>
-        <Card className='donor-product-tail align-items-center'>
-          <MdDeleteOutline className='donor-product-icon my-auto' />
+        <Card className='long-product-tail align-items-center'>
+          <MdDeleteOutline className='long-product-icon my-auto' />
         </Card>
       </Col>
     </Row>
