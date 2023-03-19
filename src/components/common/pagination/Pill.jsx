@@ -6,6 +6,9 @@ import { Button } from 'react-bootstrap';
 // Style imports
 import './Pagination.css';
 
+// Utility
+import { useResizer } from 'utils/helpers/Resizer.jsx';
+
 const Pill = ({
   idx,
   isActive,
@@ -15,10 +18,12 @@ const Pill = ({
     onChangePage(idx);
   };
 
+  let size = useResizer();
+  
   return (
     <>
       <Button
-        className='fogi pagination-pill'
+        className={size < 2 ? 'fogi pagination-pill-sm' : 'fogi pagination-pill'}
         variant={(isActive ? 'primary' : 'outline-secondary')}
         onClick={() => { if (idx !== -1) onChangePage(idx); }}
       >

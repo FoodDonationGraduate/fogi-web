@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import { Button, Card, Form, Col, Row, Stack } from 'react-bootstrap';
 
 // Assets
-import { MdDeleteOutline, MdAccessTime, MdAllInbox, MdMonetizationOn } from 'react-icons/md';
 import ProductImage from 'assets/images/ProductImage.jpg'; // temporary
 
 // Utility
@@ -39,9 +38,11 @@ const ProductItem = ({
                   <h5 className='fw-bold mb-3'>
                     {product.title}
                   </h5>
-                  <span className='long-product-type'>
-                    Product type
-                  </span>
+                  {size > 0 &&
+                    <span className='long-product-type'>
+                      Product type
+                    </span>
+                  }
                 </div>
               </Stack>
             </Col>
@@ -50,7 +51,9 @@ const ProductItem = ({
               <Row xs={2} md={4}>
                 <Col className={`d-flex ${size < 3 && 'ps-0'}`}>
                   <Stack className='my-auto' direction='vertical' gap={2}>
-                    <header className='long-product-label'>Remaining time</header>
+                    <header className='long-product-label'>
+                      {size > 0 ? 'Remaining t' : 'T'}ime
+                    </header>
                     <h5>2 days left</h5>
                   </Stack>
                 </Col>
@@ -66,13 +69,15 @@ const ProductItem = ({
                   <Stack className='my-auto' direction='vertical' gap={2}>
                     <header className='long-product-label'>Portions</header>
                     <Stack direction='horizontal'>
-                      <Button
-                        variant='outline-secondary'
-                        onClick={decreaseCount}
-                      >
-                        -
-                      </Button>
-                      <Form.Group style={{width: `${size < 3 ? '35%' : '80%'}`}}>
+                      {size > 0 &&
+                        <Button
+                          variant='outline-secondary'
+                          onClick={decreaseCount}
+                        >
+                          +
+                        </Button>
+                      }
+                      <Form.Group style={{width: `${size < 3 ? '50%' : '80%'}`}}>
                         <Form.Control
                           type='number'
                           value={count}
@@ -80,12 +85,14 @@ const ProductItem = ({
                           onChange={(e) => setCount(Number(e.target.value))}
                         />
                       </Form.Group>
-                      <Button
-                        variant='outline-secondary'
-                        onClick={increaseCount}
-                      >
-                        +
-                      </Button>
+                      {size > 0 &&
+                        <Button
+                          variant='outline-secondary'
+                          onClick={increaseCount}
+                        >
+                          +
+                        </Button>
+                      }
                     </Stack>
                   </Stack>
                 </Col>
