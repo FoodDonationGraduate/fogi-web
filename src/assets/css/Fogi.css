@@ -124,6 +124,10 @@ a.fogi:active {
     background-color: #82CD47;
     color: white;
   }
+  .long-product-type-sm {
+    color: #999;
+    font-size: 14px;
+  }
   .long-product-label {
     color: #999;
     font-weight: bold;

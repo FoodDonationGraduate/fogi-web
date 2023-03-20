@@ -35,14 +35,12 @@ const ProductItem = ({
                   width='96' height='96'
                 />
                 <div className='ms-4'>
-                  <h5 className='fw-bold mb-3'>
+                  <h5 className='fw-bold'>
                     {product.title}
                   </h5>
-                  {size > 0 &&
-                    <span className='long-product-type'>
-                      Product type
-                    </span>
-                  }
+                  <span className={size > 0 ? 'long-product-type' : 'long-product-type-sm'}>
+                    Product type
+                  </span>
                 </div>
               </Stack>
             </Col>

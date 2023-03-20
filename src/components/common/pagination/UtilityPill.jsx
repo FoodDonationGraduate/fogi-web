@@ -27,7 +27,7 @@ const UtilityPill = ({
   return (
     <>
       <Button
-        className={size < 2 ? 'fogi pagination-pill-sm' : 'fogi pagination-pill'}
+        className={size < 1 ? 'fogi pagination-pill-sm' : 'fogi pagination-pill'}
         variant={(idx !== -1 ? 'primary' : 'outline-secondary')}
         onClick={handleOnClick}
       >

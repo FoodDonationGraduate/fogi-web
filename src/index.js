@@ -26,6 +26,7 @@ import AccountType from "./components/guest/authentication/AccountTypePage.jsx";
 import ForgotPassword from "./components/guest/authentication/ForgotPasswordPage.jsx";
 import ChangePassword from "./components/guest/authentication/ChangePasswordPage.jsx";
 import CartPage from './components/user/cart/CartPage.jsx';
+import OrderListPage from './components/user/order/OrderListPage.jsx';
 
 import DonorSignup from "./components/donor/authentication/SignupPage.jsx";
 import DonorAccountInfo from "./components/donor/authentication/AccountInfoPage.jsx";
@@ -56,6 +57,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/store/:id" element={<ProductDetailsPage />} />
 
         <Route path="/cart" element={<CartPage />} />
+        <Route path="/orders" element={<OrderListPage />} />
 
         <Route path="/login" element={<UserLogin />} />
         <Route path="/accounttype" element={<AccountType />} />

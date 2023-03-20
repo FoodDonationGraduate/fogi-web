@@ -24,11 +24,11 @@ const Pagination = ({
   const getShownPills = () => {
     const pills = [];
     pills.push(-2);
-    const smallSize = 2 * Number(size < 2);
+    const smallSize = 2 * Number(size < 1);
     
     // Case 1: [0]-1-2-3-4-5-6
     if (pageCount <= 7 - smallSize) {
-      for (let i = 0; i < pageCount - smallSize; i++) pills.push(i);
+      for (let i = 0; i < pageCount; i++) pills.push(i);
     }
     else {
       const firstIdx = 0;
@@ -69,12 +69,11 @@ const Pagination = ({
 
   useEffect(() => {
     setShownPills(getShownPills());
-    console.log(shownPills);
   }, [activeIdx, size]);
 
   return (
     <>
-      <Stack direction='horizontal' gap={size < 2 ? 1 : 2}>
+      <Stack direction='horizontal' gap={size < 1 ? 1 : 2}>
         {shownPills.map((idx, key) => 
           <>
           {idx > -1 ?
@@ -86,6 +85,7 @@ const Pagination = ({
             />
             :
             <UtilityPill
+              key={key}
               idx={idx}
               activeIdx={activeIdx}
               pageCount={pageCount}

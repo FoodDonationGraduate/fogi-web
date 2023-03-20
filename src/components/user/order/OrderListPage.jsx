@@ -4,14 +4,13 @@ import React from 'react';
 // Components
 import TopSection from 'components/layout/TopSection';
 import Footer from 'components/guest/common/bars/Footer';
-import CartTitle from './components/CartTitle';
-import OrderInfoCard from './components/OrderInfoCard';
-import ProductList from './components/ProductList';
+import OrderListTitle from './components/OrderListTitle';
+import OrderList from './components/OrderList';
 
 // Style
-import 'assets/css/user/cart/Cart.css';
+import 'assets/css/user/order/Order.css';
 
-const CartPage = () => {
+const OrderListPage = () => {
 
   return (
     <>
@@ -20,13 +19,10 @@ const CartPage = () => {
       </div>
       <div className='bg'>
         <div className='mb-4'>
-          <CartTitle />
+          <OrderListTitle />
         </div>
         <div className='pb-4'>
-          <OrderInfoCard />
-        </div>
-        <div className='pb-4'>
-          <ProductList />
+          <OrderList />
         </div>
       </div>
       <div>
@@ -36,4 +32,4 @@ const CartPage = () => {
   );
 };
 
-export default CartPage;
+export default OrderListPage;

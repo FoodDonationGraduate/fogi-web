@@ -1,0 +1,49 @@
+.order-item {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 8px 8px 32px #00000008;
+  cursor: pointer;
+  padding: 32px;
+  user-select: none;
+}
+  .order-item:hover {
+    box-shadow: 0 0 8px #82CD47;
+  }
+  .order-item:active {
+    background-color: #f2f2f2;
+    box-shadow: 0 0 8px #82CD47;
+  }
+  .order-item-status {
+    border-radius: 4px;
+    color: white;
+    font-size: 16;
+    font-weight: bold;
+    padding: 6px 12px;
+  }
+    .order-item-status-green {
+      background-color: #82CD47;
+    }
+    .order-item-status-yellow {
+      background-color: #FEB934;
+    }
+    .order-item-status-red {
+      background-color: #FF5A5F;
+    }
+  .order-item-secondary {
+    color: #999;
+  }
+  .order-item-date {
+    font-weight: bold;
+  }
+  .order-item-total {
+    color: #82CD47;
+    font-weight: bold;
+  }
+  .order-item-product-title {
+    font-weight: bold;
+  }
+  .order-item-donor-logo {
+    border-radius: 50%;
+    width: 64px;
+    height: 64px;
+  }
