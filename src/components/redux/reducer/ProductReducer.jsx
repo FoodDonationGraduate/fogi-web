@@ -7,6 +7,7 @@ const initialState = {
     amootProducts: {},
     categoryProducts: {},
     searchingProducts: {},
+    donorProducts: {},
     currentProduct: {},
     sort: ''
 }
@@ -26,6 +27,9 @@ const productReducer = createSlice({
         setCategoryProducts: (state, action) => {
             state.categoryProducts = action.payload
         },
+        setDonorProducts: (state, action) => {
+            state.donorProducts = action.payload
+        },
         setCurrentProduct: (state, action) => {
             state.currentProduct = action.payload
         },
@@ -36,7 +40,8 @@ const productReducer = createSlice({
 })
 
 export const { 
-    setNewProducts, setAmootProducts, setSearchingProducts, setCategoryProducts, setCurrentProduct,
+    setNewProducts, setAmootProducts, setSearchingProducts, 
+    setCategoryProducts, setCurrentProduct, setDonorProducts,
     setTypeOfSort
 } = productReducer.actions
 
@@ -155,6 +160,27 @@ export const retrieveCurrentProduct = (data, navigate) => {
     }
 }
 
+export const retrieveDonorProducts = (data, navigate) => {
+    return async dispatch => {
+        try {
+            console.log("retrieve donor's products")
+            await axiosInstance.get(`/product`, {params: {
+                donor_email: data.email,
+                limit: data.limit,
+                offset: data.offset
+            }}).then((res) => {
+                dispatch(setDonorProducts(res.data))
+            })
+            .catch((err) => {
+                console.log(err.response.data)
+            });
+        } catch (err) {
+            console.log(err)
+            navigate('/')
+        }
+    }
+}
+
 export const postNewProduct = (data, user, navigate) => {
     return async dispatch => {
         try {
@@ -177,6 +203,30 @@ export const postNewProduct = (data, user, navigate) => {
                 dispatch(setModalMessage("Create new product successfully!"))
                 dispatch(showModal())
             }).catch((err) => {
+                console.log(err)
+                dispatch(setModalMessage("Something went wrong"))
+                dispatch(showModal())
+            });
+        } catch (err) {
+            console.log(err)
+            navigate('/')
+        }
+    }
+}
+
+export const deleteProduct = (data, user, navigate) => {
+    return async dispatch => {
+        try {
+            console.log("retrieve donor's products")
+            await axiosInstance.delete(`/product`, {data: {
+                donor_email: user.userInfo.email,
+                token: user.userToken,
+                id: data.id
+            }}).then((res) => {
+                dispatch(setModalMessage("Delete product successfully!"))
+                dispatch(showModal())
+            })
+            .catch((err) => {
                 console.log(err)
                 dispatch(setModalMessage("Something went wrong"))
                 dispatch(showModal())

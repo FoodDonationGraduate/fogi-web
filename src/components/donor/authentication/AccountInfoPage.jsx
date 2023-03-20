@@ -14,7 +14,7 @@ import UploadButton from 'components/common/UploadButton';
 import Logo from 'components/common/Logo';
 import { signupForDonor, signupUserInfo } from 'components/redux/reducer/AuthenticationReducer';
 import { setModalMessage, showModal } from 'components/redux/reducer/ModalReducer';
-import Modal from "components/layout/Modal.jsx";
+import Modal from "components/layout/InfoModal.jsx";
 
 // Assets imports
 import { FaExclamationTriangle } from "react-icons/fa";

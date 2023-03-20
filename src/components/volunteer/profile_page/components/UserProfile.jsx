@@ -13,7 +13,7 @@ import 'assets/css/user/profile_page/UserProfile.css'
 
 import AvatarSection from './AvatarSection';
 import { patchProfile } from 'components/redux/reducer/AuthenticationReducer.jsx'
-import { setModalMessage, showModal, cancelModal } from 'components/redux/reducer/ModalReducer';
+import { setModalMessage, showModal, cancelQuestionModal } from 'components/redux/reducer/ModalReducer';
 
 function UserProfile() {
     const [data, setData] = React.useState({})
@@ -42,7 +42,7 @@ function UserProfile() {
 
     React.useEffect(() => {
         if (modalLogic) {
-            dispatch(cancelModal())
+            dispatch(cancelQuestionModal())
             dispatch(patchProfile(data, {userInfo, userToken}, navigate))
         }
     })

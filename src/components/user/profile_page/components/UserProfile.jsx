@@ -12,7 +12,7 @@ import { FaExclamationTriangle } from "react-icons/fa";
 import 'assets/css/user/profile_page/UserProfile.css'
 
 import { updateProfile } from 'components/redux/reducer/AuthenticationReducer.jsx'
-import { setModalMessage, showModal, cancelModal } from 'components/redux/reducer/ModalReducer';
+import { setModalMessage, showModal, cancelQuestionModal } from 'components/redux/reducer/ModalReducer';
 import AvatarSection from './AvatarSection';
 
 function UserProfile() {
@@ -43,7 +43,7 @@ function UserProfile() {
 
     React.useEffect(() => {
         if (modalLogic) {
-            dispatch(cancelModal())
+            dispatch(cancelQuestionModal())
             dispatch(updateProfile(data, {userInfo, userToken},navigate))
         }
     })

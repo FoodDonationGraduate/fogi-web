@@ -20,7 +20,7 @@ import 'assets/css/Fogi.css';
 // Components
 import Logo from 'components/common/Logo';
 import { setModalMessage, showModal } from 'components/redux/reducer/ModalReducer';
-import Modal from "components/layout/Modal.jsx";
+import Modal from "components/layout/InfoModal.jsx";
 import { resetPassword } from 'components/redux/reducer/AuthenticationReducer';
 
 const ChangePassword = () => {

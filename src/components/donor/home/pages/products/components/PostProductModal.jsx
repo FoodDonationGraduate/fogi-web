@@ -2,9 +2,11 @@
 import * as React from 'react';
 import { useState } from 'react';
 import {
-  Button, Col, Dropdown, DropdownButton, Form, InputGroup,
+  Button, Col, Form, InputGroup,
   Modal, Row, Stack
 } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 // Form handling
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -14,17 +16,14 @@ import * as Yup from 'yup';
 // Components
 import UploadButton from 'components/common/UploadButton';
 import Tooltip from 'components/common/Tooltip';
-
+import { retrieveAllCategories } from 'components/redux/reducer/CategoryReducer';
+import { postNewProduct } from 'components/redux/reducer/ProductReducer';
 // Assets imports
 import { FaExclamationTriangle } from 'react-icons/fa';
 import { MdClose } from 'react-icons/md';
 
 // Style imports
 import 'assets/css/Authentication.css';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { retrieveAllCategories } from 'components/redux/reducer/CategoryReducer';
-import { postNewProduct } from 'components/redux/reducer/ProductReducer';
 
 const PostProductModal = ({
   show,
@@ -94,10 +93,10 @@ const PostProductModal = ({
     if (images.length === 0) {
       return;
     }
-    
     dispatch(postNewProduct({...data, images: base64Images}, {userInfo, userToken}, navigate));
     onClose();
   };
+
   React.useEffect(() => {
     dispatch(retrieveAllCategories(navigate));
     var newImages = [];
@@ -111,7 +110,7 @@ const PostProductModal = ({
       }
       reader.readAsDataURL(image);
     }
-    setBase64Images(newImages)
+    setBase64Images(newImages);
   }, [images])
   return (
     <>

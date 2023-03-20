@@ -9,7 +9,7 @@ import 'assets/css/Fogi.css';
 
 // Components
 import Logo from 'components/common/Logo';
-import Modal from 'components/layout/Modal'
+import Modal from 'components/layout/InfoModal'
 
 const Verification = () => {
 
