@@ -1,7 +1,7 @@
 import React from 'react'
 import {Card, Container, Button} from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 import 'assets/css/user/profile_page/ButtonCard.css'
 

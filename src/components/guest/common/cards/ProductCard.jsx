@@ -57,7 +57,8 @@ const ProductCard = ({product}) => {
             <div>
               <img className='donor-logo-s' 
                 src={`https://bachkhoi.online/static/${product.donor.avatar_filename}`}
-                onClick={() => navigate(`/store/${product.id}`)} />
+                onClick={() => navigate(`/store/${product.id}`)} 
+                alt='donor logo'/>
             </div>
             <div>
               <header style={{ fontWeight: 'bold' }}>

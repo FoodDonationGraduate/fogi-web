@@ -48,7 +48,7 @@ export const {
 export default authenticationReducer.reducer
 // ----------- HELPER ---------------------
 
-function handleExpiredToken (data, dispatch, navigate) {
+export function handleExpiredToken (data, dispatch, navigate) {
     if (data.message === "unauthorized") {
         dispatch(setUserInfo({}))
         dispatch(setUserToken(''))

@@ -7,6 +7,7 @@ import { Col, Row } from 'react-bootstrap';
 import SideMenu from './components/SideMenu';
 import SideMenuOffCanvas from './components/SideMenuOffCanvas';
 import ProductListPage from './pages/products/ProductListPage';
+import Modal from 'components/layout/Modal.jsx'
 
 // Assets
 import { MdMenu } from 'react-icons/md';
@@ -56,6 +57,7 @@ const HomePage = () => {
           </Col>
         </Row>
       </div>
+      <Modal/>
     </>
   );
 };

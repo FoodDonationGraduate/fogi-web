@@ -26,7 +26,6 @@ const ProductItem = ({
                   className='donor-product-image'
                   src={ProductImage}
                   width='96' height='96'
-                  alt='donor image'
                 />
                 <div className='ms-4'>
                   <h5 className='fw-bold mb-3'>

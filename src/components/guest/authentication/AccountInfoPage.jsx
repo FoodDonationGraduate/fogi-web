@@ -1,7 +1,7 @@
 // Essentials
 import * as React from 'react';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useNavigate } from "react-router-dom";
 import { signup, signupUserInfo } from 'components/redux/reducer/AuthenticationReducer';
 
@@ -21,8 +21,6 @@ import 'assets/css/Authentication.css';
 import 'assets/css/Fogi.css';
 
 const AccountInfo = () => {
-  const registeredUser = useSelector(state => state.authenticationReducer.registeredUser)
-
   const formSchema = Yup.object().shape({
     fullname: Yup.string().required(''),
     dob: Yup.string().required(''),

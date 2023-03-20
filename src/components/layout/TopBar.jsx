@@ -22,7 +22,6 @@ function TopBar() {
   const toSignupForm = () => { navigate('/accounttype');}
   const toProfileForm = () => { navigate('/profile');}
   const userInfo = useSelector(state => state.authenticationReducer.user)
-  const userToken = useSelector(state => state.authenticationReducer.token)
   
   return (
     <div className='top-bar-header'>
