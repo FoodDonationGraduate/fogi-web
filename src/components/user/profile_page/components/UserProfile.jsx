@@ -12,7 +12,7 @@ import { FaExclamationTriangle } from "react-icons/fa";
 import 'assets/css/user/profile_page/UserProfile.css'
 
 import { updateProfile } from 'components/redux/reducer/AuthenticationReducer.jsx'
-import { setModalMessage, showModal, cancelQuestionModal } from 'components/redux/reducer/ModalReducer';
+import { cancelQuestionModal, setModalQuestion, showQuestionModal } from 'components/redux/reducer/ModalReducer';
 import AvatarSection from './AvatarSection';
 
 function UserProfile() {
@@ -36,8 +36,8 @@ function UserProfile() {
     const navigate = useNavigate();
 
     const onSubmit = (data) => {
-        dispatch(setModalMessage("Do you want to save this change?"))
-        dispatch(showModal())
+        dispatch(setModalQuestion("Do you want to save this change?"))
+        dispatch(showQuestionModal())
         setData(data)
     }
 

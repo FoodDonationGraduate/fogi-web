@@ -26,7 +26,6 @@ const ProductList = () => {
 
   React.useEffect(()=>{
     dispatch(retrieveDonorProducts({limit: PRODUCT_COUNT, offset: page * PRODUCT_COUNT, email: userInfo.email}, navigate))
-    console.log(donorProducts.total_products);
   }, [])
 
   return (
