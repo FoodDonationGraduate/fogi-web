@@ -8,36 +8,17 @@ import { MdOutlineLocationOn } from 'react-icons/md';
 
 // Utility
 import { convertNumberToVnd } from 'utils/helpers/Money.jsx';
+import { getStatus } from 'utils/helpers/Order.jsx';
 
 const OrderItem = ({ order }) => {
-
-  const getStatus = () => {
-    let label = 'Completed';
-    let css = 'green';
-    switch (order.status) {
-      case 1:
-        label = 'In-progress';
-        css = 'yellow';
-        break;
-      case 2:
-        label = 'Cancelled';
-        css = 'red';
-        break;
-      default:
-        label = 'Completed';
-        css = 'green';
-        break;
-    }
-    return { label, css };
-  };
 
   return (
     <>
       <div className='order-item'>
         <span
-          className={`order-item-status order-item-status-${getStatus().css}`}
+          className={`order-item-status order-item-status-${getStatus(order).css}`}
         >
-          {getStatus().label}
+          {getStatus(order).label}
         </span>
         <header className='order-item-secondary mt-3 mb-1'>
           {order.id}

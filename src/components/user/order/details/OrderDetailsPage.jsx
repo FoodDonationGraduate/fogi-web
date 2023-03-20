@@ -4,17 +4,17 @@ import React from 'react';
 // Components
 import TopSection from 'components/layout/TopSection';
 import Footer from 'components/guest/common/bars/Footer';
-import CartTitle from './components/CartTitle';
-import CartInfoCard from './components/CartInfoCard';
+import OrderDetailsTitle from './components/OrderDetailsTitle';
+import OrderInfoCard from './components/OrderInfoCard';
 import ProductList from './components/ProductList';
 
 // Style
-import 'assets/css/user/cart/Cart.css';
+import 'assets/css/user/order/Order.css';
 
 // Data
 import { ORDER_DATA } from 'utils/constants/Order.jsx';
 
-const CartPage = () => {
+const OrderDetailsPage = () => {
 
   return (
     <>
@@ -23,10 +23,10 @@ const CartPage = () => {
       </div>
       <div className='bg'>
         <div className='mb-4'>
-          <CartTitle />
+          <OrderDetailsTitle id={ORDER_DATA[0].id} />
         </div>
         <div className='pb-4'>
-          <CartInfoCard order={ORDER_DATA[0]} />
+          <OrderInfoCard order={ORDER_DATA[0]} />
         </div>
         <div className='pb-4'>
           <ProductList />
@@ -39,4 +39,4 @@ const CartPage = () => {
   );
 };
 
-export default CartPage;
+export default OrderDetailsPage;

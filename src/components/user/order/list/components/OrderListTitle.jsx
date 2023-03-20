@@ -5,7 +5,7 @@ import { Container, Col, Row, Dropdown, DropdownButton } from 'react-bootstrap';
 // Styling
 import 'assets/css/Fogi.css';
 
-const OrderListTitle = ({}) => {
+const OrderListTitle = () => {
 
   return (
     <div className='bg'>

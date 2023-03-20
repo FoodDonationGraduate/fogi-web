@@ -13,15 +13,6 @@ const ProductItem = ({
   product
 }) => {
   let size = useResizer();
-  const [count, setCount] = useState(0);
-  const increaseCount = () => { setCount(count + 1) };
-  const decreaseCount = () => {
-    if (count > 0) setCount(count - 1)
-  };
-
-  useEffect(() => {
-    setCount(0);
-  }, [product]);
 
   return (
     <Row>
@@ -51,9 +42,9 @@ const ProductItem = ({
                 <Col className={`d-flex ${size < 3 && 'ps-0'}`}>
                   <Stack className='my-auto' direction='vertical' gap={2}>
                     <header className='long-product-label'>
-                      {size > 0 ? 'Remaining t' : 'T'}ime
+                      {size > 0 ? 'Expiration date' : 'Expire'}
                     </header>
-                    <h5>2 days left</h5>
+                    <h5>17/03/2023</h5>
                   </Stack>
                 </Col>
 
@@ -68,30 +59,14 @@ const ProductItem = ({
                   <Stack className='my-auto' direction='vertical' gap={2}>
                     <header className='long-product-label'>Portions</header>
                     <Stack direction='horizontal'>
-                      {size > 0 &&
-                        <Button
-                          variant='outline-secondary'
-                          onClick={decreaseCount}
-                        >
-                          -
-                        </Button>
-                      }
-                      <Form.Group style={{width: `${size < 3 ? '50%' : '80%'}`}}>
+                      <Form.Group style={{width: '50%'}}>
                         <Form.Control
                           type='number'
-                          value={count}
+                          value='2'
                           style={{ textAlign: 'center' }}
-                          onChange={(e) => setCount(Number(e.target.value))}
+                          readOnly
                         />
                       </Form.Group>
-                      {size > 0 &&
-                        <Button
-                          variant='outline-secondary'
-                          onClick={increaseCount}
-                        >
-                          +
-                        </Button>
-                      }
                     </Stack>
                   </Stack>
                 </Col>
@@ -103,22 +78,6 @@ const ProductItem = ({
                   </Stack>
                 </Col>
               </Row>
-            </Col>
-          </Row>
-
-          <hr />
-
-          <Row>
-            <Col className='ps-0'>
-              <Stack direction='horizontal' gap={3}>
-                <header className='fw-bold'>Options</header>
-                <Button variant='outline-secondary'>
-                  View details
-                </Button>
-                <Button variant='outline-danger'>
-                  Remove
-                </Button>
-              </Stack>
             </Col>
           </Row>
         </Card>

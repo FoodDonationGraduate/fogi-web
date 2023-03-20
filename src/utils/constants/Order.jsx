@@ -2,6 +2,7 @@ import DonorLogo from 'assets/images/DonorLogo.jpg';
 export const ORDER_DATA = [
     {
         status: 0,
+        step: 1,
         id: 'SO19SHQ2JW91',
         date: '17/03/2023',
         total: 25000,
@@ -26,6 +27,7 @@ export const ORDER_DATA = [
     },
     {
         status: 0,
+        step: 1,
         id: 'SO19SHQ2JW91',
         date: '17/03/2023',
         total: 25000,
@@ -50,6 +52,7 @@ export const ORDER_DATA = [
     },
     {
         status: 0,
+        step: 1,
         id: 'SO19SHQ2JW91',
         date: '17/03/2023',
         total: 25000,
@@ -98,6 +101,7 @@ export const ORDER_DATA = [
     },
     {
         status: 0,
+        step: 1,
         id: 'SO19SHQ2JW91',
         date: '17/03/2023',
         total: 25000,
@@ -146,6 +150,7 @@ export const ORDER_DATA = [
     },
     {
         status: 0,
+        step: 1,
         id: 'SO19SHQ2JW91',
         date: '17/03/2023',
         total: 25000,
@@ -170,6 +175,7 @@ export const ORDER_DATA = [
     },
     {
         status: 0,
+        step: 1,
         id: 'SO19SHQ2JW91',
         date: '17/03/2023',
         total: 25000,
@@ -194,6 +200,7 @@ export const ORDER_DATA = [
     },
     {
         status: 0,
+        step: 1,
         id: 'SO19SHQ2JW91',
         date: '17/03/2023',
         total: 25000,
@@ -218,6 +225,7 @@ export const ORDER_DATA = [
     },
     {
         status: 0,
+        step: 1,
         id: 'SO19SHQ2JW91',
         date: '17/03/2023',
         total: 25000,
@@ -242,6 +250,7 @@ export const ORDER_DATA = [
     },
     {
         status: 0,
+        step: 1,
         id: 'SO19SHQ2JW91',
         date: '17/03/2023',
         total: 25000,
@@ -266,6 +275,7 @@ export const ORDER_DATA = [
     },
     {
         status: 0,
+        step: 1,
         id: 'SO19SHQ2JW91',
         date: '17/03/2023',
         total: 25000,
@@ -290,6 +300,7 @@ export const ORDER_DATA = [
     },
     {
         status: 0,
+        step: 1,
         id: 'SO19SHQ2JW91',
         date: '17/03/2023',
         total: 25000,
@@ -314,6 +325,7 @@ export const ORDER_DATA = [
     },
     {
         status: 0,
+        step: 1,
         id: 'SO19SHQ2JW91',
         date: '17/03/2023',
         total: 25000,
@@ -338,6 +350,7 @@ export const ORDER_DATA = [
     },
     {
         status: 0,
+        step: 1,
         id: 'SO19SHQ2JW91',
         date: '17/03/2023',
         total: 25000,
@@ -362,6 +375,7 @@ export const ORDER_DATA = [
     },
     {
         status: 0,
+        step: 1,
         id: 'SO19SHQ2JW91',
         date: '17/03/2023',
         total: 25000,
@@ -386,6 +400,7 @@ export const ORDER_DATA = [
     },
     {
         status: 0,
+        step: 1,
         id: 'SO19SHQ2JW91',
         date: '17/03/2023',
         total: 25000,
@@ -410,6 +425,7 @@ export const ORDER_DATA = [
     },
     {
         status: 0,
+        step: 1,
         id: 'SO19SHQ2JW91',
         date: '17/03/2023',
         total: 25000,
@@ -434,6 +450,7 @@ export const ORDER_DATA = [
     },
     {
         status: 0,
+        step: 1,
         id: 'SO19SHQ2JW91',
         date: '17/03/2023',
         total: 25000,
@@ -458,6 +475,7 @@ export const ORDER_DATA = [
     },
     {
         status: 0,
+        step: 1,
         id: 'SO19SHQ2JW91',
         date: '17/03/2023',
         total: 25000,
@@ -482,6 +500,7 @@ export const ORDER_DATA = [
     },
     {
         status: 0,
+        step: 1,
         id: 'SO19SHQ2JW91',
         date: '17/03/2023',
         total: 25000,
@@ -506,6 +525,7 @@ export const ORDER_DATA = [
     },
     {
         status: 0,
+        step: 1,
         id: 'SO19SHQ2JW91',
         date: '17/03/2023',
         total: 25000,
@@ -530,6 +550,7 @@ export const ORDER_DATA = [
     },
     {
         status: 0,
+        step: 1,
         id: 'SO19SHQ2JW91',
         date: '17/03/2023',
         total: 25000,
@@ -554,6 +575,7 @@ export const ORDER_DATA = [
     },
     {
         status: 0,
+        step: 1,
         id: 'SO19SHQ2JW91',
         date: '17/03/2023',
         total: 25000,
@@ -578,6 +600,7 @@ export const ORDER_DATA = [
     },
     {
         status: 0,
+        step: 1,
         id: 'SO19SHQ2JW91',
         date: '17/03/2023',
         total: 25000,
@@ -602,6 +625,7 @@ export const ORDER_DATA = [
     },
     {
         status: 0,
+        step: 1,
         id: 'SO19SHQ2JW91',
         date: '17/03/2023',
         total: 25000,
@@ -626,6 +650,7 @@ export const ORDER_DATA = [
     },
     {
         status: 0,
+        step: 1,
         id: 'SO19SHQ2JW91',
         date: '17/03/2023',
         total: 25000,
@@ -650,6 +675,7 @@ export const ORDER_DATA = [
     },
     {
         status: 0,
+        step: 1,
         id: 'SO19SHQ2JW91',
         date: '17/03/2023',
         total: 25000,
@@ -674,6 +700,7 @@ export const ORDER_DATA = [
     },
     {
         status: 0,
+        step: 1,
         id: 'SO19SHQ2JW91',
         date: '17/03/2023',
         total: 25000,
@@ -698,6 +725,7 @@ export const ORDER_DATA = [
     },
     {
         status: 0,
+        step: 1,
         id: 'SO19SHQ2JW91',
         date: '17/03/2023',
         total: 25000,
@@ -722,6 +750,7 @@ export const ORDER_DATA = [
     },
     {
         status: 0,
+        step: 1,
         id: 'SO19SHQ2JW91',
         date: '17/03/2023',
         total: 25000,
@@ -770,6 +799,7 @@ export const ORDER_DATA = [
     },
     {
         status: 0,
+        step: 1,
         id: 'SO19SHQ2JW91',
         date: '17/03/2023',
         total: 25000,
@@ -794,6 +824,7 @@ export const ORDER_DATA = [
     },
     {
         status: 0,
+        step: 1,
         id: 'SO19SHQ2JW91',
         date: '17/03/2023',
         total: 25000,
@@ -818,6 +849,7 @@ export const ORDER_DATA = [
     },
     {
         status: 0,
+        step: 1,
         id: 'SO19SHQ2JW91',
         date: '17/03/2023',
         total: 25000,
@@ -842,6 +874,7 @@ export const ORDER_DATA = [
     },
     {
         status: 0,
+        step: 1,
         id: 'SO19SHQ2JW91',
         date: '17/03/2023',
         total: 25000,
@@ -866,6 +899,7 @@ export const ORDER_DATA = [
     },
     {
         status: 0,
+        step: 1,
         id: 'SO19SHQ2JW91',
         date: '17/03/2023',
         total: 25000,
@@ -890,6 +924,7 @@ export const ORDER_DATA = [
     },
     {
         status: 0,
+        step: 1,
         id: 'SO19SHQ2JW91',
         date: '17/03/2023',
         total: 25000,
@@ -914,6 +949,7 @@ export const ORDER_DATA = [
     },
     {
         status: 0,
+        step: 1,
         id: 'SO19SHQ2JW91',
         date: '17/03/2023',
         total: 25000,
@@ -938,6 +974,7 @@ export const ORDER_DATA = [
     },
     {
         status: 0,
+        step: 1,
         id: 'SO19SHQ2JW91',
         date: '17/03/2023',
         total: 25000,
@@ -962,6 +999,7 @@ export const ORDER_DATA = [
     },
     {
         status: 0,
+        step: 1,
         id: 'SO19SHQ2JW91',
         date: '17/03/2023',
         total: 25000,
@@ -986,6 +1024,7 @@ export const ORDER_DATA = [
     },
     {
         status: 0,
+        step: 1,
         id: 'SO19SHQ2JW91',
         date: '17/03/2023',
         total: 25000,
@@ -1010,6 +1049,7 @@ export const ORDER_DATA = [
     },
     {
         status: 0,
+        step: 1,
         id: 'SO19SHQ2JW91',
         date: '17/03/2023',
         total: 25000,
@@ -1034,6 +1074,7 @@ export const ORDER_DATA = [
     },
     {
         status: 0,
+        step: 1,
         id: 'SO19SHQ2JW91',
         date: '17/03/2023',
         total: 25000,
