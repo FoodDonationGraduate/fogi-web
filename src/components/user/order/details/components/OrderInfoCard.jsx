@@ -73,9 +73,26 @@ const CartInfoCard = ({ order }) => {
               <hr />
               
               <h3 className='order-item-date text-center'>
-                {getStep(order)}
+                {getStep(order.step).header}
               </h3>
 
+              {size > 1 ? 
+                <Row className='mt-4'>
+                  {Array.from({ length : 7 }).map((_, idx) => (
+                    <Col>
+                      {idx % 2 === 0 ?
+                        <StepItem key={idx / 2} step={idx / 2} currentStep={order.step} />
+                        :
+                        <hr className='step-connector' />
+                      }
+                    </Col>
+                  ))}
+                </Row>
+                :
+                <header className='order-item-secondary text-center mt-2'>
+                  Current step: {getStep(order.step).label} {`(${order.step}/4)`}
+                </header>
+              }
             </div>
           </Col>
         </Row>

@@ -1,3 +1,5 @@
+import { MdSmartphone, MdLabelImportant, MdDeliveryDining, MdCheckCircle } from 'react-icons/md';
+
 export const getStatus = (order) => {
   let label = 'Complete';
   let css = 'green';
@@ -18,40 +20,32 @@ export const getStatus = (order) => {
   return { label, css };
 };
 
-export const getStep = (order) => {
+export const getStep = (step) => {
   let header = 'Your order is waiting to be reviewed';
-  switch (order.step) {
+  let label = 'Ordered';
+  let icon = MdSmartphone;
+  switch (step) {
     case 0:
       header = 'Your order is waiting to be reviewed';
+      label = 'Ordered';
+      icon = MdSmartphone;
       break;
     case 1:
       header = 'A volunteer is picking up your order';
+      label = 'Processing';
+      icon = MdLabelImportant;
       break;
     case 2:
       header = 'The volunteer is delivering to you';
+      label = 'Delivering';
+      icon = MdDeliveryDining;
       break;
     default:
       header = 'Your food has arrived!';
-  }
-  return header;
-};
-
-export const getStepLabel = (step) => {
-  let label = 'Ordered';
-  switch (step) {
-    case 0:
-      label = 'Ordered';
-      break;
-    case 1:
-      label = 'Processing';
-      break;
-    case 2:
-      label = 'Delivering';
-      break;
-    default:
       label = 'Arrived';
+      icon = MdCheckCircle;
   }
-  return label;
+  return { header, label, icon };
 };
 
 export const getStepStatus = (step, currentStep) => {

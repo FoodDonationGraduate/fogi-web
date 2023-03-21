@@ -50,8 +50,14 @@
 
 .step-item {
   border-radius: 50%;
+  align-self: start;
   padding: 16px;
 }
+  .step-item-sm {
+    border-radius: 50%;
+    align-self: start;
+    padding: 8px;
+  }
   .step-item-finished {
     border: 2px solid #82CD47;
     background-color: #82CD4700;
@@ -68,13 +74,22 @@
     color: #ccc;
   }
   .step-item-icon {
-    width: 48px;
-    height: 48px;
+    width: 32px;
+    height: 32px;
   }
-.step-text {
-  font-weight: bold;
-  color: #ccc;
-}
+    .step-item-icon-sm {
+      width: 16px;
+      height: 16px;
+    }
+  .step-connector {
+    margin-top: 32px;
+  }
   .step-text-current {
     color: black;
+  }
+  .step-text-unfinished {
+    color: #ccc;
+  }
+  .step-text-finished {
+    color: #82CD47;
   }
