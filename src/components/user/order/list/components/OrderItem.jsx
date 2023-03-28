@@ -11,6 +11,9 @@ import { convertNumberToVnd } from 'utils/helpers/Money.jsx';
 import { getStatus } from 'utils/helpers/Order.jsx';
 
 const OrderItem = ({ order }) => {
+  const productListDisplayLength = () => {
+    return order.products.length < 4 ? order.products.length : 2;
+  };
 
   return (
     <>
@@ -38,18 +41,6 @@ const OrderItem = ({ order }) => {
             Ordered at {order.address}
           </header>
         </EqualHeightElement>
-        <hr />
-
-        <h5 className='order-item-product-title'>
-          Product List
-        </h5>
-        <EqualHeightElement name="order-list">
-          {order.products.map((product) => (
-            <header className='order-item-secondary my-1'>
-              - {product.name} ({product.count} {product.unit}{product.count > 1 && 's'})
-            </header>
-          ))}
-        </EqualHeightElement>
 
         <hr />
 
@@ -65,12 +56,33 @@ const OrderItem = ({ order }) => {
                 {order.donor.name}
               </h5>
               <header className='order-item-secondary'>
-                <MdOutlineLocationOn className='mb-1 me-2' />
-                227 Nguyen Van Cu, Ward 4, District 5
+                <Stack direction='horizontal' gap={2}>
+                  <MdOutlineLocationOn className='mt-1 mb-auto' />
+                  227 Nguyen Van Cu, Ward 4, District 5
+                </Stack>
               </header>
             </Stack>
           </Stack>
         </EqualHeightElement>
+
+        <hr />
+
+        <h5 className='order-item-product-title'>
+          Product List
+        </h5>
+        <EqualHeightElement name="order-list">
+          {order.products.slice(0, productListDisplayLength()).map((product) => (
+            <header className='order-item-secondary my-1'>
+              - {product.name} ({product.count} {product.unit}{product.count > 1 && 's'})
+            </header>
+          ))}
+          {order.products.length >= 4 &&
+            <header className='order-item-secondary my-1'>
+              and {order.products.length - 2} more
+            </header>
+          }
+        </EqualHeightElement>
+
       </div>
     </>
   );

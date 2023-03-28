@@ -91,6 +91,11 @@ export const ORDER_DATA = [
                 name: 'Wagyu meat',
                 count: 1.5,
                 unit: 'kilogram'
+            },
+            {
+                name: 'Coke',
+                count: 1,
+                unit: 'portion'
             }
         ],
         donor: {
@@ -116,6 +121,16 @@ export const ORDER_DATA = [
                 name: 'Wagyu meat',
                 count: 1.5,
                 unit: 'kilogram'
+            },
+            {
+                name: 'Pork',
+                count: 3,
+                unit: 'kilogram'
+            },
+            {
+                name: 'Coke',
+                count: 1,
+                unit: 'portion'
             }
         ],
         donor: {

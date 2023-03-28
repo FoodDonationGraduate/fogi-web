@@ -1,6 +1,6 @@
 // Essentials
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Container, Col, Row } from 'react-bootstrap';
 import { EqualHeight } from 'react-equal-height';
 
@@ -12,7 +12,7 @@ import Pagination from 'components/common/pagination/Pagination';
 import { ORDER_DATA } from 'utils/constants/Order.jsx';
 
 const OrderList = () => {
-  const ORDER_COUNT = 9; // per page
+  const ORDER_COUNT = 12; // per page
   const [page, setPage] = useState(0); // a.k.a activeIdx
   const onChangePage = (idx) => {
     setPage(idx);
