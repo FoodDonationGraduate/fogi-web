@@ -1,4 +1,5 @@
 import DonorLogo from 'assets/images/DonorLogo.jpg';
+import UserAvatar from 'assets/images/UserAvatar.png';
 export const ORDER_DATA = [
     {
         status: 0,
@@ -23,6 +24,10 @@ export const ORDER_DATA = [
             name: 'AP Store',
             address: '227 Nguyen Van Cu, Ward 4, District 5',
             logo: DonorLogo
+        },
+        donee: {
+            name: 'Nguyen Thi C',
+            avatar: UserAvatar
         }
     },
     {
@@ -48,6 +53,10 @@ export const ORDER_DATA = [
             name: 'AP Store',
             address: '227 Nguyen Van Cu, Ward 4, District 5',
             logo: DonorLogo
+        },
+        donee: {
+            name: 'Nguyen Thi C',
+            avatar: UserAvatar
         }
     },
     {
@@ -73,6 +82,10 @@ export const ORDER_DATA = [
             name: 'AP Store',
             address: '227 Nguyen Van Cu, Ward 4, District 5',
             logo: DonorLogo
+        },
+        donee: {
+            name: 'Nguyen Thi C',
+            avatar: UserAvatar
         }
     },
     {
@@ -102,6 +115,10 @@ export const ORDER_DATA = [
             name: 'AP Store',
             address: '227 Nguyen Van Cu, Ward 4, District 5',
             logo: DonorLogo
+        },
+        donee: {
+            name: 'Nguyen Thi C',
+            avatar: UserAvatar
         }
     },
     {
@@ -137,6 +154,10 @@ export const ORDER_DATA = [
             name: 'AP Store',
             address: '227 Nguyen Van Cu, Ward 4, District 5',
             logo: DonorLogo
+        },
+        donee: {
+            name: 'Nguyen Thi C',
+            avatar: UserAvatar
         }
     },
     {
@@ -161,6 +182,10 @@ export const ORDER_DATA = [
             name: 'AP Store',
             address: '227 Nguyen Van Cu, Ward 4, District 5',
             logo: DonorLogo
+        },
+        donee: {
+            name: 'Nguyen Thi C',
+            avatar: UserAvatar
         }
     },
     {
@@ -186,6 +211,10 @@ export const ORDER_DATA = [
             name: 'AP Store',
             address: '227 Nguyen Van Cu, Ward 4, District 5',
             logo: DonorLogo
+        },
+        donee: {
+            name: 'Nguyen Thi C',
+            avatar: UserAvatar
         }
     },
     {
@@ -211,6 +240,10 @@ export const ORDER_DATA = [
             name: 'AP Store',
             address: '227 Nguyen Van Cu, Ward 4, District 5',
             logo: DonorLogo
+        },
+        donee: {
+            name: 'Nguyen Thi C',
+            avatar: UserAvatar
         }
     },
     {
@@ -236,6 +269,10 @@ export const ORDER_DATA = [
             name: 'AP Store',
             address: '227 Nguyen Van Cu, Ward 4, District 5',
             logo: DonorLogo
+        },
+        donee: {
+            name: 'Nguyen Thi C',
+            avatar: UserAvatar
         }
     },
     {
@@ -261,6 +298,10 @@ export const ORDER_DATA = [
             name: 'AP Store',
             address: '227 Nguyen Van Cu, Ward 4, District 5',
             logo: DonorLogo
+        },
+        donee: {
+            name: 'Nguyen Thi C',
+            avatar: UserAvatar
         }
     },
     {
@@ -286,6 +327,10 @@ export const ORDER_DATA = [
             name: 'AP Store',
             address: '227 Nguyen Van Cu, Ward 4, District 5',
             logo: DonorLogo
+        },
+        donee: {
+            name: 'Nguyen Thi C',
+            avatar: UserAvatar
         }
     },
     {
@@ -311,6 +356,10 @@ export const ORDER_DATA = [
             name: 'AP Store',
             address: '227 Nguyen Van Cu, Ward 4, District 5',
             logo: DonorLogo
+        },
+        donee: {
+            name: 'Nguyen Thi C',
+            avatar: UserAvatar
         }
     },
     {
@@ -336,6 +385,10 @@ export const ORDER_DATA = [
             name: 'AP Store',
             address: '227 Nguyen Van Cu, Ward 4, District 5',
             logo: DonorLogo
+        },
+        donee: {
+            name: 'Nguyen Thi C',
+            avatar: UserAvatar
         }
     },
     {
@@ -361,6 +414,10 @@ export const ORDER_DATA = [
             name: 'AP Store',
             address: '227 Nguyen Van Cu, Ward 4, District 5',
             logo: DonorLogo
+        },
+        donee: {
+            name: 'Nguyen Thi C',
+            avatar: UserAvatar
         }
     },
     {
@@ -386,6 +443,10 @@ export const ORDER_DATA = [
             name: 'AP Store',
             address: '227 Nguyen Van Cu, Ward 4, District 5',
             logo: DonorLogo
+        },
+        donee: {
+            name: 'Nguyen Thi C',
+            avatar: UserAvatar
         }
     },
     {
@@ -411,6 +472,10 @@ export const ORDER_DATA = [
             name: 'AP Store',
             address: '227 Nguyen Van Cu, Ward 4, District 5',
             logo: DonorLogo
+        },
+        donee: {
+            name: 'Nguyen Thi C',
+            avatar: UserAvatar
         }
     },
     {
@@ -436,6 +501,10 @@ export const ORDER_DATA = [
             name: 'AP Store',
             address: '227 Nguyen Van Cu, Ward 4, District 5',
             logo: DonorLogo
+        },
+        donee: {
+            name: 'Nguyen Thi C',
+            avatar: UserAvatar
         }
     },
     {
@@ -461,6 +530,10 @@ export const ORDER_DATA = [
             name: 'AP Store',
             address: '227 Nguyen Van Cu, Ward 4, District 5',
             logo: DonorLogo
+        },
+        donee: {
+            name: 'Nguyen Thi C',
+            avatar: UserAvatar
         }
     },
     {
@@ -486,6 +559,10 @@ export const ORDER_DATA = [
             name: 'AP Store',
             address: '227 Nguyen Van Cu, Ward 4, District 5',
             logo: DonorLogo
+        },
+        donee: {
+            name: 'Nguyen Thi C',
+            avatar: UserAvatar
         }
     },
     {
@@ -511,6 +588,10 @@ export const ORDER_DATA = [
             name: 'AP Store',
             address: '227 Nguyen Van Cu, Ward 4, District 5',
             logo: DonorLogo
+        },
+        donee: {
+            name: 'Nguyen Thi C',
+            avatar: UserAvatar
         }
     },
     {
@@ -536,6 +617,10 @@ export const ORDER_DATA = [
             name: 'AP Store',
             address: '227 Nguyen Van Cu, Ward 4, District 5',
             logo: DonorLogo
+        },
+        donee: {
+            name: 'Nguyen Thi C',
+            avatar: UserAvatar
         }
     },
     {
@@ -561,6 +646,10 @@ export const ORDER_DATA = [
             name: 'AP Store',
             address: '227 Nguyen Van Cu, Ward 4, District 5',
             logo: DonorLogo
+        },
+        donee: {
+            name: 'Nguyen Thi C',
+            avatar: UserAvatar
         }
     },
     {
@@ -586,6 +675,10 @@ export const ORDER_DATA = [
             name: 'AP Store',
             address: '227 Nguyen Van Cu, Ward 4, District 5',
             logo: DonorLogo
+        },
+        donee: {
+            name: 'Nguyen Thi C',
+            avatar: UserAvatar
         }
     },
     {
@@ -611,6 +704,10 @@ export const ORDER_DATA = [
             name: 'AP Store',
             address: '227 Nguyen Van Cu, Ward 4, District 5',
             logo: DonorLogo
+        },
+        donee: {
+            name: 'Nguyen Thi C',
+            avatar: UserAvatar
         }
     },
     {
@@ -636,6 +733,10 @@ export const ORDER_DATA = [
             name: 'AP Store',
             address: '227 Nguyen Van Cu, Ward 4, District 5',
             logo: DonorLogo
+        },
+        donee: {
+            name: 'Nguyen Thi C',
+            avatar: UserAvatar
         }
     },
     {
@@ -661,6 +762,10 @@ export const ORDER_DATA = [
             name: 'AP Store',
             address: '227 Nguyen Van Cu, Ward 4, District 5',
             logo: DonorLogo
+        },
+        donee: {
+            name: 'Nguyen Thi C',
+            avatar: UserAvatar
         }
     },
     {
@@ -686,6 +791,10 @@ export const ORDER_DATA = [
             name: 'AP Store',
             address: '227 Nguyen Van Cu, Ward 4, District 5',
             logo: DonorLogo
+        },
+        donee: {
+            name: 'Nguyen Thi C',
+            avatar: UserAvatar
         }
     },
     {
@@ -711,6 +820,10 @@ export const ORDER_DATA = [
             name: 'AP Store',
             address: '227 Nguyen Van Cu, Ward 4, District 5',
             logo: DonorLogo
+        },
+        donee: {
+            name: 'Nguyen Thi C',
+            avatar: UserAvatar
         }
     },
     {
@@ -736,6 +849,10 @@ export const ORDER_DATA = [
             name: 'AP Store',
             address: '227 Nguyen Van Cu, Ward 4, District 5',
             logo: DonorLogo
+        },
+        donee: {
+            name: 'Nguyen Thi C',
+            avatar: UserAvatar
         }
     },
     {
@@ -761,6 +878,10 @@ export const ORDER_DATA = [
             name: 'AP Store',
             address: '227 Nguyen Van Cu, Ward 4, District 5',
             logo: DonorLogo
+        },
+        donee: {
+            name: 'Nguyen Thi C',
+            avatar: UserAvatar
         }
     },
     {
@@ -786,6 +907,10 @@ export const ORDER_DATA = [
             name: 'AP Store',
             address: '227 Nguyen Van Cu, Ward 4, District 5',
             logo: DonorLogo
+        },
+        donee: {
+            name: 'Nguyen Thi C',
+            avatar: UserAvatar
         }
     },
     {
@@ -810,6 +935,10 @@ export const ORDER_DATA = [
             name: 'AP Store',
             address: '227 Nguyen Van Cu, Ward 4, District 5',
             logo: DonorLogo
+        },
+        donee: {
+            name: 'Nguyen Thi C',
+            avatar: UserAvatar
         }
     },
     {
@@ -835,6 +964,10 @@ export const ORDER_DATA = [
             name: 'AP Store',
             address: '227 Nguyen Van Cu, Ward 4, District 5',
             logo: DonorLogo
+        },
+        donee: {
+            name: 'Nguyen Thi C',
+            avatar: UserAvatar
         }
     },
     {
@@ -860,6 +993,10 @@ export const ORDER_DATA = [
             name: 'AP Store',
             address: '227 Nguyen Van Cu, Ward 4, District 5',
             logo: DonorLogo
+        },
+        donee: {
+            name: 'Nguyen Thi C',
+            avatar: UserAvatar
         }
     },
     {
@@ -885,6 +1022,10 @@ export const ORDER_DATA = [
             name: 'AP Store',
             address: '227 Nguyen Van Cu, Ward 4, District 5',
             logo: DonorLogo
+        },
+        donee: {
+            name: 'Nguyen Thi C',
+            avatar: UserAvatar
         }
     },
     {
@@ -910,6 +1051,10 @@ export const ORDER_DATA = [
             name: 'AP Store',
             address: '227 Nguyen Van Cu, Ward 4, District 5',
             logo: DonorLogo
+        },
+        donee: {
+            name: 'Nguyen Thi C',
+            avatar: UserAvatar
         }
     },
     {
@@ -935,6 +1080,10 @@ export const ORDER_DATA = [
             name: 'AP Store',
             address: '227 Nguyen Van Cu, Ward 4, District 5',
             logo: DonorLogo
+        },
+        donee: {
+            name: 'Nguyen Thi C',
+            avatar: UserAvatar
         }
     },
     {
@@ -960,6 +1109,10 @@ export const ORDER_DATA = [
             name: 'AP Store',
             address: '227 Nguyen Van Cu, Ward 4, District 5',
             logo: DonorLogo
+        },
+        donee: {
+            name: 'Nguyen Thi C',
+            avatar: UserAvatar
         }
     },
     {
@@ -985,6 +1138,10 @@ export const ORDER_DATA = [
             name: 'AP Store',
             address: '227 Nguyen Van Cu, Ward 4, District 5',
             logo: DonorLogo
+        },
+        donee: {
+            name: 'Nguyen Thi C',
+            avatar: UserAvatar
         }
     },
     {
@@ -1010,6 +1167,10 @@ export const ORDER_DATA = [
             name: 'AP Store',
             address: '227 Nguyen Van Cu, Ward 4, District 5',
             logo: DonorLogo
+        },
+        donee: {
+            name: 'Nguyen Thi C',
+            avatar: UserAvatar
         }
     },
     {
@@ -1035,6 +1196,10 @@ export const ORDER_DATA = [
             name: 'AP Store',
             address: '227 Nguyen Van Cu, Ward 4, District 5',
             logo: DonorLogo
+        },
+        donee: {
+            name: 'Nguyen Thi C',
+            avatar: UserAvatar
         }
     },
     {
@@ -1060,6 +1225,10 @@ export const ORDER_DATA = [
             name: 'AP Store',
             address: '227 Nguyen Van Cu, Ward 4, District 5',
             logo: DonorLogo
+        },
+        donee: {
+            name: 'Nguyen Thi C',
+            avatar: UserAvatar
         }
     },
     {
@@ -1085,6 +1254,10 @@ export const ORDER_DATA = [
             name: 'AP Store',
             address: '227 Nguyen Van Cu, Ward 4, District 5',
             logo: DonorLogo
+        },
+        donee: {
+            name: 'Nguyen Thi C',
+            avatar: UserAvatar
         }
     },
     {
@@ -1110,6 +1283,10 @@ export const ORDER_DATA = [
             name: 'AP Store',
             address: '227 Nguyen Van Cu, Ward 4, District 5',
             logo: DonorLogo
+        },
+        donee: {
+            name: 'Nguyen Thi C',
+            avatar: UserAvatar
         }
     },
 ];

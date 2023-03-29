@@ -20,6 +20,26 @@ export const getStatus = (order) => {
   return { label, css };
 };
 
+export const getStatusIdx = (idx) => {
+  let label = 'Complete';
+  let css = 'green';
+  switch (idx) {
+    case 1:
+      label = 'In-progress';
+      css = 'yellow';
+      break;
+    case 2:
+      label = 'Cancelled';
+      css = 'red';
+      break;
+    default:
+      label = 'Complete';
+      css = 'green';
+      break;
+  }
+  return { label, css };
+};
+
 export const getStep = (step) => {
   let header = 'Your order is waiting to be reviewed';
   let label = 'Ordered';

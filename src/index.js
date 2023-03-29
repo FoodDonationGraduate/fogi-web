@@ -32,6 +32,7 @@ import OrderDetailsPage from './components/user/order/details/OrderDetailsPage.j
 import DonorSignup from "./components/donor/authentication/SignupPage.jsx";
 import DonorAccountInfo from "./components/donor/authentication/AccountInfoPage.jsx";
 import DonorHome from "./components/donor/home/HomePage.jsx"
+import DonorOrderDetailsPage from "./components/donor/home/pages/orders/details/OrderDetailsPage.jsx"
 
 import VolunteerSignup from "./components/volunteer/authentication/SignupPage.jsx";
 import VolunteerAccountInfo from "./components/volunteer/authentication/AccountInfoPage.jsx";
@@ -84,14 +85,12 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/profile" element={
             <Monitor allowedPages={[<ProfileUserPage/>, <ProfileDonorPage/>, <ProfileVolunteerPage/>]}/> } 
           />
-          <Route path="/home" element={
-            <Monitor allowedPages={[<ProfileUserPage/>, <DonorHome />, <ProfileVolunteerPage/>]}/> } 
-          />
         </Route>
         <Route path="/donor" element={
             <Auth allowedRoles={["donor"]} />}
         >
           <Route path="/donor/home" element={ <DonorHome/> } />
+          <Route path="/donor/order" element={ <DonorOrderDetailsPage/> } />
         </Route>
         <Route path="/volunteer" element={
             <Auth allowedRoles={["volunteer"]} />}
