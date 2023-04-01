@@ -1,6 +1,7 @@
 // Essentials
 import React, { useState, useEffect } from 'react';
 import { Button, Row, Col } from 'react-bootstrap';
+import { useNavigate } from "react-router-dom";
 import { EqualHeightElement } from 'react-equal-height';
 
 // Utility
@@ -24,11 +25,22 @@ const OrderItem = ({ order }) => {
     setStatus(order.status);
   }, [order]);
 
+  // Responsive
   const size = useResizer();
+
+  // Navigation
+  const navigate = useNavigate();
+  const toOrder = (event) => {
+    if (event.target.id && event.target.id == 'order-item-button') {
+      return;
+    }
+    // navigate('/donor/order');
+    navigate('/donor/order');
+  };
 
   return (
     <>
-      <div className='order-item'>
+      <div className='order-item' id='order-item' onClick={(event) => { toOrder(event); }}>
         <span
           className={`order-item-status order-item-status-${getStatusIdx(status).css}`}
         >
@@ -58,38 +70,38 @@ const OrderItem = ({ order }) => {
         <div>
           <EqualHeightElement name="order-options">
             <Row>
-              {status === 1 && size === 4 && (
+              {status === 1 && (size <= 1 || size === 4) && (
                 <>
                   <Col className='ps-0 d-grid' xs={9}>
-                    <Button className='fogi' variant='primary' onClick={setComplete}>
+                    <Button className='fogi' id='order-item-button' variant='primary' onClick={setComplete}>
                       Mark as Complete
                     </Button>
                   </Col>
                   <Col className='pe-0 d-grid' xs={3}>
-                    <Button variant='outline-danger' onClick={setCancel}>
+                    <Button variant='outline-danger' id='order-item-button' onClick={setCancel}>
                       Cancel
                     </Button>
                   </Col>
                 </>
               )}
-              {status === 1 && size < 4 && (
+              {status === 1 && (size > 1 && size < 4) && (
                 <>
-                  <Row className='px-0 d-grid'>
-                    <Button className='fogi' variant='primary' onClick={setComplete}>
-                      Mark as Complete
+                  <Col className='ps-0 d-grid' xs={6}>
+                    <Button className='fogi' id='order-item-button' variant='primary' onClick={setComplete}>
+                      Complete
                     </Button>
-                  </Row>
-                  <Row className='px-0 mt-2 d-grid'>
-                    <Button variant='outline-danger' onClick={setCancel}>
+                  </Col>
+                  <Col className='pe-0 d-grid' xs={6}>
+                    <Button variant='outline-danger' id='order-item-button' onClick={setCancel}>
                       Cancel
                     </Button>
-                  </Row>
+                  </Col>
                 </>
               )}
               {status !== 1 && (
                 <>
                   <Col className='px-0 d-grid'>
-                    <Button className='fogi' variant='outline-secondary' onClick={setInProgress}>
+                    <Button className='fogi' id='order-item-button' variant='outline-secondary' onClick={setInProgress}>
                       Mark as In Progress
                     </Button>
                   </Col>

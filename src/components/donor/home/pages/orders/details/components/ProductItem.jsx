@@ -21,7 +21,7 @@ const ProductItem = ({
       <Col className='px-0'>
         <Card className='long-product-item'>
           <Row>
-            <Col className='ps-0' md={6} lg={7}>
+            <Col className='ps-0' xs={12} lg={4} xl={6}>
               <Stack direction='horizontal'>
                 <img
                   className='long-product-image'
@@ -39,7 +39,7 @@ const ProductItem = ({
               </Stack>
             </Col>
             
-            <Col className={`my-auto ${size <= 1 && 'ps-0 pt-4'}`} sm={12} md={6} lg={5}>
+            <Col className={`my-auto ${size <= 2 && 'ps-0 pt-4'}`} xs={12} md={6} lg={4} xl={3}>
               <Row>
                 <Col xs={1} sm={3} md={5} lg={5}>
                   {size === 0 && (
@@ -56,6 +56,22 @@ const ProductItem = ({
               <Row>
                 <Col xs={1} sm={3} md={5} lg={5}>
                   {size === 0 && (
+                    <MdAllInbox className='long-product-label-icon' />
+                  )}
+                  {size > 0 && (
+                    <header className='long-product-label'>Number</header>
+                  )}
+                </Col>
+                <Col>
+                  <h5>7 portions</h5>
+                </Col>
+              </Row>
+            </Col>
+            
+            <Col className={`my-auto ps-0 ${size == 2 && 'pt-4'}`} xs={12} md={6} lg={4} xl={3}>
+              <Row>
+                <Col xs={1} sm={3} md={5} lg={5}>
+                  {size === 0 && (
                     <MdMonetizationOn className='long-product-label-icon' />
                   )}
                   {size > 0 && (
@@ -64,19 +80,6 @@ const ProductItem = ({
                 </Col>
                 <Col>
                   <h5>{convertNumberToVnd(product.price)}</h5>
-                </Col>
-              </Row>
-              <Row>
-                <Col xs={1} sm={3} md={5} lg={5}>
-                  {size === 0 && (
-                    <MdAllInbox className='long-product-label-icon' />
-                  )}
-                  {size > 0 && (
-                    <header className='long-product-label'>In store</header>
-                  )}
-                </Col>
-                <Col>
-                  <h5>7 portions</h5>
                 </Col>
               </Row>
               <Row>

@@ -22,7 +22,7 @@ const OrderList = () => {
     <Container>
       <Row>
         <Col className='px-0'>
-          <Row className='mb-4' xs={2}>
+          <Row className='mb-4' xs={1} md={2}>
             <EqualHeight>
               {ORDER_DATA.slice(page * ORDER_COUNT, (page + 1) * ORDER_COUNT).map((order, key) => (
                 <Col className='mb-4' key={key}>
