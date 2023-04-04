@@ -1,3 +1,4 @@
+// Essentials
 import * as React from 'react';
 import { Card, Container, Button, Form, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux'
@@ -9,22 +10,19 @@ import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 import { FaExclamationTriangle } from "react-icons/fa";
 
+// Style
 import 'assets/css/user/profile_page/UserProfile.css'
 
+//Components
 import AvatarSection from './AvatarSection';
-import UploadButton from 'components/common/UploadButton';
 import { patchProfile } from 'components/redux/reducer/AuthenticationReducer.jsx'
-import { setModalMessage, showModal, cancelModal } from 'components/redux/reducer/ModalReducer';
+import { cancelQuestionModal, setModalQuestion, showQuestionModal } from 'components/redux/reducer/ModalReducer';
 
 function UserProfile() {
     const [data, setData] = React.useState({})
     const userInfo = useSelector(state => state.authenticationReducer.user)
     const userToken = useSelector(state => state.authenticationReducer.token)
     const modalLogic = useSelector(state => state.modalReducer.logic)
-
-    const imageOnly = 'image/png, image/gif, image/jpeg';
-    const [image, setImage] = React.useState(undefined);
-    const [storefront, setImgBase64] = React.useState('');
     
     const formSchema = Yup.object().shape({
         name: Yup.string().required('Full name is required'),
@@ -40,14 +38,14 @@ function UserProfile() {
     const navigate = useNavigate();
 
     const onSubmitProfile = (data) => {
-        dispatch(setModalMessage("Do you want to save this change?"))
-        dispatch(showModal())
+        dispatch(setModalQuestion("Do you want to save this change?"))
+        dispatch(showQuestionModal())
         setData(data)
     }
 
     React.useEffect(() => {
         if (modalLogic) {
-            dispatch(cancelModal())
+            dispatch(cancelQuestionModal())
             dispatch(patchProfile(data, {userInfo, userToken}, navigate))
         }
     })

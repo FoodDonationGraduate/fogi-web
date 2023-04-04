@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 import axiosInstance from "services/axios/axiosConfig.js";
-import { setModalMessage, showModal, cancelModal } from 'components/redux/reducer/ModalReducer';
 
 const initialState = {
-    allCategories: {}
+    allCategories: {},
+    currentCategory: {}
 }
 const categoryReducer = createSlice({
     name: "categoryReducer",
@@ -11,12 +11,15 @@ const categoryReducer = createSlice({
     reducers: {
         setAllCategories: (state, action) => {
             state.allCategories = action.payload
+        },
+        setCurrentCategory : (state, action) => {
+            state.currentCategory = action.payload
         }
     }
 })
 
 export const { 
-    setAllCategories
+    setAllCategories, setCurrentCategory
 } = categoryReducer.actions
 
 export default categoryReducer.reducer
@@ -42,3 +45,23 @@ export const retrieveAllCategories = (navigate) => {
     }
 }
 
+export const retrieveCategory = (data, navigate) => {
+    return async dispatch => {
+        try {
+            console.log("retrieve category by id: " + data.id)
+            await axiosInstance.get(`/category`, {params: {
+                id: data.id,
+            }}).then((res) => {
+                dispatch(setCurrentCategory(res.data))
+                return res.data;
+            })
+            .catch((err) => {
+                console.log(err)
+                navigate('/')
+            });
+        } catch (err) {
+            console.log(err)
+            navigate('/')
+        }
+    }
+}

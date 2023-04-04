@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Button, Card, Col, Container, Row, Stack } from 'react-bootstrap';
 
 // Sources
-import { MdOutlineLocationOn, MdLinearScale, MdOutlineAccessTime } from 'react-icons/md';
+import { MdOutlineLocationOn } from 'react-icons/md';
 
 // Styling
 import 'assets/css/Fogi.css';
@@ -18,7 +18,7 @@ const ProductSection = ({donor}) => {
               <Row>
                 <Col md={4} lg={4}>
                   <Stack direction='horizontal' gap={4}>
-                    <img className='donor-logo-m' src={`https://bachkhoi.online/static/${donor.avatar_filename}`} />
+                    <img className='donor-logo-m' src={`https://bachkhoi.online/static/${donor.avatar_filename}`} alt='donor avatar'/>
                     <Stack direction='vertical' gap={1}>
                       <h4>{donor.name}</h4>
                       <Button variant='outline-dark'>Visit Donor</Button>

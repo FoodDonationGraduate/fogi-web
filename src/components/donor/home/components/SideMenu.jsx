@@ -14,7 +14,7 @@ const SideMenu = ({
   setActiveIdx
 }) => {
 
-  let size = useResizer();
+  // let size = useResizer();
 
   return (
     <>

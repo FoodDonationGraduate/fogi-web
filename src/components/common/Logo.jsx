@@ -18,13 +18,13 @@ const Logo = ({
 
   return (
     <>
-      {usertype == 0 && (
+      {usertype === 0 && (
         <LogoDonee className={className} onClick={toHomePage} />
       )}
-      {usertype == 1 && (
+      {usertype === 1 && (
         <LogoDonor className={className} onClick={toDonorHomePage} />
       )}
-      {usertype == 2 && (
+      {usertype === 2 && (
         <LogoVolunteer className={className} />
       )}
     </>

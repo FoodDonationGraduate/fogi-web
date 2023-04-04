@@ -1,10 +1,10 @@
 // Essentials
 import * as React from 'react';
-import { Button, Card, Stack } from 'react-bootstrap';
+import { Card, Stack } from 'react-bootstrap';
 import { EqualHeightElement } from 'react-equal-height';
 
 // Sources
-import { MdOutlineLocationOn, MdLinearScale, MdOutlineAccessTime } from 'react-icons/md';
+import { MdOutlineLocationOn } from 'react-icons/md';
 
 // Styling
 import './Card.css';
@@ -19,7 +19,8 @@ const DonorCard = ({donor}) => {
         <EqualHeightElement name="donor-info">
           <Stack direction='horizontal' gap={4}>
             <img className='donor-logo-m' 
-              src={`https://bachkhoi.online/static/${donor.avatar_filename}`} />
+              src={`https://bachkhoi.online/static/${donor.avatar_filename}`}
+              alt='donor logo'/>
             <Stack direction='vertical' gap={1}>
               <h4>{donor.name}</h4>
               <Stack direction='vertical'>

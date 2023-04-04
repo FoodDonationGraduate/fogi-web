@@ -6,7 +6,9 @@ import { retrieveProfile } from 'components/redux/reducer/AuthenticationReducer.
 
 import TopBar from "components/layout/TopBarDonor.jsx";
 import Footer from 'components/guest/common/bars/Footer.jsx'
-import Modal from "components/layout/Modal.jsx";
+import Modal from "components/layout/InfoModal.jsx";
+import ConfirmModal from "components/layout/ConfirmModal.jsx";
+
 import UserProfile from './components/UserProfile'
 import ButtonCard from './components/ButtonCard'
 
@@ -46,6 +48,7 @@ function ProfilePage(){
             <div className="page-footer">
                 <Footer/>
                 <Modal/>
+                <ConfirmModal/>
             </div>
         </div>
     )

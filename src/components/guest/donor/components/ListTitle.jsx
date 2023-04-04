@@ -31,6 +31,7 @@ const ListTitle = ({title}) => {
               <Dropdown.Item onClick={() => dispatch(setTypeOfSort(''))}>None</Dropdown.Item>
             </DropdownButton>
           </Col> */}
+          
         </Row>
       </Container>
     </div>

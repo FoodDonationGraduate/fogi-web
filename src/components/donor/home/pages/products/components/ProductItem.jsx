@@ -1,6 +1,8 @@
 // Essentials
 import * as React from 'react';
 import { Card, Col, Row, Stack } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 // Assets
 import { MdDeleteOutline, MdAccessTime, MdAllInbox, MdMonetizationOn } from 'react-icons/md';
@@ -8,12 +10,37 @@ import ProductImage from 'assets/images/ProductImage.jpg'; // temporary
 
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
+import { distanceTime } from 'utils/helpers/Time.jsx'
+
+//Components
+import { showQuestionModal, cancelQuestionModal, setModalQuestion } from 'components/redux/reducer/ModalReducer';
+import { deleteProduct } from 'components/redux/reducer/ProductReducer';
 
 const ProductItem = ({
   product
 }) => {
-
   let size = useResizer();
+  const [currentProduct, setCurrentProduct] = React.useState('')
+
+  const modalLogic = useSelector(state => state.modalReducer.logic)
+  const userInfo = useSelector(state => state.authenticationReducer.user)
+  const userToken = useSelector(state => state.authenticationReducer.token)
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const deleteProductById = (id) => {
+    dispatch(setModalQuestion('Do you want to delete this product'));
+    dispatch(showQuestionModal());
+    setCurrentProduct(id)
+  }
+
+  React.useEffect(() => {
+    if (modalLogic) {
+      dispatch(cancelQuestionModal())
+      dispatch(deleteProduct({id: currentProduct}, {userInfo, userToken}, navigate))
+    }
+  }, [modalLogic])
 
   return (
     <Row>
@@ -24,15 +51,15 @@ const ProductItem = ({
               <Stack direction='horizontal'>
                 <img
                   className='donor-product-image'
-                  src={ProductImage}
+                  src={`https://bachkhoi.online/static/${product.image_filename}`}
                   width='96' height='96'
                 />
                 <div className='ms-4'>
                   <h5 className='fw-bold mb-3'>
-                    {product.title}
+                    {product.name}
                   </h5>
                   <span className='donor-product-type'>
-                    Product type
+                    {product.category_name}
                   </span>
                 </div>
               </Stack>
@@ -62,7 +89,7 @@ const ProductItem = ({
                   )}
                 </Col>
                 <Col>
-                  <h5>7 portions</h5>
+                  <h5>{product.stock} {product.unit}</h5>
                 </Col>
               </Row>
               <Row>
@@ -75,7 +102,7 @@ const ProductItem = ({
                   )}
                 </Col>
                 <Col>
-                  <h5>2 days</h5>
+                  <h5>{distanceTime(product.expired_time)}</h5>
                 </Col>
               </Row>
             </Col>
@@ -85,7 +112,7 @@ const ProductItem = ({
       </Col>
       
       <Col className='px-0' md={1} lg={1}>
-        <Card className='donor-product-tail align-items-center'>
+        <Card className='donor-product-tail align-items-center' onClick={() => deleteProductById(product.id)}>
           <MdDeleteOutline className='donor-product-icon my-auto' />
         </Card>
       </Col>
