@@ -3,7 +3,7 @@ import * as React from 'react';
 
 // Components
 import TopSection from 'components/layout/TopSection';
-import Modal from 'components/layout/Modal'
+import Modal from 'components/layout/InfoModal'
 import Footer from 'components/guest/common/bars/Footer';
 import AdBanner from './components/AdBanner';
 import CategorySection from './components/CategorySection';

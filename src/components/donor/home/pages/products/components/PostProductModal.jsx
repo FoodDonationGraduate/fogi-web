@@ -2,9 +2,11 @@
 import * as React from 'react';
 import { useState } from 'react';
 import {
-  Button, Col, Dropdown, DropdownButton, Form, InputGroup,
+  Button, Col, Form, InputGroup,
   Modal, Row, Stack
 } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 // Form handling
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -14,7 +16,8 @@ import * as Yup from 'yup';
 // Components
 import UploadButton from 'components/common/UploadButton';
 import Tooltip from 'components/common/Tooltip';
-
+import { retrieveAllCategories } from 'components/redux/reducer/CategoryReducer';
+import { postNewProduct } from 'components/redux/reducer/ProductReducer';
 // Assets imports
 import { FaExclamationTriangle } from 'react-icons/fa';
 import { MdClose } from 'react-icons/md';
@@ -26,12 +29,21 @@ const PostProductModal = ({
   show,
   onClose
 }) => {
+  const userInfo = useSelector(state => state.authenticationReducer.user)
+  const userToken = useSelector(state => state.authenticationReducer.token)
+  const allCategories = useSelector(state => state.categoryReducer.allCategories);
+
   // Form handling
   const formSchema = Yup.object().shape({
-    productName: Yup.string().required(''),
-    price: Yup.string().required(''),
-    expireDate: Yup.string().required(''),
-    remain: Yup.string().required('')
+    name: Yup.string().required(''),
+    category_id: Yup.string().required(''),
+    description: Yup.string().required(''),
+    price: Yup.number().required(''),
+    expired_time: Yup.string().required(''),
+    stock: Yup.number().required(''),
+    unit: Yup.string().required(''),
+    available_start: Yup.string().required(''),
+    available_end: Yup.string().required('')
   });
   const formOptions = { resolver: yupResolver(formSchema) };
   const { register, handleSubmit, formState } = useForm(formOptions);
@@ -58,15 +70,10 @@ const PostProductModal = ({
     }
   };
 
-  // Remaining number
-  const [unit, setUnit] = useState('Portion');
-  const onUnitSelect = (eventKey) => {
-    setUnit(eventKey);
-  };
-
   // Image handling
   const imageOnly = 'image/png, image/gif, image/jpeg';
   const [images, setImages] = useState([]);
+  const [base64Images, setBase64Images] = useState([]);
   const removeImageAtIdx = (idx) => {
     const newImages = new DataTransfer();
     for (let i = 0; i < images.length; i++) {
@@ -78,13 +85,33 @@ const PostProductModal = ({
     setImages(newImages.files);
   };
 
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   // Submit
   const onSubmit = (data) => {
-    console.log(JSON.stringify(data));
-    setSubmitted(true);
+    if (images.length === 0) {
+      return;
+    }
+    dispatch(postNewProduct({...data, images: base64Images}, {userInfo, userToken}, navigate));
     onClose();
   };
 
+  React.useEffect(() => {
+    dispatch(retrieveAllCategories(navigate));
+    var newImages = [];
+    for (let i = 0; i < images.length; i++) {
+      const image = images[i];
+      const reader = new FileReader();
+      reader.onload = function () {
+        var base64String = reader.result.replace("data:", "")
+            .replace(/^.+,/, "");
+        newImages.push(base64String);
+      }
+      reader.readAsDataURL(image);
+    }
+    setBase64Images(newImages);
+  }, [images])
   return (
     <>
       <Modal
@@ -103,15 +130,30 @@ const PostProductModal = ({
               <Form.Label style={{ fontWeight: 'bold' }}>
                 Product name
               </Form.Label>
-              <Form.Control {...register('productName')} />
-              {errors.productName && errors.productName.type === 'required' && (
+              <Form.Control {...register('name')} />
+              {errors.name && errors.name.type === 'required' && (
                 <p className="mt-2 error">
                   <FaExclamationTriangle className="mx-2" />
                   Product name is required
                 </p>
               )}
             </Form.Group>
-            
+
+            <Form.Group className='mb-3'>
+              <Form.Label style={{ fontWeight: 'bold' }}>
+                Category
+              </Form.Label>
+              <Form.Select aria-label="Default select exampe" {...register('category_id')} >
+                {Object.keys(allCategories).length !== 0 && allCategories.categories.map((category) => (<option value={category.id}>{category.name}</option>))}
+              </Form.Select>
+              {errors.name && errors.name.type === 'required' && (
+                <p className="mt-2 error">
+                  <FaExclamationTriangle className="mx-2" />
+                  Category is required
+                </p>
+              )}
+            </Form.Group>
+
             <Form.Group className='mb-3'>
               <Form.Label style={{ fontWeight: 'bold' }}>
                 Price{' '}
@@ -138,8 +180,8 @@ const PostProductModal = ({
               <Form.Label style={{ fontWeight: 'bold' }}>
                 Expired date
               </Form.Label>
-              <Form.Control type='date' {...register('expireDate')} />
-              {errors.expireDate && errors.expireDate.type === 'required' && (
+              <Form.Control type='date' {...register('expired_time')} />
+              {errors.expired_time && errors.expired_time.type === 'required' && (
                 <p className="mt-2 error">
                   <FaExclamationTriangle className="mx-2" />
                   Expiration date is required
@@ -148,17 +190,63 @@ const PostProductModal = ({
             </Form.Group>
             
             <Form.Group className='mb-3'>
+              
+              <Row>
+                <Col className='ps-0' sm={6} md={6} lg={6}>
+                  <Form.Label style={{ fontWeight: 'bold' }}>
+                    Available start time
+                  </Form.Label>
+                  <Form.Control
+                    type='time' {...register('available_start')}
+                  />
+                  {errors.available_start && errors.available_start.type === 'required' && (
+                    <p className="mt-2 error">
+                      <FaExclamationTriangle className="mx-2" />
+                      Available start time is required
+                    </p>
+                  )}
+                </Col>
+                <Col className='px-0' sm={6} md={6} lg={6}>
+                  <Form.Label style={{ fontWeight: 'bold' }}>
+                    Available end time
+                  </Form.Label>
+                  <Form.Control
+                    type='time' {...register('available_end')}
+                  />
+                  {errors.available_end && errors.available_end.type === 'required' && (
+                    <p className="mt-2 error">
+                      <FaExclamationTriangle className="mx-2" />
+                      Available end time is required
+                    </p>
+                  )}
+                </Col>
+              </Row>
+            </Form.Group>
+
+            <Form.Group className='mb-3'>
               <Form.Label style={{ fontWeight: 'bold' }}>
                 Remaining number
               </Form.Label>
               <Row>
                 <Col className='ps-0' sm={8} md={8} lg={8}>
                   <Form.Control
-                    type='number' {...register('remain')}
+                    type='number' {...register('stock')}
                   />
+                  {errors.stock && errors.stock.type === 'required' && (
+                    <p className="mt-2 error">
+                      <FaExclamationTriangle className="mx-2" />
+                      Remaining number is required
+                    </p>
+                  )}
                 </Col>
                 <Col className='px-0' sm={4} md={4} lg={4}>
-                  <DropdownButton
+                  <Form.Select 
+                    aria-label="Default select exampe" 
+                    {...register('unit')} >
+                    <option value='cái'>Portion</option>
+                    <option value='kg'>Kilogram</option>
+                  </Form.Select>
+                  {/* <DropdownButton
                     className='d-grid'
                     variant='outline-secondary'
                     title={unit}
@@ -168,15 +256,9 @@ const PostProductModal = ({
                   >
                     <Dropdown.Item eventKey='Portion'>Portion</Dropdown.Item>
                     <Dropdown.Item eventKey='Kilogram'>Kilogram</Dropdown.Item>
-                  </DropdownButton>
+                  </DropdownButton> */}
                 </Col>
               </Row>
-              {errors.remain && errors.remain.type === 'required' && (
-                <p className="mt-2 error">
-                  <FaExclamationTriangle className="mx-2" />
-                  Remaining number is required
-                </p>
-              )}
             </Form.Group>
             
             <Form.Group className='mb-3'>

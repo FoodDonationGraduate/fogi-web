@@ -1,12 +1,12 @@
 // Essentials
 import * as React from 'react';
-import { Button, Card, Col, Row, Stack } from 'react-bootstrap';
+import { Button, Card, Stack } from 'react-bootstrap';
 import { useNavigate } from 'react-router';
 import { EqualHeightElement } from 'react-equal-height';
 
 // Sources
 import { FaRegClock } from 'react-icons/fa';
-import { MdAllInbox, MdLinearScale } from 'react-icons/md';
+import { MdAllInbox } from 'react-icons/md';
 
 // Styling
 import './Card.css';
@@ -57,7 +57,8 @@ const ProductCard = ({product}) => {
             <div>
               <img className='donor-logo-s' 
                 src={`https://bachkhoi.online/static/${product.donor.avatar_filename}`}
-                onClick={() => navigate(`/store/${product.id}`)} />
+                onClick={() => navigate(`/store/${product.id}`)} 
+                alt='donor logo'/>
             </div>
             <div>
               <header style={{ fontWeight: 'bold' }}>

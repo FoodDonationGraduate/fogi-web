@@ -1,7 +1,7 @@
 // Essentials
 import * as React from 'react';
 import { Button, Card, Col, Container, Form, Row, Stack } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useNavigate } from "react-router-dom";
 
 // Form handling
@@ -14,7 +14,7 @@ import UploadButton from 'components/common/UploadButton';
 import Logo from 'components/common/Logo';
 import { signupForVolunteer, signupUserInfo } from 'components/redux/reducer/AuthenticationReducer';
 import { setModalMessage, showModal } from 'components/redux/reducer/ModalReducer';
-import Modal from "components/layout/Modal.jsx";
+import Modal from "components/layout/InfoModal.jsx";
 
 // Assets imports
 import { FaExclamationTriangle } from "react-icons/fa";

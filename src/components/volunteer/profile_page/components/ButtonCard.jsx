@@ -1,7 +1,7 @@
 import React from 'react'
 import {Card, Container, Button} from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 import 'assets/css/user/profile_page/ButtonCard.css'
 
@@ -9,8 +9,6 @@ import ChangePasswordModal from './ChangePasswordModal';
 import { logout } from 'components/redux/reducer/AuthenticationReducer';
 
 function ButtonCard() {
-    const userInfo = useSelector(state => state.authenticationReducer.user)
-    const userToken = useSelector(state => state.authenticationReducer.token)
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const LogOut = () => {
@@ -20,7 +18,6 @@ function ButtonCard() {
     // Change Password Modal
     const [show, setShow] = React.useState(false);
     const onClose = () => setShow(false);
-    const onShow = () => setShow(true);
 
     return (
         <>

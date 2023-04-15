@@ -1,10 +1,9 @@
 // Essentials
-import {useState} from 'react';
-import { useNavigate, useLocation } from "react-router-dom";
+import * as React from 'react';
+import { useNavigate } from "react-router-dom";
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux'
-import {setUserInfo, setUserToken} from 'components/redux/reducer/AuthenticationReducer.jsx'
-import axiosInstance from "services/axios/axiosConfig.js";
+import { useDispatch } from 'react-redux'
+import { forgotPassword } from 'components/redux/reducer/AuthenticationReducer.jsx'
 
 // Form handling
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -33,7 +32,7 @@ const ForgotPassword = () => {
   const navigate = useNavigate();
 
   const onSubmit = (data) => {
-    console.log("siuuu");
+    dispatch(forgotPassword(data, navigate))
   };
  
   return (

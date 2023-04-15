@@ -14,7 +14,7 @@ import 'assets/css/user/profile_page/UserProfile.css'
 import AvatarSection from './AvatarSection';
 import UploadButton from 'components/common/UploadButton';
 import { patchProfile } from 'components/redux/reducer/AuthenticationReducer.jsx'
-import { setModalMessage, showModal, cancelModal } from 'components/redux/reducer/ModalReducer';
+import { cancelQuestionModal, setModalQuestion, showQuestionModal } from 'components/redux/reducer/ModalReducer';
 
 function UserProfile() {
     const [data, setData] = React.useState({})
@@ -42,14 +42,14 @@ function UserProfile() {
     const navigate = useNavigate();
 
     const onSubmitProfile = (data) => {
-        dispatch(setModalMessage("Do you want to save this change?"))
-        dispatch(showModal())
+        dispatch(setModalQuestion("Do you want to save this change?"))
+        dispatch(showQuestionModal())
         setData(data)
     }
 
     React.useEffect(() => {
         if (modalLogic) {
-            dispatch(cancelModal())
+            dispatch(cancelQuestionModal())
             data.storefront = storefront ? storefront : ''
             dispatch(patchProfile(data, {userInfo, userToken},navigate))
         }

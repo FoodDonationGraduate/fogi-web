@@ -1,12 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit'
 import axiosInstance from "services/axios/axiosConfig.js";
-import { setModalMessage, showModal, cancelModal } from 'components/redux/reducer/ModalReducer';
-
+import { handleExpiredToken } from './AuthenticationReducer';
+import { setModalMessage, showModal } from './ModalReducer';
 const initialState = {
     newProducts: {},
     amootProducts: {},
     categoryProducts: {},
     searchingProducts: {},
+    donorProducts: {},
     currentProduct: {},
     sort: ''
 }
@@ -26,6 +27,9 @@ const productReducer = createSlice({
         setCategoryProducts: (state, action) => {
             state.categoryProducts = action.payload
         },
+        setDonorProducts: (state, action) => {
+            state.donorProducts = action.payload
+        },
         setCurrentProduct: (state, action) => {
             state.currentProduct = action.payload
         },
@@ -36,7 +40,8 @@ const productReducer = createSlice({
 })
 
 export const { 
-    setNewProducts, setAmootProducts, setSearchingProducts, setCategoryProducts, setCurrentProduct,
+    setNewProducts, setAmootProducts, setSearchingProducts, 
+    setCategoryProducts, setCurrentProduct, setDonorProducts,
     setTypeOfSort
 } = productReducer.actions
 
@@ -147,6 +152,84 @@ export const retrieveCurrentProduct = (data, navigate) => {
             .catch((err) => {
                 console.log(err.response.data)
                 navigate('/')
+            });
+        } catch (err) {
+            console.log(err)
+            navigate('/')
+        }
+    }
+}
+
+export const retrieveDonorProducts = (data, navigate) => {
+    return async dispatch => {
+        try {
+            console.log("retrieve donor's products")
+            await axiosInstance.get(`/product`, {params: {
+                donor_email: data.email,
+                limit: data.limit,
+                offset: data.offset
+            }}).then((res) => {
+                dispatch(setDonorProducts(res.data))
+            })
+            .catch((err) => {
+                console.log(err.response.data)
+            });
+        } catch (err) {
+            console.log(err)
+            navigate('/')
+        }
+    }
+}
+
+export const postNewProduct = (data, user, navigate) => {
+    return async dispatch => {
+        try {
+            console.log("post new product")
+            await axiosInstance.post(`/product`, {
+                donor_email: user.userInfo.email,
+                token: user.userToken,
+                name: data.name,
+                description: data.description,
+                price: data.price,
+                unit: data.unit,
+                expired_time: data.expired_time,
+                stock: data.stock,
+                category_id: parseInt(data.category_id),
+                images: data.images,
+                available_start: data.available_start + ':00',
+                available_end: data.available_end + ':00'
+            }).then((res) => {
+                handleExpiredToken(res, dispatch, navigate)
+                dispatch(setModalMessage("Create new product successfully!"))
+                dispatch(showModal())
+            }).catch((err) => {
+                console.log(err)
+                dispatch(setModalMessage("Something went wrong"))
+                dispatch(showModal())
+            });
+        } catch (err) {
+            console.log(err)
+            navigate('/')
+        }
+    }
+}
+
+export const deleteProduct = (data, user, navigate) => {
+    return async dispatch => {
+        try {
+            console.log("retrieve donor's products")
+            await axiosInstance.delete(`/product`, {data: {
+                donor_email: user.userInfo.email,
+                token: user.userToken,
+                id: data.id
+            }}).then((res) => {
+                dispatch(setModalMessage("Delete product successfully!"))
+                dispatch(showModal())
+            })
+            .catch((err) => {
+                console.log(err)
+                dispatch(setModalMessage("Something went wrong"))
+                dispatch(showModal())
             });
         } catch (err) {
             console.log(err)

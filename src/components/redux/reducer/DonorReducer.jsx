@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
 import axiosInstance from "services/axios/axiosConfig.js";
-import { setModalMessage, showModal, cancelModal } from 'components/redux/reducer/ModalReducer';
 
 const initialState = {
     allDonors: {}

@@ -1,7 +1,7 @@
 // Essentials
 import * as React from 'react';
 import { useState } from 'react';
-import { Container, Col, Pagination, Row } from 'react-bootstrap';
+import { Container, Col, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router';
 import { EqualHeight } from 'react-equal-height';

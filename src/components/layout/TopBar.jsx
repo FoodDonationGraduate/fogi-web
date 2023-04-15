@@ -1,6 +1,6 @@
 import {Container, Nav, Navbar, Button, Row, Col, Stack} from 'react-bootstrap';
-import { useNavigate, useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from "react-router-dom";
+import { useSelector } from 'react-redux'
 
 import 'assets/css/layout/TopBar.css'
 
@@ -22,7 +22,6 @@ function TopBar() {
   const toSignupForm = () => { navigate('/accounttype');}
   const toProfileForm = () => { navigate('/profile');}
   const userInfo = useSelector(state => state.authenticationReducer.user)
-  const userToken = useSelector(state => state.authenticationReducer.token)
   
   return (
     <div className='top-bar-header'>
