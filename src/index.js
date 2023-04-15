@@ -25,10 +25,14 @@ import VerifyEmail from "./components/guest/authentication/VerifyEmailPage.jsx";
 import AccountType from "./components/guest/authentication/AccountTypePage.jsx";
 import ForgotPassword from "./components/guest/authentication/ForgotPasswordPage.jsx";
 import ChangePassword from "./components/guest/authentication/ChangePasswordPage.jsx";
+import CartPage from './components/user/cart/CartPage.jsx';
+import OrderListPage from './components/user/order/list/OrderListPage.jsx';
+import OrderDetailsPage from './components/user/order/details/OrderDetailsPage.jsx';
 
 import DonorSignup from "./components/donor/authentication/SignupPage.jsx";
 import DonorAccountInfo from "./components/donor/authentication/AccountInfoPage.jsx";
 import DonorHome from "./components/donor/home/HomePage.jsx"
+import DonorOrderDetailsPage from "./components/donor/home/pages/orders/details/OrderDetailsPage.jsx"
 
 import VolunteerSignup from "./components/volunteer/authentication/SignupPage.jsx";
 import VolunteerAccountInfo from "./components/volunteer/authentication/AccountInfoPage.jsx";
@@ -54,6 +58,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/product/:id" element={<ProductDetailsPage />} />
         <Route path="/store/:id" element={<ProductDetailsPage />} />
 
+        <Route path="/cart" element={<CartPage />} />
+        <Route path="/orders" element={<OrderListPage />} />
+        <Route path="/order" element={<OrderDetailsPage />} />
+
         <Route path="/login" element={<UserLogin />} />
         <Route path="/accounttype" element={<AccountType />} />
         <Route path="/signup" element={<UserSignup />} />
@@ -77,14 +85,12 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/profile" element={
             <Monitor allowedPages={[<ProfileUserPage/>, <ProfileDonorPage/>, <ProfileVolunteerPage/>]}/> } 
           />
-          <Route path="/home" element={
-            <Monitor allowedPages={[<ProfileUserPage/>, <DonorHome />, <ProfileVolunteerPage/>]}/> } 
-          />
         </Route>
         <Route path="/donor" element={
             <Auth allowedRoles={["donor"]} />}
         >
           <Route path="/donor/home" element={ <DonorHome/> } />
+          <Route path="/donor/order" element={ <DonorOrderDetailsPage/> } />
         </Route>
         <Route path="/volunteer" element={
             <Auth allowedRoles={["volunteer"]} />}

@@ -10,17 +10,24 @@ import UtilityPill from './UtilityPill';
 // Style imports
 import './Pagination.css';
 
+// Utility
+import { useResizer } from 'utils/helpers/Resizer.jsx';
+
 const Pagination = ({
   pageCount,
   activeIdx,
   onChangePage
 }) => {
+  let size = useResizer();
+
   const [shownPills, setShownPills] = useState([]);
   const getShownPills = () => {
     const pills = [];
     pills.push(-2);
+    const smallSize = 2 * Number(size < 1);
+    
     // Case 1: [0]-1-2-3-4-5-6
-    if (pageCount <= 7) {
+    if (pageCount <= 7 - smallSize) {
       for (let i = 0; i < pageCount; i++) pills.push(i);
     }
     else {
@@ -30,17 +37,17 @@ const Pagination = ({
       const rightIdx = activeIdx + 1;
 
       // Case 2: 0-1-2-[3]-4-...-14 (14 is just an example index)
-      if (Math.abs(activeIdx - firstIdx) <= 3) {
-        for (let i = 0; i <= 4; i++) {
+      if (Math.abs(activeIdx - firstIdx) <= 1) {
+        for (let i = 0; i <= 4 - smallSize; i++) {
           pills.push(i);
         }
         pills.push(-1); pills.push(lastIdx);
       }
   
       // Case 3: 0-...-10-[11]-12-13-14
-      else if (Math.abs(activeIdx - lastIdx) <= 3) {
+      else if (Math.abs(activeIdx - lastIdx) <= 1) {
         pills.push(firstIdx); pills.push(-1);
-        for (let i = lastIdx - 4; i <= lastIdx; i++) {
+        for (let i = lastIdx - 4 + smallSize; i <= lastIdx; i++) {
           pills.push(i);
         }
       }
@@ -48,7 +55,11 @@ const Pagination = ({
       // Case 4: 0-...5-[6]-7-...-14
       else {
         pills.push(firstIdx); pills.push(-1);
-        for (let i = leftIdx; i <= rightIdx; i++) pills.push(i);
+        if (smallSize) pills.push(activeIdx);
+        else {
+          for (let i = leftIdx; i <= rightIdx; i++)
+            pills.push(i);
+        }
         pills.push(-1); pills.push(lastIdx);
       }
     }
@@ -58,14 +69,14 @@ const Pagination = ({
 
   useEffect(() => {
     setShownPills(getShownPills());
-  }, [activeIdx]);
+  }, [activeIdx, size]);
 
   return (
     <>
-      <Stack direction='horizontal' gap={2}>
+      <Stack direction='horizontal' gap={size < 1 ? 1 : 2}>
         {shownPills.map((idx, key) => 
           <>
-          {idx >= 0 ?
+          {idx > -1 ?
             <Pill
               key={key}
               idx={idx}

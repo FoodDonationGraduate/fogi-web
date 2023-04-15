@@ -1,0 +1,24 @@
+.order-info-card {
+  background-color: white;
+  border-radius: 8px;
+  padding: 32px;
+}
+  .order-info-id {
+    color: #999;
+  }
+  .order-info-total {
+    color: #82CD47;
+    font-weight: bold;
+  }
+  .order-info-donor-logo {
+    border-radius: 50%;
+    width: 72px;
+    height: 72px;
+  }
+  .order-info-donor-info {
+    color: #999;
+  }
+  .order-info-donor-location-icon {
+    width: 24px;
+    height: 24px;
+  }
