@@ -1,0 +1,24 @@
+.approve-card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 8px 8px 32px #00000008;
+  padding: 32px;
+  user-select: none;
+};
+  .approve-card-name {
+    font-weight: bold;
+  }
+  .approve-card-secondary {
+    color: #999;
+  }
+  .approve-card-link {
+    color: #82CD47;
+    font-weight: bold;
+    cursor: pointer;
+  }
+    .approve-card-link:hover {
+      color: #ADDE87;
+    }
+    .approve-card-link:active {
+      color: #5A9829;
+    }
