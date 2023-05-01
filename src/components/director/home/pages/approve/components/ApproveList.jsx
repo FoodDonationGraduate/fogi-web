@@ -1,8 +1,12 @@
 // Essentials
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Container, Col, Row } from 'react-bootstrap';
 import { EqualHeight } from 'react-equal-height';
+
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router';
+import { retrieveUnverifiedUsers } from 'components/redux/reducer/DirectorReducer';
 
 // Components
 import ApproveItem from './ApproveItem';
@@ -12,11 +16,41 @@ import Pagination from 'components/common/pagination/Pagination';
 import { USER_DATA } from 'utils/constants/User.jsx';
 
 const ApproveList = () => {
+  const unverifiedUsers = useSelector(state => state.directorReducer.unverifiedUsers);
+  const userInfo = useSelector(state => state.authenticationReducer.user);
+  const userToken = useSelector(state => state.authenticationReducer.token);
+
   const APPROVE_COUNT = 4; // per page
   const [page, setPage] = useState(0);
-  const onChangePage = (idx) => {
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const onChangePage = async (idx) => {
     setPage(idx);
+    await dispatch(retrieveUnverifiedUsers(
+      {
+        limit: APPROVE_COUNT,
+        offset: idx * APPROVE_COUNT,
+        user_type: 'donee'
+      }, {
+        userInfo,
+        userToken
+      },
+      navigate
+    ));
   };
+  useEffect(() => {
+    dispatch(retrieveUnverifiedUsers({
+        limit: APPROVE_COUNT,
+        offset: page * APPROVE_COUNT,
+        user_type: 'donee' 
+      }, {
+        userInfo,
+        userToken
+      },
+      navigate
+    ));
+  }, []);
 
   return (
     <Container>
@@ -24,8 +58,8 @@ const ApproveList = () => {
         <Col className='px-0'>
           <Row className='mb-4' xs={1} md={2}>
             <EqualHeight>
-              {USER_DATA.slice(page * APPROVE_COUNT, (page + 1) * APPROVE_COUNT).map((user, key) => (
-                <Col className='mb-4' key={key}>
+              {Object.keys(unverifiedUsers).length !== 0 && unverifiedUsers.users.map((user) => (
+                <Col className='mb-4' key={user.email}>
                   <ApproveItem approve={user} />
                 </Col>
               ))}
@@ -33,7 +67,7 @@ const ApproveList = () => {
           </Row>
           <div className='d-flex justify-content-center'>
             <Pagination
-              pageCount={Math.ceil(USER_DATA.length / APPROVE_COUNT)}
+              pageCount={Math.ceil(unverifiedUsers.total_users / APPROVE_COUNT)}
               activeIdx={page}
               onChangePage={onChangePage}
             />
