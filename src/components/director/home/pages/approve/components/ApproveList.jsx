@@ -12,11 +12,9 @@ import { retrieveUnverifiedUsers } from 'components/redux/reducer/DirectorReduce
 import ApproveItem from './ApproveItem';
 import Pagination from 'components/common/pagination/Pagination';
 
-// Data
-import { USER_DATA } from 'utils/constants/User.jsx';
-
 const ApproveList = () => {
   const unverifiedUsers = useSelector(state => state.directorReducer.unverifiedUsers);
+  const user_type = useSelector(state => state.directorReducer.user_type);
   const userInfo = useSelector(state => state.authenticationReducer.user);
   const userToken = useSelector(state => state.authenticationReducer.token);
 
@@ -31,7 +29,7 @@ const ApproveList = () => {
       {
         limit: APPROVE_COUNT,
         offset: idx * APPROVE_COUNT,
-        user_type: 'donee'
+        user_type
       }, {
         userInfo,
         userToken
@@ -39,18 +37,19 @@ const ApproveList = () => {
       navigate
     ));
   };
+  
   useEffect(() => {
     dispatch(retrieveUnverifiedUsers({
         limit: APPROVE_COUNT,
         offset: page * APPROVE_COUNT,
-        user_type: 'donee' 
+        user_type 
       }, {
         userInfo,
         userToken
       },
       navigate
     ));
-  }, []);
+  }, [user_type]);
 
   return (
     <Container>
@@ -66,11 +65,13 @@ const ApproveList = () => {
             </EqualHeight>
           </Row>
           <div className='d-flex justify-content-center'>
-            <Pagination
-              pageCount={Math.ceil(unverifiedUsers.total_users / APPROVE_COUNT)}
-              activeIdx={page}
-              onChangePage={onChangePage}
-            />
+            {Object.keys(unverifiedUsers).length !== 0 &&
+              <Pagination
+                pageCount={Math.ceil(unverifiedUsers.total_users / APPROVE_COUNT)}
+                activeIdx={page}
+                onChangePage={onChangePage}
+              />
+            }
           </div>
         </Col>
       </Row>

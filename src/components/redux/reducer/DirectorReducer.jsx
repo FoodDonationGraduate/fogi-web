@@ -4,7 +4,8 @@ import { handleExpiredToken } from './AuthenticationReducer';
 import { setModalMessage, showModal } from './ModalReducer';
 
 const initialState = {
-  unverifiedUsers: {}
+  unverifiedUsers: {},
+  user_type: 'donee'
 };
 
 const directorReducer = createSlice({
@@ -13,12 +14,15 @@ const directorReducer = createSlice({
   reducers: {
     setUnverifiedUsers: (state, action) => {
       state.unverifiedUsers = action.payload
+    },
+    setTypeOfUser: (state, action) => {
+      state.user_type = action.payload
     }
   }
 });
 
 export const {
-  setUnverifiedUsers
+  setUnverifiedUsers, setTypeOfUser
 } = directorReducer.actions
 
 export default directorReducer.reducer
@@ -34,10 +38,10 @@ export const retrieveUnverifiedUsers = (data, user, navigate) => {
         limit: data.limit,
         offset: data.offset
       }}).then((res) => {
-        handleExpiredToken(res, dispatch, navigate);
         dispatch(setUnverifiedUsers(res.data));
       }).catch((err) => {
         console.log(err.response.data);
+        navigate('/');
       });
     } catch (err) {
       console.log(err);
