@@ -2,6 +2,9 @@
 import React, { useState } from 'react';
 import { Button, Row, Col, Stack } from 'react-bootstrap';
 import { EqualHeightElement } from 'react-equal-height';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from "react-router-dom";
+import { verifyUser } from 'components/redux/reducer/DirectorReducer.jsx'
 
 // Components
 import DocumentModal from './DocumentModal';
@@ -17,12 +20,37 @@ import {
   MdOutlineLocationOn, // 3
 } from 'react-icons/md';
 
-const ApproveItem = ({ approve }) => {
+const ApproveItem = ({
+  approve,
+  approveCount = 4,
+  currentPage,
+  user_type,
+  userInfo,
+  userToken
+}) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // Identity Document Modal
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  // Approval handling
+  const onApprove = () => {
+    dispatch(verifyUser(
+      {
+        email: approve.email,
+        limit: approveCount,
+        offset: currentPage * approveCount,
+        user_type
+      }, {
+        userInfo,
+        userToken
+      },
+      navigate
+    ));
+  };
 
   return (
     <>
@@ -75,7 +103,12 @@ const ApproveItem = ({ approve }) => {
           <EqualHeightElement name="order-options">
             <Row>
               <Col className='ps-0 d-grid'>
-                <Button className='fogi' id='order-item-button' variant='primary'>
+                <Button
+                  className='fogi'
+                  id='order-item-button'
+                  variant='primary'
+                  onClick={onApprove}
+                >
                   Approve
                 </Button>
               </Col>

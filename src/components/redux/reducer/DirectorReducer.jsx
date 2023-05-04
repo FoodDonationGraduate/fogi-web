@@ -27,13 +27,13 @@ export const {
 
 export default directorReducer.reducer
 
-export const retrieveUnverifiedUsers = (data, user, navigate) => {
+export const retrieveUnverifiedUsers = (data, director, navigate) => {
   return async dispatch => {
     try {
       console.log('retrieve unverified users');
       await axiosInstance.get(`/verify/info`, { params: {
-        email: user.userInfo.email,
-        token: user.userToken,
+        email: director.userInfo.email,
+        token: director.userToken,
         user_type: data.user_type,
         limit: data.limit,
         offset: data.offset
@@ -41,6 +41,28 @@ export const retrieveUnverifiedUsers = (data, user, navigate) => {
         dispatch(setUnverifiedUsers(res.data));
       }).catch((err) => {
         console.log(err.response.data);
+        navigate('/');
+      });
+    } catch (err) {
+      console.log(err);
+      navigate('/');
+    }
+  }
+}
+
+export const verifyUser = (data, director, navigate) => {
+  return async dispatch => {
+    try {
+      console.log('verify user');
+      await axiosInstance.patch(`/verify/info`, {
+        email: director.userInfo.email,
+        token: director.userToken,
+        user_email: data.email
+      }).then((res) => {
+        handleExpiredToken(res, dispatch, navigate);
+        dispatch(retrieveUnverifiedUsers(data, director, navigate));
+      }).catch((err) => {
+        console.log(err);
         navigate('/');
       });
     } catch (err) {

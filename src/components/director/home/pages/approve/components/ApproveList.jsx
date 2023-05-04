@@ -39,6 +39,7 @@ const ApproveList = () => {
   };
   
   useEffect(() => {
+    setPage(0);
     dispatch(retrieveUnverifiedUsers({
         limit: APPROVE_COUNT,
         offset: page * APPROVE_COUNT,
@@ -59,7 +60,14 @@ const ApproveList = () => {
             <EqualHeight>
               {Object.keys(unverifiedUsers).length !== 0 && unverifiedUsers.users.map((user) => (
                 <Col className='mb-4' key={user.email}>
-                  <ApproveItem approve={user} />
+                  <ApproveItem
+                    approve={user}
+                    approveCount={APPROVE_COUNT}
+                    currentPage={page}
+                    user_type={user_type}
+                    userInfo={userInfo}
+                    userToken={userToken}
+                  />
                 </Col>
               ))}
             </EqualHeight>
@@ -70,6 +78,7 @@ const ApproveList = () => {
                 pageCount={Math.ceil(unverifiedUsers.total_users / APPROVE_COUNT)}
                 activeIdx={page}
                 onChangePage={onChangePage}
+                sort={user_type}
               />
             }
           </div>
