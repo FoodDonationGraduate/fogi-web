@@ -21,6 +21,7 @@ function TopBar() {
   const toLoginForm = () => { navigate('/login');}
   const toSignupForm = () => { navigate('/accounttype');}
   const toProfileForm = () => { navigate('/profile');}
+  const toCartPage = () => { navigate('/cart');}
   const userInfo = useSelector(state => state.authenticationReducer.user)
   
   return (
@@ -76,9 +77,9 @@ function TopBar() {
               <Nav>
                 <Stack direction='horizontal' gap={4}>
                   <MdOutlineNotificationsNone className='top-bar-icon' />
-                  <MdOutlineShoppingCart className='top-bar-icon' />
+                  <MdOutlineShoppingCart className='top-bar-icon' onClick={toCartPage}/>
                   <div onClick={toProfileForm} className='d-flex align-items-center'>
-                    <img className='nav-profile-icon' src={`data:image/jpeg;base64,${userInfo.avatar}`} alt='profile' id="profile-icon"></img>
+                    <img className='nav-profile-icon' src={`https://bachkhoi.online/static/${userInfo.avatar}`} alt='profile' id="profile-icon"></img>
                   </div>
                 </Stack>
               </Nav>

@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import axiosInstance from "services/axios/axiosConfig.js";
+import { setModalMessage, showModal } from './ModalReducer';
+import { handleExpiredToken } from './AuthenticationReducer';
 
 const initialState = {
     allDonors: {}
@@ -35,7 +37,8 @@ export const retrieveAllDonors = (data, navigate) => {
             })
             .catch((err) => {
                 console.log(err)
-                navigate('/')
+                dispatch(setModalMessage("Something went wrong"))
+                dispatch(showModal())
             });
         } catch (err) {
             console.log(err)

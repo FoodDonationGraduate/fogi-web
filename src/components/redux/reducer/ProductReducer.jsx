@@ -63,7 +63,8 @@ export const retrieveNewProducts = (data, navigate) => {
             })
             .catch((err) => {
                 console.log(err)
-                navigate('/')
+                dispatch(setModalMessage("Something went wrong"))
+                dispatch(showModal())
             });
         } catch (err) {
             console.log(err)
@@ -85,7 +86,8 @@ export const retrieveAmootProducts = (data, navigate) => {
             })
             .catch((err) => {
                 console.log(err.response.data)
-                navigate('/')
+                dispatch(setModalMessage("Something went wrong"))
+                dispatch(showModal())
             });
         } catch (err) {
             console.log(err)
@@ -108,7 +110,8 @@ export const searchProduct = (data, navigate) => {
             })
             .catch((err) => {
                 console.log(err.response.data)
-                navigate('/')
+                dispatch(setModalMessage("Something went wrong"))
+                dispatch(showModal())
             });
         } catch (err) {
             console.log(err)
@@ -131,7 +134,8 @@ export const retrieveCategoryProducts = (data, navigate) => {
             })
             .catch((err) => {
                 console.log(err.response.data)
-                navigate('/')
+                dispatch(setModalMessage("Something went wrong"))
+                dispatch(showModal())
             });
         } catch (err) {
             console.log(err)
@@ -151,7 +155,8 @@ export const retrieveCurrentProduct = (data, navigate) => {
             })
             .catch((err) => {
                 console.log(err.response.data)
-                navigate('/')
+                dispatch(setModalMessage("Something went wrong"))
+                dispatch(showModal())
             });
         } catch (err) {
             console.log(err)
@@ -173,6 +178,8 @@ export const retrieveDonorProducts = (data, navigate) => {
             })
             .catch((err) => {
                 console.log(err.response.data)
+                dispatch(setModalMessage("Something went wrong"))
+                dispatch(showModal())
             });
         } catch (err) {
             console.log(err)

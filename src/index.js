@@ -80,7 +80,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <Route path="/volunteer/accountinfo" element={<VolunteerAccountInfo/>} />
         
         <Route path="/" element={
-            <Auth allowedRoles={["user", "donor", "volunteer"]} />}
+            <Auth allowedRoles={["donee", "donor", "volunteer"]} />}
         >
           <Route path="/profile" element={
             <Monitor allowedPages={[<ProfileUserPage/>, <ProfileDonorPage/>, <ProfileVolunteerPage/>]}/> } 

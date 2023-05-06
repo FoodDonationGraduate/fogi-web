@@ -4,13 +4,15 @@ import modalReducer from './reducer/ModalReducer.jsx'
 import productReducer from './reducer/ProductReducer.jsx'
 import categoryReducer from './reducer/CategoryReducer.jsx'
 import donorReducer from './reducer/DonorReducer.jsx'
+import CartReducer from './reducer/CartReducer.jsx'
 const store = configureStore({
     reducer: {
         authenticationReducer,
         modalReducer,
         productReducer,
         categoryReducer,
-        donorReducer
+        donorReducer,
+        CartReducer
     },
 })
 export default store

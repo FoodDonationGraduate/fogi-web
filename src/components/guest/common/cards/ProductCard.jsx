@@ -23,7 +23,7 @@ const ProductCard = ({product}) => {
   return (
     <Card className='product-card h-100' onClick={() => navigate(`/product/${product.id}`)}> 
       <Card.Img className='product-card-img' 
-        src={`https://bachkhoi.online/static/product/${product.image_filename}`} 
+        src={`https://bachkhoi.online/static/${product.image_filename}`} 
         alt={product.description}
       />
       <Card.Body className='product-card-body'>

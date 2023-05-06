@@ -109,7 +109,7 @@ export const signup = (data, navigate) => {
             console.log("signup for user")
             await axiosInstance.post(`/signup`, {
                 email: data.email,
-                user_type: 'user',
+                user_type: 'donee',
                 password: data.password,
                 address: data.address,
                 dob: data.dob,
@@ -263,7 +263,8 @@ export const retrieveProfile = (user, navigate) => {
             .catch((err) => {
                 handleExpiredToken(err.response.data, dispatch, navigate)
                 console.log(err.response.data)
-                navigate('/')
+                dispatch(setModalMessage("Something went wrong"))
+                dispatch(showModal())
             });
         } catch (err) {
             console.log(err)
@@ -284,11 +285,14 @@ export const updateProfile = (data, user, navigate) => {
                 phone: data.phonenumber,
                 address: data.address
             }).then((res) => {
-                handleExpiredToken(res, dispatch, navigate)
                 dispatch(retrieveProfile(user,navigate))
+                dispatch(setModalMessage("Update profile successfully!"))
+                dispatch(showModal())
             }).catch((err) => {
+                handleExpiredToken(err.response.data, dispatch, navigate)
                 console.log(err)
-                navigate('/')
+                dispatch(setModalMessage("Something went wrong"))
+                dispatch(showModal())
             });
         } catch (err) {
             console.log(err)
@@ -307,11 +311,12 @@ export const patchProfile = (data, user, navigate) => {
                 user_type: user.userInfo.user_type,
                 ...data
             }).then((res) => {
-                handleExpiredToken(res, dispatch, navigate)
                 dispatch(retrieveProfile(user,navigate))
             }).catch((err) => {
-                console.log(err)
-                navigate('/')
+                handleExpiredToken(err.response.data, dispatch, navigate)
+                console.log(err.response.data)
+                dispatch(setModalMessage("Something went wrong"))
+                dispatch(showModal())
             });
         } catch (err) {
             console.log(err)
@@ -330,11 +335,14 @@ export const updateAvatar = (data, user, navigate) => {
                 user_type: user.userInfo.user_type,
                 avatar: data.avatar,
             }).then((res) => {
-                handleExpiredToken(res, dispatch, navigate)
                 dispatch(retrieveProfile(user,navigate))
+                dispatch(setModalMessage("Update avatar successfully!"))
+                dispatch(showModal())
             }).catch((err) => {
-                console.log(err)
-                navigate('/')
+                handleExpiredToken(err.response.data, dispatch, navigate)
+                console.log(err.response.data)
+                dispatch(setModalMessage("Something went wrong"))
+                dispatch(showModal())
             });
         } catch (err) {
             console.log(err)
@@ -353,11 +361,12 @@ export const changePassword = (data, user, navigate) => {
                 password: data.password,
                 new_password: data.new_password
             }).then((res) => {
-                handleExpiredToken(res, dispatch, navigate)
                 dispatch(logout(navigate))
             }).catch((err) => {
-                console.log(err)
-                navigate('/')
+                handleExpiredToken(err.response.data, dispatch, navigate)
+                console.log(err.response.data)
+                dispatch(setModalMessage("Something went wrong"))
+                dispatch(showModal())
             });
         } catch (err) {
             console.log(err)
@@ -373,10 +382,10 @@ export const forgotPassword = (data, navigate) => {
             axiosInstance.post(`/forgot_password`, {
                 email: data.email,
             }).then((res) => {
-                handleExpiredToken(res, dispatch, navigate)
                 dispatch(setModalMessage("Reset password email was sent! Please verify your email."))
                 dispatch(showModal())
             }).catch((err) => {
+                handleExpiredToken(err.response.data, dispatch, navigate)
                 console.log(err)
                 dispatch(setModalMessage("Something went wrong"))
                 dispatch(showModal())
@@ -397,11 +406,11 @@ export const resetPassword = (data, navigate) => {
                 token: data.token,
                 password: data.password
             }).then((res) => {
-                handleExpiredToken(res, dispatch, navigate)
                 dispatch(setModalMessage("Reset password successfully! Please login again"))
                 dispatch(showModal())
                 navigate('/login')
             }).catch((err) => {
+                handleExpiredToken(err.response.data, dispatch, navigate)
                 console.log(err)
                 dispatch(setModalMessage("Something went wrong"))
                 dispatch(showModal())
