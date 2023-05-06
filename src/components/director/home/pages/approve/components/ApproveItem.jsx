@@ -37,13 +37,14 @@ const ApproveItem = ({
   const handleShow = () => setShow(true);
 
   // Approval handling
-  const onApprove = () => {
+  const handleVerify = (action) => {
     dispatch(verifyUser(
       {
         email: approve.email,
         limit: approveCount,
         offset: currentPage * approveCount,
-        user_type
+        user_type,
+        action
       }, {
         userInfo,
         userToken
@@ -107,13 +108,17 @@ const ApproveItem = ({
                   className='fogi'
                   id='order-item-button'
                   variant='primary'
-                  onClick={onApprove}
+                  onClick={() => handleVerify('approve')}
                 >
                   Approve
                 </Button>
               </Col>
               <Col className='pe-0 d-grid'>
-                <Button variant='outline-danger' id='order-item-button'>
+                <Button
+                  variant='outline-danger'
+                  id='order-item-button'
+                  onClick={() => handleVerify('decline')}
+                >
                   Decline
                 </Button>
               </Col>

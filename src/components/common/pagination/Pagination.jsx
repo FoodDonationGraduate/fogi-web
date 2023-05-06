@@ -16,8 +16,7 @@ import { useResizer } from 'utils/helpers/Resizer.jsx';
 const Pagination = ({
   pageCount,
   activeIdx,
-  onChangePage,
-  sort=null
+  onChangePage
 }) => {
   let size = useResizer();
 
@@ -70,7 +69,7 @@ const Pagination = ({
 
   useEffect(() => {
     setShownPills(getShownPills());
-  }, [activeIdx, size, sort]);
+  }, [activeIdx, size]);
 
   return (
     <>
