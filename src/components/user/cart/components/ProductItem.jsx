@@ -1,6 +1,8 @@
 // Essentials
 import React, { useState, useEffect } from 'react';
 import { Button, Card, Form, Col, Row, Stack } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router';
 
 // Assets
 import ProductImage from 'assets/images/ProductImage.jpg'; // temporary
@@ -8,20 +10,51 @@ import ProductImage from 'assets/images/ProductImage.jpg'; // temporary
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
 import { convertNumberToVnd } from 'utils/helpers/Money.jsx';
+import { distanceTime } from 'utils/helpers/Time';
+import { updateProduct, deleteProduct } from 'components/redux/reducer/CartReducer';
+import { showQuestionModal, cancelQuestionModal, setModalQuestion } from 'components/redux/reducer/ModalReducer';
 
 const ProductItem = ({
   product
 }) => {
+  const userInfo = useSelector(state => state.authenticationReducer.user);
+  const userToken = useSelector(state => state.authenticationReducer.token);
+  const modalLogic = useSelector(state => state.modalReducer.logic);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   let size = useResizer();
   const [count, setCount] = useState(0);
-  const increaseCount = () => { setCount(count + 1) };
-  const decreaseCount = () => {
-    if (count > 0) setCount(count - 1)
+  const [currentProduct, setCurrentProduct] = useState('');
+
+  const increaseCount = (id) => { 
+    dispatch(updateProduct({product_id: id, quantity: count + 1}, {userInfo, userToken}, navigate));
   };
 
+  const decreaseCount = (id) => { 
+    if (count > 1){
+      dispatch(updateProduct({product_id: id, quantity: count - 1}, {userInfo, userToken}, navigate));
+    }
+  };
+
+  const deleteProduct = (id) => { 
+    dispatch(setModalQuestion('Do you want to delete this product'));
+    dispatch(showQuestionModal());
+    setCurrentProduct(id)
+  };
+
+
   useEffect(() => {
-    setCount(0);
+    setCount(product.quantity);
   }, [product]);
+
+  useEffect(() => {
+    if (modalLogic) {
+      dispatch(cancelQuestionModal())
+      dispatch(deleteProduct({id: currentProduct}, {userInfo, userToken}, navigate))
+    }
+  }, [modalLogic]);
 
   return (
     <Row>
@@ -32,15 +65,15 @@ const ProductItem = ({
               <Stack direction='horizontal'>
                 <img
                   className='long-product-image'
-                  src={ProductImage}
+                  src={`https://bachkhoi.online/static/${product.image_filename}`}
                   width='96' height='96'
                 />
                 <div className='ms-4'>
                   <h5 className='fw-bold'>
-                    {product.title}
+                    {product.name}
                   </h5>
                   <span className={size > 0 ? 'long-product-type' : 'long-product-type-sm'}>
-                    Product type
+                    {product.category_name}
                   </span>
                 </div>
               </Stack>
@@ -53,14 +86,14 @@ const ProductItem = ({
                     <header className='long-product-label'>
                       {size > 0 ? 'Remaining t' : 'T'}ime
                     </header>
-                    <h5>2 days left</h5>
+                    <h5>{distanceTime(product.expired_time)}</h5>
                   </Stack>
                 </Col>
 
                 <Col className={`d-flex ${size < 3 && 'ps-0'}`}>
                   <Stack className='my-auto' direction='vertical' gap={2}>
                     <header className='long-product-label'>Price</header>
-                    <h5>{convertNumberToVnd(10000)}</h5>
+                    <h5>{convertNumberToVnd(product.price)}</h5>
                   </Stack>
                 </Col>
 
@@ -71,7 +104,8 @@ const ProductItem = ({
                       {size > 0 &&
                         <Button
                           variant='outline-secondary'
-                          onClick={decreaseCount}
+                          onClick={() =>decreaseCount(product.id)}
+                          disabled={count === 1}
                         >
                           -
                         </Button>
@@ -87,7 +121,7 @@ const ProductItem = ({
                       {size > 0 &&
                         <Button
                           variant='outline-secondary'
-                          onClick={increaseCount}
+                          onClick={() => increaseCount(product.id)}
                         >
                           +
                         </Button>
@@ -99,7 +133,7 @@ const ProductItem = ({
                 <Col className={`d-flex ${size < 3 && 'ps-0'}`}>
                   <Stack className='my-auto' direction='vertical' gap={2}>
                     <header className='long-product-label'>Total</header>
-                    <h5>{convertNumberToVnd(20000)}</h5>
+                    <h5>{convertNumberToVnd(product.price*count)}</h5>
                   </Stack>
                 </Col>
               </Row>
@@ -112,10 +146,10 @@ const ProductItem = ({
             <Col className='ps-0'>
               <Stack direction='horizontal' gap={3}>
                 <header className='fw-bold'>Options</header>
-                <Button variant='outline-secondary'>
+                <Button variant='outline-secondary' onClick={() => navigate(`/product/${product.id}`)}>
                   View details
                 </Button>
-                <Button variant='outline-danger'>
+                <Button variant='outline-danger' onClick={() => deleteProduct(product.id)}>
                   Remove
                 </Button>
               </Stack>

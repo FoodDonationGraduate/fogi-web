@@ -61,12 +61,12 @@ const CategorySection = () => {
         </Row>
         <Carousel interval={null}>
           {Object.keys(allCategories).length !== 0 && 
-            shownCategories.map((categories) => (
-              <Carousel.Item>
+            shownCategories.map((categories, index) => (
+              <Carousel.Item key={index}>
                 <Row className='py-3' xs={2} sm={3} md={4} xl={6}>
                   {categories.map((category) => (
                     <Col key={category.id}>
-                      <CategoryCard category={category}/>
+                      <CategoryCard category={category} key={category.id}/>
                     </Col>
                   ))}
                 </Row>

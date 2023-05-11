@@ -25,6 +25,7 @@ const Pill = ({
         className={size < 1 ? 'fogi pagination-pill-sm' : 'fogi pagination-pill'}
         variant={(isActive ? 'primary' : 'outline-secondary')}
         onClick={() => { if (idx !== -1) handleOnClick(idx); }}
+        key={idx}
       >
         {idx === - 1 ? '...' : idx + 1}
       </Button>

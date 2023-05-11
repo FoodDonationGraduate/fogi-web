@@ -177,9 +177,11 @@ export const retrieveDonorProducts = (data, navigate) => {
                 dispatch(setDonorProducts(res.data))
             })
             .catch((err) => {
-                console.log(err.response.data)
-                dispatch(setModalMessage("Something went wrong"))
-                dispatch(showModal())
+                if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+                    console.log(err)
+                    dispatch(setModalMessage("Something went wrong"))
+                    dispatch(showModal())
+                }
             });
         } catch (err) {
             console.log(err)
@@ -206,13 +208,14 @@ export const postNewProduct = (data, user, navigate) => {
                 available_start: data.available_start + ':00',
                 available_end: data.available_end + ':00'
             }).then((res) => {
-                handleExpiredToken(res, dispatch, navigate)
                 dispatch(setModalMessage("Create new product successfully!"))
                 dispatch(showModal())
             }).catch((err) => {
-                console.log(err)
-                dispatch(setModalMessage("Something went wrong"))
-                dispatch(showModal())
+                if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+                    console.log(err)
+                    dispatch(setModalMessage("Something went wrong"))
+                    dispatch(showModal())
+                }
             });
         } catch (err) {
             console.log(err)

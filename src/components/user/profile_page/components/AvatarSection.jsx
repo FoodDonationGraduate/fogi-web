@@ -30,7 +30,7 @@ function AvatarSection() {
     }
     const onSubmit = () => {
         if (preview !== null) {
-            dispatch(updateAvatar({avatar: preview.split("base64,")[1]}, {userInfo, userToken},navigate))
+            dispatch(updateAvatar({avatar: preview.split("base64,")[1]}, {userInfo, userToken}, navigate))
         }
     }
     return (

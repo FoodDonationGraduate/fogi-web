@@ -3,6 +3,7 @@ import * as React from 'react';
 import { Button, Card, Stack } from 'react-bootstrap';
 import { useNavigate } from 'react-router';
 import { EqualHeightElement } from 'react-equal-height';
+import { useDispatch, useSelector } from 'react-redux'
 
 // Sources
 import { FaRegClock } from 'react-icons/fa';
@@ -18,10 +19,23 @@ import { convertNumberToVnd } from 'utils/helpers/Money.jsx';
 import { reduceString } from 'utils/helpers/String';
 import { distanceTime } from 'utils/helpers/Time';
 
+import { addNewProduct } from 'components/redux/reducer/CartReducer'
+import { handleEmptyToken } from 'components/redux/reducer/AuthenticationReducer';
+
 const ProductCard = ({product}) => {
+  const userInfo = useSelector(state => state.authenticationReducer.user);
+  const userToken = useSelector(state => state.authenticationReducer.token);
+  
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const onSubmit = (product_id) => {
+    if (handleEmptyToken({userInfo, userToken}, navigate)) {
+      dispatch(addNewProduct({product_id: product_id, quantity: 1}, {userInfo, userToken}, navigate));
+    }
+  }
   return (
-    <Card className='product-card h-100' onClick={() => navigate(`/product/${product.id}`)}> 
+    <Card className='product-card h-100' > 
       <Card.Img className='product-card-img' 
         src={`https://bachkhoi.online/static/${product.image_filename}`} 
         alt={product.description}
@@ -68,11 +82,10 @@ const ProductCard = ({product}) => {
           </Stack>
         </EqualHeightElement>
         <div className='d-grid mt-2'>
-          <Button className='fogi mt-2' variant='primary'>
+          <Button className='fogi mt-2' variant='primary' onClick={() => onSubmit(product.id)}>
             Add to Cart
           </Button>
-          <Button className='fogi mt-2' variant='outline-secondary' onClick={() => navigate(`/product/${product.id}`)}
->
+          <Button className='fogi mt-2' variant='outline-secondary' onClick={() => navigate(`/product/${product.id}`)}>
             View Details
           </Button>
         </div>
