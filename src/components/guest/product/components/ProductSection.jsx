@@ -11,7 +11,7 @@ import 'assets/css/Fogi.css';
 
 const ProductSection = ({product}) => {
   return (
-    <Container className='pt-4'>
+    <Container className='py-4'>
       <Row>
         <Col md={4} lg={4}>
           <ProductImage product={product} />

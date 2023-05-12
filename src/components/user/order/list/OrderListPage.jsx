@@ -3,7 +3,7 @@ import React from 'react';
 
 // Components
 import TopSection from 'components/layout/TopSection';
-import Footer from 'components/guest/common/bars/Footer';
+import Footer from 'components/layout/Footer';
 import OrderListTitle from './components/OrderListTitle';
 import OrderList from './components/OrderList';
 

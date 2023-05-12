@@ -3,7 +3,7 @@ import * as React from 'react';
 
 // Components
 import TopSection from 'components/layout/TopSection';
-import Footer from 'components/guest/common/bars/Footer';
+import Footer from 'components/layout/Footer';
 import ListTitle from './components/ListTitle';
 import NewProductList from './components/NewProductList';
 
@@ -17,7 +17,7 @@ const ProductListPage = () => {
         <TopSection />
       </div>
       <div className='bg'>
-        <ListTitle title='New Product List'/>
+        <ListTitle title='Món ăn mới'/>
         <NewProductList />
       </div>
       <div>

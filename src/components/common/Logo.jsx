@@ -8,13 +8,14 @@ import { useNavigate } from "react-router-dom";
 
 const Logo = ({
   usertype,
-  isWhite = false
+  isWhite = false,
+  isLarge = false
 }) => {
 
   const navigate = useNavigate(); 
   const toHomePage = () => { navigate('/') };
   const toDonorHomePage = () => { navigate('/donor/home') };
-  const className = 'logo' + (isWhite ? '-alt' : '');
+  const className = 'logo' + (isWhite ? '-alt' : '') + (isLarge ? ' logo-large' : '');
 
   return (
     <>

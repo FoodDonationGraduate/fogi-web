@@ -56,7 +56,7 @@ const CategorySection = () => {
       <Container>
         <Row className='pt-4'>
           <Col>
-            <h2>Categories</h2>
+            <h2>Danh mục Món ăn</h2>
           </Col>
         </Row>
         <Carousel interval={null}>

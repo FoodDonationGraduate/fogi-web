@@ -37,12 +37,11 @@ const ListTitle = ({title}) => {
           <Col className='d-flex justify-content-end' xs={2}>
             <DropdownButton
               variant='outline-secondary'
-              title={sort !== '' ? (sort === 'price' ? 'Price' : (sort === 'expired_time' ? 'Date' : 'Count')) : 'Sort by'}
+              title={sort !== '' ? (sort === 'expired_time' ? 'Thời gian' : 'Số lượng') : 'Sắp xếp'}
             >
-              <Dropdown.Item onClick={() => dispatch(setTypeOfSort('price'))}>Price</Dropdown.Item>
-              <Dropdown.Item onClick={() => dispatch(setTypeOfSort('expired_time'))}>Date</Dropdown.Item>
-              <Dropdown.Item onClick={() => dispatch(setTypeOfSort('stock'))}>Count</Dropdown.Item>
-              <Dropdown.Item onClick={() => dispatch(setTypeOfSort(''))}>None</Dropdown.Item>
+              <Dropdown.Item onClick={() => dispatch(setTypeOfSort('expired_time'))}>Thời gian</Dropdown.Item>
+              <Dropdown.Item onClick={() => dispatch(setTypeOfSort('stock'))}>Số lượng</Dropdown.Item>
+              <Dropdown.Item onClick={() => dispatch(setTypeOfSort(''))}>Sắp xếp</Dropdown.Item>
             </DropdownButton>
           </Col>
         </Row>

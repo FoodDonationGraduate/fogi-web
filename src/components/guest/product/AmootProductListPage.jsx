@@ -3,7 +3,7 @@ import * as React from 'react';
 
 // Components
 import TopSection from 'components/layout/TopSection';
-import Footer from 'components/guest/common/bars/Footer';
+import Footer from 'components/layout/Footer';
 import ListTitle from './components/ListTitle';
 import AmootProductList from './components/AmootProductList';
 
@@ -17,7 +17,7 @@ const ProductListPage = () => {
         <TopSection />
       </div>
       <div className='bg'>
-        <ListTitle title='Almost Out Of Stock Product List'/>
+        <ListTitle title='Món ăn sắp hết hàng'/>
         <AmootProductList />
       </div>
       <div>
