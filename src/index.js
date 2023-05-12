@@ -41,6 +41,8 @@ import ProfileUserPage from "./components/user/profile_page/ProfilePage.jsx"
 import ProfileVolunteerPage from "./components/volunteer/profile_page/ProfilePage.jsx"
 import ProfileDonorPage from "./components/donor/profile_page/ProfilePage.jsx"
 
+import DirectorHome from "./components/director/home/HomePage.jsx"
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
      <BrowserRouter>
@@ -80,7 +82,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <Route path="/volunteer/accountinfo" element={<VolunteerAccountInfo/>} />
         
         <Route path="/" element={
-            <Auth allowedRoles={["user", "donor", "volunteer"]} />}
+            <Auth allowedRoles={["user", "donor", "volunteer", "director"]} />}
         >
           <Route path="/profile" element={
             <Monitor allowedPages={[<ProfileUserPage/>, <ProfileDonorPage/>, <ProfileVolunteerPage/>]}/> } 
@@ -92,9 +94,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/donor/home" element={ <DonorHome/> } />
           <Route path="/donor/order" element={ <DonorOrderDetailsPage/> } />
         </Route>
-        <Route path="/volunteer" element={
-            <Auth allowedRoles={["volunteer"]} />}
+        <Route path="/director" element={
+            <Auth allowedRoles={["director"]} />}
         >
+          <Route path="/director/home" element={ <DirectorHome /> } />
         </Route>
       </Routes>
      </BrowserRouter >

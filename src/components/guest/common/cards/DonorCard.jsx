@@ -18,7 +18,7 @@ const DonorCard = ({donor}) => {
       <Card.Body>
         <EqualHeightElement name="donor-info">
           <Stack direction='horizontal' gap={4}>
-            <img className='donor-logo-m' 
+            <img className='profile-logo-m' 
               src={`https://bachkhoi.online/static/${donor.avatar_filename}`}
               alt='donor logo'/>
             <Stack direction='vertical' gap={1}>

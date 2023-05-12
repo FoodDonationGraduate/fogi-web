@@ -18,7 +18,7 @@ const ProductSection = ({donor}) => {
               <Row>
                 <Col md={4} lg={4}>
                   <Stack direction='horizontal' gap={4}>
-                    <img className='donor-logo-m' src={`https://bachkhoi.online/static/${donor.avatar_filename}`} alt='donor avatar'/>
+                    <img className='profile-logo-m' src={`https://bachkhoi.online/static/${donor.avatar_filename}`} alt='donor avatar'/>
                     <Stack direction='vertical' gap={1}>
                       <h4>{donor.name}</h4>
                       <Button variant='outline-dark'>Visit Donor</Button>
