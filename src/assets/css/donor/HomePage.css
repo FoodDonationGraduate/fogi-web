@@ -87,15 +87,15 @@
   background-color: #82CD47;
 }
 
-.side-menu-donor-item {
+.side-menu-profile-item {
   border-radius: 8px;
   user-select: none;
   cursor: pointer;
 }
-  .side-menu-donor-item:hover {
+  .side-menu-profile-item:hover {
     background-color: #F2F2F2;
   }
-  .side-menu-donor-item:active {
+  .side-menu-profile-item:active {
     background-color: #ccc;
   }
 

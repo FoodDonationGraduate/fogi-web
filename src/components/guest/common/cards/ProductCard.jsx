@@ -69,7 +69,7 @@ const ProductCard = ({product}) => {
         <EqualHeightElement name="product-store">
           <Stack direction='horizontal' gap={2}>
             <div>
-              <img className='donor-logo-s' 
+              <img className='profile-logo-s' 
                 src={`https://bachkhoi.online/static/${product.donor.avatar_filename}`}
                 onClick={() => navigate(`/store/${product.id}`)} 
                 alt='donor logo'/>

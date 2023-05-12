@@ -5,6 +5,8 @@ import productReducer from './reducer/ProductReducer.jsx'
 import categoryReducer from './reducer/CategoryReducer.jsx'
 import donorReducer from './reducer/DonorReducer.jsx'
 import cartReducer from './reducer/CartReducer.jsx'
+import directorReducer from './reducer/DirectorReducer.jsx'
+
 const store = configureStore({
     reducer: {
         authenticationReducer,
@@ -12,7 +14,8 @@ const store = configureStore({
         productReducer,
         categoryReducer,
         donorReducer,
-        cartReducer
+        cartReducer,
+        directorReducer
     },
 })
 export default store
