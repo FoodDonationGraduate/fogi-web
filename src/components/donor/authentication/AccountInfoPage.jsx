@@ -15,6 +15,7 @@ import Logo from 'components/common/Logo';
 import { signupForDonor, signupUserInfo } from 'components/redux/reducer/AuthenticationReducer';
 import { setModalMessage, showModal } from 'components/redux/reducer/ModalReducer';
 import Modal from "components/layout/InfoModal.jsx";
+import Tooltip from 'components/common/Tooltip';
 
 // Assets imports
 import { FaExclamationTriangle } from "react-icons/fa";
@@ -80,54 +81,37 @@ const AccountInfo = () => {
   return (
     <Container fluid className='fogi-bg authen-bg authen-bg-user'>
       <Row className='py-4 d-flex justify-content-center align-items-center'>
-        <Col lg={4}>
+        <Col md={8} lg={6} xl={4}>
           <Card className='shadow'>
             <Card.Body>
               <div className='mb-3 mt-md-4 mx-4'>
-                <Row className='mb-4'>
-                  <Col lg={3}>
-                    <Logo usertype={1} />
-                  </Col>
-                  <Col>
-                    <h2 className='fw-bold'>
-                      Account Information
-                    </h2>
-                  </Col>
-                </Row>
+                <Stack className='mb-4' direction='horizontal' gap={4}>
+                  <Logo usertype={0} />
+                  <h2 className='fw-bold'>
+                    Thông tin Tài khoản
+                  </h2>
+                </Stack>
                 <div className='mb-3'>
                   <Form onSubmit={handleSubmit(onSubmit)}>
                     <header className='form-header mb-3'>
-                      Donor's Information
+                      Thông tin Cửa hàng
                     </header>
                     <Form.Group className='mb-3'>
                       <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
-                        Brand name
+                        Tên Cửa hàng
                       </Form.Label>
                       <Form.Control {...register("brandname")} />
                       {errors.brandname && errors.brandname.type === "required" && (
                         <p className="mt-2 error">
                           <FaExclamationTriangle className="mx-2" />
-                          Brand name is required
+                          Bạn chưa nhập tên cửa hàng
                         </p>
                       )}
                     </Form.Group>
 
                     <Form.Group className='mb-3'>
                       <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
-                        Description
-                      </Form.Label>
-                      <Form.Control {...register("description")} />
-                      {errors.description && errors.description.type === "required" && (
-                        <p className="mt-2 error">
-                          <FaExclamationTriangle className="mx-2" />
-                          Description is required
-                        </p>
-                      )}
-                    </Form.Group>
-
-                    <Form.Group className='mb-3'>
-                      <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
-                        Address
+                        Địa chỉ
                       </Form.Label>
                       <Form.Control
                         {...register("address")}
@@ -135,18 +119,31 @@ const AccountInfo = () => {
                       {errors.address && errors.address.type === "required" && (
                         <p className="mt-2 error">
                           <FaExclamationTriangle className="mx-2" />
-                          Address is required
+                          Bạn chưa nhập địa chỉ
+                        </p>
+                      )}
+                    </Form.Group>
+
+                    <Form.Group className='mb-3'>
+                      <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
+                        Mô tả
+                      </Form.Label>
+                      <Form.Control as='textarea' {...register("description")} />
+                      {errors.description && errors.description.type === "required" && (
+                        <p className="mt-2 error">
+                          <FaExclamationTriangle className="mx-2" />
+                          Bạn chưa nhập mô tả
                         </p>
                       )}
                     </Form.Group>
 
                     <header className='form-header mb-3'>
-                      Owner's Information
+                      Thông tin Người đại diện
                     </header>
 
                     <Form.Group className='mb-3'>
                       <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
-                        Owner's name
+                        Họ tên
                       </Form.Label>
                       <Form.Control
                         {...register("ownername")}
@@ -154,27 +151,28 @@ const AccountInfo = () => {
                       {errors.ownername && errors.ownername.type === "required" && (
                         <p className="mt-2 error">
                           <FaExclamationTriangle className="mx-2" />
-                          Owner's name is required
+                          Bạn chưa nhập họ tên
                         </p>
                       )}
                     </Form.Group>
 
                     <Form.Group className='mb-3'>
                       <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
-                        Image of Identity Card/Passport
+                        Giấy tờ tùy thân{' '}
+                        <Tooltip tip={'CMND/CCCD/Hộ chiếu'} />
                       </Form.Label>
                       <Stack direction='horizontal' gap={2}>
-                        <UploadButton label='Upload front side' type={imageOnly} setValue={setFrontImage}/>
-                        <UploadButton label='Upload back side' type={imageOnly} setValue={setBackImage}/>
+                        <UploadButton label='Tải lên mặt trước' type={imageOnly} setValue={setFrontImage}/>
+                        <UploadButton label='Tải lên mặt trước' type={imageOnly} setValue={setBackImage}/>
                       </Stack>
                     </Form.Group>
 
                     <div className='d-grid'>
                       <Button className='fogi' variant='primary' type='submit'>
-                        Continue
+                        Tiếp tục
                       </Button>
                       <Button className='mt-2' variant='outline-secondary'>
-                        Return
+                        Trở về
                       </Button>
                     </div>
                   </Form>

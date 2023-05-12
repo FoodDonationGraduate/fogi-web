@@ -1,6 +1,6 @@
 // Essentials
 import * as React from 'react';
-import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
+import { Button, Card, Col, Container, Form, Row, Stack } from 'react-bootstrap';
 import { useDispatch } from 'react-redux'
 import { useNavigate } from "react-router-dom";
 import { signup, signupUserInfo } from 'components/redux/reducer/AuthenticationReducer';
@@ -42,38 +42,34 @@ const AccountInfo = () => {
   return (
     <Container fluid className='fogi-bg authen-bg authen-bg-user'>
       <Row className='py-4 d-flex justify-content-center align-items-center'>
-        <Col lg={4}>
+        <Col md={8} lg={6} xl={4}>
           <Card className='shadow'>
             <Card.Body>
               <div className='mb-3 mt-md-4 mx-4'>
-                <Row className='mb-4'>
-                  <Col lg={3}>
-                    <Logo usertype={0} />
-                  </Col>
-                  <Col>
-                    <h2 className='fw-bold'>
-                      Account Information
-                    </h2>
-                  </Col>
-                </Row>
+                <Stack className='mb-4' direction='horizontal' gap={4}>
+                  <Logo usertype={0} />
+                  <h2 className='fw-bold'>
+                    Thông tin Tài khoản
+                  </h2>
+                </Stack>
                 <div className='mb-3'>
                   <Form onSubmit={handleSubmit(onSubmit)}>
                     <Form.Group className='mb-3'>
                       <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
-                        Full name
+                        Họ tên
                       </Form.Label>
                       <Form.Control {...register("fullname")} />
                       {errors.fullname && errors.fullname.type === "required" && (
                         <p className="mt-2 error">
                           <FaExclamationTriangle className="mx-2" />
-                          Full name is required
+                          Bạn chưa nhập họ tên
                         </p>
                       )}
                     </Form.Group>
 
                     <Form.Group className='mb-3'>
                       <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
-                        Date of birth
+                        Ngày sinh
                       </Form.Label>
                       <Form.Control
                         type='date'
@@ -83,14 +79,14 @@ const AccountInfo = () => {
                       {errors.dob && errors.dob.type === "required" && (
                         <p className="mt-2 error">
                           <FaExclamationTriangle className="mx-2" />
-                          Date of Birth is required
+                          Bạn chưa nhập ngày sinh
                         </p>
                       )}
                     </Form.Group>
 
                     <Form.Group className='mb-3'>
                       <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
-                        Phone number
+                        Số điện thoại
                       </Form.Label>
                       <Form.Control
                         type='number'
@@ -99,30 +95,30 @@ const AccountInfo = () => {
                       {errors.phonenumber && errors.phonenumber.type === "required" && (
                         <p className="mt-2 error">
                           <FaExclamationTriangle className="mx-2" />
-                          Phone number is required
+                          Bạn chưa nhập số điện thoại
                         </p>
                       )}
                     </Form.Group>
 
                     <Form.Group className='mb-3'>
                       <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
-                        Address
+                        Địa chỉ
                       </Form.Label>
                       <Form.Control {...register("address")} />
                       {errors.address && errors.address.type === "required" && (
                         <p className="mt-2 error">
                           <FaExclamationTriangle className="mx-2" />
-                          Address is required
+                          Bạn chưa nhập địa chỉ
                         </p>
                       )}
                     </Form.Group>
 
                     <div className='d-grid'>
                       <Button className='fogi' variant='primary' type='submit'>
-                        Sign up
+                        Đăng ký
                       </Button>
                       <Button className='mt-2' variant='outline-secondary'>
-                        Return
+                        Quay về
                       </Button>
                     </div>
                   </Form>
