@@ -78,14 +78,12 @@ const Pagination = ({
           <>
           {idx > -1 ?
             <Pill
-              key={key}
               idx={idx}
               isActive={idx === activeIdx}
               onChangePage={onChangePage}
             />
             :
             <UtilityPill
-              key={key}
               idx={idx}
               activeIdx={activeIdx}
               pageCount={pageCount}

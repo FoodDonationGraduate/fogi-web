@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 import axiosInstance from "services/axios/axiosConfig.js";
 import { setModalMessage, showModal } from 'components/redux/reducer/ModalReducer';
+import { useSelector } from 'react-redux'
+import { Navigate } from 'react-router-dom';
 
 const initialState = {
     user: localStorage.getItem("user") !== "undefined" 
@@ -48,12 +50,50 @@ export const {
 export default authenticationReducer.reducer
 // ----------- HELPER ---------------------
 
+export const refreshToken = (navigate) => {
+    return async dispatch => {
+        const userInfo = JSON.parse(localStorage.getItem("user"));
+        const userToken = localStorage.getItem("token");
+        try {
+            await axiosInstance.post(`/token/refresh`, {
+                email: userInfo.email,
+                token: userToken
+            }).then((res) => {
+                dispatch(setUserToken(res.data.token))
+            })
+            .catch((err) => {
+                console.log(err)
+                dispatch(setUserInfo({}))
+                dispatch(setUserToken(''))
+                navigate('/login')
+            });
+        } catch (err) {
+            dispatch(setUserInfo({}))
+            dispatch(setUserToken(''))
+            console.log(err)
+            navigate('/')
+        }
+    }
+}
+
 export function handleExpiredToken (data, dispatch, navigate) {
     if (data.message === "unauthorized") {
         dispatch(setUserInfo({}))
         dispatch(setUserToken(''))
         navigate('/login')
+        return false;
     }
+    return true;
+}
+
+
+
+export function handleEmptyToken (user, navigate) {
+    if ((user.userInfo === undefined || Object.keys(user.userInfo).length === 0)){
+        navigate('/login')
+        return false;
+    }
+    return true;
 }
 // ----------- THUNK ----------------------
 
@@ -68,6 +108,13 @@ export const login = (data, navigate, setFailAuthentication) => {
                 dispatch(setUserInfo(res.data.user))
                 dispatch(setUserToken(res.data.token))
                 navigate('/profile')
+                // let intervalID =  setInterval(() => {
+                //     const userInfo = JSON.parse(localStorage.getItem("user"));
+                //     const userToken = localStorage.getItem("token");
+                //     if (Object.keys(userInfo).length !== 0 && userToken !== ''){
+                //         dispatch(refreshToken(navigate));
+                //     }
+                //   }, 5000);
             })
             .catch((err) => {
                 if (err.response.data.message === 'User email is not verified') {
@@ -109,7 +156,7 @@ export const signup = (data, navigate) => {
             console.log("signup for user")
             await axiosInstance.post(`/signup`, {
                 email: data.email,
-                user_type: 'user',
+                user_type: 'donee',
                 password: data.password,
                 address: data.address,
                 dob: data.dob,
@@ -261,9 +308,11 @@ export const retrieveProfile = (user, navigate) => {
                 dispatch(setUserInfo(res.data.user))
             })
             .catch((err) => {
-                handleExpiredToken(err.response.data, dispatch, navigate)
-                console.log(err.response.data)
-                navigate('/')
+                if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+                    console.log(err)
+                    dispatch(setModalMessage("Something went wrong"))
+                    dispatch(showModal())
+                }
             });
         } catch (err) {
             console.log(err)
@@ -284,11 +333,15 @@ export const updateProfile = (data, user, navigate) => {
                 phone: data.phonenumber,
                 address: data.address
             }).then((res) => {
-                handleExpiredToken(res, dispatch, navigate)
                 dispatch(retrieveProfile(user,navigate))
+                dispatch(setModalMessage("Update profile successfully!"))
+                dispatch(showModal())
             }).catch((err) => {
-                console.log(err)
-                navigate('/')
+                if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+                    console.log(err)
+                    dispatch(setModalMessage("Something went wrong"))
+                    dispatch(showModal())
+                }
             });
         } catch (err) {
             console.log(err)
@@ -307,11 +360,13 @@ export const patchProfile = (data, user, navigate) => {
                 user_type: user.userInfo.user_type,
                 ...data
             }).then((res) => {
-                handleExpiredToken(res, dispatch, navigate)
                 dispatch(retrieveProfile(user,navigate))
             }).catch((err) => {
-                console.log(err)
-                navigate('/')
+                if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+                    console.log(err)
+                    dispatch(setModalMessage("Something went wrong"))
+                    dispatch(showModal())
+                }
             });
         } catch (err) {
             console.log(err)
@@ -330,11 +385,15 @@ export const updateAvatar = (data, user, navigate) => {
                 user_type: user.userInfo.user_type,
                 avatar: data.avatar,
             }).then((res) => {
-                handleExpiredToken(res, dispatch, navigate)
                 dispatch(retrieveProfile(user,navigate))
+                dispatch(setModalMessage("Update avatar successfully!"))
+                dispatch(showModal())
             }).catch((err) => {
-                console.log(err)
-                navigate('/')
+                if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+                    console.log(err)
+                    dispatch(setModalMessage("Something went wrong"))
+                    dispatch(showModal())
+                }
             });
         } catch (err) {
             console.log(err)
@@ -353,11 +412,13 @@ export const changePassword = (data, user, navigate) => {
                 password: data.password,
                 new_password: data.new_password
             }).then((res) => {
-                handleExpiredToken(res, dispatch, navigate)
                 dispatch(logout(navigate))
             }).catch((err) => {
-                console.log(err)
-                navigate('/')
+                if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+                    console.log(err)
+                    dispatch(setModalMessage("Something went wrong"))
+                    dispatch(showModal())
+                }
             });
         } catch (err) {
             console.log(err)
@@ -373,7 +434,6 @@ export const forgotPassword = (data, navigate) => {
             axiosInstance.post(`/forgot_password`, {
                 email: data.email,
             }).then((res) => {
-                handleExpiredToken(res, dispatch, navigate)
                 dispatch(setModalMessage("Reset password email was sent! Please verify your email."))
                 dispatch(showModal())
             }).catch((err) => {
@@ -397,14 +457,15 @@ export const resetPassword = (data, navigate) => {
                 token: data.token,
                 password: data.password
             }).then((res) => {
-                handleExpiredToken(res, dispatch, navigate)
                 dispatch(setModalMessage("Reset password successfully! Please login again"))
                 dispatch(showModal())
                 navigate('/login')
             }).catch((err) => {
-                console.log(err)
-                dispatch(setModalMessage("Something went wrong"))
-                dispatch(showModal())
+                if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+                    console.log(err)
+                    dispatch(setModalMessage("Something went wrong"))
+                    dispatch(showModal())
+                }
             });
         } catch (err) {
             console.log(err)

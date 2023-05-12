@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import {BrowserRouter, Navigate, Route, Routes, useLocation, Outlet} from "react-router-dom";
-import { useSelector } from 'react-redux'
+import {BrowserRouter, Navigate, Route, Routes, useLocation, Outlet, useNavigate} from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux'
 import { Provider } from "react-redux";
 
 import store from "./components/redux/store.jsx";
@@ -41,13 +41,14 @@ import ProfileUserPage from "./components/user/profile_page/ProfilePage.jsx"
 import ProfileVolunteerPage from "./components/volunteer/profile_page/ProfilePage.jsx"
 import ProfileDonorPage from "./components/donor/profile_page/ProfilePage.jsx"
 
-import DirectorHome from "./components/director/home/HomePage.jsx"
+import { refreshToken } from 'components/redux/reducer/AuthenticationReducer.jsx';
+import DirectorHome from "./components/director/home/HomePage.jsx";
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
-     <BrowserRouter>
+    <BrowserRouter>
       <Routes>
-        <Route path="/" element={<HomePage/>} />
+        <Route path="/" element={<HomePage/>} />        
         <Route path="/products" element={<ProductListPage />} /> 
         <Route path="/donors" element={<DonorListPage />} /> 
         <Route path="/new-products" element={<NewProductListPage />} />  
@@ -60,7 +61,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/product/:id" element={<ProductDetailsPage />} />
         <Route path="/store/:id" element={<ProductDetailsPage />} />
 
-        <Route path="/cart" element={<CartPage />} />
         <Route path="/orders" element={<OrderListPage />} />
         <Route path="/order" element={<OrderDetailsPage />} />
 
@@ -79,15 +79,22 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/donor/accountinfo" element={<DonorAccountInfo/>} />
 
         <Route path="/volunteer/signup" element={<VolunteerSignup/>} />
-      <Route path="/volunteer/accountinfo" element={<VolunteerAccountInfo/>} />
+        <Route path="/volunteer/accountinfo" element={<VolunteerAccountInfo/>} />
         
         <Route path="/" element={
-            <Auth allowedRoles={["user", "donor", "volunteer", "director"]} />}
+            <Auth allowedRoles={["donee", "donor", "volunteer", "director"]} />}
         >
           <Route path="/profile" element={
             <Monitor allowedPages={[<ProfileUserPage/>, <ProfileDonorPage/>, <ProfileVolunteerPage/>]}/> } 
           />
         </Route>
+
+        <Route path="/" element={
+            <Auth allowedRoles={["donee"]} />}
+        >
+          <Route path="/cart" element={<CartPage />} />
+        </Route>
+
         <Route path="/donor" element={
             <Auth allowedRoles={["donor"]} />}
         >
@@ -100,16 +107,27 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/director/home" element={ <DirectorHome /> } />
         </Route>
       </Routes>
-     </BrowserRouter >
+    </BrowserRouter >
   </Provider>
 );
 
 function Auth ({ allowedRoles }) {
   const userInfo = useSelector(state => state.authenticationReducer.user)
+  const userToken = useSelector(state => state.authenticationReducer.token)
   const location = useLocation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  // let intervalID = userToken !== '' ? setInterval(() => {
+  //   const userInfo = JSON.parse(localStorage.getItem("user"));
+  //   const userToken = localStorage.getItem("token");
+  //   if (Object.keys(userInfo).length !== 0 && userToken !== ''){
+  //       dispatch(refreshToken(navigate));
+  //   }
+  // }, 5000) : '';
 
   localStorage.allowedRoles = JSON.stringify(allowedRoles);
-
+  
   return userInfo === undefined || Object.keys(userInfo).length === 0 ? (
     <Navigate to="/login" state={{ from: location }} replace />
   ) : (

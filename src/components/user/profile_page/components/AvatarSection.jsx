@@ -30,13 +30,13 @@ function AvatarSection() {
     }
     const onSubmit = () => {
         if (preview !== null) {
-            dispatch(updateAvatar({avatar: preview.split("base64,")[1]}, {userInfo, userToken},navigate))
+            dispatch(updateAvatar({avatar: preview.split("base64,")[1]}, {userInfo, userToken}, navigate))
         }
     }
     return (
         <div className='avartar-section'>
             <div className='user-profile-picture d-flex justify-content-left align-items-center'>
-                <img className='user-avatar' src={`data:image/jpeg;base64,${userInfo.avatar}`} alt='user avatar'></img>
+                <img className='user-avatar' src={`https://bachkhoi.online/static/${userInfo.avatar}`} alt='user avatar'></img>
                 <Button className='card-buton card-grey-button change-avatar-button' onClick={() => setShowModal(true)}>Change Profile Picture</Button>
             </div>
             <Modal className="mw-80" show={showModal} onHide={() => setShowModal(false)}>

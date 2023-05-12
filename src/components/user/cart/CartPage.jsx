@@ -7,7 +7,8 @@ import Footer from 'components/guest/common/bars/Footer';
 import CartTitle from './components/CartTitle';
 import CartInfoCard from './components/CartInfoCard';
 import ProductList from './components/ProductList';
-
+import Modal from "components/layout/InfoModal.jsx";
+import ConfirmModal from "components/layout/ConfirmModal.jsx";
 // Style
 import 'assets/css/user/cart/Cart.css';
 
@@ -25,15 +26,17 @@ const CartPage = () => {
         <div className='mb-4'>
           <CartTitle />
         </div>
-        <div className='pb-4'>
+        {/* <div className='pb-4'>
           <CartInfoCard order={ORDER_DATA[0]} />
-        </div>
+        </div> */}
         <div className='pb-4'>
           <ProductList />
         </div>
       </div>
       <div>
         <Footer />
+        <Modal />
+        <ConfirmModal />
       </div>
     </>
   );
