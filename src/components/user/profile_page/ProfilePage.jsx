@@ -1,11 +1,11 @@
 import {useEffect} from 'react'
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Stack } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from "react-router-dom";
 import { retrieveProfile } from 'components/redux/reducer/AuthenticationReducer.jsx'
 
 import TopBar from "components/layout/TopBar.jsx";
-import Footer from 'components/guest/common/bars/Footer.jsx'
+import Footer from 'components/layout/Footer';
 import Modal from "components/layout/InfoModal.jsx";
 import ConfirmModal from "components/layout/ConfirmModal.jsx";
 import StatsCard from './components/StatsCard'
@@ -38,14 +38,14 @@ function ProfilePage(){
                         <div className='profile-section-body'>
                             <Row xs={1} lg={3} className="g-4">
                                 <Col xs={12} lg={3}>
-                                    <StatsCard/>
+                                    <Stack direction='vertical' gap={4}>
+                                        <StatsCard/>
+                                        <ButtonCard/>
+                                    </Stack>
                                 </Col>
-                                <Col xs={12} lg={6}>
+                                <Col xs={12} lg={9}>
                                     <UserProfile/>
                                 </Col>
-                                <Col xs={12} lg={3}>
-                                    <ButtonCard/>
-                                </Col> 
                             </Row>
                         </div>
                     </Container>

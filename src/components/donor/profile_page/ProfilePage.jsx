@@ -5,7 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { retrieveProfile } from 'components/redux/reducer/AuthenticationReducer.jsx'
 
 import TopBar from "components/layout/TopBarDonor.jsx";
-import Footer from 'components/guest/common/bars/Footer.jsx'
+import TopSection from 'components/layout/TopSection';
+import Footer from 'components/layout/Footer';
 import Modal from "components/layout/InfoModal.jsx";
 import ConfirmModal from "components/layout/ConfirmModal.jsx";
 

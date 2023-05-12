@@ -6,7 +6,7 @@ import { EqualHeightElement } from 'react-equal-height';
 
 // Utility
 import { convertNumberToVnd } from 'utils/helpers/Money.jsx';
-import { getStatusIdx } from 'utils/helpers/Order.jsx';
+import { getStatusByIdx } from 'utils/helpers/Order.jsx';
 import { useResizer } from 'utils/helpers/Resizer.jsx';
 
 const OrderItem = ({ order }) => {
@@ -42,9 +42,9 @@ const OrderItem = ({ order }) => {
     <>
       <div className='order-item' id='order-item' onClick={(event) => { toOrder(event); }}>
         <span
-          className={`order-item-status order-item-status-${getStatusIdx(status).css}`}
+          className={`order-item-status order-item-status-${getStatusByIdx(status).css}`}
         >
-          {getStatusIdx(status).label}
+          {getStatusByIdx(status).label}
         </span>
         <header className='order-item-secondary mt-3 mb-1'>
           {order.id}

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Card, Container, Button, Form} from 'react-bootstrap';
+import { Card, Container, Col, Button, Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from "react-router-dom";
 
@@ -52,89 +52,112 @@ function UserProfile() {
         <div className='user-profile-body'>
             <Container className='user-profile d-block'>
                 <div className='user-profile-body'>
-                    <Card className='p-2'>
+                    <Card className='p-4'>
                         <Card.Body className='d-block justify-content-left p-0' >
                             <AvatarSection/>
                             <div className='user-profile-info mt-4'>
                                 <Form className='d-block' onSubmit={handleSubmit(onSubmit)}>
-                                    <Form.Group className='mb-3'>
-                                        <Form.Control 
-                                            type='text'
-                                            placeholder='Nguyen Thi C'
-                                            defaultValue={userInfo.name ? userInfo.name : ''}
-                                            {...register("fullname")} />
-                                        {errors.fullname && errors.fullname.type === "required" && (
-                                            <p className="mt-2 error">
-                                            <FaExclamationTriangle className="mx-2" />
-                                            Full name is required
-                                            </p>
-                                        )}
-                                    </Form.Group>
-
-                                    <Form.Group className='mb-3'>
-                                        <Form.Control
-                                            type="email"
-                                            placeholder="nguyenthic123@gmail.com"
-                                            defaultValue={userInfo.email ? userInfo.email : ''}
-                                            readOnly
-                                            {...register("email")}
-                                        />
-                                        {errors.email && errors.email.type === "required" && (
-                                            <p className="mt-2 error">
-                                            <FaExclamationTriangle className="mx-2" />
-                                            Email is required
-                                            </p>
-                                        )}
-                                    </Form.Group>
-
-
-                                    <Form.Group className='mb-3'>
-                                        <Form.Control
-                                            type='number'
-                                            placeholder='0920101010'
-                                            defaultValue={userInfo.phone ? userInfo.phone : ''}
-                                            {...register("phonenumber")}
-                                        />
-                                        {errors.phonenumber && errors.phonenumber.type === "required" && (
-                                            <p className="mt-2 error">
-                                            <FaExclamationTriangle className="mx-2" />
-                                            Phone number is required
-                                            </p>
-                                        )}
-                                    </Form.Group>
-
-                                    <Form.Group className='mb-3'>
-                                        <Form.Control
-                                            type='date'
-                                            placeholders='31-12-2001'
-                                            defaultValue={userInfo.dob ? userInfo.dob : ''}
-                                            {...register("dob")}
-                                        />
-                                        {errors.dob && errors.dob.type === "required" && (
-                                            <p className="mt-2 error">
+                                    <header className='form-header mb-3'>
+                                        Thông tin cá nhân
+                                    </header>
+                                    <Form.Group className='mb-3 d-flex'>
+                                        <Form.Label column sm="3">
+                                            Họ tên
+                                        </Form.Label>
+                                        <Col sm={9}>
+                                            <Form.Control
+                                                type='text'
+                                                placeholder=''
+                                                defaultValue={userInfo.name ? userInfo.name : ''}
+                                                {...register("fullname")} />
+                                            {errors.fullname && errors.fullname.type === "required" && (
+                                                <p className="mt-2 error">
                                                 <FaExclamationTriangle className="mx-2" />
-                                                Date of Birth is required
-                                            </p>
-                                        )}
+                                                    Bạn chưa điền Họ tên
+                                                </p>
+                                            )}
+                                        </Col>
                                     </Form.Group>
 
-                                    <Form.Group className='mb-4'>
-                                        <Form.Control 
-                                            type='text'
-                                            placeholder='227 Nguyen Van Cu'
-                                            defaultValue={userInfo.address ? userInfo.address : ''}
-                                            {...register("address")} 
-                                        />
-                                        {errors.address && errors.address.type === "required" && (
-                                            <p className="mt-2 error">
-                                            <FaExclamationTriangle className="mx-2" />
-                                            Address is required
-                                            </p>
-                                        )}
+                                    <Form.Group className='mb-3 d-flex'>
+                                        <Form.Label column sm="3">
+                                            Email
+                                        </Form.Label>
+                                        <Col sm={9}>
+                                            <Form.Control
+                                                type='text'
+                                                placeholder=''
+                                                defaultValue={userInfo.email ? userInfo.email : ''}
+                                                {...register("email")} />
+                                            {errors.email && errors.email.type === "required" && (
+                                                <p className="mt-2 error">
+                                                <FaExclamationTriangle className="mx-2" />
+                                                    Bạn chưa điền Email
+                                                </p>
+                                            )}
+                                        </Col>
                                     </Form.Group>
-                                    <div className='submit-form-button d-flex justify-content-center'>
-                                        <Button className='card-green-button mx-auto' type='submit'>
-                                            Save changes
+
+
+                                    <Form.Group className='mb-3 d-flex'>
+                                        <Form.Label column sm="3">
+                                            Số điện thoại
+                                        </Form.Label>
+                                        <Col sm={9}>
+                                            <Form.Control
+                                                type='text'
+                                                placeholder=''
+                                                defaultValue={userInfo.phone ? userInfo.phone : ''}
+                                                {...register("phonenumber")} />
+                                            {errors.phonenumber && errors.phonenumber.type === "required" && (
+                                                <p className="mt-2 error">
+                                                <FaExclamationTriangle className="mx-2" />
+                                                    Bạn chưa điền số điện thoại
+                                                </p>
+                                            )}
+                                        </Col>
+                                    </Form.Group>
+
+                                    <Form.Group className='mb-3 d-flex'>
+                                        <Form.Label column sm="3">
+                                            Ngày sinh
+                                        </Form.Label>
+                                        <Col sm={9}>
+                                            <Form.Control
+                                                type='date'
+                                                placeholder='01-01-2001'
+                                                defaultValue={userInfo.dob ? userInfo.dob : ''}
+                                                {...register("dob")} />
+                                            {errors.dob && errors.dob.type === "required" && (
+                                                <p className="mt-2 error">
+                                                <FaExclamationTriangle className="mx-2" />
+                                                    Bạn chưa điền ngày sinh
+                                                </p>
+                                            )}
+                                        </Col>
+                                    </Form.Group>
+
+                                    <Form.Group className='mb-4 d-flex'>
+                                        <Form.Label column sm="3">
+                                            Địa chỉ
+                                        </Form.Label>
+                                        <Col sm={9}>
+                                            <Form.Control
+                                                type='text'
+                                                placeholder=''
+                                                defaultValue={userInfo.address ? userInfo.address : ''}
+                                                {...register("address")} />
+                                            {errors.address && errors.address.type === "required" && (
+                                                <p className="mt-2 error">
+                                                <FaExclamationTriangle className="mx-2" />
+                                                    Bạn chưa điền địa chỉ
+                                                </p>
+                                            )}
+                                        </Col>
+                                    </Form.Group>
+                                    <div className='submit-form-button d-flex'>
+                                        <Button className='fogi' variant='primary' type='submit'>
+                                            Lưu thay đổi
                                         </Button>
                                     </div>
                                 </Form>

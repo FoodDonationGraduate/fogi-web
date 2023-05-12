@@ -33,14 +33,13 @@ function ButtonCard() {
                                     className='card-button card-white-button change-password-button w-100 my-1'
                                     onClick={onShow}
                                 >
-                                    Change Password
+                                    Đổi mật khẩu
                                 </Button>
-                                <Button className='card-button card-white-button order-history-button w-100 my-1'>Order History</Button>
-                                <Button className='card-button card-white-button favorite-donors-button w-100 my-1'>Favorite Donors</Button>
+                                <Button className='card-button card-white-button order-history-button w-100 my-1'>Lịch sử Yêu cầu</Button>
                             </Card.Body>
                             <Card.Footer className='d-block justify-content-left p-0' >
-                                <Button className='card-button card-white-button settings-button w-100 my-1'>Settings</Button>
-                                <Button className='card-button card-white-button logout-button w-100 my-1' onClick={() => LogOut()}>Logout</Button>
+                                <Button className='card-button card-white-button settings-button w-100 my-1'>Cài đặt</Button>
+                                <Button className='card-button card-white-button logout-button w-100 my-1' onClick={() => LogOut()}>Đăng xuất</Button>
                             </Card.Footer>
                         </Card>
                     </div>

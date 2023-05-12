@@ -41,7 +41,7 @@ const ListTitle = ({title}) => {
             >
               <Dropdown.Item onClick={() => dispatch(setTypeOfSort('expired_time'))}>Thời gian</Dropdown.Item>
               <Dropdown.Item onClick={() => dispatch(setTypeOfSort('stock'))}>Số lượng</Dropdown.Item>
-              <Dropdown.Item onClick={() => dispatch(setTypeOfSort(''))}>Sắp xếp</Dropdown.Item>
+              <Dropdown.Item onClick={() => dispatch(setTypeOfSort(''))}>Không có</Dropdown.Item>
             </DropdownButton>
           </Col>
         </Row>
