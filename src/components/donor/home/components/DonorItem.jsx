@@ -11,7 +11,7 @@ import { useResizer } from 'utils/helpers/Resizer.jsx';
 
 const DonorItem = () => {
   const navigate = useNavigate(); 
-  const toProfilePage = () => { navigate('/profile') }
+  const toProfilePage = () => { navigate('/profile'); };
 
   let size = useResizer();
   
@@ -21,7 +21,7 @@ const DonorItem = () => {
         <div className='side-menu-profile-item' onClick={toProfilePage}>
           <Stack direction='horizontal' gap={4}>
             <img className='profile-logo-sm' src={DonorLogo} alt='donor logo'/>
-            <h5 className='fw-bold'>AP Store</h5>
+            <h5 className='fw-bold'>UK Coffee & Tea</h5>
           </Stack>
         </div>
       )}

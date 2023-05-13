@@ -1,3 +1,4 @@
+// Essentials
 import * as React from 'react';
 import { Card, Container, Button, Form, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux'
@@ -9,12 +10,15 @@ import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 import { FaExclamationTriangle } from "react-icons/fa";
 
+// Styling
 import 'assets/css/user/profile_page/UserProfile.css'
 
+// Components
 import AvatarSection from './AvatarSection';
 import UploadButton from 'components/common/UploadButton';
 import { patchProfile } from 'components/redux/reducer/AuthenticationReducer.jsx'
 import { cancelQuestionModal, setModalQuestion, showQuestionModal } from 'components/redux/reducer/ModalReducer';
+import Tooltip from 'components/common/Tooltip';
 
 function UserProfile() {
     const [data, setData] = React.useState({})
@@ -73,12 +77,89 @@ function UserProfile() {
                             <AvatarSection/>
                             <div className='user-profile-info mt-4'>
                                 <Form className='d-block' onSubmit={handleSubmit(onSubmitProfile)}>
+
                                     <header className='form-header mb-3'>
-                                        Donor's Information
+                                        Thông tin chung
+                                    </header>
+
+                                    <Form.Group className='mb-3 d-flex'>
+                                        <Form.Label column sm="3">
+                                            Tên cửa hàng
+                                        </Form.Label>
+                                        <Col sm={9}>
+                                            <Form.Control
+                                                type='text'
+                                                placeholder=''
+                                                defaultValue={userInfo.name ? userInfo.name : ''}
+                                                {...register("name")}
+                                            />
+                                            {errors.name && errors.name.type === "required" && (
+                                                <p className="mt-2 error">
+                                                <FaExclamationTriangle className="mx-2" />
+                                                    Bạn chưa nhập tên cửa hàng
+                                                </p>
+                                            )}
+                                        </Col>
+                                    </Form.Group>
+
+                                    <Form.Group className='mb-3 d-flex'>
+                                        <Form.Label column sm="3">
+                                            Địa chỉ
+                                        </Form.Label>
+                                        <Col sm={9}>
+                                            <Form.Control
+                                                type='text'
+                                                placeholder=''
+                                                defaultValue={userInfo.address ? userInfo.address : ''}
+                                                {...register("address")}
+                                            />
+                                            {errors.address && errors.address.type === "required" && (
+                                                <p className="mt-2 error">
+                                                <FaExclamationTriangle className="mx-2" />
+                                                    Bạn chưa nhập địa chỉ
+                                                </p>
+                                            )}
+                                        </Col>
+                                    </Form.Group>
+                                    
+                                    <Form.Group className='mb-3 d-flex'>
+                                        <Form.Label column sm="3">
+                                            Mô tả
+                                        </Form.Label>
+                                        <Col sm={9}>
+                                            <Form.Control
+                                                type='text'
+                                                placeholder=''
+                                                defaultValue={userInfo.description ? userInfo.description : ''}
+                                                as='textarea'
+                                                {...register("description")}
+                                            />
+                                            {errors.description && errors.description.type === "required" && (
+                                                <p className="mt-2 error">
+                                                <FaExclamationTriangle className="mx-2" />
+                                                    Bạn chưa nhập mô tả
+                                                </p>
+                                            )}
+                                        </Col>
+                                    </Form.Group>
+                                    <Form.Group className='mb-4 d-flex'>
+                                        <Form.Label column sm="3">
+                                            Hình mặt tiền{' '}
+                                            <Tooltip tip={'Phải bao gồm biển hiệu, địa chỉ và nội thất'} />
+                                        </Form.Label>
+                                        <Col sm={9}>
+                                            <UploadButton label='Upload' type={imageOnly} setValue={setImage}/>
+                                        </Col>
+                                    </Form.Group>
+
+
+
+                                    <header className='form-header mb-3'>
+                                        Thông tin người đại diện
                                     </header>
                                     <Form.Group className='mb-3 d-flex'>
                                         <Form.Label column sm="3">
-                                            Owner name
+                                            Họ tên
                                         </Form.Label>
                                         <Col sm={9}>
                                             <Form.Control
@@ -89,7 +170,7 @@ function UserProfile() {
                                             {errors.owner_name && errors.owner_name.type === "required" && (
                                                 <p className="mt-2 error">
                                                 <FaExclamationTriangle className="mx-2" />
-                                                Full name is required
+                                                    Bạn chưa điền họ tên
                                                 </p>
                                             )}
                                         </Col>
@@ -102,7 +183,7 @@ function UserProfile() {
                                         <Col sm={9}>
                                             <Form.Control
                                                 type="email"
-                                                placeholder="nguyenthic123@gmail.com"
+                                                placeholder=''
                                                 defaultValue={userInfo.email ? userInfo.email : ''}
                                                 readOnly
                                                 {...register("email")}
@@ -110,7 +191,7 @@ function UserProfile() {
                                             {errors.email && errors.email.type === "required" && (
                                                 <p className="mt-2 error">
                                                 <FaExclamationTriangle className="mx-2" />
-                                                Email is required
+                                                    Bạn chưa điền email
                                                 </p>
                                             )}
                                         </Col>
@@ -118,7 +199,7 @@ function UserProfile() {
 
                                     <Form.Group className='mb-3 d-flex'>
                                         <Form.Label column sm="3">
-                                            Phone Number
+                                            Số điện thoại
                                         </Form.Label>
                                         <Col sm={9}>
                                             <Form.Control
@@ -130,87 +211,15 @@ function UserProfile() {
                                             {errors.phone && errors.phone.type === "required" && (
                                                 <p className="mt-2 error">
                                                 <FaExclamationTriangle className="mx-2" />
-                                                Phone number is required
+                                                    Bạn chưa điền số điện thoại
                                                 </p>
                                             )}
                                         </Col>
                                     </Form.Group>
 
-                                    <header className='form-header mb-3'>
-                                        Brand's Information
-                                    </header>
-
-                                    <Form.Group className='mb-3 d-flex'>
-                                        <Form.Label column sm="3">
-                                            Brand Name
-                                        </Form.Label>
-                                        <Col sm={9}>
-                                            <Form.Control
-                                                type='text'
-                                                placeholder='Bakery AAA'
-                                                defaultValue={userInfo.name ? userInfo.name : ''}
-                                                {...register("name")}
-                                            />
-                                            {errors.name && errors.name.type === "required" && (
-                                                <p className="mt-2 error">
-                                                <FaExclamationTriangle className="mx-2" />
-                                                Brand name is required
-                                                </p>
-                                            )}
-                                        </Col>
-                                    </Form.Group>
-
-                                    <Form.Group className='mb-3 d-flex'>
-                                        <Form.Label column sm="3">
-                                            Address
-                                        </Form.Label>
-                                        <Col sm={9}>
-                                            <Form.Control
-                                                type='text'
-                                                placeholder='200 NVC, Q5, TPHCM'
-                                                defaultValue={userInfo.address ? userInfo.address : ''}
-                                                {...register("address")}
-                                            />
-                                            {errors.address && errors.address.type === "required" && (
-                                                <p className="mt-2 error">
-                                                <FaExclamationTriangle className="mx-2" />
-                                                Address is required
-                                                </p>
-                                            )}
-                                        </Col>
-                                    </Form.Group>
-                                    
-                                    <Form.Group className='mb-3 d-flex'>
-                                        <Form.Label column sm="3">
-                                            Description
-                                        </Form.Label>
-                                        <Col sm={9}>
-                                            <Form.Control
-                                                type='text'
-                                                placeholder='Top 1 Bakery Store'
-                                                defaultValue={userInfo.description ? userInfo.description : ''}
-                                                {...register("description")}
-                                            />
-                                            {errors.description && errors.description.type === "required" && (
-                                                <p className="mt-2 error">
-                                                <FaExclamationTriangle className="mx-2" />
-                                                Description is required
-                                                </p>
-                                            )}
-                                        </Col>
-                                    </Form.Group>
-                                    <Form.Group className='mb-4 d-flex'>
-                                        <Form.Label column sm="3">
-                                            Image of Storefront
-                                        </Form.Label>
-                                        <Col sm={9}>
-                                            <UploadButton label='Upload' type={imageOnly} setValue={setImage}/>
-                                        </Col>
-                                    </Form.Group>
-
-                                    <div className='submit-form-button d-flex justify-content-center'>
-                                        <Button className='card-green-button mx-auto' type='submit'>
-                                            Save changes
+                                    <div className='submit-form-button d-flex'>
+                                        <Button className='fogi' variant='primary' type='submit'>
+                                            Lưu thay đổi
                                         </Button>
                                     </div>
                                 </Form>

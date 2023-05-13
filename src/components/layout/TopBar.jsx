@@ -21,7 +21,6 @@ const TopBar = () => {
   const size = useResizer();
   const navigate = useNavigate(); 
 
-  const toHomePage = () => { navigate('/'); }
   const toLoginForm = () => { navigate('/login'); }
   const toSignupForm = () => { navigate('/accounttype'); }
   const toProfileForm = () => { navigate('/profile'); }
@@ -32,7 +31,7 @@ const TopBar = () => {
     <div className='top-bar-header'>
       <Navbar className='top-bar' collapseOnSelect expand='md' variant='dark'>
         <Container className='mx-6'>
-          <Navbar.Brand className='brand px-2 py-2' onClick={toHomePage}>
+          <Navbar.Brand className='brand px-2 py-2'>
             <Logo isWhite={true} usertype={0} />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls='responsive-navbar-nav' />
