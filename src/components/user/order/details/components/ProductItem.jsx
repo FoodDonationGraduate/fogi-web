@@ -31,7 +31,7 @@ const ProductItem = ({
                     {product.title}
                   </h5>
                   <span className={size > 0 ? 'long-product-type' : 'long-product-type-sm'}>
-                    Product type
+                    Danh mục
                   </span>
                 </div>
               </Stack>
@@ -42,22 +42,15 @@ const ProductItem = ({
                 <Col className={`d-flex ${size < 3 && 'ps-0'}`}>
                   <Stack className='my-auto' direction='vertical' gap={2}>
                     <header className='long-product-label'>
-                      {size > 0 ? 'Expiration date' : 'Expire'}
+                      {size > 0 ? 'Hạn sử dụng' : 'HSD'}
                     </header>
-                    <h5>17/03/2023</h5>
+                    <h5>2 ngày</h5>
                   </Stack>
                 </Col>
 
                 <Col className={`d-flex ${size < 3 && 'ps-0'}`}>
                   <Stack className='my-auto' direction='vertical' gap={2}>
-                    <header className='long-product-label'>Price</header>
-                    <h5>{convertNumberToVnd(10000)}</h5>
-                  </Stack>
-                </Col>
-
-                <Col className={`d-flex ${size < 3 && 'ps-0'}`}>
-                  <Stack className='my-auto' direction='vertical' gap={2}>
-                    <header className='long-product-label'>Portions</header>
+                    <header className='long-product-label'>{`Số lượng (Phần)`}</header>
                     <Stack direction='horizontal'>
                       <Form.Group style={{width: '50%'}}>
                         <Form.Control
@@ -70,13 +63,7 @@ const ProductItem = ({
                     </Stack>
                   </Stack>
                 </Col>
-
-                <Col className={`d-flex ${size < 3 && 'ps-0'}`}>
-                  <Stack className='my-auto' direction='vertical' gap={2}>
-                    <header className='long-product-label'>Total</header>
-                    <h5>{convertNumberToVnd(20000)}</h5>
-                  </Stack>
-                </Col>
+                
               </Row>
             </Col>
           </Row>

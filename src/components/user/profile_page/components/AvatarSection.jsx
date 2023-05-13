@@ -37,12 +37,12 @@ function AvatarSection() {
         <div className='avartar-section'>
             <div className='user-profile-picture d-flex justify-content-left align-items-center'>
                 <img className='user-avatar' src={`https://bachkhoi.online/static/${userInfo.avatar}`} alt='user avatar'></img>
-                <Button className='card-buton card-grey-button change-avatar-button' onClick={() => setShowModal(true)}>Change Profile Picture</Button>
+                <Button className='card-buton card-grey-button change-avatar-button' onClick={() => setShowModal(true)}>Thay đổi Ảnh đại diện</Button>
             </div>
             <Modal className="mw-80" show={showModal} onHide={() => setShowModal(false)}>
                 <Modal.Header>
                     <Modal.Title >
-                        <div style={{ fontSize: "20px"}} className="modalTitle">Change your avatar</div>
+                        <div style={{ fontSize: "20px"}} className="modalTitle">Thay đổi Ảnh đại diện</div>
                     </Modal.Title>
                 </Modal.Header>
                 

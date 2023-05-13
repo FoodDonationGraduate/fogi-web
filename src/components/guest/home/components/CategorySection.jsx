@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Container, Col, Row, Carousel } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
+import { EqualHeight } from 'react-equal-height';
 
 // Components
 import CategoryCard from 'components/guest/common/cards/CategoryCard';
@@ -56,24 +57,26 @@ const CategorySection = () => {
       <Container>
         <Row className='pt-4'>
           <Col>
-            <h2>Categories</h2>
+            <h2>Danh mục Món ăn</h2>
           </Col>
         </Row>
-        <Carousel interval={null}>
-          {Object.keys(allCategories).length !== 0 && 
-            shownCategories.map((categories, index) => (
-              <Carousel.Item key={index}>
-                <Row className='py-3' xs={2} sm={3} md={4} xl={6}>
-                  {categories.map((category) => (
-                    <Col key={category.id}>
-                      <CategoryCard category={category} key={category.id}/>
-                    </Col>
-                  ))}
-                </Row>
-              </Carousel.Item>
-            ))
-          }
-        </Carousel>
+        <EqualHeight>
+          <Carousel interval={null}>
+            {Object.keys(allCategories).length !== 0 && 
+              shownCategories.map((categories, index) => (
+                <Carousel.Item key={index}>
+                  <Row className='py-3' xs={2} sm={3} md={4} xl={6}>
+                    {categories.map((category) => (
+                      <Col key={category.id}>
+                        <CategoryCard category={category} key={category.id}/>
+                      </Col>
+                    ))}
+                  </Row>
+                </Carousel.Item>
+              ))
+            }
+          </Carousel>
+        </EqualHeight>
       </Container>
     </div>
   );

@@ -4,36 +4,44 @@ export const getStatus = (order) => {
   let label = 'Complete';
   let css = 'green';
   switch (order.status) {
+    case 0:
+      label = 'Chờ duyệt';
+      css = 'blue'
+      break;
     case 1:
-      label = 'In-progress';
+      label = 'Đang giao';
       css = 'yellow';
       break;
     case 2:
-      label = 'Cancelled';
+      label = 'Đã hủy';
       css = 'red';
       break;
     default:
-      label = 'Complete';
+      label = 'Thành công';
       css = 'green';
       break;
   }
   return { label, css };
 };
 
-export const getStatusIdx = (idx) => {
+export const getStatusByIdx = (idx) => {
   let label = 'Complete';
   let css = 'green';
   switch (idx) {
+    case 0:
+      label = 'Chờ duyệt';
+      css = 'blue'
+      break;
     case 1:
-      label = 'In-progress';
+      label = 'Đang giao';
       css = 'yellow';
       break;
     case 2:
-      label = 'Cancelled';
+      label = 'Đã hủy';
       css = 'red';
       break;
     default:
-      label = 'Complete';
+      label = 'Thành công';
       css = 'green';
       break;
   }
@@ -41,28 +49,28 @@ export const getStatusIdx = (idx) => {
 };
 
 export const getStep = (step) => {
-  let header = 'Your order is waiting to be reviewed';
-  let label = 'Ordered';
+  let header = 'Bạn đã tạo Yêu cầu thành công';
+  let label = 'Đã tạo';
   let icon = MdSmartphone;
   switch (step) {
     case 0:
-      header = 'Your order is waiting to be reviewed';
-      label = 'Ordered';
+      header = 'Bạn đã tạo Yêu cầu thành công';
+      label = 'Đã tạo';
       icon = MdSmartphone;
       break;
     case 1:
-      header = 'A volunteer is picking up your order';
-      label = 'Processing';
+      header = 'Tình nguyên viên đang kiểm tra Yêu cầu';
+      label = 'Chờ duyệt';
       icon = MdLabelImportant;
       break;
     case 2:
-      header = 'The volunteer is delivering to you';
-      label = 'Delivering';
+      header = 'Tình nguyện viên đang giao hàng đến bạn';
+      label = 'Đang giao';
       icon = MdDeliveryDining;
       break;
     default:
-      header = 'Your food has arrived!';
-      label = 'Arrived';
+      header = 'Các món ăn đã đến nơi!';
+      label = 'Xác nhận';
       icon = MdCheckCircle;
   }
   return { header, label, icon };

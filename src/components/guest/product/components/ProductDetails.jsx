@@ -19,11 +19,15 @@ const ProductDetails = ({product}) => {
   };
 
   return (
-    <Card>
+    <Card className='h-100'>
       <Card.Body>
-        <Card.Title>{product.name}</Card.Title>
-        <Card.Title style={{ color: '#82CD47' }}>
-          {convertNumberToVnd(product.price)}
+        <Card.Title>
+          <Stack direction='horizontal' gap={3}>
+            <h3 className='fw-bold'>{product.name}</h3>
+            <span className='product-card-type'>
+              {product.category.name}
+            </span> 
+          </Stack>
         </Card.Title>
         <Stack direction='horizontal' gap={4}>
           <header className='me-4' style={{ color: 'gray' }}>
@@ -39,9 +43,10 @@ const ProductDetails = ({product}) => {
           {product.description}
         </p>
       </Card.Body>
-      <Card.Body style={{ bottom: '0' }}>
+
+      <Row className='mb-3' style={{ bottom: '0' }}>
         <Stack direction='horizontal' gap={2}>
-          <header className='me-2'>Count</header>
+          <header className='me-2'>{`Số lượng (${product.unit})`}</header>
           <Button
             variant='outline-secondary'
             onClick={decreaseCount}
@@ -65,9 +70,9 @@ const ProductDetails = ({product}) => {
         </Stack>
 
         <Row className='mt-3'>
-          <Col className='ps-0' md='auto' lg='auto'>
+          <Col className='ps-0' xs='auto'>
             <Button className='fogi' variant='primary'>
-              Add to Cart
+              Thêm vào Giỏ
             </Button>
           </Col>
           <Col className='d-flex justify-content-end'>
@@ -83,7 +88,7 @@ const ProductDetails = ({product}) => {
             </Stack>
           </Col>
         </Row>
-      </Card.Body>
+      </Row>
     </Card>
   );
 };

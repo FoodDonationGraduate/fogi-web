@@ -40,6 +40,7 @@ import VolunteerAccountInfo from "./components/volunteer/authentication/AccountI
 import ProfileUserPage from "./components/user/profile_page/ProfilePage.jsx"
 import ProfileVolunteerPage from "./components/volunteer/profile_page/ProfilePage.jsx"
 import ProfileDonorPage from "./components/donor/profile_page/ProfilePage.jsx"
+import ProfileDirectorPage from "./components/director/profile_page/ProfilePage.jsx"
 
 import { refreshToken } from 'components/redux/reducer/AuthenticationReducer.jsx';
 import DirectorHome from "./components/director/home/HomePage.jsx";
@@ -82,10 +83,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/volunteer/accountinfo" element={<VolunteerAccountInfo/>} />
         
         <Route path="/" element={
-            <Auth allowedRoles={["donee", "donor", "volunteer", "director"]} />}
+            <Auth allowedRoles={["donee", "donor", "director", "volunteer"]} />}
         >
           <Route path="/profile" element={
-            <Monitor allowedPages={[<ProfileUserPage/>, <ProfileDonorPage/>, <ProfileVolunteerPage/>]}/> } 
+            <Monitor allowedPages={[<ProfileUserPage/>, <ProfileDonorPage/>, <ProfileDirectorPage/>]}/> } 
           />
         </Route>
 

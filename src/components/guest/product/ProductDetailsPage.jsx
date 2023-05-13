@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom'
 
 // Components
 import TopSection from 'components/layout/TopSection';
-import Footer from 'components/guest/common/bars/Footer';
+import Footer from 'components/layout/Footer';
 import ProductSection from './components/ProductSection';
 import DonorSection from './components/DonorSection';
 import { retrieveCurrentProduct } from 'components/redux/reducer/ProductReducer';
@@ -41,7 +41,6 @@ const ProductDetailsPage = () => {
       {Object.keys(product).length !== 0 && 
         <div className='bg'>
           <ProductSection product={product.product} />
-          <DonorSection donor={product.product.donor} />
         </div>
       }
       <div>

@@ -29,6 +29,9 @@
     .order-item-status-red {
       background-color: #FF5A5F;
     }
+    .order-item-status-blue {
+      background-color: #6293F2;
+    }
   .order-item-secondary {
     color: #999;
   }

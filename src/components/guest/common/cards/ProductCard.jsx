@@ -12,9 +12,6 @@ import { MdAllInbox } from 'react-icons/md';
 // Styling
 import './Card.css';
 
-// Utility
-import { convertNumberToVnd } from 'utils/helpers/Money.jsx';
-
 // Helper
 import { reduceString } from 'utils/helpers/String';
 import { distanceTime } from 'utils/helpers/Time';
@@ -44,20 +41,18 @@ const ProductCard = ({product}) => {
         <EqualHeightElement name="product-name">
           <Card.Title className='product-card-name'>{reduceString(product.name, 20)}</Card.Title>
         </EqualHeightElement>
-        <EqualHeightElement name="product-price">
-          <Card.Title style={{ color: '#82CD47' }}>
-            {convertNumberToVnd(product.price)}
-          </Card.Title>
-        </EqualHeightElement>
-        <EqualHeightElement name="product-expired-date">
+        <EqualHeightElement name="product-descriptors">
+          <div className='mb-2'>
+            <span className='product-card-type'>
+              {product.category_name}
+            </span>
+          </div>
           <div>
             <small style={{ color: 'gray' }}>
               <FaRegClock className='me-2 mb-1' />
               {distanceTime(product.expired_time)}
             </small>
           </div>
-        </EqualHeightElement>
-        <EqualHeightElement name="product-stock">
           <div>
             <small style={{ color: 'gray' }}>
               <MdAllInbox className='me-2 mb-1' />
@@ -65,28 +60,12 @@ const ProductCard = ({product}) => {
             </small>
           </div>
         </EqualHeightElement>
-        <hr />
-        <EqualHeightElement name="product-store">
-          <Stack direction='horizontal' gap={2}>
-            <div>
-              <img className='profile-logo-s' 
-                src={`https://bachkhoi.online/static/${product.donor.avatar_filename}`}
-                onClick={() => navigate(`/store/${product.id}`)} 
-                alt='donor logo'/>
-            </div>
-            <div>
-              <header style={{ fontWeight: 'bold' }}>
-                {product.donor.name}
-              </header>
-            </div>
-          </Stack>
-        </EqualHeightElement>
-        <div className='d-grid mt-2'>
+        <div className='d-grid'>
           <Button className='fogi mt-2' variant='primary' onClick={() => onSubmit(product.id)}>
-            Add to Cart
+            Thêm vào Giỏ
           </Button>
           <Button className='fogi mt-2' variant='outline-secondary' onClick={() => navigate(`/product/${product.id}`)}>
-            View Details
+            Xem chi tiết
           </Button>
         </div>
       </Card.Body>
