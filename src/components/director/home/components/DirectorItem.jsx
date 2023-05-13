@@ -11,16 +11,17 @@ import { useResizer } from 'utils/helpers/Resizer.jsx';
 
 const DirectorItem = () => {
   const navigate = useNavigate();
+  const toProfilePage = () => { navigate('/profile'); };
   
   let size = useResizer();
 
   return (
     <>
       {size !== 2 && (
-        <div className='side-menu-profile-item'>
+        <div className='side-menu-profile-item' onClick={toProfilePage}>
           <Stack direction='horizontal' gap={4}>
             <img className='profile-logo-sm' src={DirectorAvatar} alt='director logo'/>
-            <h5 className='fw-bold'>Director Name</h5>
+            <h5 className='fw-bold'>Tên Director</h5>
           </Stack>
         </div>
       )}

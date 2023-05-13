@@ -3,8 +3,7 @@ import React from 'react';
 
 // Components
 import TopSection from 'components/layout/TopSection';
-import Footer from 'components/guest/common/bars/Footer';
-import OrderDetailsTitle from './components/OrderDetailsTitle';
+import Footer from 'components/layout/Footer';
 import OrderInfoCard from './components/OrderInfoCard';
 import ProductList from './components/ProductList';
 
@@ -21,10 +20,7 @@ const OrderDetailsPage = () => {
       <div>
         <TopSection />
       </div>
-      <div className='bg'>
-        <div className='mb-4'>
-          <OrderDetailsTitle id={ORDER_DATA[0].id} />
-        </div>
+      <div className='bg pt-4'>
         <div className='pb-4'>
           <OrderInfoCard order={ORDER_DATA[0]} />
         </div>

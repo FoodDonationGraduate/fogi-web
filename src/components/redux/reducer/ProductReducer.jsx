@@ -199,7 +199,7 @@ export const postNewProduct = (data, user, navigate) => {
                 token: user.userToken,
                 name: data.name,
                 description: data.description,
-                price: data.price,
+                price: 0,
                 unit: data.unit,
                 expired_time: data.expired_time,
                 stock: data.stock,

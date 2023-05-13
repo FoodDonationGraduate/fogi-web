@@ -16,23 +16,26 @@ const SuccessVerify = () => {
   return (
     <Container fluid className='fogi-bg authen-bg authen-bg-user'>
       <Row className='py-4 d-flex justify-content-center align-items-center'>
-        <Col lg={4}>
+        <Col md={8} lg={6} xl={4}>
           <Card className='shadow'>
             <Card.Body>
               <div className='mb-3 mt-md-4 mx-4'>
                 <Row className='mb-2'>
                   <Check fill='#82CD47' />
                 </Row>
-                <Row className='mb-2 text-center'>
-                  <h4 className='fw-bold'>Verification Successful!</h4>
+                <Row className='mb-2'>
+                  <h4 className='fw-bold text-center'>Xác minh thành công!</h4>
+                  <p className='text-secondary mb-0'>
+                    Bạn đã xác minh tài khoản thành công!
+                  </p>
                   <p className='text-secondary'>
-                    You have successfully verified your account
+                    Tuy nhiên, để thực hiện yêu cầu đặt đồ ăn, bạn phải chờ chúng tôi xét duyệt tài khoản trong vòng 1-2 ngày tới.
                   </p>
                 </Row>
                 <div className='mb-3'>
                   <div className='d-grid'>
                     <Button className='fogi' variant='primary' onClick={toHomePage}>
-                      Back to Home page
+                      Trở về Trang chủ
                     </Button>
                   </div>
                 </div>

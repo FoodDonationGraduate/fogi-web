@@ -95,7 +95,7 @@ const ApproveItem = ({
           )}
         </EqualHeightElement>
         <div className='approve-card-link' onClick={handleShow}>
-          Identity Document
+          Giấy tờ tùy thân
         </div>
 
         <hr />
@@ -110,7 +110,7 @@ const ApproveItem = ({
                   variant='primary'
                   onClick={() => handleVerify('approve')}
                 >
-                  Approve
+                  Xét duyệt
                 </Button>
               </Col>
               <Col className='pe-0 d-grid'>
@@ -119,7 +119,7 @@ const ApproveItem = ({
                   id='order-item-button'
                   onClick={() => handleVerify('decline')}
                 >
-                  Decline
+                  Từ chối
                 </Button>
               </Col>
             </Row>

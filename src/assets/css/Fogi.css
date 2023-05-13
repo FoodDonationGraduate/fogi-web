@@ -89,6 +89,11 @@ a.fogi:active {
   cursor: pointer;
 }
 
+.logo-large {
+  width: 128px;
+  height: 128px;
+}
+
 .bg {
   background-color: #F2F2F2;
 }

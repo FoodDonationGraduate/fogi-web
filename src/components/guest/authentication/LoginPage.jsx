@@ -1,7 +1,7 @@
 // Essentials
 import {useState} from 'react';
 import { useNavigate } from "react-router-dom";
-import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
+import { Button, Card, Col, Container, Form, Row, Stack } from 'react-bootstrap';
 import { useDispatch } from 'react-redux'
 
 // Form handling
@@ -48,31 +48,29 @@ const Login = () => {
   return (
     <Container fluid className='fogi-bg authen-bg authen-bg-user'>
       <Row className='py-4 d-flex justify-content-center align-items-center'>
-        <Col lg={4}>
+        <Col md={8} lg={6} xl={4}>
           <Card className='shadow'>
             <Card.Body>
               <div className='mb-3 mt-md-4 mx-4'>
-                <Row className='mb-4'>
-                  <Col lg={3}>
-                    <Logo usertype={0} />
-                  </Col>
-                  <Col>
+                <Stack className='mb-4' direction='horizontal' gap={4}>
+                  <Logo usertype={0} />
+                  <Stack direction='vertical'>
                     <h2 className='fw-bold'>
-                      Login
+                      Đăng nhập
                     </h2>
                     <p className='text-secondary mb-0'>
-                      New to Fogi?{' '}
+                      Chưa có tài khoản?{' '}
                       <a href='/accounttype' className='fogi fw-bold'>
-                        Sign up
+                        Đăng ký ngay!
                       </a>
                     </p>
-                  </Col>
-                </Row>
+                  </Stack>
+                </Stack>
                 <div className='mb-3'>
                   <Form onSubmit={handleSubmit(onSubmit)}>
                     <Form.Group className='mb-3'>
                       <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
-                        Email address
+                        Email
                       </Form.Label>
                       <Form.Control
                         type="text"
@@ -82,51 +80,39 @@ const Login = () => {
                       {errors.email && errors.email.type === "required" && (
                         <p className="mt-2 error">
                           <FaExclamationTriangle className="mx-2" />
-                          Email is required
+                          Bạn chưa nhập Email
                         </p>
                       )}
                     </Form.Group>
 
                     <Form.Group className='mb-3'>
                       <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
-                        Password
+                        Mật khẩu
                       </Form.Label>
                       <Form.Control type="password" {...register("password")} />
                       {errors.password && errors.password.type === "required" && (
                         <p className="mt-2 error">
                           <FaExclamationTriangle className="mx-2" />
-                          New password is required
-                        </p>
-                      )}
-                      {errors.password && errors.password.type === "min" && (
-                        <p className="mt-2 error">
-                          <FaExclamationTriangle className="mx-2" />
-                          Password must contain at least 8 characters
-                        </p>
-                      )}
-                      {errors.password && errors.password.type === "matches" && (
-                        <p className="mt-2 error">
-                          <FaExclamationTriangle className="mx-2" />
-                          Password must contain at least 1 letter, 1 number and 1 special character
+                          Bạn chưa nhập mật khẩu
                         </p>
                       )}
                     </Form.Group>
                     { failAuthentication && 
                       <div className='text-center'>
                         <a className='fw-bold text-danger text-decoration-none'>
-                          Wrong username or password
+                          Email hoặc mật khẩu chưa đúng
                         </a>
                       </div> 
                     }
                     <div className='mb-3 text-end'>
                       <a href='/forgotpassword' className='fogi fw-bold'>
-                        Forgot password
+                        Quên mật khẩu?
                       </a>
                     </div>
 
                     <div className='d-grid'>
                       <Button className='fogi' variant='primary' type='submit'>
-                        Login
+                        Đăng nhập
                       </Button>
                     </div>
                   </Form>

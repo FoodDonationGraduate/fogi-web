@@ -4,7 +4,7 @@ import { Container, Row } from 'react-bootstrap';
 
 // Components
 import TopSection from 'components/layout/TopSection';
-import Footer from 'components/guest/common/bars/Footer';
+import Footer from 'components/layout/Footer';
 import ListTitle from './components/ListTitle';
 
 // Assets
@@ -24,7 +24,7 @@ const EmptyProductListPage = () => {
         <Container>
           <Row className='justify-content-center'>
             <Empty className='mb-4' style={{ width: '45%' }} />
-            <h4 className='text-center fw-bold'>We cannot find the product you are looking for</h4>
+            <h4 className='text-center fw-bold'>Không thể tìm được món ăn bạn tìm kiếm</h4>
           </Row>
         </Container>
       </div>

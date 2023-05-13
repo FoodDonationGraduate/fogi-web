@@ -2,8 +2,8 @@
 import React from 'react';
 
 // Components
-import TopBarDonor from 'components/layout/TopBarDonor';
-import Footer from 'components/guest/common/bars/Footer';
+import TopBarDonor from 'components/layout/TopBarOther';
+import Footer from 'components/layout/Footer';
 import OrderDetailsTitle from './components/OrderDetailsTitle';
 import OrderInfoCard from './components/OrderInfoCard';
 import ProductList from './components/ProductList';

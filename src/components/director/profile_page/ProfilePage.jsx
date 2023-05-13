@@ -4,11 +4,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from "react-router-dom";
 import { retrieveProfile } from 'components/redux/reducer/AuthenticationReducer.jsx'
 
-import TopBar from "components/layout/TopBar.jsx";
-import TopSection from 'components/layout/TopSection';
+import TopBarOther from "components/layout/TopBarOther.jsx";
 import Footer from 'components/layout/Footer';
 import Modal from "components/layout/InfoModal.jsx";
 import ConfirmModal from "components/layout/ConfirmModal.jsx";
+
 import UserProfile from './components/UserProfile'
 import ButtonCard from './components/ButtonCard'
 
@@ -27,7 +27,7 @@ function ProfilePage(){
     return (
         <div className="profile-page">
             <div className="page-header">
-                <TopBar/>
+                <TopBarOther user_type={2} />
             </div>
             <div className="page-body">
                 <div className='profile-section-body'>

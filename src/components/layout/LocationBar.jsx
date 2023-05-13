@@ -5,15 +5,15 @@ import { Button, Container, Col, Row } from 'react-bootstrap';
 // Assets
 import { FaMapMarkerAlt, FaEdit } from 'react-icons/fa';
 
-// Utility
-import { useResizer } from 'utils/helpers/Resizer';
-
 // Styling
 import 'assets/css/Fogi.css';
 
+// Utility
+import { useResizer } from 'utils/helpers/Resizer';
+
 const LocationBar = () => {
   let size = useResizer();
-  const exampleLocation = '227 Nguyen Van Cu, Ward 4, District 5'; // temporary
+  const exampleLocation = '227 Nguyễn Văn Cừ, P. 4, Q. 5, TP. Hồ Chí Minh'; // temporary
   const [location, setLocation] = useState(exampleLocation)
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const LocationBar = () => {
 
   return (
     <div style={{ backgroundColor: 'white' }}>
-      <Container className='pt-1 pb-2'>
+      <Container className={`pb-2 pt-${size <= 2 ? '2' : '3'}`}>
         <Row>
           <Col>
             <h3>
@@ -31,7 +31,7 @@ const LocationBar = () => {
               {location}
               <Button className='ms-4' variant='outline-secondary'>
                 {size < 3 && <FaEdit className='mb-1' />}
-                {size >= 3 && 'Change your location'}
+                {size >= 3 && 'Thay đổi'}
               </Button>
             </h3>
           </Col>

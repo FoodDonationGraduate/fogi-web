@@ -30,10 +30,9 @@ const SideMenuItem = ({
 
   useEffect(() => {
     switch (type) {
-      case 1: setLabel('Products'); break;
-      case 2: setLabel('Orders'); break;
-      case 3: setLabel('Notifications'); break;
-      default: setLabel('Dashboard');
+      case 1: setLabel('Danh sách món ăn'); break;
+      case 2: setLabel('Danh sách Yêu cầu'); break;
+      default: setLabel('Thống kê');
     }
   }, []);
 
@@ -58,7 +57,6 @@ const SideMenuItem = ({
               {type === 0 && <MdOutlineAnalytics className={`side-menu-icon${active}`} />}
               {type === 1 && <MdOutlineFastfood className={`side-menu-icon${active}`} />}
               {type === 2 && <MdOutlineAssignment className={`side-menu-icon${active}`} />}
-              {type === 3 && <MdOutlineNotifications className={`side-menu-icon${active}`} />}
 
               <header className={`side-menu-label${active}`}>{label}</header>
             </Stack>
@@ -74,7 +72,6 @@ const SideMenuItem = ({
             {type === 0 && <MdOutlineAnalytics className={`side-menu-icon${active}`} />}
             {type === 1 && <MdOutlineFastfood className={`side-menu-icon${active}`} />}
             {type === 2 && <MdOutlineAssignment className={`side-menu-icon${active}`} />}
-            {type === 3 && <MdOutlineNotifications className={`side-menu-icon${active}`} />}
           </Stack>
         </div>
       )}

@@ -10,7 +10,7 @@ const DocumentModal = ({ show, handleClose}) => {
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Identity Document</Modal.Title>
+        <Modal.Title>Giấy tờ tùy thân</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <img className='mb-4' src={IDCard} alt='id document'/>

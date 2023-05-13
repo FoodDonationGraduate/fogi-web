@@ -8,7 +8,7 @@ import { EqualHeight } from 'react-equal-height';
 
 // Components
 import ProductCard from 'components/guest/common/cards/ProductCard';
-import { retrieveAmootProducts } from 'components/redux/reducer/ProductReducer';
+import { retrieveAmootProducts, retrieveNewProducts } from 'components/redux/reducer/ProductReducer';
 
 // Styling
 import 'assets/css/Fogi.css';
@@ -16,16 +16,19 @@ import 'assets/css/Fogi.css';
 // Utility
 import { useResizer } from 'utils/helpers/Resizer';
 
-const ProductSection = () => {
+const ProductSection = ({ type }) => {
   const PRODUCT_LENGTH = 6;
 
-  const amootProducts = useSelector(state => state.productReducer.amootProducts)
+  const newProducts = useSelector(state => state.productReducer.newProducts);
+  const amootProducts = useSelector(state => state.productReducer.amootProducts);
+  const products = type === 0 ? newProducts : amootProducts;
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   
   React.useEffect(()=>{
-    dispatch(retrieveAmootProducts({limit: PRODUCT_LENGTH, offset: 0, sort_field: ''}, navigate))
+    if (type === 0) dispatch(retrieveNewProducts({limit: PRODUCT_LENGTH, offset: 0, sort_field: ''}, navigate));
+    else dispatch(retrieveAmootProducts({limit: PRODUCT_LENGTH, offset: 0, sort_field: ''}, navigate));
   }, []);
 
   // Responsive handling
@@ -40,22 +43,31 @@ const ProductSection = () => {
       case 3: length = 4; break;
       default: length = 6;
     }
-    if (Object.keys(amootProducts).length !== 0) {
-      setShownProducts(amootProducts.products.slice(0, length));
+    if (Object.keys(products).length !== 0) {
+      setShownProducts(products.products.slice(0, length));
     }
-  }, [size, amootProducts]);
+  }, [size, products]);
+
+  const toProductList = () => {
+    if (type === 0) navigate('/new-products');
+    else navigate('/almost-out-of-stock-products');
+  };
 
   return (
     <div className='bg'>
       <Container>
         <Row className='pt-4'>
           <Col>
-            <h2>Almost out of stock</h2>
+            {type === 0 ? 
+              <h2>Món ăn mới</h2>
+              :
+              <h2>Món ăn sắp hết hàng</h2>
+            }
           </Col>
         </Row>
         <Row xs={2} sm={3} md={4} xl={6}>
           <EqualHeight>
-            {Object.keys(amootProducts).length !== 0 && shownProducts.map((product) => (
+            {Object.keys(products).length !== 0 && shownProducts.map((product) => (
               <Col className='pb-4' key={product.id}>
                 <ProductCard product={product}/>
               </Col>
@@ -64,7 +76,7 @@ const ProductSection = () => {
         </Row>
         <Row>
           <Col className='d-flex justify-content-center'>
-            <Button variant='light' onClick={() => navigate('/almost-out-of-stock-products')}>View more</Button>
+            <Button variant='light' onClick={toProductList}>Xem thêm</Button>
           </Col>
         </Row>
       </Container>

@@ -12,30 +12,30 @@ import 'assets/css/Fogi.css';
 
 const SuccessSignup = () => {
   const navigate = useNavigate();
-  const toVerificationPage = () => {navigate('/verification');}
+  const toVerificationPage = () => {navigate('/verification'); }
   return (
     <Container fluid className='fogi-bg authen-bg authen-bg-user'>
       <Row className='py-4 d-flex justify-content-center align-items-center'>
-        <Col lg={4}>
+        <Col md={8} lg={6} xl={4}>
           <Card className='shadow'>
             <Card.Body>
               <div className='mb-3 mt-md-4 mx-4'>
                 <Row className='mb-2'>
                   <Check fill='#82CD47' />
                 </Row>
-                <Row className='mb-2 text-center'>
-                  <h4 className='fw-bold'>Create Account Successful!</h4>
+                <Row className='mb-2'>
+                  <h4 className='fw-bold text-center'>Đăng ký thành công!</h4>
                   <p className='text-secondary mb-0'>
-                    You have successfully created your account
+                    Bạn đã tạo tài khoản thành công!
                   </p>
                   <p className='text-secondary'>
-                    Next, you need to verify your account to use all functions
+                    Tiếp theo bạn phải xác minh tài khoản của bạn
                   </p>
                 </Row>
                 <div className='mb-3'>
                   <div className='d-grid'>
                     <Button className='fogi' variant='primary' onClick={toVerificationPage}>
-                      Proceed to Verification
+                      Xác minh Tài khoản
                     </Button>
                   </div>
                 </div>

@@ -17,16 +17,15 @@ import AvatarSection from './AvatarSection';
 
 function UserProfile() {
     const [data, setData] = React.useState({})
-    const userInfo = useSelector(state => state.authenticationReducer.user)
-    const userToken = useSelector(state => state.authenticationReducer.token)
-    const modalLogic = useSelector(state => state.modalReducer.logic)
+    const userInfo = useSelector(state => state.authenticationReducer.user);
+    const userToken = useSelector(state => state.authenticationReducer.token);
+    const modalLogic = useSelector(state => state.modalReducer.logic);
 
     const formSchema = Yup.object().shape({
         fullname: Yup.string().required('Name is required'),
         email: Yup.string().required('Email is required'),
         phonenumber: Yup.string().required('Phone number is required'),
-        dob: Yup.string().required('Date of birth is required'),
-        address: Yup.string().required('Address is required')
+        dob: Yup.string().required('Date of birth is required')
     });
     const formOptions = { resolver: yupResolver(formSchema) };
     const { register, handleSubmit, formState } = useForm(formOptions);
@@ -138,24 +137,6 @@ function UserProfile() {
                                         </Col>
                                     </Form.Group>
 
-                                    <Form.Group className='mb-4 d-flex'>
-                                        <Form.Label column sm="3">
-                                            Địa chỉ
-                                        </Form.Label>
-                                        <Col sm={9}>
-                                            <Form.Control
-                                                type='text'
-                                                placeholder=''
-                                                defaultValue={userInfo.address ? userInfo.address : ''}
-                                                {...register("address")} />
-                                            {errors.address && errors.address.type === "required" && (
-                                                <p className="mt-2 error">
-                                                <FaExclamationTriangle className="mx-2" />
-                                                    Bạn chưa điền địa chỉ
-                                                </p>
-                                            )}
-                                        </Col>
-                                    </Form.Group>
                                     <div className='submit-form-button d-flex'>
                                         <Button className='fogi' variant='primary' type='submit'>
                                             Lưu thay đổi

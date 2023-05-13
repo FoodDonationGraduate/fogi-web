@@ -1,6 +1,6 @@
 // Essentials
 import * as React from 'react';
-import { Button, Card, Col, Container, Row } from 'react-bootstrap';
+import { Button, Card, Col, Container, Row, Stack } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 
 // Style imports
@@ -21,33 +21,31 @@ const Verification = () => {
   return (
     <Container fluid className='fogi-bg authen-bg authen-bg-user'>
       <Row className='py-4 d-flex justify-content-center align-items-center'>
-        <Col lg={4}>
+        <Col md={8} lg={6} xl={4}>
           <Card className='shadow'>
             <Card.Body>
               <div className='mb-3 mt-md-4 mx-4'>
-                <Row className='mb-4'>
-                  <Col lg={3}>
-                    <Logo usertype={0} />
-                  </Col>
-                  <Col>
+                <Stack className='mb-4' direction='horizontal' gap={4}>
+                  <Logo usertype={0} />
+                  <Stack direction='vertical'>
                     <h2 className='fw-bold'>
-                      Verification
+                      Xác minh Tài khoản
                     </h2>
                     <p className='text-secondary mb-0'>
-                      Please check your email for verification
+                      Kiểm tra email của bạn để xác minh
                     </p>
-                  </Col>
-                </Row>
+                  </Stack>
+                </Stack>
                 <div className='mb-3'>
                   <div className='d-grid'>
                     <Button className='mt-2' variant='outline-secondary' onClick={resendEmail}>
-                      Resend verification email
+                      Gửi lại mail xác minh
                     </Button>
                     <Button className='fogi mt-2' variant='primary' onClick={toHomePage}>
-                      Back to Home page
+                      Quay về Trang chủ
                     </Button>
                     <Button className='fogi mt-2' variant='primary' onClick={toLoginPage}>
-                      Back to Login page
+                      Quay về Trang Đăng nhập
                     </Button>
                   </div>
                 </div>

@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 
 // Components
 import TopSection from 'components/layout/TopSection';
-import Footer from 'components/guest/common/bars/Footer';
+import Footer from 'components/layout/Footer';
 import ListTitle from './components/ListTitle';
 import CategoryProductList from './components/CategoryProductList';
 

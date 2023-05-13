@@ -88,6 +88,7 @@
         #profile-icon {
             border-radius: 50%;
             border: 3px solid #ccc;
+            cursor: pointer;
         }
         #profile-icon:hover{
             border-color: white;

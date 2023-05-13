@@ -1,7 +1,7 @@
 // Essentials
 import * as React from 'react';
 import { useNavigate } from "react-router-dom";
-import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
+import { Button, Card, Col, Container, Form, Row, Stack } from 'react-bootstrap';
 import { useDispatch } from 'react-redux'
 import { forgotPassword } from 'components/redux/reducer/AuthenticationReducer.jsx'
 
@@ -38,28 +38,26 @@ const ForgotPassword = () => {
   return (
     <Container fluid className='fogi-bg authen-bg authen-bg-user'>
       <Row className='py-4 d-flex justify-content-center align-items-center'>
-        <Col lg={4}>
+        <Col md={8} lg={6} xl={4}>
           <Card className='shadow'>
             <Card.Body>
               <div className='mb-3 mt-md-4 mx-4'>
-                <Row className='mb-4'>
-                  <Col lg={3}>
-                    <Logo usertype={0} />
-                  </Col>
-                  <Col>
+                <Stack className='mb-4' direction='horizontal' gap={4}>
+                  <Logo usertype={0} />
+                  <Stack direction='vertical'>
                     <h2 className='fw-bold'>
-                      Forgot Password
+                      Quên mật khẩu
                     </h2>
                     <p className='text-secondary mb-0'>
-                      Enter your email to receive the reset password link
+                      Nhập email của bạn để đặt lại mật khẩu
                     </p>
-                  </Col>
-                </Row>
+                  </Stack>
+                </Stack>
                 <div className='mb-3'>
                   <Form onSubmit={handleSubmit(onSubmit)}>
                     <Form.Group className='mb-3'>
                       <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
-                        Email address
+                        Email
                       </Form.Label>
                       <Form.Control
                         type="text"
@@ -69,14 +67,14 @@ const ForgotPassword = () => {
                       {errors.email && errors.email.type === "required" && (
                         <p className="mt-2 error">
                           <FaExclamationTriangle className="mx-2" />
-                          Email is required
+                          Bạn chưa nhập Email
                         </p>
                       )}
                     </Form.Group>
 
                     <div className='d-grid'>
                       <Button className='fogi' variant='primary' type='submit'>
-                        Confirm
+                        Xác nhận
                       </Button>
                     </div>
                   </Form>

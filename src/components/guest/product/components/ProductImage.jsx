@@ -10,7 +10,7 @@ const ProductImage = ({product}) => {
         {product.images.map((image) => (
           <Carousel.Item>
             <img
-              className='d-block w-100'
+              className='d-block w-100 rounded'
               src={`https://bachkhoi.online/static/${image}`} 
               alt='product image'/>
           </Carousel.Item>

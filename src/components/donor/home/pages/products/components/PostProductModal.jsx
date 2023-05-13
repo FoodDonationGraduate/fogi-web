@@ -38,7 +38,6 @@ const PostProductModal = ({
     name: Yup.string().required(''),
     category_id: Yup.string().required(''),
     description: Yup.string().required(''),
-    price: Yup.number().required(''),
     expired_time: Yup.string().required(''),
     stock: Yup.number().required(''),
     unit: Yup.string().required(''),
@@ -90,6 +89,7 @@ const PostProductModal = ({
 
   // Submit
   const onSubmit = (data) => {
+    console.log('post item');
     if (images.length === 0) {
       return;
     }
@@ -121,27 +121,27 @@ const PostProductModal = ({
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Post Product</Modal.Title>
+          <Modal.Title>Thêm món ăn</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleSubmit(onSubmit)}>
             
             <Form.Group className='mb-3'>
               <Form.Label style={{ fontWeight: 'bold' }}>
-                Product name
+                Tên món ăn
               </Form.Label>
               <Form.Control {...register('name')} />
               {errors.name && errors.name.type === 'required' && (
                 <p className="mt-2 error">
                   <FaExclamationTriangle className="mx-2" />
-                  Product name is required
+                  Bạn chưa điền tên món ăn
                 </p>
               )}
             </Form.Group>
 
             <Form.Group className='mb-3'>
               <Form.Label style={{ fontWeight: 'bold' }}>
-                Category
+                Danh mục
               </Form.Label>
               <Form.Select aria-label="Default select exampe" {...register('category_id')} >
                 {Object.keys(allCategories).length !== 0 && allCategories.categories.map((category) => (<option value={category.id}>{category.name}</option>))}
@@ -149,42 +149,20 @@ const PostProductModal = ({
               {errors.name && errors.name.type === 'required' && (
                 <p className="mt-2 error">
                   <FaExclamationTriangle className="mx-2" />
-                  Category is required
-                </p>
-              )}
-            </Form.Group>
-
-            <Form.Group className='mb-3'>
-              <Form.Label style={{ fontWeight: 'bold' }}>
-                Price{' '}
-                <Tooltip tip={"'000' will be added at the end automatically"} />
-              </Form.Label>
-              <InputGroup>
-                <Form.Control
-                  type='number'
-                  value={price}
-                  {...register('price')}
-                  onChange={(event) => onChangePrice(event.target.value)}
-                />
-                <InputGroup.Text>VND</InputGroup.Text>
-              </InputGroup>
-              {errors.price && errors.price.type === 'required' && (
-                <p className="mt-2 error">
-                  <FaExclamationTriangle className="mx-2" />
-                  Product price is required
+                  Bạn chưa chọn danh mục món ăn
                 </p>
               )}
             </Form.Group>
             
             <Form.Group className='mb-3'>
               <Form.Label style={{ fontWeight: 'bold' }}>
-                Expired date
+                Ngày hết hạn
               </Form.Label>
               <Form.Control type='date' {...register('expired_time')} />
               {errors.expired_time && errors.expired_time.type === 'required' && (
                 <p className="mt-2 error">
                   <FaExclamationTriangle className="mx-2" />
-                  Expiration date is required
+                  Bạn chưa điền ngày hết hạn
                 </p>
               )}
             </Form.Group>
@@ -194,7 +172,7 @@ const PostProductModal = ({
               <Row>
                 <Col className='ps-0' sm={6} md={6} lg={6}>
                   <Form.Label style={{ fontWeight: 'bold' }}>
-                    Available start time
+                    Thời gian bắt đầu
                   </Form.Label>
                   <Form.Control
                     type='time' {...register('available_start')}
@@ -202,13 +180,13 @@ const PostProductModal = ({
                   {errors.available_start && errors.available_start.type === 'required' && (
                     <p className="mt-2 error">
                       <FaExclamationTriangle className="mx-2" />
-                      Available start time is required
+                      Bạn chưa nhập thời gian bắt đầu
                     </p>
                   )}
                 </Col>
                 <Col className='px-0' sm={6} md={6} lg={6}>
                   <Form.Label style={{ fontWeight: 'bold' }}>
-                    Available end time
+                    Thời gian kết thúc
                   </Form.Label>
                   <Form.Control
                     type='time' {...register('available_end')}
@@ -216,7 +194,7 @@ const PostProductModal = ({
                   {errors.available_end && errors.available_end.type === 'required' && (
                     <p className="mt-2 error">
                       <FaExclamationTriangle className="mx-2" />
-                      Available end time is required
+                      Bạn chưa nhập thời gian kết thúc
                     </p>
                   )}
                 </Col>
@@ -225,7 +203,7 @@ const PostProductModal = ({
 
             <Form.Group className='mb-3'>
               <Form.Label style={{ fontWeight: 'bold' }}>
-                Remaining number
+                Số lượng
               </Form.Label>
               <Row>
                 <Col className='ps-0' sm={8} md={8} lg={8}>
@@ -235,7 +213,7 @@ const PostProductModal = ({
                   {errors.stock && errors.stock.type === 'required' && (
                     <p className="mt-2 error">
                       <FaExclamationTriangle className="mx-2" />
-                      Remaining number is required
+                      Bạn chưa điền số lượng
                     </p>
                   )}
                 </Col>
@@ -243,35 +221,24 @@ const PostProductModal = ({
                   <Form.Select 
                     aria-label="Default select exampe" 
                     {...register('unit')} >
-                    <option value='cái'>Portion</option>
+                    <option value='cái'>Phần</option>
                     <option value='kg'>Kilogram</option>
                   </Form.Select>
-                  {/* <DropdownButton
-                    className='d-grid'
-                    variant='outline-secondary'
-                    title={unit}
-                    onSelect={(eventKey) => {
-                      onUnitSelect(eventKey);
-                    }}
-                  >
-                    <Dropdown.Item eventKey='Portion'>Portion</Dropdown.Item>
-                    <Dropdown.Item eventKey='Kilogram'>Kilogram</Dropdown.Item>
-                  </DropdownButton> */}
                 </Col>
               </Row>
             </Form.Group>
             
             <Form.Group className='mb-3'>
               <Form.Label style={{ fontWeight: 'bold' }}>
-                Description
+                Mô tả
               </Form.Label>
               <Form.Control as='textarea' {...register('description')} />
             </Form.Group>
             
             <Form.Group className='mb-3'>
               <Form.Label style={{ fontWeight: 'bold' }}>
-                Product Images{' '}
-                <Tooltip tip={"At least 1 image is required"} />
+                Hình món ăn{' '}
+                <Tooltip tip={'Ít nhất 1 hình ảnh'} />
               </Form.Label>
               <UploadButton
                 label='Upload'
@@ -295,7 +262,7 @@ const PostProductModal = ({
               {submitted && images.length === 0 && (
                 <p className="mt-2 error">
                   <FaExclamationTriangle className="mx-2" />
-                  At least 1 image is required
+                  Bạn chưa đăng hình ảnh món ăn
                 </p>
               )}
             </Form.Group>
@@ -307,7 +274,7 @@ const PostProductModal = ({
                 type='submit'
                 onClick={() => { setSubmitted(true); }}
               >
-                Post Product
+                Thêm món ăn
               </Button>
             </div>
           </Form>
