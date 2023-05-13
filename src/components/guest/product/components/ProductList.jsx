@@ -37,15 +37,15 @@ const ProductList = () => {
     <div className='bg'>
       <Container>
         <Row className='pt-4' xs={2} md={3} lg={6} >
-        <EqualHeight>
-          {Object.keys(searchingProducts).length !== 0 && searchingProducts.products.map((product) => (
-            <Col className='pb-4' key={product.id}>
-              <ProductCard product={product}/>
-            </Col>
-          ))}
-          {searchingProducts.number_of_products === 0 && <div>We cannot find anything</div>
-          }
-        </EqualHeight>
+          <EqualHeight>
+            {Object.keys(searchingProducts).length !== 0 && searchingProducts.products.map((product) => (
+              <Col className='pb-4' key={product.id}>
+                <ProductCard product={product}/>
+              </Col>
+            ))}
+            {searchingProducts.number_of_products === 0 && <div>We cannot find anything</div>
+            }
+          </EqualHeight>
         </Row>
         <Row className='pb-4'>
           <Col className='d-flex justify-content-center'>
