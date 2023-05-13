@@ -30,7 +30,7 @@ const Login = () => {
     password: Yup.string().required('Password is required')
       .required('Password is required')
       .min(8, "Password must contain at least 8 characters")
-      .matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,32}$/, "Password must contain at least 1 letter, 1 number and 1 special character")
+      // .matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,32}$/, "Password must contain at least 1 letter, 1 number and 1 special character")
   });
   const formOptions = { resolver: yupResolver(formSchema) };
   const { register, handleSubmit, formState } = useForm(formOptions);

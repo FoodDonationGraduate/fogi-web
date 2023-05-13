@@ -55,7 +55,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/almost-out-of-stock-products" element={<AmootProductListPage />} />  
         <Route path="/empty-products" element={<EmptyProductListPage />} />  
         
-        <Route path="/404" element={<NotFoundPage />} />
+        <Route path="*" element={<NotFoundPage />} />
         
         <Route path="/category/:name" element={<CategoryProductListPage />} />
         <Route path="/product/:id" element={<ProductDetailsPage />} />
@@ -82,19 +82,23 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/volunteer/accountinfo" element={<VolunteerAccountInfo/>} />
         
         <Route path="/" element={
-            <Auth allowedRoles={["donee", "donor", "volunteer", "director"]} />}
+            <Auth allowedRoles={["donee", "donor", "director"]} />}
         >
           <Route path="/profile" element={
-            <Monitor allowedPages={[<ProfileUserPage/>, <ProfileDonorPage/>, <ProfileVolunteerPage/>]}/> } 
+            <Monitor allowedPages={[<ProfileUserPage/>, <ProfileDonorPage/>]}/> } 
           />
+          
         </Route>
 
         <Route path="/" element={
             <Auth allowedRoles={["donee"]} />}
         >
           <Route path="/cart" element={<CartPage />} />
+          <Route path="/orders" element={<OrderListPage />} />
+          <Route path="/order"  element={<OrderDetailsPage />} />
         </Route>
-
+        <Route path="/orders" element={<OrderListPage />} />
+        <Route path="/order"  element={<OrderDetailsPage />} />
         <Route path="/donor" element={
             <Auth allowedRoles={["donor"]} />}
         >
