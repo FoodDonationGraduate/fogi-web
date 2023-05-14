@@ -45,9 +45,9 @@ const ProductItem = ({
   return (
     <Row>
       <Col className='px-0'>
-        <Card className='long-product-item'>
+        <Card className='long-product-item long-product-donor long-product-donor-with-tail'>
           <Row>
-            <Col className='ps-0' md={6} lg={7}>
+            <Col className='ps-0' xs={12} md={6}>
               <Stack direction='horizontal'>
                 <img
                   className='long-product-image'
@@ -65,27 +65,14 @@ const ProductItem = ({
               </Stack>
             </Col>
             
-            <Col className={`my-auto ${size <= 1 && 'ps-0 pt-4'}`} sm={12} md={6} lg={5}>
-              <Row>
-                <Col xs={1} sm={3} md={5} lg={5}>
-                  {size === 0 && (
-                    <MdMonetizationOn className='long-product-label-icon' />
-                  )}
-                  {size > 0 && (
-                    <header className='long-product-label'>Price</header>
-                  )}
-                </Col>
-                <Col>
-                  <h5>{product.price} VNĐ</h5>
-                </Col>
-              </Row>
+            <Col className={`my-auto ${size <= 1 && 'ps-0 pt-4'}`} xs={12} md={5}>
               <Row>
                 <Col xs={1} sm={3} md={5} lg={5}>
                   {size === 0 && (
                     <MdAllInbox className='long-product-label-icon' />
                   )}
                   {size > 0 && (
-                    <header className='long-product-label'>In store</header>
+                    <header className='long-product-label'>Còn</header>
                   )}
                 </Col>
                 <Col>
@@ -98,7 +85,7 @@ const ProductItem = ({
                     <MdAccessTime className='long-product-label-icon' />
                   )}
                   {size > 0 && (
-                    <header className='long-product-label'>Time left</header>
+                    <header className='long-product-label'>Thời gian</header>
                   )}
                 </Col>
                 <Col>
@@ -106,14 +93,14 @@ const ProductItem = ({
                 </Col>
               </Row>
             </Col>
-            
+
           </Row>
         </Card>
       </Col>
       
       <Col className='px-0' md={1} lg={1}>
-        <Card className='donor-product-tail align-items-center' onClick={() => deleteProductById(product.id)}>
-          <MdDeleteOutline className='donor-product-icon my-auto' />
+        <Card className='long-product-tail align-items-center' onClick={() => deleteProductById(product.id)}>
+          <MdDeleteOutline className='long-product-icon my-auto' />
         </Card>
       </Col>
     </Row>

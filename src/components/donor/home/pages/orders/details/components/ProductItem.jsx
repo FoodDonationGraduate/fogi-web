@@ -18,7 +18,7 @@ const ProductItem = ({
   return (
     <Row>
       <Col className='px-0'>
-        <Card className='long-product-item'>
+        <Card className='long-product-item long-product-donor'>
           <Row>
             <Col className='ps-0' xs={12} lg={4} xl={6}>
               <Stack direction='horizontal'>
