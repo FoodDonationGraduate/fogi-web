@@ -74,23 +74,23 @@ const Pagination = ({
   return (
     <>
       <Stack direction='horizontal' gap={size < 1 ? 1 : 2}>
-        {shownPills.map((idx, key) => 
-          <>
-          {idx > -1 ?
-            <Pill
-              idx={idx}
-              isActive={idx === activeIdx}
-              onChangePage={onChangePage}
-            />
-            :
-            <UtilityPill
-              idx={idx}
-              activeIdx={activeIdx}
-              pageCount={pageCount}
-              onChangePage={onChangePage}
-            />
-          }
-          </>
+        {shownPills.map((pillIdx, index) => 
+          <div key={index}>
+            {pillIdx > -1 ?
+              <Pill
+                idx={pillIdx}
+                isActive={pillIdx === activeIdx}
+                onChangePage={onChangePage}
+              />
+              :
+              <UtilityPill
+                idx={pillIdx}
+                activeIdx={activeIdx}
+                pageCount={pageCount}
+                onChangePage={onChangePage}
+              />
+            }
+          </div>
         )}
       </Stack>
     </>
