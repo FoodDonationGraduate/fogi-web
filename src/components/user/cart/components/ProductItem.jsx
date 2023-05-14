@@ -84,7 +84,7 @@ const ProductItem = ({
                 <Col className={`d-flex ${size < 3 && 'ps-0'}`}>
                   <Stack className='my-auto' direction='vertical' gap={2}>
                     <header className='long-product-label'>
-                      {size > 0 ? 'Remaining t' : 'T'}ime
+                      Còn
                     </header>
                     <h5>{distanceTime(product.expired_time)}</h5>
                   </Stack>
@@ -92,14 +92,7 @@ const ProductItem = ({
 
                 <Col className={`d-flex ${size < 3 && 'ps-0'}`}>
                   <Stack className='my-auto' direction='vertical' gap={2}>
-                    <header className='long-product-label'>Price</header>
-                    <h5>{convertNumberToVnd(product.price)}</h5>
-                  </Stack>
-                </Col>
-
-                <Col className={`d-flex ${size < 3 && 'ps-0'}`}>
-                  <Stack className='my-auto' direction='vertical' gap={2}>
-                    <header className='long-product-label'>Portions</header>
+                    <header className='long-product-label'>Số lượng</header>
                     <Stack direction='horizontal'>
                       {size > 0 &&
                         <Button
@@ -129,13 +122,7 @@ const ProductItem = ({
                     </Stack>
                   </Stack>
                 </Col>
-
-                <Col className={`d-flex ${size < 3 && 'ps-0'}`}>
-                  <Stack className='my-auto' direction='vertical' gap={2}>
-                    <header className='long-product-label'>Total</header>
-                    <h5>{convertNumberToVnd(product.price*count)}</h5>
-                  </Stack>
-                </Col>
+                
               </Row>
             </Col>
           </Row>
@@ -147,10 +134,10 @@ const ProductItem = ({
               <Stack direction='horizontal' gap={3}>
                 <header className='fw-bold'>Options</header>
                 <Button variant='outline-secondary' onClick={() => navigate(`/product/${product.id}`)}>
-                  View details
+                  Xem chi tiết
                 </Button>
                 <Button variant='outline-danger' onClick={() => deleteProduct(product.id)}>
-                  Remove
+                  Xóa
                 </Button>
               </Stack>
             </Col>
