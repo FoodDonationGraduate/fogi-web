@@ -21,8 +21,8 @@ const ProductList = (
       <Row>
         <Col>
           <div className='mb-4'>
-            {Object.keys(products).length !== 0 && products.slice(page * PRODUCT_COUNT, (page + 1) * PRODUCT_COUNT).map((product) => (
-              <div className='mb-3'>
+            {Object.keys(products).length !== 0 && products.slice(page * PRODUCT_COUNT, (page + 1) * PRODUCT_COUNT).map((product, index) => (
+              <div className='mb-3' key={index}>
                 <ProductItem product={product} />
               </div>
             ))}

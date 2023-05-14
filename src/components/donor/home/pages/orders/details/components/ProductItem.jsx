@@ -45,7 +45,7 @@ const ProductItem = ({
                     <MdAccessTime className='long-product-label-icon' />
                   )}
                   {size > 0 && (
-                    <header className='long-product-label'>Time left</header>
+                    <header className='long-product-label'>Còn</header>
                   )}
                 </Col>
                 <Col>
@@ -58,11 +58,11 @@ const ProductItem = ({
                     <MdAllInbox className='long-product-label-icon' />
                   )}
                   {size > 0 && (
-                    <header className='long-product-label'>Number</header>
+                    <header className='long-product-label'>Số lượng</header>
                   )}
                 </Col>
                 <Col>
-                  <h5>{product.quanity} {product.unit}</h5>
+                  <h5>{product.quantity} {product.unit}</h5>
                 </Col>
               </Row>
             </Col>
