@@ -2,12 +2,9 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Card, Form, Col, Row, Stack } from 'react-bootstrap';
 
-// Assets
-import ProductImage from 'assets/images/ProductImage.jpg'; // temporary
-
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
-import { convertNumberToVnd } from 'utils/helpers/Money.jsx';
+import { distanceTime } from 'utils/helpers/Time';
 
 const ProductItem = ({
   product
@@ -23,15 +20,15 @@ const ProductItem = ({
               <Stack direction='horizontal'>
                 <img
                   className='long-product-image'
-                  src={ProductImage}
+                  src={`https://bachkhoi.online/static/${product.image_filename}`}
                   width='96' height='96'
                 />
                 <div className='ms-4'>
                   <h5 className='fw-bold'>
-                    {product.title}
+                    {product.name}
                   </h5>
                   <span className={size > 0 ? 'long-product-type' : 'long-product-type-sm'}>
-                    Danh mục
+                    {product.category_name}
                   </span>
                 </div>
               </Stack>
@@ -44,7 +41,7 @@ const ProductItem = ({
                     <header className='long-product-label'>
                       {size > 0 ? 'Hạn sử dụng' : 'HSD'}
                     </header>
-                    <h5>2 ngày</h5>
+                    <h5>{distanceTime(product.expired_time)}</h5>
                   </Stack>
                 </Col>
 
@@ -55,7 +52,7 @@ const ProductItem = ({
                       <Form.Group style={{width: '50%'}}>
                         <Form.Control
                           type='number'
-                          value='2'
+                          value={product.quanity}
                           style={{ textAlign: 'center' }}
                           readOnly
                         />

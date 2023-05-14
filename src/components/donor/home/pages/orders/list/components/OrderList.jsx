@@ -25,7 +25,7 @@ const OrderList = () => {
 
   const onChangePage = async (idx) => {
     setPage(idx);
-    await dispatch(retrieveAllRequests({limit: ORDER_COUNT, offset: idx * ORDER_COUNT, sort_field: 'created_time'}, {userInfo, userToken}, navigate))
+    await dispatch(retrieveAllRequests({limit: ORDER_COUNT, offset: idx * ORDER_COUNT, sort_field: sort}, {userInfo, userToken}, navigate))
   };
 
   React.useEffect(()=>{
@@ -49,9 +49,9 @@ const OrderList = () => {
           <div className='d-flex justify-content-center'>
             {Object.keys(allRequests).length !== 0 && 
               <Pagination
-              pageCount={Math.ceil(allRequests.total_requests / ORDER_COUNT)}
-              activeIdx={page}
-              onChangePage={onChangePage}
+                pageCount={Math.ceil(allRequests.total_requests / ORDER_COUNT)}
+                activeIdx={page}
+                onChangePage={onChangePage}
               />
             }
           </div>

@@ -68,6 +68,11 @@ export const getStep = (step) => {
       label = 'Đang giao';
       icon = MdDeliveryDining;
       break;
+    case 'canceled':
+      header = 'Yêu cầu đã bị hủy';
+      label = 'Đã hủy';
+      icon = MdLabelImportant;
+      break;
     default:
       header = 'Các món ăn đã đến nơi!';
       label = 'Xác nhận';

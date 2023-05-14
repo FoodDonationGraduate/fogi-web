@@ -2,10 +2,12 @@
 import React from 'react';
 import { EqualHeightElement } from 'react-equal-height';
 import { useNavigate } from 'react-router-dom';
+
 // Utility
 import { getStatus } from 'utils/helpers/Order.jsx';
 import { reduceString } from 'utils/helpers/String';
 import { convertToString } from 'utils/helpers/Time';
+
 const OrderItem = ({ order }) => {
   const productListDisplayLength = () => {
     return order.products.length < 4 ? order.products.length : 2;

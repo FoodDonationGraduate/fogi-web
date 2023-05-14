@@ -65,6 +65,7 @@ export const retrieveNewProducts = (data, navigate) => {
                 console.log(err)
                 dispatch(setModalMessage("Something went wrong"))
                 dispatch(showModal())
+                dispatch(setNewProducts({}))
             });
         } catch (err) {
             console.log(err)
@@ -88,6 +89,7 @@ export const retrieveAmootProducts = (data, navigate) => {
                 console.log(err.response.data)
                 dispatch(setModalMessage("Something went wrong"))
                 dispatch(showModal())
+                dispatch(setAmootProducts({}))
             });
         } catch (err) {
             console.log(err)
@@ -101,7 +103,7 @@ export const searchProduct = (data, navigate) => {
         try {
             console.log("retrieve almost out of stock products")
             await axiosInstance.post(`/search/product`, {
-                name: data.name,
+                query: data.query,
                 limit: data.limit,
                 offset: data.offset,
                 sort_field: data.sort_field
@@ -112,6 +114,7 @@ export const searchProduct = (data, navigate) => {
                 console.log(err.response.data)
                 dispatch(setModalMessage("Something went wrong"))
                 dispatch(showModal())
+                dispatch(setSearchingProducts({}))
             });
         } catch (err) {
             console.log(err)
@@ -136,6 +139,7 @@ export const retrieveCategoryProducts = (data, navigate) => {
                 console.log(err.response.data)
                 dispatch(setModalMessage("Something went wrong"))
                 dispatch(showModal())
+                dispatch(setCategoryProducts({}))
             });
         } catch (err) {
             console.log(err)
@@ -157,6 +161,7 @@ export const retrieveCurrentProduct = (data, navigate) => {
                 console.log(err.response.data)
                 dispatch(setModalMessage("Something went wrong"))
                 dispatch(showModal())
+                dispatch(setCurrentProduct({}))
             });
         } catch (err) {
             console.log(err)
@@ -181,6 +186,7 @@ export const retrieveDonorProducts = (data, navigate) => {
                     console.log(err)
                     dispatch(setModalMessage("Something went wrong"))
                     dispatch(showModal())
+                    dispatch(setDonorProducts({}))
                 }
             });
         } catch (err) {
