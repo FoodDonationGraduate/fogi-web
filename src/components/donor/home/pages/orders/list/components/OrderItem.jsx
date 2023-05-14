@@ -1,18 +1,20 @@
 // Essentials
 import React from 'react';
 import { EqualHeightElement } from 'react-equal-height';
-
+import { useNavigate } from 'react-router-dom';
 // Utility
 import { getStatus } from 'utils/helpers/Order.jsx';
-
+import { reduceString } from 'utils/helpers/String';
+import { convertToString } from 'utils/helpers/Time';
 const OrderItem = ({ order }) => {
   const productListDisplayLength = () => {
     return order.products.length < 4 ? order.products.length : 2;
   };
 
+  const navigate = useNavigate();
   return (
     <>
-      <div className='order-item'>
+      <div className='order-item' onClick={() => navigate(`/donor/order/${order.id}`)}>
         <span
           className={`order-item-status order-item-status-${getStatus(order).css}`}
         >
@@ -21,13 +23,13 @@ const OrderItem = ({ order }) => {
         <div className='mt-3 mb-1'>
           <EqualHeightElement name="order-date">
             <h4 className='order-item-date'>
-              Tạo ngày {order.date}
+              Tạo ngày {convertToString(order.created_time, 'LocaleDateString')}
             </h4>
           </EqualHeightElement>
         </div>
         <EqualHeightElement name="order-address">
           <header className='order-item-secondary'>
-            Tại {order.address}
+            Tại {reduceString(order.address, 80)}
           </header>
         </EqualHeightElement>
 
@@ -39,7 +41,7 @@ const OrderItem = ({ order }) => {
         <EqualHeightElement name="order-list">
           {order.products.slice(0, productListDisplayLength()).map((product) => (
             <header className='order-item-secondary my-1'>
-              - {product.name} ({product.count} {product.unit}{product.count > 1 && 's'})
+              - {product.name} ({product.count} {product.unit})
             </header>
           ))}
           {order.products.length >= 4 &&

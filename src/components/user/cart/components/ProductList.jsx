@@ -23,7 +23,6 @@ const ProductList = () => {
 
   const onChangePage = async (idx) => {
     setPage(idx);
-    console.log(allProducts);
     await dispatch(retrieveAllProducts({limit: PRODUCT_COUNT, offset: idx * PRODUCT_COUNT}, {userInfo, userToken}, navigate))
   };
 
@@ -36,7 +35,7 @@ const ProductList = () => {
       <Row>
         <Col>
           <div className='mb-4'>
-            {Object.keys(allProducts).length !== 0 && allProducts.slice(page * PRODUCT_COUNT, (page + 1) * PRODUCT_COUNT).map((product) => (
+            {Object.keys(allProducts).length !== 0 && allProducts.cart.map((product) => (
               <div className='mb-3' key={product.id}>
                 <ProductItem product={product} />
               </div>
@@ -45,7 +44,7 @@ const ProductList = () => {
           <div className='d-flex justify-content-center'>
             {Object.keys(allProducts).length !== 0 && 
               <Pagination
-              pageCount={Math.ceil(allProducts.length / PRODUCT_COUNT)}
+              pageCount={Math.ceil(allProducts.total_cart_items / PRODUCT_COUNT)}
               activeIdx={page}
               onChangePage={onChangePage}
               />

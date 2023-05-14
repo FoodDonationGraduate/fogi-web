@@ -30,7 +30,7 @@ const Login = () => {
     password: Yup.string().required('Password is required')
       .required('Password is required')
       .min(8, "Password must contain at least 8 characters")
-      .matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,32}$/, "Password must contain at least 1 letter, 1 number and 1 special character")
+      // .matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,32}$/, "Password must contain at least 1 letter, 1 number and 1 special character")
   });
   const formOptions = { resolver: yupResolver(formSchema) };
   const { register, handleSubmit, formState } = useForm(formOptions);
@@ -96,12 +96,24 @@ const Login = () => {
                           Bạn chưa nhập mật khẩu
                         </p>
                       )}
+                      {errors.password && errors.password.type === "min" && (
+                        <p className="mt-2 error">
+                          <FaExclamationTriangle className="mx-2" />
+                          Mật khẩu của bạn chưa chính xác
+                        </p>
+                      )}
+                      {errors.password && errors.password.type === "matches" && (
+                        <p className="mt-2 error">
+                          <FaExclamationTriangle className="mx-2" />
+                          Mật khẩu của bạn chưa chính xác
+                        </p>
+                      )}
                     </Form.Group>
                     { failAuthentication && 
                       <div className='text-center'>
-                        <a className='fw-bold text-danger text-decoration-none'>
+                        <p className='fw-bold text-danger text-decoration-none'>
                           Email hoặc mật khẩu chưa đúng
-                        </a>
+                        </p>
                       </div> 
                     }
                     <div className='mb-3 text-end'>
