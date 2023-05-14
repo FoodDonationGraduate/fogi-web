@@ -8,8 +8,7 @@ import ProductImage from 'assets/images/ProductImage.jpg'; // temporary
 
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
-import { convertNumberToVnd } from 'utils/helpers/Money.jsx';
-
+import { distanceTime } from 'utils/helpers/Time';
 const ProductItem = ({
   product
 }) => {
@@ -25,15 +24,15 @@ const ProductItem = ({
               <Stack direction='horizontal'>
                 <img
                   className='long-product-image'
-                  src={ProductImage}
+                  src={`https://bachkhoi.online/static/${product.image_filename}`}
                   width='128' height='128'
                 />
                 <div className='ms-4'>
                   <h5 className='fw-bold mb-3'>
-                    {product.title}
+                    {product.name}
                   </h5>
                   <span className={size > 0 ? 'long-product-type' : 'long-product-type-sm'}>
-                    Product type
+                    {product.category_name}
                   </span>
                 </div>
               </Stack>
@@ -50,7 +49,7 @@ const ProductItem = ({
                   )}
                 </Col>
                 <Col>
-                  <h5>2 days</h5>
+                  <h5>{distanceTime(product.expired_time)}</h5>
                 </Col>
               </Row>
               <Row>
@@ -63,36 +62,7 @@ const ProductItem = ({
                   )}
                 </Col>
                 <Col>
-                  <h5>7 portions</h5>
-                </Col>
-              </Row>
-            </Col>
-            
-            <Col className={`my-auto ps-0 ${size == 2 && 'pt-4'}`} xs={12} md={6} lg={4} xl={3}>
-              <Row>
-                <Col xs={1} sm={3} md={5} lg={5}>
-                  {size === 0 && (
-                    <MdMonetizationOn className='long-product-label-icon' />
-                  )}
-                  {size > 0 && (
-                    <header className='long-product-label'>Price</header>
-                  )}
-                </Col>
-                <Col>
-                  <h5>{convertNumberToVnd(product.price)}</h5>
-                </Col>
-              </Row>
-              <Row>
-                <Col xs={1} sm={3} md={5} lg={5}>
-                  {size === 0 && (
-                    <MdMonetizationOn className='long-product-label-icon' />
-                  )}
-                  {size > 0 && (
-                    <header className='long-product-label'>Total</header>
-                  )}
-                </Col>
-                <Col>
-                  <h5>{convertNumberToVnd(product.price * 7)}</h5>
+                  <h5>{product.quanity} {product.unit}</h5>
                 </Col>
               </Row>
             </Col>

@@ -4,15 +4,15 @@ export const getStatus = (order) => {
   let label = 'Complete';
   let css = 'green';
   switch (order.status) {
-    case 0:
+    case 'pending':
       label = 'Chờ duyệt';
       css = 'blue'
       break;
-    case 1:
+    case 'shipping':
       label = 'Đang giao';
       css = 'yellow';
       break;
-    case 2:
+    case 'canceled':
       label = 'Đã hủy';
       css = 'red';
       break;
@@ -53,17 +53,17 @@ export const getStep = (step) => {
   let label = 'Đã tạo';
   let icon = MdSmartphone;
   switch (step) {
-    case 0:
+    case 'init':
       header = 'Bạn đã tạo Yêu cầu thành công';
       label = 'Đã tạo';
       icon = MdSmartphone;
       break;
-    case 1:
+    case 'pending':
       header = 'Tình nguyên viên đang kiểm tra Yêu cầu';
       label = 'Chờ duyệt';
       icon = MdLabelImportant;
       break;
-    case 2:
+    case 'shipping':
       header = 'Tình nguyện viên đang giao hàng đến bạn';
       label = 'Đang giao';
       icon = MdDeliveryDining;
@@ -74,6 +74,42 @@ export const getStep = (step) => {
       icon = MdCheckCircle;
   }
   return { header, label, icon };
+};
+
+export const convertStepToNumber = (step) => {
+  let number = 0;
+  switch (step) {
+    case 'init':
+      number = 0;
+      break;
+    case 'pending':
+      number = 1;
+      break;
+    case 'shipping':
+      number = 2;
+      break;
+    default:
+      number = 3;
+  }
+  return number;
+};
+
+export const convertNumberToStep = (number) => {
+  let step = '';
+  switch (number) {
+    case 0:
+      step = 'init';
+      break;
+    case 1:
+      step = 'pending';
+      break;
+    case 2:
+      step = 'shipping';
+      break;
+    default:
+      step = 'success';
+  }
+  return step;
 };
 
 export const getStepStatus = (step, currentStep) => {

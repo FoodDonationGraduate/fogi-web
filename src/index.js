@@ -34,11 +34,7 @@ import DonorAccountInfo from "./components/donor/authentication/AccountInfoPage.
 import DonorHome from "./components/donor/home/HomePage.jsx"
 import DonorOrderDetailsPage from "./components/donor/home/pages/orders/details/OrderDetailsPage.jsx"
 
-import VolunteerSignup from "./components/volunteer/authentication/SignupPage.jsx";
-import VolunteerAccountInfo from "./components/volunteer/authentication/AccountInfoPage.jsx";
-
 import ProfileUserPage from "./components/user/profile_page/ProfilePage.jsx"
-import ProfileVolunteerPage from "./components/volunteer/profile_page/ProfilePage.jsx"
 import ProfileDonorPage from "./components/donor/profile_page/ProfilePage.jsx"
 import ProfileDirectorPage from "./components/director/profile_page/ProfilePage.jsx"
 
@@ -94,14 +90,14 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/orders" element={<OrderListPage />} />
           <Route path="/order"  element={<OrderDetailsPage />} />
         </Route>
-
+        
         <Route path="/donor" element={
             <Auth allowedRoles={["donor"]} />}
         >
           <Route path="/donor/home" element={ <DonorHome/> } />
-          <Route path="/donor/order" element={ <DonorOrderDetailsPage/> } />
+          <Route path="/donor/order/:id" element={ <DonorOrderDetailsPage/> } />
         </Route>
-        
+
         <Route path="/director" element={
             <Auth allowedRoles={["director"]} />}
         >
@@ -114,10 +110,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 
 function Auth ({ allowedRoles }) {
   const userInfo = useSelector(state => state.authenticationReducer.user)
-  const userToken = useSelector(state => state.authenticationReducer.token)
+  // const userToken = useSelector(state => state.authenticationReducer.token)
   const location = useLocation();
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  // const dispatch = useDispatch();
+  // const navigate = useNavigate();
 
   // let intervalID = userToken !== '' ? setInterval(() => {
   //   const userInfo = JSON.parse(localStorage.getItem("user"));

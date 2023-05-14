@@ -23,7 +23,6 @@ const ProductList = () => {
 
   const onChangePage = async (idx) => {
     setPage(idx);
-    console.log(allProducts);
     await dispatch(retrieveAllProducts({limit: PRODUCT_COUNT, offset: idx * PRODUCT_COUNT}, {userInfo, userToken}, navigate))
   };
 

@@ -12,3 +12,10 @@ export const distanceTime = (datetime) => {
         return 'Còn ' + Math.floor(seconds/86400) + ' ngày'
     }
 };
+
+export const convertToString = (date, type) => {
+    const newDate = new Date (date);
+    if (type === 'LocaleDateString') {
+        return newDate.toLocaleDateString();
+    }
+}

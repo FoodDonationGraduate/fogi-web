@@ -40,7 +40,7 @@ export const retrieveAllProducts = (data, user, navigate) => {
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
                     console.log(err)
-                    dispatch(setModalMessage("Something went wrong"))
+                    dispatch(setModalMessage(err.response.data.message))
                     dispatch(showModal())
                 }
             });

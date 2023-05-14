@@ -2,11 +2,13 @@
 import React from 'react';
 import { Button, Container, Col, Row, Stack } from 'react-bootstrap';
 
+// Components
+import StepItem from './StepItem';
+
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
-import { convertNumberToVnd } from 'utils/helpers/Money.jsx';
 import { getStatus, getStep } from 'utils/helpers/Order.jsx';
-
+import { convertToString } from 'utils/helpers/Time';
 const CartInfoCard = ({ order }) => {
   let size = useResizer();
 
@@ -22,27 +24,61 @@ const CartInfoCard = ({ order }) => {
                 {getStatus(order).label}
               </span>
               <h3 className='order-item-date mt-3'>
-                Ordered on {order.date}
+                Tạo ngày {convertToString(order.created_time, 'LocaleDateString')}
               </h3>
-              <h4 className='order-info-total'>
-                {size > 0 && 'Total cost: '}{convertNumberToVnd(order.total)}
-              </h4>
               <header className='order-item-secondary'>
-                Ordered at {order.address}
+                Tại {order.address}
               </header>
 
               <hr />
 
+              <h3 className='order-item-date text-center'>
+                {getStep(order.status).header}
+              </h3>
+
+              {size > 1 ? 
+                <Row className='mt-4'>
+                  {Array.from({ length : 7 }).map((_, idx) => (
+                    <Col>
+                      {idx % 2 === 0 ?
+                        <StepItem key={idx / 2} step={idx / 2} currentStep={order.status} />
+                        :
+                        <hr className='step-connector' />
+                      }
+                    </Col>
+                  ))}
+                </Row>
+                :
+                <header className='order-item-secondary text-center mt-2'>
+                  Hiện tại: {getStep(order.status).label} {`(${order.status}/4)`}
+                </header>
+              }
+              {order.status === 'init' || order.status === 'pending' &&
+                <Row className='mt-4'>
+                  <Col className='d-flex justify-content-end'>
+                    <Stack direction='horizontal' gap={2}>
+                      <header className='order-item-secondary'>
+                        Bạn có thể hủy Yêu cầu trong 20 giây
+                      </header>
+                      <Button variant='outline-danger'>
+                        Hủy Yêu cầu
+                      </Button>
+                    </Stack>
+                  </Col>
+                </Row>
+              }
+              
+
               <Row>
-                <Col className='ps-0'>
+                {/* <Col className='ps-0'>
                   <Stack direction='horizontal' gap={4}>
                     <img className='order-info-donor-logo' src={order.donee.avatar} />
                     <Stack className='my-auto' direction='vertical' gap={1}>
                       <h5 className='fw-bold'>{order.donee.name}</h5>
                     </Stack>
                   </Stack>
-                </Col>
-                <Col className='px-0' sm={2}>
+                </Col> */}
+                {/* <Col className='px-0' sm={2}>
                   <div className={size > 0 ? 'h-100 d-flex' : 'd-grid'}>
                     <Button
                       className={size > 0 ? 'my-auto me-0 ms-auto' : 'mt-4'}
@@ -51,7 +87,8 @@ const CartInfoCard = ({ order }) => {
                       View Donee
                     </Button>
                   </div>
-                </Col>
+                </Col> */}
+
               </Row>
             </div>
           </Col>

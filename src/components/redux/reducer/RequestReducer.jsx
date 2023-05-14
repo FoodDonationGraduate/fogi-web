@@ -5,7 +5,8 @@ import { handleExpiredToken } from './AuthenticationReducer';
 
 const initialState = {
     allRequests: {},
-    currentRequst: {}
+    currentRequest: {},
+    sort: ''
 }
 const cartReducer = createSlice({
     name: "cartReducer",
@@ -15,13 +16,16 @@ const cartReducer = createSlice({
             state.allRequests = action.payload
         },
         setCurrentRequest: (state, action) => {
-            state.currentRequst = action.payload
-        }
+            state.currentRequest = action.payload
+        },
+        setTypeOfSort: (state, action) => {
+            state.sort = action.payload
+        },
     }
 })
 
 export const { 
-    setAllRequests, setCurrentRequest
+    setAllRequests, setCurrentRequest, setTypeOfSort
 } = cartReducer.actions
 
 export default cartReducer.reducer

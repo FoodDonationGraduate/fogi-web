@@ -1,5 +1,8 @@
 // Essentials
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router';
+import { useParams } from 'react-router-dom'
 
 // Components
 import TopBarDonor from 'components/layout/TopBarOther';
@@ -7,31 +10,45 @@ import Footer from 'components/layout/Footer';
 import OrderDetailsTitle from './components/OrderDetailsTitle';
 import OrderInfoCard from './components/OrderInfoCard';
 import ProductList from './components/ProductList';
-
+import { retrieveRequest } from 'components/redux/reducer/RequestReducer';
+import NotFoundBody from 'components/common/NotFoundBody';
 // Style
 import 'assets/css/user/order/Order.css';
 
-// Data
-import { ORDER_DATA } from 'utils/constants/Order.jsx';
-
 const OrderDetailsPage = () => {
+  const currentRequest = useSelector(state => state.requestReducer.currentRequest)
+  const userInfo = useSelector(state => state.authenticationReducer.user)
+  const userToken = useSelector(state => state.authenticationReducer.token)
+  
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { id } = useParams();
+
+  React.useEffect(()=>{
+    dispatch(retrieveRequest({request_id: id}, {userInfo, userToken}, navigate));
+  }, [id])
 
   return (
     <>
       <div>
         <TopBarDonor />
       </div>
-      <div className='bg'>
-        <div className='mb-4'>
-          <OrderDetailsTitle id={ORDER_DATA[0].id} />
+      {Object.keys(currentRequest).length !== 0 && 
+        <div className='bg'>
+          <div className='mb-4'>
+            <OrderDetailsTitle id={currentRequest.request.id} />
+          </div>
+          <div className='pb-4'>
+            <OrderInfoCard order={currentRequest.request} />
+          </div>
+          <div className='pb-4'>
+            <ProductList products={currentRequest.request.products}/>
+          </div>
         </div>
-        <div className='pb-4'>
-          <OrderInfoCard order={ORDER_DATA[0]} />
-        </div>
-        <div className='pb-4'>
-          <ProductList />
-        </div>
-      </div>
+      }
+      {Object.keys(currentRequest).length === 0 && 
+        <NotFoundBody/>
+      }
       <div>
         <Footer />
       </div>
