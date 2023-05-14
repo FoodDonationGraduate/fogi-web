@@ -4,11 +4,11 @@ import { Card, Col, Row, Stack } from 'react-bootstrap';
 
 // Assets
 import { MdDeleteOutline, MdAccessTime, MdAllInbox, MdMonetizationOn } from 'react-icons/md';
-import ProductImage from 'assets/images/ProductImage.jpg'; // temporary
 
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
 import { distanceTime } from 'utils/helpers/Time';
+
 const ProductItem = ({
   product
 }) => {

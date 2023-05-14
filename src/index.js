@@ -88,7 +88,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         >
           <Route path="/cart" element={<CartPage />} />
           <Route path="/orders" element={<OrderListPage />} />
-          <Route path="/order"  element={<OrderDetailsPage />} />
+          <Route path="/order/:id"  element={<OrderDetailsPage />} />
         </Route>
         
         <Route path="/donor" element={
