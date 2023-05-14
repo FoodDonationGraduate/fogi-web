@@ -18,7 +18,7 @@ const CartInfoCard = ({ order }) => {
         <Row>
           <Col>
             <div className='order-info-card'>
-              <h5 className='order-info-id mb-2'>Order {order.id}</h5>
+              <h5 className='order-info-id mb-2'>Request {order.id}</h5>
               <h3 className='order-info-total'>
                 {size > 0 && 'Total cost: '}{convertNumberToVnd(order.total)}
               </h3>

@@ -10,6 +10,9 @@ import ProductItem from './ProductItem';
 import Pagination from 'components/common/pagination/Pagination';
 import { retrieveAllProducts } from 'components/redux/reducer/CartReducer';
 
+// Data
+import { PRODUCT_DATA } from 'utils/constants/ProductLarge.jsx';
+
 const ProductList = () => {
   const allProducts = useSelector(state => state.cartReducer.allProducts)
   const userInfo = useSelector(state => state.authenticationReducer.user)
@@ -35,21 +38,18 @@ const ProductList = () => {
       <Row>
         <Col>
           <div className='mb-4'>
-            {Object.keys(allProducts).length !== 0 && allProducts.cart.map((product) => (
-              <div className='mb-3' key={product.id}>
+            {Object.keys(allProducts).length !== 0 && allProducts.cart.slice(page * PRODUCT_COUNT, (page + 1) * PRODUCT_COUNT).map((product) => (
+              <div className='mb-3' key={product.image_filename}>
                 <ProductItem product={product} />
               </div>
             ))}
           </div>
           <div className='d-flex justify-content-center'>
-            {Object.keys(allProducts).length !== 0 && 
-              <Pagination
+            <Pagination
               pageCount={Math.ceil(allProducts.total_cart_items / PRODUCT_COUNT)}
               activeIdx={page}
               onChangePage={onChangePage}
-              />
-            }
-            
+            />
           </div>
         </Col>
       </Row>
