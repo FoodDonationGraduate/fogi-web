@@ -10,7 +10,9 @@ import Pagination from 'components/common/pagination/Pagination';
 // Data
 import { PRODUCT_DATA } from 'utils/constants/ProductLarge.jsx';
 
-const ProductList = () => {
+const ProductList = (
+  {products}
+) => {
   const PRODUCT_COUNT = 4; // per page
   const [page, setPage] = useState(0); // a.k.a activeIdx
   const onChangePage = (idx) => {
@@ -22,15 +24,15 @@ const ProductList = () => {
       <Row>
         <Col>
           <div className='mb-4'>
-            {PRODUCT_DATA.slice(page * PRODUCT_COUNT, (page + 1) * PRODUCT_COUNT).map((product) => (
-              <div className='mb-3'>
+            {Object.keys(products).length !== 0 && products.slice(page * PRODUCT_COUNT, (page + 1) * PRODUCT_COUNT).map((product) => (
+              <div className='mb-3' key={product.image_filename}>
                 <ProductItem product={product} />
               </div>
             ))}
           </div>
           <div className='d-flex justify-content-center'>
             <Pagination
-              pageCount={Math.ceil(PRODUCT_DATA.length / PRODUCT_COUNT)}
+              pageCount={Math.ceil(products.length / PRODUCT_COUNT)}
               activeIdx={page}
               onChangePage={onChangePage}
             />

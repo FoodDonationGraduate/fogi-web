@@ -8,19 +8,11 @@ import { useParams } from 'react-router-dom'
 import TopSection from 'components/layout/TopSection';
 import Footer from 'components/layout/Footer';
 import ProductSection from './components/ProductSection';
-import DonorSection from './components/DonorSection';
 import { retrieveCurrentProduct } from 'components/redux/reducer/ProductReducer';
+import EmptyProductBody from './components/EmptyProductBody';
 
 // Styling
 import 'assets/css/Fogi.css';
-
-// const exampleProduct = {
-//   title: "Salad",
-//   price: 10000,
-//   donorName: 'AP Store',
-//   donorLogo: DonorLogo,
-//   images: [exampleImage, exampleImage, exampleImage]
-// }
 
 const ProductDetailsPage = () => {
   const product = useSelector(state => state.productReducer.currentProduct);
@@ -32,17 +24,20 @@ const ProductDetailsPage = () => {
   React.useEffect(() => {
     dispatch(retrieveCurrentProduct({id: id}, navigate))
   }, [id])
-  console.log(product)
+
   return (
     <>
       <div>
         <TopSection />
       </div>
-      {Object.keys(product).length !== 0 && 
-        <div className='bg'>
-          <ProductSection product={product.product} />
-        </div>
-      }
+        {Object.keys(product).length !== 0 && 
+          <div className='bg'>
+            <ProductSection product={product.product} />
+          </div>
+        }
+        {Object.keys(product).length === 0 && 
+          <EmptyProductBody/>
+        }
       <div>
         <Footer />
       </div>

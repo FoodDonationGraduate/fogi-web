@@ -70,8 +70,8 @@ export const getStep = (step) => {
       break;
     case 'canceled':
       header = 'Yêu cầu của bạn đã bị hủy';
-      label = 'Bị hủy';
-      icon = MdDeliveryDining;
+      label = 'Đã hủy';
+      icon = MdLabelImportant;
       break;
     default:
       header = 'Các món ăn đã đến nơi!';

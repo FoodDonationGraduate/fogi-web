@@ -1,12 +1,17 @@
 // Essentials
 import React from 'react';
 import { Container, Col, Row, Dropdown, DropdownButton } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux'
 
 // Styling
 import 'assets/css/Fogi.css';
 
-const OrderListTitle = () => {
+//Components
+import { setTypeOfSort } from 'components/redux/reducer/RequestReducer';
 
+const OrderListTitle = () => {
+  const sort = useSelector(state => state.requestReducer.sort)
+  const dispatch = useDispatch();
   return (
     <div className='bg'>
       <Container>
@@ -17,11 +22,11 @@ const OrderListTitle = () => {
           <Col className='d-flex justify-content-end' xs={6} sm={3}>
             <DropdownButton
               variant='outline-secondary'
-              title='Sắp xếp'
+              title={sort !== '' ? (sort === 'created_time' ? 'Thời gian' : 'Số lượng') : 'Sắp xếp'}
             >
-              <Dropdown.Item>Ngày tạo</Dropdown.Item>
-              <Dropdown.Item>Trạng thái</Dropdown.Item>
-              <Dropdown.Item>Không có</Dropdown.Item>
+              <Dropdown.Item onClick={() => dispatch(setTypeOfSort('created_time'))}>Ngày tạo</Dropdown.Item>
+              <Dropdown.Item onClick={() => dispatch(setTypeOfSort('stock'))}>Số lượng</Dropdown.Item>
+              <Dropdown.Item onClick={() => dispatch(setTypeOfSort(''))}>Không có</Dropdown.Item>
             </DropdownButton>
           </Col>
         </Row>
