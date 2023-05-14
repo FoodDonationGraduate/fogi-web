@@ -11,12 +11,9 @@ import OrderInfoCard from './components/OrderInfoCard';
 import ProductList from './components/ProductList';
 import { retrieveRequest } from 'components/redux/reducer/RequestReducer';
 import NotFoundBody from 'components/common/NotFoundBody';
+
 // Style
-
 import 'assets/css/user/order/Order.css';
-
-// Data
-import { ORDER_DATA } from 'utils/constants/Order.jsx';
 
 const OrderDetailsPage = () => {
   const currentRequest = useSelector(state => state.requestReducer.currentRequest)
