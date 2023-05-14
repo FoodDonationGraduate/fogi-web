@@ -31,14 +31,16 @@ export const retrieveAllProducts = (data, user, navigate) => {
             data = Object.keys(data).length === 0 ? {limit: 4, offset: 0} : data
             await axiosInstance.get(`/cart`, {params: {
                 email: user.userInfo.email,
-                token: user.userToken
+                token: user.userToken,
+                limit: data.limit,
+                offset: data.offset
             }}).then((res) => {
-                dispatch(setAllProducts(res.data.cart))
+                dispatch(setAllProducts(res.data))
             })
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
                     console.log(err)
-                    dispatch(setModalMessage("Something went wrong"))
+                    dispatch(setModalMessage(err.response.data.message))
                     dispatch(showModal())
                 }
             });
