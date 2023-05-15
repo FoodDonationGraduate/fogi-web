@@ -26,16 +26,15 @@ const OrderList = ({
   const [page, setPage] = useState(0); // a.k.a activeIdx
   const onChangePage = async (idx) => {
     setPage(idx);
-    await dispatch(retrieveAllRequests({limit: ORDER_COUNT, offset: idx * ORDER_COUNT, sort_field: sort}, {userInfo, userToken}, navigate))
+    await dispatch(retrieveAllRequests({limit: ORDER_COUNT, offset: idx * ORDER_COUNT, sort_field: sort, request_status: currentStatus}, {userInfo, userToken}, navigate))
   };
 
   React.useEffect(()=>{
-    dispatch(retrieveAllRequests({limit: ORDER_COUNT, offset: page * ORDER_COUNT, sort_field: sort}, {userInfo, userToken}, navigate))
-  }, [sort]);
+    dispatch(retrieveAllRequests({limit: ORDER_COUNT, offset: page * ORDER_COUNT, sort_field: sort, request_status: currentStatus}, {userInfo, userToken}, navigate))
+  }, [sort, currentStatus]);
 
   return (
     <Container>
-      <div>{currentStatus}</div>
       <Row>
         <Col className='px-0'>
           <Row className='mb-4' xs={1} md={2} lg={3}>

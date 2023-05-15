@@ -14,7 +14,7 @@ import 'assets/css/user/order/Order.css';
 
 const OrderListPage = () => {
   // Chip List
-  const [activeStatusIdx, setActiveStatusIdx] = useState(-1);
+  const [activeStatusIdx, setActiveStatusIdx] = useState(0);
   const statusList = ['pending', 'shipping', 'success', 'canceled'];
   const getStatusLabel = (status) => {
     switch (status) {

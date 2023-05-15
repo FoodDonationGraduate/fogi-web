@@ -42,7 +42,8 @@ export const retrieveAllRequests = (data, user, navigate) => {
                 token: user.userToken,
                 limit: data.limit,
                 offset: data.offset,
-                sort_field: data.sort_field
+                sort_field: data.sort_field,
+                request_status: data.request_status
             }}).then((res) => {
                 dispatch(setAllRequests(res.data))
             })
