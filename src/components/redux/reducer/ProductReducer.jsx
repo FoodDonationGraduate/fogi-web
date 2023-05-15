@@ -177,7 +177,7 @@ export const retrieveDonorProducts = (data, user, navigate) => {
             await axiosInstance.get(`/product/donor`, {params: {
                 email: user.userInfo.email,
                 token: user.userToken,
-                limit: data.limit ? data.limit : 4,
+                limit: data.limit ? data.limit : 6,
                 offset: data.offset ? data.offset : 0
             }}).then((res) => {
                 dispatch(setDonorProducts(res.data))

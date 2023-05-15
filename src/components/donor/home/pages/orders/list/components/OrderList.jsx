@@ -23,7 +23,7 @@ const OrderList = ({
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const ORDER_COUNT = 4; // per page
+  const ORDER_COUNT = 6; // per page
   const [page, setPage] = useState(0); // a.k.a activeIdx
 
   const onChangePage = async (idx) => {

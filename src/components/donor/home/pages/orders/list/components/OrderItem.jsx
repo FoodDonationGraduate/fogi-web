@@ -43,7 +43,7 @@ const OrderItem = ({ order }) => {
         <EqualHeightElement name="order-list">
           {order.products.slice(0, productListDisplayLength()).map((product) => (
             <header className='order-item-secondary my-1'>
-              - {product.name} ({product.count} {product.unit})
+              - {product.name} ({product.quantity} {product.unit})
             </header>
           ))}
           {order.products.length >= 4 &&

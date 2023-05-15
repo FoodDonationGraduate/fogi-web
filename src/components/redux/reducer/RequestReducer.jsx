@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import axiosInstance from "services/axios/axiosConfig.js";
 import { setModalMessage, showModal } from './ModalReducer';
 import { handleExpiredToken } from './AuthenticationReducer';
+import { retrieveDonorProducts } from './ProductReducer';
 
 const initialState = {
     allRequests: {},
@@ -98,7 +99,7 @@ export const postDonorRequest = (user, navigate) => {
             }).then((res) => {
                 dispatch(setModalMessage('Create new request successfully!'))
                 dispatch(showModal())
-                navigate('/donor/home')
+                dispatch(retrieveDonorProducts({}, user, navigate))
             })
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {

@@ -23,7 +23,7 @@ const OrderList = ({
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const ORDER_COUNT = 9; // per page
+  const ORDER_COUNT = 6; // per page
   const [page, setPage] = useState(0); // a.k.a activeIdx
   const onChangePage = async (idx) => {
     setPage(idx);
@@ -42,7 +42,7 @@ const OrderList = ({
           <Col className='px-0'>
             <Row className='mb-4' xs={1} md={2} lg={3}>
               <EqualHeight>
-                {Object.keys(allRequests).length !== 0 && allRequests.requests.map((request) => (
+                {allRequests.requests.map((request) => (
                   <Col className='mb-4' key={request.id}>
                     <OrderItem order={request} />
                   </Col>
@@ -50,13 +50,11 @@ const OrderList = ({
               </EqualHeight>
             </Row>
             <div className='d-flex justify-content-center'>
-              {Object.keys(allRequests).length !== 0 && 
                 <Pagination
                   pageCount={Math.ceil(allRequests.total_requests / ORDER_COUNT)}
                   activeIdx={page}
                   onChangePage={onChangePage}
                 />
-              }
             </div>
           </Col>
         </Row>
