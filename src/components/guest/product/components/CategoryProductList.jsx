@@ -32,7 +32,7 @@ const ProductList = () => {
   }, [sort])
   return (
     <div className='bg'>
-      {Object.keys(categoryProducts).length !== 0 && 
+      {Object.keys(categoryProducts).length !== 0 && categoryProducts.total_products !== 0 && 
         <Container>
           <Row className='pt-4' xs={2} sm={3} md={4} xl={6}>
           <EqualHeight>
@@ -54,7 +54,7 @@ const ProductList = () => {
           </Row>
         </Container>
       }
-      {Object.keys(categoryProducts).length == 0 && 
+      {Object.keys(categoryProducts).length == 0 || categoryProducts.total_products === 0 && 
         <EmptyProductBody/>
       }
     </div>

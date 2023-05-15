@@ -5,13 +5,16 @@ import { Container, Col, Row } from 'react-bootstrap';
 import { EqualHeight } from 'react-equal-height';
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router';
+import EmptyProductBody from 'components/guest/product/components/EmptyProductBody';
 
 // Components
 import OrderItem from './OrderItem';
 import Pagination from 'components/common/pagination/Pagination';
 import { retrieveAllRequests } from 'components/redux/reducer/RequestReducer';
 
-const OrderList = () => {
+const OrderList = ({
+  currentStatus
+}) => {
   const allRequests = useSelector(state => state.requestReducer.allRequests)
   const sort = useSelector(state => state.requestReducer.sort)
   const userInfo = useSelector(state => state.authenticationReducer.user)
@@ -25,39 +28,46 @@ const OrderList = () => {
 
   const onChangePage = async (idx) => {
     setPage(idx);
-    await dispatch(retrieveAllRequests({limit: ORDER_COUNT, offset: idx * ORDER_COUNT, sort_field: sort}, {userInfo, userToken}, navigate))
+    await dispatch(retrieveAllRequests({limit: ORDER_COUNT, offset: idx * ORDER_COUNT, sort_field: sort, request_status: currentStatus}, {userInfo, userToken}, navigate))
   };
 
   React.useEffect(()=>{
-    dispatch(retrieveAllRequests({limit: ORDER_COUNT, offset: page * ORDER_COUNT, sort_field: sort}, {userInfo, userToken}, navigate))
-  }, [sort])
+    dispatch(retrieveAllRequests({limit: ORDER_COUNT, offset: page * ORDER_COUNT, sort_field: sort, request_status: currentStatus}, {userInfo, userToken}, navigate))
+  }, [sort, currentStatus]);
 
 
   return (
-    <Container>
-      <Row>
-        <Col className='px-0'>
-          <Row className='mb-4' xs={1} md={2}>
-            <EqualHeight>
-              {Object.keys(allRequests).length !== 0 && allRequests.requests.map((request) => (
-                <Col className='mb-4' key={request.id}>
-                  <OrderItem order={request} />
-                </Col>
-              ))}
-            </EqualHeight>
+    <div>
+      {Object.keys(allRequests).length !== 0 && allRequests.total_requests !== 0 && 
+        <Container>
+          <Row>
+            <Col className='px-0'>
+              <Row className='mb-4' xs={1} md={2} lg={3}>
+                <EqualHeight>
+                  {Object.keys(allRequests).length !== 0 && allRequests.requests.map((request) => (
+                    <Col className='mb-4' key={request.id}>
+                      <OrderItem order={request} />
+                    </Col>
+                  ))}
+                </EqualHeight>
+              </Row>
+              <div className='d-flex justify-content-center'>
+                {Object.keys(allRequests).length !== 0 && 
+                  <Pagination
+                    pageCount={Math.ceil(allRequests.total_requests / ORDER_COUNT)}
+                    activeIdx={page}
+                    onChangePage={onChangePage}
+                  />
+                }
+              </div>
+            </Col>
           </Row>
-          <div className='d-flex justify-content-center'>
-            {Object.keys(allRequests).length !== 0 && 
-              <Pagination
-                pageCount={Math.ceil(allRequests.total_requests / ORDER_COUNT)}
-                activeIdx={page}
-                onChangePage={onChangePage}
-              />
-            }
-          </div>
-        </Col>
-      </Row>
-    </Container>
+        </Container>
+      }
+      {Object.keys(allRequests).length === 0 || allRequests.total_requests === 0 && 
+        <EmptyProductBody/>
+      }
+    </div>
   );
 };
 

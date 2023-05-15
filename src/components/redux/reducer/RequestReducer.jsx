@@ -52,6 +52,7 @@ export const retrieveAllRequests = (data, user, navigate) => {
                     console.log(err)
                     dispatch(setModalMessage(err.response.data.message))
                     dispatch(showModal())
+                    dispatch(setAllRequests({}))
                 }
             });
         } catch (err) {
@@ -77,6 +78,7 @@ export const retrieveRequest = (data, user, navigate) => {
                     console.log(err)
                     dispatch(setModalMessage(err.response.data.message))
                     dispatch(showModal())
+                    dispatch(setCurrentRequest({}))
                 }
             });
         } catch (err) {

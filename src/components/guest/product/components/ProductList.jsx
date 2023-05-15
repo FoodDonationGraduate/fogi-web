@@ -35,17 +35,15 @@ const ProductList = () => {
 
   return (
     <div className='bg'>
-      {Object.keys(searchingProducts).length !== 0 && 
+      {Object.keys(searchingProducts).length !== 0 && searchingProducts.number_of_products !== 0 &&
         <Container>
           <Row className='pt-4' xs={2} md={3} lg={6} >
             <EqualHeight>
-              {Object.keys(searchingProducts).length !== 0 && searchingProducts.products.map((product) => (
+              {searchingProducts.products.map((product) => (
                 <Col className='pb-4' key={product.id}>
                   <ProductCard product={product}/>
                 </Col>
               ))}
-              {searchingProducts.number_of_products === 0 && <div>We cannot find anything</div>
-              }
             </EqualHeight>
           </Row>
           <Row className='pb-4'>
@@ -59,7 +57,7 @@ const ProductList = () => {
           </Row>
         </Container>
       }
-      {Object.keys(searchingProducts).length === 0 && 
+      {Object.keys(searchingProducts).length === 0 || searchingProducts.number_of_products === 0  && 
         <EmptyProductBody/>
       }
     </div>

@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router';
 import OrderItem from './OrderItem';
 import Pagination from 'components/common/pagination/Pagination';
 import { retrieveAllRequests } from 'components/redux/reducer/RequestReducer';
-
+import EmptyProductBody from 'components/guest/product/components/EmptyProductBody';
 const OrderList = ({
   currentStatus
 }) => {
@@ -34,30 +34,38 @@ const OrderList = ({
   }, [sort, currentStatus]);
 
   return (
-    <Container>
-      <Row>
-        <Col className='px-0'>
-          <Row className='mb-4' xs={1} md={2} lg={3}>
-            <EqualHeight>
-              {Object.keys(allRequests).length !== 0 && allRequests.requests.map((request) => (
-                <Col className='mb-4' key={request.id}>
-                  <OrderItem order={request} />
-                </Col>
-              ))}
-            </EqualHeight>
-          </Row>
-          <div className='d-flex justify-content-center'>
-            {Object.keys(allRequests).length !== 0 && 
-              <Pagination
-                pageCount={Math.ceil(allRequests.total_requests / ORDER_COUNT)}
-                activeIdx={page}
-                onChangePage={onChangePage}
-              />
-            }
-          </div>
-        </Col>
-      </Row>
-    </Container>
+    <div>
+      {Object.keys(allRequests).length !== 0 && allRequests.total_requests !== 0 && 
+      <Container>
+        <Row>
+          <Col className='px-0'>
+            <Row className='mb-4' xs={1} md={2} lg={3}>
+              <EqualHeight>
+                {Object.keys(allRequests).length !== 0 && allRequests.requests.map((request) => (
+                  <Col className='mb-4' key={request.id}>
+                    <OrderItem order={request} />
+                  </Col>
+                ))}
+              </EqualHeight>
+            </Row>
+            <div className='d-flex justify-content-center'>
+              {Object.keys(allRequests).length !== 0 && 
+                <Pagination
+                  pageCount={Math.ceil(allRequests.total_requests / ORDER_COUNT)}
+                  activeIdx={page}
+                  onChangePage={onChangePage}
+                />
+              }
+            </div>
+          </Col>
+        </Row>
+      </Container>
+      }
+      {Object.keys(allRequests).length === 0 || allRequests.total_requests === 0 && 
+        <EmptyProductBody/>
+      }
+    </div>
+    
   );
 };
 
