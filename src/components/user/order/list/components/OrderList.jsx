@@ -11,7 +11,9 @@ import OrderItem from './OrderItem';
 import Pagination from 'components/common/pagination/Pagination';
 import { retrieveAllRequests } from 'components/redux/reducer/RequestReducer';
 
-const OrderList = () => {
+const OrderList = ({
+  currentStatus
+}) => {
   const allRequests = useSelector(state => state.requestReducer.allRequests)
   const sort = useSelector(state => state.requestReducer.sort)
   const userInfo = useSelector(state => state.authenticationReducer.user)
@@ -29,10 +31,11 @@ const OrderList = () => {
 
   React.useEffect(()=>{
     dispatch(retrieveAllRequests({limit: ORDER_COUNT, offset: page * ORDER_COUNT, sort_field: sort}, {userInfo, userToken}, navigate))
-  }, [sort])
+  }, [sort]);
 
   return (
     <Container>
+      <div>{currentStatus}</div>
       <Row>
         <Col className='px-0'>
           <Row className='mb-4' xs={1} md={2} lg={3}>
