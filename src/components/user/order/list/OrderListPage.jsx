@@ -1,12 +1,13 @@
 // Essentials
 import React, { useState } from 'react';
-import { Container } from 'react-bootstrap';
+import { Container, Row } from 'react-bootstrap';
 
 // Components
 import TopSection from 'components/layout/TopSection';
 import Footer from 'components/layout/Footer';
 import OrderListTitle from './components/OrderListTitle';
 import OrderList from './components/OrderList';
+import ChipList from 'components/common/chip/ChipList';
 
 // Style
 import 'assets/css/user/order/Order.css';
@@ -37,13 +38,20 @@ const OrderListPage = () => {
         <div className='mb-4'>
           <OrderListTitle />
         </div>
+        <div className='my-4'>
+          <Container>
+            <Row>
+              <ChipList
+                activeStatusIdx={activeStatusIdx}
+                setActiveStatusIdx={setActiveStatusIdx}
+                statusList={statusList}
+                getStatusLabel={getStatusLabel}
+              />
+            </Row>
+          </Container>
+        </div>
         <div className='pb-4'>
-          <OrderList
-            activeStatusIdx={activeStatusIdx}
-            setActiveStatusIdx={setActiveStatusIdx}
-            statusList={statusList}
-            getStatusLabel={getStatusLabel}
-          />
+          <OrderList currentStatus={statusList[activeStatusIdx]} />
         </div>
       </div>
       <div>
