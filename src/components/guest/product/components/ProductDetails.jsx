@@ -2,21 +2,37 @@
 import * as React from 'react';
 import { useState } from 'react';
 import { Button, Card, Col, Form, Row, Stack } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
 
 // Sources
 import { FaRegClock, FaRegHeart } from 'react-icons/fa';
 import { MdAllInbox, MdOutlineShare } from 'react-icons/md';
 
 // Utility
-import { convertNumberToVnd } from 'utils/helpers/Money.jsx';
 import { distanceTime } from 'utils/helpers/Time';
 
+import { addNewProduct } from 'components/redux/reducer/CartReducer';
+import { handleEmptyToken } from 'components/redux/reducer/AuthenticationReducer';
+
 const ProductDetails = ({product}) => {
-  const [count, setCount] = useState(0);
+  const userInfo = useSelector(state => state.authenticationReducer.user);
+  const userToken = useSelector(state => state.authenticationReducer.token);
+  
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [count, setCount] = useState(1);
   const increaseCount = () => { setCount(count + 1) };
   const decreaseCount = () => {
-    if (count > 0) setCount(count - 1)
+    if (count > 1) setCount(count - 1)
   };
+
+  const onSubmit = () => {
+    if (handleEmptyToken({userInfo, userToken}, navigate)) {
+      dispatch(addNewProduct({product_id: product.id, quantity: count}, {userInfo, userToken}, navigate));
+    }
+  }
 
   return (
     <Card className='h-100'>
@@ -71,7 +87,7 @@ const ProductDetails = ({product}) => {
 
         <Row className='mt-3'>
           <Col className='ps-0' xs='auto'>
-            <Button className='fogi' variant='primary'>
+            <Button className='fogi' variant='primary' onClick={onSubmit}>
               Thêm vào Giỏ
             </Button>
           </Col>

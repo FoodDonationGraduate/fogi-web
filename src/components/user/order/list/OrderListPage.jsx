@@ -7,7 +7,6 @@ import TopSection from 'components/layout/TopSection';
 import Footer from 'components/layout/Footer';
 import OrderListTitle from './components/OrderListTitle';
 import OrderList from './components/OrderList';
-import ChipList from 'components/common/chip/ChipList';
 
 // Style
 import 'assets/css/user/order/Order.css';
@@ -38,18 +37,13 @@ const OrderListPage = () => {
         <div className='mb-4'>
           <OrderListTitle />
         </div>
-        <div className='my-4'>
-          <Container>
-            <ChipList
-              activeStatusIdx={activeStatusIdx}
-              setActiveStatusIdx={setActiveStatusIdx}
-              statusList={statusList}
-              getStatusLabel={getStatusLabel}
-            />
-          </Container>
-        </div>
         <div className='pb-4'>
-          <OrderList currentStatus={statusList[activeStatusIdx]} />
+          <OrderList
+            activeStatusIdx={activeStatusIdx}
+            setActiveStatusIdx={setActiveStatusIdx}
+            statusList={statusList}
+            getStatusLabel={getStatusLabel}
+          />
         </div>
       </div>
       <div>

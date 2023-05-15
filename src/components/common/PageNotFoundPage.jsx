@@ -5,19 +5,17 @@ import { Container, Row } from 'react-bootstrap';
 // Components
 import TopSection from 'components/layout/TopSection';
 import Footer from 'components/layout/Footer';
-import NotFoundBody from './NotFoundBody'
-// Assets
-import { ReactComponent as NotFound } from 'assets/images/404.svg';
+import PageNotFoundBody from './PageNotFoundBody';
 
-const NotFoundPage = () => {
+const PageNotFoundPage = () => {
 
   return (
     <>
       <TopSection />
-      <NotFoundBody/>
+      <PageNotFoundBody/>
       <Footer />
     </>
   );
 };
 
-export default NotFoundPage;
+export default PageNotFoundPage;
