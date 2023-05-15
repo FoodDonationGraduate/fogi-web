@@ -26,7 +26,7 @@ const Chip = ({
     <>
       <div
         className={`chip chip-${isActive ? getStyle() : 'inactive'}`}
-        onClick={() => setActiveStatusIdx(!isActive ? statusIdx : -1)}
+        onClick={() => setActiveStatusIdx(statusIdx)}
       >
         {getStatusLabel(status)} {}
       </div>
