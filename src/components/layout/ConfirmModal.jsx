@@ -2,7 +2,7 @@ import { Modal, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux'
 import { hideQuestionModal, confirmQuestionModal } from 'components/redux/reducer/ModalReducer';
 
-function MainModal() {
+function ConfirmModal() {
     const modalQuestion = useSelector(state => state.modalReducer.question)
     const modalVisibility = useSelector(state => state.modalReducer.questionModalVisibility)
     const dispatch = useDispatch();
@@ -31,4 +31,4 @@ function MainModal() {
     )
 }
 
-export default MainModal
+export default ConfirmModal

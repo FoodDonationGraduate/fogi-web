@@ -65,7 +65,7 @@ const OrderList = ({
         </Container>
       }
       {Object.keys(allRequests).length === 0 || allRequests.total_requests === 0 && 
-        <CommonNotFoundBody/>
+        <CommonNotFoundBody title='Bạn chưa tạo yêu cầu nào'/>
       }
     </div>
   );

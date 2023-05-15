@@ -170,14 +170,15 @@ export const retrieveCurrentProduct = (data, navigate) => {
     }
 }
 
-export const retrieveDonorProducts = (data, navigate) => {
+export const retrieveDonorProducts = (data, user, navigate) => {
     return async dispatch => {
         try {
             console.log("retrieve donor's products")
-            await axiosInstance.get(`/product`, {params: {
-                donor_email: data.email,
-                limit: data.limit,
-                offset: data.offset
+            await axiosInstance.get(`/product/donor`, {params: {
+                email: user.userInfo.email,
+                token: user.userToken,
+                limit: data.limit ? data.limit : 4,
+                offset: data.offset ? data.offset : 0
             }}).then((res) => {
                 dispatch(setDonorProducts(res.data))
             })
@@ -205,7 +206,6 @@ export const postNewProduct = (data, user, navigate) => {
                 token: user.userToken,
                 name: data.name,
                 description: data.description,
-                price: 0,
                 unit: data.unit,
                 expired_time: data.expired_time,
                 stock: data.stock,
@@ -216,6 +216,7 @@ export const postNewProduct = (data, user, navigate) => {
             }).then((res) => {
                 dispatch(setModalMessage("Create new product successfully!"))
                 dispatch(showModal())
+                dispatch(retrieveDonorProducts({}, user, navigate))
             }).catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
                     console.log(err)

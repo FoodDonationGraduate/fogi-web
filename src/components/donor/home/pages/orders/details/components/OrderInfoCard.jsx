@@ -1,17 +1,39 @@
 // Essentials
 import React from 'react';
 import { Button, Container, Col, Row, Stack } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router';
 
 // Components
 import StepItem from './StepItem';
+import { updateRequest } from 'components/redux/reducer/RequestReducer';
+import { cancelQuestionModal, setModalQuestion, showQuestionModal } from 'components/redux/reducer/ModalReducer';
 
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
 import { getStatus, getStep } from 'utils/helpers/Order.jsx';
 import { convertToString } from 'utils/helpers/Time';
+
 const CartInfoCard = ({ order }) => {
   let size = useResizer();
+  const userInfo = useSelector(state => state.authenticationReducer.user)
+  const userToken = useSelector(state => state.authenticationReducer.token)
+  const modalLogic = useSelector(state => state.modalReducer.logic)
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const cancelRequest = () => {
+    dispatch(setModalQuestion('Do you want to cancel this request?'));
+    dispatch(showQuestionModal());
+  }
+  
+  React.useEffect(() => {
+    if (modalLogic) {
+      dispatch(cancelQuestionModal());
+      dispatch(updateRequest({request_id: order.id, request_status: 'canceled'}, {userInfo, userToken}, navigate));
+    };
+  })
   return (
     <>
       <Container>
@@ -60,34 +82,12 @@ const CartInfoCard = ({ order }) => {
               {order.status === 'init' || order.status === 'pending' &&
                 <Row className='mt-4'>
                   <Col className='d-flex justify-content-end'>
-                    <Button variant='outline-danger'>
+                    <Button variant='outline-danger' onClick={() => cancelRequest()}>
                       Hủy Yêu cầu
                     </Button>
                   </Col>
                 </Row>
               }
-
-              <Row>
-                {/* <Col className='ps-0'>
-                  <Stack direction='horizontal' gap={4}>
-                    <img className='order-info-donor-logo' src={order.donee.avatar} />
-                    <Stack className='my-auto' direction='vertical' gap={1}>
-                      <h5 className='fw-bold'>{order.donee.name}</h5>
-                    </Stack>
-                  </Stack>
-                </Col> */}
-                {/* <Col className='px-0' sm={2}>
-                  <div className={size > 0 ? 'h-100 d-flex' : 'd-grid'}>
-                    <Button
-                      className={size > 0 ? 'my-auto me-0 ms-auto' : 'mt-4'}
-                      variant='outline-secondary'
-                    >
-                      View Donee
-                    </Button>
-                  </div>
-                </Col> */}
-
-              </Row>
             </div>
           </Col>
         </Row>

@@ -88,3 +88,56 @@ export const retrieveRequest = (data, user, navigate) => {
     }
 }
 
+export const postDonorRequest = (user, navigate) => {
+    return async dispatch => {
+        try {
+            console.log("post donor's request")
+            await axiosInstance.post(`/request/donor`, {
+                email: user.userInfo.email,
+                token: user.userToken
+            }).then((res) => {
+                dispatch(setModalMessage('Create new request successfully!'))
+                dispatch(showModal())
+            })
+            .catch((err) => {
+                if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+                    console.log(err)
+                    dispatch(setModalMessage(err.response.data.message))
+                    dispatch(showModal())
+                    dispatch(setCurrentRequest({}))
+                }
+            });
+        } catch (err) {
+            console.log(err)
+            navigate('/')
+        }
+    }
+}
+
+export const updateRequest = (data, user, navigate) => {
+    return async dispatch => {
+        try {
+            console.log("retrieve one request")
+            await axiosInstance.patch(`/request/`+user.userInfo.user_type, {
+                email: user.userInfo.email,
+                token: user.userToken,
+                request_id: data.request_id,
+                request_status: data.request_status
+            }).then((res) => {
+                dispatch(setModalMessage((data.request_status === 'canceled' ? 'Cancel' : 'Update') + ' request successfully!'))
+                dispatch(showModal())
+            })
+            .catch((err) => {
+                if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+                    console.log(err)
+                    dispatch(setModalMessage(err.response.data.message))
+                    dispatch(showModal())
+                    dispatch(setCurrentRequest({}))
+                }
+            });
+        } catch (err) {
+            console.log(err)
+            navigate('/')
+        }
+    }
+}
