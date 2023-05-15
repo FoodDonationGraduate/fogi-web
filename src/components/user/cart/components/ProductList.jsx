@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router';
 import ProductItem from './ProductItem';
 import Pagination from 'components/common/pagination/Pagination';
 import { retrieveAllProducts } from 'components/redux/reducer/CartReducer';
+import CommonNotFoundBody from 'components/common/CommonNotFoundBody';
 
 const ProductList = () => {
   const allProducts = useSelector(state => state.cartReducer.allProducts)
@@ -32,27 +33,29 @@ const ProductList = () => {
 
   return (
     <Container>
-      <Row>
-        <Col>
-          <div className='mb-4'>
-            {Object.keys(allProducts).length !== 0 && allProducts.cart.map((product) => (
-              <div className='mb-3' key={product.id}>
-                <ProductItem product={product} />
-              </div>
-            ))}
-          </div>
-          <div className='d-flex justify-content-center'>
-            {Object.keys(allProducts).length !== 0 && 
-              <Pagination
-              pageCount={Math.ceil(allProducts.total_cart_items / PRODUCT_COUNT)}
-              activeIdx={page}
-              onChangePage={onChangePage}
-              />
-            }
-            
-          </div>
-        </Col>
-      </Row>
+      {Object.keys(allProducts).length !== 0 && allProducts.total_cart_items !== 0 &&
+        <Row>
+          <Col>
+            <div className='mb-4'>
+              {allProducts.cart.map((product) => (
+                <div className='mb-3' key={product.id}>
+                  <ProductItem product={product} />
+                </div>
+              ))}
+            </div>
+            <div className='d-flex justify-content-center'>
+                <Pagination
+                pageCount={Math.ceil(allProducts.total_cart_items / PRODUCT_COUNT)}
+                activeIdx={page}
+                onChangePage={onChangePage}
+                />
+            </div>
+          </Col>
+        </Row>
+      }
+      {Object.keys(allProducts).length === 0 || allProducts.total_cart_items === 0 && 
+        <CommonNotFoundBody title='Bạn chưa thêm sản phẩm vào giỏ hàng' />
+      }
     </Container>
   );
 };

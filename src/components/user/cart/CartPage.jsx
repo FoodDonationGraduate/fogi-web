@@ -23,9 +23,6 @@ const CartPage = () => {
         <div className='mb-4'>
           <CartTitle />
         </div>
-        {/* <div className='pb-4'>
-          <CartInfoCard order={ORDER_DATA[0]} />
-        </div> */}
         <div className='pb-4'>
           <ProductList />
         </div>

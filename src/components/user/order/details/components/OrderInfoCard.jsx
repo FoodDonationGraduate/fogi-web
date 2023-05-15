@@ -1,9 +1,13 @@
 // Essentials
 import React from 'react';
 import { Button, Container, Col, Row, Stack } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router';
 
 // Components
 import StepItem from './StepItem';
+import { updateRequest } from 'components/redux/reducer/RequestReducer';
+import { cancelQuestionModal, setModalQuestion, showQuestionModal } from 'components/redux/reducer/ModalReducer';
 
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
@@ -12,7 +16,24 @@ import { convertToString } from 'utils/helpers/Time';
 
 const CartInfoCard = ({ order }) => {
   let size = useResizer();
+  const userInfo = useSelector(state => state.authenticationReducer.user)
+  const userToken = useSelector(state => state.authenticationReducer.token)
+  const modalLogic = useSelector(state => state.modalReducer.logic)
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const cancelRequest = () => {
+    dispatch(setModalQuestion('Do you want to cancel this request?'));
+    dispatch(showQuestionModal());
+  }
+  
+  React.useEffect(() => {
+    if (modalLogic) {
+      dispatch(cancelQuestionModal());
+      dispatch(updateRequest({request_id: order.id, request_status: 'canceled'}, {userInfo, userToken}, navigate));
+    };
+  })
   return (
     <>
       <Container>
@@ -72,7 +93,7 @@ const CartInfoCard = ({ order }) => {
                       <header className='order-item-secondary'>
                         Bạn có thể hủy Yêu cầu trong 20 giây
                       </header>
-                      <Button variant='outline-danger'>
+                      <Button variant='outline-danger' onClick={() => cancelRequest()}>
                         Hủy Yêu cầu
                       </Button>
                     </Stack>

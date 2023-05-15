@@ -10,6 +10,7 @@ import Footer from 'components/layout/Footer';
 import ProductSection from './components/ProductSection';
 import { retrieveCurrentProduct } from 'components/redux/reducer/ProductReducer';
 import EmptyProductBody from './components/EmptyProductBody';
+import InfoModal from 'components/layout/InfoModal';
 
 // Styling
 import 'assets/css/Fogi.css';
@@ -40,6 +41,7 @@ const ProductDetailsPage = () => {
         }
       <div>
         <Footer />
+        <InfoModal />
       </div>
     </>
   );

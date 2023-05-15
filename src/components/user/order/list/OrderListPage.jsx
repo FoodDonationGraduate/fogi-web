@@ -8,6 +8,7 @@ import Footer from 'components/layout/Footer';
 import OrderListTitle from './components/OrderListTitle';
 import OrderList from './components/OrderList';
 import ChipList from 'components/common/chip/ChipList';
+import InfoModal from 'components/layout/InfoModal';
 
 // Style
 import 'assets/css/user/order/Order.css';
@@ -56,6 +57,7 @@ const OrderListPage = () => {
       </div>
       <div>
         <Footer />
+        <InfoModal />
       </div>
     </>
   );

@@ -98,13 +98,39 @@ export const postDonorRequest = (user, navigate) => {
             }).then((res) => {
                 dispatch(setModalMessage('Create new request successfully!'))
                 dispatch(showModal())
+                navigate('/donor/home')
             })
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
                     console.log(err)
                     dispatch(setModalMessage(err.response.data.message))
                     dispatch(showModal())
-                    dispatch(setCurrentRequest({}))
+                }
+            });
+        } catch (err) {
+            console.log(err)
+            navigate('/')
+        }
+    }
+}
+
+export const postDoneeRequest = (data, user, navigate) => {
+    return async dispatch => {
+        try {
+            console.log("post donee's request")
+            await axiosInstance.post(`/request/donee`, {
+                email: user.userInfo.email,
+                token: user.userToken,
+                reason: data.reason
+            }).then((res) => {
+                dispatch(setModalMessage('Create new request successfully!'))
+                dispatch(showModal())
+            })
+            .catch((err) => {
+                if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+                    console.log(err)
+                    dispatch(setModalMessage(err.response.data.message))
+                    dispatch(showModal())
                 }
             });
         } catch (err) {
@@ -126,13 +152,13 @@ export const updateRequest = (data, user, navigate) => {
             }).then((res) => {
                 dispatch(setModalMessage((data.request_status === 'canceled' ? 'Cancel' : 'Update') + ' request successfully!'))
                 dispatch(showModal())
+                user.userInfo.user_type === 'donor' ? navigate('/donor/home') : navigate('/orders')
             })
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
                     console.log(err)
                     dispatch(setModalMessage(err.response.data.message))
                     dispatch(showModal())
-                    dispatch(setCurrentRequest({}))
                 }
             });
         } catch (err) {

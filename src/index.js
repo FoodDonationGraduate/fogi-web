@@ -26,7 +26,6 @@ import AccountType from "./components/guest/authentication/AccountTypePage.jsx";
 import ForgotPassword from "./components/guest/authentication/ForgotPasswordPage.jsx";
 import ChangePassword from "./components/guest/authentication/ChangePasswordPage.jsx";
 import CartPage from './components/user/cart/CartPage.jsx';
-import CreateRequestPage from './components/user/createRequest/CreateRequestPage.jsx';
 import OrderListPage from './components/user/order/list/OrderListPage.jsx';
 import OrderDetailsPage from './components/user/order/details/OrderDetailsPage.jsx';
 
@@ -88,7 +87,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             <Auth allowedRoles={["donee"]} />}
         >
           <Route path="/cart" element={<CartPage />} />
-          <Route path="/create-request" element={<CreateRequestPage />} />
           <Route path="/orders" element={<OrderListPage />} />
           <Route path="/order/:id"  element={<OrderDetailsPage />} />
         </Route>

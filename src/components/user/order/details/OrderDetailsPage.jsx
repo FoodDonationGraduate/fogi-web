@@ -11,9 +11,12 @@ import OrderInfoCard from './components/OrderInfoCard';
 import ProductList from './components/ProductList';
 import { retrieveRequest } from 'components/redux/reducer/RequestReducer';
 import NotFoundBody from 'components/common/PageNotFoundBody';
+import InfoModal from 'components/layout/InfoModal';
+import ConfirmModal from 'components/layout/ConfirmModal';
 
 // Style
 import 'assets/css/user/order/Order.css';
+
 
 const OrderDetailsPage = () => {
   const currentRequest = useSelector(state => state.requestReducer.currentRequest)
@@ -47,6 +50,8 @@ const OrderDetailsPage = () => {
       }
       <div>
         <Footer />
+        <InfoModal />
+        <ConfirmModal />
       </div>
     </>
   );
