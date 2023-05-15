@@ -47,8 +47,9 @@ const ProductItem = ({
 
   useEffect(() => {
     if (modalLogic) {
-      dispatch(cancelQuestionModal())
-      dispatch(deleteProduct({product_id: currentProduct}, {userInfo, userToken}, navigate))
+      dispatch(cancelQuestionModal());
+      if (product.id == currentProduct)
+        dispatch(deleteProduct({product_id: currentProduct}, {userInfo, userToken}, navigate));
     }
   }, [modalLogic]);
 
