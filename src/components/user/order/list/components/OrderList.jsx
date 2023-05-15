@@ -10,9 +10,14 @@ import { useNavigate } from 'react-router';
 import OrderItem from './OrderItem';
 import Pagination from 'components/common/pagination/Pagination';
 import { retrieveAllRequests } from 'components/redux/reducer/RequestReducer';
+import CommonNotFoundBody from 'components/common/CommonNotFoundBody';
+import ChipList from 'components/common/chip/ChipList';
 
 const OrderList = ({
-  currentStatus
+  activeStatusIdx,
+  setActiveStatusIdx,
+  statusList,
+  getStatusLabel
 }) => {
   const allRequests = useSelector(state => state.requestReducer.allRequests)
   const sort = useSelector(state => state.requestReducer.sort)
@@ -34,31 +39,43 @@ const OrderList = ({
   }, [sort]);
 
   return (
-    <Container>
-      <div>{currentStatus}</div>
-      <Row>
-        <Col className='px-0'>
-          <Row className='mb-4' xs={1} md={2} lg={3}>
-            <EqualHeight>
-              {Object.keys(allRequests).length !== 0 && allRequests.requests.map((request) => (
-                <Col className='mb-4' key={request.id}>
-                  <OrderItem order={request} />
-                </Col>
-              ))}
-            </EqualHeight>
+    <>
+      {Object.keys(allRequests).length === 0 ? 
+        <CommonNotFoundBody
+          title={'Bạn chưa tạo yêu cầu nào'}
+        /> :
+        <Container>
+          <Row className='my-4'>
+            <ChipList
+              activeStatusIdx={activeStatusIdx}
+              setActiveStatusIdx={setActiveStatusIdx}
+              statusList={statusList}
+              getStatusLabel={getStatusLabel}
+            />
           </Row>
-          <div className='d-flex justify-content-center'>
-            {Object.keys(allRequests).length !== 0 && 
-              <Pagination
-                pageCount={Math.ceil(allRequests.total_requests / ORDER_COUNT)}
-                activeIdx={page}
-                onChangePage={onChangePage}
-              />
-            }
-          </div>
-        </Col>
-      </Row>
-    </Container>
+          <Row>
+            <Col className='px-0'>
+              <Row className='mb-4' xs={1} md={2} lg={3}>
+                <EqualHeight>
+                  {allRequests.requests.map((request) => (
+                    <Col className='mb-4' key={request.id}>
+                      <OrderItem order={request} />
+                    </Col>
+                  ))}
+                </EqualHeight>
+              </Row>
+              <div className='d-flex justify-content-center'>
+                <Pagination
+                  pageCount={Math.ceil(allRequests.total_requests / ORDER_COUNT)}
+                  activeIdx={page}
+                  onChangePage={onChangePage}
+                />
+              </div>
+            </Col>
+          </Row>
+        </Container>
+      }
+    </>
   );
 };
 

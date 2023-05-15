@@ -10,7 +10,7 @@ import Footer from 'components/layout/Footer';
 import OrderInfoCard from './components/OrderInfoCard';
 import ProductList from './components/ProductList';
 import { retrieveRequest } from 'components/redux/reducer/RequestReducer';
-import NotFoundBody from 'components/common/NotFoundBody';
+import NotFoundBody from 'components/common/PageNotFoundBody';
 
 // Style
 import 'assets/css/user/order/Order.css';

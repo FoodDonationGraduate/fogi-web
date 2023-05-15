@@ -13,7 +13,7 @@ import ProductDetailsPage from './components/guest/product/ProductDetailsPage.js
 import CategoryProductListPage from './components/guest/product/CategoryProductListPage.jsx';
 import DonorListPage from './components/guest/donor/DonorListPage.jsx';
 import EmptyProductListPage from './components/guest/product/EmptyProductListPage.jsx';
-import NotFoundPage from './components/common/NotFoundPage.jsx';
+import NotFoundPage from './components/common/PageNotFoundPage.jsx';
 
 import UserLogin from "./components/guest/authentication/LoginPage.jsx";
 import UserSignup from "./components/guest/authentication/SignupPage.jsx";
