@@ -1,16 +1,33 @@
 // Essentials
-import React from 'react';
+import React, { useState } from 'react';
+import { Container } from 'react-bootstrap';
 
 // Components
 import TopSection from 'components/layout/TopSection';
 import Footer from 'components/layout/Footer';
 import OrderListTitle from './components/OrderListTitle';
 import OrderList from './components/OrderList';
+import ChipList from 'components/common/chip/ChipList';
 
 // Style
 import 'assets/css/user/order/Order.css';
 
 const OrderListPage = () => {
+  // Chip List
+  const [activeStatusIdx, setActiveStatusIdx] = useState(-1);
+  const statusList = ['pending', 'shipping', 'success', 'canceled'];
+  const getStatusLabel = (status) => {
+    switch (status) {
+      case 'pending':
+        return 'Chờ duyệt';
+      case 'shipping':
+        return 'Đang giao';
+      case 'canceled':
+        return 'Đã hủy';
+      default:
+        return 'Thành công';
+    }
+  };
 
   return (
     <>
@@ -21,8 +38,18 @@ const OrderListPage = () => {
         <div className='mb-4'>
           <OrderListTitle />
         </div>
+        <div className='my-4'>
+          <Container>
+            <ChipList
+              activeStatusIdx={activeStatusIdx}
+              setActiveStatusIdx={setActiveStatusIdx}
+              statusList={statusList}
+              getStatusLabel={getStatusLabel}
+            />
+          </Container>
+        </div>
         <div className='pb-4'>
-          <OrderList />
+          <OrderList currentStatus={statusList[activeStatusIdx]} />
         </div>
       </div>
       <div>

@@ -4,12 +4,8 @@ import { Button, Card, Form, Col, Row, Stack } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router';
 
-// Assets
-import ProductImage from 'assets/images/ProductImage.jpg'; // temporary
-
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
-import { convertNumberToVnd } from 'utils/helpers/Money.jsx';
 import { distanceTime } from 'utils/helpers/Time';
 import { updateProduct, deleteProduct } from 'components/redux/reducer/CartReducer';
 import { showQuestionModal, cancelQuestionModal, setModalQuestion } from 'components/redux/reducer/ModalReducer';
@@ -38,8 +34,8 @@ const ProductItem = ({
     }
   };
 
-  const deleteProduct = (id) => { 
-    dispatch(setModalQuestion('Do you want to delete this product'));
+  const deleteProductModal = (id) => { 
+    dispatch(setModalQuestion('Do you want to delete this product?'));
     dispatch(showQuestionModal());
     setCurrentProduct(id)
   };
@@ -52,7 +48,7 @@ const ProductItem = ({
   useEffect(() => {
     if (modalLogic) {
       dispatch(cancelQuestionModal())
-      dispatch(deleteProduct({id: currentProduct}, {userInfo, userToken}, navigate))
+      dispatch(deleteProduct({product_id: currentProduct}, {userInfo, userToken}, navigate))
     }
   }, [modalLogic]);
 
@@ -136,7 +132,7 @@ const ProductItem = ({
                 <Button variant='outline-secondary' onClick={() => navigate(`/product/${product.id}`)}>
                   Xem chi tiết
                 </Button>
-                <Button variant='outline-danger' onClick={() => deleteProduct(product.id)}>
+                <Button variant='outline-danger' onClick={() => deleteProductModal(product.id)}>
                   Xóa
                 </Button>
               </Stack>
