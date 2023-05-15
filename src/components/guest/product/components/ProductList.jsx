@@ -31,7 +31,7 @@ const ProductList = () => {
 
   React.useEffect(() => {
     dispatch(searchProduct({query: query ? query : '', limit: PRODUCT_COUNT, offset: page * PRODUCT_COUNT, sort_field: sort}, navigate))
-  }, [sort])
+  }, [sort, query])
 
   return (
     <div className='bg'>

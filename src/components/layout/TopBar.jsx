@@ -1,7 +1,7 @@
 // Essentials
 import { Button, Container, Form, Nav, Navbar, Stack } from 'react-bootstrap';
-import { useNavigate } from "react-router-dom";
-import { useSelector } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
 
 // Styling
 import 'assets/css/layout/TopBar.css';
@@ -17,16 +17,29 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 // Utility
 import { useResizer } from 'utils/helpers/Resizer';
 
+// Form handling
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from 'react-hook-form';
+import * as Yup from 'yup';
+
 const TopBar = () => {
   const size = useResizer();
-  const navigate = useNavigate(); 
-
-  const toLoginForm = () => { navigate('/login'); }
-  const toSignupForm = () => { navigate('/accounttype'); }
-  const toProfileForm = () => { navigate('/profile'); }
-  const toCartPage = () => { navigate('/cart'); }
+  const search = useLocation().search;
+  const queryData = new URLSearchParams(search).get('query');
   const userInfo = useSelector(state => state.authenticationReducer.user);
 
+  const formSchema = Yup.object().shape({
+    query: Yup.string()
+  });
+  const formOptions = { resolver: yupResolver(formSchema) };
+  const { register, handleSubmit, formState } = useForm(formOptions);
+  const { errors } = formState;
+
+  const navigate = useNavigate(); 
+  
+  const onSubmit = (data) => {
+    navigate(`/products?query=${data.query}`)
+  }
   return (
     <div className='top-bar-header'>
       <Navbar className='top-bar' collapseOnSelect expand='md' variant='dark'>
@@ -47,20 +60,24 @@ const TopBar = () => {
                   {size > 1 ?
                     <Stack direction='horizontal' gap={2}>
                       {size > 2 && 
-                        <Form className="search-form d-flex">
-                          <Form.Control
-                            type="search"
-                            placeholder="Tìm kiếm"
-                            className="search-box"
-                            aria-label="Search"
-                          />
-                          <Button className='px-4' variant='dark'>
+                        <Form className="search-form d-flex" onSubmit={handleSubmit(onSubmit)}>
+                          <Form.Group>
+                            <Form.Control
+                              type="search"
+                              placeholder="Tìm kiếm"
+                              defaultValue={queryData ? queryData : ''}
+                              className="search-box"
+                              aria-label="Search"
+                              {...register("query")}
+                            />
+                          </Form.Group>
+                          <Button className='px-4' variant='dark' type='submit'>
                             <FontAwesomeIcon icon={faSearch} />
                           </Button>
                         </Form>
                       }
-                      <Button variant='outline-light' onClick={toLoginForm}>Đăng nhập</Button>
-                      <Button variant='light' onClick={toSignupForm}>Đăng ký</Button>
+                      <Button variant='outline-light' onClick={() => navigate('/login')}>Đăng nhập</Button>
+                      <Button variant='light' onClick={() => navigate('/accounttype')}>Đăng ký</Button>
                     </Stack>
                     :
                     <>
@@ -75,21 +92,25 @@ const TopBar = () => {
                   {size > 1 ?
                     <Stack direction='horizontal' gap={4}>
                       {size > 2 && 
-                        <Form className="search-form d-flex">
-                          <Form.Control
-                            type="search"
-                            placeholder="Tìm kiếm"
-                            className="search-box"
-                            aria-label="Search"
-                          />
-                          <Button className='px-4' variant='dark'>
+                        <Form className="search-form d-flex" onSubmit={handleSubmit(onSubmit)}>
+                          <Form.Group>
+                            <Form.Control
+                              type="search"
+                              placeholder="Tìm kiếm"
+                              defaultValue={queryData ? queryData : ''}
+                              className="search-box"
+                              aria-label="Search"
+                              {...register("query")}
+                            />
+                          </Form.Group>
+                          <Button className='px-4' variant='dark' type='submit'>
                             <FontAwesomeIcon icon={faSearch} />
                           </Button>
                         </Form>
                       }
                       <MdOutlineNotificationsNone className='top-bar-icon' />
-                      <MdOutlineShoppingCart className='top-bar-icon' onClick={toCartPage}/>
-                      <div onClick={toProfileForm} className='d-flex align-items-center'>
+                      <MdOutlineShoppingCart className='top-bar-icon' onClick={() => navigate('/cart')}/>
+                      <div onClick={() => navigate('/profile')} className='d-flex align-items-center'>
                         <img className='nav-profile-icon' src={`http://bachkhoi.online/static/${userInfo.avatar}`} alt='profile' id="profile-icon" />
                       </div>
                     </Stack>
