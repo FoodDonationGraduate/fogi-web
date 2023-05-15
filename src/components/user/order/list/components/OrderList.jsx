@@ -10,7 +10,8 @@ import { useNavigate } from 'react-router';
 import OrderItem from './OrderItem';
 import Pagination from 'components/common/pagination/Pagination';
 import { retrieveAllRequests } from 'components/redux/reducer/RequestReducer';
-import EmptyProductBody from 'components/guest/product/components/EmptyProductBody';
+import CommonNotFoundBody from 'components/common/CommonNotFoundBody';
+
 const OrderList = ({
   currentStatus
 }) => {
@@ -62,7 +63,7 @@ const OrderList = ({
       </Container>
       }
       {Object.keys(allRequests).length === 0 || allRequests.total_requests === 0 && 
-        <EmptyProductBody/>
+        <CommonNotFoundBody/>
       }
     </div>
     

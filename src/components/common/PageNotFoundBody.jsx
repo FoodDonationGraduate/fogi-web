@@ -5,7 +5,7 @@ import { Container, Row } from 'react-bootstrap';
 // Assets
 import { ReactComponent as NotFound } from 'assets/images/404.svg';
 
-const NotFoundBody = () => {
+const PageNotFoundBody = () => {
 
   return (
       <div className='bg pb-4'>
@@ -19,4 +19,4 @@ const NotFoundBody = () => {
   );
 };
 
-export default NotFoundBody;
+export default PageNotFoundBody;

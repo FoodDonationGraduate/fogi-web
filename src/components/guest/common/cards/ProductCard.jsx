@@ -1,9 +1,9 @@
 // Essentials
 import * as React from 'react';
-import { Button, Card, Stack } from 'react-bootstrap';
+import { Button, Card } from 'react-bootstrap';
 import { useNavigate } from 'react-router';
 import { EqualHeightElement } from 'react-equal-height';
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
 
 // Sources
 import { FaRegClock } from 'react-icons/fa';
@@ -16,7 +16,7 @@ import './Card.css';
 import { reduceString } from 'utils/helpers/String';
 import { distanceTime } from 'utils/helpers/Time';
 
-import { addNewProduct } from 'components/redux/reducer/CartReducer'
+import { addNewProduct } from 'components/redux/reducer/CartReducer';
 import { handleEmptyToken } from 'components/redux/reducer/AuthenticationReducer';
 
 const ProductCard = ({product}) => {

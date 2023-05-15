@@ -1,6 +1,6 @@
 // Essentials
 import React, { useState } from 'react';
-import { Container } from 'react-bootstrap';
+import { Container, Row } from 'react-bootstrap';
 
 // Components
 import TopSection from 'components/layout/TopSection';
@@ -40,12 +40,14 @@ const OrderListPage = () => {
         </div>
         <div className='my-4'>
           <Container>
-            <ChipList
-              activeStatusIdx={activeStatusIdx}
-              setActiveStatusIdx={setActiveStatusIdx}
-              statusList={statusList}
-              getStatusLabel={getStatusLabel}
-            />
+            <Row>
+              <ChipList
+                activeStatusIdx={activeStatusIdx}
+                setActiveStatusIdx={setActiveStatusIdx}
+                statusList={statusList}
+                getStatusLabel={getStatusLabel}
+              />
+            </Row>
           </Container>
         </div>
         <div className='pb-4'>
