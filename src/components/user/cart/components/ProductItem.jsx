@@ -4,12 +4,8 @@ import { Button, Card, Form, Col, Row, Stack } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router';
 
-// Assets
-import ProductImage from 'assets/images/ProductImage.jpg'; // temporary
-
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
-import { convertNumberToVnd } from 'utils/helpers/Money.jsx';
 import { distanceTime } from 'utils/helpers/Time';
 import { updateProduct, deleteProduct } from 'components/redux/reducer/CartReducer';
 import { showQuestionModal, cancelQuestionModal, setModalQuestion } from 'components/redux/reducer/ModalReducer';
@@ -38,8 +34,8 @@ const ProductItem = ({
     }
   };
 
-  const deleteProduct = (id) => { 
-    dispatch(setModalQuestion('Do you want to delete this product'));
+  const deleteProductModal = (id) => { 
+    dispatch(setModalQuestion('Do you want to delete this product?'));
     dispatch(showQuestionModal());
     setCurrentProduct(id)
   };
@@ -51,8 +47,9 @@ const ProductItem = ({
 
   useEffect(() => {
     if (modalLogic) {
-      dispatch(cancelQuestionModal())
-      dispatch(deleteProduct({id: currentProduct}, {userInfo, userToken}, navigate))
+      dispatch(cancelQuestionModal());
+      if (product.id == currentProduct)
+        dispatch(deleteProduct({product_id: currentProduct}, {userInfo, userToken}, navigate));
     }
   }, [modalLogic]);
 
@@ -84,7 +81,7 @@ const ProductItem = ({
                 <Col className={`d-flex ${size < 3 && 'ps-0'}`}>
                   <Stack className='my-auto' direction='vertical' gap={2}>
                     <header className='long-product-label'>
-                      {size > 0 ? 'Remaining t' : 'T'}ime
+                      Còn
                     </header>
                     <h5>{distanceTime(product.expired_time)}</h5>
                   </Stack>
@@ -92,14 +89,7 @@ const ProductItem = ({
 
                 <Col className={`d-flex ${size < 3 && 'ps-0'}`}>
                   <Stack className='my-auto' direction='vertical' gap={2}>
-                    <header className='long-product-label'>Price</header>
-                    <h5>{convertNumberToVnd(product.price)}</h5>
-                  </Stack>
-                </Col>
-
-                <Col className={`d-flex ${size < 3 && 'ps-0'}`}>
-                  <Stack className='my-auto' direction='vertical' gap={2}>
-                    <header className='long-product-label'>Portions</header>
+                    <header className='long-product-label'>Số lượng</header>
                     <Stack direction='horizontal'>
                       {size > 0 &&
                         <Button
@@ -129,13 +119,7 @@ const ProductItem = ({
                     </Stack>
                   </Stack>
                 </Col>
-
-                <Col className={`d-flex ${size < 3 && 'ps-0'}`}>
-                  <Stack className='my-auto' direction='vertical' gap={2}>
-                    <header className='long-product-label'>Total</header>
-                    <h5>{convertNumberToVnd(product.price*count)}</h5>
-                  </Stack>
-                </Col>
+                
               </Row>
             </Col>
           </Row>
@@ -147,10 +131,10 @@ const ProductItem = ({
               <Stack direction='horizontal' gap={3}>
                 <header className='fw-bold'>Options</header>
                 <Button variant='outline-secondary' onClick={() => navigate(`/product/${product.id}`)}>
-                  View details
+                  Xem chi tiết
                 </Button>
-                <Button variant='outline-danger' onClick={() => deleteProduct(product.id)}>
-                  Remove
+                <Button variant='outline-danger' onClick={() => deleteProductModal(product.id)}>
+                  Xóa
                 </Button>
               </Stack>
             </Col>

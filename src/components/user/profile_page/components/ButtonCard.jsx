@@ -12,6 +12,7 @@ import { logout } from 'components/redux/reducer/AuthenticationReducer';
 function ButtonCard() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
     const LogOut = () => {
         dispatch(logout(navigate))
     }
@@ -21,6 +22,7 @@ function ButtonCard() {
     const onClose = () => setShow(false);
     const onShow = () => setShow(true);
 
+    const toHistoryOrderPage = () => navigate('/orders');
     return (
         <>
             <ChangePasswordModal show={show} onClose={onClose} />
@@ -36,7 +38,11 @@ function ButtonCard() {
                                 >
                                     Đổi mật khẩu
                                 </Button>
-                                <Button className='card-button card-white-button order-history-button w-100 my-1'>Lịch sử Yêu cầu</Button>
+                                <Button 
+                                    className='card-button card-white-button order-history-button w-100 my-1'
+                                    onClick={() => toHistoryOrderPage()}
+                                >
+                                    Lịch sử Yêu cầu</Button>
                             </Card.Body>
                             <Card.Footer className='d-block justify-content-left p-0' >
                                 <Button className='card-button card-white-button settings-button w-100 my-1'>Cài đặt</Button>

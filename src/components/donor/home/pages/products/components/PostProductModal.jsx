@@ -221,7 +221,7 @@ const PostProductModal = ({
                   <Form.Select 
                     aria-label="Default select exampe" 
                     {...register('unit')} >
-                    <option value='cái'>Phần</option>
+                    <option value='cái'>Cái</option>
                     <option value='kg'>Kilogram</option>
                   </Form.Select>
                 </Col>

@@ -2,7 +2,7 @@ import { Modal, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux'
 import { hideModal } from 'components/redux/reducer/ModalReducer';
 
-function MainModal() {
+function InfoModal() {
     const modalMessage = useSelector(state => state.modalReducer.message)
     const modalVisibility = useSelector(state => state.modalReducer.visibility)
     const dispatch = useDispatch();
@@ -30,4 +30,4 @@ function MainModal() {
     )
 }
 
-export default MainModal
+export default InfoModal

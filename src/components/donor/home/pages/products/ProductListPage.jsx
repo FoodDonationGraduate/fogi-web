@@ -15,12 +15,11 @@ const ProductListPage = () => {
 
   return (
     <>
-      <PostProductModal show={show} onClose={onClose} />
-
       <div>
         <ListTitle onShow={onShow} />
         <ProductList />
       </div>
+      <PostProductModal show={show} onClose={onClose} />
     </>
   );
 };

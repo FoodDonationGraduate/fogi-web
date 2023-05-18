@@ -4,11 +4,11 @@ import { Card, Col, Row, Stack } from 'react-bootstrap';
 
 // Assets
 import { MdDeleteOutline, MdAccessTime, MdAllInbox, MdMonetizationOn } from 'react-icons/md';
-import ProductImage from 'assets/images/ProductImage.jpg'; // temporary
 
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
 import { distanceTime } from 'utils/helpers/Time';
+
 const ProductItem = ({
   product
 }) => {
@@ -18,7 +18,7 @@ const ProductItem = ({
   return (
     <Row>
       <Col className='px-0'>
-        <Card className='long-product-item'>
+        <Card className='long-product-item long-product-donor'>
           <Row>
             <Col className='ps-0' xs={12} lg={4} xl={6}>
               <Stack direction='horizontal'>
@@ -45,7 +45,7 @@ const ProductItem = ({
                     <MdAccessTime className='long-product-label-icon' />
                   )}
                   {size > 0 && (
-                    <header className='long-product-label'>Time left</header>
+                    <header className='long-product-label'>Còn</header>
                   )}
                 </Col>
                 <Col>
@@ -58,11 +58,11 @@ const ProductItem = ({
                     <MdAllInbox className='long-product-label-icon' />
                   )}
                   {size > 0 && (
-                    <header className='long-product-label'>Number</header>
+                    <header className='long-product-label'>Số lượng</header>
                   )}
                 </Col>
                 <Col>
-                  <h5>{product.quanity} {product.unit}</h5>
+                  <h5>{product.quantity} {product.unit}</h5>
                 </Col>
               </Row>
             </Col>
