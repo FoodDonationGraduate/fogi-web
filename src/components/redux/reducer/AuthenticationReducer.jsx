@@ -126,7 +126,7 @@ export const login = (data, navigate, setFailAuthentication) => {
                 } else if (err.response.data.message === 'Email or password is wrong') {
                     setFailAuthentication(true);
                 } else {
-                    dispatch(setModalMessage(`Something went wrong!`))
+                    dispatch(setModalMessage(`Đã xảy ra lỗi!!`))
                     dispatch(showModal())
                 }
             });
@@ -165,21 +165,20 @@ export const signup = (data, navigate) => {
                 avatar: '',
                 reputation: 0
             }).then((res) => {
-                if (res.data.message === 'Signup successfully') {
-                    navigate('/signupsuccess')
-                }
+                navigate('/signupsuccess')
             })
             .catch((err) => {
                 if (err.response.data.message === 'Email is already existed') {
                     dispatch(removeRegisterdUser())
                     navigate('/signup')
-                    dispatch(setModalMessage(`Signup unsuccessfully! ${err.response.data.message}. Please signup again.`))
+                    dispatch(setModalMessage(`Đăng ký không thành công! Email đã tồn tại, vui lòng đăng ký lại`))
                     dispatch(showModal())
                 } else {
                     console.log(err.response.data)
                     dispatch(removeRegisterdUser())
                     navigate('/signup')
-                     dispatch(showModal())
+                    dispatch(setModalMessage(`Signup unsuccessfully! ${err.response.data.message}. Please signup again.`))
+                    dispatch(showModal())
                 }
                 
             });
@@ -210,21 +209,20 @@ export const signupForDonor = (data, navigate) => {
                 owner_id_front: data.owner_id_front,
                 owner_id_back: data.owner_id_back
             }).then((res) => {
-                if (res.data.message === 'Signup successfully') {
-                    navigate('/signupsuccess')
-                }
+                navigate('/signupsuccess')
             })
             .catch((err) => {
                 if (err.response.data.message === 'Email is already existed') {
                     dispatch(removeRegisterdUser())
                     navigate('/donor/signup')
-                    dispatch(setModalMessage(`Signup unsuccessfully! ${err.response.data.message}. Please signup again.`))
+                    dispatch(setModalMessage(`Đăng ký không thành công! Email đã tồn tại, vui lòng đăng ký lại`))
                     dispatch(showModal())
                 } else {
                     console.log(err.response.data)
                     dispatch(removeRegisterdUser())
                     navigate('/donor/signup')
-                     dispatch(showModal())
+                    dispatch(setModalMessage(`Signup unsuccessfully! ${err.response.data.message}. Please signup again.`))
+                    dispatch(showModal())
                 }
             });
         } catch (err) {
@@ -234,44 +232,44 @@ export const signupForDonor = (data, navigate) => {
     }
 }
 
-export const signupForVolunteer = (data, navigate) => {
-    return async dispatch => {
-        try {
-            console.log("signup for volunteer")
-            await axiosInstance.post(`/signup`, {
-                email: data.email,
-                user_type: 'volunteer',
-                password: data.password,
-                address: data.address,
-                phone: data.phonenumber,
-                name: data.name,
-                avatar: '',
-                id_front: data.id_front,
-                id_back: data.id_back
-            }).then((res) => {
-                if (res.data.message === 'Signup successfully') {
-                    navigate('/signupsuccess')
-                }
-            })
-            .catch((err) => {
-                if (err.response.data.message === 'Email is already existed') {
-                    dispatch(removeRegisterdUser())
-                    navigate('/volunteer/signup')
-                    dispatch(setModalMessage(`Signup unsuccessfully! ${err.response.data.message}. Please signup again.`))
-                    dispatch(showModal())
-                } else {
-                    console.log(err.response.data)
-                    dispatch(removeRegisterdUser())
-                    navigate('/volunteer/signup')
-                     dispatch(showModal())
-                }
-            });
-        } catch (err) {
-            console.log(err)
-            navigate('/')
-        }
-    }
-}
+// export const signupForVolunteer = (data, navigate) => {
+//     return async dispatch => {
+//         try {
+//             console.log("signup for volunteer")
+//             await axiosInstance.post(`/signup`, {
+//                 email: data.email,
+//                 user_type: 'volunteer',
+//                 password: data.password,
+//                 address: data.address,
+//                 phone: data.phonenumber,
+//                 name: data.name,
+//                 avatar: '',
+//                 id_front: data.id_front,
+//                 id_back: data.id_back
+//             }).then((res) => {
+//                 if (res.data.message === 'Signup successfully') {
+//                     navigate('/signupsuccess')
+//                 }
+//             })
+//             .catch((err) => {
+//                 if (err.response.data.message === 'Email is already existed') {
+//                     dispatch(removeRegisterdUser())
+//                     navigate('/volunteer/signup')
+//                     dispatch(setModalMessage(`Signup unsuccessfully! ${err.response.data.message}. Please signup again.`))
+//                     dispatch(showModal())
+//                 } else {
+//                     console.log(err.response.data)
+//                     dispatch(removeRegisterdUser())
+//                     navigate('/volunteer/signup')
+//                      dispatch(showModal())
+//                 }
+//             });
+//         } catch (err) {
+//             console.log(err)
+//             navigate('/')
+//         }
+//     }
+// }
 
 export const resendVerificationEmail = (data, navigate) => {
     return async dispatch => {
@@ -281,18 +279,18 @@ export const resendVerificationEmail = (data, navigate) => {
                 email: data.email
             }).then((res) => {
                 if (res.data.message === 'Verification email sent') {
-                    dispatch(setModalMessage("Verification email was sent! Please verify your email."))
-                    dispatch(showModal())
+                    dispatch(setModalMessage("Email xác nhận đã được gửi! Vui lòng kiểm tra hộp thư của bạn."));
+                    dispatch(showModal());
                 }
             })
             .catch((err) => {
                 console.log(err.response.data)
-                dispatch(setModalMessage("Something went wrong!"))
-                dispatch(showModal())
+                dispatch(setModalMessage("Đã xảy ra lỗi!"));
+                dispatch(showModal());
             });
         } catch (err) {
-            console.log(err)
-            navigate('/')
+            console.log(err);
+            navigate('/');
         }
     }
 }
@@ -305,47 +303,18 @@ export const retrieveProfile = (user, navigate) => {
                 email: user.userInfo.email,
                 token: user.userToken
             }).then((res) => {
-                dispatch(setUserInfo(res.data.user))
+                dispatch(setUserInfo(res.data.user));
             })
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
-                    console.log(err)
-                    dispatch(setModalMessage("Something went wrong"))
-                    dispatch(showModal())
+                    console.log(err.response.data)
+                    dispatch(setModalMessage("Đã xảy ra lỗi!"));
+                    dispatch(showModal());
                 }
             });
         } catch (err) {
-            console.log(err)
-            navigate('/')
-        }
-    }
-}
-
-export const updateProfile = (data, user, navigate) => {
-    return async dispatch => {
-        try {
-            console.log("update profile")
-            axiosInstance.patch(`/profile`, {
-                email: user.userInfo.email,
-                token: user.userToken,
-                user_type: user.userInfo.user_type,
-                name: data.fullname,
-                phone: data.phonenumber,
-                address: data.address
-            }).then((res) => {
-                dispatch(retrieveProfile(user,navigate))
-                dispatch(setModalMessage("Update profile successfully!"))
-                dispatch(showModal())
-            }).catch((err) => {
-                if (handleExpiredToken(err.response.data, dispatch, navigate)) {
-                    console.log(err)
-                    dispatch(setModalMessage("Something went wrong"))
-                    dispatch(showModal())
-                }
-            });
-        } catch (err) {
-            console.log(err)
-            navigate('/')
+            console.log(err);
+            navigate('/');
         }
     }
 }
@@ -360,17 +329,19 @@ export const patchProfile = (data, user, navigate) => {
                 user_type: user.userInfo.user_type,
                 ...data
             }).then((res) => {
-                dispatch(retrieveProfile(user,navigate))
+                dispatch(retrieveProfile(user, navigate));
+                dispatch(setModalMessage("Cập nhật thành công!"));
+                dispatch(showModal());
             }).catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
-                    console.log(err)
-                    dispatch(setModalMessage("Something went wrong"))
-                    dispatch(showModal())
+                    console.log(err.response.data);
+                    dispatch(setModalMessage("Đã xảy ra lỗi!"));
+                    dispatch(showModal());
                 }
             });
         } catch (err) {
-            console.log(err)
-            navigate('/')
+            console.log(err);
+            navigate('/');
         }
     }
 }
@@ -385,13 +356,13 @@ export const updateAvatar = (data, user, navigate) => {
                 user_type: user.userInfo.user_type,
                 avatar: data.avatar,
             }).then((res) => {
-                dispatch(retrieveProfile(user,navigate))
-                dispatch(setModalMessage("Update avatar successfully!"))
+                dispatch(retrieveProfile(user, navigate))
+                dispatch(setModalMessage("Cập nhật hình ảnh đại diện thành công"))
                 dispatch(showModal())
             }).catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
                     console.log(err)
-                    dispatch(setModalMessage("Something went wrong"))
+                    dispatch(setModalMessage("Đã xảy ra lỗi!"))
                     dispatch(showModal())
                 }
             });
@@ -413,10 +384,12 @@ export const changePassword = (data, user, navigate) => {
                 new_password: data.new_password
             }).then((res) => {
                 dispatch(logout(navigate))
+                dispatch(setModalMessage("Đổi mật khẩu thành công"))
+                dispatch(showModal())
             }).catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
                     console.log(err)
-                    dispatch(setModalMessage("Something went wrong"))
+                    dispatch(setModalMessage("Đã xảy ra lỗi!"))
                     dispatch(showModal())
                 }
             });
@@ -434,11 +407,11 @@ export const forgotPassword = (data, navigate) => {
             axiosInstance.post(`/forgot_password`, {
                 email: data.email,
             }).then((res) => {
-                dispatch(setModalMessage("Reset password email was sent! Please verify your email."))
+                dispatch(setModalMessage("Đã gửi email đổi mật khẩu. Vui lòng kiểm tra hộp thư của bạn."))
                 dispatch(showModal())
             }).catch((err) => {
                 console.log(err)
-                dispatch(setModalMessage("Something went wrong"))
+                dispatch(setModalMessage("Đã xảy ra lỗi!"))
                 dispatch(showModal())
             });
         } catch (err) {
@@ -457,13 +430,13 @@ export const resetPassword = (data, navigate) => {
                 token: data.token,
                 password: data.password
             }).then((res) => {
-                dispatch(setModalMessage("Reset password successfully! Please login again"))
+                dispatch(setModalMessage("Cập nhật mật khẩu thành công. Vui lòng đăng nhập lại."))
                 dispatch(showModal())
                 navigate('/login')
             }).catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
                     console.log(err)
-                    dispatch(setModalMessage("Something went wrong"))
+                    dispatch(setModalMessage("Đã xảy ra lỗi!"))
                     dispatch(showModal())
                 }
             });

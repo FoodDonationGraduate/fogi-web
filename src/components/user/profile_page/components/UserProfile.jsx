@@ -11,9 +11,9 @@ import { FaExclamationTriangle } from "react-icons/fa";
 
 import 'assets/css/user/profile_page/UserProfile.css'
 
-import { updateProfile } from 'components/redux/reducer/AuthenticationReducer.jsx'
+import { patchProfile } from 'components/redux/reducer/AuthenticationReducer.jsx'
 import { cancelQuestionModal, setModalQuestion, showQuestionModal } from 'components/redux/reducer/ModalReducer';
-import AvatarSection from './AvatarSection';
+import AvatarSection from 'components/common/profile_page/AvatarSection';
 
 function UserProfile() {
     const [data, setData] = React.useState({})
@@ -22,9 +22,9 @@ function UserProfile() {
     const modalLogic = useSelector(state => state.modalReducer.logic)
 
     const formSchema = Yup.object().shape({
-        fullname: Yup.string().required('Name is required'),
+        name: Yup.string().required('Name is required'),
         email: Yup.string().required('Email is required'),
-        phonenumber: Yup.string().required('Phone number is required'),
+        phone: Yup.string().required('Phone number is required'),
         dob: Yup.string().required('Date of birth is required'),
         address: Yup.string().required('Address is required')
     });
@@ -36,7 +36,7 @@ function UserProfile() {
     const navigate = useNavigate();
 
     const onSubmit = (data) => {
-        dispatch(setModalQuestion("Do you want to save this change?"))
+        dispatch(setModalQuestion("Bạn có muốn lưu thay đổi?"))
         dispatch(showQuestionModal())
         setData(data)
     }
@@ -44,7 +44,7 @@ function UserProfile() {
     React.useEffect(() => {
         if (modalLogic) {
             dispatch(cancelQuestionModal())
-            dispatch(updateProfile(data, {userInfo, userToken},navigate))
+            dispatch(patchProfile(data, {userInfo, userToken},navigate))
         }
     })
     
@@ -69,8 +69,8 @@ function UserProfile() {
                                                 type='text'
                                                 placeholder=''
                                                 defaultValue={userInfo.name ? userInfo.name : ''}
-                                                {...register("fullname")} />
-                                            {errors.fullname && errors.fullname.type === "required" && (
+                                                {...register("name")} />
+                                            {errors.name && errors.name.type === "required" && (
                                                 <p className="mt-2 error">
                                                 <FaExclamationTriangle className="mx-2" />
                                                     Bạn chưa điền Họ tên
@@ -109,8 +109,8 @@ function UserProfile() {
                                                 type='text'
                                                 placeholder=''
                                                 defaultValue={userInfo.phone ? userInfo.phone : ''}
-                                                {...register("phonenumber")} />
-                                            {errors.phonenumber && errors.phonenumber.type === "required" && (
+                                                {...register("phone")} />
+                                            {errors.phone && errors.phone.type === "required" && (
                                                 <p className="mt-2 error">
                                                 <FaExclamationTriangle className="mx-2" />
                                                     Bạn chưa điền số điện thoại
@@ -156,6 +156,7 @@ function UserProfile() {
                                             )}
                                         </Col>
                                     </Form.Group>
+                                    
                                     <div className='submit-form-button d-flex'>
                                         <Button className='fogi' variant='primary' type='submit'>
                                             Lưu thay đổi

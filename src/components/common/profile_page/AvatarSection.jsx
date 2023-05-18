@@ -5,7 +5,6 @@ import Avatar from "react-avatar-edit";
 import { useNavigate } from "react-router-dom";
 
 import 'assets/css/user/profile_page/UserProfile.css'
-
 import { updateAvatar } from 'components/redux/reducer/AuthenticationReducer';
 
 function AvatarSection() {
@@ -37,13 +36,13 @@ function AvatarSection() {
     return (
         <div className='avartar-section'>
             <div className='user-profile-picture d-flex justify-content-left align-items-center'>
-                <img className='user-avatar' src={`data:image/jpeg;base64,${userInfo.avatar}`} alt="user avatar"></img>
-                <Button className='card-buton card-grey-button change-avatar-button' onClick={() => setShowModal(true)}>Change Profile Picture</Button>
+                <img className='user-avatar' src={`https://bachkhoi.online/static/${userInfo.avatar}`} alt='user avatar'></img>
+                <Button className='card-buton card-grey-button change-avatar-button' onClick={() => setShowModal(true)}>Thay đổi Ảnh đại diện</Button>
             </div>
             <Modal className="mw-80" show={showModal} onHide={() => setShowModal(false)}>
                 <Modal.Header>
                     <Modal.Title >
-                        <div style={{ fontSize: "20px"}} className="modalTitle">Change your avatar</div>
+                        <div style={{ fontSize: "20px"}} className="modalTitle">Thay đổi Ảnh đại diện</div>
                     </Modal.Title>
                 </Modal.Header>
                 

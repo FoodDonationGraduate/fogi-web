@@ -14,7 +14,7 @@ import { FaExclamationTriangle } from "react-icons/fa";
 import 'assets/css/user/profile_page/UserProfile.css'
 
 // Components
-import AvatarSection from './AvatarSection';
+import AvatarSection from 'components/common/profile_page/AvatarSection';
 import UploadButton from 'components/common/UploadButton';
 import { patchProfile } from 'components/redux/reducer/AuthenticationReducer.jsx'
 import { cancelQuestionModal, setModalQuestion, showQuestionModal } from 'components/redux/reducer/ModalReducer';
@@ -36,7 +36,7 @@ function UserProfile() {
         phone: Yup.string().required('Phone number is required'),
         name: Yup.string().required('Brand name is required'),
         address: Yup.string().required('Address is required'),
-        description: Yup.string().required('Address is required')
+        description: Yup.string().required('Description is required')
     });
     const formOptions = { resolver: yupResolver(formSchema) };
     const { register, handleSubmit, formState } = useForm(formOptions);

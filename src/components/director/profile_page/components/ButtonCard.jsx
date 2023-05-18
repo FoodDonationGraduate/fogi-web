@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux'
 
 import 'assets/css/user/profile_page/ButtonCard.css'
 
-import ChangePasswordModal from './ChangePasswordModal';
+import ChangePasswordModal from 'components/common/profile_page/ChangePasswordModal';
 import { logout } from 'components/redux/reducer/AuthenticationReducer';
 
 function ButtonCard() {
@@ -18,6 +18,8 @@ function ButtonCard() {
     // Change Password Modal
     const [show, setShow] = React.useState(false);
     const onClose = () => setShow(false);
+    const onShow = () => setShow(true);
+
     return (
         <>
             <ChangePasswordModal show={show} onClose={onClose} />
@@ -26,7 +28,9 @@ function ButtonCard() {
                     <div className='button-card-body'>
                         <Card className='p-2'>
                             <Card.Body className='d-block justify-content-left p-0' >
-                                <Button className='card-button card-white-button change-password-button w-100 my-1'>Đổi mật khẩu</Button>
+                                <Button 
+                                    className='card-button card-white-button change-password-button w-100 my-1'
+                                    onClick={() => onShow()}>Đổi mật khẩu</Button>
                             </Card.Body>
                             <Card.Footer className='d-block justify-content-left p-0' >
                                 <Button className='card-button card-white-button setiings-button w-100 my-1'>Cài đặt</Button>

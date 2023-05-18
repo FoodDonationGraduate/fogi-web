@@ -5,7 +5,8 @@ import { useDispatch } from 'react-redux'
 
 import 'assets/css/user/profile_page/ButtonCard.css'
 
-import ChangePasswordModal from './ChangePasswordModal';
+// import ChangePasswordModal from './ChangePasswordModal';
+import ChangePasswordModal from 'components/common/profile_page/ChangePasswordModal';
 import { logout } from 'components/redux/reducer/AuthenticationReducer';
 
 function ButtonCard() {

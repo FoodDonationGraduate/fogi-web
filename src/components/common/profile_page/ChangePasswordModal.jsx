@@ -56,81 +56,81 @@ const ChangePasswordModal = ({
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Change Password</Modal.Title>
+          <Modal.Title>Đổi mật khẩu</Modal.Title>
         </Modal.Header>
         <Modal.Body>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <Form.Group className='mb-3'>
             <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
-              Current Password
+              Mật khẩu hiện tại
             </Form.Label>
             <Form.Control type="password" {...register("password")} />
             {errors.password && errors.password.type === "required" && (
               <p className="mt-2 error">
                 <FaExclamationTriangle className="mx-2" />
-                Current password is required
+                Vui lòng điền mật khẩu hiện tại
               </p>
             )}
             {errors.password && errors.password.type === "min" && (
               <p className="mt-2 error">
                 <FaExclamationTriangle className="mx-2" />
-                Password must contain at least 8 characters
+                Mật khẩu cần ít nhất 8 ký tự
               </p>
             )}
             {errors.password && errors.password.type === "matches" && (
               <p className="mt-2 error">
                 <FaExclamationTriangle className="mx-2" />
-                Password must contain at least 1 letter, 1 number and 1 special character
+                Mật khẩu cần ít nhất 1 chữ in hoa, 1 số và 1 ký tự đặc biệt
               </p>
             )}
           </Form.Group>
 
           <Form.Group className='mb-3'>
             <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
-              New Password
+              Mật khẩu mới
             </Form.Label>
             <Form.Control type="password" {...register("new_password")} />
             {errors.new_password && errors.new_password.type === "required" && (
               <p className="mt-2 error">
                 <FaExclamationTriangle className="mx-2" />
-                New password is required
+                  Vui lòng điền mật khẩu mới
               </p>
             )}
             {errors.new_password && errors.new_password.type === "min" && (
               <p className="mt-2 error">
                 <FaExclamationTriangle className="mx-2" />
-                Password must contain at least 8 characters
+                Mật khẩu cần ít nhất 8 ký tự
               </p>
             )}
             {errors.new_password && errors.new_password.type === "matches" && (
               <p className="mt-2 error">
                 <FaExclamationTriangle className="mx-2" />
-                Password must contain at least 1 letter, 1 number and 1 special character
+                Mật khẩu cần ít nhất 1 chữ in hoa, 1 số và 1 ký tự đặc biệt
               </p>
             )}
             {errors.new_password && errors.new_password.type === "notOneOf" && (
               <p className="mt-2 error">
                 <FaExclamationTriangle className="mx-2" />
-                Old password and new password must not be the same
+                Mật khẩu mới không thể giống mật khẩu cũ!
               </p>
             )}
           </Form.Group>
 
           <Form.Group className='mb-3'>
             <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
-              Confirm Password
+              Mật khẩu xác nhận
             </Form.Label>
             <Form.Control type="password" {...register("confirm_password")} />
           {errors.confirm_password && errors.confirm_password.type === "required" && (
             <p className="mt-2 error">
               <FaExclamationTriangle className="mx-2" />
-              You must re-enter your new password here
+                Vui lòng nhập lại mật khẩu mới 
             </p>
           )}
           {errors.confirm_password && errors.confirm_password.type === "oneOf" && (
             <p className="mt-2 error">
               <FaExclamationTriangle className="mx-2" />
-              Password does not match
+                Mật khẩu mới và mật khẩu xác nhận phải giống nhau!
             </p>
           )}
 
@@ -138,7 +138,7 @@ const ChangePasswordModal = ({
 
           <div className='d-grid'>
             <Button className='fogi' variant='primary' type='submit'>
-              Change password
+              Xác nhận
             </Button>
           </div>
         </Form>
