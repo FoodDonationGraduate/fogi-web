@@ -1,0 +1,29 @@
+.location-item {
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+  .location-item:hover {
+    background-color: #F2F2F2;
+  }
+  .location-item-add {
+    color: #999;
+    font-size: 18px;
+  }
+  .location-item-standard {
+    color: #000;
+    font-size: 18px;
+  }
+  .location-item-icon {
+    width: 32px;
+    height: 32px;
+    margin-right: 8px;
+    margin-bottom: 2px;
+  }
+  .location-item-header {
+    font-weight: bold;
+  }
+  .location-item-paragraph {
+    color: #999 !important;
+    font-size: 14px !important;
+  }

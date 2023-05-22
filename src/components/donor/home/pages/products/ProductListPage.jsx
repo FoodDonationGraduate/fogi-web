@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 // Components
 import ListTitle from './components/ListTitle';
+import LocationCard from './components/LocationCard';
 import PostProductModal from './components/PostProductModal';
 import ProductList from './components/ProductList';
 
@@ -17,6 +18,7 @@ const ProductListPage = () => {
     <>
       <div>
         <ListTitle onShow={onShow} />
+        <LocationCard />
         <ProductList />
       </div>
       <PostProductModal show={show} onClose={onClose} />

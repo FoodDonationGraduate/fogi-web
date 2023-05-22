@@ -31,12 +31,10 @@ function UserProfile() {
     const [storefront, setImgBase64] = React.useState('');
     
     const formSchema = Yup.object().shape({
-        owner_name: Yup.string().required('Ownner name is required'),
         email: Yup.string().required('Email is required'),
         phone: Yup.string().required('Phone number is required'),
-        name: Yup.string().required('Brand name is required'),
-        address: Yup.string().required('Address is required'),
-        description: Yup.string().required('Description is required')
+        name: Yup.string().required('Name is required'),
+        address: Yup.string().required('Address is required')
     });
     const formOptions = { resolver: yupResolver(formSchema) };
     const { register, handleSubmit, formState } = useForm(formOptions);
@@ -84,7 +82,7 @@ function UserProfile() {
 
                                     <Form.Group className='mb-3 d-flex'>
                                         <Form.Label column sm="3">
-                                            Tên cửa hàng
+                                            Họ tên
                                         </Form.Label>
                                         <Col sm={9}>
                                             <Form.Control
@@ -96,81 +94,7 @@ function UserProfile() {
                                             {errors.name && errors.name.type === "required" && (
                                                 <p className="mt-2 error">
                                                 <FaExclamationTriangle className="mx-2" />
-                                                    Bạn chưa nhập tên cửa hàng
-                                                </p>
-                                            )}
-                                        </Col>
-                                    </Form.Group>
-
-                                    <Form.Group className='mb-3 d-flex'>
-                                        <Form.Label column sm="3">
-                                            Địa chỉ
-                                        </Form.Label>
-                                        <Col sm={9}>
-                                            <Form.Control
-                                                type='text'
-                                                placeholder=''
-                                                defaultValue={userInfo.address ? userInfo.address : ''}
-                                                {...register("address")}
-                                            />
-                                            {errors.address && errors.address.type === "required" && (
-                                                <p className="mt-2 error">
-                                                <FaExclamationTriangle className="mx-2" />
-                                                    Bạn chưa nhập địa chỉ
-                                                </p>
-                                            )}
-                                        </Col>
-                                    </Form.Group>
-                                    
-                                    <Form.Group className='mb-3 d-flex'>
-                                        <Form.Label column sm="3">
-                                            Mô tả
-                                        </Form.Label>
-                                        <Col sm={9}>
-                                            <Form.Control
-                                                type='text'
-                                                placeholder=''
-                                                defaultValue={userInfo.description ? userInfo.description : ''}
-                                                as='textarea'
-                                                {...register("description")}
-                                            />
-                                            {errors.description && errors.description.type === "required" && (
-                                                <p className="mt-2 error">
-                                                <FaExclamationTriangle className="mx-2" />
-                                                    Bạn chưa nhập mô tả
-                                                </p>
-                                            )}
-                                        </Col>
-                                    </Form.Group>
-                                    <Form.Group className='mb-4 d-flex'>
-                                        <Form.Label column sm="3">
-                                            Hình mặt tiền{' '}
-                                            <Tooltip tip={'Phải bao gồm biển hiệu, địa chỉ và nội thất'} />
-                                        </Form.Label>
-                                        <Col sm={9}>
-                                            <UploadButton label='Upload' type={imageOnly} setValue={setImage}/>
-                                        </Col>
-                                    </Form.Group>
-
-
-
-                                    <header className='form-header mb-3'>
-                                        Thông tin người đại diện
-                                    </header>
-                                    <Form.Group className='mb-3 d-flex'>
-                                        <Form.Label column sm="3">
-                                            Họ tên
-                                        </Form.Label>
-                                        <Col sm={9}>
-                                            <Form.Control
-                                                type='text'
-                                                placeholder='Nguyen Thi C'
-                                                defaultValue={userInfo.owner_name ? userInfo.owner_name : ''}
-                                                {...register("owner_name")} />
-                                            {errors.owner_name && errors.owner_name.type === "required" && (
-                                                <p className="mt-2 error">
-                                                <FaExclamationTriangle className="mx-2" />
-                                                    Bạn chưa điền họ tên
+                                                    Bạn chưa nhập họ tên
                                                 </p>
                                             )}
                                         </Col>
@@ -212,6 +136,26 @@ function UserProfile() {
                                                 <p className="mt-2 error">
                                                 <FaExclamationTriangle className="mx-2" />
                                                     Bạn chưa điền số điện thoại
+                                                </p>
+                                            )}
+                                        </Col>
+                                    </Form.Group>
+
+                                    <Form.Group className='mb-3 d-flex'>
+                                        <Form.Label column sm="3">
+                                            Địa chỉ
+                                        </Form.Label>
+                                        <Col sm={9}>
+                                            <Form.Control
+                                                type='text'
+                                                placeholder=''
+                                                defaultValue={userInfo.address ? userInfo.address : ''}
+                                                {...register("address")}
+                                            />
+                                            {errors.address && errors.address.type === "required" && (
+                                                <p className="mt-2 error">
+                                                <FaExclamationTriangle className="mx-2" />
+                                                    Bạn chưa nhập địa chỉ
                                                 </p>
                                             )}
                                         </Col>

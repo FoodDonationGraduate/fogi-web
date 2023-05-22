@@ -33,10 +33,8 @@ const AccountInfo = () => {
   const [owner_id_back, setBackImgBase64] = React.useState('');
 
   const formSchema = Yup.object().shape({
-    brandname: Yup.string().required(''),
-    description:  Yup.string().required(''),
-    address: Yup.string().required(''),
-    ownername: Yup.string().required('')
+    name: Yup.string().required(''),
+    address: Yup.string().required('')
   });
   const formOptions = { resolver: yupResolver(formSchema) };
   const { register, handleSubmit, formState } = useForm(formOptions);
@@ -93,18 +91,15 @@ const AccountInfo = () => {
                 </Stack>
                 <div className='mb-3'>
                   <Form onSubmit={handleSubmit(onSubmit)}>
-                    <header className='form-header mb-3'>
-                      Thông tin Cửa hàng
-                    </header>
                     <Form.Group className='mb-3'>
                       <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
-                        Tên Cửa hàng
+                        Họ tên
                       </Form.Label>
-                      <Form.Control {...register("brandname")} />
-                      {errors.brandname && errors.brandname.type === "required" && (
+                      <Form.Control {...register("name")} />
+                      {errors.name && errors.name.type === "required" && (
                         <p className="mt-2 error">
                           <FaExclamationTriangle className="mx-2" />
-                          Bạn chưa nhập tên cửa hàng
+                          Bạn chưa nhập họ tên
                         </p>
                       )}
                     </Form.Group>
@@ -126,38 +121,6 @@ const AccountInfo = () => {
 
                     <Form.Group className='mb-3'>
                       <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
-                        Mô tả
-                      </Form.Label>
-                      <Form.Control as='textarea' {...register("description")} />
-                      {errors.description && errors.description.type === "required" && (
-                        <p className="mt-2 error">
-                          <FaExclamationTriangle className="mx-2" />
-                          Bạn chưa nhập mô tả
-                        </p>
-                      )}
-                    </Form.Group>
-
-                    <header className='form-header mb-3'>
-                      Thông tin Người đại diện
-                    </header>
-
-                    <Form.Group className='mb-3'>
-                      <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
-                        Họ tên
-                      </Form.Label>
-                      <Form.Control
-                        {...register("ownername")}
-                      />
-                      {errors.ownername && errors.ownername.type === "required" && (
-                        <p className="mt-2 error">
-                          <FaExclamationTriangle className="mx-2" />
-                          Bạn chưa nhập họ tên
-                        </p>
-                      )}
-                    </Form.Group>
-
-                    <Form.Group className='mb-3'>
-                      <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
                         Giấy tờ tùy thân{' '}
                         <Tooltip tip={'CMND/CCCD/Hộ chiếu'} />
                       </Form.Label>
@@ -171,7 +134,7 @@ const AccountInfo = () => {
                       <Button className='fogi' variant='primary' type='submit'>
                         Tiếp tục
                       </Button>
-                      <Button className='mt-2' variant='outline-secondary'>
+                      <Button className='mt-2' variant='outline-secondary' onClick={() => navigate(-1)}>
                         Trở về
                       </Button>
                     </div>

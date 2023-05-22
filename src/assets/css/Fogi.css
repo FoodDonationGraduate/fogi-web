@@ -143,26 +143,30 @@ a.fogi:active {
     height: 16px;
   }
   .long-product-tail {
-    border: 1px solid #FF5A5F;
+    border: 0px solid #00000000;
     height: 100%;
-    cursor: pointer;
-    border-radius: 0px 8px 8px 0px;
-    color: #FF5A5F;
   }
-    .long-product-tail:hover {
-      background-color: #FF5A5F;
-      border-color: #FF5A5F;
-      color: white;
-    }
-    .long-product-tail:active {
-      border-color: #F50007;
-      border-color: #F50007;
-      color: white;
-    }
   .long-product-icon {
     width: 48px;
     height: 48px;
   }
+    .long-product-icon-container {
+      border: 2px solid #FF5A5F;
+      padding: 8px;
+      border-radius: 50%;
+      color: #FF5A5F;
+      cursor: pointer;
+    }
+    .long-product-icon-container:hover {
+      background-color: #FF5A5F;
+      border-color: #FF5A5F;
+      color: white;
+    }
+    .long-product-icon-container:active {
+      background-color: #F50007;
+      border-color: #F50007;
+      color: white;
+    }
   .long-product-donor {
     cursor: default;
   }
@@ -171,9 +175,6 @@ a.fogi:active {
     }
     .long-product-donor:hover {
       background-color: #fff !important;
-    }
-    .long-product-donor-with-tail {
-      border-radius: 8px 0px 0px 8px;
     }
 
 .chip {
