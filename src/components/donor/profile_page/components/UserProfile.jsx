@@ -27,7 +27,7 @@ function UserProfile() {
     const formSchema = Yup.object().shape({
         email: Yup.string().required('Email is required'),
         phone: Yup.string().required('Phone number is required'),
-        name: Yup.string().required('Brand name is required'),
+        name: Yup.string().required('Name is required'),
         address: Yup.string().required('Address is required')
     });
     const formOptions = { resolver: yupResolver(formSchema) };
@@ -71,13 +71,14 @@ function UserProfile() {
                                         <Col sm={9}>
                                             <Form.Control
                                                 type='text'
-                                                placeholder='Nguyen Thi C'
+                                                placeholder=''
                                                 defaultValue={userInfo.name ? userInfo.name : ''}
-                                                {...register("name")} />
+                                                {...register("name")}
+                                            />
                                             {errors.name && errors.name.type === "required" && (
                                                 <p className="mt-2 error">
                                                 <FaExclamationTriangle className="mx-2" />
-                                                    Bạn chưa điền họ tên
+                                                    Bạn chưa nhập họ tên
                                                 </p>
                                             )}
                                         </Col>
@@ -124,7 +125,7 @@ function UserProfile() {
                                         </Col>
                                     </Form.Group>
 
-                                    <Form.Group className='mb-4 d-flex'>
+                                    <Form.Group className='mb-3 d-flex'>
                                         <Form.Label column sm="3">
                                             Địa chỉ
                                         </Form.Label>
@@ -133,11 +134,12 @@ function UserProfile() {
                                                 type='text'
                                                 placeholder=''
                                                 defaultValue={userInfo.address ? userInfo.address : ''}
-                                                {...register("address")} />
+                                                {...register("address")}
+                                            />
                                             {errors.address && errors.address.type === "required" && (
                                                 <p className="mt-2 error">
                                                 <FaExclamationTriangle className="mx-2" />
-                                                    Bạn chưa điền địa chỉ
+                                                    Bạn chưa nhập địa chỉ
                                                 </p>
                                             )}
                                         </Col>

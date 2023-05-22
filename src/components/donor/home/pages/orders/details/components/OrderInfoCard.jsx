@@ -79,12 +79,19 @@ const CartInfoCard = ({ order }) => {
                   }
                 </>
               }
-              {order.status === 'init' || order.status === 'pending' &&
+              {(order.status === 'init' || order.status === 'pending' || order.status === 'canceled') &&
                 <Row className='mt-4'>
                   <Col className='d-flex justify-content-end'>
-                    <Button variant='outline-danger' onClick={() => cancelRequest()}>
-                      Hủy Yêu cầu
-                    </Button>
+                    {(order.status === 'init' || order.status === 'pending') && (
+                      <Button variant='outline-danger' onClick={() => cancelRequest()}>
+                        Hủy Yêu cầu
+                      </Button>
+                    )}
+                    {order.status === 'canceled' && (
+                      <Button variant='primary' className='fogi'>
+                        Tạo lại Yêu cầu
+                      </Button>
+                    )}
                   </Col>
                 </Row>
               }

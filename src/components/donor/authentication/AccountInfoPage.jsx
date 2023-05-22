@@ -97,9 +97,7 @@ const AccountInfo = () => {
                       <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
                         Họ tên
                       </Form.Label>
-                      <Form.Control
-                        {...register("name")}
-                      />
+                      <Form.Control {...register("name")} />
                       {errors.name && errors.name.type === "required" && (
                         <p className="mt-2 error">
                           <FaExclamationTriangle className="mx-2" />
@@ -152,7 +150,7 @@ const AccountInfo = () => {
                       <Button className='fogi' variant='primary' type='submit'>
                         Tiếp tục
                       </Button>
-                      <Button className='mt-2' variant='outline-secondary'>
+                      <Button className='mt-2' variant='outline-secondary' onClick={() => navigate(-1)}>
                         Trở về
                       </Button>
                     </div>

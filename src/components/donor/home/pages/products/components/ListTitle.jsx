@@ -42,7 +42,7 @@ const ListTitle = ({
   return (
     <Row className='mb-4'>
       <Col className='ps-0'>
-        <h2 className='fw-bold'>Danh sách món ăn</h2>
+        <h2 className='fw-bold'>Túi quyên góp</h2>
       </Col>
       <Col className='pe-0 d-flex justify-content-end' xs={6}>
         <Stack direction='horizontal' gap={2}>
@@ -51,7 +51,7 @@ const ListTitle = ({
             onClick={onShow}
           >
             {size > 1 ? 
-              <>Thêm món ăn</> : 
+              <>Thêm Thực phẩm</> : 
               <MdAddCircle className='mb-1' />
             }
           </Button>

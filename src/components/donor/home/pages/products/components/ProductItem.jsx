@@ -45,7 +45,7 @@ const ProductItem = ({
   return (
     <Row>
       <Col className='px-0'>
-        <Card className='long-product-item long-product-donor long-product-donor-with-tail'>
+        <Card className='long-product-item long-product-donor'>
           <Row>
             <Col className='ps-0' xs={12} md={6}>
               <Stack direction='horizontal'>
@@ -58,7 +58,7 @@ const ProductItem = ({
                   <h5 className='fw-bold mb-3'>
                     {product.name}
                   </h5>
-                  <span className='donor-product-type'>
+                  <span className='long-product-type'>
                     {product.category_name}
                   </span>
                 </div>
@@ -93,14 +93,16 @@ const ProductItem = ({
                 </Col>
               </Row>
             </Col>
+      
+            <Col className='px-0' md={1} lg={1}>
+              <Card className='long-product-tail align-items-center' onClick={() => deleteProductById(product.id)}>
+                <div className='long-product-icon-container my-auto'>
+                  <MdDeleteOutline className='long-product-icon my-auto' />
+                </div>
+              </Card>
+            </Col>
 
           </Row>
-        </Card>
-      </Col>
-      
-      <Col className='px-0' md={1} lg={1}>
-        <Card className='long-product-tail align-items-center' onClick={() => deleteProductById(product.id)}>
-          <MdDeleteOutline className='long-product-icon my-auto' />
         </Card>
       </Col>
     </Row>
