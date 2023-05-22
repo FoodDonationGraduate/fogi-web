@@ -107,7 +107,7 @@ export const login = (data, navigate, setFailAuthentication) => {
             }).then((res) => {
                 dispatch(setUserInfo(res.data.user))
                 dispatch(setUserToken(res.data.token))
-                navigate('/profile')
+                navigate(-1)
                 // let intervalID =  setInterval(() => {
                 //     const userInfo = JSON.parse(localStorage.getItem("user"));
                 //     const userToken = localStorage.getItem("token");

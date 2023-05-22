@@ -1,8 +1,8 @@
 // Essentials
 import * as React from 'react';
 import { Button, Card, Col, Container, Form, Row, Stack } from 'react-bootstrap';
-import { useDispatch } from 'react-redux'
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux'
 
 // Form handling
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -22,6 +22,8 @@ import 'assets/css/Authentication.css';
 import 'assets/css/Fogi.css';
 
 const Signup = () => {
+  const registeredUser = useSelector(state => state.authenticationReducer.registeredUser);
+
   const formSchema = Yup.object().shape({
     email: Yup.string().required('Email is required'),
     password: Yup.string()
@@ -40,8 +42,8 @@ const Signup = () => {
   const navigate = useNavigate();
 
   const onSubmit = (data) => {
-    dispatch(signupUserAccount(data))
-    navigate('/donor/accountinfo')
+    dispatch(signupUserAccount(data));
+    navigate('/donor/accountinfo');
   };
  
   return (
@@ -74,6 +76,7 @@ const Signup = () => {
                       <Form.Control
                         type="email"
                         placeholder="name@example.com"
+                        defaultValue={registeredUser.email ? registeredUser.email : ''}
                         {...register("email")}
                       />
                       {errors.email && errors.email.type === "required" && (
@@ -88,7 +91,10 @@ const Signup = () => {
                       <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
                         Mật khẩu
                       </Form.Label>
-                      <Form.Control type="password" {...register("password")} />
+                      <Form.Control 
+                        type="password" 
+                        defaultValue={registeredUser.password ? registeredUser.password : ''}
+                        {...register("password")} />
                       {errors.password && errors.password.type === "required" && (
                         <p className="mt-2 error">
                           <FaExclamationTriangle className="mx-2" />

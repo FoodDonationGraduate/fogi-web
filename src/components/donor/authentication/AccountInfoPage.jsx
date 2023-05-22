@@ -1,7 +1,7 @@
 // Essentials
 import * as React from 'react';
 import { Button, Card, Col, Container, Form, Row, Stack } from 'react-bootstrap';
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from "react-router-dom";
 
 // Form handling
@@ -26,6 +26,8 @@ import 'assets/css/Form.css';
 import 'assets/css/Fogi.css';
 
 const AccountInfo = () => {
+  const registeredUser = useSelector(state => state.authenticationReducer.registeredUser)
+
   const imageOnly = 'image/png, image/gif, image/jpeg';
   const [frontImage, setFrontImage] = React.useState(undefined);
   const [backImage, setBackImage] = React.useState(undefined);
@@ -97,7 +99,10 @@ const AccountInfo = () => {
                       <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
                         Họ tên
                       </Form.Label>
-                      <Form.Control {...register("name")} />
+                      <Form.Control 
+                        type='text'
+                        defaultValue={registeredUser.name ? registeredUser.name : ''}
+                        {...register("name")} />
                       {errors.name && errors.name.type === "required" && (
                         <p className="mt-2 error">
                           <FaExclamationTriangle className="mx-2" />
@@ -112,6 +117,7 @@ const AccountInfo = () => {
                       </Form.Label>
                       <Form.Control
                         type='number'
+                        defaultValue={registeredUser.phone ? registeredUser.phone : ''}
                         {...register("phone")}
                       />
                       {errors.phone && errors.phone.type === "required" && (
@@ -126,7 +132,10 @@ const AccountInfo = () => {
                       <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
                         Địa chỉ
                       </Form.Label>
-                      <Form.Control {...register("address")} />
+                      <Form.Control 
+                        type='text'
+                        defaultValue={registeredUser.address ? registeredUser.address : ''}
+                        {...register("address")} />
                       {errors.address && errors.address.type === "required" && (
                         <p className="mt-2 error">
                           <FaExclamationTriangle className="mx-2" />
