@@ -14,6 +14,8 @@ function AvatarSection() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     
+    const date = new Date();
+
     // handle avatar
     const [preview, setPreview] = React.useState(null);
     function onClose() {
@@ -36,7 +38,7 @@ function AvatarSection() {
     return (
         <div className='avartar-section'>
             <div className='user-profile-picture d-flex justify-content-left align-items-center'>
-                <img className='user-avatar' src={`https://bachkhoi.online/static/${userInfo.avatar}`} alt='user avatar'></img>
+                <img className='user-avatar' src={`https://bachkhoi.online/static/${userInfo.avatar}?${date.getTime()}`} alt='user avatar'></img>
                 <Button className='card-buton card-grey-button change-avatar-button' onClick={() => setShowModal(true)}>Thay đổi Ảnh đại diện</Button>
             </div>
             <Modal className="mw-80" show={showModal} onHide={() => setShowModal(false)}>
@@ -63,8 +65,10 @@ function AvatarSection() {
                 </Modal.Body>
 
                 <Modal.Footer>
-                    <Button style={{fontFamily: "Jost"}} className="btn btn-light" onClick={() => {setShowModal(false); onClose()}}>Cancel</Button>
-                    <Button style={{fontFamily: "Jost"}} className="btn btnLogin"  onClick={() => {onSubmit(); setShowModal(false); onClose()}}>Confirm</Button>
+                    <Button style={{fontFamily: "Jost"}} className="btn btn-light" 
+                        onClick={() => {setShowModal(false); onClose()}}>Cancel</Button>
+                    <Button style={{fontFamily: "Jost"}} className="btn btnLogin"  
+                        onClick={() => {onSubmit(); setShowModal(false); onClose();}}>Confirm</Button>
                 </Modal.Footer>
             </Modal>
         </div>

@@ -28,6 +28,7 @@ const TopBar = () => {
   const queryData = new URLSearchParams(search).get('query');
   const userInfo = useSelector(state => state.authenticationReducer.user);
 
+  const date = new Date();
   const formSchema = Yup.object().shape({
     query: Yup.string()
   });
@@ -111,7 +112,7 @@ const TopBar = () => {
                       <MdOutlineNotificationsNone className='top-bar-icon' />
                       <MdOutlineShoppingCart className='top-bar-icon' onClick={() => navigate('/cart')}/>
                       <div onClick={() => navigate('/profile')} className='d-flex align-items-center'>
-                        <img className='nav-profile-icon' src={`http://bachkhoi.online/static/${userInfo.avatar}`} alt='profile' id="profile-icon" />
+                        <img className='nav-profile-icon' src={`http://bachkhoi.online/static/${userInfo.avatar}?${date.getTime()}`} alt='profile' id="profile-icon" />
                       </div>
                     </Stack>
                     :

@@ -12,6 +12,7 @@ import * as Yup from 'yup';
 
 // Components
 import Logo from 'components/common/Logo';
+import InfoModal from 'components/layout/InfoModal'
 
 // Assets imports
 import { FaExclamationTriangle } from "react-icons/fa";
@@ -22,9 +23,9 @@ import 'assets/css/Fogi.css';
 
 const AccountInfo = () => {
   const formSchema = Yup.object().shape({
-    fullname: Yup.string().required(''),
+    name: Yup.string().required(''),
     dob: Yup.string().required(''),
-    phonenumber: Yup.string().required(''),
+    phone: Yup.string().required(''),
     address: Yup.string().required('')
   });
   const formOptions = { resolver: yupResolver(formSchema) };
@@ -58,8 +59,8 @@ const AccountInfo = () => {
                       <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
                         Họ tên
                       </Form.Label>
-                      <Form.Control {...register("fullname")} />
-                      {errors.fullname && errors.fullname.type === "required" && (
+                      <Form.Control {...register("name")} />
+                      {errors.name && errors.name.type === "required" && (
                         <p className="mt-2 error">
                           <FaExclamationTriangle className="mx-2" />
                           Bạn chưa nhập họ tên
@@ -90,9 +91,9 @@ const AccountInfo = () => {
                       </Form.Label>
                       <Form.Control
                         type='number'
-                        {...register("phonenumber")}
+                        {...register("phone")}
                       />
-                      {errors.phonenumber && errors.phonenumber.type === "required" && (
+                      {errors.phone && errors.phone.type === "required" && (
                         <p className="mt-2 error">
                           <FaExclamationTriangle className="mx-2" />
                           Bạn chưa nhập số điện thoại
@@ -128,6 +129,7 @@ const AccountInfo = () => {
           </Card>
         </Col>
       </Row>
+      <InfoModal />
     </Container>
   );
 };

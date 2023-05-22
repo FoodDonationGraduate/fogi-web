@@ -12,6 +12,7 @@ import * as Yup from 'yup';
 
 // Components
 import Logo from 'components/common/Logo';
+import InfoModal from 'components/layout/InfoModal';
 
 // Assets imports
 import { FaExclamationTriangle } from "react-icons/fa";
@@ -84,6 +85,7 @@ const VerifyEmail = () => {
           </Card>
         </Col>
       </Row>
+      <InfoModal />
     </Container>
   );
 };

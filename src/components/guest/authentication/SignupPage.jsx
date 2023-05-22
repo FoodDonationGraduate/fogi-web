@@ -21,6 +21,7 @@ import 'assets/css/Fogi.css';
 // Components
 import { signupUserAccount } from 'components/redux/reducer/AuthenticationReducer';
 import Logo from 'components/common/Logo';
+import InfoModal from 'components/layout/InfoModal'
 
 const Signup = () => {
   const formSchema = Yup.object().shape({
@@ -162,6 +163,7 @@ const Signup = () => {
           </Card>
         </Col>
       </Row>
+      <InfoModal />
     </Container>
   );
 };

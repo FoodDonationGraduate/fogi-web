@@ -24,7 +24,6 @@ import 'assets/css/Fogi.css';
 const Signup = () => {
   const formSchema = Yup.object().shape({
     email: Yup.string().required('Email is required'),
-    phonenumber: Yup.string().required(''),
     password: Yup.string()
       .required('Password is required')
       .min(8, "Password must contain at least 8 characters")
@@ -81,22 +80,6 @@ const Signup = () => {
                         <p className="mt-2 error">
                           <FaExclamationTriangle className="mx-2" />
                           Bạn chưa nhập Email
-                        </p>
-                      )}
-                    </Form.Group>
-
-                    <Form.Group className='mb-3'>
-                      <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
-                        Số điện thoại
-                      </Form.Label>
-                      <Form.Control
-                        type='number'
-                        {...register("phonenumber")}
-                      />
-                      {errors.phonenumber && errors.phonenumber.type === "required" && (
-                        <p className="mt-2 error">
-                          <FaExclamationTriangle className="mx-2" />
-                          Bạn chưa nhập số điện thoại
                         </p>
                       )}
                     </Form.Group>

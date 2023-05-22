@@ -160,8 +160,8 @@ export const signup = (data, navigate) => {
                 password: data.password,
                 address: data.address,
                 dob: data.dob,
-                phone: data.phonenumber,
-                name: data.fullname,
+                phone: data.phone,
+                name: data.name,
                 avatar: '',
                 reputation: 0
             }).then((res) => {
@@ -198,16 +198,11 @@ export const signupForDonor = (data, navigate) => {
                 user_type: 'donor',
                 password: data.password,
                 address: data.address,
-                phone: data.phonenumber,
-                owner_name: data.ownername,
-                open_time: data.openhours,
-                close_time: data.closehours,
-                description: data.description,
-                name: data.brandname,
+                phone: data.phone,
+                name: data.name,
                 avatar: '',
-                storefront: '',
-                owner_id_front: data.owner_id_front,
-                owner_id_back: data.owner_id_back
+                id_front: data.id_front,
+                id_back: data.id_back
             }).then((res) => {
                 navigate('/signupsuccess')
             })

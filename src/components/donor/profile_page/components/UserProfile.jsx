@@ -15,28 +15,20 @@ import 'assets/css/user/profile_page/UserProfile.css'
 
 // Components
 import AvatarSection from 'components/common/profile_page/AvatarSection';
-import UploadButton from 'components/common/UploadButton';
 import { patchProfile } from 'components/redux/reducer/AuthenticationReducer.jsx'
 import { cancelQuestionModal, setModalQuestion, showQuestionModal } from 'components/redux/reducer/ModalReducer';
-import Tooltip from 'components/common/Tooltip';
 
 function UserProfile() {
     const [data, setData] = React.useState({})
     const userInfo = useSelector(state => state.authenticationReducer.user)
     const userToken = useSelector(state => state.authenticationReducer.token)
     const modalLogic = useSelector(state => state.modalReducer.logic)
-
-    const imageOnly = 'image/png, image/gif, image/jpeg';
-    const [image, setImage] = React.useState(undefined);
-    const [storefront, setImgBase64] = React.useState('');
     
     const formSchema = Yup.object().shape({
-        owner_name: Yup.string().required('Ownner name is required'),
         email: Yup.string().required('Email is required'),
         phone: Yup.string().required('Phone number is required'),
         name: Yup.string().required('Brand name is required'),
-        address: Yup.string().required('Address is required'),
-        description: Yup.string().required('Description is required')
+        address: Yup.string().required('Address is required')
     });
     const formOptions = { resolver: yupResolver(formSchema) };
     const { register, handleSubmit, formState } = useForm(formOptions);
@@ -54,18 +46,8 @@ function UserProfile() {
     React.useEffect(() => {
         if (modalLogic) {
             dispatch(cancelQuestionModal())
-            data.storefront = storefront ? storefront : ''
             dispatch(patchProfile(data, {userInfo, userToken},navigate))
         }
-        if ( image !== undefined ) {
-            const reader = new FileReader();
-            reader.onload = function () {
-              var base64String = reader.result.replace("data:", "")
-                  .replace(/^.+,/, "");
-                  setImgBase64(base64String)
-            }
-            reader.readAsDataURL(image);
-          }
     })
     
     return (
@@ -84,90 +66,15 @@ function UserProfile() {
 
                                     <Form.Group className='mb-3 d-flex'>
                                         <Form.Label column sm="3">
-                                            Tên cửa hàng
-                                        </Form.Label>
-                                        <Col sm={9}>
-                                            <Form.Control
-                                                type='text'
-                                                placeholder=''
-                                                defaultValue={userInfo.name ? userInfo.name : ''}
-                                                {...register("name")}
-                                            />
-                                            {errors.name && errors.name.type === "required" && (
-                                                <p className="mt-2 error">
-                                                <FaExclamationTriangle className="mx-2" />
-                                                    Bạn chưa nhập tên cửa hàng
-                                                </p>
-                                            )}
-                                        </Col>
-                                    </Form.Group>
-
-                                    <Form.Group className='mb-3 d-flex'>
-                                        <Form.Label column sm="3">
-                                            Địa chỉ
-                                        </Form.Label>
-                                        <Col sm={9}>
-                                            <Form.Control
-                                                type='text'
-                                                placeholder=''
-                                                defaultValue={userInfo.address ? userInfo.address : ''}
-                                                {...register("address")}
-                                            />
-                                            {errors.address && errors.address.type === "required" && (
-                                                <p className="mt-2 error">
-                                                <FaExclamationTriangle className="mx-2" />
-                                                    Bạn chưa nhập địa chỉ
-                                                </p>
-                                            )}
-                                        </Col>
-                                    </Form.Group>
-                                    
-                                    <Form.Group className='mb-3 d-flex'>
-                                        <Form.Label column sm="3">
-                                            Mô tả
-                                        </Form.Label>
-                                        <Col sm={9}>
-                                            <Form.Control
-                                                type='text'
-                                                placeholder=''
-                                                defaultValue={userInfo.description ? userInfo.description : ''}
-                                                as='textarea'
-                                                {...register("description")}
-                                            />
-                                            {errors.description && errors.description.type === "required" && (
-                                                <p className="mt-2 error">
-                                                <FaExclamationTriangle className="mx-2" />
-                                                    Bạn chưa nhập mô tả
-                                                </p>
-                                            )}
-                                        </Col>
-                                    </Form.Group>
-                                    <Form.Group className='mb-4 d-flex'>
-                                        <Form.Label column sm="3">
-                                            Hình mặt tiền{' '}
-                                            <Tooltip tip={'Phải bao gồm biển hiệu, địa chỉ và nội thất'} />
-                                        </Form.Label>
-                                        <Col sm={9}>
-                                            <UploadButton label='Upload' type={imageOnly} setValue={setImage}/>
-                                        </Col>
-                                    </Form.Group>
-
-
-
-                                    <header className='form-header mb-3'>
-                                        Thông tin người đại diện
-                                    </header>
-                                    <Form.Group className='mb-3 d-flex'>
-                                        <Form.Label column sm="3">
                                             Họ tên
                                         </Form.Label>
                                         <Col sm={9}>
                                             <Form.Control
                                                 type='text'
                                                 placeholder='Nguyen Thi C'
-                                                defaultValue={userInfo.owner_name ? userInfo.owner_name : ''}
-                                                {...register("owner_name")} />
-                                            {errors.owner_name && errors.owner_name.type === "required" && (
+                                                defaultValue={userInfo.name ? userInfo.name : ''}
+                                                {...register("name")} />
+                                            {errors.name && errors.name.type === "required" && (
                                                 <p className="mt-2 error">
                                                 <FaExclamationTriangle className="mx-2" />
                                                     Bạn chưa điền họ tên
@@ -212,6 +119,25 @@ function UserProfile() {
                                                 <p className="mt-2 error">
                                                 <FaExclamationTriangle className="mx-2" />
                                                     Bạn chưa điền số điện thoại
+                                                </p>
+                                            )}
+                                        </Col>
+                                    </Form.Group>
+
+                                    <Form.Group className='mb-4 d-flex'>
+                                        <Form.Label column sm="3">
+                                            Địa chỉ
+                                        </Form.Label>
+                                        <Col sm={9}>
+                                            <Form.Control
+                                                type='text'
+                                                placeholder=''
+                                                defaultValue={userInfo.address ? userInfo.address : ''}
+                                                {...register("address")} />
+                                            {errors.address && errors.address.type === "required" && (
+                                                <p className="mt-2 error">
+                                                <FaExclamationTriangle className="mx-2" />
+                                                    Bạn chưa điền địa chỉ
                                                 </p>
                                             )}
                                         </Col>

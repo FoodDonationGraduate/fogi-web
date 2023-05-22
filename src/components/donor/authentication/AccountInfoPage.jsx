@@ -29,14 +29,13 @@ const AccountInfo = () => {
   const imageOnly = 'image/png, image/gif, image/jpeg';
   const [frontImage, setFrontImage] = React.useState(undefined);
   const [backImage, setBackImage] = React.useState(undefined);
-  const [owner_id_front, setFrontImgBase64] = React.useState('');
-  const [owner_id_back, setBackImgBase64] = React.useState('');
+  const [id_front, setFrontImgBase64] = React.useState('');
+  const [id_back, setBackImgBase64] = React.useState('');
 
   const formSchema = Yup.object().shape({
-    brandname: Yup.string().required(''),
-    description:  Yup.string().required(''),
-    address: Yup.string().required(''),
-    ownername: Yup.string().required('')
+    name: Yup.string().required(''),
+    phone: Yup.string().required(''),
+    address: Yup.string().required('')
   });
   const formOptions = { resolver: yupResolver(formSchema) };
   const { register, handleSubmit, formState } = useForm(formOptions);
@@ -46,9 +45,9 @@ const AccountInfo = () => {
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
-    if (owner_id_front !== '' && owner_id_back !== '') {
+    if (id_front !== '' && id_back !== '') {
       await dispatch(signupUserInfo(data))
-      await dispatch(signupUserInfo({owner_id_front, owner_id_back}))
+      await dispatch(signupUserInfo({id_front, id_back}))
       console.log(JSON.parse(localStorage.getItem("registeredUser")))
       dispatch(signupForDonor(JSON.parse(localStorage.getItem("registeredUser")), navigate))
     } else {
@@ -93,18 +92,34 @@ const AccountInfo = () => {
                 </Stack>
                 <div className='mb-3'>
                   <Form onSubmit={handleSubmit(onSubmit)}>
-                    <header className='form-header mb-3'>
-                      Thông tin Cửa hàng
-                    </header>
+                    
                     <Form.Group className='mb-3'>
                       <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
-                        Tên Cửa hàng
+                        Họ tên
                       </Form.Label>
-                      <Form.Control {...register("brandname")} />
-                      {errors.brandname && errors.brandname.type === "required" && (
+                      <Form.Control
+                        {...register("name")}
+                      />
+                      {errors.name && errors.name.type === "required" && (
                         <p className="mt-2 error">
                           <FaExclamationTriangle className="mx-2" />
-                          Bạn chưa nhập tên cửa hàng
+                          Bạn chưa nhập họ tên
+                        </p>
+                      )}
+                    </Form.Group>
+
+                    <Form.Group className='mb-3'>
+                      <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
+                        Số điện thoại
+                      </Form.Label>
+                      <Form.Control
+                        type='number'
+                        {...register("phone")}
+                      />
+                      {errors.phone && errors.phone.type === "required" && (
+                        <p className="mt-2 error">
+                          <FaExclamationTriangle className="mx-2" />
+                          Bạn chưa nhập số điện thoại
                         </p>
                       )}
                     </Form.Group>
@@ -113,45 +128,11 @@ const AccountInfo = () => {
                       <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
                         Địa chỉ
                       </Form.Label>
-                      <Form.Control
-                        {...register("address")}
-                      />
+                      <Form.Control {...register("address")} />
                       {errors.address && errors.address.type === "required" && (
                         <p className="mt-2 error">
                           <FaExclamationTriangle className="mx-2" />
                           Bạn chưa nhập địa chỉ
-                        </p>
-                      )}
-                    </Form.Group>
-
-                    <Form.Group className='mb-3'>
-                      <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
-                        Mô tả
-                      </Form.Label>
-                      <Form.Control as='textarea' {...register("description")} />
-                      {errors.description && errors.description.type === "required" && (
-                        <p className="mt-2 error">
-                          <FaExclamationTriangle className="mx-2" />
-                          Bạn chưa nhập mô tả
-                        </p>
-                      )}
-                    </Form.Group>
-
-                    <header className='form-header mb-3'>
-                      Thông tin Người đại diện
-                    </header>
-
-                    <Form.Group className='mb-3'>
-                      <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
-                        Họ tên
-                      </Form.Label>
-                      <Form.Control
-                        {...register("ownername")}
-                      />
-                      {errors.ownername && errors.ownername.type === "required" && (
-                        <p className="mt-2 error">
-                          <FaExclamationTriangle className="mx-2" />
-                          Bạn chưa nhập họ tên
                         </p>
                       )}
                     </Form.Group>
