@@ -55,7 +55,6 @@ export const retrieveNewProducts = (data, navigate) => {
         try {
             console.log("retrieve new products")
             await axiosInstance.get(`/product/new`, {params: {
-                limit: data.limit,
                 offset: data.offset,
                 sort_field: data.sort_field
             }}).then((res) => {
@@ -101,7 +100,7 @@ export const retrieveAmootProducts = (data, navigate) => {
 export const searchProduct = (data, navigate) => {
     return async dispatch => {
         try {
-            console.log("retrieve almost out of stock products")
+            console.log("search product with query param: " + data.query)
             await axiosInstance.post(`/search/product`, {
                 query: data.query,
                 limit: data.limit,

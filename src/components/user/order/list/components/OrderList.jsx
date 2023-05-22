@@ -36,7 +36,7 @@ const OrderList = ({
 
   return (
     <div>
-      {Object.keys(allRequests).length !== 0 && allRequests.total_requests !== 0 && 
+      {(Object.keys(allRequests).length !== 0 && allRequests.total_requests !== 0) && 
       <Container>
         <Row>
           <Col className='px-0'>
@@ -60,7 +60,7 @@ const OrderList = ({
         </Row>
       </Container>
       }
-      {Object.keys(allRequests).length === 0 || allRequests.total_requests === 0 && 
+      {(Object.keys(allRequests).length === 0 || allRequests.total_requests === 0) && 
         <CommonNotFoundBody title='Bạn chưa tạo yêu cầu nào'/>
       }
     </div>

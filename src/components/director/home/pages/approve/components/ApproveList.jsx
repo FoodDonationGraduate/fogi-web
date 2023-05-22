@@ -81,7 +81,7 @@ const ApproveList = () => {
         <Col className='px-0'>
           <Row className='mb-4' xs={1} md={2}>
             <EqualHeight>
-              {user_type === 'donee' && Object.keys(unverifiedDonees).length !== 0 &&
+              {(user_type === 'donee' && Object.keys(unverifiedDonees).length !== 0) &&
               unverifiedDonees.users.map((user) => (
                 <Col className='mb-4' key={user.email}>
                   <ApproveItem
@@ -94,7 +94,7 @@ const ApproveList = () => {
                   />
                 </Col>
               ))}
-              {user_type === 'volunteer' && Object.keys(unverifiedVolunteers).length !== 0 &&
+              {(user_type === 'volunteer' && Object.keys(unverifiedVolunteers).length !== 0) &&
               unverifiedVolunteers.users.map((user) => (
                 <Col className='mb-4' key={user.email}>
                   <ApproveItem
@@ -110,14 +110,14 @@ const ApproveList = () => {
             </EqualHeight>
           </Row>
           <div className='d-flex justify-content-center'>
-            {user_type === 'donee' && Object.keys(unverifiedDonees).length !== 0 &&
+            {(user_type === 'donee' && Object.keys(unverifiedDonees).length !== 0) &&
               <Pagination
                 pageCount={Math.ceil(unverifiedDonees.total_users / APPROVE_COUNT)}
                 activeIdx={pageDonee}
                 onChangePage={onChangePageDonee}
               />
             }
-            {user_type === 'volunteer' && Object.keys(unverifiedVolunteers).length !== 0 &&
+            {(user_type === 'volunteer' && Object.keys(unverifiedVolunteers).length !== 0) &&
               <Pagination
                 pageCount={Math.ceil(unverifiedVolunteers.total_users / APPROVE_COUNT)}
                 activeIdx={pageVolunteer}

@@ -33,7 +33,7 @@ const ProductList = () => {
 
   return (
     <Container>
-      {Object.keys(allProducts).length !== 0 && allProducts.total_cart_items !== 0 &&
+      {(Object.keys(allProducts).length !== 0 && allProducts.total_cart_items !== 0) &&
         <Row>
           <Col>
             <div className='mb-4'>
@@ -53,7 +53,7 @@ const ProductList = () => {
           </Col>
         </Row>
       }
-      {Object.keys(allProducts).length === 0 || allProducts.total_cart_items === 0 && 
+      {(Object.keys(allProducts).length === 0 || allProducts.total_cart_items === 0) && 
         <CommonNotFoundBody title='Bạn chưa thêm sản phẩm vào giỏ hàng' />
       }
     </Container>

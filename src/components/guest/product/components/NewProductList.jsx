@@ -10,6 +10,8 @@ import { EqualHeight } from 'react-equal-height';
 import ProductCard from 'components/guest/common/cards/ProductCard';
 import FogiPagination from 'components/common/pagination/Pagination';
 import { retrieveNewProducts } from 'components/redux/reducer/ProductReducer';
+import EmptyProductBody from './EmptyProductBody';
+import CommonNotFoundBody from 'components/common/CommonNotFoundBody';
 
 const ProductList = () => {
   const newProducts = useSelector(state => state.productReducer.newProducts)
@@ -25,30 +27,36 @@ const ProductList = () => {
   const navigate = useNavigate();
   React.useEffect(()=>{
     dispatch(retrieveNewProducts({limit: PRODUCT_COUNT, offset: page * PRODUCT_COUNT, sort_field: sort}, navigate))
+    console.log(newProducts.total_products === 0)
   }, [sort]);
 
   return (
     <div className='bg'>
-      <Container>
-        <Row className='pt-4' xs={2} sm={3} md={4} xl={6}>
-        <EqualHeight>
-          {Object.keys(newProducts).length !== 0 && newProducts.products.map((product) => (
-            <Col className='pb-4' key={product.id}>
-              <ProductCard product={product}/>
+      {(Object.keys(newProducts).length !== 0 && newProducts.total_products !== 0) && 
+        <Container>
+          <Row className='pt-4' xs={2} sm={3} md={4} xl={6}>
+          <EqualHeight>
+            {newProducts.products.map((product) => (
+              <Col className='pb-4' key={product.id}>
+                <ProductCard product={product}/>
+              </Col>
+            ))}
+          </EqualHeight>
+          </Row>
+          <Row className='pb-4'>
+            <Col className='d-flex justify-content-center'>
+              <FogiPagination
+                pageCount={Math.ceil(newProducts.total_products / PRODUCT_COUNT)}
+                activeIdx={page}
+                onChangePage={onChangePage}
+              />
             </Col>
-          ))}
-        </EqualHeight>
-        </Row>
-        <Row className='pb-4'>
-          <Col className='d-flex justify-content-center'>
-            <FogiPagination
-              pageCount={Math.ceil(newProducts.total_products / PRODUCT_COUNT)}
-              activeIdx={page}
-              onChangePage={onChangePage}
-            />
-          </Col>
-        </Row>
-      </Container>
+          </Row>
+        </Container>
+      }
+      {(Object.keys(newProducts).length === 0 || newProducts.total_products === 0) && 
+        <CommonNotFoundBody title='Vui lòng thử lại sau'/>
+      }
     </div>
   );
 };

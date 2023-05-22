@@ -32,7 +32,7 @@ const ProductList = () => {
 
   return (
     <Row>
-      {Object.keys(donorProducts).length !== 0 && donorProducts.total_products !== 0 &&
+      {(Object.keys(donorProducts).length !== 0 && donorProducts.total_products !== 0) &&
         <Col className='px-0'>
           <div className='mb-4'>
             {donorProducts.products.map((product) => (
@@ -50,7 +50,7 @@ const ProductList = () => {
           </div>
         </Col>
       }
-      {Object.keys(donorProducts).length === 0 || donorProducts.total_products === 0 && 
+      {(Object.keys(donorProducts).length === 0 || donorProducts.total_products === 0) && 
         <CommonNotFoundBody title='Bạn chưa thêm mới món ăn nào'/>
       }
     </Row>
