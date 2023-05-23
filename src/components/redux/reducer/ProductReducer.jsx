@@ -55,6 +55,7 @@ export const retrieveNewProducts = (data, navigate) => {
         try {
             console.log("retrieve new products")
             await axiosInstance.get(`/product/new`, {params: {
+                limit: data.limit,
                 offset: data.offset,
                 sort_field: data.sort_field
             }}).then((res) => {
