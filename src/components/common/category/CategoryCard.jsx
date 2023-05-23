@@ -5,12 +5,21 @@ import { useNavigate } from 'react-router';
 import { EqualHeightElement } from 'react-equal-height';
 
 // Styling
-import './Card.css';
+import 'assets/css/common/Card.css';
 
-const CategoryCard = ({category}) => {
+const CategoryCard = ({ category, isDonee=true }) => {
   const navigate = useNavigate();
+
+  const toCategoryPage = () => { // for Donee
+    navigate(`/category/${category.name}`);
+  };
+
+  const editCategory = () => { // for Director
+    console.log('edit category');
+  };
+
   return (
-    <Card className='category-card' onClick={() => navigate(`/category/${category.name}`)}>
+    <Card className='category-card' onClick={isDonee ? toCategoryPage : editCategory}>
       <Card.Img className='category-logo mx-auto' src={`https://bachkhoi.online/static/${category.image}`}/>
       <Card.Body className='text-center'>
         <EqualHeightElement name="category-name">

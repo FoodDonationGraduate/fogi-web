@@ -7,7 +7,7 @@ import { EqualHeightElement } from 'react-equal-height';
 import { MdOutlineLocationOn } from 'react-icons/md';
 
 // Styling
-import './Card.css';
+import 'assets/css/common/Card.css';
 
 const DonorCard = ({donor}) => {
   return (

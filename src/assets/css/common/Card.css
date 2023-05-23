@@ -23,9 +23,24 @@
   margin-top: 20px;
 }
 
-.product-card:hover, .donor-card:hover, .category-card:hover  {
-  box-shadow: 0 0 11px rgba(33,33,33,.2); 
+.product-card, .category-card {
+  background-color: white;
+  border-color: white;
+  border-radius: 8px;
+  box-shadow: 8px 8px 32px #00000008;
+  cursor: pointer;
+  user-select: none;
 }
+
+.product-card:hover, .donor-card:hover, .category-card:hover  {
+  box-shadow: 0 0 8px #82CD47;
+}
+
+.product-card:active, .donor-card:active, .category-card:active {
+  background-color: #f2f2f2;
+  box-shadow: 0 0 8px #82CD47;
+}
+
 .product-card-img {
   width: 100%;
   aspect-ratio : 1 / 1;

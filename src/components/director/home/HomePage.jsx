@@ -6,9 +6,11 @@ import { Col, Row } from 'react-bootstrap';
 // Components & Pages
 import SideMenu from './components/SideMenu';
 import SideMenuOffCanvas from './components/SideMenuOffCanvas';
-import ApproveListPage from './pages/approve/ApproveListPage';
 import InfoModal from 'components/layout/InfoModal.jsx';
 import ConfirmModal from 'components/layout/ConfirmModal.jsx';
+
+import ApproveListPage from './pages/approve/ApproveListPage';
+import CategoryListPage from './pages/category/CategoryListPage';
 
 // Assets
 import { MdMenu } from 'react-icons/md';
@@ -53,6 +55,7 @@ const HomePage = () => {
             <Row className={`${size >= 2 && 'workspace'} py-4`}>
               <Col>
                 {activeIdx === 1 && <ApproveListPage />}
+                {activeIdx === 2 && <CategoryListPage />}
               </Col>
             </Row>
           </Col>

@@ -10,7 +10,7 @@ import { FaRegClock } from 'react-icons/fa';
 import { MdAllInbox } from 'react-icons/md';
 
 // Styling
-import './Card.css';
+import 'assets/css/common/Card.css';
 
 // Helper
 import { reduceString } from 'utils/helpers/String';
