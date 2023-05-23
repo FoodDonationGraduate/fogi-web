@@ -11,7 +11,7 @@ import { cancelQuestionModal, setModalQuestion, showQuestionModal } from 'compon
 
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
-import { getStatus, getStep } from 'utils/helpers/Order.jsx';
+import { getStatus, getStep, convertStepToNumber } from 'utils/helpers/Order.jsx';
 import { convertToString } from 'utils/helpers/Time';
 
 const CartInfoCard = ({ order }) => {
@@ -87,7 +87,7 @@ const CartInfoCard = ({ order }) => {
                     </Row>
                     :
                     <header className='order-item-secondary text-center mt-2'>
-                      Hiện tại: {getStep(order.status, true, true).label} {`(${order.status}/4)`}
+                      Hiện tại: {getStep(order.status, true, true).label} {`(${convertStepToNumber(order.status) + 1}/4)`}
                     </header>
                   }
                 </div>

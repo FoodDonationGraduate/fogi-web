@@ -3,12 +3,15 @@ import React from 'react';
 import { EqualHeightElement } from 'react-equal-height';
 import { useNavigate } from 'react-router-dom';
 
+// Assets
+import { MdOutlineLocationOn, MdAccessTime } from 'react-icons/md';
+
 // Utility
 import { getStatus } from 'utils/helpers/Order.jsx';
 import { reduceString } from 'utils/helpers/String';
 import { convertToString } from 'utils/helpers/Time';
 
-const OrderItem = ({ order }) => {
+const RequestCard = ({ order }) => {
   const productListDisplayLength = () => {
     return order.products.length < 4 ? order.products.length : 2;
   };
@@ -17,30 +20,18 @@ const OrderItem = ({ order }) => {
   return (
     <>
       <div className='order-item' onClick={() => navigate(`/donor/order/${order.id}`)}>
-        <span
-          className={`order-item-status order-item-status-${getStatus(order).css}`}
-        >
-          {getStatus(order).label}
-        </span>
-        <div className='mt-3 mb-1'>
-          <EqualHeightElement name="order-date">
-            <h4 className='order-item-date'>
-              Tạo ngày {convertToString(order.created_time, 'LocaleDateString')}
-            </h4>
-          </EqualHeightElement>
-        </div>
-        <EqualHeightElement name="order-address">
-          <header className='order-item-secondary'>
-            Tại {reduceString(order.address, 80)}
-          </header>
-        </EqualHeightElement>
+        <EqualHeightElement name="request-id">
+          <span
+            className={`order-item-status order-item-status-${getStatus(order).css}`}
+          >
+            {getStatus(order).label}
+          </span>
+          <div className='mt-3 mb-1'>
+              <h4 className='order-item-date'>
+                Yêu cầu {order.id}
+              </h4>
+          </div>
 
-        <hr />
-
-        <h5 className='order-item-product-title'>
-          Danh sách món ăn
-        </h5>
-        <EqualHeightElement name="order-list">
           {order.products.slice(0, productListDisplayLength()).map((product) => (
             <header className='order-item-secondary my-1'>
               - {product.name} ({product.quantity} {product.unit})
@@ -51,6 +42,15 @@ const OrderItem = ({ order }) => {
               và {order.products.length - 2} món khác
             </header>
           }
+
+          <hr />
+
+          <header className='order-item-secondary'>
+            <MdAccessTime /> {convertToString(order.created_time, 'LocaleDateString')}
+          </header>
+          <header className='order-item-secondary'>
+            <MdOutlineLocationOn /> {reduceString(order.address, 80)}
+          </header>
         </EqualHeightElement>
 
       </div>
@@ -58,4 +58,4 @@ const OrderItem = ({ order }) => {
   );
 }
 
-export default OrderItem;
+export default RequestCard;

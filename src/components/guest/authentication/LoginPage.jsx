@@ -96,18 +96,6 @@ const Login = () => {
                           Bạn chưa nhập mật khẩu
                         </p>
                       )}
-                      {errors.password && errors.password.type === "min" && (
-                        <p className="mt-2 error">
-                          <FaExclamationTriangle className="mx-2" />
-                          Mật khẩu của bạn chưa chính xác
-                        </p>
-                      )}
-                      {errors.password && errors.password.type === "matches" && (
-                        <p className="mt-2 error">
-                          <FaExclamationTriangle className="mx-2" />
-                          Mật khẩu của bạn chưa chính xác
-                        </p>
-                      )}
                     </Form.Group>
                     { failAuthentication && 
                       <div className='text-center'>

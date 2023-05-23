@@ -59,12 +59,12 @@ export const getStatusByIdx = (idx) => {
 export const getStep = (step, isDonee, isDelivery) => {
   let header = '';
   let label = '';
-  let icon = MdSmartphone;
+  let icon = <MdSmartphone className='step-item-icon' />;
   switch (step) {
     case 'pending':
       header = 'Tình nguyện viên đang xem Yêu cầu của bạn';
       label = 'Chờ duyệt';
-      icon = MdSmartphone;
+      icon = <MdSmartphone className='step-item-icon' />;
       break;
 
     case 'accepted':
@@ -75,7 +75,7 @@ export const getStep = (step, isDonee, isDelivery) => {
         header = ' và chuẩn bị đến nhận Thực phẩm';
       }
       label = 'Chấp nhận';
-      icon = MdLabelImportant;
+      icon = <MdLabelImportant className='step-item-icon' />;
       break;
 
     case 'shipping':
@@ -86,15 +86,15 @@ export const getStep = (step, isDonee, isDelivery) => {
       } else {
         header += 'đến nhận Thực phẩm';
       }
-      label = 'Đang ' + isDonee ? (isDelivery ? 'giao' : 'chờ') : 'đến';
-      if (isDonee && !isDelivery) icon = MdDirectionsWalk;
-      else icon = MdDeliveryDining;
+      label = 'Đang ' + (isDonee ? (isDelivery ? 'giao' : 'chờ') : 'đến');
+      if (isDonee && !isDelivery) icon = <MdDirectionsWalk className='step-item-icon' />;
+      else icon = <MdDeliveryDining className='step-item-icon' />;
       break;
     
     case 'canceled':
       header = 'Yêu cầu của bạn đã bị hủy';
       label = 'Đã hủy';
-      icon = MdLabelImportant;
+      icon = <MdLabelImportant className='step-item-icon' />;
       break;
     
     default:
@@ -106,7 +106,7 @@ export const getStep = (step, isDonee, isDelivery) => {
       }
       header += ' thành công!';
       label = 'Thành công';
-      icon = MdCheckCircle;
+      icon = <MdCheckCircle className='step-item-icon' />;
   }
   return { header, label, icon };
 };

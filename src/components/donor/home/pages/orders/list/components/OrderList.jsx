@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router';
 
 // Components
-import OrderItem from './OrderItem';
+import RequestCard from 'components/common/request/RequestCard';
 import Pagination from 'components/common/pagination/Pagination';
 import { retrieveAllRequests } from 'components/redux/reducer/RequestReducer';
 import CommonNotFoundBody from 'components/common/CommonNotFoundBody';
@@ -46,7 +46,7 @@ const OrderList = ({
                 <EqualHeight>
                   {Object.keys(allRequests).length !== 0 && allRequests.requests.map((request) => (
                     <Col className='mb-4' key={request.id}>
-                      <OrderItem order={request} />
+                      <RequestCard order={request} />
                     </Col>
                   ))}
                 </EqualHeight>

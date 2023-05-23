@@ -18,6 +18,7 @@ import UploadButton from 'components/common/UploadButton';
 import Tooltip from 'components/common/Tooltip';
 import { retrieveAllCategories } from 'components/redux/reducer/CategoryReducer';
 import { postNewProduct } from 'components/redux/reducer/ProductReducer';
+
 // Assets imports
 import { FaExclamationTriangle } from 'react-icons/fa';
 import { MdClose } from 'react-icons/md';

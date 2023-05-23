@@ -1,18 +1,23 @@
 // Essentials
 import React from 'react';
-import { Button, Container, Col, Row, Stack } from 'react-bootstrap';
+import { Button, Container, Col, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router';
+
+// Assets
+import { MdOutlineLocationOn, MdAccessTime } from 'react-icons/md';
 
 // Components
 import StepItem from 'components/common/StepItem';
 import { updateRequest } from 'components/redux/reducer/RequestReducer';
+import VolunteerInfo from 'components/common/request/VolunteerInfo';
 import { cancelQuestionModal, setModalQuestion, showQuestionModal } from 'components/redux/reducer/ModalReducer';
 
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
-import { getStatus, getStep } from 'utils/helpers/Order.jsx';
+import { getStatus, getStep, convertStepToNumber } from 'utils/helpers/Order.jsx';
 import { convertToString } from 'utils/helpers/Time';
+import { reduceString } from 'utils/helpers/String';
 
 const CartInfoCard = ({ order }) => {
   let size = useResizer();
@@ -45,12 +50,21 @@ const CartInfoCard = ({ order }) => {
               >
                 {getStatus(order).label}
               </span>
+
               <h3 className='order-item-date mt-3'>
-                Tạo ngày {convertToString(order.created_time, 'LocaleDateString')}
+                Order {order.id}
               </h3>
-              <header className='order-item-secondary'>
-                Tại {order.address}
-              </header>
+
+              <div className='mt-2'> 
+                <header className='order-item-secondary'>
+                  <MdAccessTime /> {convertToString(order.created_time, 'LocaleDateString')}
+                </header>
+                <header className='order-item-secondary'>
+                  <MdOutlineLocationOn /> {reduceString(order.address, 80)}
+                </header>
+              </div>
+
+              <VolunteerInfo />
 
               <hr />
 
@@ -79,7 +93,7 @@ const CartInfoCard = ({ order }) => {
                     </Row>
                     :
                     <header className='order-item-secondary text-center mt-2'>
-                      Hiện tại: {getStep(order.status, false, true).label} {`(${order.status}/4)`}
+                      Hiện tại: {getStep(order.status, false, true).label} {`(${convertStepToNumber(order.status) + 1}/4)`}
                     </header>
                   }
                 </>
