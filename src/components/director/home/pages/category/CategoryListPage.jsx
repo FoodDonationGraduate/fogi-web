@@ -4,21 +4,35 @@ import React, { useState } from 'react';
 // Components
 import ListTitle from './components/ListTitle';
 import CategoryList from './components/CategoryList';
-import AddCategoryModal from './components/CategoryModal';
+import CategoryModal from './components/CategoryModal';
 
 const ApproveListPage = () => {
-  // Add Category Modal
+  // Category Modal
   const [show, setShow] = useState(false);
   const onClose = () => setShow(false);
   const onShow = () => setShow(true);
 
+  // For editing Category
+  const [targetCategory, setTargetCategory] = useState(null);
+
   return (
     <>
       <div>
-        <ListTitle onShow={onShow} />
-        <CategoryList />
+        <ListTitle
+          onShow={onShow}
+          setTargetCategory={setTargetCategory}
+        />
+        <CategoryList
+          setTargetCategory={setTargetCategory}
+          onShow={onShow}
+        />
       </div>
-      <AddCategoryModal show={show} onShow={onShow} onClose={onClose} />
+      <CategoryModal
+        targetCategory={targetCategory}
+        show={show}
+        onShow={onShow}
+        onClose={onClose}
+      />
     </>
   );
 };

@@ -24,6 +24,7 @@ const SideMenu = ({
         <Stack className='mt-4' direction='vertical'>
           {Array.from({ length: 3 }).map((_, idx) => (
             <SideMenuItem
+              key={idx}
               type={idx}
               isActive={idx === activeIdx}
               setActiveIdx={setActiveIdx}

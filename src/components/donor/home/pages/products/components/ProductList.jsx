@@ -36,16 +36,16 @@ const ProductList = () => {
         <Col className='px-0'>
           <div className='mb-4'>
             {donorProducts.products.map((product) => (
-              <div className='mb-2'>
-                <ProductItem product={product} key={product.id}/>
+              <div className='mb-2' key={product.id}>
+                <ProductItem product={product} />
               </div>
             ))}
           </div>
           <div className='d-flex justify-content-center'>
             <FogiPagination
-            pageCount={donorProducts.total_products ? Math.ceil(donorProducts.total_products / PRODUCT_COUNT) : 1}
-            activeIdx={page}
-            onChangePage={onChangePage}
+              pageCount={donorProducts.total_products ? Math.ceil(donorProducts.total_products / PRODUCT_COUNT) : 1}
+              activeIdx={page}
+              onChangePage={onChangePage}
             />
           </div>
         </Col>

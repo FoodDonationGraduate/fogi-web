@@ -145,7 +145,9 @@ const PostProductModal = ({
                 Danh mục
               </Form.Label>
               <Form.Select aria-label="Default select exampe" {...register('category_id')} >
-                {Object.keys(allCategories).length !== 0 && allCategories.categories.map((category) => (<option value={category.id}>{category.name}</option>))}
+                {Object.keys(allCategories).length !== 0 && allCategories.categories.map((category) => (
+                  <option value={category.id} key={category.id}>{category.name}</option>))
+                }
               </Form.Select>
               {errors.name && errors.name.type === 'required' && (
                 <p className="mt-2 error">

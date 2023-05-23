@@ -7,7 +7,12 @@ import { EqualHeightElement } from 'react-equal-height';
 // Styling
 import 'assets/css/common/Card.css';
 
-const CategoryCard = ({ category, isDonee=true }) => {
+const CategoryCard = ({
+  category,
+  isDonee=true,
+  setTargetCategory=null, // for Edit Category Modal
+  onShow=undefined
+}) => {
   const navigate = useNavigate();
 
   const toCategoryPage = () => { // for Donee
@@ -15,7 +20,9 @@ const CategoryCard = ({ category, isDonee=true }) => {
   };
 
   const editCategory = () => { // for Director
-    console.log('edit category');
+    if (!setTargetCategory) return;
+    setTargetCategory(category);
+    onShow();
   };
 
   return (

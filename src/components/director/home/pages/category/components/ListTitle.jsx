@@ -13,27 +13,16 @@ import { MdAddCircle } from 'react-icons/md';
 // Utility
 import { useResizer } from 'utils/helpers/Resizer';
 
-// Components
-import { cancelQuestionModal, setModalQuestion, showQuestionModal } from 'components/redux/reducer/ModalReducer';
-import { postDonorRequest } from 'components/redux/reducer/RequestReducer';
-
 const ListTitle = ({
-  onShow
+  onShow,
+  setTargetCategory
 }) => {
   const size = useResizer();
-  const userInfo = useSelector(state => state.authenticationReducer.user);
-  const userToken = useSelector(state => state.authenticationReducer.token);
-  const modalLogic = useSelector(state => state.modalReducer.logic);
-  
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
 
-  React.useEffect(() => {
-    if (modalLogic) {
-        dispatch(cancelQuestionModal())
-        dispatch(postDonorRequest({userInfo, userToken}, navigate))
-    }
-  })
+  const showAddCategoryModal = () => {
+    setTargetCategory(null);
+    onShow();
+  };
 
   return (
     <Row className='mb-4'>
@@ -44,7 +33,7 @@ const ListTitle = ({
         <Stack direction='horizontal' gap={2}>
           <Button
             className='fogi' variant='primary'
-            onClick={onShow}
+            onClick={showAddCategoryModal}
           >
             {size > 1 ? 
               <>Thêm Phân loại</> : 

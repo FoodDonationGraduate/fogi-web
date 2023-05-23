@@ -95,7 +95,10 @@ export const postDonorRequest = (user, navigate) => {
             console.log("post donor's request")
             await axiosInstance.post(`/request/donor`, {
                 email: user.userInfo.email,
-                token: user.userToken
+                token: user.userToken,
+                address: user.userInfo.address,
+                lat: 0,
+                long: 0
             }).then((res) => {
                 dispatch(setModalMessage('Create new request successfully!'))
                 dispatch(showModal())

@@ -1,5 +1,5 @@
 // Essentials
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Form, Modal, Stack } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
@@ -18,7 +18,12 @@ import * as Yup from 'yup';
 // Assets
 import { FaExclamationTriangle } from 'react-icons/fa';
 
-const ReportModal = ({ show, onShow, onClose }) => {
+const ReportModal = ({
+  targetCategory, // for edit
+  show,
+  onShow,
+  onClose
+}) => {
   const userInfo = useSelector(state => state.authenticationReducer.user);
   const userToken = useSelector(state => state.authenticationReducer.token);
   const dispatch = useDispatch();
@@ -31,6 +36,9 @@ const ReportModal = ({ show, onShow, onClose }) => {
   const formOptions = { resolver: yupResolver(formSchema) };
   const { register, handleSubmit, formState } = useForm(formOptions);
   const { errors } = formState;
+
+  const [name, setName] = useState('');
+  const onNameChange = (event) => setName(event.target.value);
 
   // Avatar
   const [image, setImage] = useState(undefined);
@@ -45,17 +53,8 @@ const ReportModal = ({ show, onShow, onClose }) => {
     onClose();
   };
 
-  // Form handling
-  const [validated, setValidated] = useState(false);
-  const formRef = useRef(null);
-  const handleFormReset = () => {
-    formRef.current.reset();
-    setValidated(false);
-  };
-
   const onSubmit = (data) => {
     if (!image) return;
-    console.log('add category');
 
     dispatch(addCategory(
       {
@@ -69,11 +68,21 @@ const ReportModal = ({ show, onShow, onClose }) => {
     setImage(undefined);
     setSubmitted(false);
 
-    setValidated(true);
-    handleFormReset();
+    setName('');
 
     onClose();
   };
+
+  // Edit handling
+  useEffect(() => {
+    if (targetCategory) {
+      setImage(`https://bachkhoi.online/static/${targetCategory.image}`);
+      setName(targetCategory.name);
+    } else {
+      setImage(undefined);
+      setName('');
+    }
+  }, [targetCategory]);
 
   return (
     <>
@@ -82,10 +91,10 @@ const ReportModal = ({ show, onShow, onClose }) => {
         onHide={onClose}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Thêm Phân loại</Modal.Title>
+          <Modal.Title>{targetCategory ? 'Chỉnh sửa' : 'Thêm'} Phân loại</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form ref={formRef} validated={validated} onSubmit={handleSubmit(onSubmit)}>
+          <Form onSubmit={handleSubmit(onSubmit)}>
 
             <Stack direction='horizontal' className='mb-2' gap={4}>
               {image && <img src={image} className='rounded-circle' width='128' height='128' />}
@@ -104,7 +113,11 @@ const ReportModal = ({ show, onShow, onClose }) => {
               <Form.Label style={{ fontWeight: 'bold'}}>
                 Tên Phân loại
               </Form.Label>
-              <Form.Control {...register('name')} />
+              <Form.Control
+                {...register('name')}
+                value={name}
+                onChange={onNameChange}
+              />
               {errors.name && errors.name.type === 'required' && (
                 <p className="mt-2 error">
                   <FaExclamationTriangle className="mx-2" />
@@ -114,14 +127,23 @@ const ReportModal = ({ show, onShow, onClose }) => {
             </Form.Group>
 
             <div className='d-grid'>
-              <Button
-                className='fogi'
-                variant='primary'
-                type='submit'
-                onClick={() => setSubmitted(true)}
-              >
-                Thêm Phân loại
-              </Button>
+              {!targetCategory ? 
+                <Button
+                  className='fogi'
+                  variant='primary'
+                  type='submit'
+                  onClick={() => setSubmitted(true)}
+                >
+                  Thêm Phân loại
+                </Button>
+                :
+                <Button
+                  className='fogi'
+                  variant='primary'
+                >
+                  Lưu thay đổi
+                </Button>
+              }
             </div>
           </Form>
         </Modal.Body>
