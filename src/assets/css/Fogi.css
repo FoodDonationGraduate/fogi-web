@@ -194,43 +194,23 @@ a.fogi:active {
     .chip-inactive:active {
       background: #666;
     }
+  .chip-neutral {
+    background: #999;
+    color: #fff;
+  }
   .chip-info {
     background: #6293F2;
     color: #fff;
   }
-    .chip-info:hover {
-      background: #A5C1F8;
-    }
-    .chip-info:active {
-      background: #1050CB;
-    }
   .chip-warning {
     background: #FEB934;
     color: #fff;
   }
-    .chip-warning:hover {
-      background: #FED380;
-    }
-    .chip-warning:active {
-      background: #CB8601;
-    }
   .chip-success {
     background: #82CD47;
     color: #fff;
   }
-    .chip-success:hover {
-      background: #ADDE87;
-    }
-    .chip-success:active {
-      background: #5A9829;
-    }
   .chip-danger {
     background: #FF5A5F;
     color: #fff;
   }
-    .chip-danger:hover {
-      background: #FF9EA1;
-    }
-    .chip-danger:active {
-      background: #F50007;
-    }

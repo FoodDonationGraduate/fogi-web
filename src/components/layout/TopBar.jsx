@@ -10,7 +10,7 @@ import 'assets/css/layout/TopBar.css';
 import Logo from 'components/common/Logo';
 
 // Assets
-import { MdOutlineNotificationsNone, MdOutlineShoppingCart } from 'react-icons/md';
+import { MdOutlineNotificationsNone, MdOutlineShoppingBag } from 'react-icons/md';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
@@ -110,7 +110,7 @@ const TopBar = () => {
                         </Form>
                       }
                       <MdOutlineNotificationsNone className='top-bar-icon' />
-                      <MdOutlineShoppingCart className='top-bar-icon' onClick={() => navigate('/cart')}/>
+                      <MdOutlineShoppingBag className='top-bar-icon' onClick={() => navigate('/cart')}/>
                       <div onClick={() => navigate('/profile')} className='d-flex align-items-center'>
                         <img className='nav-profile-icon' src={`http://bachkhoi.online/static/${userInfo.avatar}?${date.getTime()}`} alt='profile' id="profile-icon" />
                       </div>
@@ -118,7 +118,7 @@ const TopBar = () => {
                     :
                     <>
                       <Nav.Link href='/'>Thông báo</Nav.Link>
-                      <Nav.Link href='/cart'>Giỏ hàng</Nav.Link>
+                      <Nav.Link href='/cart'>Túi nhận Quyên góp</Nav.Link>
                       <Nav.Link href='/profile'>Trang cá nhân</Nav.Link>
                     </>
                   }

@@ -32,6 +32,9 @@
     .order-item-status-blue {
       background-color: #6293F2;
     }
+    .order-item-status-grey {
+      background-color: #999;
+    }
   .order-item-secondary {
     color: #999;
   }

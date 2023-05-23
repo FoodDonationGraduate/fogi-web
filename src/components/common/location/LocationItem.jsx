@@ -12,6 +12,11 @@ const LocationItem = ({
   isAdd=false,
   setState
 }) => {
+
+  const selectLocation = () => {
+    console.log('select location');
+  };
+
   return (
     <>
       {isAdd ? 
@@ -26,7 +31,10 @@ const LocationItem = ({
           </Row>
         </div>
         : 
-        <div className='location-item location-item-standard' onClick={() => setState(2)}>
+        <div 
+          className='location-item location-item-standard'
+          onClick={selectLocation}
+        >
           <Row className='px-0'>
             <Col xs={9}>
               <Stack gap={2} direction='horizontal'>
@@ -35,14 +43,17 @@ const LocationItem = ({
                   <header className='location-item-header'>
                     Tên Địa điểm
                   </header>
-                  <paragraph className='location-item-paragraph'>
+                  <div className='location-item-paragraph'>
                     227 Nguyen Văn Cừ, P. 4, Q. 5, TP. Hồ Chí Minh
-                  </paragraph>
+                  </div>
                 </Stack>
               </Stack>
             </Col>
             <Col className='d-flex justify-content-end'>
-              <Button variant='outline-dark'>
+              <Button variant='outline-dark' onClick={(event) => {
+                setState(2);
+                event.stopPropagation();
+              }}>
                 Chỉnh sửa
               </Button>
             </Col>

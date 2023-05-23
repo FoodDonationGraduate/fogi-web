@@ -54,7 +54,7 @@ const ProductList = () => {
         </Row>
       }
       {(Object.keys(allProducts).length === 0 || allProducts.total_cart_items === 0) && 
-        <CommonNotFoundBody title='Bạn chưa thêm sản phẩm vào giỏ hàng' />
+        <CommonNotFoundBody title='Bạn chưa có Thực phẩm nào trong túi' />
       }
     </Container>
   );

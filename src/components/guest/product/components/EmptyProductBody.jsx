@@ -10,7 +10,7 @@ const EmptyProductBody = () => {
         <Container>
           <Row className='justify-content-center'>
             <Empty className='mb-4' style={{ width: '45%' }} />
-            <h4 className='text-center fw-bold'>Không thể tìm được món ăn bạn tìm kiếm</h4>
+            <h4 className='text-center fw-bold'>Không thể tìm được Thực phẩm bạn tìm kiếm</h4>
             <div className='mb-4'></div>
           </Row>
         </Container>

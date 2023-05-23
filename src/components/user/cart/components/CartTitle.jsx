@@ -15,7 +15,7 @@ const CartTitle = () => {
       <Container>
         <Row className='py-4'>
           <Col>
-            <h2>Giỏ hàng</h2>
+            <h2>Túi nhận Quyên góp</h2>
           </Col>
           <Col className='d-flex justify-content-end' xs={6} sm={3}>
             <Button className='fogi' variant='primary' onClick={() => setActive(true)}>Tạo Yêu cầu</Button>

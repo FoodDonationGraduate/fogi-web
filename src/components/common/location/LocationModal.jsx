@@ -16,7 +16,7 @@ import { MdOutlineMap } from 'react-icons/md';
 
 const LocationModal = ({ show, onClose }) => {
 
-  const [state, setState] = useState(1); // 0: choose; 1: add; 2: edit
+  const [state, setState] = useState(0); // 0: choose; 1: add; 2: edit
   const getTitle = () => {
     switch (state) {
       case 1: return 'Thêm';
@@ -47,18 +47,20 @@ const LocationModal = ({ show, onClose }) => {
         </Modal.Header>
         <Modal.Body>
 
+          {/* Choose Location */}
           {state === 0 &&
             <>
               <LocationItem isAdd={true} setState={setState} />
               {Array.from({ length: 2 }).map((_, idx) => (
-                <>
+                <div key={idx}>
                   <hr className='my-2' />
                   <LocationItem setState={setState} />
-                </>
+                </div>
               ))}
             </>
           }
 
+          {/* Add/Edit Location */}
           {state !== 0 && 
             <>
               <Form>

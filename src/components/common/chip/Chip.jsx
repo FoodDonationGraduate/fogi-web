@@ -12,10 +12,12 @@ const Chip = ({
   const getStyle = () => {
     switch (statusIdx) {
       case 0:
-        return 'info';
+        return 'neutral';
       case 1:
+        return 'info';
+      case 2:
         return 'warning';
-      case 3:
+      case 4:
         return 'danger';
       default:
         return 'success';

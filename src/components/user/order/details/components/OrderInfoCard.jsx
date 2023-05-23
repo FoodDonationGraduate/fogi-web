@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router';
 
 // Components
-import StepItem from './StepItem';
+import StepItem from 'components/common/StepItem';
 import { updateRequest } from 'components/redux/reducer/RequestReducer';
 import { cancelQuestionModal, setModalQuestion, showQuestionModal } from 'components/redux/reducer/ModalReducer';
 
@@ -62,7 +62,7 @@ const CartInfoCard = ({ order }) => {
               <hr />
               
               <h3 className='order-item-date text-center'>
-                {getStep(order.status).header}
+                {getStep(order.status, true, true).header}
               </h3>
 
               {order.status !== 'canceled' && 
@@ -72,7 +72,13 @@ const CartInfoCard = ({ order }) => {
                       {Array.from({ length : 7 }).map((_, idx) => (
                         <Col key={idx}>
                           {idx % 2 === 0 ?
-                            <StepItem key={idx / 2} step={idx / 2} currentStep={order.status} />
+                            <StepItem
+                              key={idx / 2}
+                              step={idx / 2}
+                              currentStep={order.status}
+                              isDonee={true}
+                              isDelivery={true}
+                            />
                             :
                             <hr className='step-connector' />
                           }
@@ -81,7 +87,7 @@ const CartInfoCard = ({ order }) => {
                     </Row>
                     :
                     <header className='order-item-secondary text-center mt-2'>
-                      Hiện tại: {getStep(order.status).label} {`(${order.status}/4)`}
+                      Hiện tại: {getStep(order.status, true, true).label} {`(${order.status}/4)`}
                     </header>
                   }
                 </div>
