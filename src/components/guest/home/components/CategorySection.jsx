@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router';
 import { EqualHeight } from 'react-equal-height';
 
 // Components
-import CategoryCard from 'components/guest/common/cards/CategoryCard';
+import CategoryCard from 'components/common/category/CategoryCard';
 import { retrieveAllCategories } from 'components/redux/reducer/CategoryReducer';
 
 // Styling
