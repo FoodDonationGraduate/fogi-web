@@ -10,11 +10,13 @@ import 'assets/css/common/Location.css';
 
 const LocationItem = ({
   isAdd=false,
-  setState
+  setState,
+  item,
+  setItem
 }) => {
 
-  const selectLocation = () => {
-    console.log('select location');
+  const selectLocation = (id) => {
+    console.log('select location with id: ' + id);
   };
 
   return (
@@ -33,7 +35,7 @@ const LocationItem = ({
         : 
         <div 
           className='location-item location-item-standard'
-          onClick={selectLocation}
+          onClick={() => selectLocation(item.id)}
         >
           <Row className='px-0'>
             <Col xs={9}>
@@ -41,10 +43,10 @@ const LocationItem = ({
                 <MdOutlineLocationOn className='location-item-icon' />
                 <Stack>
                   <header className='location-item-header'>
-                    Tên Địa điểm
+                    {item.name ? item.name : 'Tên địa điểm'}
                   </header>
                   <div className='location-item-paragraph'>
-                    227 Nguyen Văn Cừ, P. 4, Q. 5, TP. Hồ Chí Minh
+                    {item.address ? item.address : 'Địa chỉ'}
                   </div>
                 </Stack>
               </Stack>
@@ -52,7 +54,7 @@ const LocationItem = ({
             <Col className='d-flex justify-content-end'>
               <Button variant='outline-dark' onClick={(event) => {
                 setState(2);
-                event.stopPropagation();
+                setItem(item)
               }}>
                 Chỉnh sửa
               </Button>

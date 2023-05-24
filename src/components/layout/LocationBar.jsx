@@ -20,8 +20,10 @@ const LocationBar = () => {
   const [location, setLocation] = useState(exampleLocation)
 
   useEffect(() => {
-    if (size < 2) setLocation(exampleLocation.substring(0, (size + 2) * 5) + '...');
-    else setLocation(exampleLocation);
+    if (size < 2) 
+      setLocation(exampleLocation.substring(0, (size + 2) * 5) + '...');
+    else 
+      setLocation(exampleLocation);
   }, [size]);
 
   // Location Modal
