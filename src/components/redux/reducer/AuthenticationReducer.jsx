@@ -294,10 +294,10 @@ export const retrieveProfile = (user, navigate) => {
     return async dispatch => {
         try {
             console.log("retrieve profile")
-            await axiosInstance.post(`/profile`, {
+            await axiosInstance.get(`/profile`, {params:{
                 email: user.userInfo.email,
                 token: user.userToken
-            }).then((res) => {
+            }}).then((res) => {
                 dispatch(setUserInfo(res.data.user));
             })
             .catch((err) => {
