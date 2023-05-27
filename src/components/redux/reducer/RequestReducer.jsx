@@ -100,7 +100,7 @@ export const postDonorRequest = (user, navigate) => {
                 lat: 0,
                 long: 0
             }).then((res) => {
-                dispatch(setModalMessage('Create new request successfully!'))
+                dispatch(setModalMessage('Tạo yêu cầu mới thành công!'))
                 dispatch(showModal())
                 dispatch(retrieveDonorProducts({}, user, navigate))
             })
@@ -130,7 +130,7 @@ export const postDoneeRequest = (data, user, navigate) => {
                 lat: 10.7628356,
                 long: 106.6824824
             }).then((res) => {
-                dispatch(setModalMessage('Create new request successfully!'))
+                dispatch(setModalMessage('Tạo yêu cầu mới thành công!'))
                 dispatch(showModal())
             })
             .catch((err) => {

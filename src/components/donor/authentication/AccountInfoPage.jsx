@@ -53,7 +53,7 @@ const AccountInfo = () => {
       console.log(JSON.parse(localStorage.getItem("registeredUser")))
       dispatch(signupForDonor(JSON.parse(localStorage.getItem("registeredUser")), navigate))
     } else {
-      dispatch(setModalMessage('You need to upload your image of Identity Card/Passport!'))
+      dispatch(setModalMessage('Bạn cần phải đính kèm ảnh chụp thẻ căn cước công dân/ hộ chiếu!'))
       dispatch(showModal())
     }
   };
@@ -157,7 +157,7 @@ const AccountInfo = () => {
 
                     <div className='d-grid'>
                       <Button className='fogi' variant='primary' type='submit'>
-                        Tiếp tục
+                        Đăng ký
                       </Button>
                       <Button className='mt-2' variant='outline-secondary' onClick={() => navigate(-1)}>
                         Trở về
