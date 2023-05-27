@@ -25,7 +25,6 @@ const ReportModal = ({ show, onClose, volunteerInfo }) => {
       <Modal
         show={show}
         onHide={onClose}
-        size='lg'
       >
         <Modal.Header closeButton>
           <Modal.Title>Báo cáo</Modal.Title>

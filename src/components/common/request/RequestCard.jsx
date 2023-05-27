@@ -1,5 +1,6 @@
 // Essentials
 import React from 'react';
+import { Stack } from 'react-bootstrap';
 import { EqualHeightElement } from 'react-equal-height';
 import { useNavigate } from 'react-router-dom';
 
@@ -43,7 +44,20 @@ const RequestCard = ({ order }) => {
             </header>
           }
 
-          <hr />
+          <hr className='my-3' />
+
+          {order.volunteer && 
+            <>
+              <Stack direction='horizontal' gap={3}>
+                <img src={order.volunteer.avatar} className='order-item-volunteer-avatar' />
+                <Stack direction='vertical' className='justify-content-center'>
+                  <small className='order-item-volunteer-label'>Tình nguyện viên</small>
+                  <div className='order-item-volunteer-name'>{order.volunteer.name}</div>
+                </Stack>
+              </Stack>
+              <hr className='my-3' />
+            </>
+          }
 
           <header className='order-item-secondary'>
             <MdAccessTime /> {convertToString(order.created_time, 'LocaleDateString')}
