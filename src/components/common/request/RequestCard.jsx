@@ -19,7 +19,7 @@ const RequestCard = ({ order }) => {
   const navigate = useNavigate();
   return (
     <>
-      <div className='order-item' onClick={() => navigate(`/donor/order/${order.id}`)}>
+      <div className='order-item' onClick={() => navigate(`/donor/request/${order.id}`)}>
         <EqualHeightElement name="request-id">
           <span
             className={`order-item-status order-item-status-${getStatus(order).css}`}

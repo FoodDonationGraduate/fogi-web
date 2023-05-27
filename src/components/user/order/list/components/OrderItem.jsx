@@ -16,7 +16,7 @@ const OrderItem = ({ order }) => {
 
   return (
     <>
-      <div className='order-item' onClick={() => navigate(`/order/${order.id}`)}>
+      <div className='order-item' onClick={() => navigate(`/request/${order.id}`)}>
         <span
           className={`order-item-status order-item-status-${getStatus(order).css}`}
         >
