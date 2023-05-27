@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router';
 // Components
 import StepItem from 'components/common/StepItem';
 import { updateRequest } from 'components/redux/reducer/RequestReducer';
+import VolunteerInfo from 'components/common/request/VolunteerInfo';
 import { cancelQuestionModal, setModalQuestion, showQuestionModal } from 'components/redux/reducer/ModalReducer';
 
 // Utility
@@ -58,6 +59,8 @@ const CartInfoCard = ({ order }) => {
               <header className='order-item-secondary'>
                 {order.reason !== undefined ? order.reason : 'Không có lý do cụ thể.'}
               </header>
+
+              <VolunteerInfo />
               
               <hr />
               
@@ -96,9 +99,6 @@ const CartInfoCard = ({ order }) => {
                 <Row className='mt-4'>
                   <Col className='d-flex justify-content-end'>
                     <Stack direction='horizontal' gap={2}>
-                      <header className='order-item-secondary'>
-                        Bạn có thể hủy Yêu cầu trong 20 giây
-                      </header>
                       <Button variant='outline-danger' onClick={() => cancelRequest()}>
                         Hủy Yêu cầu
                       </Button>

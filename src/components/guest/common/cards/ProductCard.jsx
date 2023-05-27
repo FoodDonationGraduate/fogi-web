@@ -1,6 +1,6 @@
 // Essentials
 import * as React from 'react';
-import { Button, Card } from 'react-bootstrap';
+import { Button, Card, Stack } from 'react-bootstrap';
 import { useNavigate } from 'react-router';
 import { EqualHeightElement } from 'react-equal-height';
 import { useDispatch, useSelector } from 'react-redux';
@@ -31,6 +31,9 @@ const ProductCard = ({product}) => {
       dispatch(addNewProduct({product_id: product_id, quantity: 1}, {userInfo, userToken}, navigate));
     }
   }
+    
+  const date = new Date();
+
   return (
     <Card className='product-card h-100' > 
       <Card.Img className='product-card-img' 
@@ -60,9 +63,25 @@ const ProductCard = ({product}) => {
             </small>
           </div>
         </EqualHeightElement>
+        
+        <hr className='my-2' />
+
+        <Stack direction='horizontal' gap={2}>
+          <img
+            src={`https://bachkhoi.online/static/${product.volunteer.avatar_filename}?${date.getTime()}`}
+            className='rounded-circle' width='32' height='32'
+          />
+          <Stack direction='vertical'>
+            <small style={{ color: 'gray' }}>Tình nguyện viên</small>
+            <div>{product.volunteer.name}</div>
+          </Stack>
+        </Stack>
+
+        <hr className='my-2' />
+        
         <div className='d-grid'>
           <Button className='fogi mt-2' variant='primary' onClick={() => onSubmit(product.id)}>
-            Thêm vào Giỏ
+            Thêm vào Túi
           </Button>
           <Button className='fogi mt-2' variant='outline-secondary' onClick={() => navigate(`/product/${product.id}`)}>
             Xem chi tiết

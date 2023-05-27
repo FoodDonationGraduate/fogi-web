@@ -18,7 +18,7 @@ import * as Yup from 'yup';
 // Assets
 import { FaExclamationTriangle } from 'react-icons/fa';
 
-const ReportModal = ({
+const CategoryModal = ({
   targetCategory, // for edit
   show,
   onShow,
@@ -158,4 +158,4 @@ const ReportModal = ({
   )
 };
 
-export default ReportModal;
+export default CategoryModal;

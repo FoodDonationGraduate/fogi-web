@@ -35,8 +35,13 @@
     }
     .order-item-volunteer-label {
       color: #999;
-      font-size: 16px;
+      font-size: 14px;
     }
     .order-item-volunteer-name {
-      font-size: 20px;
+      font-size: 18px;
     }
+  .order-item-volunteer-info-card {
+    padding: 16px;
+    background-color: white;
+    border-radius: 8px;
+  }

@@ -4,21 +4,34 @@ import { Button, Container, Col, Row } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 import RequestInfoCard from './RequestInfoCard';
 
+// Components
+import VolunteerInfo from 'components/common/request/VolunteerInfo';
+
 // Styling
 import 'assets/css/Fogi.css';
 
+// Utility
+import { useResizer } from 'utils/helpers/Resizer.jsx';
+
 const CartTitle = () => {
+  let size = useResizer();
+
   const [isActive, setActive] = React.useState(false);
   
   return (
     <div className='bg'>
       <Container>
-        <Row className='py-4'>
-          <Col>
-            <h2>Túi nhận Quyên góp</h2>
+        <Row className='pt-4 pb-2'>
+          <Col className='mb-2' xs={12} lg={7} xl={8}>
+            <div className='mb-2'>
+              <h2>Túi nhận Quyên góp</h2>
+            </div>
+            <div className={`d-flex ${size <= 1 && 'justify-content-end'}`} xs={3} lg={12}>
+              <Button className='fogi' variant='primary' onClick={() => setActive(true)}>Tạo Yêu cầu</Button>
+            </div>
           </Col>
-          <Col className='d-flex justify-content-end' xs={6} sm={3}>
-            <Button className='fogi' variant='primary' onClick={() => setActive(true)}>Tạo Yêu cầu</Button>
+          <Col>
+            <VolunteerInfo isCard={true} />
           </Col>
         </Row>
       </Container>

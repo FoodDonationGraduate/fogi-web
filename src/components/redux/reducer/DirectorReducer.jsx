@@ -108,6 +108,8 @@ export const addCategory = (data, director, navigate) => {
     try {
       console.log('add category');
       axiosInstance.post(`/category`, {
+        email: director.userInfo.email,
+        token: director.userToken,
         name: data.name,
         description: data.name,
         image: data.image

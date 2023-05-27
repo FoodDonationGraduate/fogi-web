@@ -125,7 +125,10 @@ export const postDoneeRequest = (data, user, navigate) => {
             await axiosInstance.post(`/request/donee`, {
                 email: user.userInfo.email,
                 token: user.userToken,
-                reason: data.reason
+                reason: data.reason,
+                address: "227 Đ. Nguyễn Văn Cừ, Phường 4, Quận 5, Thành phố Hồ Chí Minh",
+                lat: 10.7628356,
+                long: 106.6824824
             }).then((res) => {
                 dispatch(setModalMessage('Create new request successfully!'))
                 dispatch(showModal())

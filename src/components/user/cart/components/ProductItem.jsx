@@ -77,8 +77,8 @@ const ProductItem = ({
             </Col>
 
             <Col lg={8} className={size < 3 && 'ps-0 py-3'}>
-              <Row xs={2} md={4}>
-                <Col className={`d-flex ${size < 3 && 'ps-0'}`}>
+              <Row>
+                <Col className={`d-flex ${size < 3 && 'ps-0'}`} xs={12} md={3}>
                   <Stack className='my-auto' direction='vertical' gap={2}>
                     <header className='long-product-label'>
                       Còn
@@ -87,7 +87,7 @@ const ProductItem = ({
                   </Stack>
                 </Col>
 
-                <Col className={`d-flex ${size < 3 && 'ps-0'}`}>
+                <Col className={`d-flex ${size < 3 && 'ps-0'}`} xs={12} md={3}>
                   <Stack className='my-auto' direction='vertical' gap={2}>
                     <header className='long-product-label'>Số lượng</header>
                     <Stack direction='horizontal'>
@@ -100,7 +100,7 @@ const ProductItem = ({
                           -
                         </Button>
                       }
-                      <Form.Group style={{width: `${size < 3 ? '50%' : '80%'}`}}>
+                      <Form.Group>
                         <Form.Control
                           type='number'
                           value={count}
@@ -119,24 +119,24 @@ const ProductItem = ({
                     </Stack>
                   </Stack>
                 </Col>
+
+                <Col className={`d-flex ${size < 3 && 'ps-0'}`}>
+                  <Stack className='my-auto' direction='vertical' gap={2}>
+                    <header className='long-product-label'>
+                      Tùy chỉnh
+                    </header>
+                    <Stack direction='horizontal' gap={2}>
+                      <Button variant='outline-secondary' onClick={() => navigate(`/product/${product.id}`)}>
+                        Xem chi tiết
+                      </Button>
+                      <Button variant='outline-danger' onClick={() => deleteProductModal(product.id)}>
+                        Xóa
+                      </Button>
+                    </Stack>
+                  </Stack>
+                </Col>
                 
               </Row>
-            </Col>
-          </Row>
-
-          <hr />
-
-          <Row>
-            <Col className='ps-0'>
-              <Stack direction='horizontal' gap={3}>
-                <header className='fw-bold'>Options</header>
-                <Button variant='outline-secondary' onClick={() => navigate(`/product/${product.id}`)}>
-                  Xem chi tiết
-                </Button>
-                <Button variant='outline-danger' onClick={() => deleteProductModal(product.id)}>
-                  Xóa
-                </Button>
-              </Stack>
             </Col>
           </Row>
         </Card>
