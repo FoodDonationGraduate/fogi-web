@@ -63,7 +63,7 @@ export const retrieveNewProducts = (data, navigate) => {
             })
             .catch((err) => {
                 console.log(err)
-                dispatch(setModalMessage("Something went wrong"))
+                dispatch(setModalMessage("Đã xảy ra lỗi!"))
                 dispatch(showModal())
                 dispatch(setNewProducts({}))
             });
@@ -87,7 +87,7 @@ export const retrieveAmootProducts = (data, navigate) => {
             })
             .catch((err) => {
                 console.log(err.response.data)
-                dispatch(setModalMessage("Something went wrong"))
+                dispatch(setModalMessage("Đã xảy ra lỗi!"))
                 dispatch(showModal())
                 dispatch(setAmootProducts({}))
             });
@@ -112,7 +112,7 @@ export const searchProduct = (data, navigate) => {
             })
             .catch((err) => {
                 console.log(err.response.data)
-                dispatch(setModalMessage("Something went wrong"))
+                dispatch(setModalMessage("Đã xảy ra lỗi!"))
                 dispatch(showModal())
                 dispatch(setSearchingProducts({}))
             });
@@ -137,7 +137,7 @@ export const retrieveCategoryProducts = (data, navigate) => {
             })
             .catch((err) => {
                 console.log(err.response.data)
-                dispatch(setModalMessage("Something went wrong"))
+                dispatch(setModalMessage("Đã xảy ra lỗi!"))
                 dispatch(showModal())
                 dispatch(setCategoryProducts({}))
             });
@@ -159,7 +159,7 @@ export const retrieveCurrentProduct = (data, navigate) => {
             })
             .catch((err) => {
                 console.log(err.response.data)
-                dispatch(setModalMessage("Something went wrong"))
+                dispatch(setModalMessage("Đã xảy ra lỗi!"))
                 dispatch(showModal())
                 dispatch(setCurrentProduct({}))
             });
@@ -185,7 +185,7 @@ export const retrieveDonorProducts = (data, user, navigate) => {
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
                     console.log(err)
-                    dispatch(setModalMessage("Something went wrong"))
+                    dispatch(setModalMessage("Đã xảy ra lỗi!"))
                     dispatch(showModal())
                     dispatch(setDonorProducts({}))
                 }
@@ -214,13 +214,13 @@ export const postNewProduct = (data, user, navigate) => {
                 available_start: data.available_start + ':00',
                 available_end: data.available_end + ':00'
             }).then((res) => {
-                dispatch(setModalMessage("Create new product successfully!"))
+                dispatch(setModalMessage("Tạo sản phẩm thành công!"))
                 dispatch(showModal())
                 dispatch(retrieveDonorProducts({}, user, navigate))
             }).catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
                     console.log(err)
-                    dispatch(setModalMessage("Something went wrong"))
+                    dispatch(setModalMessage("Đã xảy ra lỗi!"))
                     dispatch(showModal())
                 }
             });
@@ -240,12 +240,12 @@ export const deleteProduct = (data, user, navigate) => {
                 token: user.userToken,
                 id: data.id
             }}).then((res) => {
-                dispatch(setModalMessage("Delete product successfully!"))
+                dispatch(setModalMessage("Xóa sản phẩm thành công!"))
                 dispatch(showModal())
             })
             .catch((err) => {
                 console.log(err)
-                dispatch(setModalMessage("Something went wrong"))
+                dispatch(setModalMessage("Đã xảy ra lỗi!"))
                 dispatch(showModal())
             });
         } catch (err) {

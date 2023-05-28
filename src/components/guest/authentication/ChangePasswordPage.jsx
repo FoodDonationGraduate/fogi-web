@@ -48,7 +48,7 @@ const ChangePassword = () => {
     if (token && email) {
       dispatch(resetPassword({token, email, password: data.password}, navigate))
     } else {
-      dispatch(setModalMessage('We cannot find your email and token in url'))
+      dispatch(setModalMessage('Không thể tìm thấy email và token của bạn!'))
       dispatch(showModal())
     }
   };

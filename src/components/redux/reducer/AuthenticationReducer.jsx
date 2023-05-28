@@ -121,7 +121,7 @@ export const login = (data, navigate, setFailAuthentication) => {
                     dispatch(signupUserAccount())
                     localStorage.setItem('currentEmail', data.email)
                     navigate('/verification')
-                    dispatch(setModalMessage(`You need to verify your email first!`))
+                    dispatch(setModalMessage(`Bạn cần phải xác minh email của bạn!`))
                     dispatch(showModal())
                 } else if (err.response.data.message === 'Email or password is wrong') {
                     setFailAuthentication(true);
@@ -163,7 +163,9 @@ export const signup = (data, navigate) => {
                 phone: data.phone,
                 name: data.name,
                 avatar: '',
-                reputation: 0
+                reputation: 0,
+                id_front: data.id_front,
+                id_back: data.id_back
             }).then((res) => {
                 navigate('/signupsuccess')
             })
