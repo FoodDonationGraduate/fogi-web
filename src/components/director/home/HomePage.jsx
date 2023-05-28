@@ -9,6 +9,7 @@ import SideMenuOffCanvas from './components/SideMenuOffCanvas';
 import InfoModal from 'components/layout/InfoModal.jsx';
 import ConfirmModal from 'components/layout/ConfirmModal.jsx';
 
+import DashboardPage from './pages/dashboard/DashboardPage';
 import ApproveListPage from './pages/approve/ApproveListPage';
 import CategoryListPage from './pages/category/CategoryListPage';
 
@@ -54,6 +55,7 @@ const HomePage = () => {
           <Col>
             <Row className={`${size >= 2 && 'workspace'} py-4`}>
               <Col>
+                {activeIdx === 0 && <DashboardPage />}
                 {activeIdx === 1 && <ApproveListPage />}
                 {activeIdx === 2 && <CategoryListPage />}
               </Col>
