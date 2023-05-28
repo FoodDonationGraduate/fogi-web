@@ -1,6 +1,7 @@
 // Essentials
 import React, { useState, useEffect } from 'react';
 import { Button, Container, Col, Row } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 
 // Components
 import LocationModal from 'components/common/location/LocationModal';
@@ -15,16 +16,25 @@ import 'assets/css/Fogi.css';
 import { useResizer } from 'utils/helpers/Resizer';
 
 const LocationBar = () => {
+  const userInfo = useSelector(state => state.authenticationReducer.user);
+
   let size = useResizer();
   const exampleLocation = '227 Nguyễn Văn Cừ, P. 4, Q. 5, TP. Hồ Chí Minh'; // temporary
   const [location, setLocation] = useState(exampleLocation)
+  const selectedAddress = useSelector(state => state.addressReducer.selectedAddress)
 
   useEffect(() => {
     if (size < 2) 
-      setLocation(exampleLocation.substring(0, (size + 2) * 5) + '...');
+      setLocation(location.substring(0, (size + 2) * 5) + '...');
     else 
-      setLocation(exampleLocation);
+      setLocation(location);
   }, [size]);
+
+  useEffect(() => {
+    if (Object.keys(selectedAddress).length !== 0) {
+      setLocation(size < 2 ? selectedAddress.address.substring(0, (size + 2) * 5) + '...' : selectedAddress.address)
+    }
+  }, [selectedAddress]);
 
   // Location Modal
   const [show, setShow] = useState(false);
@@ -33,23 +43,28 @@ const LocationBar = () => {
 
   return (
     <>
-      <LocationModal show={show} onClose={onClose} />
-      <div style={{ backgroundColor: 'white' }}>
-        <Container className={`pb-2 pt-${size <= 2 ? '2' : '3'}`}>
-          <Row>
-            <Col>
-              <h3>
-                <FaMapMarkerAlt className='fogi me-4' style={{ color: '#82CD47' }} />
-                {location}
-                <Button className='ms-4' variant='outline-secondary' onClick={() => onShow()}>
-                  {size < 3 && <FaEdit className='mb-1' />}
-                  {size >= 3 && 'Thay đổi'}
-                </Button>
-              </h3>
-            </Col>
-          </Row>
-        </Container>
-      </div>
+      {Object.keys(userInfo).length !== 0 &&
+        <div>
+          <LocationModal show={show} onClose={onClose} />
+          <div style={{ backgroundColor: 'white' }}>
+            <Container className={`pb-2 pt-${size <= 2 ? '2' : '3'}`}>
+              <Row>
+                <Col>
+                  <h3>
+                    <FaMapMarkerAlt className='fogi me-4' style={{ color: '#82CD47' }} />
+                    {location}
+                    <Button className='ms-4' variant='outline-secondary' onClick={() => onShow()}>
+                      {size < 3 && <FaEdit className='mb-1' />}
+                      {size >= 3 && 'Thay đổi'}
+                    </Button>
+                  </h3>
+                </Col>
+              </Row>
+            </Container>
+          </div>
+        </div>
+        
+      }
     </>
   );
 };

@@ -78,9 +78,7 @@ export const refreshToken = (navigate) => {
 
 export function handleExpiredToken (data, dispatch, navigate) {
     if (data.message === "unauthorized") {
-        dispatch(setUserInfo({}))
-        dispatch(setUserToken(''))
-        navigate('/login')
+        dispatch(logout(navigate))
         return false;
     }
     return true;
@@ -142,6 +140,7 @@ export const logout = (navigate) => {
             console.log("logout")
             dispatch(setUserInfo({}))
             dispatch(setUserToken(''))
+            dispatch(localStorage.removeItem('selectedAddress'))
             navigate('/login')
         } catch (err) {
             console.log(err)
@@ -167,6 +166,7 @@ export const signup = (data, navigate) => {
                 id_back: data.id_back
             }).then((res) => {
                 navigate('/signupsuccess')
+                dispatch(removeRegisterdUser())
             })
             .catch((err) => {
                 if (err.response.data.message === 'Email is already existed') {
@@ -206,6 +206,7 @@ export const signupForDonor = (data, navigate) => {
                 id_back: data.id_back
             }).then((res) => {
                 navigate('/signupsuccess')
+                dispatch(removeRegisterdUser())
             })
             .catch((err) => {
                 if (err.response.data.message === 'Email is already existed') {

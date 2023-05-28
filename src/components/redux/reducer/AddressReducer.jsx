@@ -5,7 +5,10 @@ import { handleExpiredToken } from './AuthenticationReducer';
 
 const initialState = {
     allAdresses: {},
-    currentAddress: {}
+    currentAddress: {},
+    selectedAddress: localStorage.getItem("selectedAddress") !== "undefined" 
+    && localStorage.getItem("selectedAddress") !== null 
+    ? JSON.parse(localStorage.getItem("selectedAddress")) : {}
 }
 const addressReducer = createSlice({
     name: "addressReducer",
@@ -16,12 +19,16 @@ const addressReducer = createSlice({
         },
         setCurrentAddress: (state, action) => {
             state.currentAddress = action.payload
+        },
+        setSelectedAddress: (state, action) => {
+            state.selectedAddress = action.payload
+            localStorage.setItem('selectedAddress', JSON.stringify(state.selectedAddress))
         }
     }
 })
 
 export const { 
-    setAllAddresses, setCurrentAddress
+    setAllAddresses, setCurrentAddress, setSelectedAddress
 } = addressReducer.actions
 
 export default addressReducer.reducer

@@ -1,6 +1,7 @@
 // Essentials
 import React from 'react';
 import { Button, Col, Row, Stack } from 'react-bootstrap';
+import { useDispatch } from 'react-redux'
 
 // Assets
 import { MdOutlineAdd, MdOutlineLocationOn } from 'react-icons/md';
@@ -8,17 +9,20 @@ import { MdOutlineAdd, MdOutlineLocationOn } from 'react-icons/md';
 // Style
 import 'assets/css/common/Location.css';
 
+// Components
+import { setSelectedAddress } from 'components/redux/reducer/AddressReducer';
+
 const LocationItem = ({
   isAdd=false,
   setState,
   item,
   setItem
 }) => {
+  const dispatch = useDispatch();
 
-  const selectLocation = (id) => {
-    console.log('select location with id: ' + id);
+  const selectLocation = (item) => {
+    dispatch(setSelectedAddress(item));
   };
-
   return (
     <>
       {isAdd ? 
@@ -35,10 +39,9 @@ const LocationItem = ({
         : 
         <div 
           className='location-item location-item-standard'
-          onClick={() => selectLocation(item.id)}
         >
           <Row className='px-0'>
-            <Col xs={9}>
+            <Col xs={9} onClick={(event) => selectLocation(item)}>
               <Stack gap={2} direction='horizontal'>
                 <MdOutlineLocationOn className='location-item-icon' />
                 <Stack>

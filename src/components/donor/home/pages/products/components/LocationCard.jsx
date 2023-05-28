@@ -1,6 +1,7 @@
 // Essentials
 import React, { useState, useEffect } from 'react';
 import { Button, Card, Col, Row } from 'react-bootstrap';
+import { useSelector } from 'react-redux'
 
 // Components
 import LocationModal from 'components/common/location/LocationModal';
@@ -18,11 +19,18 @@ const LocationCard = () => {
   let size = useResizer();
   const exampleLocation = '227 Nguyễn Văn Cừ, P. 4, Q. 5, TP. Hồ Chí Minh'; // temporary
   const [location, setLocation] = useState(exampleLocation);
+  const selectedAddress = useSelector(state => state.addressReducer.selectedAddress)
+  
+  useEffect(() => {
+    if (size < 4) setLocation(location.substring(0, (size + 3) * 5) + '...');
+    else setLocation(location);
+  }, [size]);
 
   useEffect(() => {
-    if (size < 4) setLocation(exampleLocation.substring(0, (size + 3) * 5) + '...');
-    else setLocation(exampleLocation);
-  }, [size]);
+    if (Object.keys(selectedAddress).length !== 0) {
+      setLocation(selectedAddress.address)
+    }
+  }, [selectedAddress]);
 
   // Location Modal
   const [show, setShow] = useState(false);
