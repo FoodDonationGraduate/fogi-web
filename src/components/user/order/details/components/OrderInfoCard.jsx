@@ -79,7 +79,7 @@ const CartInfoCard = ({ order }) => {
                 {order.reason !== undefined ? order.reason : 'Không có lý do cụ thể.'}
               </header>
 
-              <VolunteerInfo volunteerInfo={order.volunteer} />
+              <VolunteerInfo volunteerInfo={order.volunteer} orderId={order.id} />
               
               <hr />
               

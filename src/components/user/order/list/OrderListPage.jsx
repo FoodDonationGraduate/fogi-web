@@ -50,7 +50,7 @@ const OrderListPage = () => {
                 setActiveStatusIdx={setActiveStatusIdx}
                 statusList={statusList}
                 getStatusLabel={getStatusLabel}
-              styleList={styleList}
+                styleList={styleList}
               />
             </Row>
           </Container>

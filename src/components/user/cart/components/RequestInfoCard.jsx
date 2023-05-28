@@ -79,7 +79,7 @@ const RequestInfoCard = (
                       setActiveStatusIdx={setActiveStatusIdx}
                       statusList={statusList}
                       getStatusLabel={getStatusLabel}
-              styleList={styleList}
+                      styleList={styleList}
                     />
                   </Stack>
                   <header className='order-item-secondary'>

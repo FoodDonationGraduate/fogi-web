@@ -10,7 +10,7 @@ import * as Yup from 'yup';
 // Assets imports
 import { FaExclamationTriangle } from 'react-icons/fa';
 
-const ReportModal = ({ show, onClose, volunteerInfo }) => {
+const ReportModal = ({ show, onClose, volunteerInfo, orderId }) => {
 
   // Form handling
   const formSchema = Yup.object().shape({
@@ -45,6 +45,10 @@ const ReportModal = ({ show, onClose, volunteerInfo }) => {
                 </Stack>
               </Stack>
             </Form.Group>
+
+            <Form.Label style={{ fontWeight: 'bold'}}>
+              Mã Yêu cầu: {orderId}
+            </Form.Label>
 
             <Form.Group className='mb-3'>
               <Form.Label style={{ fontWeight: 'bold'}}>

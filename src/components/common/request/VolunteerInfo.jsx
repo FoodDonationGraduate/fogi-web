@@ -13,7 +13,8 @@ import { useResizer } from 'utils/helpers/Resizer.jsx';
 
 const VolunteerInfo = ({
   isCard=false,
-  volunteerInfo
+  volunteerInfo,
+  orderId=undefined
 }) => {
   let size = useResizer();
 
@@ -25,7 +26,9 @@ const VolunteerInfo = ({
     <>  
       {volunteerInfo &&
         <>
-          <ReportModal show={show} onClose={onClose} volunteerInfo={volunteerInfo} />
+          {orderId && (
+            <ReportModal show={show} onClose={onClose} volunteerInfo={volunteerInfo} orderId={orderId} />
+          )}
     
           <div className={isCard ? `order-item-volunteer-info-card` : (size > 1 ? `order-item-volunteer-info` : '')}>
             {!isCard && size <= 1 && <hr />}

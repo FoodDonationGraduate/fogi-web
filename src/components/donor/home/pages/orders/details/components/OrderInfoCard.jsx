@@ -64,7 +64,7 @@ const CartInfoCard = ({ order }) => {
                 </header>
               </div>
 
-              <VolunteerInfo volunteerInfo={order.volunteer} />
+              <VolunteerInfo volunteerInfo={order.volunteer} orderId={order.id} />
 
               <hr />
 

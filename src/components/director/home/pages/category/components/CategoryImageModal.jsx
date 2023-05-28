@@ -1,14 +1,9 @@
 // Essentials
 import React, { useState } from 'react';
-import { Button, Form, Modal, Stack } from 'react-bootstrap';
+import { Button, Modal } from 'react-bootstrap';
 import Avatar from 'react-avatar-edit';
 
-// Components
-
-// Assets
-import { FaExclamationTriangle } from 'react-icons/fa';
-
-const ReportModal = ({ showImage, onClose, setImage }) => {
+const CategoryImageModal = ({ showImage, onClose, setImage }) => {
 
   // handle avatar
   const [preview, setPreview] = useState(null);
@@ -67,4 +62,4 @@ const ReportModal = ({ showImage, onClose, setImage }) => {
   )
 };
 
-export default ReportModal;
+export default CategoryImageModal;
