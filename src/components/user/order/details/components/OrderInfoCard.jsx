@@ -10,6 +10,9 @@ import { updateRequest } from 'components/redux/reducer/RequestReducer';
 import VolunteerInfo from 'components/common/request/VolunteerInfo';
 import { cancelQuestionModal, setModalQuestion, showQuestionModal } from 'components/redux/reducer/ModalReducer';
 
+// Assets
+import { MdOutlineLocationOn, MdAccessTime } from 'react-icons/md';
+
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
 import { getStatus, getStep, convertStepToNumber } from 'utils/helpers/Order.jsx';
@@ -46,14 +49,30 @@ const CartInfoCard = ({ order }) => {
               >
                 {getStatus(order).label}
               </span>
-              <h3 className='order-item-date mt-3'>
-                Tạo ngày {convertToString(order.created_time, 'LocaleDateString')}
-              </h3>
-              <header className='order-item-secondary'>
-                Tại {order.address}
+
+              <div className='mt-3 mb-1'>
+                <h4 className='order-item-date'>
+                  Yêu cầu {order.id}
+                </h4>
+              </div>
+              <header className='order-item-secondary mt-2'>
+                <MdAccessTime /> {convertToString(order.created_time, 'LocaleDateString')}
               </header>
 
-              <h5 className='order-item-date mt-3'>
+              <Stack className='mb-2 mt-3' direction='horizontal' gap={2}>
+                <h5 className='order-item-date'>
+                  Hình thức nhận thực phẩm
+                </h5>
+                <div className='order-tag'>Lấy tại chỗ</div>
+              </Stack>
+              <header className='order-item-secondary'>
+                <Stack direction='horizontal' gap={2}>
+                  <div className='fw-bold'>Địa chỉ lấy tại chỗ: </div>
+                  <div>{order.address}</div>
+                </Stack>
+              </header>
+
+              <h5 className='order-item-date mt-4'>
                 Lí do đặt các Món ăn
               </h5>
               <header className='order-item-secondary'>

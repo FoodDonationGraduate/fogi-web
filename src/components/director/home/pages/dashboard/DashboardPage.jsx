@@ -23,21 +23,22 @@ const DashboardPage = () => {
         return 'Thực phẩm';
     }
   };
+  const styleList = ['success', 'success'];
 
   // Sample data
   const data = {
     stats: [
       {
         label: 'Đã tạo',
-        value: '128 cái'
+        value: '50'
       },
       {
         label: 'Thành công',
-        value: '80 kg'
+        value: '45'
       },
       {
         label: 'Đã hủy',
-        value: '80 kg'
+        value: '3'
       }
     ],
     chart: {
@@ -64,6 +65,7 @@ const DashboardPage = () => {
               setActiveStatusIdx={setActiveStatusIdx}
               statusList={statusList}
               getStatusLabel={getStatusLabel}
+              styleList={styleList}
             />
           </div>
           <ListTitle title={'Tổng quan'} />

@@ -21,16 +21,16 @@ const RequestCard = ({ order }) => {
   return (
     <>
       <div className='order-item' onClick={() => navigate(`/donor/request/${order.id}`)}>
-        <EqualHeightElement name="request-id">
+        <EqualHeightElement name="request-content">
           <span
             className={`order-item-status order-item-status-${getStatus(order).css}`}
           >
             {getStatus(order).label}
           </span>
           <div className='mt-3 mb-1'>
-              <h4 className='order-item-date'>
-                Yêu cầu {order.id}
-              </h4>
+            <h4 className='order-item-date'>
+              Yêu cầu {order.id}
+            </h4>
           </div>
 
           {order.products.slice(0, productListDisplayLength()).map((product) => (
@@ -60,10 +60,10 @@ const RequestCard = ({ order }) => {
           }
 
           <header className='order-item-secondary'>
-            <MdAccessTime /> {convertToString(order.created_time, 'LocaleDateString')}
+            <MdOutlineLocationOn /> {reduceString(order.address, 80)}
           </header>
           <header className='order-item-secondary'>
-            <MdOutlineLocationOn /> {reduceString(order.address, 80)}
+            <MdAccessTime /> {convertToString(order.created_time, 'LocaleDateString')}
           </header>
         </EqualHeightElement>
 

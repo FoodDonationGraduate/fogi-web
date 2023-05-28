@@ -25,6 +25,8 @@ const OrderListPage = () => {
         return 'Thành công';
     }
   };
+  const styleList = ['neutral', 'info', 'warning', 'success', 'danger'];
+
   return (
     <>
       <div>
@@ -36,6 +38,7 @@ const OrderListPage = () => {
               setActiveStatusIdx={setActiveStatusIdx}
               statusList={statusList}
               getStatusLabel={getStatusLabel}
+              styleList={styleList}
             />
           </Container>
         </div>
