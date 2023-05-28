@@ -6,7 +6,7 @@ import { Button, Stack } from 'react-bootstrap';
 import ReportModal from 'components/common/request/ReportModal';
 
 // Assets
-import Avatar from 'assets/images/avatar.png';
+import { MdPhone } from 'react-icons/md';
 
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
@@ -37,6 +37,9 @@ const VolunteerInfo = ({
               <Stack direction='vertical'>
                 <small className='order-item-volunteer-label'>Tình nguyện viên</small>
                 <div className='order-item-volunteer-name'>{volunteerInfo.name}</div>
+                <small className='order-item-volunteer-label'>
+                  <MdPhone /> 0919127311
+                </small>
               </Stack>
               <Button variant='outline-secondary' onClick={onShow}>
                 Báo cáo

@@ -163,7 +163,6 @@ export const signup = (data, navigate) => {
                 phone: data.phone,
                 name: data.name,
                 avatar: '',
-                reputation: 0,
                 id_front: data.id_front,
                 id_back: data.id_back
             }).then((res) => {

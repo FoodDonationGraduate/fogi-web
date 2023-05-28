@@ -10,11 +10,13 @@ const ChipList = ({
   setActiveStatusIdx,
   statusList,
   getStatusLabel,
-  styleList
+  styleList,
+  title=undefined
 }) => {
   return (
     <>
       <Stack direction='horizontal' gap={2}>
+        {title && <div className='chip-title me-1'>{title}</div>}
         {statusList.length > 0 && statusList.map((status, idx) => (
           <Chip
             key={idx}

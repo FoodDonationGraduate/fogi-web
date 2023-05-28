@@ -14,7 +14,7 @@ const Chart = ({ chart }) => {
           data={chart.data} 
           margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
         >
-          <XAxis dataKey='date' />
+          <XAxis dataKey='label' />
           <YAxis />
           <Tooltip content={<ChartTooltip unit={chart.unit} />} />
           <Bar dataKey='value' fill='#82CD47' />
