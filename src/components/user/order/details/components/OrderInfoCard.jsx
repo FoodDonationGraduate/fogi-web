@@ -18,7 +18,7 @@ import { useResizer } from 'utils/helpers/Resizer.jsx';
 import { getStatus, getStep, convertStepToNumber } from 'utils/helpers/Order.jsx';
 import { convertToString } from 'utils/helpers/Time';
 
-const CartInfoCard = ({ order }) => {
+const OrderInfoCard = ({ order }) => {
   let size = useResizer();
   const userInfo = useSelector(state => state.authenticationReducer.user)
   const userToken = useSelector(state => state.authenticationReducer.token)
@@ -31,6 +31,14 @@ const CartInfoCard = ({ order }) => {
     dispatch(setModalQuestion('Bạn có muốn muốn hủy yêu cầu này không?'));
     dispatch(showQuestionModal());
   }
+
+  const setArriving = () => {
+    dispatch(updateRequest({request_id: order.id, request_status: 'shipping'}, { userInfo, userToken}, navigate));
+  };
+
+  const setSuccess = () => {
+    dispatch(updateRequest({request_id: order.id, request_status: 'success'}, { userInfo, userToken}, navigate));
+  };
   
   React.useEffect(() => {
     if (modalLogic) {
@@ -84,7 +92,7 @@ const CartInfoCard = ({ order }) => {
               <hr />
               
               <h3 className='order-item-date text-center'>
-                {getStep(order.status, true, true).header}
+                {getStep(order.status, true, order.delivery_type === 'delivery').header}
               </h3>
 
               {order.status !== 'canceled' && 
@@ -99,7 +107,7 @@ const CartInfoCard = ({ order }) => {
                               step={idx / 2}
                               currentStep={order.status}
                               isDonee={true}
-                              isDelivery={true}
+                              isDelivery={order.delivery_type === 'delivery'}
                             />
                             :
                             <hr className='step-connector' />
@@ -109,12 +117,12 @@ const CartInfoCard = ({ order }) => {
                     </Row>
                     :
                     <header className='order-item-secondary text-center mt-2'>
-                      Hiện tại: {getStep(order.status, true, true).label} {`(${convertStepToNumber(order.status) + 1}/4)`}
+                      Hiện tại: {getStep(order.status, true, order.delivery_type === 'delivery').label} {`(${convertStepToNumber(order.status) + 1}/4)`}
                     </header>
                   }
                 </div>
               }
-              {order.status === 'init' || order.status === 'pending' &&
+              {order.status === 'pending' &&
                 <Row className='mt-4'>
                   <Col className='d-flex justify-content-end'>
                     <Stack direction='horizontal' gap={2}>
@@ -125,7 +133,28 @@ const CartInfoCard = ({ order }) => {
                   </Col>
                 </Row>
               }
-
+              {order.status === 'accepted' && order.delivery_type === 'pickup' &&
+                <Row className='mt-4'>
+                  <Col className='d-flex justify-content-end'>
+                    <Stack direction='horizontal' gap={2}>
+                      <Button className='fogi' variant='primary' onClick={() => setArriving()}>
+                        Bắt đầu đến nhận
+                      </Button>
+                    </Stack>
+                  </Col>
+                </Row>
+              }
+              {order.status === 'shipping' &&
+                <Row className='mt-4'>
+                  <Col className='d-flex justify-content-end'>
+                    <Stack direction='horizontal' gap={2}>
+                      <Button className='fogi' variant='primary' onClick={() => setSuccess()}>
+                        Tôi đã nhận được Thực phẩm
+                      </Button>
+                    </Stack>
+                  </Col>
+                </Row>
+              }
             </div>
           </Col>
         </Row>
@@ -134,4 +163,4 @@ const CartInfoCard = ({ order }) => {
   );
 };
 
-export default CartInfoCard;
+export default OrderInfoCard;

@@ -68,11 +68,12 @@ export const getStep = (step, isDonee, isDelivery) => {
       break;
 
     case 'accepted':
-      header = 'Tình nguyện viên đã chấp nhận Yêu cầu';
+      header = 'Tình nguyện viên đã chấp nhận Yêu cầu và ';
       if (isDonee) {
-        if (isDelivery) header += ' và chuẩn bị giao';
+        if (isDelivery) header += 'chuẩn bị giao';
+        else header += 'đang chờ bạn đến nhận'
       } else {
-        header = ' và chuẩn bị đến nhận Thực phẩm';
+        header = 'chuẩn bị đến nhận Thực phẩm';
       }
       label = 'Chấp nhận';
       icon = <MdLabelImportant className='step-item-icon' />;
@@ -82,11 +83,11 @@ export const getStep = (step, isDonee, isDelivery) => {
       header = 'Tình nguyện viên đang ';
       if (isDonee) {
         if (isDelivery) header += 'giao Thực phẩm đến bạn';
-        else header += 'chờ bạn đến nhận Thực phẩm';
+        else header = 'Bạn đang đến nhận Thực phẩm';
       } else {
         header += 'đến nhận Thực phẩm';
       }
-      label = 'Đang ' + (isDonee ? (isDelivery ? 'giao' : 'chờ') : 'đến');
+      label = 'Đang ' + (isDonee ? (isDelivery ? 'giao' : 'đến') : 'đến');
       if (isDonee && !isDelivery) icon = <MdDirectionsWalk className='step-item-icon' />;
       else icon = <MdDeliveryDining className='step-item-icon' />;
       break;

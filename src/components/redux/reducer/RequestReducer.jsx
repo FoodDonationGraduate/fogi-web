@@ -160,7 +160,11 @@ export const updateRequest = (data, user, navigate) => {
             }).then((res) => {
                 dispatch(setModalMessage((data.request_status === 'canceled' ? 'Cancel' : 'Update') + ' request successfully!'))
                 dispatch(showModal())
-                user.userInfo.user_type === 'donor' ? navigate('/donor/home') : navigate('/requests')
+                if (data.request_status === 'canceled') {
+                    user.userInfo.user_type === 'donor' ? navigate('/donor/home') : navigate('/requests');
+                } else {
+                    dispatch(retrieveRequest({ request_id: data.request_id }, user, navigate));
+                }
             })
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {

@@ -33,7 +33,7 @@ const VolunteerInfo = ({
           <div className={isCard ? `order-item-volunteer-info-card` : (size > 1 ? `order-item-volunteer-info` : '')}>
             {!isCard && size <= 1 && <hr />}
             <Stack direction='horizontal' gap={3}>
-              <img src={`https://bachkhoi.online/static/${volunteerInfo.avatar_filename}`} className='order-item-volunteer-avatar' />
+              <img src={`https://bachkhoi.online/static/${volunteerInfo.avatar}`} className='order-item-volunteer-avatar' />
               <Stack direction='vertical'>
                 <small className='order-item-volunteer-label'>Tình nguyện viên</small>
                 <div className='order-item-volunteer-name'>{volunteerInfo.name}</div>
