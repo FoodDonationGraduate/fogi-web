@@ -18,7 +18,7 @@ const ProductListPage = () => {
         <TopSection />
       </div>
       <div className='bg'>
-        <ListTitle title='Món ăn mới'/>
+        <ListTitle title='Thực phẩm mới'/>
         <NewProductList />
       </div>
       <div>

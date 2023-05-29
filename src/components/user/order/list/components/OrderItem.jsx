@@ -38,7 +38,7 @@ const OrderItem = ({ order }) => {
         <hr />
 
         <h5 className='order-item-product-title'>
-          Các món ăn đã đặt
+          Các thực phẩm đã đặt
         </h5>
         <EqualHeightElement name="order-list">
           {order.products.slice(0, productListDisplayLength()).map((product) => (

@@ -51,7 +51,7 @@ const ProductList = () => {
         </Col>
       }
       {(Object.keys(donorProducts).length === 0 || donorProducts.total_products === 0) && 
-        <CommonNotFoundBody title='Bạn chưa thêm mới món ăn nào'/>
+        <CommonNotFoundBody title='Bạn chưa thêm mới thực phẩm nào'/>
       }
     </Row>
   );

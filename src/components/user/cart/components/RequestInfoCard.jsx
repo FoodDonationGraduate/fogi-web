@@ -92,7 +92,7 @@ const RequestInfoCard = (
                   <Form className='mt-4' onSubmit={handleSubmit(onSubmit)}>
                     <Form.Group className='mb-3'>
                       <Form.Label style={{ fontWeight: 'bold' }}>
-                        Lí do đặt các Món ăn
+                        Lí do đặt các Thực phẩm
                       </Form.Label>
                       <Form.Control as='textarea' {...register('reason')} />
                       {errors.reason && errors.reason.type === 'required' && (

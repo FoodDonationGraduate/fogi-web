@@ -57,7 +57,7 @@ const CategorySection = () => {
       <Container>
         <Row className='pt-4'>
           <Col>
-            <h2>Danh mục Món ăn</h2>
+            <h2>Danh mục Thực phẩm</h2>
           </Col>
         </Row>
         <EqualHeight>

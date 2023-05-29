@@ -73,7 +73,7 @@ const CartInfoCard = ({ order }) => {
               </header>
 
               <h5 className='order-item-date mt-4'>
-                Lí do đặt các Món ăn
+                Lí do đặt các Thực phẩm
               </h5>
               <header className='order-item-secondary'>
                 {order.reason !== undefined ? order.reason : 'Không có lý do cụ thể.'}

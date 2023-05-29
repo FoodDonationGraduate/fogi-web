@@ -59,9 +59,9 @@ const ProductSection = ({ type }) => {
         <Row className='pt-4'>
           <Col>
             {type === 0 ? 
-              <h2>Món ăn mới</h2>
+              <h2>Thực phẩm mới</h2>
               :
-              <h2>Món ăn sắp hết hàng</h2>
+              <h2>Thực phẩm sắp hết hàng</h2>
             }
           </Col>
         </Row>

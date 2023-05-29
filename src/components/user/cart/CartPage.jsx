@@ -13,6 +13,7 @@ import ConfirmModal from "components/layout/ConfirmModal.jsx";
 import 'assets/css/user/cart/Cart.css';
 
 const CartPage = () => {
+  const [volunteerInfo, setVolunteerInfo] = useState(null);
 
   return (
     <>
@@ -21,10 +22,10 @@ const CartPage = () => {
       </div>
       <div className='bg'>
         <div className='mb-4'>
-          <CartTitle />
+          <CartTitle volunteerInfo={volunteerInfo} />
         </div>
         <div className='pb-4'>
-          <ProductList />
+          <ProductList setVolunteerInfo={setVolunteerInfo} />
         </div>
       </div>
       <div>
