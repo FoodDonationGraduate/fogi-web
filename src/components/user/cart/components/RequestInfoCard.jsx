@@ -71,7 +71,7 @@ const RequestInfoCard = (
     } else {
       setValue('currentAddress', selectedAddress)
     }
-  }, (activeStatusIdx))
+  }, [activeStatusIdx])
 
   return (
       <Container  >

@@ -7,8 +7,13 @@ const initialState = {
     allAdresses: {},
     currentAddress: {},
     selectedAddress: localStorage.getItem("selectedAddress") !== "undefined" 
-    && localStorage.getItem("selectedAddress") !== null 
-    ? JSON.parse(localStorage.getItem("selectedAddress")) : {}
+        && localStorage.getItem("selectedAddress") !== null 
+        ? JSON.parse(localStorage.getItem("selectedAddress"))
+        : {
+            address: '227 Nguyễn Văn Cừ, P. 4, Q. 5, TP. Hồ Chí Minh',
+            lat: 10.762613,
+            lng: 106.681868
+        }
 }
 const addressReducer = createSlice({
     name: "addressReducer",
