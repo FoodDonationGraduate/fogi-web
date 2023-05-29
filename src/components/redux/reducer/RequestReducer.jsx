@@ -89,16 +89,16 @@ export const retrieveRequest = (data, user, navigate) => {
     }
 }
 
-export const postDonorRequest = (user, navigate) => {
+export const postDonorRequest = (data, user, navigate) => {
     return async dispatch => {
         try {
             console.log("post donor's request")
             await axiosInstance.post(`/request/donor`, {
                 email: user.userInfo.email,
                 token: user.userToken,
-                address: user.userInfo.address,
-                lat: 0,
-                long: 0
+                address: data.address,
+                lat: data.lat,
+                long: data.long
             }).then((res) => {
                 dispatch(setModalMessage('Tạo yêu cầu mới thành công!'))
                 dispatch(showModal())
@@ -126,9 +126,10 @@ export const postDoneeRequest = (data, user, navigate) => {
                 email: user.userInfo.email,
                 token: user.userToken,
                 reason: data.reason,
-                address: "227 Đ. Nguyễn Văn Cừ, Phường 4, Quận 5, Thành phố Hồ Chí Minh",
-                lat: 10.7628356,
-                long: 106.6824824
+                delivery_type: data.delivery_type,
+                address: data.address,
+                lat: data.lat,
+                long: data.long
             }).then((res) => {
                 dispatch(setModalMessage('Tạo yêu cầu mới thành công!'))
                 dispatch(showModal())

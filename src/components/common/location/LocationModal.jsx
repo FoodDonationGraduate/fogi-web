@@ -63,7 +63,7 @@ const LocationModal = ({ show, onClose }) => {
   }
 
   const onSubmit = async (data) => {
-    // await updateMap();
+    await updateMap();
     data = {...data, lat: coords.lat, long: coords.lng}
     if (state === 1) {
       dispatch(addNewAddress(data, {userInfo, userToken}, navigate))

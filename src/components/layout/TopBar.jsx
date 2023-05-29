@@ -110,7 +110,7 @@ const TopBar = () => {
                         </Form>
                       }
                       <MdOutlineNotificationsNone className='top-bar-icon' />
-                      <MdOutlineShoppingBag className='top-bar-icon' onClick={() => navigate('/cart')}/>
+                      <MdOutlineShoppingBag className='top-bar-icon' onClick={() => navigate('/donate-bag')}/>
                       <div onClick={() => navigate('/profile')} className='d-flex align-items-center'>
                         <img className='nav-profile-icon' src={`http://bachkhoi.online/static/${userInfo.avatar}?${date.getTime()}`} alt='profile' id="profile-icon" />
                       </div>
@@ -118,7 +118,7 @@ const TopBar = () => {
                     :
                     <>
                       <Nav.Link href='/'>Thông báo</Nav.Link>
-                      <Nav.Link href='/cart'>Túi nhận Quyên góp</Nav.Link>
+                      <Nav.Link href='/donate-bag'>Túi nhận Quyên góp</Nav.Link>
                       <Nav.Link href='/profile'>Trang cá nhân</Nav.Link>
                     </>
                   }

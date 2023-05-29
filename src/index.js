@@ -83,7 +83,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/" element={
             <Auth allowedRoles={["donee"]} />}
         >
-          <Route path="/cart" element={<CartPage />} />
+          <Route path="/donate-bag" element={<CartPage />} />
           <Route path="/requests" element={<OrderListPage />} />
           <Route path="/request/:id"  element={<OrderDetailsPage />} />
         </Route>

@@ -20,7 +20,6 @@ const RequestCard = ({ order }) => {
   const navigate = useNavigate();
   return (
     <>
-      <div className='order-item' onClick={() => navigate(`/donor/request/${order.id}`)}>
         <EqualHeightElement name="request-content">
           <span
             className={`order-item-status order-item-status-${getStatus(order).css}`}
@@ -66,8 +65,6 @@ const RequestCard = ({ order }) => {
             <MdAccessTime /> {convertToString(order.created_time, 'LocaleDateString')}
           </header>
         </EqualHeightElement>
-
-      </div>
     </>
   );
 }

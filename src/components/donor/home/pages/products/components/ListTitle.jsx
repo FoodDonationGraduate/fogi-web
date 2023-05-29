@@ -24,18 +24,18 @@ const ListTitle = ({
   const userInfo = useSelector(state => state.authenticationReducer.user)
   const userToken = useSelector(state => state.authenticationReducer.token)
   const modalLogic = useSelector(state => state.modalReducer.logic)
-  
+  const selectedAddress = useSelector(state => state.addressReducer.selectedAddress)
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const createRequest = () => {
-    dispatch(setModalQuestion('Do you want to create new request?'));
+    dispatch(setModalQuestion('Bạn có muốn tạo yêu cầu cho không?'));
     dispatch(showQuestionModal());
   }
   React.useEffect(() => {
     if (modalLogic) {
         dispatch(cancelQuestionModal())
-        dispatch(postDonorRequest({userInfo, userToken}, navigate))
+        dispatch(postDonorRequest(selectedAddress, {userInfo, userToken}, navigate))
     }
   })
 

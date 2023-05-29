@@ -29,7 +29,7 @@ const CartInfoCard = ({ order }) => {
   const navigate = useNavigate();
 
   const cancelRequest = () => {
-    dispatch(setModalQuestion('Do you want to cancel this request?'));
+    dispatch(setModalQuestion('Bạn có muốn muốn hủy yêu cầu này không?'));
     dispatch(showQuestionModal());
   }
   
@@ -52,7 +52,7 @@ const CartInfoCard = ({ order }) => {
               </span>
 
               <h3 className='order-item-date mt-3'>
-                Order {order.id}
+                Yêu cầu {order.id}
               </h3>
 
               <div className='mt-2'> 

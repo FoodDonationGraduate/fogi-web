@@ -44,7 +44,9 @@ const OrderList = ({
               <EqualHeight>
                 {allRequests.requests.map((request) => (
                   <Col className='mb-4' key={request.id}>
-                    <RequestCard order={request} />
+                    <div className='order-item' onClick={() => navigate(`/request/${request.id}`)}>
+                      <RequestCard order={request} />
+                    </div>
                   </Col>
                 ))}
               </EqualHeight>

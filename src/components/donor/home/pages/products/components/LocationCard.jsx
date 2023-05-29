@@ -28,7 +28,7 @@ const LocationCard = () => {
 
   useEffect(() => {
     if (Object.keys(selectedAddress).length !== 0) {
-      setLocation(selectedAddress.address)
+      setLocation(size < 2 ? selectedAddress.address.substring(0, (size + 2) * 5) + '...' : selectedAddress.address)
     }
   }, [selectedAddress]);
 

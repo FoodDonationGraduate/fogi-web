@@ -234,7 +234,7 @@ export const postNewProduct = (data, user, navigate) => {
 export const deleteProduct = (data, user, navigate) => {
     return async dispatch => {
         try {
-            console.log("retrieve donor's products")
+            console.log("delete donor's products")
             await axiosInstance.delete(`/product`, {data: {
                 donor_email: user.userInfo.email,
                 token: user.userToken,

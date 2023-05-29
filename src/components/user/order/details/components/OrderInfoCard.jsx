@@ -28,7 +28,7 @@ const CartInfoCard = ({ order }) => {
   const navigate = useNavigate();
 
   const cancelRequest = () => {
-    dispatch(setModalQuestion('Do you want to cancel this request?'));
+    dispatch(setModalQuestion('Bạn có muốn muốn hủy yêu cầu này không?'));
     dispatch(showQuestionModal());
   }
   

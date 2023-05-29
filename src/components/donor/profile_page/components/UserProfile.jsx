@@ -38,7 +38,7 @@ function UserProfile() {
     const navigate = useNavigate();
 
     const onSubmitProfile = (data) => {
-        dispatch(setModalQuestion("Do you want to save this change?"))
+        dispatch(setModalQuestion("Bạn có muốn lưu thay đổi?"))
         dispatch(showQuestionModal())
         setData(data)
     }
