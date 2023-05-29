@@ -1,35 +1,26 @@
 // Essentials
 import React from 'react';
 import { Stack } from 'react-bootstrap';
-import { MdSmartphone, MdLabelImportant, MdDeliveryDining, MdCheckCircle } from 'react-icons/md'
 
 // Utility
 import { getStep, getStepStatus, convertStepToNumber, convertNumberToStep } from 'utils/helpers/Order.jsx';
 
 const StepItem = ({
   step,
-  currentStep
+  currentStep,
+  isDonee,
+  isDelivery=true
 }) => {
+  const stepOptions = getStep(convertNumberToStep(step), isDonee, isDelivery);
 
   return (
     <>
       <Stack direction='vertical' gap={2}>
         <div className={`step-item step-item-${getStepStatus(step, convertStepToNumber(currentStep))} mx-auto`}>
-          {step === 0 &&
-            <MdSmartphone className='step-item-icon' />
-          }
-          {step === 1 &&
-            <MdLabelImportant className='step-item-icon' />
-          }
-          {step === 2 &&
-            <MdDeliveryDining className='step-item-icon' />
-          }
-          {step === 3 &&
-            <MdCheckCircle className='step-item-icon' />
-          }
+          {stepOptions.icon}
         </div>
         <h5 className={`step-text-${getStepStatus(step, convertStepToNumber(currentStep))} mx-auto`}>
-          {getStep(convertNumberToStep(step)).label}
+          {stepOptions.label}
         </h5>
       </Stack>
     </>

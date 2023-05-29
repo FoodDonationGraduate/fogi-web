@@ -2,6 +2,7 @@
   background-color: white;
   border-radius: 8px;
   padding: 32px;
+  position: relative;
 }
   .order-info-id {
     color: #999;
@@ -21,4 +22,34 @@
   .order-info-donor-location-icon {
     width: 24px;
     height: 24px;
+  }
+  .order-item-volunteer-info {
+    position: absolute;
+    top: 32px;
+    right: 32px;
+  }
+    .order-item-volunteer-avatar {
+      border-radius: 50%;
+      width: 80px;
+      height: 80px;
+    }
+    .order-item-volunteer-label {
+      color: #999;
+      font-size: 14px;
+    }
+    .order-item-volunteer-name {
+      font-size: 18px;
+    }
+  .order-item-volunteer-info-card {
+    padding: 16px;
+    background-color: white;
+    border-radius: 8px;
+  }
+  .order-tag {
+    padding: 4px 8px;
+    border-radius: 8px;
+    font-weight: 600;
+    user-select: none;
+    background: #82CD47;
+    color: #fff;
   }

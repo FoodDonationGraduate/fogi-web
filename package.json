@@ -13,6 +13,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.3.3",
     "bootstrap": "^5.2.3",
+    "google-map-react": "^2.2.1",
     "path": "^0.12.7",
     "react": "^18.2.0",
     "react-avatar-edit": "^1.2.0",
@@ -20,12 +21,14 @@
     "react-dom": "^18.2.0",
     "react-equal-height": "^1.2.2",
     "react-geolocated": "^4.0.3",
+    "react-google-places-autocomplete": "^4.0.1",
     "react-hook-form": "^7.43.0",
     "react-icons": "^4.7.1",
     "react-navigator-geolocation": "^1.0.8",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.8.0",
     "react-scripts": "5.0.1",
+    "recharts": "^2.6.2",
     "yup": "^0.32.11"
   },
   "scripts": {

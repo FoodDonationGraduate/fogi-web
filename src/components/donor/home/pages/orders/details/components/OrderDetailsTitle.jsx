@@ -12,7 +12,6 @@ const OrderListTitle = ({ id }) => {
       <Container>
         <Row className='pt-4'>
           <Col>
-            <h2>Order {id}</h2>
           </Col>
         </Row>
       </Container>

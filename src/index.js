@@ -58,9 +58,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/product/:id" element={<ProductDetailsPage />} />
         <Route path="/store/:id" element={<ProductDetailsPage />} />
 
-        <Route path="/orders" element={<OrderListPage />} />
-        <Route path="/order" element={<OrderDetailsPage />} />
-
         <Route path="/login" element={<UserLogin />} />
         <Route path="/accounttype" element={<AccountType />} />
         <Route path="/signup" element={<UserSignup />} />
@@ -86,16 +83,16 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/" element={
             <Auth allowedRoles={["donee"]} />}
         >
-          <Route path="/cart" element={<CartPage />} />
-          <Route path="/orders" element={<OrderListPage />} />
-          <Route path="/order/:id"  element={<OrderDetailsPage />} />
+          <Route path="/donate-bag" element={<CartPage />} />
+          <Route path="/requests" element={<OrderListPage />} />
+          <Route path="/request/:id"  element={<OrderDetailsPage />} />
         </Route>
         
         <Route path="/donor" element={
             <Auth allowedRoles={["donor"]} />}
         >
           <Route path="/donor/home" element={ <DonorHome/> } />
-          <Route path="/donor/order/:id" element={ <DonorOrderDetailsPage/> } />
+          <Route path="/donor/request/:id" element={ <DonorOrderDetailsPage/> } />
         </Route>
 
         <Route path="/director" element={

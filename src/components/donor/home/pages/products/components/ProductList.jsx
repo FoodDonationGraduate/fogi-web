@@ -32,26 +32,26 @@ const ProductList = () => {
 
   return (
     <Row>
-      {Object.keys(donorProducts).length !== 0 && donorProducts.total_products !== 0 &&
+      {(Object.keys(donorProducts).length !== 0 && donorProducts.total_products !== 0) &&
         <Col className='px-0'>
           <div className='mb-4'>
             {donorProducts.products.map((product) => (
-              <div className='mb-2'>
-                <ProductItem product={product} key={product.id}/>
+              <div className='mb-2' key={product.id}>
+                <ProductItem product={product} />
               </div>
             ))}
           </div>
           <div className='d-flex justify-content-center'>
             <FogiPagination
-            pageCount={donorProducts.total_products ? Math.ceil(donorProducts.total_products / PRODUCT_COUNT) : 1}
-            activeIdx={page}
-            onChangePage={onChangePage}
+              pageCount={donorProducts.total_products ? Math.ceil(donorProducts.total_products / PRODUCT_COUNT) : 1}
+              activeIdx={page}
+              onChangePage={onChangePage}
             />
           </div>
         </Col>
       }
-      {Object.keys(donorProducts).length === 0 || donorProducts.total_products === 0 && 
-        <CommonNotFoundBody title='Bạn chưa thêm mới món ăn nào'/>
+      {(Object.keys(donorProducts).length === 0 || donorProducts.total_products === 0) && 
+        <CommonNotFoundBody title='Bạn chưa thêm mới thực phẩm nào'/>
       }
     </Row>
   );

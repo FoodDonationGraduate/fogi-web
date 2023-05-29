@@ -1,0 +1,26 @@
+.stats-card {
+  background-color: white;
+  padding: 16px;
+  border-radius: 8px;
+}
+  .stats-card-label {
+    font-weight: bold;
+    font-size: 20px;
+    color: black;
+  }
+  .stats-card-value {
+    font-weight: bold;
+    font-size: 28px;
+    color: #82CD47;
+  }
+
+.chart-container {
+  background-color: white;
+  padding: 32px;
+  border-radius: 16px;
+}
+  .chart-tooltip {
+    background-color: white;
+    padding: 8px 8px 1px;
+    border-radius: 8px;
+  }

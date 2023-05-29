@@ -10,19 +10,23 @@ import ChipList from 'components/common/chip/ChipList';
 const OrderListPage = () => {
   // Chip List
   const [activeStatusIdx, setActiveStatusIdx] = useState(0);
-  const statusList = ['pending', 'shipping', 'success', 'canceled'];
+  const statusList = ['pending', 'accepted', 'shipping', 'success', 'canceled'];
   const getStatusLabel = (status) => {
     switch (status) {
       case 'pending':
         return 'Chờ duyệt';
+      case 'accepted':
+        return 'Chấp nhận';
       case 'shipping':
-        return 'Đang giao';
+        return 'Đang đến';
       case 'canceled':
         return 'Đã hủy';
       default:
         return 'Thành công';
     }
   };
+  const styleList = ['neutral', 'info', 'warning', 'success', 'danger'];
+
   return (
     <>
       <div>
@@ -34,6 +38,7 @@ const OrderListPage = () => {
               setActiveStatusIdx={setActiveStatusIdx}
               statusList={statusList}
               getStatusLabel={getStatusLabel}
+              styleList={styleList}
             />
           </Container>
         </div>

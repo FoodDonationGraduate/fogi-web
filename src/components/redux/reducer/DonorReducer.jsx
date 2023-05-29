@@ -36,7 +36,7 @@ export const retrieveAllDonors = (data, navigate) => {
             })
             .catch((err) => {
                 console.log(err)
-                dispatch(setModalMessage("Something went wrong"))
+                dispatch(setModalMessage(`Đã xảy ra lỗi!`))
                 dispatch(showModal())
             });
         } catch (err) {

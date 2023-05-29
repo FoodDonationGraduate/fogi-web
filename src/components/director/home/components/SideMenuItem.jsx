@@ -7,6 +7,7 @@ import { Stack } from 'react-bootstrap';
 import {
   MdOutlineAnalytics, // 0
   MdCheckCircleOutline, // 1
+  MdOutlineCategory // 2
 } from 'react-icons/md';
 
 // Utility
@@ -28,8 +29,9 @@ const SideMenuItem = ({
 
   useEffect(() => {
     switch (type) {
-      case 1: setLabel('Approve users'); break;
-      default: setLabel('Dashboard');
+      case 1: setLabel('Xét duyệt'); break;
+      case 2: setLabel('Quản lý Phân loại'); break;
+      default: setLabel('Thống kê');
     }
   }, []);
 
@@ -53,6 +55,7 @@ const SideMenuItem = ({
             <Stack direction='horizontal' gap={4}>
               {type === 0 && <MdOutlineAnalytics className={`side-menu-icon${active}`} />}
               {type === 1 && <MdCheckCircleOutline className={`side-menu-icon${active}`} />}
+              {type === 2 && <MdOutlineCategory className={`side-menu-icon${active}`} />}
 
               <header className={`side-menu-label${active}`}>{label}</header>
             </Stack>
@@ -67,6 +70,7 @@ const SideMenuItem = ({
           <Stack className={`side-menu-item${active} align-items-center`} direction='vertical' gap={4}>
             {type === 0 && <MdOutlineAnalytics className={`side-menu-icon${active}`} />}
             {type === 1 && <MdCheckCircleOutline className={`side-menu-icon${active}`} />}
+            {type === 2 && <MdOutlineCategory className={`side-menu-icon${active}`} />}
           </Stack>
         </div>
       )}

@@ -31,11 +31,12 @@ const ProductList = () => {
 
   React.useEffect(() => {
     dispatch(searchProduct({query: query ? query : '', limit: PRODUCT_COUNT, offset: page * PRODUCT_COUNT, sort_field: sort}, navigate))
+    console.log(Object.keys(searchingProducts).length === 0)
   }, [sort, query])
 
   return (
     <div className='bg'>
-      {Object.keys(searchingProducts).length !== 0 && searchingProducts.number_of_products !== 0 &&
+      {(Object.keys(searchingProducts).length !== 0 && searchingProducts.total_products !== 0) &&
         <Container>
           <Row className='pt-4' xs={2} md={3} lg={6} >
             <EqualHeight>
@@ -57,7 +58,8 @@ const ProductList = () => {
           </Row>
         </Container>
       }
-      {Object.keys(searchingProducts).length === 0 || searchingProducts.number_of_products === 0  && 
+      <div>{Object.keys(searchingProducts).length === 0}</div>
+      {(Object.keys(searchingProducts).length === 0 || searchingProducts.total_products === 0) && 
         <EmptyProductBody/>
       }
     </div>

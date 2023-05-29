@@ -10,6 +10,7 @@ import { EqualHeight } from 'react-equal-height';
 import ProductCard from 'components/guest/common/cards/ProductCard';
 import FogiPagination from 'components/common/pagination/Pagination';
 import { retrieveAmootProducts } from 'components/redux/reducer/ProductReducer';
+import CommonNotFoundBody from 'components/common/CommonNotFoundBody';
 
 const ProductList = () => {
   const amootProducts = useSelector(state => state.productReducer.amootProducts)
@@ -29,26 +30,31 @@ const ProductList = () => {
   }, [sort])
   return (
     <div className='bg'>
-      <Container>
-        <Row className='pt-4' xs={2} sm={3} md={4} xl={6}>
-        <EqualHeight>
-          {Object.keys(amootProducts).length !== 0 && amootProducts.products.map((product) => (
-            <Col className='pb-4' key={product.id}>
-              <ProductCard product={product}/>
+      {(Object.keys(amootProducts).length !== 0 && amootProducts.total_products !== 0) && 
+        <Container>
+          <Row className='pt-4' xs={2} sm={3} md={4} xl={6}>
+          <EqualHeight>
+            {amootProducts.products.map((product) => (
+              <Col className='pb-4' key={product.id}>
+                <ProductCard product={product}/>
+              </Col>
+            ))}
+          </EqualHeight>
+          </Row>
+          <Row className='pb-4'>
+            <Col className='d-flex justify-content-center'>
+              <FogiPagination
+                pageCount={Math.ceil(amootProducts.total_products / PRODUCT_COUNT)}
+                activeIdx={page}
+                onChangePage={onChangePage}
+              />
             </Col>
-          ))}
-        </EqualHeight>
-        </Row>
-        <Row className='pb-4'>
-          <Col className='d-flex justify-content-center'>
-            <FogiPagination
-              pageCount={Math.ceil(amootProducts.total_products / PRODUCT_COUNT)}
-              activeIdx={page}
-              onChangePage={onChangePage}
-            />
-          </Col>
-        </Row>
-      </Container>
+          </Row>
+        </Container>
+      }
+      {(Object.keys(amootProducts).length === 0 || amootProducts.total_products === 0) && 
+        <CommonNotFoundBody title='Vui lòng thử lại sau'/>
+      }
     </div>
   );
 };

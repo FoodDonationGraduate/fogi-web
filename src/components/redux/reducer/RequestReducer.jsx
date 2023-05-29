@@ -89,15 +89,18 @@ export const retrieveRequest = (data, user, navigate) => {
     }
 }
 
-export const postDonorRequest = (user, navigate) => {
+export const postDonorRequest = (data, user, navigate) => {
     return async dispatch => {
         try {
             console.log("post donor's request")
             await axiosInstance.post(`/request/donor`, {
                 email: user.userInfo.email,
-                token: user.userToken
+                token: user.userToken,
+                address: data.address,
+                lat: data.lat,
+                long: data.long
             }).then((res) => {
-                dispatch(setModalMessage('Create new request successfully!'))
+                dispatch(setModalMessage('Tạo yêu cầu mới thành công!'))
                 dispatch(showModal())
                 dispatch(retrieveDonorProducts({}, user, navigate))
             })
@@ -122,9 +125,13 @@ export const postDoneeRequest = (data, user, navigate) => {
             await axiosInstance.post(`/request/donee`, {
                 email: user.userInfo.email,
                 token: user.userToken,
-                reason: data.reason
+                reason: data.reason,
+                delivery_type: data.delivery_type,
+                address: data.address,
+                lat: data.lat,
+                long: data.long
             }).then((res) => {
-                dispatch(setModalMessage('Create new request successfully!'))
+                dispatch(setModalMessage('Tạo yêu cầu mới thành công!'))
                 dispatch(showModal())
             })
             .catch((err) => {
@@ -153,7 +160,11 @@ export const updateRequest = (data, user, navigate) => {
             }).then((res) => {
                 dispatch(setModalMessage((data.request_status === 'canceled' ? 'Cancel' : 'Update') + ' request successfully!'))
                 dispatch(showModal())
-                user.userInfo.user_type === 'donor' ? navigate('/donor/home') : navigate('/orders')
+                if (data.request_status === 'canceled') {
+                    user.userInfo.user_type === 'donor' ? navigate('/donor/home') : navigate('/requests');
+                } else {
+                    dispatch(retrieveRequest({ request_id: data.request_id }, user, navigate));
+                }
             })
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {

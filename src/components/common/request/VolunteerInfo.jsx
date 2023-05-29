@@ -1,0 +1,55 @@
+// Essentials
+import React, { useState } from 'react';
+import { Button, Stack } from 'react-bootstrap';
+
+// Components
+import ReportModal from 'components/common/request/ReportModal';
+
+// Assets
+import { MdPhone } from 'react-icons/md';
+
+// Utility
+import { useResizer } from 'utils/helpers/Resizer.jsx';
+
+const VolunteerInfo = ({
+  isCard=false,
+  volunteerInfo,
+  orderId=undefined
+}) => {
+  let size = useResizer();
+
+  const [show, setShow] = useState(false);
+  const onClose = () => setShow(false);
+  const onShow = () => setShow(true);
+
+  return (
+    <>  
+      {volunteerInfo &&
+        <>
+          {orderId && (
+            <ReportModal show={show} onClose={onClose} volunteerInfo={volunteerInfo} orderId={orderId} />
+          )}
+    
+          <div className={isCard ? `order-item-volunteer-info-card` : (size > 1 ? `order-item-volunteer-info` : '')}>
+            {!isCard && size <= 1 && <hr />}
+            <Stack direction='horizontal' gap={3}>
+              <img src={`https://bachkhoi.online/static/${volunteerInfo.avatar}`} className='order-item-volunteer-avatar' />
+              <Stack direction='vertical'>
+                <small className='order-item-volunteer-label'>Tình nguyện viên</small>
+                <div className='order-item-volunteer-name'>{volunteerInfo.name}</div>
+                <small className='order-item-volunteer-label'>
+                  <MdPhone /> {volunteerInfo.phone}
+                </small>
+              </Stack>
+              <Button variant='outline-secondary' onClick={onShow}>
+                Báo cáo
+              </Button>
+            </Stack>
+          </div>
+        </>
+      }
+    </>
+  );
+};
+
+export default VolunteerInfo;

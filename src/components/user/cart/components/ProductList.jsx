@@ -1,5 +1,5 @@
 // Essentials
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { Container, Col, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,7 +11,7 @@ import Pagination from 'components/common/pagination/Pagination';
 import { retrieveAllProducts } from 'components/redux/reducer/CartReducer';
 import CommonNotFoundBody from 'components/common/CommonNotFoundBody';
 
-const ProductList = () => {
+const ProductList = ({ setVolunteerInfo }) => {
   const allProducts = useSelector(state => state.cartReducer.allProducts)
   const userInfo = useSelector(state => state.authenticationReducer.user)
   const userToken = useSelector(state => state.authenticationReducer.token)
@@ -27,13 +27,18 @@ const ProductList = () => {
     await dispatch(retrieveAllProducts({limit: PRODUCT_COUNT, offset: idx * PRODUCT_COUNT}, {userInfo, userToken}, navigate))
   };
 
-  React.useEffect(()=>{
-    dispatch(retrieveAllProducts({limit: PRODUCT_COUNT, offset: page * PRODUCT_COUNT}, {userInfo, userToken}, navigate))
-  }, [])
+  useEffect(()=>{
+    dispatch(retrieveAllProducts({limit: PRODUCT_COUNT, offset: page * PRODUCT_COUNT}, {userInfo, userToken}, navigate));
+  }, []);
+
+  useEffect(() => {
+    if (allProducts.total_cart_items > 0) setVolunteerInfo(allProducts.volunteer);
+    else setVolunteerInfo(null);
+  }, [allProducts]);
 
   return (
     <Container>
-      {Object.keys(allProducts).length !== 0 && allProducts.total_cart_items !== 0 &&
+      {(Object.keys(allProducts).length !== 0 && allProducts.total_cart_items !== 0) &&
         <Row>
           <Col>
             <div className='mb-4'>
@@ -53,8 +58,8 @@ const ProductList = () => {
           </Col>
         </Row>
       }
-      {Object.keys(allProducts).length === 0 || allProducts.total_cart_items === 0 && 
-        <CommonNotFoundBody title='Bạn chưa thêm sản phẩm vào giỏ hàng' />
+      {(Object.keys(allProducts).length === 0 || allProducts.total_cart_items === 0) && 
+        <CommonNotFoundBody title='Bạn chưa có Thực phẩm nào trong túi' />
       }
     </Container>
   );

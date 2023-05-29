@@ -143,26 +143,30 @@ a.fogi:active {
     height: 16px;
   }
   .long-product-tail {
-    border: 1px solid #FF5A5F;
+    border: 0px solid #00000000;
     height: 100%;
-    cursor: pointer;
-    border-radius: 0px 8px 8px 0px;
-    color: #FF5A5F;
   }
-    .long-product-tail:hover {
-      background-color: #FF5A5F;
-      border-color: #FF5A5F;
-      color: white;
-    }
-    .long-product-tail:active {
-      border-color: #F50007;
-      border-color: #F50007;
-      color: white;
-    }
   .long-product-icon {
     width: 48px;
     height: 48px;
   }
+    .long-product-icon-container {
+      border: 2px solid #FF5A5F;
+      padding: 8px;
+      border-radius: 50%;
+      color: #FF5A5F;
+      cursor: pointer;
+    }
+    .long-product-icon-container:hover {
+      background-color: #FF5A5F;
+      border-color: #FF5A5F;
+      color: white;
+    }
+    .long-product-icon-container:active {
+      background-color: #F50007;
+      border-color: #F50007;
+      color: white;
+    }
   .long-product-donor {
     cursor: default;
   }
@@ -172,20 +176,22 @@ a.fogi:active {
     .long-product-donor:hover {
       background-color: #fff !important;
     }
-    .long-product-donor-with-tail {
-      border-radius: 8px 0px 0px 8px;
-    }
 
 .chip {
-  padding: 8px 16px;
+  padding: 4px 8px;
   border-radius: 8px;
   font-weight: 600;
   user-select: none;
-  cursor: pointer;
 }
+  .chip-title {
+    color: #999;
+    font-weight: bold;
+    font-size: 16px;
+  }
   .chip-inactive {
     background: #fff;
     color: #ccc;
+    cursor: pointer;
   }
     .chip-inactive:hover {
       background: #999;
@@ -193,43 +199,23 @@ a.fogi:active {
     .chip-inactive:active {
       background: #666;
     }
+  .chip-neutral {
+    background: #999;
+    color: #fff;
+  }
   .chip-info {
     background: #6293F2;
     color: #fff;
   }
-    .chip-info:hover {
-      background: #A5C1F8;
-    }
-    .chip-info:active {
-      background: #1050CB;
-    }
   .chip-warning {
     background: #FEB934;
     color: #fff;
   }
-    .chip-warning:hover {
-      background: #FED380;
-    }
-    .chip-warning:active {
-      background: #CB8601;
-    }
   .chip-success {
     background: #82CD47;
     color: #fff;
   }
-    .chip-success:hover {
-      background: #ADDE87;
-    }
-    .chip-success:active {
-      background: #5A9829;
-    }
   .chip-danger {
     background: #FF5A5F;
     color: #fff;
   }
-    .chip-danger:hover {
-      background: #FF9EA1;
-    }
-    .chip-danger:active {
-      background: #F50007;
-    }

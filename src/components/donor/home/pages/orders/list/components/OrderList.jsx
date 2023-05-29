@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router';
 
 // Components
-import OrderItem from './OrderItem';
+import RequestCard from 'components/common/request/RequestCard';
 import Pagination from 'components/common/pagination/Pagination';
 import { retrieveAllRequests } from 'components/redux/reducer/RequestReducer';
 import CommonNotFoundBody from 'components/common/CommonNotFoundBody';
@@ -38,7 +38,7 @@ const OrderList = ({
 
   return (
     <div>
-      {Object.keys(allRequests).length !== 0 && allRequests.total_requests !== 0 && 
+      {(Object.keys(allRequests).length !== 0 && allRequests.total_requests !== 0) && 
         <Container>
           <Row>
             <Col className='px-0'>
@@ -46,7 +46,9 @@ const OrderList = ({
                 <EqualHeight>
                   {Object.keys(allRequests).length !== 0 && allRequests.requests.map((request) => (
                     <Col className='mb-4' key={request.id}>
-                      <OrderItem order={request} />
+                      <div className='order-item' onClick={() => navigate(`/donor/request/${request.id}`)}>
+                        <RequestCard order={request} />
+                      </div>
                     </Col>
                   ))}
                 </EqualHeight>
@@ -64,7 +66,7 @@ const OrderList = ({
           </Row>
         </Container>
       }
-      {Object.keys(allRequests).length === 0 || allRequests.total_requests === 0 && 
+      {(Object.keys(allRequests).length === 0 || allRequests.total_requests === 0) && 
         <CommonNotFoundBody title='Bạn chưa tạo yêu cầu nào'/>
       }
     </div>

@@ -9,15 +9,14 @@ const ChipList = ({
   activeStatusIdx,
   setActiveStatusIdx,
   statusList,
-  getStatusLabel
+  getStatusLabel,
+  styleList,
+  title=undefined
 }) => {
-
-  // For statusList, the list must contain 4 elements according to 4 status colors:
-  // ['info', 'warning', 'primary', 'success']
-
   return (
     <>
-      <Stack direction='horizontal' gap={3}>
+      <Stack direction='horizontal' gap={2}>
+        {title && <div className='chip-title me-1'>{title}</div>}
         {statusList.length > 0 && statusList.map((status, idx) => (
           <Chip
             key={idx}
@@ -27,6 +26,8 @@ const ChipList = ({
             isActive={idx === activeStatusIdx}
             setActiveStatusIdx={setActiveStatusIdx}
             getStatusLabel={getStatusLabel}
+            styleList={styleList}
+            style={styleList[idx]}
           />
         ))}
       </Stack>

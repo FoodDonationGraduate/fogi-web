@@ -7,7 +7,6 @@ import { useParams } from 'react-router-dom'
 // Components
 import TopBarDonor from 'components/layout/TopBarOther';
 import Footer from 'components/layout/Footer';
-import OrderDetailsTitle from './components/OrderDetailsTitle';
 import OrderInfoCard from './components/OrderInfoCard';
 import ProductList from './components/ProductList';
 import { retrieveRequest } from 'components/redux/reducer/RequestReducer';
@@ -38,10 +37,7 @@ const OrderDetailsPage = () => {
       </div>
       {Object.keys(currentRequest).length !== 0 && 
         <div className='bg'>
-          <div className='mb-4'>
-            <OrderDetailsTitle id={currentRequest.request.id} />
-          </div>
-          <div className='pb-4'>
+          <div className='py-4'>
             <OrderInfoCard order={currentRequest.request} />
           </div>
           <div className='pb-4'>

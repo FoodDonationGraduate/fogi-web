@@ -18,6 +18,7 @@ import UploadButton from 'components/common/UploadButton';
 import Tooltip from 'components/common/Tooltip';
 import { retrieveAllCategories } from 'components/redux/reducer/CategoryReducer';
 import { postNewProduct } from 'components/redux/reducer/ProductReducer';
+
 // Assets imports
 import { FaExclamationTriangle } from 'react-icons/fa';
 import { MdClose } from 'react-icons/md';
@@ -121,20 +122,20 @@ const PostProductModal = ({
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Thêm món ăn</Modal.Title>
+          <Modal.Title>Thêm thực phẩm</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleSubmit(onSubmit)}>
             
             <Form.Group className='mb-3'>
               <Form.Label style={{ fontWeight: 'bold' }}>
-                Tên món ăn
+                Tên thực phẩm
               </Form.Label>
               <Form.Control {...register('name')} />
               {errors.name && errors.name.type === 'required' && (
                 <p className="mt-2 error">
                   <FaExclamationTriangle className="mx-2" />
-                  Bạn chưa điền tên món ăn
+                  Bạn chưa điền tên thực phẩm
                 </p>
               )}
             </Form.Group>
@@ -144,12 +145,14 @@ const PostProductModal = ({
                 Danh mục
               </Form.Label>
               <Form.Select aria-label="Default select exampe" {...register('category_id')} >
-                {Object.keys(allCategories).length !== 0 && allCategories.categories.map((category) => (<option value={category.id}>{category.name}</option>))}
+                {Object.keys(allCategories).length !== 0 && allCategories.categories.map((category) => (
+                  <option value={category.id} key={category.id}>{category.name}</option>))
+                }
               </Form.Select>
               {errors.name && errors.name.type === 'required' && (
                 <p className="mt-2 error">
                   <FaExclamationTriangle className="mx-2" />
-                  Bạn chưa chọn danh mục món ăn
+                  Bạn chưa chọn danh mục thực phẩm
                 </p>
               )}
             </Form.Group>
@@ -237,7 +240,7 @@ const PostProductModal = ({
             
             <Form.Group className='mb-3'>
               <Form.Label style={{ fontWeight: 'bold' }}>
-                Hình món ăn{' '}
+                Hình thực phẩm{' '}
                 <Tooltip tip={'Ít nhất 1 hình ảnh'} />
               </Form.Label>
               <UploadButton
@@ -262,7 +265,7 @@ const PostProductModal = ({
               {submitted && images.length === 0 && (
                 <p className="mt-2 error">
                   <FaExclamationTriangle className="mx-2" />
-                  Bạn chưa đăng hình ảnh món ăn
+                  Bạn chưa đăng hình ảnh thực phẩm
                 </p>
               )}
             </Form.Group>
@@ -274,7 +277,7 @@ const PostProductModal = ({
                 type='submit'
                 onClick={() => { setSubmitted(true); }}
               >
-                Thêm món ăn
+                Thêm thực phẩm
               </Button>
             </div>
           </Form>

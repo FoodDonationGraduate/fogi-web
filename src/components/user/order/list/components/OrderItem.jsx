@@ -16,7 +16,7 @@ const OrderItem = ({ order }) => {
 
   return (
     <>
-      <div className='order-item' onClick={() => navigate(`/order/${order.id}`)}>
+      <div className='order-item' onClick={() => navigate(`/request/${order.id}`)}>
         <span
           className={`order-item-status order-item-status-${getStatus(order).css}`}
         >
@@ -38,7 +38,7 @@ const OrderItem = ({ order }) => {
         <hr />
 
         <h5 className='order-item-product-title'>
-          Các món ăn đã đặt
+          Các thực phẩm đã đặt
         </h5>
         <EqualHeightElement name="order-list">
           {order.products.slice(0, productListDisplayLength()).map((product) => (

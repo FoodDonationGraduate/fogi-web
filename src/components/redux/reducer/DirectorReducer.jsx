@@ -3,6 +3,8 @@ import axiosInstance from 'services/axios/axiosConfig.js';
 import { handleExpiredToken } from './AuthenticationReducer';
 import { setModalMessage, showModal } from './ModalReducer';
 
+import { retrieveAllCategories } from 'components/redux/reducer/CategoryReducer';
+
 const initialState = {
   unverifiedDonees: {},
   unverifiedVolunteers: {},
@@ -93,6 +95,34 @@ export const verifyUser = (data, director, navigate) => {
       }).catch((err) => {
         console.log(err);
         navigate('/');
+      });
+    } catch (err) {
+      console.log(err);
+      navigate('/');
+    }
+  }
+}
+
+export const addCategory = (data, director, navigate) => {
+  return async dispatch => {
+    try {
+      console.log('add category');
+      axiosInstance.post(`/category`, {
+        email: director.userInfo.email,
+        token: director.userToken,
+        name: data.name,
+        description: data.name,
+        image: data.image
+      }).then((res) => {
+        dispatch(retrieveAllCategories(navigate));
+        dispatch(setModalMessage("Thêm Phân loại thành công!"));
+        dispatch(showModal());
+      }).catch((err) => {
+        if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+          console.log(err);
+          dispatch(setModalMessage("Đã xảy ra lỗi!"));
+          dispatch(showModal());
+        }
       });
     } catch (err) {
       console.log(err);

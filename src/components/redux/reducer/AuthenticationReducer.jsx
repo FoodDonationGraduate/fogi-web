@@ -78,9 +78,7 @@ export const refreshToken = (navigate) => {
 
 export function handleExpiredToken (data, dispatch, navigate) {
     if (data.message === "unauthorized") {
-        dispatch(setUserInfo({}))
-        dispatch(setUserToken(''))
-        navigate('/login')
+        dispatch(logout(navigate))
         return false;
     }
     return true;
@@ -107,7 +105,7 @@ export const login = (data, navigate, setFailAuthentication) => {
             }).then((res) => {
                 dispatch(setUserInfo(res.data.user))
                 dispatch(setUserToken(res.data.token))
-                navigate('/profile')
+                navigate(-1)
                 // let intervalID =  setInterval(() => {
                 //     const userInfo = JSON.parse(localStorage.getItem("user"));
                 //     const userToken = localStorage.getItem("token");
@@ -121,7 +119,7 @@ export const login = (data, navigate, setFailAuthentication) => {
                     dispatch(signupUserAccount())
                     localStorage.setItem('currentEmail', data.email)
                     navigate('/verification')
-                    dispatch(setModalMessage(`You need to verify your email first!`))
+                    dispatch(setModalMessage(`Bạn cần phải xác minh email của bạn!`))
                     dispatch(showModal())
                 } else if (err.response.data.message === 'Email or password is wrong') {
                     setFailAuthentication(true);
@@ -142,6 +140,7 @@ export const logout = (navigate) => {
             console.log("logout")
             dispatch(setUserInfo({}))
             dispatch(setUserToken(''))
+            dispatch(localStorage.removeItem('selectedAddress'))
             navigate('/login')
         } catch (err) {
             console.log(err)
@@ -160,12 +159,14 @@ export const signup = (data, navigate) => {
                 password: data.password,
                 address: data.address,
                 dob: data.dob,
-                phone: data.phonenumber,
-                name: data.fullname,
+                phone: data.phone,
+                name: data.name,
                 avatar: '',
-                reputation: 0
+                id_front: data.id_front,
+                id_back: data.id_back
             }).then((res) => {
                 navigate('/signupsuccess')
+                dispatch(removeRegisterdUser())
             })
             .catch((err) => {
                 if (err.response.data.message === 'Email is already existed') {
@@ -198,18 +199,14 @@ export const signupForDonor = (data, navigate) => {
                 user_type: 'donor',
                 password: data.password,
                 address: data.address,
-                phone: data.phonenumber,
-                owner_name: data.ownername,
-                open_time: data.openhours,
-                close_time: data.closehours,
-                description: data.description,
-                name: data.brandname,
+                phone: data.phone,
+                name: data.name,
                 avatar: '',
-                storefront: '',
-                owner_id_front: data.owner_id_front,
-                owner_id_back: data.owner_id_back
+                id_front: data.id_front,
+                id_back: data.id_back
             }).then((res) => {
                 navigate('/signupsuccess')
+                dispatch(removeRegisterdUser())
             })
             .catch((err) => {
                 if (err.response.data.message === 'Email is already existed') {
@@ -299,10 +296,10 @@ export const retrieveProfile = (user, navigate) => {
     return async dispatch => {
         try {
             console.log("retrieve profile")
-            await axiosInstance.post(`/profile`, {
+            await axiosInstance.get(`/profile`, {params:{
                 email: user.userInfo.email,
                 token: user.userToken
-            }).then((res) => {
+            }}).then((res) => {
                 dispatch(setUserInfo(res.data.user));
             })
             .catch((err) => {

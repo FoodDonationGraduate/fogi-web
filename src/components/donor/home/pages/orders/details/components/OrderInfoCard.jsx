@@ -1,18 +1,23 @@
 // Essentials
 import React from 'react';
-import { Button, Container, Col, Row, Stack } from 'react-bootstrap';
+import { Button, Container, Col, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router';
 
+// Assets
+import { MdOutlineLocationOn, MdAccessTime } from 'react-icons/md';
+
 // Components
-import StepItem from './StepItem';
+import StepItem from 'components/common/StepItem';
 import { updateRequest } from 'components/redux/reducer/RequestReducer';
+import VolunteerInfo from 'components/common/request/VolunteerInfo';
 import { cancelQuestionModal, setModalQuestion, showQuestionModal } from 'components/redux/reducer/ModalReducer';
 
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
-import { getStatus, getStep } from 'utils/helpers/Order.jsx';
+import { getStatus, getStep, convertStepToNumber } from 'utils/helpers/Order.jsx';
 import { convertToString } from 'utils/helpers/Time';
+import { reduceString } from 'utils/helpers/String';
 
 const CartInfoCard = ({ order }) => {
   let size = useResizer();
@@ -24,7 +29,7 @@ const CartInfoCard = ({ order }) => {
   const navigate = useNavigate();
 
   const cancelRequest = () => {
-    dispatch(setModalQuestion('Do you want to cancel this request?'));
+    dispatch(setModalQuestion('Bạn có muốn muốn hủy yêu cầu này không?'));
     dispatch(showQuestionModal());
   }
   
@@ -45,17 +50,26 @@ const CartInfoCard = ({ order }) => {
               >
                 {getStatus(order).label}
               </span>
+
               <h3 className='order-item-date mt-3'>
-                Tạo ngày {convertToString(order.created_time, 'LocaleDateString')}
+                Yêu cầu {order.id}
               </h3>
-              <header className='order-item-secondary'>
-                Tại {order.address}
-              </header>
+
+              <div className='mt-2'> 
+                <header className='order-item-secondary'>
+                  <MdAccessTime /> {convertToString(order.created_time, 'LocaleDateString')}
+                </header>
+                <header className='order-item-secondary'>
+                  <MdOutlineLocationOn /> {reduceString(order.address, 80)}
+                </header>
+              </div>
+
+              <VolunteerInfo volunteerInfo={order.volunteer} orderId={order.id} />
 
               <hr />
 
               <h3 className='order-item-date text-center'>
-                {getStep(order.status).header}
+                {getStep(order.status, false, true).header}
               </h3>
 
               {order.status !== 'canceled' &&
@@ -65,7 +79,12 @@ const CartInfoCard = ({ order }) => {
                       {Array.from({ length : 7 }).map((_, idx) => (
                         <Col key={idx}>
                           {idx % 2 === 0 ?
-                            <StepItem key={idx / 2} step={idx / 2} currentStep={order.status} />
+                            <StepItem
+                              key={idx / 2}
+                              step={idx / 2}
+                              currentStep={order.status}
+                              isDonee={false}
+                            />
                             :
                             <hr className='step-connector' />
                           }
@@ -74,17 +93,24 @@ const CartInfoCard = ({ order }) => {
                     </Row>
                     :
                     <header className='order-item-secondary text-center mt-2'>
-                      Hiện tại: {getStep(order.status).label} {`(${order.status}/4)`}
+                      Hiện tại: {getStep(order.status, false, true).label} {`(${convertStepToNumber(order.status) + 1}/4)`}
                     </header>
                   }
                 </>
               }
-              {order.status === 'init' || order.status === 'pending' &&
+              {(order.status === 'init' || order.status === 'pending' || order.status === 'canceled') &&
                 <Row className='mt-4'>
                   <Col className='d-flex justify-content-end'>
-                    <Button variant='outline-danger' onClick={() => cancelRequest()}>
-                      Hủy Yêu cầu
-                    </Button>
+                    {(order.status === 'init' || order.status === 'pending') && (
+                      <Button variant='outline-danger' onClick={() => cancelRequest()}>
+                        Hủy Yêu cầu
+                      </Button>
+                    )}
+                    {order.status === 'canceled' && (
+                      <Button variant='primary' className='fogi'>
+                        Tạo lại Yêu cầu
+                      </Button>
+                    )}
                   </Col>
                 </Row>
               }

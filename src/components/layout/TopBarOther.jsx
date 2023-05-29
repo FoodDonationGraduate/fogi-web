@@ -18,6 +18,7 @@ const TopBar = ({ user_type = 1 }) => {
 
   const toProfileForm = () => { navigate('/profile'); }
   const userInfo = useSelector(state => state.authenticationReducer.user);
+  const date = new Date();
 
   return (
     <div className='top-bar-header'>
@@ -41,7 +42,7 @@ const TopBar = ({ user_type = 1 }) => {
                 {size > 1 ?
                   <Stack direction='horizontal' gap={4}>
                     <div onClick={toProfileForm} className='d-flex align-items-center'>
-                      <img className='nav-profile-icon' src={`https://bachkhoi.online/static/${userInfo.avatar}`} alt='profile' id="profile-icon" />
+                      <img className='nav-profile-icon' src={`https://bachkhoi.online/static/${userInfo.avatar}?${date.getTime()}`} alt='profile' id="profile-icon" />
                     </div>
                   </Stack>
                   :

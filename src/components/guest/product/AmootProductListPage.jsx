@@ -18,7 +18,7 @@ const ProductListPage = () => {
         <TopSection />
       </div>
       <div className='bg'>
-        <ListTitle title='Món ăn sắp hết hàng'/>
+        <ListTitle title='Thực phẩm sắp hết hàng'/>
         <AmootProductList />
       </div>
       <div>

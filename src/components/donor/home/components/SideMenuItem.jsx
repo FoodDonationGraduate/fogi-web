@@ -6,9 +6,8 @@ import { Stack } from 'react-bootstrap';
 // Assets
 import {
   MdOutlineAnalytics, // 0
-  MdOutlineFastfood, // 1
-  MdOutlineAssignment, // 2
-  MdOutlineNotifications, // 3
+  MdOutlineShoppingBag, // 1
+  MdOutlineAssignment // 2
 } from 'react-icons/md';
 
 // Utility
@@ -30,7 +29,7 @@ const SideMenuItem = ({
 
   useEffect(() => {
     switch (type) {
-      case 1: setLabel('Danh sách món ăn'); break;
+      case 1: setLabel('Túi quyên góp'); break;
       case 2: setLabel('Danh sách Yêu cầu'); break;
       default: setLabel('Thống kê');
     }
@@ -55,7 +54,7 @@ const SideMenuItem = ({
           <Stack className={`side-menu-item${active}`} direction='horizontal' gap={4}>
             <Stack direction='horizontal' gap={4}>
               {type === 0 && <MdOutlineAnalytics className={`side-menu-icon${active}`} />}
-              {type === 1 && <MdOutlineFastfood className={`side-menu-icon${active}`} />}
+              {type === 1 && <MdOutlineShoppingBag className={`side-menu-icon${active}`} />}
               {type === 2 && <MdOutlineAssignment className={`side-menu-icon${active}`} />}
 
               <header className={`side-menu-label${active}`}>{label}</header>
@@ -70,7 +69,7 @@ const SideMenuItem = ({
         <div className='mb-2' onClick={handleOnClick}>
           <Stack className={`side-menu-item${active} align-items-center`} direction='vertical' gap={4}>
             {type === 0 && <MdOutlineAnalytics className={`side-menu-icon${active}`} />}
-            {type === 1 && <MdOutlineFastfood className={`side-menu-icon${active}`} />}
+            {type === 1 && <MdOutlineShoppingBag className={`side-menu-icon${active}`} />}
             {type === 2 && <MdOutlineAssignment className={`side-menu-icon${active}`} />}
           </Stack>
         </div>

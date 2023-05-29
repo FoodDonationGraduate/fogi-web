@@ -22,7 +22,7 @@ function ButtonCard() {
     const onClose = () => setShow(false);
     const onShow = () => setShow(true);
 
-    const toHistoryOrderPage = () => navigate('/orders');
+    const toHistoryOrderPage = () => navigate('/requests');
     return (
         <>
             <ChangePasswordModal show={show} onClose={onClose} />

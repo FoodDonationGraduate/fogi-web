@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router';
 import { EqualHeight } from 'react-equal-height';
 
 // Components
-import CategoryCard from 'components/guest/common/cards/CategoryCard';
+import CategoryCard from 'components/common/category/CategoryCard';
 import { retrieveAllCategories } from 'components/redux/reducer/CategoryReducer';
 
 // Styling
@@ -57,7 +57,7 @@ const CategorySection = () => {
       <Container>
         <Row className='pt-4'>
           <Col>
-            <h2>Danh mục Món ăn</h2>
+            <h2>Danh mục Thực phẩm</h2>
           </Col>
         </Row>
         <EqualHeight>
