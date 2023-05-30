@@ -131,8 +131,8 @@ export const postDoneeRequest = (data, user, navigate) => {
                 lat: data.lat,
                 long: data.long
             }).then((res) => {
-                dispatch(setModalMessage('Tạo yêu cầu mới thành công!'))
-                dispatch(showModal())
+                dispatch(setModalMessage('Tạo yêu cầu mới thành công!'));
+                dispatch(showModal());
             })
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
@@ -158,7 +158,7 @@ export const updateRequest = (data, user, navigate) => {
                 request_id: data.request_id,
                 request_status: data.request_status
             }).then((res) => {
-                dispatch(setModalMessage((data.request_status === 'canceled' ? 'Cancel' : 'Update') + ' request successfully!'))
+                dispatch(setModalMessage((data.request_status === 'canceled' ? 'Hủy' : 'Cập nhật') + ' Yêu cầu thành công!'))
                 dispatch(showModal())
                 if (data.request_status === 'canceled') {
                     user.userInfo.user_type === 'donor' ? navigate('/donor/home') : navigate('/requests');

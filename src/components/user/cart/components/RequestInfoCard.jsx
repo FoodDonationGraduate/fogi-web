@@ -60,8 +60,8 @@ const RequestInfoCard = (
       address: data.currentAddress.address,
       lat: data.currentAddress.lat,
       long: data.currentAddress.long
-    }, {userInfo, userToken}, navigate))
-    setActive(false)
+    }, {userInfo, userToken}, navigate));
+    setActive(false);
   };
 
   // useEffect

@@ -38,7 +38,7 @@ const ReportModal = ({ show, onClose, volunteerInfo, orderId }) => {
               </Form.Label>
 
               <Stack direction='horizontal' gap={3}>
-                <img src={volunteerInfo.avatar} className='order-item-volunteer-avatar' />
+                <img src={`https://bachkhoi.online/static/${volunteerInfo.avatar}`} className='order-item-volunteer-avatar' />
                 <Stack direction='vertical'>
                   <div className='order-item-volunteer-label'>Tình nguyện viên</div>
                   <div className='order-item-volunteer-name'>{volunteerInfo.name}</div>

@@ -16,12 +16,14 @@ const LocationItem = ({
   isAdd=false,
   setState,
   item,
-  setItem
+  setItem,
+  onClose
 }) => {
   const dispatch = useDispatch();
 
   const selectLocation = (item) => {
     dispatch(setSelectedAddress(item));
+    onClose();
   };
   return (
     <>
