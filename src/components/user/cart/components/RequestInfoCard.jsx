@@ -22,7 +22,7 @@ import { convertToString } from 'utils/helpers/Time';
 import { postDoneeRequest } from 'components/redux/reducer/RequestReducer';
 
 const RequestInfoCard = (
-  {isActive, setActive}
+  {isActive, setActive, volunteerInfo}
 ) => {
   const userInfo = useSelector(state => state.authenticationReducer.user)
   const userToken = useSelector(state => state.authenticationReducer.token)
@@ -102,7 +102,7 @@ const RequestInfoCard = (
                   <header className='order-item-secondary'>
                     <Stack direction='horizontal' gap={2}>
                       <div className='fw-bold'>{activeStatusIdx === 0 ? 'Địa chỉ lấy tại chỗ:' : 'Địa chỉ giao hàng:'}</div>
-                      <div>{activeStatusIdx === 0 ? '227 Nguyễn Văn Cừ, P. 4, Q. 5, TP. Hồ Chí Minh' : selectedAddress.address}</div>
+                      <div>{activeStatusIdx === 0 ? (volunteerInfo ? volunteerInfo.address : 'Không có') : selectedAddress.address}</div>
                     </Stack>
                   </header>
                   
