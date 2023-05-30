@@ -88,7 +88,7 @@ const ProductDetails = ({product}) => {
         <Row className='mt-3'>
           <Col className='ps-0' xs='auto'>
             <Button className='fogi' variant='primary' onClick={onSubmit}>
-              Thêm vào Giỏ
+              Thêm vào Túi
             </Button>
           </Col>
           <Col className='d-flex justify-content-end'>

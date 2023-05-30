@@ -26,16 +26,17 @@ const ProductCard = ({product}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const onSubmit = (product_id) => {
+  const onSubmit = (event) => {
     if (handleEmptyToken({userInfo, userToken}, navigate)) {
-      dispatch(addNewProduct({product_id: product_id, quantity: 1}, {userInfo, userToken}, navigate));
+      dispatch(addNewProduct({product_id: product.id, quantity: 1}, {userInfo, userToken}, navigate));
     }
+    event.stopPropagation();
   }
     
   const date = new Date();
 
   return (
-    <Card className='product-card h-100' > 
+    <Card className='product-card h-100' onClick={() => navigate(`/product/${product.id}`)}> 
       <Card.Img className='product-card-img' 
         src={`https://bachkhoi.online/static/${product.image_filename}`} 
         alt={product.description}
@@ -80,11 +81,8 @@ const ProductCard = ({product}) => {
         <hr className='my-2' />
         
         <div className='d-grid'>
-          <Button className='fogi mt-2' variant='primary' onClick={() => onSubmit(product.id)}>
+          <Button className='fogi mt-2' variant='primary' onClick={(event) => onSubmit(event)}>
             Thêm vào Túi
-          </Button>
-          <Button className='fogi mt-2' variant='outline-secondary' onClick={() => navigate(`/product/${product.id}`)}>
-            Xem chi tiết
           </Button>
         </div>
       </Card.Body>

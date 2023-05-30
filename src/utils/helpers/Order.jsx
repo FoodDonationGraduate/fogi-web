@@ -62,7 +62,7 @@ export const getStep = (step, isDonee, isDelivery) => {
   let icon = <MdSmartphone className='step-item-icon' />;
   switch (step) {
     case 'pending':
-      header = 'Tình nguyện viên đang xem Yêu cầu của bạn';
+      header = 'Đang chờ một Tình nguyện viên duyệt Yêu cầu';
       label = 'Chờ duyệt';
       icon = <MdSmartphone className='step-item-icon' />;
       break;
@@ -73,7 +73,7 @@ export const getStep = (step, isDonee, isDelivery) => {
         if (isDelivery) header += 'chuẩn bị giao';
         else header += 'đang chờ bạn đến nhận'
       } else {
-        header = 'chuẩn bị đến nhận Thực phẩm';
+        header += ' chuẩn bị đến nhận Thực phẩm';
       }
       label = 'Chấp nhận';
       icon = <MdLabelImportant className='step-item-icon' />;

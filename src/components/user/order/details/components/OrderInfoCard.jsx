@@ -71,11 +71,11 @@ const OrderInfoCard = ({ order }) => {
                 <h5 className='order-item-date'>
                   Hình thức nhận thực phẩm
                 </h5>
-                <div className='order-tag'>Lấy tại chỗ</div>
+                <div className='order-tag'>{order.delivery_type === 'pickup' ? 'Lấy tại chỗ' : 'Giao hàng'}</div>
               </Stack>
               <header className='order-item-secondary'>
                 <Stack direction='horizontal' gap={2}>
-                  <div className='fw-bold'>Địa chỉ lấy tại chỗ: </div>
+                  <div className='fw-bold'>{`Địa chỉ ${order.delivery_type === 'pickup' ? ' nhận thực phẩm' : 'giao hàng'}`}</div>
                   <div>{order.address}</div>
                 </Stack>
               </header>

@@ -115,7 +115,7 @@ const LocationModal = ({ show, onClose }) => {
                 && allAdresses.addresses.map((item, idx) => (
                   <div key={idx}>
                     <hr className='my-2' />
-                    <LocationItem setState={setState} item={item} setItem={setItem}/>
+                    <LocationItem setState={setState} item={item} setItem={setItem} onClose={onClose} />
                   </div>
               ))}
             </>
