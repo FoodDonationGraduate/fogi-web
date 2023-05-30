@@ -34,7 +34,7 @@ const ListTitle = ({title}) => {
           <Col>
             <h2>{shownTitle}</h2>
           </Col>
-          <Col className='d-flex justify-content-end' xs={2}>
+          {/* <Col className='d-flex justify-content-end' xs={2}>
             <DropdownButton
               variant='outline-secondary'
               title={sort !== '' ? (sort === 'expired_time' ? 'Thời gian' : 'Số lượng') : 'Sắp xếp'}
@@ -43,7 +43,7 @@ const ListTitle = ({title}) => {
               <Dropdown.Item onClick={() => dispatch(setTypeOfSort('stock'))}>Số lượng</Dropdown.Item>
               <Dropdown.Item onClick={() => dispatch(setTypeOfSort(''))}>Không có</Dropdown.Item>
             </DropdownButton>
-          </Col>
+          </Col> */}
         </Row>
       </Container>
     </div>

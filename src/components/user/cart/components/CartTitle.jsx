@@ -53,6 +53,7 @@ const CartTitle = ({ volunteerInfo }) => {
       <RequestInfoCard 
         isActive={isActive === true}
         setActive={setActive}
+        volunteerInfo={volunteerInfo}
       />
     </div>
   );

@@ -18,7 +18,7 @@ const ProductListPage = () => {
         <TopSection />
       </div>
       <div className='bg'>
-        <ListTitle title='Result Product List'/>
+        <ListTitle title='Kết quả tìm kiếm'/>
         <ProductList />
       </div>
       <div>
