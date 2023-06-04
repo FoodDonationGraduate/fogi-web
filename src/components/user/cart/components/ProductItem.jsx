@@ -11,11 +11,10 @@ import { updateProduct, deleteProduct } from 'components/redux/reducer/CartReduc
 import { getUnit } from 'utils/helpers/Food';
 import { showQuestionModal, cancelQuestionModal, setModalQuestion } from 'components/redux/reducer/ModalReducer';
 
-var timer;
-
 const ProductItem = ({
   product
 }) => {
+
   const userInfo = useSelector(state => state.authenticationReducer.user);
   const userToken = useSelector(state => state.authenticationReducer.token);
   const modalLogic = useSelector(state => state.modalReducer.logic);
@@ -28,6 +27,7 @@ const ProductItem = ({
   const [currentProduct, setCurrentProduct] = useState('');
 
   // Count handling
+  const [timer, setTimer] = useState(null);
   const updateCount = (newCount) => { 
     console.log(`update count: ${product.id} | ${newCount}`);
     dispatch(updateProduct({product_id: product.id, quantity: Number(newCount)}, {userInfo, userToken}, navigate));
@@ -35,7 +35,7 @@ const ProductItem = ({
   const onUpdateCount = (amount) => {
     setCount(count + amount);
     window.clearTimeout(timer);
-    timer = window.setTimeout(updateCount, 1000, count + amount);
+    setTimer(window.setTimeout(updateCount, 1000, count + amount));
   };
   const onUpdateInput = (event) => {
     let newCount = event.target.value <= product.stock ? event.target.value : product.stock;
@@ -43,7 +43,7 @@ const ProductItem = ({
     if (event.target.value.length === 0) return;
     setCount(newCount);
     window.clearTimeout(timer);
-    timer = window.setTimeout(updateCount, 1000, newCount);
+    setTimer(window.setTimeout(updateCount, 1000, newCount));
   };
 
 

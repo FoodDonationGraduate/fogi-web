@@ -87,7 +87,7 @@ export const updateProduct = (data, user, navigate) => {
                 product_id: data.product_id,
                 quantity: data.quantity
             }).then((res) => {
-                dispatch(retrieveAllProducts({}, user, navigate))
+                //dispatch(retrieveAllProducts({}, user, navigate))
             })
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
