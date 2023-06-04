@@ -8,6 +8,16 @@
   border-color: #5A9829 !important;
 }
 
+.btn-danger.fogi, .btn-danger.fogi:active, .btn-danger.fogi:visited {
+  background-color: #FF5A5F !important;
+  border-color: #FF5A5F !important;
+}
+
+.btn-danger.fogi:hover {
+  background-color: #F50007 !important;
+  border-color: #F50007 !important;
+}
+
 .btn {
   border: 2px solid;
   font-weight: bold;

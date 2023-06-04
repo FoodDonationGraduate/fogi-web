@@ -8,7 +8,10 @@ import { useNavigate } from 'react-router';
 import { useResizer } from 'utils/helpers/Resizer.jsx';
 import { distanceTime } from 'utils/helpers/Time';
 import { updateProduct, deleteProduct } from 'components/redux/reducer/CartReducer';
+import { getUnit } from 'utils/helpers/Food';
 import { showQuestionModal, cancelQuestionModal, setModalQuestion } from 'components/redux/reducer/ModalReducer';
+
+var timer;
 
 const ProductItem = ({
   product
@@ -24,15 +27,26 @@ const ProductItem = ({
   const [count, setCount] = useState(0);
   const [currentProduct, setCurrentProduct] = useState('');
 
-  const increaseCount = (id) => { 
-    dispatch(updateProduct({product_id: id, quantity: count + 1}, {userInfo, userToken}, navigate));
+  // Count handling
+  const updateCount = (newCount) => { 
+    console.log(`update count: ${product.id} | ${newCount}`);
+    dispatch(updateProduct({product_id: product.id, quantity: Number(newCount)}, {userInfo, userToken}, navigate));
+  };
+  const onUpdateCount = (amount) => {
+    setCount(count + amount);
+    window.clearTimeout(timer);
+    timer = window.setTimeout(updateCount, 1000, count + amount);
+  };
+  const onUpdateInput = (event) => {
+    let newCount = event.target.value <= product.stock ? event.target.value : product.stock;
+    if (Number(newCount) === 0) newCount = 1;
+    if (event.target.value.length === 0) return;
+    setCount(newCount);
+    window.clearTimeout(timer);
+    timer = window.setTimeout(updateCount, 1000, newCount);
   };
 
-  const decreaseCount = (id) => { 
-    if (count > 1){
-      dispatch(updateProduct({product_id: id, quantity: count - 1}, {userInfo, userToken}, navigate));
-    }
-  };
+
 
   const deleteProductModal = (id) => { 
     dispatch(setModalQuestion('Bạn có muốn xóa sản phẩm này không??'));
@@ -89,13 +103,13 @@ const ProductItem = ({
 
                 <Col className={`d-flex ${size < 3 && 'ps-0'}`} xs={12} md={3}>
                   <Stack className='my-auto' direction='vertical' gap={2}>
-                    <header className='long-product-label'>Số lượng</header>
+                    <header className='long-product-label'>Số lượng ({getUnit(product.unit)})</header>
                     <Stack direction='horizontal'>
                       {size > 0 &&
                         <Button
                           variant='outline-secondary'
-                          onClick={() =>decreaseCount(product.id)}
-                          disabled={count === 1}
+                          onClick={() => onUpdateCount(-1)}
+                          disabled={count <= 1}
                         >
                           -
                         </Button>
@@ -105,13 +119,14 @@ const ProductItem = ({
                           type='number'
                           value={count}
                           style={{ textAlign: 'center' }}
-                          onChange={(e) => setCount(Number(e.target.value))}
+                          onChange={(e) => onUpdateInput(e) }
                         />
                       </Form.Group>
                       {size > 0 &&
                         <Button
                           variant='outline-secondary'
-                          onClick={() => increaseCount(product.id)}
+                          onClick={() => onUpdateCount(1)}
+                          disabled={count >= product.stock}
                         >
                           +
                         </Button>

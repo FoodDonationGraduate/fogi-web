@@ -1,10 +1,11 @@
 // Essentials
-import React, { useState, useEffect } from 'react';
-import { Button, Card, Form, Col, Row, Stack } from 'react-bootstrap';
+import React from 'react';
+import { Card, Form, Col, Row, Stack } from 'react-bootstrap';
 
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
 import { distanceTime } from 'utils/helpers/Time';
+import { getUnit } from 'utils/helpers/Food';
 
 const ProductItem = ({
   product
@@ -47,7 +48,7 @@ const ProductItem = ({
 
                 <Col className={`d-flex ${size < 3 && 'ps-0'}`}>
                   <Stack className='my-auto' direction='vertical' gap={2}>
-                    <header className='long-product-label'>{`Số lượng (Phần)`}</header>
+                    <header className='long-product-label'>{`Số lượng (${getUnit(product.unit)})`}</header>
                     <Stack direction='horizontal'>
                       <Form.Group style={{width: '50%'}}>
                         <Form.Control

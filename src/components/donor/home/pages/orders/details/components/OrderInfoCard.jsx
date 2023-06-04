@@ -1,17 +1,14 @@
 // Essentials
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Container, Col, Row } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router';
 
 // Assets
 import { MdOutlineLocationOn, MdAccessTime } from 'react-icons/md';
 
 // Components
 import StepItem from 'components/common/StepItem';
-import { updateRequest } from 'components/redux/reducer/RequestReducer';
 import VolunteerInfo from 'components/common/request/VolunteerInfo';
-import { cancelQuestionModal, setModalQuestion, showQuestionModal } from 'components/redux/reducer/ModalReducer';
+import CancelModal from 'components/common/request/CancelModal';
 
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
@@ -21,26 +18,15 @@ import { reduceString } from 'utils/helpers/String';
 
 const CartInfoCard = ({ order }) => {
   let size = useResizer();
-  const userInfo = useSelector(state => state.authenticationReducer.user)
-  const userToken = useSelector(state => state.authenticationReducer.token)
-  const modalLogic = useSelector(state => state.modalReducer.logic)
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  // Cancel Modal
+  const [show, setShow] = useState(false);
+  const onShow = () => setShow(true);
+  const onClose = () => setShow(false);
 
-  const cancelRequest = () => {
-    dispatch(setModalQuestion('Bạn có muốn muốn hủy yêu cầu này không?'));
-    dispatch(showQuestionModal());
-  }
-  
-  React.useEffect(() => {
-    if (modalLogic) {
-      dispatch(cancelQuestionModal());
-      dispatch(updateRequest({request_id: order.id, request_status: 'canceled'}, {userInfo, userToken}, navigate));
-    };
-  })
   return (
     <>
+      <CancelModal show={show} onClose={onClose} volunteerInfo={order.volunteer} orderId={order.id} />
       <Container>
         <Row>
           <Col>
@@ -102,7 +88,7 @@ const CartInfoCard = ({ order }) => {
                 <Row className='mt-4'>
                   <Col className='d-flex justify-content-end'>
                     {(order.status === 'init' || order.status === 'pending') && (
-                      <Button variant='outline-danger' onClick={() => cancelRequest()}>
+                      <Button variant='outline-danger' onClick={onShow}>
                         Hủy Yêu cầu
                       </Button>
                     )}

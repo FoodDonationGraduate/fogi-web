@@ -11,6 +11,7 @@ import { MdOutlineLocationOn, MdAccessTime } from 'react-icons/md';
 import { getStatus } from 'utils/helpers/Order.jsx';
 import { reduceString } from 'utils/helpers/String';
 import { convertToString } from 'utils/helpers/Time';
+import { getUnit } from 'utils/helpers/Food';
 
 const RequestCard = ({ order }) => {
   const productListDisplayLength = () => {
@@ -34,7 +35,7 @@ const RequestCard = ({ order }) => {
       <EqualHeightElement name="request-food-list">
         {order.products.slice(0, productListDisplayLength()).map((product) => (
           <header className='order-item-secondary my-1'>
-            - {product.name} ({product.quantity} {product.unit})
+            - {product.name} ({product.quantity} {getUnit(product.unit)})
           </header>
         ))}
         {order.products.length >= 4 &&

@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { getStatus } from 'utils/helpers/Order.jsx';
 import { reduceString } from 'utils/helpers/String';
 import { convertToString } from 'utils/helpers/Time';
+import { getUnit } from 'utils/helpers/Food';
 
 const OrderItem = ({ order }) => {
   const productListDisplayLength = () => {
@@ -43,7 +44,7 @@ const OrderItem = ({ order }) => {
         <EqualHeightElement name="order-list">
           {order.products.slice(0, productListDisplayLength()).map((product) => (
             <header className='order-item-secondary my-1' key={product.image_filename}>
-              - {product.name} ({product.count} {product.unit})
+              - {product.name} ({product.count} {getUnit(product.unit)})
             </header>
           ))}
           {order.products.length >= 4 &&

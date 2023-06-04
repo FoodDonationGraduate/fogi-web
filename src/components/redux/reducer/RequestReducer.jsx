@@ -156,7 +156,8 @@ export const updateRequest = (data, user, navigate) => {
                 email: user.userInfo.email,
                 token: user.userToken,
                 request_id: data.request_id,
-                request_status: data.request_status
+                request_status: data.request_status,
+                cancel_reason: data.cancel_reason
             }).then((res) => {
                 dispatch(setModalMessage((data.request_status === 'canceled' ? 'Hủy' : 'Cập nhật') + ' Yêu cầu thành công!'))
                 dispatch(showModal())

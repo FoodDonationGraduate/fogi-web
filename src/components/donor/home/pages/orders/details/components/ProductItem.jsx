@@ -3,11 +3,12 @@ import * as React from 'react';
 import { Card, Col, Row, Stack } from 'react-bootstrap';
 
 // Assets
-import { MdDeleteOutline, MdAccessTime, MdAllInbox, MdMonetizationOn } from 'react-icons/md';
+import { MdAccessTime, MdAllInbox } from 'react-icons/md';
 
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
 import { distanceTime } from 'utils/helpers/Time';
+import { getUnit } from 'utils/helpers/Food';
 
 const ProductItem = ({
   product
@@ -62,7 +63,7 @@ const ProductItem = ({
                   )}
                 </Col>
                 <Col>
-                  <h5>{product.quantity} {product.unit}</h5>
+                  <h5>{product.quantity} {getUnit(product.unit)}</h5>
                 </Col>
               </Row>
             </Col>
