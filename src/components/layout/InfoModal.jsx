@@ -1,4 +1,6 @@
-import { Modal, Button } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Modal, Button, Toast } from 'react-bootstrap';
+import ToastContainer from 'react-bootstrap/ToastContainer';
 import { useDispatch, useSelector } from 'react-redux'
 import { hideModal } from 'components/redux/reducer/ModalReducer';
 
@@ -6,10 +8,11 @@ function InfoModal() {
     const modalMessage = useSelector(state => state.modalReducer.message)
     const modalVisibility = useSelector(state => state.modalReducer.visibility)
     const dispatch = useDispatch();
+    const [show, setShow] = useState(true);
 
     return (
         <div className='main-modal'>
-            <Modal show={modalVisibility} onHide={() => dispatch(hideModal())}>
+            {/* <Modal show={modalVisibility} onHide={() => dispatch(hideModal())}>
                 <Modal.Header>
                     <Modal.Title >
                         <div style={{ fontSize: "20px"}} className="modalTitle">Notification</div>
@@ -23,10 +26,26 @@ function InfoModal() {
                 </Modal.Body>
 
                 <Modal.Footer>
-                    <Button style={{fontFamily: "Jost"}} className="btn btn-light" onClick={() => dispatch(hideModal())}>Cancel</Button>
+                    <Button style={{fontFamily: "Jost"}} className="btn btn-light" onClick={() => dispatch(hideModal())}>Okay</Button>
                 </Modal.Footer>
-            </Modal>
+            </Modal> */}
+
+            <ToastContainer position="top-end" className="m-2 pt-5" style={{ zIndex: 1 }}>
+                <Toast delay={7000} autohide={true} onClose={() => dispatch(hideModal())} show={modalVisibility}>
+                    <Toast.Header>
+                        <img
+                        src="holder.js/20x20?text=%20"
+                        className="rounded me-2"
+                        alt=""
+                        />
+                        <strong className="me-auto">Notification</strong>
+                        <small className="text-muted">just now</small>
+                    </Toast.Header>
+                    <Toast.Body>{modalMessage}</Toast.Body>
+                </Toast>
+            </ToastContainer>
         </div>
+
     )
 }
 
