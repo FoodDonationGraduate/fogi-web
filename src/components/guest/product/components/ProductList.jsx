@@ -37,7 +37,7 @@ const ProductList = () => {
   return (
     <div className='bg'>
       {(Object.keys(searchingProducts).length !== 0 && searchingProducts.total_products !== 0) &&
-        <Container>
+        <Container style={{minHeight: '600px'}}>
           <Row className='pt-4' xs={2} md={3} lg={6} >
             <EqualHeight>
               {searchingProducts.products.map((product) => (

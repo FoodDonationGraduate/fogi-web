@@ -31,7 +31,7 @@ const ProductDetailsPage = () => {
       <div>
         <TopSection />
       </div>
-        {Object.keys(product).length !== 0 && 
+        {(Object.keys(product).length !== 0 && Object.keys(product.product).length !== 0) &&
           <div className='bg'>
             <ProductSection product={product.product} />
           </div>

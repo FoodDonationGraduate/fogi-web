@@ -113,6 +113,8 @@ export const deleteProduct = (data, user, navigate) => {
                 product_id: data.product_id
             }}).then((res) => {
                 dispatch(retrieveAllProducts({}, user, navigate))
+                dispatch(setModalMessage('Xóa thực phẩm thành công'))
+                dispatch(showModal())
             })
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {

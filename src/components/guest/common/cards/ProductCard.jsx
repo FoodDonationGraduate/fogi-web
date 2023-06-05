@@ -66,18 +66,18 @@ const ProductCard = ({product}) => {
         </EqualHeightElement>
         
         <hr className='my-2' />
-
-        <Stack direction='horizontal' gap={2}>
-          <img
-            src={`https://bachkhoi.online/static/${product.volunteer.avatar}?${date.getTime()}`}
-            className='rounded-circle' width='32' height='32'
-          />
-          <Stack direction='vertical'>
-            <small style={{ color: 'gray' }}>Tình nguyện viên</small>
-            <div>{product.volunteer.name}</div>
+        <EqualHeightElement name="volunteer-descriptors">
+          <Stack direction='horizontal' gap={2}>
+            <img
+              src={`https://bachkhoi.online/static/${product.volunteer.avatar}?${date.getTime()}`}
+              className='rounded-circle mt-3' width='32' height='32'
+            />
+            <Stack direction='vertical'>
+              <small style={{ color: 'gray' }}>Tình nguyện viên</small>
+              <div>{product.volunteer.name}</div>
+            </Stack>
           </Stack>
-        </Stack>
-
+        </EqualHeightElement>
         <hr className='my-2' />
         
         <div className='d-grid'>
