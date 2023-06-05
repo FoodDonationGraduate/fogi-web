@@ -62,7 +62,7 @@ export const getStep = (step, isDonee, isDelivery, isVolunteerCancel) => {
   let icon = <MdSmartphone className='step-item-icon' />;
   switch (step) {
     case 'pending':
-      header = 'Đang chờ một Tình nguyện viên duyệt Yêu cầu';
+      header = `Đang chờ ${!isDonee ? 'một ' : ''}Tình nguyện viên duyệt Yêu cầu`;
       label = 'Chờ duyệt';
       icon = <MdSmartphone className='step-item-icon' />;
       break;

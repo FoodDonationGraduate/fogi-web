@@ -49,15 +49,19 @@ const CancelModal = ({ show, onClose, volunteerInfo, orderId }) => {
               Mã Yêu cầu: {orderId}
             </Form.Label>
 
-            <Form.Group className='mb-3'>
-              <Stack direction='horizontal' gap={3}>
-                <img src={`https://bachkhoi.online/static/${volunteerInfo.avatar}`} className='order-item-volunteer-avatar-m' />
-                <Stack direction='vertical'>
-                  <div className='order-item-volunteer-label'>Tình nguyện viên</div>
-                  <div className='order-item-volunteer-name'>{volunteerInfo.name}</div>
-                </Stack>
-              </Stack>
-            </Form.Group>
+            {volunteerInfo && (
+              <>
+                <Form.Group className='mb-3'>
+                  <Stack direction='horizontal' gap={3}>
+                    <img src={`https://bachkhoi.online/static/${volunteerInfo.avatar}`} className='order-item-volunteer-avatar-m' />
+                    <Stack direction='vertical'>
+                      <div className='order-item-volunteer-label'>Tình nguyện viên</div>
+                      <div className='order-item-volunteer-name'>{volunteerInfo.name}</div>
+                    </Stack>
+                  </Stack>
+                </Form.Group>
+              </>
+            )}
 
             <Form.Group className='mb-3'>
               <Form.Label style={{ fontWeight: 'bold'}}>

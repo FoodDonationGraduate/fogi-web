@@ -46,19 +46,25 @@ const RequestCard = ({ order }) => {
       </EqualHeightElement>
 
       <hr className='my-3' />
-
-      {order.volunteer && 
-        <>
-          <Stack direction='horizontal' gap={3}>
-            <img src={`https://bachkhoi.online/static/${order.volunteer.avatar}`} className='order-item-volunteer-avatar' />
-            <Stack direction='vertical' className='justify-content-center'>
-              <small className='order-item-volunteer-label'>Tình nguyện viên</small>
-              <div className='order-item-volunteer-name'>{order.volunteer.name}</div>
+      
+      <EqualHeightElement name='request-volunteer'>
+        {order.volunteer ? 
+          <>
+            <Stack direction='horizontal' gap={3}>
+              <img src={`https://bachkhoi.online/static/${order.volunteer.avatar}`} className='order-item-volunteer-avatar-m' />
+              <Stack direction='vertical' className='justify-content-center'>
+                <small className='order-item-volunteer-label'>Tình nguyện viên</small>
+                <div className='order-item-volunteer-name'>{order.volunteer.name}</div>
+              </Stack>
             </Stack>
-          </Stack>
-          <hr className='my-3' />
-        </>
-      }
+          </>
+          :
+          <div className='text-center h-100'>
+            <small className='order-item-volunteer-label'>Chưa có Tình nguyện viên</small>
+          </div>
+        }
+      </EqualHeightElement>
+      <hr className='my-3' />
 
       <EqualHeightElement name='request-descriptors'>
         <header className='order-item-secondary'>

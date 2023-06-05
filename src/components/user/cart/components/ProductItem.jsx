@@ -4,6 +4,9 @@ import { Button, Card, Form, Col, Row, Stack } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router';
 
+// Assets imports
+import { FaExclamationTriangle } from 'react-icons/fa';
+
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
 import { distanceTime } from 'utils/helpers/Time';
@@ -29,20 +32,19 @@ const ProductItem = ({
   // Count handling
   const [timer, setTimer] = useState(null);
   const updateCount = (newCount) => { 
-    console.log(`update count: ${product.id} | ${newCount}`);
+    console.log(`update count: ${product.id} | ${newCount} | ${isNaN(newCount)}`);
     dispatch(updateProduct({product_id: product.id, quantity: Number(newCount)}, {userInfo, userToken}, navigate));
   };
   const onUpdateCount = (amount) => {
-    setCount(count + amount);
+    setCount(Number(count) + amount);
     window.clearTimeout(timer);
     setTimer(window.setTimeout(updateCount, 1000, count + amount));
   };
   const onUpdateInput = (event) => {
-    let newCount = event.target.value <= product.stock ? event.target.value : product.stock;
-    if (Number(newCount) === 0) newCount = 1;
-    if (event.target.value.length === 0) return;
+    let newCount = Number(event.target.value);
     setCount(newCount);
     window.clearTimeout(timer);
+    if (newCount < 1 || newCount > product.stock) return;
     setTimer(window.setTimeout(updateCount, 1000, newCount));
   };
 
@@ -101,7 +103,7 @@ const ProductItem = ({
                   </Stack>
                 </Col>
 
-                <Col className={`d-flex ${size < 3 && 'ps-0'}`} xs={12} md={3}>
+                <Col className={`d-flex ${size < 3 && 'ps-0'} ${size < 2 && 'mt-2'}`} xs={12} md={3}>
                   <Stack className='my-auto' direction='vertical' gap={2}>
                     <header className='long-product-label'>Số lượng ({getUnit(product.unit)})</header>
                     <Stack direction='horizontal'>
@@ -117,7 +119,7 @@ const ProductItem = ({
                       <Form.Group>
                         <Form.Control
                           type='number'
-                          value={count}
+                          value={Number(count).toString()}
                           style={{ textAlign: 'center' }}
                           onChange={(e) => onUpdateInput(e) }
                         />
@@ -132,10 +134,17 @@ const ProductItem = ({
                         </Button>
                       }
                     </Stack>
+                    {size < 2 && (count > product.stock || count < 1) && (
+                      <small className='ps-0 error'>
+                        <FaExclamationTriangle className="mx-2" />
+                        {count > product.stock && 'Số lượng bạn điền vượt quá số lượng tồn kho'}
+                        {count < 1 && 'Số lượng bạn điền phải ít nhất là 1'}
+                      </small>
+                    )}
                   </Stack>
                 </Col>
 
-                <Col className={`d-flex ${size < 3 && 'ps-0'}`}>
+                <Col className={`d-flex ${size < 3 && 'ps-0'} ${size < 2 && 'mt-2'}`}>
                   <Stack className='my-auto' direction='vertical' gap={2}>
                     <header className='long-product-label'>
                       Tùy chỉnh
@@ -152,6 +161,13 @@ const ProductItem = ({
                 </Col>
                 
               </Row>
+              {size >= 2 && (count > product.stock || count < 1) && (
+                <small className='mt-2 ps-0 error'>
+                  <FaExclamationTriangle className="mx-2" />
+                  {count > product.stock && 'Số lượng bạn điền vượt quá số lượng tồn kho'}
+                  {count < 1 && 'Số lượng bạn điền phải ít nhất là 1'}
+                </small>
+              )}
             </Col>
           </Row>
         </Card>

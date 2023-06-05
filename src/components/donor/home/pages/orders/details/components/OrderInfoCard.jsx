@@ -85,20 +85,32 @@ const CartInfoCard = ({ order }) => {
                 </>
               }
               {(order.status === 'init' || order.status === 'pending' || order.status === 'canceled') &&
-                <Row className='mt-4'>
-                  <Col className='d-flex justify-content-end'>
-                    {(order.status === 'init' || order.status === 'pending') && (
-                      <Button variant='outline-danger' onClick={onShow}>
-                        Hủy Yêu cầu
-                      </Button>
-                    )}
-                    {order.status === 'canceled' && (
-                      <Button variant='primary' className='fogi'>
-                        Tạo lại Yêu cầu
-                      </Button>
-                    )}
-                  </Col>
-                </Row>
+                <>
+                  {order.status === 'canceled' &&
+                    <div>
+                      <h5 className='order-item-date mt-4'>
+                        Lí do bị hủy
+                      </h5>
+                      <header className='order-item-secondary'>
+                        {order.cancel_reason !== undefined ? order.cancel_reason : 'Không có lý do cụ thể.'}
+                      </header>
+                    </div>
+                  }
+                  <Row className='mt-4'>
+                    <Col className='d-flex justify-content-end'>
+                      {(order.status === 'init' || order.status === 'pending') && (
+                        <Button variant='outline-danger' onClick={onShow}>
+                          Hủy Yêu cầu
+                        </Button>
+                      )}
+                      {order.status === 'canceled' && (
+                        <Button variant='primary' className='fogi'>
+                          Tạo lại Yêu cầu
+                        </Button>
+                      )}
+                    </Col>
+                  </Row>
+                </>
               }
             </div>
           </Col>
