@@ -4,15 +4,20 @@ import { Button, Card, Form, Col, Row, Stack } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router';
 
+// Assets imports
+import { FaExclamationTriangle } from 'react-icons/fa';
+
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
 import { distanceTime } from 'utils/helpers/Time';
 import { updateProduct, deleteProduct } from 'components/redux/reducer/CartReducer';
+import { getUnit } from 'utils/helpers/Food';
 import { showQuestionModal, cancelQuestionModal, setModalQuestion } from 'components/redux/reducer/ModalReducer';
 
 const ProductItem = ({
   product
 }) => {
+
   const userInfo = useSelector(state => state.authenticationReducer.user);
   const userToken = useSelector(state => state.authenticationReducer.token);
   const modalLogic = useSelector(state => state.modalReducer.logic);
@@ -24,15 +29,26 @@ const ProductItem = ({
   const [count, setCount] = useState(0);
   const [currentProduct, setCurrentProduct] = useState('');
 
-  const increaseCount = (id) => { 
-    dispatch(updateProduct({product_id: id, quantity: count + 1}, {userInfo, userToken}, navigate));
+  // Count handling
+  const [timer, setTimer] = useState(null);
+  const updateCount = (newCount) => { 
+    console.log(`update count: ${product.id} | ${newCount} | ${isNaN(newCount)}`);
+    dispatch(updateProduct({product_id: product.id, quantity: Number(newCount)}, {userInfo, userToken}, navigate));
+  };
+  const onUpdateCount = (amount) => {
+    setCount(Number(count) + amount);
+    window.clearTimeout(timer);
+    setTimer(window.setTimeout(updateCount, 1000, count + amount));
+  };
+  const onUpdateInput = (event) => {
+    let newCount = Number(event.target.value);
+    setCount(newCount);
+    window.clearTimeout(timer);
+    if (newCount < 1 || newCount > product.stock) return;
+    setTimer(window.setTimeout(updateCount, 1000, newCount));
   };
 
-  const decreaseCount = (id) => { 
-    if (count > 1){
-      dispatch(updateProduct({product_id: id, quantity: count - 1}, {userInfo, userToken}, navigate));
-    }
-  };
+
 
   const deleteProductModal = (id) => { 
     dispatch(setModalQuestion('Bạn có muốn xóa sản phẩm này không??'));
@@ -87,15 +103,15 @@ const ProductItem = ({
                   </Stack>
                 </Col>
 
-                <Col className={`d-flex ${size < 3 && 'ps-0'}`} xs={12} md={3}>
+                <Col className={`d-flex ${size < 3 && 'ps-0'} ${size < 2 && 'mt-2'}`} xs={12} md={3}>
                   <Stack className='my-auto' direction='vertical' gap={2}>
-                    <header className='long-product-label'>Số lượng</header>
+                    <header className='long-product-label'>Số lượng ({getUnit(product.unit)})</header>
                     <Stack direction='horizontal'>
                       {size > 0 &&
                         <Button
                           variant='outline-secondary'
-                          onClick={() =>decreaseCount(product.id)}
-                          disabled={count === 1}
+                          onClick={() => onUpdateCount(-1)}
+                          disabled={count <= 1}
                         >
                           -
                         </Button>
@@ -103,24 +119,32 @@ const ProductItem = ({
                       <Form.Group>
                         <Form.Control
                           type='number'
-                          value={count}
+                          value={Number(count).toString()}
                           style={{ textAlign: 'center' }}
-                          onChange={(e) => setCount(Number(e.target.value))}
+                          onChange={(e) => onUpdateInput(e) }
                         />
                       </Form.Group>
                       {size > 0 &&
                         <Button
                           variant='outline-secondary'
-                          onClick={() => increaseCount(product.id)}
+                          onClick={() => onUpdateCount(1)}
+                          disabled={count >= product.stock}
                         >
                           +
                         </Button>
                       }
                     </Stack>
+                    {size < 2 && (count > product.stock || count < 1) && (
+                      <small className='ps-0 error'>
+                        <FaExclamationTriangle className="mx-2" />
+                        {count > product.stock && 'Số lượng bạn điền vượt quá số lượng tồn kho'}
+                        {count < 1 && 'Số lượng bạn điền phải ít nhất là 1'}
+                      </small>
+                    )}
                   </Stack>
                 </Col>
 
-                <Col className={`d-flex ${size < 3 && 'ps-0'}`}>
+                <Col className={`d-flex ${size < 3 && 'ps-0'} ${size < 2 && 'mt-2'}`}>
                   <Stack className='my-auto' direction='vertical' gap={2}>
                     <header className='long-product-label'>
                       Tùy chỉnh
@@ -137,6 +161,13 @@ const ProductItem = ({
                 </Col>
                 
               </Row>
+              {size >= 2 && (count > product.stock || count < 1) && (
+                <small className='mt-2 ps-0 error'>
+                  <FaExclamationTriangle className="mx-2" />
+                  {count > product.stock && 'Số lượng bạn điền vượt quá số lượng tồn kho'}
+                  {count < 1 && 'Số lượng bạn điền phải ít nhất là 1'}
+                </small>
+              )}
             </Col>
           </Row>
         </Card>

@@ -1,5 +1,5 @@
 // Essentials
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Container, Col, Row, Stack } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router';
@@ -8,10 +8,10 @@ import { useNavigate } from 'react-router';
 import StepItem from 'components/common/StepItem';
 import { updateRequest } from 'components/redux/reducer/RequestReducer';
 import VolunteerInfo from 'components/common/request/VolunteerInfo';
-import { cancelQuestionModal, setModalQuestion, showQuestionModal } from 'components/redux/reducer/ModalReducer';
+import CancelModal from 'components/common/request/CancelModal';
 
 // Assets
-import { MdOutlineLocationOn, MdAccessTime } from 'react-icons/md';
+import { MdAccessTime } from 'react-icons/md';
 
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
@@ -20,34 +20,24 @@ import { convertToString } from 'utils/helpers/Time';
 
 const OrderInfoCard = ({ order }) => {
   let size = useResizer();
-  const userInfo = useSelector(state => state.authenticationReducer.user)
-  const userToken = useSelector(state => state.authenticationReducer.token)
-  const modalLogic = useSelector(state => state.modalReducer.logic)
+  const userInfo = useSelector(state => state.authenticationReducer.user);
+  const userToken = useSelector(state => state.authenticationReducer.token);
+
+  // Cancel Modal
+  const [show, setShow] = useState(false);
+  const onShow = () => setShow(true);
+  const onClose = () => setShow(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const cancelRequest = () => {
-    dispatch(setModalQuestion('Bạn có muốn muốn hủy yêu cầu này không?'));
-    dispatch(showQuestionModal());
-  }
 
   const setArriving = () => {
     dispatch(updateRequest({request_id: order.id, request_status: 'shipping'}, { userInfo, userToken}, navigate));
   };
 
-  const setSuccess = () => {
-    dispatch(updateRequest({request_id: order.id, request_status: 'success'}, { userInfo, userToken}, navigate));
-  };
-  
-  React.useEffect(() => {
-    if (modalLogic) {
-      dispatch(cancelQuestionModal());
-      dispatch(updateRequest({request_id: order.id, request_status: 'canceled'}, {userInfo, userToken}, navigate));
-    };
-  })
   return (
     <>
+      <CancelModal show={show} onClose={onClose} volunteerInfo={order.volunteer} orderId={order.id} />
       <Container>
         <Row>
           <Col>
@@ -95,6 +85,17 @@ const OrderInfoCard = ({ order }) => {
                 {getStep(order.status, true, order.delivery_type === 'delivery').header}
               </h3>
 
+              {order.status === 'canceled' && 
+                <div>
+                  <h5 className='order-item-date mt-4'>
+                    Lí do bị hủy
+                  </h5>
+                  <header className='order-item-secondary'>
+                    {order.cancel_reason !== undefined ? order.cancel_reason : 'Không có lý do cụ thể.'}
+                  </header>
+                </div>
+              }
+
               {order.status !== 'canceled' && 
                 <div>
                   {size > 1 ? 
@@ -126,7 +127,7 @@ const OrderInfoCard = ({ order }) => {
                 <Row className='mt-4'>
                   <Col className='d-flex justify-content-end'>
                     <Stack direction='horizontal' gap={2}>
-                      <Button variant='outline-danger' onClick={() => cancelRequest()}>
+                      <Button variant='outline-danger' onClick={onShow}>
                         Hủy Yêu cầu
                       </Button>
                     </Stack>
@@ -139,17 +140,6 @@ const OrderInfoCard = ({ order }) => {
                     <Stack direction='horizontal' gap={2}>
                       <Button className='fogi' variant='primary' onClick={() => setArriving()}>
                         Bắt đầu đến nhận
-                      </Button>
-                    </Stack>
-                  </Col>
-                </Row>
-              }
-              {order.status === 'shipping' &&
-                <Row className='mt-4'>
-                  <Col className='d-flex justify-content-end'>
-                    <Stack direction='horizontal' gap={2}>
-                      <Button className='fogi' variant='primary' onClick={() => setSuccess()}>
-                        Tôi đã nhận được Thực phẩm
                       </Button>
                     </Stack>
                   </Col>

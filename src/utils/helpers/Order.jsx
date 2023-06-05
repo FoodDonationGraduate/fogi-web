@@ -56,13 +56,13 @@ export const getStatusByIdx = (idx) => {
   return { label, css };
 };
 
-export const getStep = (step, isDonee, isDelivery) => {
+export const getStep = (step, isDonee, isDelivery, isVolunteerCancel) => {
   let header = '';
   let label = '';
   let icon = <MdSmartphone className='step-item-icon' />;
   switch (step) {
     case 'pending':
-      header = 'Đang chờ một Tình nguyện viên duyệt Yêu cầu';
+      header = `Đang chờ ${!isDonee ? 'một ' : ''}Tình nguyện viên duyệt Yêu cầu`;
       label = 'Chờ duyệt';
       icon = <MdSmartphone className='step-item-icon' />;
       break;
@@ -93,7 +93,7 @@ export const getStep = (step, isDonee, isDelivery) => {
       break;
     
     case 'canceled':
-      header = 'Yêu cầu của bạn đã bị hủy';
+      header = 'Yêu cầu của bạn đã bị hủy bởi ' + (isVolunteerCancel ? 'Tình nguyện viên' : 'bạn');
       label = 'Đã hủy';
       icon = <MdLabelImportant className='step-item-icon' />;
       break;

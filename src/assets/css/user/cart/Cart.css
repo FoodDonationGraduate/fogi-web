@@ -33,6 +33,11 @@
       width: 80px;
       height: 80px;
     }
+      .order-item-volunteer-avatar-m {
+        border-radius: 50%;
+        width: 64px;
+        height: 64px;
+      }
     .order-item-volunteer-label {
       color: #999;
       font-size: 14px;

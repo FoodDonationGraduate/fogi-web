@@ -5,12 +5,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 // Assets
-import { MdDeleteOutline, MdAccessTime, MdAllInbox, MdMonetizationOn } from 'react-icons/md';
-import ProductImage from 'assets/images/ProductImage.jpg'; // temporary
+import { MdDeleteOutline, MdAccessTime, MdAllInbox } from 'react-icons/md';
 
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
-import { distanceTime } from 'utils/helpers/Time.jsx'
+import { distanceTime } from 'utils/helpers/Time.jsx';
+import { getUnit } from 'utils/helpers/Food';
 
 //Components
 import { showQuestionModal, cancelQuestionModal, setModalQuestion } from 'components/redux/reducer/ModalReducer';
@@ -76,7 +76,7 @@ const ProductItem = ({
                   )}
                 </Col>
                 <Col>
-                  <h5>{product.stock} {product.unit}</h5>
+                  <h5>{product.stock} {getUnit(product.unit)}</h5>
                 </Col>
               </Row>
               <Row>

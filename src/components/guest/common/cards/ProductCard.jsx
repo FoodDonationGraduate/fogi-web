@@ -15,6 +15,7 @@ import 'assets/css/common/Card.css';
 // Helper
 import { reduceString } from 'utils/helpers/String';
 import { distanceTime } from 'utils/helpers/Time';
+import { getUnit } from 'utils/helpers/Food';
 
 import { addNewProduct } from 'components/redux/reducer/CartReducer';
 import { handleEmptyToken } from 'components/redux/reducer/AuthenticationReducer';
@@ -60,17 +61,18 @@ const ProductCard = ({product}) => {
           <div>
             <small style={{ color: 'gray' }}>
               <MdAllInbox className='me-2 mb-1' />
-              {product.stock} {product.unit} còn lại
+              {product.stock} {getUnit(product.unit)} còn lại
             </small>
           </div>
         </EqualHeightElement>
         
         <hr className='my-2' />
-        <EqualHeightElement name="volunteer-descriptors">
+
+        <EqualHeightElement name="product-volunteer">
           <Stack direction='horizontal' gap={2}>
             <img
               src={`https://bachkhoi.online/static/${product.volunteer.avatar}?${date.getTime()}`}
-              className='rounded-circle mt-3' width='32' height='32'
+              className='rounded-circle' width='32' height='32'
             />
             <Stack direction='vertical'>
               <small style={{ color: 'gray' }}>Tình nguyện viên</small>
@@ -78,7 +80,6 @@ const ProductCard = ({product}) => {
             </Stack>
           </Stack>
         </EqualHeightElement>
-        <hr className='my-2' />
         
         <div className='d-grid'>
           <Button className='fogi mt-2' variant='primary' onClick={(event) => onSubmit(event)}>

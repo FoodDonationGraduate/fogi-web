@@ -11,6 +11,7 @@ import { MdAllInbox, MdOutlineShare } from 'react-icons/md';
 
 // Utility
 import { distanceTime } from 'utils/helpers/Time';
+import { getUnit } from 'utils/helpers/Food';
 
 import { addNewProduct } from 'components/redux/reducer/CartReducer';
 import { handleEmptyToken } from 'components/redux/reducer/AuthenticationReducer';
@@ -52,7 +53,7 @@ const ProductDetails = ({product}) => {
           </header>
           <header style={{ color: 'gray' }}>
             <MdAllInbox className='me-2 mb-1' />
-            {product.stock} {product.unit} còn lại
+            {product.stock} {getUnit(product.unit)} còn lại
           </header>
         </Stack>
         <p className='mt-2'>
@@ -62,7 +63,7 @@ const ProductDetails = ({product}) => {
 
       <Row className='mb-3' style={{ bottom: '0' }}>
         <Stack direction='horizontal' gap={2}>
-          <header className='me-2'>{`Số lượng (${product.unit})`}</header>
+          <header className='me-2'>{`Số lượng (${getUnit(product.unit)})`}</header>
           <Button
             variant='outline-secondary'
             onClick={decreaseCount}
