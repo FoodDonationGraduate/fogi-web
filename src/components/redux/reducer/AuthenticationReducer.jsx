@@ -140,7 +140,7 @@ export const logout = (navigate) => {
             console.log("logout")
             dispatch(setUserInfo({}))
             dispatch(setUserToken(''))
-            dispatch(localStorage.removeItem('selectedAddress'))
+            localStorage.removeItem('selectedAddress')
             navigate('/login')
         } catch (err) {
             console.log(err)
