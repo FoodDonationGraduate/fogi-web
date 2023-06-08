@@ -53,8 +53,14 @@ export const retrieveChart = (data, user, navigate) => {
     chart_type: data.chart_type,
     time_type: data.time_type
   };
-  if (data.chart_type === 'user') {
-    parameters.user_type = data.user_type;
+  if (user.userInfo.user_type === 'director') {
+    switch (data.chart_type) {
+      case 'user':
+        parameters.user_type = data.user_type;
+        break;
+      default:
+        parameters.request_type = data.request_type;
+    }
   }
 
   return async dispatch => {

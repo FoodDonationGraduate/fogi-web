@@ -88,12 +88,13 @@ const DashboardPage = () => {
     {
       chart_type: statusList[activeStatusIdx],
       user_type: userList[activeUserIdx],
+      request_type: requestList[activeRequestIdx],
       time_type: timeList[activeTimeIdx]
     },
     { userInfo, userToken },
     navigate
     ));
-  }, [activeStatusIdx, activeUserIdx, activeTimeIdx]);
+  }, [activeStatusIdx, activeUserIdx, activeTimeIdx, activeRequestIdx]);
 
   return (
     <div>

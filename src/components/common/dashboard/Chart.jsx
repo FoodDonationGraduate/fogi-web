@@ -20,7 +20,7 @@ const Chart = ({ chart }) => {
           <Bar dataKey='value' fill='#82CD47' />
         </BarChart>
       </ResponsiveContainer>
-      <div className='chart-title mt-2'>Tiêu đề</div> 
+      <div className='chart-title mt-2'>{chart.title}</div> 
     </>
   );
 };

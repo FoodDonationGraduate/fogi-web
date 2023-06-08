@@ -11,7 +11,7 @@ const StatsList = ({ stats }) => {
   const getStatSize = () => {
     for (let i = 0; i < stats.stats.length; i++) {
       if (stats.stats[i].label.length > 30) return [1, 1];
-      else if (stats.stats[i].label.length > 15) return [1, 2];
+      else if (stats.stats[i].label.length > 20) return [1, 2];
     }
     return [2, 3];
   };
