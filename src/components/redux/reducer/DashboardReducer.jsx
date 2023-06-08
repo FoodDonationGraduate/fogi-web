@@ -62,6 +62,9 @@ export const retrieveChart = (data, user, navigate) => {
         parameters.request_type = data.request_type;
     }
   }
+  if (user.userInfo.user_type === 'donor') {
+    if (data.chart_type === 'food') parameters.unit = data.unit_type;
+  }
 
   return async dispatch => {
     try {

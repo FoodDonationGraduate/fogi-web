@@ -6,10 +6,12 @@ import { Col, Row } from 'react-bootstrap';
 // Components & Pages
 import SideMenu from './components/SideMenu';
 import SideMenuOffCanvas from './components/SideMenuOffCanvas';
-import ProductListPage from './pages/products/ProductListPage';
-import OrderListPage from './pages/orders/list/OrderListPage';
 import InfoModal from 'components/layout/InfoModal.jsx';
 import ConfirmModal from 'components/layout/ConfirmModal.jsx';
+
+import DashboardPage from './pages/dashboard/DashboardPage';
+import ProductListPage from './pages/products/ProductListPage';
+import OrderListPage from './pages/orders/list/OrderListPage';
 
 // Assets
 import { MdMenu } from 'react-icons/md';
@@ -53,6 +55,7 @@ const HomePage = () => {
           <Col>
             <Row className={`${size >= 2 && 'workspace'} py-4`}>
               <Col>
+                {activeIdx === 0 && <DashboardPage />}
                 {activeIdx === 1 && <ProductListPage />}
                 {activeIdx === 2 && <OrderListPage />}
               </Col>
