@@ -1,5 +1,5 @@
 // Essentials
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Row } from 'react-bootstrap';
 
 // Components
@@ -9,10 +9,22 @@ import DashboardTitle from 'components/common/dashboard/DashboardTitle';
 import StatsList from 'components/common/dashboard/StatsList';
 import Chart from 'components/common/dashboard/Chart';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
+import { retrieveStats, retrieveChart } from 'components/redux/reducer/DashboardReducer';
+
 // Styling
 import 'assets/css/common/Dashboard.css';
 
 const DashboardPage = () => {
+  const stats = useSelector(state => state.dashboardReducer.stats);
+  const chart = useSelector(state => state.dashboardReducer.chart);
+  const userInfo = useSelector(state => state.authenticationReducer.user);
+  const userToken = useSelector(state => state.authenticationReducer.token);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   // Chip List
   const [activeStatusIdx, setActiveStatusIdx] = useState(0);
   const statusList = ['request', 'user'];
@@ -26,33 +38,62 @@ const DashboardPage = () => {
   };
   const styleList = ['success', 'success'];
 
-  // Chip List - Chart
+  // Chip List - Time
+  const [activeTimeIdx, setActiveTimeIdx] = useState(0);
+  const timeList = ['month', 'day'];
+  const getTimeLabel = (time) => {
+    switch (time) {
+      case 'day':
+        return '7 ngày';
+      default:
+        return '6 tháng';
+    }
+  };
+  const timeStyleList = ['success', 'success'];
+
+  // Chip List - Chart / User type
   const [activeUserIdx, setActiveUserIdx] = useState(0);
   const userList = ['donee', 'donor', 'volunteer'];
   const getUserLabel = (user) => {
-    return user[0].toUpperCase() + user.substring(1, user.length);
+    switch (user) {
+      case 'donee':
+        return 'Người nhận';
+      case 'donor':
+        return 'Người cho';
+      default:
+        return 'Tình nguyện viên';
+    }
   };
   const userStyleList = ['success', 'success', 'success'];
 
-  // Sample data
-  const data = {
-    stats: [
-      { label: 'Đã tạo', value: '50' },
-      { label: 'Thành công', value: '45' },
-      { label: 'Đã hủy', value: '3' }
-    ],
-    chart: {
-      data: [
-        { label: 'Tháng 12/2022', value: 23 },
-        { label: 'Tháng 1/2023', value: 32 },
-        { label: 'Tháng 2', value: 18 },
-        { label: 'Tháng 3', value: 56 },
-        { label: 'Tháng 4', value: 44 },
-        { label: 'Tháng 5', value: 89 }
-      ],
-      unit: 'cái'
+  // Chip List - Chart / Request type
+  const [activeRequestIdx, setActiveRequestIdx] = useState(0);
+  const requestList = ['give', 'take'];
+  const getRequestLabel = (user) => {
+    switch (user) {
+      case 'give':
+        return 'Cho';
+      default:
+        return 'Nhận';
     }
   };
+  const requestStyleList = ['success', 'success'];
+  
+  useEffect(() => {
+    dispatch(retrieveStats({ stats_type: statusList[activeStatusIdx] }, { userInfo, userToken }, navigate));
+  }, [activeStatusIdx]);
+  
+  useEffect(() => {
+    dispatch(retrieveChart(
+    {
+      chart_type: statusList[activeStatusIdx],
+      user_type: userList[activeUserIdx],
+      time_type: timeList[activeTimeIdx]
+    },
+    { userInfo, userToken },
+    navigate
+    ));
+  }, [activeStatusIdx, activeUserIdx, activeTimeIdx]);
 
   return (
     <div>
@@ -70,13 +111,32 @@ const DashboardPage = () => {
           </div>
           <ListTitle title={'Tổng quan'} />
         </Row>
-        <StatsList stats={data.stats} />
+        <StatsList stats={stats} />
       </div>
       
       {/* BIỂU ĐỒ */}
       <div>
         <Row>
-          <DashboardTitle title={'Biểu đồ'} />
+          <DashboardTitle
+            title={'Biểu đồ'}
+            activeTimeIdx={activeTimeIdx}
+            setActiveTimeIdx={setActiveTimeIdx}
+            timeList={timeList}
+            getTimeLabel={getTimeLabel}
+            timeStyleList={timeStyleList}
+          />
+            {activeStatusIdx === 0 && (
+              <div className='mb-3'>
+                <ChipList
+                  activeStatusIdx={activeRequestIdx}
+                  setActiveStatusIdx={setActiveRequestIdx}
+                  statusList={requestList}
+                  getStatusLabel={getRequestLabel}
+                  styleList={requestStyleList}
+                  title={'Loại yêu cầu'}
+                />
+              </div>
+            )}
             {activeStatusIdx === 1 && (
               <div className='mb-3'>
                 <ChipList
@@ -93,8 +153,8 @@ const DashboardPage = () => {
         <Row>
           <Row>
             <div className='chart-container'>
-              <div className='d-flex' style={{ height: '320px' }}>
-                <Chart chart={data.chart} />
+              <div className='d-grid' style={{ height: '320px' }}>
+                <Chart chart={chart} />
               </div>
             </div>
           </Row>
