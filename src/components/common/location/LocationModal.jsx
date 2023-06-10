@@ -13,7 +13,7 @@ import * as Yup from 'yup';
 
 // Components
 import LocationItem from './LocationItem';
-import { addNewAddress, updateAddress, retrieveAllAddresses, retrieveAddress } from 'components/redux/reducer/AddressReducer';
+import { addNewAddress, updateAddress, retrieveAllAddresses } from 'components/redux/reducer/AddressReducer';
 
 // Assets imports
 import { FaExclamationTriangle } from 'react-icons/fa';

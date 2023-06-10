@@ -1,6 +1,8 @@
 // Essentials
 import React, { useState } from 'react';
 import { Button, Container, Col, Row } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from "react-router-dom";
 
 // Assets
 import { MdOutlineLocationOn, MdAccessTime } from 'react-icons/md';
@@ -9,20 +11,49 @@ import { MdOutlineLocationOn, MdAccessTime } from 'react-icons/md';
 import StepItem from 'components/common/StepItem';
 import VolunteerInfo from 'components/common/request/VolunteerInfo';
 import CancelModal from 'components/common/request/CancelModal';
+import { setModalMessage, showModal ,cancelQuestionModal, setModalQuestion, showQuestionModal } from 'components/redux/reducer/ModalReducer';
+import { remakeDonorBag } from 'components/redux/reducer/RequestReducer';
 
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
 import { getStatus, getStep, convertStepToNumber } from 'utils/helpers/Order.jsx';
 import { convertToString } from 'utils/helpers/Time';
 import { reduceString } from 'utils/helpers/String';
+import { distanceTime } from 'utils/helpers/Time';
 
 const CartInfoCard = ({ order }) => {
   let size = useResizer();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const modalLogic = useSelector(state => state.modalReducer.logic);
+  const userInfo = useSelector(state => state.authenticationReducer.user)
+  const userToken = useSelector(state => state.authenticationReducer.token)
+  const [id, setId] = React.useState({})
 
   // Cancel Modal
   const [show, setShow] = useState(false);
   const onShow = () => setShow(true);
   const onClose = () => setShow(false);
+
+  // Re-create request
+  const recreateRequest = (products, request_id) => {
+    console.log(products.every((product) => {return distanceTime(product.expired_time) !== 'Đã hết hạn'}))
+    if (!products.every((product) => {return distanceTime(product.expired_time) !== 'Đã hết hạn'})) {
+      dispatch(setModalMessage('Một trong những sản phẩm của yêu cầu đã hết hạn!'))
+      dispatch(showModal())
+    } else {
+      dispatch(setModalQuestion("Bạn có muốn phục hồi những sản phẩm này không?"))
+      dispatch(showQuestionModal())
+      setId(request_id)
+    }
+  }
+
+  React.useEffect(() => {
+      if (modalLogic) {
+          dispatch(cancelQuestionModal())
+          dispatch(remakeDonorBag({request_id: id}, {userInfo, userToken},navigate))
+      }
+  })
 
   return (
     <>
@@ -104,7 +135,7 @@ const CartInfoCard = ({ order }) => {
                         </Button>
                       )}
                       {order.status === 'canceled' && (
-                        <Button variant='primary' className='fogi'>
+                        <Button variant='primary' className='fogi' onClick={() => recreateRequest(order.products, order.id)}> 
                           Tạo lại Yêu cầu
                         </Button>
                       )}

@@ -12,7 +12,7 @@ const initialState = {
         : {
             address: '227 Nguyễn Văn Cừ, P. 4, Q. 5, TP. Hồ Chí Minh',
             lat: 10.762613,
-            lng: 106.681868
+            long: 106.681868
         }
 }
 const addressReducer = createSlice({
@@ -151,28 +151,3 @@ export const updateAddress = (data, user, navigate) => {
         }
     }
 }
-
-// export const deleteProduct = (data, user, navigate) => {
-//     return async dispatch => {
-//         try {
-//             console.log("delete product in cart")
-//             await axiosInstance.delete(`/cart`, {params: {
-//                 email: user.userInfo.email,
-//                 token: user.userToken,
-//                 product_id: data.product_id
-//             }}).then((res) => {
-//                 dispatch(retrieveAllProducts({}, user, navigate))
-//             })
-//             .catch((err) => {
-//                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
-//                     console.log(err)
-//                     dispatch(setModalMessage(err.response.data.message))
-//                     dispatch(showModal())
-//                 }
-//             });
-//         } catch (err) {
-//             console.log(err)
-//             navigate('/')
-//         }
-//     }
-// }
