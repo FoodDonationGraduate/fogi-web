@@ -8,6 +8,7 @@ const initialState = {
     categoryProducts: {},
     searchingProducts: {},
     donorProducts: {},
+    volunteerProducts: {},
     currentProduct: {},
     sort: ''
 }
@@ -30,6 +31,9 @@ const productReducer = createSlice({
         setDonorProducts: (state, action) => {
             state.donorProducts = action.payload
         },
+        setVolunteerProducts : (state, action) => {
+            state.volunteerProducts = action.payload
+        },
         setCurrentProduct: (state, action) => {
             state.currentProduct = action.payload
         },
@@ -42,7 +46,7 @@ const productReducer = createSlice({
 export const { 
     setNewProducts, setAmootProducts, setSearchingProducts, 
     setCategoryProducts, setCurrentProduct, setDonorProducts,
-    setTypeOfSort
+    setVolunteerProducts, setTypeOfSort
 } = productReducer.actions
 
 export default productReducer.reducer
@@ -247,6 +251,33 @@ export const deleteProduct = (data, user, navigate) => {
                 console.log(err)
                 dispatch(setModalMessage("Đã xảy ra lỗi!"))
                 dispatch(showModal())
+            });
+        } catch (err) {
+            console.log(err)
+            navigate('/')
+        }
+    }
+}
+
+
+export const retrieveVolunteerProducts = (data, user, navigate) => {
+    return async dispatch => {
+        try {
+            console.log("retrieve volunteer's products")
+            await axiosInstance.get(`/product`, {params: {
+                volunteer_username: data.username,
+                limit: data.limit ? data.limit : 6,
+                offset: data.offset ? data.offset : 0
+            }}).then((res) => {
+                dispatch(setVolunteerProducts(res.data))
+            })
+            .catch((err) => {
+                if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+                    console.log(err)
+                    dispatch(setModalMessage("Đã xảy ra lỗi!"))
+                    dispatch(showModal())
+                    dispatch(setVolunteerProducts({}))
+                }
             });
         } catch (err) {
             console.log(err)

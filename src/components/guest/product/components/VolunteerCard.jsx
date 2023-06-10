@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import ReportModal from 'components/common/request/ReportModal';
 
 // Assets
-import { MdPhone } from 'react-icons/md';
+import { MdEmail } from 'react-icons/md';
 
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
@@ -35,18 +35,15 @@ const VolunteerInfo = ({
             {!isCard && size <= 1 && <hr />}
             <Stack direction='horizontal' gap={3}>
               <img src={`https://bachkhoi.online/static/${volunteerInfo.avatar}`} 
-                className='order-item-volunteer-avatar volunteer-avatar' 
-                onClick={() => navigate(`/volunteer/${volunteerInfo.username}`)}/>
+              className='order-item-volunteer-avatar volunteer-avatar' 
+              onClick={() => navigate(`/volunteer/${volunteerInfo.username}`)}/>
               <Stack direction='vertical'>
                 <small className='order-item-volunteer-label'>Tình nguyện viên</small>
-                <div className='order-item-volunteer-name'>{volunteerInfo.name}</div>
+                <h3>{volunteerInfo.name}</h3>
                 <small className='order-item-volunteer-label'>
-                  <MdPhone /> {volunteerInfo.phone}
+                  <MdEmail />  {volunteerInfo.email}
                 </small>
               </Stack>
-              <Button variant='outline-secondary' onClick={onShow}>
-                Báo cáo
-              </Button>
             </Stack>
           </div>
         </>

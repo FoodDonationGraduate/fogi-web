@@ -20,7 +20,7 @@ const CartPage = () => {
       <div>
         <TopSection />
       </div>
-      <div className='bg'>
+      <div className='bg'  style={{minHeight: '600px'}}>
         <div className='mb-4'>
           <CartTitle volunteerInfo={volunteerInfo} />
         </div>
