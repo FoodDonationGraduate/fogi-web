@@ -21,10 +21,11 @@ const ListTitle = ({
   onShow
 }) => {
   const size = useResizer();
-  const userInfo = useSelector(state => state.authenticationReducer.user)
-  const userToken = useSelector(state => state.authenticationReducer.token)
-  const modalLogic = useSelector(state => state.modalReducer.logic)
-  const selectedAddress = useSelector(state => state.addressReducer.selectedAddress)
+  const userInfo = useSelector(state => state.authenticationReducer.user);
+  const userToken = useSelector(state => state.authenticationReducer.token);
+  const modalLogic = useSelector(state => state.modalReducer.logic);
+  const question = useSelector(state => state.modalReducer.question);
+  const selectedAddress = useSelector(state => state.addressReducer.selectedAddress);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -34,11 +35,11 @@ const ListTitle = ({
     console.log(selectedAddress)
   }
   React.useEffect(() => {
-    if (modalLogic) {
-        dispatch(cancelQuestionModal())
-        dispatch(postDonorRequest(selectedAddress, {userInfo, userToken}, navigate))
+    if (modalLogic && question === 'Bạn có muốn tạo yêu cầu cho không?') {
+        dispatch(cancelQuestionModal());
+        dispatch(postDonorRequest(selectedAddress, {userInfo, userToken}, navigate));
     }
-  })
+  }, [modalLogic])
 
   return (
     <Row className='mb-4'>

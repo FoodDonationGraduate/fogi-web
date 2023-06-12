@@ -1,6 +1,6 @@
 import { Modal, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux'
-import { hideQuestionModal, confirmQuestionModal } from 'components/redux/reducer/ModalReducer';
+import { hideQuestionModal, confirmQuestionModal, cancelQuestionModal } from 'components/redux/reducer/ModalReducer';
 
 function ConfirmModal() {
     const modalQuestion = useSelector(state => state.modalReducer.question)
@@ -9,7 +9,7 @@ function ConfirmModal() {
 
     return (
         <div className='main-modal'>
-            <Modal show={modalVisibility} onHide={() => dispatch(hideQuestionModal())}>
+            <Modal show={modalVisibility} onHide={() => {dispatch(hideQuestionModal()); dispatch(cancelQuestionModal());}}>
                 <Modal.Header>
                     <Modal.Title >
                         <div style={{ fontSize: "20px"}} className="modalTitle">Question</div>
@@ -23,7 +23,7 @@ function ConfirmModal() {
                 </Modal.Body>
 
                 <Modal.Footer>
-                    <Button style={{fontFamily: "Jost"}} className="btn btn-light" onClick={() => dispatch(hideQuestionModal())}>Cancel</Button>
+                    <Button style={{fontFamily: "Jost"}} className="btn btn-light" onClick={() => {dispatch(hideQuestionModal()); dispatch(cancelQuestionModal());}}>Cancel</Button>
                     <Button style={{fontFamily: "Jost"}} className="btn btnLogin"  onClick={() => {dispatch(confirmQuestionModal()); dispatch(hideQuestionModal()); }}>Confirm</Button>
                 </Modal.Footer>
             </Modal>
