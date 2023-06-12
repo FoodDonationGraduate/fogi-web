@@ -31,6 +31,7 @@ const ListTitle = ({
   const createRequest = () => {
     dispatch(setModalQuestion('Bạn có muốn tạo yêu cầu cho không?'));
     dispatch(showQuestionModal());
+    console.log(selectedAddress)
   }
   React.useEffect(() => {
     if (modalLogic) {

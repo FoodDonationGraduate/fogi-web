@@ -34,7 +34,7 @@ const RequestCard = ({ order }) => {
 
       <EqualHeightElement name="request-food-list">
         {order.products.slice(0, productListDisplayLength()).map((product) => (
-          <header className='order-item-secondary my-1'>
+          <header className='order-item-secondary my-1' key={product.name}>
             - {product.name} ({product.quantity} {getUnit(product.unit)})
           </header>
         ))}
@@ -51,7 +51,9 @@ const RequestCard = ({ order }) => {
         {order.volunteer ? 
           <>
             <Stack direction='horizontal' gap={3}>
-              <img src={`https://bachkhoi.online/static/${order.volunteer.avatar}`} className='order-item-volunteer-avatar-m' />
+              <img src={`https://bachkhoi.online/static/${order.volunteer.avatar}`} 
+              className='order-item-volunteer-avatar-m volunteer-avatar'
+              onClick={() => navigate(`/volunteer/${order.volunteer.username}`)}/>
               <Stack direction='vertical' className='justify-content-center'>
                 <small className='order-item-volunteer-label'>Tình nguyện viên</small>
                 <div className='order-item-volunteer-name'>{order.volunteer.name}</div>

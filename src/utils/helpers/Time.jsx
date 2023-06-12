@@ -2,7 +2,9 @@ export const distanceTime = (datetime) => {
     var startDate = new Date();
     var endDate = new Date(datetime)
     var seconds = (endDate.getTime() - startDate.getTime()) / 1000;
-    if (seconds <= 60) {
+    if (seconds < 0) {
+        return 'Đã hết hạn'
+    } else if (seconds <= 60) {
         return seconds + ' giây'
     } else if (seconds <= 3600) {
         return Math.floor(seconds/60) + ' phút'

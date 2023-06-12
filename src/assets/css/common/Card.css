@@ -32,7 +32,7 @@
   user-select: none;
 }
 
-.product-card:hover, .donor-card:hover, .category-card:hover  {
+.product-card:hover, .donor-card:hover, .category-card:hover, .volunteer-avatar:hover  {
   box-shadow: 0 0 8px #82CD47;
 }
 

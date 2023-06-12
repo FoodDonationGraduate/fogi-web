@@ -180,3 +180,29 @@ export const updateRequest = (data, user, navigate) => {
         }
     }
 }
+
+export const remakeDonorBag = (data, user, navigate) => {
+    return async dispatch => {
+        try {
+            console.log("remake donor's bag")
+            await axiosInstance.post(`/request/donor/remake`, {
+                email: user.userInfo.email,
+                token: user.userToken,
+                request_id: data.request_id
+            }).then((res) => {
+                dispatch(setModalMessage('Vui lòng kiểm tra lại túi quyên góp!'));
+                dispatch(showModal());
+            })
+            .catch((err) => {
+                if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+                    console.log(err)
+                    dispatch(setModalMessage(err.response.data.message))
+                    dispatch(showModal())
+                }
+            });
+        } catch (err) {
+            console.log(err)
+            navigate('/')
+        }
+    }
+}

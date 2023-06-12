@@ -11,6 +11,7 @@ import NewProductListPage from './components/guest/product/NewProductListPage.js
 import AmootProductListPage from './components/guest/product/AmootProductListPage.jsx';
 import ProductDetailsPage from './components/guest/product/ProductDetailsPage.jsx';
 import CategoryProductListPage from './components/guest/product/CategoryProductListPage.jsx';
+import VolunteerProductListPage from './components/guest/product/VolunteerProductListPage.jsx';
 import DonorListPage from './components/guest/donor/DonorListPage.jsx';
 import EmptyProductListPage from './components/guest/product/EmptyProductListPage.jsx';
 import NotFoundPage from './components/common/PageNotFoundPage.jsx';
@@ -55,6 +56,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="*" element={<NotFoundPage />} />
         
         <Route path="/category/:name" element={<CategoryProductListPage />} />
+        <Route path="/volunteer/:name" element={<VolunteerProductListPage />} />
         <Route path="/product/:id" element={<ProductDetailsPage />} />
         <Route path="/store/:id" element={<ProductDetailsPage />} />
 
