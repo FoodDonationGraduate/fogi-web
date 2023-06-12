@@ -200,6 +200,7 @@ export const remakeDonorBag = (data, user, navigate) => {
             }).then((res) => {
                 dispatch(setModalMessage('Vui lòng kiểm tra lại túi quyên góp!'));
                 dispatch(showModal());
+                dispatch(retrieveRequest({ request_id: data.request_id }, user, navigate));
             })
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
