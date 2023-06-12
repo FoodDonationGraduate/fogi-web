@@ -32,7 +32,7 @@ const ProductItem = ({
   const deleteProductById = (id) => {
     dispatch(setModalQuestion('Bạn có muốn xóa sản phẩm này không?'));
     dispatch(showQuestionModal());
-    setCurrentProduct(id)
+    setCurrentProduct(id);
   }
 
   React.useEffect(() => {

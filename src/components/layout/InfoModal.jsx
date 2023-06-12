@@ -33,13 +33,7 @@ function InfoModal() {
             <ToastContainer position="top-end" className="m-2 pt-5" style={{ zIndex: 1 }}>
                 <Toast delay={7000} autohide={true} onClose={() => dispatch(hideModal())} show={modalVisibility}>
                     <Toast.Header>
-                        <img
-                        src="holder.js/20x20?text=%20"
-                        className="rounded me-2"
-                        alt=""
-                        />
-                        <strong className="me-auto">Notification</strong>
-                        <small className="text-muted">just now</small>
+                        <strong className="me-auto">Thông báo</strong>
                     </Toast.Header>
                     <Toast.Body>{modalMessage}</Toast.Body>
                 </Toast>
