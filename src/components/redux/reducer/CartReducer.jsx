@@ -62,6 +62,8 @@ export const addNewProduct = (data, user, navigate) => {
                 quantity: data.quantity
             }).then((res) => {
                 dispatch(retrieveAllProducts({}, user, navigate))
+                dispatch(setModalMessage('Thêm thực phẩm thành công'))
+                dispatch(showModal())
             })
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {

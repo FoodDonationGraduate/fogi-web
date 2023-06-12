@@ -41,7 +41,7 @@ const ProductList = ({ setVolunteerInfo }) => {
       {(Object.keys(allProducts).length !== 0 && allProducts.total_cart_items !== 0) &&
         <Row>
           <Col>
-            <div className='mb-4'>
+            <div className='mb-4' style={{minHeight: '400px'}}>
               {allProducts.cart.map((product) => (
                 <div className='mb-3' key={product.id}>
                   <ProductItem product={product} />
