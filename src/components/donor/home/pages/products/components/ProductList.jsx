@@ -34,7 +34,7 @@ const ProductList = () => {
     <Row>
       {(Object.keys(donorProducts).length !== 0 && donorProducts.total_products !== 0) &&
         <Col className='px-0'>
-          <div className='mb-4'>
+          <div className='mb-4' style={{minHeight: '600px'}}>
             {donorProducts.products.map((product) => (
               <div className='mb-2' key={product.id}>
                 <ProductItem product={product} />
