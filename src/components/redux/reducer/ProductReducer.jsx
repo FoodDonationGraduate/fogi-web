@@ -214,9 +214,7 @@ export const postNewProduct = (data, user, navigate) => {
                 expired_time: data.expired_time,
                 stock: data.stock,
                 category_id: parseInt(data.category_id),
-                images: data.images,
-                available_start: data.available_start + ':00',
-                available_end: data.available_end + ':00'
+                images: data.images
             }).then((res) => {
                 dispatch(setModalMessage("Tạo sản phẩm thành công!"))
                 dispatch(showModal())
@@ -239,13 +237,14 @@ export const deleteProduct = (data, user, navigate) => {
     return async dispatch => {
         try {
             console.log("delete donor's products")
-            await axiosInstance.delete(`/product`, {data: {
+            await axiosInstance.delete(`/product`, {params: {
                 donor_email: user.userInfo.email,
                 token: user.userToken,
                 id: data.id
             }}).then((res) => {
                 dispatch(setModalMessage("Xóa sản phẩm thành công!"))
                 dispatch(showModal())
+                dispatch(retrieveDonorProducts({}, user, navigate))
             })
             .catch((err) => {
                 console.log(err)

@@ -3,6 +3,7 @@ import axiosInstance from "services/axios/axiosConfig.js";
 import { setModalMessage, showModal } from './ModalReducer';
 import { handleExpiredToken } from './AuthenticationReducer';
 import { retrieveDonorProducts } from './ProductReducer';
+import { retrieveAllProducts } from './CartReducer';
 
 const initialState = {
     allRequests: {},
@@ -122,17 +123,24 @@ export const postDoneeRequest = (data, user, navigate) => {
     return async dispatch => {
         try {
             console.log("post donee's request")
-            await axiosInstance.post(`/request/donee`, {
-                email: user.userInfo.email,
-                token: user.userToken,
+            let body = data.delivery_type === 'pickup' ? {
+                reason: data.reason,
+                delivery_type: data.delivery_type
+            } : {
                 reason: data.reason,
                 delivery_type: data.delivery_type,
                 address: data.address,
                 lat: data.lat,
                 long: data.long
+            }
+            await axiosInstance.post(`/request/donee`, {
+                email: user.userInfo.email,
+                token: user.userToken,
+                ...body
             }).then((res) => {
                 dispatch(setModalMessage('Tạo yêu cầu mới thành công!'));
                 dispatch(showModal());
+                dispatch(retrieveAllProducts({}, user, navigate))
             })
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {

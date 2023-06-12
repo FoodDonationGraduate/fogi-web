@@ -20,11 +20,12 @@ const ProductItem = ({
   product
 }) => {
   let size = useResizer();
-  const [currentProduct, setCurrentProduct] = React.useState('')
+  const [currentProduct, setCurrentProduct] = React.useState('');
 
-  const modalLogic = useSelector(state => state.modalReducer.logic)
-  const userInfo = useSelector(state => state.authenticationReducer.user)
-  const userToken = useSelector(state => state.authenticationReducer.token)
+  const modalLogic = useSelector(state => state.modalReducer.logic);
+  const question = useSelector(state => state.modalReducer.question);
+  const userInfo = useSelector(state => state.authenticationReducer.user);
+  const userToken = useSelector(state => state.authenticationReducer.token);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -36,9 +37,9 @@ const ProductItem = ({
   }
 
   React.useEffect(() => {
-    if (modalLogic) {
-      dispatch(cancelQuestionModal())
-      dispatch(deleteProduct({id: currentProduct}, {userInfo, userToken}, navigate))
+    if (modalLogic && question === 'Bạn có muốn xóa sản phẩm này không?') {
+      dispatch(cancelQuestionModal());
+      dispatch(deleteProduct({id: currentProduct}, {userInfo, userToken}, navigate));
     }
   }, [modalLogic])
 
