@@ -69,7 +69,7 @@ const Pagination = ({
 
   useEffect(() => {
     setShownPills(getShownPills());
-  }, [activeIdx, size]);
+  }, [activeIdx, size, pageCount]);
 
   return (
     <>
