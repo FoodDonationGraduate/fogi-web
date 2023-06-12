@@ -23,7 +23,7 @@ import { useResizer } from 'utils/helpers/Resizer.jsx';
 import 'assets/css/donor/HomePage.css';
 
 const HomePage = () => {
-  const [activeIdx, setActiveIdx] = useState(1);
+  const [activeIdx, setActiveIdx] = useState(0);
   let size = useResizer();
 
   // for SideMenu Offcanvas

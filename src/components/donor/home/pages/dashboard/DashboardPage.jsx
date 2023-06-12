@@ -27,13 +27,13 @@ const DashboardPage = () => {
 
   // Chip List
   const [activeStatusIdx, setActiveStatusIdx] = useState(0);
-  const statusList = ['request', 'user'];
+  const statusList = ['request', 'food'];
   const getStatusLabel = (status) => {
     switch (status) {
       case 'request':
         return 'Yêu cầu';
       default:
-        return 'Người dùng';
+        return 'Thực phẩm';
     }
   };
   const styleList = ['success', 'success'];
@@ -51,33 +51,18 @@ const DashboardPage = () => {
   };
   const timeStyleList = ['success', 'success'];
 
-  // Chip List - Chart / User type
-  const [activeUserIdx, setActiveUserIdx] = useState(0);
-  const userList = ['donee', 'donor', 'volunteer'];
-  const getUserLabel = (user) => {
-    switch (user) {
-      case 'donee':
-        return 'Người nhận';
-      case 'donor':
-        return 'Người cho';
+  // Chip List - Chart / Unit type
+  const [activeUnitIdx, setActiveUnitIdx] = useState(0);
+  const unitList = ['item', 'kg'];
+  const getUnitLabel = (unit) => {
+    switch (unit) {
+      case 'item':
+        return 'Cái';
       default:
-        return 'Tình nguyện viên';
+        return 'Kilogram';
     }
   };
-  const userStyleList = ['success', 'success', 'success'];
-
-  // Chip List - Chart / Request type
-  const [activeRequestIdx, setActiveRequestIdx] = useState(0);
-  const requestList = ['give', 'take'];
-  const getRequestLabel = (user) => {
-    switch (user) {
-      case 'give':
-        return 'Cho';
-      default:
-        return 'Nhận';
-    }
-  };
-  const requestStyleList = ['success', 'success'];
+  const unitStyleList = ['success', 'success'];
   
   useEffect(() => {
     dispatch(retrieveStats({ stats_type: statusList[activeStatusIdx] }, { userInfo, userToken }, navigate));
@@ -87,14 +72,13 @@ const DashboardPage = () => {
     dispatch(retrieveChart(
     {
       chart_type: statusList[activeStatusIdx],
-      user_type: userList[activeUserIdx],
-      request_type: requestList[activeRequestIdx],
+      unit_type: unitList[activeUnitIdx],
       time_type: timeList[activeTimeIdx]
     },
     { userInfo, userToken },
     navigate
     ));
-  }, [activeStatusIdx, activeUserIdx, activeTimeIdx, activeRequestIdx]);
+  }, [activeStatusIdx, activeUnitIdx, activeTimeIdx]);
 
   return (
     <div>
@@ -126,27 +110,15 @@ const DashboardPage = () => {
             getTimeLabel={getTimeLabel}
             timeStyleList={timeStyleList}
           />
-            {activeStatusIdx === 0 && (
-              <div className='mb-3'>
-                <ChipList
-                  activeStatusIdx={activeRequestIdx}
-                  setActiveStatusIdx={setActiveRequestIdx}
-                  statusList={requestList}
-                  getStatusLabel={getRequestLabel}
-                  styleList={requestStyleList}
-                  title={'Loại yêu cầu'}
-                />
-              </div>
-            )}
             {activeStatusIdx === 1 && (
               <div className='mb-3'>
                 <ChipList
-                  activeStatusIdx={activeUserIdx}
-                  setActiveStatusIdx={setActiveUserIdx}
-                  statusList={userList}
-                  getStatusLabel={getUserLabel}
-                  styleList={userStyleList}
-                  title={'Loại Người dùng'}
+                  activeStatusIdx={activeUnitIdx}
+                  setActiveStatusIdx={setActiveUnitIdx}
+                  statusList={unitList}
+                  getStatusLabel={getUnitLabel}
+                  styleList={unitStyleList}
+                  title={'Đơn vị'}
                 />
               </div>
             )}

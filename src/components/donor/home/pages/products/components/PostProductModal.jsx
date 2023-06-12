@@ -41,9 +41,7 @@ const PostProductModal = ({
     description: Yup.string().required(''),
     expired_time: Yup.string().required(''),
     stock: Yup.number().required(''),
-    unit: Yup.string().required(''),
-    available_start: Yup.string().required(''),
-    available_end: Yup.string().required('')
+    unit: Yup.string().required('')
   });
   const formOptions = { resolver: yupResolver(formSchema) };
   const { register, handleSubmit, formState } = useForm(formOptions);
@@ -169,40 +167,6 @@ const PostProductModal = ({
                 </p>
               )}
             </Form.Group>
-            
-            <Form.Group className='mb-3'>
-              
-              <Row>
-                <Col className='ps-0' sm={6} md={6} lg={6}>
-                  <Form.Label style={{ fontWeight: 'bold' }}>
-                    Thời gian bắt đầu
-                  </Form.Label>
-                  <Form.Control
-                    type='time' {...register('available_start')}
-                  />
-                  {errors.available_start && errors.available_start.type === 'required' && (
-                    <p className="mt-2 error">
-                      <FaExclamationTriangle className="mx-2" />
-                      Bạn chưa nhập thời gian bắt đầu
-                    </p>
-                  )}
-                </Col>
-                <Col className='px-0' sm={6} md={6} lg={6}>
-                  <Form.Label style={{ fontWeight: 'bold' }}>
-                    Thời gian kết thúc
-                  </Form.Label>
-                  <Form.Control
-                    type='time' {...register('available_end')}
-                  />
-                  {errors.available_end && errors.available_end.type === 'required' && (
-                    <p className="mt-2 error">
-                      <FaExclamationTriangle className="mx-2" />
-                      Bạn chưa nhập thời gian kết thúc
-                    </p>
-                  )}
-                </Col>
-              </Row>
-            </Form.Group>
 
             <Form.Group className='mb-3'>
               <Form.Label style={{ fontWeight: 'bold' }}>
@@ -224,7 +188,7 @@ const PostProductModal = ({
                   <Form.Select 
                     aria-label="Default select exampe" 
                     {...register('unit')} >
-                    <option value='cái'>Cái</option>
+                    <option value='item'>Cái</option>
                     <option value='kg'>Kilogram</option>
                   </Form.Select>
                 </Col>
@@ -251,7 +215,7 @@ const PostProductModal = ({
               />
               <div className='mt-2'>
                 {images && Array.from({ length: images.length }).map((_, idx) => (
-                  <Stack className='upload-tag' direction='horizontal'>
+                  <Stack className='upload-tag' direction='horizontal' key={idx}>
                     {idx}_{images[idx].name}
                     <MdClose
                       className='upload-tag-close'

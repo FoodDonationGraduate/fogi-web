@@ -11,7 +11,7 @@ const Chart = ({ chart }) => {
     <>
       <ResponsiveContainer width='95%' height='100%'>
         <BarChart
-          data={chart.data} 
+          data={chart.data}
           margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
         >
           <XAxis dataKey='label' />
@@ -20,6 +20,7 @@ const Chart = ({ chart }) => {
           <Bar dataKey='value' fill='#82CD47' />
         </BarChart>
       </ResponsiveContainer>
+      <div className='chart-title mt-2'>{chart.title}</div> 
     </>
   );
 };

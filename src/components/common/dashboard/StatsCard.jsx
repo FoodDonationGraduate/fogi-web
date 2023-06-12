@@ -10,9 +10,9 @@ const StatsCard = ({ stat }) => {
   return (
     <>
       <div className='stats-card'>
-        <div className={size > 0 && 'd-flex justify-content-between'}>
+        <div className={size > 0 ? 'd-flex justify-content-between' : ''}>
           <div className='stats-card-label my-auto'>{stat.label}</div>
-          <div className='stats-card-value'>{stat.value}</div>
+          <div className='stats-card-value'>{stat.value} {stat.unit}</div>
         </div>
       </div>
     </>

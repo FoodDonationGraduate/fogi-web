@@ -6,6 +6,7 @@ import categoryReducer from './reducer/CategoryReducer.jsx'
 import donorReducer from './reducer/DonorReducer.jsx'
 import cartReducer from './reducer/CartReducer.jsx'
 import directorReducer from './reducer/DirectorReducer.jsx'
+import dashboardReducer from './reducer/DashboardReducer.jsx'
 import requestReducer from './reducer/RequestReducer.jsx'
 import addressReducer from './reducer/AddressReducer.jsx'
 const store = configureStore({
@@ -17,6 +18,7 @@ const store = configureStore({
         donorReducer,
         cartReducer,
         directorReducer,
+        dashboardReducer,
         requestReducer,
         addressReducer
     },
