@@ -31,11 +31,11 @@ function InfoModal() {
             </Modal> */}
 
             <ToastContainer position="top-end" className="m-2 pt-5" style={{ zIndex: 1 }}>
-                <Toast delay={7000} autohide={true} onClose={() => dispatch(hideModal())} show={modalVisibility}>
-                    <Toast.Header>
+                <Toast delay={5000} autohide={true} onClose={() => dispatch(hideModal())} show={modalVisibility}>
+                    <Toast.Header style={{ backgroundColor: '#82CD47', color: '#ffffff' }}>
                         <strong className="me-auto">Thông báo</strong>
                     </Toast.Header>
-                    <Toast.Body>{modalMessage}</Toast.Body>
+                    <Toast.Body style={{ backgroundColor: '#ffffff', borderRadius: '8px' }}>{modalMessage}</Toast.Body>
                 </Toast>
             </ToastContainer>
         </div>

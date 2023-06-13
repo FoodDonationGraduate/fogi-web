@@ -135,9 +135,17 @@ const CartInfoCard = ({ order }) => {
                         </Button>
                       )}
                       {order.status === 'canceled' && (
-                        <Button variant='primary' className='fogi' onClick={() => recreateRequest(order.products, order.id)}> 
-                          Tạo lại Yêu cầu
-                        </Button>
+                        <>
+                          {!order.is_request_remade ?
+                            <Button variant='primary' className='fogi' onClick={() => recreateRequest(order.products, order.id)}> 
+                              Tạo lại Túi Quyên góp
+                            </Button>
+                            :
+                            <Button variant='primary' className='fogi' disabled> 
+                              Đã tạo lại Túi Quyên góp
+                            </Button>
+                          }
+                        </>
                       )}
                     </Col>
                   </Row>
