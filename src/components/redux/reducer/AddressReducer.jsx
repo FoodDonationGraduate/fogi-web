@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import axiosInstance from "services/axios/axiosConfig.js";
+import axiosInstance, {ggApiInstance} from "services/axios/axiosConfig.js";
 import { setModalMessage, showModal } from './ModalReducer';
 import { handleExpiredToken } from './AuthenticationReducer';
 
@@ -149,5 +149,32 @@ export const updateAddress = (data, user, navigate) => {
             console.log(err)
             navigate('/')
         }
+    }
+}
+
+export const findAddress = (data, user, navigate) => {
+    return async dispatch => {
+        var lnglat = {};
+        try {
+            console.log("find lat/lng with address: " + data.address)
+            await ggApiInstance.get(`maps/api/geocode/json` , {params: {
+                address: data.address,
+                key: 'AIzaSyB0w2JiDGcjnMkVQzD_fOQF4ip0sFX9Bds'
+            }}).then((res) => {
+                lnglat = {
+                    lat: res.data.results[0].geometry.location.lat,
+                    lng: res.data.results[0].geometry.location.lng
+                };
+            })
+            .catch((err) => {
+                console.log(err)
+                dispatch(setModalMessage('Không thể tìm thấy địa điểm này!'))
+                dispatch(showModal())
+            });
+        } catch (err) {
+            console.log(err)
+            navigate('/')
+        }
+        return lnglat;
     }
 }
