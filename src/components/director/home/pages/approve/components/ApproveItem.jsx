@@ -2,9 +2,9 @@
 import React, { useState } from 'react';
 import { Button, Row, Col, Stack } from 'react-bootstrap';
 import { EqualHeightElement } from 'react-equal-height';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
-import { verifyUser } from 'components/redux/reducer/DirectorReducer.jsx'
+import { verifyUser } from 'components/redux/reducer/DirectorReducer.jsx';
 
 // Components
 import DocumentModal from './DocumentModal';
@@ -14,10 +14,10 @@ import 'assets/css/director/HomePage.css';
 
 // Assets
 import {
-  MdMailOutline, // 0
-  MdOutlinePhone, // 1
-  MdCalendarToday, // 2
-  MdOutlineLocationOn, // 3
+  MdMailOutline,
+  MdOutlinePhone,
+  MdCalendarToday,
+  MdOutlineLocationOn
 } from 'react-icons/md';
 
 const ApproveItem = ({

@@ -13,55 +13,23 @@ import ApproveItem from './ApproveItem';
 import Pagination from 'components/common/pagination/Pagination';
 
 const ApproveList = () => {
-  const unverifiedDonees = useSelector(state => state.directorReducer.unverifiedDonees);
-  const unverifiedDonors = useSelector(state => state.directorReducer.unverifiedDonors);
-  const unverifiedVolunteers = useSelector(state => state.directorReducer.unverifiedVolunteers);
+  const unverifiedUsers = useSelector(state => state.directorReducer.unverifiedUsers);
   const user_type = useSelector(state => state.directorReducer.user_type);
   const userInfo = useSelector(state => state.authenticationReducer.user);
   const userToken = useSelector(state => state.authenticationReducer.token);
 
   const APPROVE_COUNT = 4; // per page
-  const [pageDonee, setPageDonee] = useState(0);
-  const [pageDonor, setPageDonor] = useState(0);
-  const [pageVolunteer, setPageVolunteer] = useState(0);
+  const [page, setPage] = useState(0);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const onChangePageDonee = async (idx) => {
-    setPageDonee(idx);
+  const onChangePage = async (idx) => {
+    setPage(idx);
     await dispatch(retrieveUnverifiedUsers(
       {
         limit: APPROVE_COUNT,
         offset: idx * APPROVE_COUNT,
-        user_type: 'donee'
-      }, {
-        userInfo,
-        userToken
-      },
-      navigate
-    ));
-  };
-  const onChangePageDonor = async (idx) => {
-    setPageDonor(idx);
-    await dispatch(retrieveUnverifiedUsers(
-      {
-        limit: APPROVE_COUNT,
-        offset: idx * APPROVE_COUNT,
-        user_type: 'donor'
-      }, {
-        userInfo,
-        userToken
-      },
-      navigate
-    ));
-  };
-  const onChangePageVolunteer = async (idx) => {
-    setPageVolunteer(idx);
-    await dispatch(retrieveUnverifiedUsers(
-      {
-        limit: APPROVE_COUNT,
-        offset: idx * APPROVE_COUNT,
-        user_type: 'volunteer'
+        user_type: user_type
       }, {
         userInfo,
         userToken
@@ -71,33 +39,12 @@ const ApproveList = () => {
   };
   
   useEffect(() => {
+    setPage(0);
     dispatch(retrieveUnverifiedUsers(
       {
         limit: APPROVE_COUNT,
-        offset: pageDonee * APPROVE_COUNT,
-        user_type: 'donee'
-      }, {
-        userInfo,
-        userToken
-      },
-      navigate
-    ));
-    dispatch(retrieveUnverifiedUsers(
-      {
-        limit: APPROVE_COUNT,
-        offset: pageDonee * APPROVE_COUNT,
-        user_type: 'donor'
-      }, {
-        userInfo,
-        userToken
-      },
-      navigate
-    ));
-    dispatch(retrieveUnverifiedUsers(
-      {
-        limit: APPROVE_COUNT,
-        offset: pageVolunteer * APPROVE_COUNT,
-        user_type: 'volunteer'
+        offset: 0,
+        user_type: user_type
       }, {
         userInfo,
         userToken
@@ -111,39 +58,13 @@ const ApproveList = () => {
       <Col className='px-0'>
         <Row className='mb-4' xs={1} md={2}>
           <EqualHeight>
-            {(user_type === 'donee' && Object.keys(unverifiedDonees).length !== 0) &&
-            unverifiedDonees.users.map((user) => (
+            {Object.keys(unverifiedUsers).length !== 0 &&
+            unverifiedUsers.users.map((user) => (
               <Col className='mb-4' key={user.email}>
                 <ApproveItem
                   approve={user}
                   approveCount={APPROVE_COUNT}
-                  currentPage={pageDonee}
-                  user_type={user_type}
-                  userInfo={userInfo}
-                  userToken={userToken}
-                />
-              </Col>
-            ))}
-            {(user_type === 'donor' && Object.keys(unverifiedDonors).length !== 0) &&
-            unverifiedDonors.users.map((user) => (
-              <Col className='mb-4' key={user.email}>
-                <ApproveItem
-                  approve={user}
-                  approveCount={APPROVE_COUNT}
-                  currentPage={pageDonor}
-                  user_type={user_type}
-                  userInfo={userInfo}
-                  userToken={userToken}
-                />
-              </Col>
-            ))}
-            {(user_type === 'volunteer' && Object.keys(unverifiedVolunteers).length !== 0) &&
-            unverifiedVolunteers.users.map((user) => (
-              <Col className='mb-4' key={user.email}>
-                <ApproveItem
-                  approve={user}
-                  approveCount={APPROVE_COUNT}
-                  currentPage={pageVolunteer}
+                  currentPage={page}
                   user_type={user_type}
                   userInfo={userInfo}
                   userToken={userToken}
@@ -153,27 +74,11 @@ const ApproveList = () => {
           </EqualHeight>
         </Row>
         <div className='d-flex justify-content-center'>
-          {(user_type === 'donee' && Object.keys(unverifiedDonees).length !== 0) &&
-            <Pagination
-              pageCount={Math.ceil(unverifiedDonees.total_users / APPROVE_COUNT)}
-              activeIdx={pageDonee}
-              onChangePage={onChangePageDonee}
-            />
-          }
-          {(user_type === 'donor' && Object.keys(unverifiedDonors).length !== 0) &&
-            <Pagination
-              pageCount={Math.ceil(unverifiedDonors.total_users / APPROVE_COUNT)}
-              activeIdx={pageDonor}
-              onChangePage={onChangePageDonor}
-            />
-          }
-          {(user_type === 'volunteer' && Object.keys(unverifiedVolunteers).length !== 0) &&
-            <Pagination
-              pageCount={Math.ceil(unverifiedVolunteers.total_users / APPROVE_COUNT)}
-              activeIdx={pageVolunteer}
-              onChangePage={onChangePageVolunteer}
-            />
-          }
+          <Pagination
+            pageCount={Math.ceil(unverifiedUsers.total_users / APPROVE_COUNT)}
+            activeIdx={page}
+            onChangePage={onChangePage}
+          />
         </div>
       </Col>
     </Row>

@@ -6,9 +6,7 @@ import { setModalMessage, showModal } from './ModalReducer';
 import { retrieveAllCategories } from 'components/redux/reducer/CategoryReducer';
 
 const initialState = {
-  unverifiedDonees: {},
-  unverifiedDonors: {},
-  unverifiedVolunteers: {},
+  unverifiedUsers: {},
   user_type: 'donee'
 };
 
@@ -16,14 +14,8 @@ const directorReducer = createSlice({
   name: 'directorReducer',
   initialState,
   reducers: {
-    setUnverifiedDonees: (state, action) => {
-      state.unverifiedDonees = action.payload
-    },
-    setUnverifiedDonors: (state, action) => {
-      state.unverifiedDonors = action.payload
-    },
-    setUnverifiedVolunteers: (state, action) => {
-      state.unverifiedVolunteers = action.payload
+    setUnverifiedUsers: (state, action) => {
+      state.unverifiedUsers = action.payload
     },
     setTypeOfUser: (state, action) => {
       state.user_type = action.payload
@@ -32,7 +24,7 @@ const directorReducer = createSlice({
 });
 
 export const {
-  setUnverifiedDonees, setUnverifiedDonors, setUnverifiedVolunteers, setTypeOfUser
+  setUnverifiedUsers, setTypeOfUser
 } = directorReducer.actions
 
 export default directorReducer.reducer
@@ -48,16 +40,7 @@ export const retrieveUnverifiedUsers = (data, director, navigate) => {
         limit: data.limit,
         offset: data.offset
       }}).then((res) => {
-        switch (data.user_type) {
-          case 'donee':
-            dispatch(setUnverifiedDonees(res.data));
-            break;
-          case 'donor':
-            dispatch(setUnverifiedDonors(res.data));
-            break;
-          default:
-            dispatch(setUnverifiedVolunteers(res.data));
-        }
+        dispatch(setUnverifiedUsers(res.data));
       }).catch((err) => {
         console.log(err.response.data);
         navigate('/');
