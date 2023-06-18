@@ -215,3 +215,31 @@ export const remakeDonorBag = (data, user, navigate) => {
         }
     }
 }
+
+export const createReport = (data, volunteer, user, navigate) => {
+    return async dispatch => {
+        try {
+            console.log('create report');
+            await axiosInstance.post(`/report`, {
+                email: user.userInfo.email,
+                token: user.userToken,
+                reportee_email: volunteer.email,
+                request_id: data.request_id,
+                reason: data.reason
+            }).then((res) => {
+                dispatch(setModalMessage('Đã gửi báo cáo thành công!'));
+                dispatch(showModal());
+            })
+            .catch((err) => {
+                if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+                    console.log(err)
+                    dispatch(setModalMessage(err.response.data.message))
+                    dispatch(showModal())
+                }
+            });
+        } catch (err) {
+            console.log(err);
+            navigate('/');
+        }
+    }
+};

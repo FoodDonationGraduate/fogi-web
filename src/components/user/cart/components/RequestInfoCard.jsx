@@ -134,8 +134,6 @@ const RequestInfoCard = (
                     </Row>
                   </Form>
 
-                  <VolunteerInfo volunteerInfo={undefined} />
-
                 </div>
               </Col>
             </Row>

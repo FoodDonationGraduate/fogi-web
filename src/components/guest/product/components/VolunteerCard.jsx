@@ -12,7 +12,7 @@ import { MdEmail } from 'react-icons/md';
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
 
-const VolunteerInfo = ({
+const VolunteerCard = ({
   isCard=false,
   volunteerInfo,
   orderId=undefined
@@ -52,4 +52,4 @@ const VolunteerInfo = ({
   );
 };
 
-export default VolunteerInfo;
+export default VolunteerCard;

@@ -1,7 +1,7 @@
 // Essentials
 import React from 'react';
 import { Button, Col, Row, Stack } from 'react-bootstrap';
-import { useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux';
 
 // Assets
 import { MdOutlineAdd, MdOutlineLocationOn } from 'react-icons/md';
