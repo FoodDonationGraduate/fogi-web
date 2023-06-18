@@ -7,6 +7,7 @@ import { retrieveAllCategories } from 'components/redux/reducer/CategoryReducer'
 
 const initialState = {
   unverifiedDonees: {},
+  unverifiedDonors: {},
   unverifiedVolunteers: {},
   user_type: 'donee'
 };
@@ -18,6 +19,9 @@ const directorReducer = createSlice({
     setUnverifiedDonees: (state, action) => {
       state.unverifiedDonees = action.payload
     },
+    setUnverifiedDonors: (state, action) => {
+      state.unverifiedDonors = action.payload
+    },
     setUnverifiedVolunteers: (state, action) => {
       state.unverifiedVolunteers = action.payload
     },
@@ -28,46 +32,32 @@ const directorReducer = createSlice({
 });
 
 export const {
-  setUnverifiedDonees, setUnverifiedVolunteers, setTypeOfUser
+  setUnverifiedDonees, setUnverifiedDonors, setUnverifiedVolunteers, setTypeOfUser
 } = directorReducer.actions
 
 export default directorReducer.reducer
 
-export const retrieveUnverifiedDonees = (data, director, navigate) => {
+export const retrieveUnverifiedUsers = (data, director, navigate) => {
   return async dispatch => {
     try {
-      console.log('retrieve unverified donees');
+      console.log(`retrieve unverified ${data.user_type}`);
       await axiosInstance.get(`/verify/info`, { params: {
         email: director.userInfo.email,
         token: director.userToken,
-        user_type: 'donee',
+        user_type: data.user_type,
         limit: data.limit,
         offset: data.offset
       }}).then((res) => {
-        dispatch(setUnverifiedDonees(res.data));
-      }).catch((err) => {
-        console.log(err.response.data);
-        navigate('/');
-      });
-    } catch (err) {
-      console.log(err);
-      navigate('/');
-    }
-  }
-}
-
-export const retrieveUnverifiedVolunteers = (data, director, navigate) => {
-  return async dispatch => {
-    try {
-      console.log('retrieve unverified volunteers');
-      await axiosInstance.get(`/verify/info`, { params: {
-        email: director.userInfo.email,
-        token: director.userToken,
-        user_type: 'volunteer',
-        limit: data.limit,
-        offset: data.offset
-      }}).then((res) => {
-        dispatch(setUnverifiedVolunteers(res.data));
+        switch (data.user_type) {
+          case 'donee':
+            dispatch(setUnverifiedDonees(res.data));
+            break;
+          case 'donor':
+            dispatch(setUnverifiedDonors(res.data));
+            break;
+          default:
+            dispatch(setUnverifiedVolunteers(res.data));
+        }
       }).catch((err) => {
         console.log(err.response.data);
         navigate('/');
@@ -90,8 +80,7 @@ export const verifyUser = (data, director, navigate) => {
         action: data.action
       }).then((res) => {
         handleExpiredToken(res, dispatch, navigate);
-        if (data.user_type === 'donee') dispatch(retrieveUnverifiedDonees(data, director, navigate));
-        else dispatch(retrieveUnverifiedVolunteers(data, director, navigate));
+        dispatch(retrieveUnverifiedUsers(data, director, navigate));
       }).catch((err) => {
         console.log(err);
         navigate('/');
