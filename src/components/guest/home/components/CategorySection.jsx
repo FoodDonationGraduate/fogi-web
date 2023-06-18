@@ -13,6 +13,8 @@ import { retrieveAllCategories } from 'components/redux/reducer/CategoryReducer'
 // Styling
 import 'assets/css/Fogi.css';
 import 'assets/css/guest/home_pape/CategorySection.css'
+import { GrPrevious } from 'react-icons/gr';
+import { GrNext } from 'react-icons/gr';
 
 // Utility
 import { useResizer } from 'utils/helpers/Resizer';
@@ -61,7 +63,7 @@ const CategorySection = () => {
           </Col>
         </Row>
         <EqualHeight>
-          <Carousel interval={null}>
+          <Carousel interval={null} >
             {Object.keys(allCategories).length !== 0 && 
               shownCategories.map((categories, index) => (
                 <Carousel.Item key={index}>
