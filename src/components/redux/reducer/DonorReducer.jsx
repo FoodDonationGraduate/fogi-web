@@ -5,7 +5,7 @@ import { setModalMessage, showModal } from './ModalReducer';
 const initialState = {
     allDonors: {}
 }
-const categoryReducer = createSlice({
+const donorReducer = createSlice({
     name: "donorReducer",
     initialState,
     reducers: {
@@ -17,9 +17,9 @@ const categoryReducer = createSlice({
 
 export const { 
     setAllDonors
-} = categoryReducer.actions
+} = donorReducer.actions
 
-export default categoryReducer.reducer
+export default donorReducer.reducer
 // ----------- HELPER ---------------------
 
 // ----------- THUNK ----------------------
