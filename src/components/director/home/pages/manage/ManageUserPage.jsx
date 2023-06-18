@@ -1,20 +1,12 @@
 // Essentials
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Container, Row } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
 
 // Components
 import ListTitle from 'components/common/ListTitle';
-import ApproveList from './components/ApproveList';
 import ChipList from 'components/common/chip/ChipList';
 
-// Redux
-import { setTypeOfUser } from 'components/redux/reducer/DirectorReducer';
-
-const ApproveListPage = () => {
-  const dispatch = useDispatch();
-
-  // Chip List
+const ManageUserPage = () => {// Chip List
   const [activeStatusIdx, setActiveStatusIdx] = useState(0);
   const statusList = ['donee', 'donor', 'volunteer'];
   const getStatusLabel = (status) => {
@@ -29,15 +21,11 @@ const ApproveListPage = () => {
   };
   const styleList = ['success', 'success', 'success'];
 
-  useEffect(() => {
-    dispatch(setTypeOfUser(statusList[activeStatusIdx]));
-  }, [activeStatusIdx]);
-
   return (
     <>
       <div>
         <Container>
-          <ListTitle title={'Xét duyệt Người dùng'} />
+          <ListTitle title={'Quản lý Người dùng'} />
           <Row className='my-4'>
             <ChipList
               activeStatusIdx={activeStatusIdx}
@@ -47,11 +35,10 @@ const ApproveListPage = () => {
               styleList={styleList}
             />
           </Row>
-          <ApproveList />
         </Container>
       </div>
     </>
   );
 };
 
-export default ApproveListPage;
+export default ManageUserPage;

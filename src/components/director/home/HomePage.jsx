@@ -11,6 +11,7 @@ import ConfirmModal from 'components/layout/ConfirmModal.jsx';
 
 import DashboardPage from './pages/dashboard/DashboardPage';
 import ApproveListPage from './pages/approve/ApproveListPage';
+import ManageUserPage from './pages/manage/ManageUserPage';
 import CategoryListPage from './pages/category/CategoryListPage';
 
 // Assets
@@ -57,7 +58,8 @@ const HomePage = () => {
               <Col>
                 {activeIdx === 0 && <DashboardPage />}
                 {activeIdx === 1 && <ApproveListPage />}
-                {activeIdx === 2 && <CategoryListPage />}
+                {activeIdx === 2 && <ManageUserPage />}
+                {activeIdx === 3 && <CategoryListPage />}
               </Col>
             </Row>
           </Col>

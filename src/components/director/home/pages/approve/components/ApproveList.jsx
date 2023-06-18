@@ -1,7 +1,7 @@
 // Essentials
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { Container, Col, Row } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import { EqualHeight } from 'react-equal-height';
 
 import { useDispatch, useSelector } from 'react-redux'
@@ -107,78 +107,76 @@ const ApproveList = () => {
   }, [user_type]);
 
   return (
-    <Container>
-      <Row>
-        <Col className='px-0'>
-          <Row className='mb-4' xs={1} md={2}>
-            <EqualHeight>
-              {(user_type === 'donee' && Object.keys(unverifiedDonees).length !== 0) &&
-              unverifiedDonees.users.map((user) => (
-                <Col className='mb-4' key={user.email}>
-                  <ApproveItem
-                    approve={user}
-                    approveCount={APPROVE_COUNT}
-                    currentPage={pageDonee}
-                    user_type={user_type}
-                    userInfo={userInfo}
-                    userToken={userToken}
-                  />
-                </Col>
-              ))}
-              {(user_type === 'donor' && Object.keys(unverifiedDonors).length !== 0) &&
-              unverifiedDonors.users.map((user) => (
-                <Col className='mb-4' key={user.email}>
-                  <ApproveItem
-                    approve={user}
-                    approveCount={APPROVE_COUNT}
-                    currentPage={pageDonor}
-                    user_type={user_type}
-                    userInfo={userInfo}
-                    userToken={userToken}
-                  />
-                </Col>
-              ))}
-              {(user_type === 'volunteer' && Object.keys(unverifiedVolunteers).length !== 0) &&
-              unverifiedVolunteers.users.map((user) => (
-                <Col className='mb-4' key={user.email}>
-                  <ApproveItem
-                    approve={user}
-                    approveCount={APPROVE_COUNT}
-                    currentPage={pageVolunteer}
-                    user_type={user_type}
-                    userInfo={userInfo}
-                    userToken={userToken}
-                  />
-                </Col>
-              ))}
-            </EqualHeight>
-          </Row>
-          <div className='d-flex justify-content-center'>
+    <Row>
+      <Col className='px-0'>
+        <Row className='mb-4' xs={1} md={2}>
+          <EqualHeight>
             {(user_type === 'donee' && Object.keys(unverifiedDonees).length !== 0) &&
-              <Pagination
-                pageCount={Math.ceil(unverifiedDonees.total_users / APPROVE_COUNT)}
-                activeIdx={pageDonee}
-                onChangePage={onChangePageDonee}
-              />
-            }
+            unverifiedDonees.users.map((user) => (
+              <Col className='mb-4' key={user.email}>
+                <ApproveItem
+                  approve={user}
+                  approveCount={APPROVE_COUNT}
+                  currentPage={pageDonee}
+                  user_type={user_type}
+                  userInfo={userInfo}
+                  userToken={userToken}
+                />
+              </Col>
+            ))}
             {(user_type === 'donor' && Object.keys(unverifiedDonors).length !== 0) &&
-              <Pagination
-                pageCount={Math.ceil(unverifiedDonors.total_users / APPROVE_COUNT)}
-                activeIdx={pageDonor}
-                onChangePage={onChangePageDonor}
-              />
-            }
+            unverifiedDonors.users.map((user) => (
+              <Col className='mb-4' key={user.email}>
+                <ApproveItem
+                  approve={user}
+                  approveCount={APPROVE_COUNT}
+                  currentPage={pageDonor}
+                  user_type={user_type}
+                  userInfo={userInfo}
+                  userToken={userToken}
+                />
+              </Col>
+            ))}
             {(user_type === 'volunteer' && Object.keys(unverifiedVolunteers).length !== 0) &&
-              <Pagination
-                pageCount={Math.ceil(unverifiedVolunteers.total_users / APPROVE_COUNT)}
-                activeIdx={pageVolunteer}
-                onChangePage={onChangePageVolunteer}
-              />
-            }
-          </div>
-        </Col>
-      </Row>
-    </Container>
+            unverifiedVolunteers.users.map((user) => (
+              <Col className='mb-4' key={user.email}>
+                <ApproveItem
+                  approve={user}
+                  approveCount={APPROVE_COUNT}
+                  currentPage={pageVolunteer}
+                  user_type={user_type}
+                  userInfo={userInfo}
+                  userToken={userToken}
+                />
+              </Col>
+            ))}
+          </EqualHeight>
+        </Row>
+        <div className='d-flex justify-content-center'>
+          {(user_type === 'donee' && Object.keys(unverifiedDonees).length !== 0) &&
+            <Pagination
+              pageCount={Math.ceil(unverifiedDonees.total_users / APPROVE_COUNT)}
+              activeIdx={pageDonee}
+              onChangePage={onChangePageDonee}
+            />
+          }
+          {(user_type === 'donor' && Object.keys(unverifiedDonors).length !== 0) &&
+            <Pagination
+              pageCount={Math.ceil(unverifiedDonors.total_users / APPROVE_COUNT)}
+              activeIdx={pageDonor}
+              onChangePage={onChangePageDonor}
+            />
+          }
+          {(user_type === 'volunteer' && Object.keys(unverifiedVolunteers).length !== 0) &&
+            <Pagination
+              pageCount={Math.ceil(unverifiedVolunteers.total_users / APPROVE_COUNT)}
+              activeIdx={pageVolunteer}
+              onChangePage={onChangePageVolunteer}
+            />
+          }
+        </div>
+      </Col>
+    </Row>
   );
 };
 
