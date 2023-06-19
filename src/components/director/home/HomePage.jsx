@@ -1,5 +1,5 @@
 // Essentials
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 
@@ -20,6 +20,9 @@ import { MdMenu } from 'react-icons/md';
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
 
+// Redux
+import { setTypeOfUser } from 'components/redux/reducer/DirectorReducer';
+
 // Styles
 import 'assets/css/donor/HomePage.css';
 
@@ -31,6 +34,10 @@ const HomePage = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  useEffect(() => {
+    setTypeOfUser('donee');
+  }, [activeIdx]);
 
   return (
     <>

@@ -56,20 +56,20 @@ const ApproveItem = ({
   return (
     <>
       <DocumentModal show={show} handleClose={handleClose} />
-      <div className='approve-card' id='approve-card'>
-        <EqualHeightElement name='approve-content'>
-          <h4 className='approve-card-name'>
+      <div className='manage-card' id='manage-card'>
+        <EqualHeightElement name='manage-content'>
+          <h4 className='manage-card-name'>
             {approve.name}
           </h4>
       
-          <header className='approve-card-secondary'>
+          <header className='manage-card-secondary'>
             <Stack direction='horizontal' gap={2}>
               <MdMailOutline />
               {approve.email}
             </Stack>
           </header>
 
-          <header className='approve-card-secondary'>
+          <header className='manage-card-secondary'>
             <Stack direction='horizontal' gap={2}>
               <MdOutlinePhone />
               {approve.phone}
@@ -78,14 +78,14 @@ const ApproveItem = ({
           
           {approve.user_type === 'donee' && (
             <>
-              <header className='approve-card-secondary'>
+              <header className='manage-card-secondary'>
                 <Stack direction='horizontal' gap={2}>
                   <MdCalendarToday />
                   {approve.dob}
                 </Stack>
               </header>
           
-              <header className='approve-card-secondary'>
+              <header className='manage-card-secondary'>
                 <Stack direction='horizontal' gap={2}>
                   <MdOutlineLocationOn />
                   {approve.address}
@@ -94,7 +94,7 @@ const ApproveItem = ({
             </>
           )}
         </EqualHeightElement>
-        <div className='approve-card-link' onClick={handleShow}>
+        <div className='manage-card-link' onClick={handleShow}>
           Giấy tờ tùy thân
         </div>
 

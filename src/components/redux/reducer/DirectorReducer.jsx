@@ -7,6 +7,8 @@ import { retrieveAllCategories } from 'components/redux/reducer/CategoryReducer'
 
 const initialState = {
   unverifiedUsers: {},
+  manageUsers: {},
+  reports: {},
   user_type: 'donee'
 };
 
@@ -15,16 +17,22 @@ const directorReducer = createSlice({
   initialState,
   reducers: {
     setUnverifiedUsers: (state, action) => {
-      state.unverifiedUsers = action.payload
+      state.unverifiedUsers = action.payload;
+    },
+    setManageUsers: (state, action) => {
+      state.manageUsers = action.payload;
+    },
+    setReports: (state, action) => {
+      state.reports = action.payload;
     },
     setTypeOfUser: (state, action) => {
-      state.user_type = action.payload
+      state.user_type = action.payload;
     }
   }
 });
 
 export const {
-  setUnverifiedUsers, setTypeOfUser
+  setUnverifiedUsers, setManageUsers, setReports, setTypeOfUser
 } = directorReducer.actions
 
 export default directorReducer.reducer
@@ -41,6 +49,52 @@ export const retrieveUnverifiedUsers = (data, director, navigate) => {
         offset: data.offset
       }}).then((res) => {
         dispatch(setUnverifiedUsers(res.data));
+      }).catch((err) => {
+        console.log(err.response.data);
+        navigate('/');
+      });
+    } catch (err) {
+      console.log(err);
+      navigate('/');
+    }
+  }
+}
+
+export const retrieveManageUsers = (data, director, navigate) => {
+  return async dispatch => {
+    try {
+      console.log(`retrieve list of ${data.user_type}s to manage`);
+      await axiosInstance.get(`/profile/director`, { params: {
+        email: director.userInfo.email,
+        token: director.userToken,
+        user_type: data.user_type,
+        limit: data.limit,
+        offset: data.offset
+      }}).then((res) => {
+        dispatch(setManageUsers(res.data));
+      }).catch((err) => {
+        console.log(err.response.data);
+        navigate('/');
+      });
+    } catch (err) {
+      console.log(err);
+      navigate('/');
+    }
+  }
+}
+
+export const retrieveReports = (data, director, navigate) => {
+  return async dispatch => {
+    try {
+      console.log(`retrieve reports`);
+      await axiosInstance.get(`/report`, { params: {
+        email: director.userInfo.email,
+        token: director.userToken,
+        reportee_email: data.reportee_email,
+        limit: data.limit,
+        offset: data.offset
+      }}).then((res) => {
+        dispatch(setReports(res.data));
       }).catch((err) => {
         console.log(err.response.data);
         navigate('/');

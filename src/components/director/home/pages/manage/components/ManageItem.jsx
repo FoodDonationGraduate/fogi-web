@@ -10,7 +10,7 @@ import 'assets/css/director/HomePage.css';
 import {
   MdMailOutline,
   MdOutlinePhone,
-  MdOutlineReport
+  MdOutlineReportProblem
 } from 'react-icons/md';
 
 const ManageItem = ({
@@ -19,29 +19,32 @@ const ManageItem = ({
 
   return (
     <>
-      <div className='approve-card' id='approve-card'>
-        <EqualHeightElement name='approve-content'>
-          <h4 className='approve-card-name'>
-            {user.name}
-          </h4>
+      <div className='manage-card manage-clickable'>
+        <EqualHeightElement name='manage-content'>
+          <Stack className='mb-2' direction='horizontal' gap={4}>
+            <img className='profile-logo-sm' src={`https://bachkhoi.online/static/${user.avatar}`} alt='director logo'/>
+            <h4 className='manage-card-name'>
+              {user.name}
+            </h4>
+          </Stack>
       
-          <header className='approve-card-secondary'>
+          <header className='manage-card-secondary'>
             <Stack direction='horizontal' gap={2}>
               <MdMailOutline />
               {user.email}
             </Stack>
           </header>
 
-          <header className='approve-card-secondary'>
+          <header className='manage-card-secondary'>
             <Stack direction='horizontal' gap={2}>
               <MdOutlinePhone />
               {user.phone}
             </Stack>
           </header>
 
-          <header className='approve-card-secondary'>
+          <header className='manage-card-secondary'>
             <Stack direction='horizontal' gap={2}>
-              <MdOutlineReport />
+              <MdOutlineReportProblem />
               {user.num_of_report}
             </Stack>
           </header>
