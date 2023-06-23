@@ -1,5 +1,5 @@
 // Essentials
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Stack } from 'react-bootstrap';
 import { EqualHeightElement } from 'react-equal-height';
 
@@ -21,6 +21,11 @@ const ReportItem = ({
   report
 }) => {
   let size = useResizer();
+  const [reasons, setReasons] = useState([]);
+
+  useEffect(() => {
+    setReasons(report.reason.split('\n'));
+  }, []);
 
   return (
     <>
@@ -31,11 +36,15 @@ const ReportItem = ({
           </div>
       
           <div className='manage-card-primary'>
-            {report.reason}
+            {reasons.length > 0 && reasons.map((reason, idx) => (
+              <div key={idx}>- {reason}</div>
+            ))}
           </div>
+        </EqualHeightElement>
 
-          <hr />
+        <hr />
 
+        <EqualHeightElement name='manage-info'>
           <Stack className='mb-2' direction='horizontal' gap={4}>
             <img className='profile-logo-sm' src={`https://bachkhoi.online/static/${report.reporter_avatar}`} alt='director logo'/>
             <div>
