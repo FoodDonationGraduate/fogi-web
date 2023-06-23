@@ -10,6 +10,9 @@ import { FaExclamationTriangle } from 'react-icons/fa';
 // Reducer
 import { createReport } from 'components/redux/reducer/RequestReducer';
 
+// Utils
+import { handleMaxInput } from 'utils/helpers/String';
+
 const ReportModal = ({
   show,
   onClose,
@@ -106,9 +109,12 @@ const ReportModal = ({
                 <>
                   <Form.Control
                     value={otherReason}
-                    onChange={(event) => setOtherReason(event.target.value)}
+                    onChange={(event) => handleMaxInput(event, 255, setOtherReason)}
                     as='textarea'
                   />
+                  <Form.Text>
+                    Còn {255 - otherReason.length} ký tự
+                  </Form.Text>
                   {isSubmitted && otherReason.length === 0 && (
                     <p className="mt-2 error">
                       <FaExclamationTriangle className="mx-2" />

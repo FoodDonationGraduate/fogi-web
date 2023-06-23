@@ -1,5 +1,5 @@
 // Essentials
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Form, Modal, Stack } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
@@ -11,6 +11,7 @@ import * as Yup from 'yup';
 
 // Utility
 import { updateRequest } from 'components/redux/reducer/RequestReducer';
+import { handleMaxInput } from 'utils/helpers/String';
 
 // Assets imports
 import { FaExclamationTriangle } from 'react-icons/fa';
@@ -32,6 +33,7 @@ const CancelModal = ({ show, onClose, volunteerInfo, orderId }) => {
   const cancelRequest = (data) => {
     dispatch(updateRequest({request_id: orderId, request_status: 'canceled', cancel_reason: data.reason}, {userInfo, userToken}, navigate));
   };
+  const [reason, setReason] = useState('');
 
   return (
     <>
@@ -67,7 +69,15 @@ const CancelModal = ({ show, onClose, volunteerInfo, orderId }) => {
               <Form.Label style={{ fontWeight: 'bold'}}>
                 Lí do hủy
               </Form.Label>
-              <Form.Control {...register('reason')} as='textarea' />
+              <Form.Control
+                {...register('reason')}
+                value={reason}
+                onChange={(event) => handleMaxInput(event, 255, setReason)}
+                as='textarea'
+              />
+              <Form.Text>
+                Còn {255 - reason.length} ký tự
+              </Form.Text>
               {errors.reason && errors.reason.type === 'required' && (
                 <p className="mt-2 error">
                   <FaExclamationTriangle className="mx-2" />
