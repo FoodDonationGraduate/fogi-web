@@ -42,7 +42,7 @@ const CancelModal = ({ show, onClose, volunteerInfo, orderId }) => {
         onHide={onClose}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Báo cáo</Modal.Title>
+          <Modal.Title>Hủy Yêu cầu</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleSubmit(cancelRequest)}>

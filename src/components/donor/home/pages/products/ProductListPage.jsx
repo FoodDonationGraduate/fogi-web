@@ -17,7 +17,7 @@ const ProductListPage = () => {
   return (
     <>
       <div>
-        <ListTitle onShow={onShow} />
+        <ListTitle onShowAdd={onShow} />
         <LocationCard />
         <ProductList />
       </div>

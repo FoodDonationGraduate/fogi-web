@@ -99,7 +99,9 @@ export const postDonorRequest = (data, user, navigate) => {
                 token: user.userToken,
                 address: data.address,
                 lat: data.lat,
-                long: data.long
+                long: data.long,
+                available_start: data.available_start,
+                available_end: data.available_end
             }).then((res) => {
                 dispatch(setModalMessage('Tạo yêu cầu mới thành công!'))
                 dispatch(showModal())
