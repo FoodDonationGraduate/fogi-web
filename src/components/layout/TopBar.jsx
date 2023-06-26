@@ -30,7 +30,7 @@ const TopBar = () => {
 
   const date = new Date();
   const formSchema = Yup.object().shape({
-    query: Yup.string()
+    query: Yup.string().required('')
   });
   const formOptions = { resolver: yupResolver(formSchema) };
   const { register, handleSubmit, formState } = useForm(formOptions);

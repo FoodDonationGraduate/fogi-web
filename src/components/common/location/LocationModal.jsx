@@ -131,7 +131,8 @@ const LocationModal = ({ show, onClose }) => {
                   </Form.Label>
                   <Form.Control 
                     type='text'
-                    {...register('name')} 
+                    placeholder='VD: Nhà, Trường học, Công ty,...'
+                    {...register('name')}
                   />
                   {errors.name && errors.name.type === 'required' && (
                     <p className="mt-2 error">

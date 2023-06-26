@@ -10,6 +10,7 @@ import Footer from 'components/layout/Footer';
 import ProductSection from './components/ProductSection';
 import { retrieveCurrentProduct } from 'components/redux/reducer/ProductReducer';
 import EmptyProductBody from './components/EmptyProductBody';
+import ProductSimilar from './components/ProductSimilar';
 import InfoModal from 'components/layout/InfoModal';
 
 // Styling
@@ -34,6 +35,7 @@ const ProductDetailsPage = () => {
         {(Object.keys(product).length !== 0 && Object.keys(product.product).length !== 0) &&
           <div className='bg'>
             <ProductSection product={product.product} />
+            <ProductSimilar product={product.product} />
           </div>
         }
         {Object.keys(product).length === 0 && 

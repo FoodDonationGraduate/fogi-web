@@ -65,7 +65,7 @@ const OrderInfoCard = ({ order }) => {
               </Stack>
               <header className='order-item-secondary'>
                 <Stack direction='horizontal' gap={2}>
-                  <div className='fw-bold'>{`Địa chỉ ${order.delivery_type === 'pickup' ? ' nhận thực phẩm' : 'giao hàng'}`}</div>
+                  <div className='fw-bold'>{`Địa chỉ ${order.delivery_type === 'pickup' ? ' nhận thực phẩm' : 'giao hàng'}:`}</div>
                   <div>{order.address}</div>
                 </Stack>
               </header>
