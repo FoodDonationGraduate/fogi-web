@@ -39,7 +39,9 @@ const TopBar = () => {
   const navigate = useNavigate(); 
   
   const onSubmit = (data) => {
-    navigate(`/products?query=${data.query}`)
+    if (data.query !== '') {
+      navigate(`/products?query=${data.query}`);
+    }
   }
   return (
     <div className='top-bar-header'>
