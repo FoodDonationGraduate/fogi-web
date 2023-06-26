@@ -1,12 +1,11 @@
 // Essentials
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Container, Col, Form, Row, Stack } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux'
 
 // Components
 import ChipList from 'components/common/chip/ChipList';
-import VolunteerInfo from 'components/common/request/VolunteerInfo';
 
 // Form handling
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -15,11 +14,12 @@ import * as Yup from 'yup';
 
 // Assets imports
 import { FaExclamationTriangle } from 'react-icons/fa';
-import { MdOutlineLocationOn, MdAccessTime } from 'react-icons/md';
+import { MdAccessTime } from 'react-icons/md';
 
 // Utils
 import { convertToString } from 'utils/helpers/Time';
 import { postDoneeRequest } from 'components/redux/reducer/RequestReducer';
+import { handleMaxInput } from 'utils/helpers/String';
 
 const RequestInfoCard = (
   {isActive, setActive, volunteerInfo}
@@ -63,9 +63,10 @@ const RequestInfoCard = (
     }, {userInfo, userToken}, navigate));
     setActive(false);
   };
+  const [reason, setReason] = useState('');
 
   // useEffect
-  React.useEffect(() => {
+  useEffect(() => {
     if (activeStatusIdx === 0) {
       setValue('currentAddress', {})
     } else {
@@ -111,7 +112,15 @@ const RequestInfoCard = (
                       <Form.Label style={{ fontWeight: 'bold' }}>
                         Lí do đặt các Thực phẩm
                       </Form.Label>
-                      <Form.Control as='textarea' {...register('reason')} />
+                      <Form.Control
+                        {...register('reason')}
+                        value={reason}
+                        onChange={(event) => handleMaxInput(event, 255, setReason)}
+                        as='textarea'
+                      />
+                      <Form.Text>
+                        Còn {255 - reason.length} ký tự
+                      </Form.Text>
                       {errors.reason && errors.reason.type === 'required' && (
                         <p className="mt-2 error">
                           <FaExclamationTriangle className="mx-2" />
@@ -133,8 +142,6 @@ const RequestInfoCard = (
                       </Col>
                     </Row>
                   </Form>
-
-                  <VolunteerInfo volunteerInfo={undefined} />
 
                 </div>
               </Col>

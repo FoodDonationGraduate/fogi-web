@@ -1,24 +1,43 @@
-.approve-card {
+.manage-card {
   background-color: white;
   border-radius: 8px;
   box-shadow: 8px 8px 32px #00000008;
-  padding: 32px;
+  padding: 24px 32px;
   user-select: none;
 };
-  .approve-card-name {
+  .manage-card-name {
     font-weight: bold;
   }
-  .approve-card-secondary {
+  .manage-card-primary {
+    font-size: 18px;
+  }
+  .manage-card-secondary {
     color: #999;
   }
-  .approve-card-link {
+  .manage-card-link {
     color: #82CD47;
     font-weight: bold;
     cursor: pointer;
   }
-    .approve-card-link:hover {
+    .manage-card-link:hover {
       color: #ADDE87;
     }
-    .approve-card-link:active {
+    .manage-card-link:active {
       color: #5A9829;
     }
+  .manage-clickable {
+    cursor: pointer;
+  }
+    .manage-clickable:hover  {
+      box-shadow: 0 0 8px #82CD47;
+    }
+    .manage-clickable:active {
+      background-color: #f2f2f2;
+      box-shadow: 0 0 8px #82CD47;
+    }
+
+.manage-details-profile-logo {
+  width: 128px;
+  height: 128px;
+  border-radius: 50%;
+}

@@ -8,7 +8,7 @@ import 'assets/css/Fogi.css';
 const ListTitle = ({ title }) => {
   return (
     <Row className='mb-3'>
-      <Col className='ps-0'>
+      <Col>
         <h2 className='fw-bold'>{title}</h2>
       </Col>
     </Row>

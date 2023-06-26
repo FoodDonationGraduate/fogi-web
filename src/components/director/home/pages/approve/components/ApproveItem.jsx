@@ -2,9 +2,9 @@
 import React, { useState } from 'react';
 import { Button, Row, Col, Stack } from 'react-bootstrap';
 import { EqualHeightElement } from 'react-equal-height';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
-import { verifyUser } from 'components/redux/reducer/DirectorReducer.jsx'
+import { verifyUser } from 'components/redux/reducer/DirectorReducer.jsx';
 
 // Components
 import DocumentModal from './DocumentModal';
@@ -14,10 +14,10 @@ import 'assets/css/director/HomePage.css';
 
 // Assets
 import {
-  MdMailOutline, // 0
-  MdOutlinePhone, // 1
-  MdCalendarToday, // 2
-  MdOutlineLocationOn, // 3
+  MdMailOutline,
+  MdOutlinePhone,
+  MdCalendarToday,
+  MdOutlineLocationOn
 } from 'react-icons/md';
 
 const ApproveItem = ({
@@ -56,20 +56,20 @@ const ApproveItem = ({
   return (
     <>
       <DocumentModal show={show} handleClose={handleClose} />
-      <div className='approve-card' id='approve-card'>
-        <EqualHeightElement name='approve-content'>
-          <h4 className='approve-card-name'>
+      <div className='manage-card' id='manage-card'>
+        <EqualHeightElement name='manage-content'>
+          <h4 className='manage-card-name'>
             {approve.name}
           </h4>
       
-          <header className='approve-card-secondary'>
+          <header className='manage-card-secondary'>
             <Stack direction='horizontal' gap={2}>
               <MdMailOutline />
               {approve.email}
             </Stack>
           </header>
 
-          <header className='approve-card-secondary'>
+          <header className='manage-card-secondary'>
             <Stack direction='horizontal' gap={2}>
               <MdOutlinePhone />
               {approve.phone}
@@ -78,14 +78,14 @@ const ApproveItem = ({
           
           {approve.user_type === 'donee' && (
             <>
-              <header className='approve-card-secondary'>
+              <header className='manage-card-secondary'>
                 <Stack direction='horizontal' gap={2}>
                   <MdCalendarToday />
                   {approve.dob}
                 </Stack>
               </header>
           
-              <header className='approve-card-secondary'>
+              <header className='manage-card-secondary'>
                 <Stack direction='horizontal' gap={2}>
                   <MdOutlineLocationOn />
                   {approve.address}
@@ -94,7 +94,7 @@ const ApproveItem = ({
             </>
           )}
         </EqualHeightElement>
-        <div className='approve-card-link' onClick={handleShow}>
+        <div className='manage-card-link' onClick={handleShow}>
           Giấy tờ tùy thân
         </div>
 

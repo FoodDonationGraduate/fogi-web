@@ -7,8 +7,8 @@ const ProductImage = ({product}) => {
   return (
     <>
       <Carousel>
-        {product.images.map((image) => (
-          <Carousel.Item>
+        {product.images.map((image, idx) => (
+          <Carousel.Item key={idx}>
             <img
               className='d-block w-100 rounded'
               src={`https://bachkhoi.online/static/${image}`} 

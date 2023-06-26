@@ -6,29 +6,29 @@ import { EqualHeight } from 'react-equal-height';
 
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router';
-import { retrieveUnverifiedUsers } from 'components/redux/reducer/DirectorReducer';
+import { retrieveManageUsers } from 'components/redux/reducer/DirectorReducer';
 
 // Components
-import ApproveItem from './ApproveItem';
+import ManageItem from './ManageItem';
 import Pagination from 'components/common/pagination/Pagination';
 
-const ApproveList = () => {
-  const unverifiedUsers = useSelector(state => state.directorReducer.unverifiedUsers);
+const ManageItemList = ({ setTargetUser }) => {
+  const manageUsers = useSelector(state => state.directorReducer.manageUsers);
   const user_type = useSelector(state => state.directorReducer.user_type);
   const userInfo = useSelector(state => state.authenticationReducer.user);
   const userToken = useSelector(state => state.authenticationReducer.token);
 
-  const APPROVE_COUNT = 4; // per page
+  const MANAGE_COUNT = 4; // per page
   const [page, setPage] = useState(0);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const onChangePage = async (idx) => {
     setPage(idx);
-    await dispatch(retrieveUnverifiedUsers(
+    await dispatch(retrieveManageUsers(
       {
-        limit: APPROVE_COUNT,
-        offset: idx * APPROVE_COUNT,
+        limit: MANAGE_COUNT,
+        offset: idx * MANAGE_COUNT,
         user_type: user_type
       }, {
         userInfo,
@@ -40,9 +40,9 @@ const ApproveList = () => {
   
   useEffect(() => {
     setPage(0);
-    dispatch(retrieveUnverifiedUsers(
+    dispatch(retrieveManageUsers(
       {
-        limit: APPROVE_COUNT,
+        limit: MANAGE_COUNT,
         offset: 0,
         user_type: user_type
       }, {
@@ -58,16 +58,11 @@ const ApproveList = () => {
       <Col className='px-0'>
         <Row className='mb-4' xs={1} md={2}>
           <EqualHeight>
-            {Object.keys(unverifiedUsers).length !== 0 &&
-            unverifiedUsers.users.map((user) => (
-              <Col className='mb-4' key={user.email}>
-                <ApproveItem
-                  approve={user}
-                  approveCount={APPROVE_COUNT}
-                  currentPage={page}
-                  user_type={user_type}
-                  userInfo={userInfo}
-                  userToken={userToken}
+            {Object.keys(manageUsers).length !== 0 &&
+            manageUsers.users.map((user) => (
+              <Col className='mb-4' key={user.email} onClick={() => setTargetUser(user)}>
+                <ManageItem
+                  user={user}
                 />
               </Col>
             ))}
@@ -75,7 +70,7 @@ const ApproveList = () => {
         </Row>
         <div className='d-flex justify-content-center'>
           <Pagination
-            pageCount={Math.ceil(unverifiedUsers.total_users / APPROVE_COUNT)}
+            pageCount={Math.ceil(manageUsers.num_of_users / MANAGE_COUNT)}
             activeIdx={page}
             onChangePage={onChangePage}
           />
@@ -85,4 +80,4 @@ const ApproveList = () => {
   );
 };
 
-export default ApproveList;
+export default ManageItemList;

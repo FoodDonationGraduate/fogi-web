@@ -268,6 +268,7 @@ export const retrieveVolunteerProducts = (data, user, navigate) => {
                 limit: data.limit ? data.limit : 6,
                 offset: data.offset ? data.offset : 0
             }}).then((res) => {
+                console.log('siuuuu');
                 dispatch(setVolunteerProducts(res.data))
             })
             .catch((err) => {

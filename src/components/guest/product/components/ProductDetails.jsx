@@ -5,6 +5,9 @@ import { Button, Card, Col, Form, Row, Stack } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 
+// Components
+import VolunteerInfo from 'components/common/request/VolunteerInfo';
+
 // Sources
 import { FaRegClock, FaRegHeart } from 'react-icons/fa';
 import { MdAllInbox, MdOutlineShare } from 'react-icons/md';
@@ -59,6 +62,8 @@ const ProductDetails = ({product}) => {
         <p className='mt-2'>
           {product.description}
         </p>
+
+        <VolunteerInfo volunteerInfo={product.volunteer} />
       </Card.Body>
 
       <Row className='mb-3' style={{ bottom: '0' }}>
@@ -91,18 +96,6 @@ const ProductDetails = ({product}) => {
             <Button className='fogi' variant='primary' onClick={onSubmit}>
               Thêm vào Túi
             </Button>
-          </Col>
-          <Col className='d-flex justify-content-end'>
-            <Stack direction='horizontal' gap={4}>
-              <h5>
-                <FaRegHeart className='mb-1 me-2' />
-                10
-              </h5>
-              <h5>
-                <MdOutlineShare className='mb-1 me-2' />
-                5
-              </h5>
-            </Stack>
           </Col>
         </Row>
       </Row>
