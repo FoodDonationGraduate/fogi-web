@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { Button, Carousel, Container, Row, Stack } from 'react-bootstrap';
+import { Button, Carousel, Container, Col, Row, Stack } from 'react-bootstrap';
 import Banner_1 from 'assets/images/AdBanner.svg';
 import Banner_2 from 'assets/images/banner_2.jpg';
 import Banner_3 from 'assets/images/banner_3.jpg';
