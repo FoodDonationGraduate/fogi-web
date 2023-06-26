@@ -1,6 +1,8 @@
 import { useRef } from 'react';
 import { Button, Carousel, Container, Row, Stack } from 'react-bootstrap';
-import Banner from 'assets/images/AdBanner.svg';
+import Banner_1 from 'assets/images/AdBanner.svg';
+import Banner_2 from 'assets/images/banner_2.jpg';
+import Banner_3 from 'assets/images/banner_3.jpg';
 
 // Assets
 import { MdArrowLeft, MdArrowRight } from 'react-icons/md';
@@ -28,27 +30,39 @@ const AdBanner = () => {
           }
           <Row>
             <Carousel ref={ref} variant='light' controls={false}>
-                <Carousel.Item interval={4000}>
-                    <img
+              <Carousel.Item interval={4000}>
+                <Row>
+                  <Col>
+                  <img
                     className="d-block w-100"
-                    src={Banner}
+                    src={Banner_1}
                     alt="First slide"
-                    />
-                </Carousel.Item>
-                <Carousel.Item interval={4000}>
-                    <img
+                  />
+                  </Col>
+                </Row>
+              </Carousel.Item>
+              <Carousel.Item interval={4000}>
+                <Row>
+                  <Col>
+                  <img
                     className="d-block w-100"
-                    src={Banner}
-                    alt="Second slide"
-                    />
-                </Carousel.Item>
-                <Carousel.Item interval={4000}>
-                    <img
+                    src={Banner_1}
+                    alt="Middle slide"
+                  />
+                  </Col>
+                </Row>
+              </Carousel.Item>
+              <Carousel.Item interval={4000}>
+                <Row>
+                  <Col>
+                  <img
                     className="d-block w-100"
-                    src={Banner}
-                    alt="Third slide"
-                    />
-                </Carousel.Item>
+                    src={Banner_1}
+                    alt="Last slide"
+                  />
+                  </Col>
+                </Row>
+              </Carousel.Item>
             </Carousel>
           </Row>
           {size > 1 &&

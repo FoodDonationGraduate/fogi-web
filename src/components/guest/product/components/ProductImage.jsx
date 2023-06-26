@@ -13,7 +13,8 @@ const ProductImage = ({product}) => {
               className='d-block w-100 rounded'
               src={`https://bachkhoi.online/static/${image}`} 
               alt='product image'
-              style={{aspectRatio: '1/1'}}/>
+              style={{aspectRatio: '1/1', height: '30%'}}
+/>
           </Carousel.Item>
         ))}
       </Carousel>

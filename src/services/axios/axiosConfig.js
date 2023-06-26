@@ -1,4 +1,4 @@
-    import axios from "axios";
+import axios from "axios";
 
 const instance = axios.create({
     baseURL: 'https://bachkhoi.online',
@@ -10,3 +10,12 @@ const instance = axios.create({
 });
 
 export default instance;
+
+export const ggApiInstance = axios.create({
+    baseURL: 'https://maps.googleapis.com',
+    headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
+    },
+    timeout: 20000,
+});

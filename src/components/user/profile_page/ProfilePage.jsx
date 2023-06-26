@@ -32,14 +32,19 @@ function ProfilePage(){
             <div className="page-body">
                 <div className='profile-section-body'>
                     <Container className='profile-section mx-6'>
-                        <div className='section-title'>
+                        {/* <div className='section-title'>
                             My Profile
-                        </div>
+                        </div> */}
+                        <Row className='pt-1'>
+                            <Col>
+                                <h2>Hồ sơ người dùng</h2>
+                            </Col>
+                        </Row>
                         <div className='profile-section-body'>
                             <Row xs={1} lg={3} className="g-4">
                                 <Col xs={12} lg={3}>
                                     <Stack direction='vertical' gap={4}>
-                                        <StatsCard/>
+                                        {/* <StatsCard/> */}
                                         <ButtonCard/>
                                     </Stack>
                                 </Col>

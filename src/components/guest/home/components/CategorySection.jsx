@@ -12,6 +12,8 @@ import { retrieveAllCategories } from 'components/redux/reducer/CategoryReducer'
 // Styling
 import 'assets/css/Fogi.css';
 import 'assets/css/guest/home_pape/CategorySection.css'
+import { GrPrevious } from 'react-icons/gr';
+import { GrNext } from 'react-icons/gr';
 
 // Utility
 import { useResizer } from 'utils/helpers/Resizer';

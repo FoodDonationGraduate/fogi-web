@@ -13,7 +13,7 @@ import * as Yup from 'yup';
 
 // Components
 import LocationItem from './LocationItem';
-import { addNewAddress, updateAddress, retrieveAllAddresses } from 'components/redux/reducer/AddressReducer';
+import { addNewAddress, updateAddress, retrieveAllAddresses, findAddress } from 'components/redux/reducer/AddressReducer';
 
 // Assets imports
 import { FaExclamationTriangle } from 'react-icons/fa';
@@ -56,10 +56,11 @@ const LocationModal = ({ show, onClose }) => {
 
   // Google map
   const updateMap = async () => {
-    const place = watch("address", false);
-    const result = await geocodeByAddress(place);
-    const lnglat = await getLatLng(result[0]);
-    setCoords(lnglat);
+    const address = watch("address", false);
+    const lnglat = await dispatch(findAddress({address: address}));
+    if (Object.keys(lnglat).length !== 0) {
+      setCoords(lnglat);
+    }
   }
 
   const onSubmit = async (data) => {
@@ -73,7 +74,7 @@ const LocationModal = ({ show, onClose }) => {
     }
   }
 
-  // Address dandling
+  // Address handling
   React.useEffect(() => {
     dispatch(retrieveAllAddresses({userInfo, userToken},navigate))
   }, [])

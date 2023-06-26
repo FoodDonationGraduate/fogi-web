@@ -1,16 +1,19 @@
 .carousel-control-next {
     opacity: 1;
     visibility: visible;
-    transform: translateX(calc(35% - 0px));
+    transform: translateX(calc(35% - 10px));
 }
 .carousel-control-prev {
     opacity: 1;
     visibility: visible;
-    transform: translateX(calc(-35% + 0px));
+    transform: translateX(calc(-35% + 10px));
 }
-.carousel-control-next-icon {
+.carousel-control-next-icon, .carousel-control-prev-icon{
     transition: width .1s cubic-bezier(.4,0,.6,1);
     color: rgba(0,0,0,.54);
     fill: rgba(0,0,0,.54);
 }
 
+.carousel-control-next-icon:hover, .carousel-control-prev-icon:hover{
+    background-color: rgba(0,0,0,.18);
+}
