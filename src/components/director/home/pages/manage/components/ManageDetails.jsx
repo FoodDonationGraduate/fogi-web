@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { EqualHeight } from 'react-equal-height';
 
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { retrieveReports } from 'components/redux/reducer/DirectorReducer';
 
@@ -59,7 +59,11 @@ const ManageDetails = ({ user }) => {
       <Col className='px-0'>
         <Row className='mb-4'>
           <Col>
-            <ManageInfoCard user={user} />
+            <ManageInfoCard
+              user={user}
+              userInfo={directorInfo}
+              userToken={directorToken}
+            />
           </Col>
         </Row>
         
@@ -78,13 +82,15 @@ const ManageDetails = ({ user }) => {
                 ))}
               </EqualHeight>
             </Row>
-            <div className='d-flex justify-content-center'>
-              <Pagination
-                pageCount={Math.ceil(reports.total_reports / REPORT_COUNT)}
-                activeIdx={page}
-                onChangePage={onChangePage}
-              />
-            </div>
+            {reports.total_reports > 0 &&
+              <div className='d-flex justify-content-center'>
+                <Pagination
+                  pageCount={Math.ceil(reports.total_reports / REPORT_COUNT)}
+                  activeIdx={page}
+                  onChangePage={onChangePage}
+                />
+              </div>
+            }
           </Col>
         </Row>
       </Col>

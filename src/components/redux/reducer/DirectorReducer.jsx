@@ -117,7 +117,34 @@ export const verifyUser = (data, director, navigate) => {
         action: data.action
       }).then((res) => {
         handleExpiredToken(res, dispatch, navigate);
+        dispatch(setModalMessage("Xét duyệt người dùng thành công!"));
+        dispatch(showModal());
         dispatch(retrieveUnverifiedUsers(data, director, navigate));
+      }).catch((err) => {
+        console.log(err);
+        navigate('/');
+      });
+    } catch (err) {
+      console.log(err);
+      navigate('/');
+    }
+  }
+}
+
+export const lockUser = (data, director, navigate) => {
+  return async dispatch => {
+    try {
+      console.log('lock user');
+      await axiosInstance.patch(`/director/lock`, {
+        email: director.userInfo.email,
+        token: director.userToken,
+        user_email: data.user_email,
+        action: `${!data.isLock ? 'un' : ''}lock`
+      }).then((res) => {
+        handleExpiredToken(res, dispatch, navigate);
+        data.setIsLocked(data.isLock)
+        dispatch(setModalMessage(`${!data.isLock ? 'Mở k' : 'K'}hóa tài khoản thành công!`));
+        dispatch(showModal());
       }).catch((err) => {
         console.log(err);
         navigate('/');

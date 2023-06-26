@@ -1,11 +1,14 @@
 // Essentials
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Stack } from 'react-bootstrap';
-
-import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router';
+import { useSelector, useDispatch } from 'react-redux'
 
 // Style
 import 'assets/css/director/HomePage.css';
+
+// Reducers
+import { lockUser } from 'components/redux/reducer/DirectorReducer.jsx';
 
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
@@ -25,10 +28,32 @@ const getUserType = (user_type) => {
 };
 
 const ManageInfoCard = ({
-  user
+  user,
+  userInfo,
+  userToken
 }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const user_type = useSelector(state => state.directorReducer.user_type);
   let size = useResizer();
+
+  // Lock handling
+  const [isLocked, setIsLocked] = useState(user.is_locked);
+
+  const handleLock = (isLock) => {
+    dispatch(lockUser(
+      {
+        user_email: user.email,
+        user_type: user.user_type,
+        isLock,
+        setIsLocked
+      }, {
+        userInfo,
+        userToken
+      },
+      navigate
+    ));
+  };
 
   return (
     <>
@@ -59,13 +84,21 @@ const ManageInfoCard = ({
           </Stack>
         </Stack>
 
-        <hr />
-
-        <Stack direction='horizontal' gap={2}>
-          <Button variant='outline-danger'>
-            Khóa tài khoản
-          </Button>
-        </Stack>
+        {user.user_type !== 'volunteer' &&
+          <>
+            <hr />
+            
+            {!isLocked ? 
+              <Button variant='outline-danger' onClick={() => handleLock(true)}>
+                Khóa tài khoản
+              </Button>
+              :
+              <Button variant='outline-secondary' onClick={() => handleLock(false)}>
+                Mở khóa tài khoản
+              </Button>
+            }
+          </>
+        }
       </div>
     </>
   );

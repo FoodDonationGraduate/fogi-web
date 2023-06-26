@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import axiosInstance from "services/axios/axiosConfig.js";
-import { setModalMessage, showModal } from 'components/redux/reducer/ModalReducer';
+import { setModalMessage, showModal, hideModal } from 'components/redux/reducer/ModalReducer';
 import { useSelector } from 'react-redux'
 import { Navigate } from 'react-router-dom';
 
@@ -140,6 +140,7 @@ export const logout = (navigate) => {
             console.log("logout")
             dispatch(setUserInfo({}))
             dispatch(setUserToken(''))
+            dispatch(hideModal())
             localStorage.removeItem('selectedAddress')
             navigate('/login')
         } catch (err) {
