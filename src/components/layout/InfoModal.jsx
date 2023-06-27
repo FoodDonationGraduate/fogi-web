@@ -1,14 +1,27 @@
-import React, { useState } from 'react';
-import { Modal, Button, Toast } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
+import { Toast } from 'react-bootstrap';
 import ToastContainer from 'react-bootstrap/ToastContainer';
 import { useDispatch, useSelector } from 'react-redux'
 import { hideModal } from 'components/redux/reducer/ModalReducer';
 
 function InfoModal() {
-    const modalMessage = useSelector(state => state.modalReducer.message)
-    const modalVisibility = useSelector(state => state.modalReducer.visibility)
+    const modalMessage = useSelector(state => state.modalReducer.message);
+    const modalVisibility = useSelector(state => state.modalReducer.visibility);
+    const modalType = useSelector(state => state.modalReducer.type);
+    const [modalColor, setModalColor] = useState('#82CD47');
+    const [modalTitle, setModalTitle] = useState('Thông báo');
+    useEffect(() => {
+        switch (modalType) {
+            case 'danger':
+                setModalColor('#FF5A5F');
+                setModalTitle('Lỗi');
+                break;
+            default:
+                setModalColor('#82CD47');
+                setModalTitle('Thông báo');
+        }
+    }, [modalType]);
     const dispatch = useDispatch();
-    const [show, setShow] = useState(true);
 
     return (
         <div className='main-modal'>
@@ -32,8 +45,8 @@ function InfoModal() {
 
             <ToastContainer position="top-end" className="m-2 pt-5 position-fixed" style={{ zIndex: 1065 }}>
                 <Toast delay={5000} autohide={true} onClose={() => dispatch(hideModal())} show={modalVisibility}>
-                    <Toast.Header style={{ backgroundColor: '#82CD47', color: '#ffffff' }}>
-                        <strong className="me-auto">Thông báo</strong>
+                    <Toast.Header style={{ backgroundColor: modalColor, color: '#ffffff' }}>
+                        <strong className="me-auto">{modalTitle}</strong>
                     </Toast.Header>
                     <Toast.Body style={{ backgroundColor: '#ffffff', borderRadius: '8px' }}>{modalMessage}</Toast.Body>
                 </Toast>

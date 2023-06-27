@@ -21,7 +21,7 @@ import { useResizer } from 'utils/helpers/Resizer';
 
 // Components
 import Tooltip from 'components/common/Tooltip';
-import { setModalMessage, showModal } from 'components/redux/reducer/ModalReducer';
+import { setModalMessage, setModalType, showModal } from 'components/redux/reducer/ModalReducer';
 import { postDonorRequest } from 'components/redux/reducer/RequestReducer';
 
 const ListTitle = ({
@@ -61,6 +61,7 @@ const ListTitle = ({
       onClose();
     } else {
       dispatch(setModalMessage('Thời gian bắt đầu phải sớm hơn Thời gian kết thúc'));
+      dispatch(setModalType('danger'));
       dispatch(showModal());
     }
   };
