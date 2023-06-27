@@ -30,7 +30,7 @@ function InfoModal() {
                 </Modal.Footer>
             </Modal> */}
 
-            <ToastContainer position="top-end" className="m-2 pt-5 position-fixed" style={{ zIndex: 1 }}>
+            <ToastContainer position="top-end" className="m-2 pt-5 position-fixed" style={{ zIndex: 1065 }}>
                 <Toast delay={5000} autohide={true} onClose={() => dispatch(hideModal())} show={modalVisibility}>
                     <Toast.Header style={{ backgroundColor: '#82CD47', color: '#ffffff' }}>
                         <strong className="me-auto">Thông báo</strong>

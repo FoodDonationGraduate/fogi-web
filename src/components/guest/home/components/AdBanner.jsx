@@ -4,8 +4,8 @@ import Banner_1 from 'assets/images/AdBanner.svg';
 import Banner_2 from 'assets/images/banner_2.jpg';
 import Banner_3 from 'assets/images/banner_3.jpg';
 
-// Assets
-import { MdArrowLeft, MdArrowRight } from 'react-icons/md';
+// Components
+import CarouselButton from 'components/common/CarouselButton';
 
 // Utility
 import { useResizer } from 'utils/helpers/Resizer';
@@ -24,9 +24,7 @@ const AdBanner = () => {
       <Container className='ad-banner mx-6'>
         <div style={{ position: 'relative' }}>
           {size > 1 &&
-            <Button style={{ position: 'absolute', top: '45%', zIndex: '1' }} variant='dark' onClick={onPrevClick}>
-              <MdArrowLeft className='mb-1' />
-            </Button>
+            <CarouselButton isLeft={true} onClick={onPrevClick} />
           }
           <Row>
             <Carousel ref={ref} variant='light' controls={false}>
@@ -66,9 +64,7 @@ const AdBanner = () => {
             </Carousel>
           </Row>
           {size > 1 &&
-            <Button style={{ position: 'absolute', top: '45%', right: '0', zIndex: '1' }} variant='dark' onClick={onNextClick}>
-              <MdArrowRight className='mb-1' />
-            </Button>
+            <CarouselButton isLeft={false} onClick={onNextClick} />
           }
         </div>
       </Container>

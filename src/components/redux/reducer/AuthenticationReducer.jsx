@@ -103,9 +103,17 @@ export const login = (data, navigate, setFailAuthentication) => {
                 email: data.email,
                 password: data.password
             }).then((res) => {
-                dispatch(setUserInfo(res.data.user))
-                dispatch(setUserToken(res.data.token))
-                navigate(-1)
+                dispatch(setUserInfo(res.data.user));
+                dispatch(setUserToken(res.data.token));
+                switch (res.data.user.user_type) {
+                    case 'donor':
+                        navigate('/donor/home');
+                        break;
+                    case 'director':
+                        navigate('/director/home');
+                        break;
+                    default: navigate(-1);
+                }
                 // let intervalID =  setInterval(() => {
                 //     const userInfo = JSON.parse(localStorage.getItem("user"));
                 //     const userToken = localStorage.getItem("token");

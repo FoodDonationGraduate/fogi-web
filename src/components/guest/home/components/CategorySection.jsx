@@ -1,6 +1,6 @@
 // Essentials
 import React, { useEffect, useState, useRef } from 'react';
-import { Button, Container, Carousel, Col, Row } from 'react-bootstrap';
+import { Container, Carousel, Col, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { EqualHeight } from 'react-equal-height';
@@ -8,18 +8,14 @@ import { EqualHeight } from 'react-equal-height';
 // Components
 import CategoryCard from 'components/common/category/CategoryCard';
 import { retrieveAllCategories } from 'components/redux/reducer/CategoryReducer';
+import CarouselButton from 'components/common/CarouselButton';
 
 // Styling
 import 'assets/css/Fogi.css';
-import 'assets/css/guest/home_pape/CategorySection.css'
-import { GrPrevious } from 'react-icons/gr';
-import { GrNext } from 'react-icons/gr';
+import 'assets/css/guest/home_pape/CategorySection.css';
 
 // Utility
 import { useResizer } from 'utils/helpers/Resizer';
-
-// Assets
-import { MdArrowLeft, MdArrowRight } from 'react-icons/md';
 
 const CategorySection = () => {
   const allCategories = useSelector(state => state.categoryReducer.allCategories);
@@ -74,9 +70,7 @@ const CategorySection = () => {
         </Row>
         <div style={{ position: 'relative' }}>
           {size > 1 &&
-            <Button style={{ position: 'absolute', top: '45%', zIndex: '1' }} variant='dark' onClick={onPrevClick}>
-              <MdArrowLeft className='mb-1' />
-            </Button>
+            <CarouselButton isLeft={true} onClick={onPrevClick} />
           }
           <EqualHeight>
             <Carousel ref={ref} activeIndex={activeIndex} onSelect={setActiveIndex} controls={false} variant='dark' interval={null}>
@@ -96,9 +90,7 @@ const CategorySection = () => {
             </Carousel>
           </EqualHeight>
           {size > 1 &&
-            <Button style={{ position: 'absolute', top: '45%', right: '0', zIndex: '1' }} variant='dark' onClick={onNextClick}>
-              <MdArrowRight className='mb-1' />
-            </Button>
+            <CarouselButton isLeft={false} onClick={onNextClick} />
           }
         </div>
       </Container>
