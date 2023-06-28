@@ -29,7 +29,7 @@ const SuccessVerify = () => {
                     Bạn đã xác minh tài khoản thành công!
                   </p>
                   <p className='text-secondary'>
-                    Tuy nhiên, để thực hiện yêu cầu đặt đồ ăn, bạn phải chờ chúng tôi xét duyệt tài khoản trong vòng 1-2 ngày tới.
+                    Tuy nhiên, để thực hiện các yêu cầu, bạn phải chờ chúng tôi xét duyệt tài khoản trong vòng 1-2 ngày tới.
                   </p>
                 </Row>
                 <div className='mb-3'>

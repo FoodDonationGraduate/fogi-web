@@ -159,7 +159,7 @@ export const postDoneeRequest = (data, user, navigate) => {
 export const updateRequest = (data, user, navigate) => {
     return async dispatch => {
         try {
-            console.log("retrieve one request")
+            console.log("update one request")
             await axiosInstance.patch(`/request/`+user.userInfo.user_type, {
                 email: user.userInfo.email,
                 token: user.userToken,
