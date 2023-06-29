@@ -54,13 +54,11 @@ const OrderList = ({
                 </EqualHeight>
               </Row>
               <div className='d-flex justify-content-center'>
-                {Object.keys(allRequests).length !== 0 && 
-                  <Pagination
-                    pageCount={Math.ceil(allRequests.total_requests / ORDER_COUNT)}
-                    activeIdx={page}
-                    onChangePage={onChangePage}
-                  />
-                }
+                <Pagination
+                  pageCount={Math.ceil(allRequests.total_requests / ORDER_COUNT)}
+                  activeIdx={page}
+                  onChangePage={onChangePage}
+                />
               </div>
             </Col>
           </Row>

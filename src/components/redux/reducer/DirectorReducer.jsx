@@ -6,8 +6,9 @@ import { setModalMessage, showModal } from './ModalReducer';
 import { retrieveAllCategories } from 'components/redux/reducer/CategoryReducer';
 
 const initialState = {
-  unverifiedDonees: {},
-  unverifiedVolunteers: {},
+  unverifiedUsers: {},
+  manageUsers: {},
+  reports: {},
   user_type: 'donee'
 };
 
@@ -15,36 +16,39 @@ const directorReducer = createSlice({
   name: 'directorReducer',
   initialState,
   reducers: {
-    setUnverifiedDonees: (state, action) => {
-      state.unverifiedDonees = action.payload
+    setUnverifiedUsers: (state, action) => {
+      state.unverifiedUsers = action.payload;
     },
-    setUnverifiedVolunteers: (state, action) => {
-      state.unverifiedVolunteers = action.payload
+    setManageUsers: (state, action) => {
+      state.manageUsers = action.payload;
+    },
+    setReports: (state, action) => {
+      state.reports = action.payload;
     },
     setTypeOfUser: (state, action) => {
-      state.user_type = action.payload
+      state.user_type = action.payload;
     }
   }
 });
 
 export const {
-  setUnverifiedDonees, setUnverifiedVolunteers, setTypeOfUser
+  setUnverifiedUsers, setManageUsers, setReports, setTypeOfUser
 } = directorReducer.actions
 
 export default directorReducer.reducer
 
-export const retrieveUnverifiedDonees = (data, director, navigate) => {
+export const retrieveUnverifiedUsers = (data, director, navigate) => {
   return async dispatch => {
     try {
-      console.log('retrieve unverified donees');
+      console.log(`retrieve unverified ${data.user_type}`);
       await axiosInstance.get(`/verify/info`, { params: {
         email: director.userInfo.email,
         token: director.userToken,
-        user_type: 'donee',
+        user_type: data.user_type,
         limit: data.limit,
         offset: data.offset
       }}).then((res) => {
-        dispatch(setUnverifiedDonees(res.data));
+        dispatch(setUnverifiedUsers(res.data));
       }).catch((err) => {
         console.log(err.response.data);
         navigate('/');
@@ -56,18 +60,41 @@ export const retrieveUnverifiedDonees = (data, director, navigate) => {
   }
 }
 
-export const retrieveUnverifiedVolunteers = (data, director, navigate) => {
+export const retrieveManageUsers = (data, director, navigate) => {
   return async dispatch => {
     try {
-      console.log('retrieve unverified volunteers');
-      await axiosInstance.get(`/verify/info`, { params: {
+      console.log(`retrieve list of ${data.user_type}s to manage`);
+      await axiosInstance.get(`/profile/director`, { params: {
         email: director.userInfo.email,
         token: director.userToken,
-        user_type: 'volunteer',
+        user_type: data.user_type,
         limit: data.limit,
         offset: data.offset
       }}).then((res) => {
-        dispatch(setUnverifiedVolunteers(res.data));
+        dispatch(setManageUsers(res.data));
+      }).catch((err) => {
+        console.log(err.response.data);
+        navigate('/');
+      });
+    } catch (err) {
+      console.log(err);
+      navigate('/');
+    }
+  }
+}
+
+export const retrieveReports = (data, director, navigate) => {
+  return async dispatch => {
+    try {
+      console.log(`retrieve reports`);
+      await axiosInstance.get(`/report`, { params: {
+        email: director.userInfo.email,
+        token: director.userToken,
+        reportee_email: data.reportee_email,
+        limit: data.limit,
+        offset: data.offset
+      }}).then((res) => {
+        dispatch(setReports(res.data));
       }).catch((err) => {
         console.log(err.response.data);
         navigate('/');
@@ -90,8 +117,34 @@ export const verifyUser = (data, director, navigate) => {
         action: data.action
       }).then((res) => {
         handleExpiredToken(res, dispatch, navigate);
-        if (data.user_type === 'donee') dispatch(retrieveUnverifiedDonees(data, director, navigate));
-        else dispatch(retrieveUnverifiedVolunteers(data, director, navigate));
+        dispatch(setModalMessage("Xét duyệt người dùng thành công!"));
+        dispatch(showModal());
+        dispatch(retrieveUnverifiedUsers(data, director, navigate));
+      }).catch((err) => {
+        console.log(err);
+        navigate('/');
+      });
+    } catch (err) {
+      console.log(err);
+      navigate('/');
+    }
+  }
+}
+
+export const lockUser = (data, director, navigate) => {
+  return async dispatch => {
+    try {
+      console.log('lock user');
+      await axiosInstance.patch(`/director/lock`, {
+        email: director.userInfo.email,
+        token: director.userToken,
+        user_email: data.user_email,
+        action: `${!data.isLock ? 'un' : ''}lock`
+      }).then((res) => {
+        handleExpiredToken(res, dispatch, navigate);
+        data.setIsLocked(data.isLock)
+        dispatch(setModalMessage(`${!data.isLock ? 'Mở k' : 'K'}hóa tài khoản thành công!`));
+        dispatch(showModal());
       }).catch((err) => {
         console.log(err);
         navigate('/');

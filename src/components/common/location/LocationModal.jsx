@@ -65,7 +65,7 @@ const LocationModal = ({ show, onClose }) => {
 
   const onSubmit = async (data) => {
     await updateMap();
-    data = {...data, lat: coords.lat, long: coords.lng}
+    data = {...data, lat: coords.lat, long: coords.lng, setState}
     if (state === 1) {
       dispatch(addNewAddress(data, {userInfo, userToken}, navigate))
     } else {
@@ -132,7 +132,8 @@ const LocationModal = ({ show, onClose }) => {
                   </Form.Label>
                   <Form.Control 
                     type='text'
-                    {...register('name')} 
+                    placeholder='VD: Nhà, Trường học, Công ty,...'
+                    {...register('name')}
                   />
                   {errors.name && errors.name.type === 'required' && (
                     <p className="mt-2 error">

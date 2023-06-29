@@ -21,7 +21,7 @@ import { convertToString } from 'utils/helpers/Time';
 import { reduceString } from 'utils/helpers/String';
 import { distanceTime } from 'utils/helpers/Time';
 
-const CartInfoCard = ({ order }) => {
+const OrderInfoCard = ({ order }) => {
   let size = useResizer();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -81,7 +81,7 @@ const CartInfoCard = ({ order }) => {
                 </header>
               </div>
 
-              <VolunteerInfo volunteerInfo={order.volunteer} orderId={order.id} />
+              <VolunteerInfo volunteerInfo={order.volunteer} order={order} />
 
               <hr />
 
@@ -159,4 +159,4 @@ const CartInfoCard = ({ order }) => {
   );
 };
 
-export default CartInfoCard;
+export default OrderInfoCard;

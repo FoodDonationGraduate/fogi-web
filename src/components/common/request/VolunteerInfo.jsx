@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Button, Stack } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
+import { useSelector } from 'react-redux';
 
 // Components
 import ReportModal from 'components/common/request/ReportModal';
@@ -15,20 +16,30 @@ import { useResizer } from 'utils/helpers/Resizer.jsx';
 const VolunteerInfo = ({
   isCard=false,
   volunteerInfo,
-  orderId=undefined
+  order=undefined
 }) => {
   let size = useResizer();
   const navigate = useNavigate(); 
   const [show, setShow] = useState(false);
   const onClose = () => setShow(false);
   const onShow = () => setShow(true);
+  
+  const userInfo = useSelector(state => state.authenticationReducer.user);
+  const userToken = useSelector(state => state.authenticationReducer.token);
 
   return (
     <>  
       {volunteerInfo &&
         <>
-          {orderId && (
-            <ReportModal show={show} onClose={onClose} volunteerInfo={volunteerInfo} orderId={orderId} />
+          {order && (
+            <ReportModal
+              show={show}
+              onClose={onClose}
+              volunteerInfo={volunteerInfo}
+              userInfo={userInfo}
+              userToken={userToken}
+              order={order}
+            />
           )}
     
           <div className={isCard ? `order-item-volunteer-info-card` : (size > 1 ? `order-item-volunteer-info` : '')}>
@@ -44,9 +55,11 @@ const VolunteerInfo = ({
                   <MdPhone /> {volunteerInfo.phone}
                 </small>
               </Stack>
-              <Button variant='outline-secondary' onClick={onShow}>
+              {order &&
+                <Button variant='outline-secondary' onClick={onShow}>
                 Báo cáo
-              </Button>
+                </Button>
+              }
             </Stack>
           </div>
         </>

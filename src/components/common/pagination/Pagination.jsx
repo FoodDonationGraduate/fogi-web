@@ -73,26 +73,28 @@ const Pagination = ({
 
   return (
     <>
-      <Stack direction='horizontal' gap={size < 1 ? 1 : 2}>
-        {shownPills.map((pillIdx, index) => 
-          <div key={index}>
-            {pillIdx > -1 ?
-              <Pill
-                idx={pillIdx}
-                isActive={pillIdx === activeIdx}
-                onChangePage={onChangePage}
-              />
-              :
-              <UtilityPill
-                idx={pillIdx}
-                activeIdx={activeIdx}
-                pageCount={pageCount}
-                onChangePage={onChangePage}
-              />
-            }
-          </div>
-        )}
-      </Stack>
+      {pageCount > 1 && 
+        <Stack direction='horizontal' gap={size < 1 ? 1 : 2}>
+          {shownPills.map((pillIdx, index) => 
+            <div key={index}>
+              {pillIdx > -1 ?
+                <Pill
+                  idx={pillIdx}
+                  isActive={pillIdx === activeIdx}
+                  onChangePage={onChangePage}
+                />
+                :
+                <UtilityPill
+                  idx={pillIdx}
+                  activeIdx={activeIdx}
+                  pageCount={pageCount}
+                  onChangePage={onChangePage}
+                />
+              }
+            </div>
+          )}
+        </Stack>
+      }
     </>
   );
 };

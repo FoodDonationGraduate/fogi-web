@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import axiosInstance from "services/axios/axiosConfig.js";
-import { setModalMessage, showModal } from 'components/redux/reducer/ModalReducer';
+import { setModalMessage, showModal, hideModal } from 'components/redux/reducer/ModalReducer';
 import { useSelector } from 'react-redux'
 import { Navigate } from 'react-router-dom';
 
@@ -103,9 +103,17 @@ export const login = (data, navigate, setFailAuthentication) => {
                 email: data.email,
                 password: data.password
             }).then((res) => {
-                dispatch(setUserInfo(res.data.user))
-                dispatch(setUserToken(res.data.token))
-                navigate(-1)
+                dispatch(setUserInfo(res.data.user));
+                dispatch(setUserToken(res.data.token));
+                switch (res.data.user.user_type) {
+                    case 'donor':
+                        navigate('/donor/home');
+                        break;
+                    case 'director':
+                        navigate('/director/home');
+                        break;
+                    default: navigate(-1);
+                }
                 // let intervalID =  setInterval(() => {
                 //     const userInfo = JSON.parse(localStorage.getItem("user"));
                 //     const userToken = localStorage.getItem("token");
@@ -140,6 +148,7 @@ export const logout = (navigate) => {
             console.log("logout")
             dispatch(setUserInfo({}))
             dispatch(setUserToken(''))
+            dispatch(hideModal())
             localStorage.removeItem('selectedAddress')
             navigate('/login')
         } catch (err) {

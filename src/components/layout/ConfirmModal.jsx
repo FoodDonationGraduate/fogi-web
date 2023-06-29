@@ -12,7 +12,7 @@ function ConfirmModal() {
             <Modal show={modalVisibility} onHide={() => {dispatch(hideQuestionModal()); dispatch(cancelQuestionModal());}}>
                 <Modal.Header>
                     <Modal.Title >
-                        <div style={{ fontSize: "20px"}} className="modalTitle">Question</div>
+                        <div style={{ fontSize: "20px"}} className="modalTitle">Thông báo</div>
                     </Modal.Title>
                 </Modal.Header>
                 
@@ -23,8 +23,8 @@ function ConfirmModal() {
                 </Modal.Body>
 
                 <Modal.Footer>
-                    <Button style={{fontFamily: "Jost"}} className="btn btn-light" onClick={() => {dispatch(hideQuestionModal()); dispatch(cancelQuestionModal());}}>Cancel</Button>
-                    <Button style={{fontFamily: "Jost"}} className="btn btnLogin"  onClick={() => {dispatch(confirmQuestionModal()); dispatch(hideQuestionModal()); }}>Confirm</Button>
+                    <Button variant='outline-secondary' onClick={() => {dispatch(hideQuestionModal()); dispatch(cancelQuestionModal());}}>Hủy</Button>
+                    <Button variant='primary' className='fogi' onClick={() => {dispatch(confirmQuestionModal()); dispatch(hideQuestionModal()); }}>Xác nhận</Button>
                 </Modal.Footer>
             </Modal>
         </div>

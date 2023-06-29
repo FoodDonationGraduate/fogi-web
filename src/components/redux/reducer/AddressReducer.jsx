@@ -103,6 +103,7 @@ export const addNewAddress = (data, user, navigate) => {
                 lat: data.lat,
                 long: data.long
             }).then((res) => {
+                data.setState(0);
                 dispatch(retrieveAllAddresses(user, navigate))
                 dispatch(setModalMessage('Thêm địa chỉ mới thành công'))
                 dispatch(showModal())
@@ -134,6 +135,7 @@ export const updateAddress = (data, user, navigate) => {
                 lat: data.lat,
                 long: data.long
             }).then((res) => {
+                data.setState(0);
                 dispatch(retrieveAllAddresses(user, navigate))
                 dispatch(setModalMessage('Cập nhật địa chỉ thành công'))
                 dispatch(showModal())

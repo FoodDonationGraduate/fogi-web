@@ -66,9 +66,9 @@ function AvatarSection() {
 
                 <Modal.Footer>
                     <Button style={{fontFamily: "Jost"}} className="btn btn-light" 
-                        onClick={() => {setShowModal(false); onClose()}}>Cancel</Button>
+                        onClick={() => {setShowModal(false); onClose()}}>Hủy</Button>
                     <Button style={{fontFamily: "Jost"}} className="btn btnLogin"  
-                        onClick={() => {onSubmit(); setShowModal(false); onClose();}}>Confirm</Button>
+                        onClick={() => {onSubmit(); setShowModal(false); onClose();}}>Xác nhận</Button>
                 </Modal.Footer>
             </Modal>
         </div>
