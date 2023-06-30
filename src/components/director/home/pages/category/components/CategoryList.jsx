@@ -1,6 +1,6 @@
 // Essentials
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Container, Col, Row } from 'react-bootstrap';
 import { EqualHeight } from 'react-equal-height';
 
@@ -24,6 +24,7 @@ const CategoryList = ({
   
   useEffect(() => {
     dispatch(retrieveAllCategories(navigate));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

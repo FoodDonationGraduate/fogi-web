@@ -9,8 +9,8 @@ import { useNavigate } from 'react-router';
 import VolunteerInfo from 'components/common/request/VolunteerInfo';
 
 // Sources
-import { FaRegClock, FaRegHeart } from 'react-icons/fa';
-import { MdAllInbox, MdOutlineShare } from 'react-icons/md';
+import { FaRegClock } from 'react-icons/fa';
+import { MdAllInbox } from 'react-icons/md';
 
 // Utility
 import { distanceTime } from 'utils/helpers/Time';

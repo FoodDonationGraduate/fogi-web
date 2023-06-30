@@ -1,6 +1,6 @@
 // Essentials
 import React, { useState } from 'react';
-import { Button, Stack } from 'react-bootstrap';
+import { Stack } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 
 // Components
@@ -21,7 +21,6 @@ const VolunteerCard = ({
   const navigate = useNavigate(); 
   const [show, setShow] = useState(false);
   const onClose = () => setShow(false);
-  const onShow = () => setShow(true);
 
   return (
     <>  
@@ -34,7 +33,7 @@ const VolunteerCard = ({
           <div className={isCard ? `order-item-volunteer-info-card` : (size > 1 ? `order-item-volunteer-info` : '')}>
             {!isCard && size <= 1 && <hr />}
             <Stack direction='horizontal' gap={3}>
-              <img src={`https://bachkhoi.online/static/${volunteerInfo.avatar}`} 
+              <img src={`https://bachkhoi.online/static/${volunteerInfo.avatar}`}  alt='volunteer-avatar'
               className='order-item-volunteer-avatar volunteer-avatar' 
               onClick={() => navigate(`/volunteer/${volunteerInfo.username}`)}/>
               <Stack direction='vertical'>

@@ -69,6 +69,7 @@ const Pagination = ({
 
   useEffect(() => {
     setShownPills(getShownPills());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeIdx, size, pageCount]);
 
   return (

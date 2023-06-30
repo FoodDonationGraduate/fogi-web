@@ -1,7 +1,7 @@
 // Essentials
 import { Button, Container, Form, Nav, Navbar, Stack } from 'react-bootstrap';
 import { useLocation, useNavigate } from 'react-router';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 // Styling
 import 'assets/css/layout/TopBar.css';
@@ -33,8 +33,7 @@ const TopBar = () => {
     query: Yup.string().required('')
   });
   const formOptions = { resolver: yupResolver(formSchema) };
-  const { register, handleSubmit, formState } = useForm(formOptions);
-  const { errors } = formState;
+  const { register, handleSubmit } = useForm(formOptions);
 
   const navigate = useNavigate(); 
   

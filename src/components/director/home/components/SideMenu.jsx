@@ -6,9 +6,6 @@ import { Col, Stack } from 'react-bootstrap';
 import SideMenuItem from './SideMenuItem';
 import DirectorItem from './DirectorItem';
 
-// Utility
-import { useResizer } from 'utils/helpers/Resizer.jsx';
-
 const SideMenu = ({
   activeIdx,
   setActiveIdx

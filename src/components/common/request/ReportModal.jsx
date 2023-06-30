@@ -1,5 +1,5 @@
 // Essentials
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Button, Form, Modal, Stack } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
@@ -75,7 +75,7 @@ const ReportModal = ({
               </Form.Label>
 
               <Stack direction='horizontal' gap={3}>
-                <img src={`https://bachkhoi.online/static/${volunteerInfo.avatar}`} className='order-item-volunteer-avatar' />
+                <img src={`https://bachkhoi.online/static/${volunteerInfo.avatar}`} className='order-item-volunteer-avatar' alt='volunteer-avatar'/>
                 <Stack direction='vertical'>
                   <div className='order-item-volunteer-label'>Tình nguyện viên</div>
                   <div className='order-item-volunteer-name'>{volunteerInfo.name}</div>

@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { useState } from 'react';
 import {
-  Button, Col, Form, InputGroup,
+  Button, Col, Form,
   Modal, Row, Stack
 } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
@@ -49,24 +49,24 @@ const PostProductModal = ({
   const [submitted, setSubmitted] = useState(false);
 
   // Price handling
-  const [price, setPrice] = useState(0);
-  const onChangePrice = (val) => {
-    if (Number(val) === 0) {
-      setPrice(val.substring(0, 1));
-    } else if (val.length === 1) {
-      setPrice(Number(val) * 1000);
-    } else {
-      if (val.length > String(price).length) {
-        let temp = val.substring(0, val.length - 4);
-        let tail = val.substring(val.length - 1, val.length);
-        setPrice(Number(temp + tail) * 1000);
-      }
-      if (val.length < String(price).length) {
-        let temp = val.substring(0, val.length - 3);
-        setPrice(Number(temp) * 1000);
-      }
-    }
-  };
+  // const [price, setPrice] = useState(0);
+  // const onChangePrice = (val) => {
+  //   if (Number(val) === 0) {
+  //     setPrice(val.substring(0, 1));
+  //   } else if (val.length === 1) {
+  //     setPrice(Number(val) * 1000);
+  //   } else {
+  //     if (val.length > String(price).length) {
+  //       let temp = val.substring(0, val.length - 4);
+  //       let tail = val.substring(val.length - 1, val.length);
+  //       setPrice(Number(temp + tail) * 1000);
+  //     }
+  //     if (val.length < String(price).length) {
+  //       let temp = val.substring(0, val.length - 3);
+  //       setPrice(Number(temp) * 1000);
+  //     }
+  //   }
+  // };
 
   // Image handling
   const imageOnly = 'image/png, image/gif, image/jpeg';
@@ -110,6 +110,7 @@ const PostProductModal = ({
       reader.readAsDataURL(image);
     }
     setBase64Images(newImages);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [images])
   return (
     <>

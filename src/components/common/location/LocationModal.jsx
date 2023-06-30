@@ -1,8 +1,7 @@
 // Essentials
 import React, { useState } from 'react';
-import { Button, Form, Modal, Stack, FormControl } from 'react-bootstrap';
+import { Button, Form, Modal, Stack } from 'react-bootstrap';
 import GoogleMapReact from 'google-map-react';
-import { geocodeByAddress, getLatLng} from 'react-google-places-autocomplete'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from "react-router-dom";
 
@@ -76,16 +75,17 @@ const LocationModal = ({ show, onClose }) => {
 
   // Address handling
   React.useEffect(() => {
-    dispatch(retrieveAllAddresses({userInfo, userToken},navigate))
+    dispatch(retrieveAllAddresses({userInfo, userToken}, navigate))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
   React.useEffect(() => {
     if (Object.keys(selectedItem).length !== 0) {
       setValue('name', selectedItem.name)
       setValue('address', selectedItem.address)
       setCoords({lat: selectedItem.lat, lng: selectedItem.long})
     }
-  }, [selectedItem])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedItem]) 
 
   React.useEffect(() => {
     if (state === 1) {
@@ -93,6 +93,7 @@ const LocationModal = ({ show, onClose }) => {
       setValue('address', '')
       setCoords({lat: 10.762613, lng: 106.681868})
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state])
 
   return (

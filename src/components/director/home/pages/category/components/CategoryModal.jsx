@@ -97,7 +97,7 @@ const CategoryModal = ({
           <Form onSubmit={handleSubmit(onSubmit)}>
 
             <Stack direction='horizontal' className='mb-2' gap={4}>
-              {image && <img src={image} className='rounded-circle' width='128' height='128' />}
+              {image && <img src={image} className='rounded-circle' alt='category-img' width='128' height='128' />}
               <Button variant='outline-secondary' onClick={onShowImage}>
                 Đăng tải Ảnh Phân loại
               </Button>

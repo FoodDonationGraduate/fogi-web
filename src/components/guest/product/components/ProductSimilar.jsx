@@ -16,8 +16,6 @@ import 'assets/css/Fogi.css';
 import { useResizer } from 'utils/helpers/Resizer';
 
 const ProductSimilar = ({ product }) => {
-  const PRODUCT_LENGTH = 6;
-
   const products = useSelector(state => state.productReducer.volunteerProducts);
 
   const dispatch = useDispatch();
@@ -33,6 +31,7 @@ const ProductSimilar = ({ product }) => {
       {},
       navigate
     ));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Responsive handling

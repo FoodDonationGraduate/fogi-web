@@ -51,7 +51,7 @@ const RequestCard = ({ order }) => {
         {order.volunteer ? 
           <>
             <Stack direction='horizontal' gap={3}>
-              <img src={`https://bachkhoi.online/static/${order.volunteer.avatar}`} 
+              <img src={`https://bachkhoi.online/static/${order.volunteer.avatar}`} alt='volunteer-avatar'
               className='order-item-volunteer-avatar-m volunteer-avatar'
               onClick={() => navigate(`/volunteer/${order.volunteer.username}`)}/>
               <Stack direction='vertical' className='justify-content-center'>

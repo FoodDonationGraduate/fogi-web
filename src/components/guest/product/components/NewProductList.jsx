@@ -10,7 +10,6 @@ import { EqualHeight } from 'react-equal-height';
 import ProductCard from 'components/guest/common/cards/ProductCard';
 import FogiPagination from 'components/common/pagination/Pagination';
 import { retrieveNewProducts } from 'components/redux/reducer/ProductReducer';
-import EmptyProductBody from './EmptyProductBody';
 import CommonNotFoundBody from 'components/common/CommonNotFoundBody';
 
 const ProductList = () => {
@@ -28,6 +27,7 @@ const ProductList = () => {
   React.useEffect(()=>{
     dispatch(retrieveNewProducts({limit: PRODUCT_COUNT, offset: page * PRODUCT_COUNT, sort_field: sort}, navigate))
     console.log(newProducts.total_products === 0)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sort]);
 
   return (

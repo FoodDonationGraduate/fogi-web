@@ -8,7 +8,6 @@ import TopBar from "components/layout/TopBar.jsx";
 import Footer from 'components/layout/Footer';
 import InfoModal from "components/layout/InfoModal.jsx";
 import ConfirmModal from "components/layout/ConfirmModal.jsx";
-import StatsCard from './components/StatsCard'
 import UserProfile from './components/UserProfile'
 import ButtonCard from './components/ButtonCard'
 
@@ -23,6 +22,7 @@ function ProfilePage(){
      
     useEffect(() => {
         dispatch(retrieveProfile({userInfo, userToken}, navigate))
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
     return (
         <div className="profile-page">

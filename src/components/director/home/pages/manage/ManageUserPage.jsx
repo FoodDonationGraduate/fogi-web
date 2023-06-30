@@ -32,6 +32,7 @@ const ManageUserPage = () => {
 
   useEffect(() => {
     dispatch(setTypeOfUser(statusList[activeStatusIdx]));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeStatusIdx]);
 
   // Details

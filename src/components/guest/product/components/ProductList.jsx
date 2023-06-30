@@ -32,6 +32,7 @@ const ProductList = () => {
   React.useEffect(() => {
     dispatch(searchProduct({query: query ? query : '', limit: PRODUCT_COUNT, offset: page * PRODUCT_COUNT, sort_field: sort}, navigate))
     console.log(Object.keys(searchingProducts).length === 0)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sort, query])
 
   return (

@@ -55,7 +55,7 @@ const CancelModal = ({ show, onClose, volunteerInfo, orderId }) => {
               <>
                 <Form.Group className='mb-3'>
                   <Stack direction='horizontal' gap={3}>
-                    <img src={`https://bachkhoi.online/static/${volunteerInfo.avatar}`} className='order-item-volunteer-avatar-m' />
+                    <img alt='volunteer-avatar' src={`https://bachkhoi.online/static/${volunteerInfo.avatar}`} className='order-item-volunteer-avatar-m' />
                     <Stack direction='vertical'>
                       <div className='order-item-volunteer-label'>Tình nguyện viên</div>
                       <div className='order-item-volunteer-name'>{volunteerInfo.name}</div>

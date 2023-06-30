@@ -66,6 +66,7 @@ const DashboardPage = () => {
   
   useEffect(() => {
     dispatch(retrieveStats({ stats_type: statusList[activeStatusIdx] }, { userInfo, userToken }, navigate));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeStatusIdx]);
   
   useEffect(() => {
@@ -78,6 +79,7 @@ const DashboardPage = () => {
     { userInfo, userToken },
     navigate
     ));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeStatusIdx, activeUnitIdx, activeTimeIdx]);
 
   return (

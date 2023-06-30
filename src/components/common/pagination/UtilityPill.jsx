@@ -1,6 +1,5 @@
 // Essentials
 import * as React from 'react';
-import { useState, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 
 // Style imports

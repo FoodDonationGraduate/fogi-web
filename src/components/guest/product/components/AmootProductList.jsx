@@ -27,6 +27,7 @@ const ProductList = () => {
 
   React.useEffect(()=>{
     dispatch(retrieveAmootProducts({limit: PRODUCT_COUNT, offset: page * PRODUCT_COUNT, sort_field: sort}, navigate))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sort])
   return (
     <div className='bg'>

@@ -1,18 +1,11 @@
 // Essentials
 import * as React from 'react';
-import { Container, Col, Dropdown, DropdownButton, Row } from 'react-bootstrap';
-import { useSelector, useDispatch } from 'react-redux';
+import { Container, Col, Row } from 'react-bootstrap';
 
 // Styling
 import 'assets/css/Fogi.css';
 
-//Components
-import { setTypeOfSort } from 'components/redux/reducer/ProductReducer';
-
 const ListTitle = ({title}) => {
-  const sort = useSelector(state => state.productReducer.sort);
-
-  const dispatch = useDispatch();
   return (
     <div className='bg'>
       <Container>

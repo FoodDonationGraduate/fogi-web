@@ -25,6 +25,7 @@ const ProductDetailsPage = () => {
 
   React.useEffect(() => {
     dispatch(retrieveCurrentProduct({id: id}, navigate))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id])
 
   return (

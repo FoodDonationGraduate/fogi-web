@@ -33,6 +33,7 @@ const OrderList = ({
 
   React.useEffect(()=>{
     dispatch(retrieveAllRequests({limit: ORDER_COUNT, offset: page * ORDER_COUNT, sort_field: sort, request_status: currentStatus}, {userInfo, userToken}, navigate))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sort, currentStatus]);
 
 

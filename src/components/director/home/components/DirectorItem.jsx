@@ -4,9 +4,6 @@ import { Stack } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 import { useSelector } from 'react-redux';
 
-// Asset
-import DirectorAvatar from 'assets/images/UserAvatar.png';
-
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
 

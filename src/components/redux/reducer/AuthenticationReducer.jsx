@@ -1,8 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import axiosInstance from "services/axios/axiosConfig.js";
 import { setModalMessage, showModal, hideModal } from 'components/redux/reducer/ModalReducer';
-import { useSelector } from 'react-redux'
-import { Navigate } from 'react-router-dom';
 
 const initialState = {
     user: localStorage.getItem("user") !== "undefined" 

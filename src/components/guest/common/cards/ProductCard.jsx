@@ -71,7 +71,7 @@ const ProductCard = ({product}) => {
         <EqualHeightElement name="product-volunteer">
           <Stack direction='horizontal' gap={2}>
             <img
-              src={`https://bachkhoi.online/static/${product.volunteer.avatar}?${date.getTime()}`}
+              src={`https://bachkhoi.online/static/${product.volunteer.avatar}?${date.getTime()}`} alt='volunteer-avatar'
               className='rounded-circle' width='32' height='32'
             />
             <Stack direction='vertical'>

@@ -29,6 +29,7 @@ const OrderDetailsPage = () => {
 
   React.useEffect(()=>{
     dispatch(retrieveRequest({request_id: id}, {userInfo, userToken}, navigate));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id])
   return (
     <>

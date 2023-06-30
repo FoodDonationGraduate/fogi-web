@@ -1,5 +1,5 @@
 // Essentials
-import React, { useState } from 'react';
+import React from 'react';
 import { Stack } from 'react-bootstrap';
 
 // Components

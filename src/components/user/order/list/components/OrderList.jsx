@@ -1,6 +1,6 @@
 // Essentials
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Container, Col, Row } from 'react-bootstrap';
 import { EqualHeight } from 'react-equal-height';
 import { useDispatch, useSelector } from 'react-redux'
@@ -32,6 +32,7 @@ const OrderList = ({
 
   React.useEffect(()=>{
     dispatch(retrieveAllRequests({limit: ORDER_COUNT, offset: page * ORDER_COUNT, sort_field: sort, request_status: currentStatus}, {userInfo, userToken}, navigate))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sort, currentStatus]);
 
   return (

@@ -17,7 +17,8 @@ const StatsList = ({ stats }) => {
   };
 
   useEffect(() => {
-    if (Object.keys(stats).length !== 0) setStatSize(getStatSize());
+    if (Object.keys(stats).length !== 0) setStatSize(() => getStatSize());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [stats]); 
   
   return (

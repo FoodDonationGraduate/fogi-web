@@ -28,12 +28,14 @@ const LocationBar = () => {
       setLocation(location.substring(0, (size + 2) * 5) + '...');
     else 
       setLocation(location);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [size]);
 
   useEffect(() => {
     if (Object.keys(selectedAddress).length !== 0) {
       setLocation(size < 2 ? selectedAddress.address.substring(0, (size + 2) * 5) + '...' : selectedAddress.address)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedAddress]);
 
   // Location Modal

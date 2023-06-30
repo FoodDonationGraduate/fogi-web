@@ -72,6 +72,7 @@ const RequestInfoCard = (
     } else {
       setValue('currentAddress', selectedAddress)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeStatusIdx])
 
   return (

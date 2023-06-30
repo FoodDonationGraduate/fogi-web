@@ -21,7 +21,7 @@ const ProductItem = ({
               <Stack direction='horizontal'>
                 <img
                   className='long-product-image'
-                  src={`https://bachkhoi.online/static/${product.image_filename}`}
+                  src={`https://bachkhoi.online/static/${product.image_filename}`} alt='product-img'
                   width='96' height='96'
                 />
                 <div className='ms-4'>

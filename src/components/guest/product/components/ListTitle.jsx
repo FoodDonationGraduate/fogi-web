@@ -1,8 +1,7 @@
 // Essentials
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { Container, Col, Dropdown, DropdownButton, Row } from 'react-bootstrap';
-import { useSelector, useDispatch } from 'react-redux';
+import { Container, Col, Row } from 'react-bootstrap';
 
 // Styling
 import 'assets/css/Fogi.css';
@@ -10,14 +9,8 @@ import 'assets/css/Fogi.css';
 // Utility
 import { useResizer } from 'utils/helpers/Resizer';
 
-//Components
-import { setTypeOfSort } from 'components/redux/reducer/ProductReducer';
 
 const ListTitle = ({title}) => {
-  const sort = useSelector(state => state.productReducer.sort);
-
-  const dispatch = useDispatch();
-
   // Responsive handling
   let size = useResizer();
   const [shownTitle, setShownTitle] = useState(title)
@@ -25,6 +18,7 @@ const ListTitle = ({title}) => {
   useEffect(() => {
     if (size < 1) setShownTitle(title.substring(0, (size + 1) * 20) + '...');
     else setShownTitle(title);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [size]);
 
   return (

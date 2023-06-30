@@ -26,6 +26,7 @@ const ProductList = () => {
 
   React.useEffect(() => {
     dispatch(retrieveAllDonors({ limit: DONOR_COUNT, offset: page * DONOR_COUNT }, navigate))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
 }, [])
 
   return (

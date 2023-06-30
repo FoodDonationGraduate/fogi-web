@@ -1,6 +1,5 @@
 // Essentials
 import * as React from 'react';
-import { Container, Row } from 'react-bootstrap';
 
 // Components
 import TopSection from 'components/layout/TopSection';

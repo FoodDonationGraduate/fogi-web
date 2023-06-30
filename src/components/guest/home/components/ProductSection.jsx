@@ -29,6 +29,7 @@ const ProductSection = ({ type }) => {
   React.useEffect(()=>{
     if (type === 0) dispatch(retrieveNewProducts({limit: PRODUCT_LENGTH, offset: 0, sort_field: ''}, navigate));
     else dispatch(retrieveAmootProducts({limit: PRODUCT_LENGTH, offset: 0, sort_field: ''}, navigate));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Responsive handling

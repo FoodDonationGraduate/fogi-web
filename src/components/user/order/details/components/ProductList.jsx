@@ -7,9 +7,6 @@ import { Container, Col, Row } from 'react-bootstrap';
 import ProductItem from './ProductItem';
 import Pagination from 'components/common/pagination/Pagination';
 
-// Data
-import { PRODUCT_DATA } from 'utils/constants/ProductLarge.jsx';
-
 const ProductList = (
   {products}
 ) => {

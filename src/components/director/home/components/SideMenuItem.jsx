@@ -35,6 +35,7 @@ const SideMenuItem = ({
       case 3: setLabel('Quản lý Phân loại'); break;
       default: setLabel('Thống kê');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -42,11 +43,13 @@ const SideMenuItem = ({
       if (size === 2) setActive('-active-md');
       else setActive('-active');
     }
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (isActive) setActive('-active');
     else setActive('');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isActive]);
 
   return (

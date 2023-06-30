@@ -1,8 +1,6 @@
 // Essentials
 import * as React from 'react';
 import { Button, Col, Row, Stack } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from "react-router-dom";
 
 // Styling
 import 'assets/css/Fogi.css';

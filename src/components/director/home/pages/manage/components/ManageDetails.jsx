@@ -37,6 +37,7 @@ const ManageDetails = ({ user }) => {
       },
       navigate
     ));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   };
   
   useEffect(() => {
@@ -52,6 +53,7 @@ const ManageDetails = ({ user }) => {
       },
       navigate
     ));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

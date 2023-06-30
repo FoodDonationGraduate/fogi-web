@@ -10,11 +10,7 @@ import { setModalMessage, showModal } from 'components/redux/reducer/ModalReduce
 // Styling
 import 'assets/css/Fogi.css';
 
-// Utility
-import { useResizer } from 'utils/helpers/Resizer.jsx';
-
 const CartTitle = ({ volunteerInfo }) => {
-  let size = useResizer();
   const dispatch = useDispatch();
   const allProducts = useSelector(state => state.cartReducer.allProducts)
 

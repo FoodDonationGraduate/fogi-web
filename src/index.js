@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import {BrowserRouter, Navigate, Route, Routes, useLocation, Outlet, useNavigate} from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux'
+import {BrowserRouter, Navigate, Route, Routes, useLocation, Outlet} from "react-router-dom";
+import { useSelector } from 'react-redux'
 import { Provider } from "react-redux";
 
 import store from "./components/redux/store.jsx";
@@ -39,7 +39,6 @@ import ProfileUserPage from "./components/user/profile_page/ProfilePage.jsx"
 import ProfileDonorPage from "./components/donor/profile_page/ProfilePage.jsx"
 import ProfileDirectorPage from "./components/director/profile_page/ProfilePage.jsx"
 
-import { refreshToken } from 'components/redux/reducer/AuthenticationReducer.jsx';
 import DirectorHome from "./components/director/home/HomePage.jsx";
 
 ReactDOM.createRoot(document.getElementById('root')).render(

@@ -51,6 +51,7 @@ const ManageItemList = ({ setTargetUser }) => {
       },
       navigate
     ));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user_type]);
 
   return (
