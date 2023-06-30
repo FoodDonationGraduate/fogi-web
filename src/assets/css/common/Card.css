@@ -21,6 +21,7 @@
   aspect-ratio : 1 / 1;
   border-radius: 50%;
   margin-top: 20px;
+  object-fit: cover;
 }
 
 .product-card, .category-card {
@@ -44,6 +45,7 @@
 .product-card-img {
   width: 100%;
   aspect-ratio : 1 / 1;
+  object-fit: cover;
 }
 .product-card-type {
   padding: 4px 8px;

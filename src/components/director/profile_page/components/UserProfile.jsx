@@ -60,10 +60,10 @@ function UserProfile() {
                                         Thông tin cá nhân
                                     </header>
                                     <Form.Group className='mb-3 d-flex'>
-                                        <Form.Label column sm="3">
+                                        <Form.Label column xs="3">
                                             Họ tên
                                         </Form.Label>
-                                        <Col sm={9}>
+                                        <Col xs={9}>
                                             <Form.Control
                                                 type='text'
                                                 placeholder=''
@@ -79,10 +79,10 @@ function UserProfile() {
                                     </Form.Group>
 
                                     <Form.Group className='mb-3 d-flex'>
-                                        <Form.Label column sm="3">
+                                        <Form.Label column xs="3">
                                             Email
                                         </Form.Label>
-                                        <Col sm={9}>
+                                        <Col xs={9}>
                                             <Form.Control
                                                 type='text'
                                                 placeholder=''
@@ -100,10 +100,10 @@ function UserProfile() {
 
 
                                     <Form.Group className='mb-3 d-flex'>
-                                        <Form.Label column sm="3">
+                                        <Form.Label column xs="3">
                                             Số điện thoại
                                         </Form.Label>
-                                        <Col sm={9}>
+                                        <Col xs={9}>
                                             <Form.Control
                                                 type='text'
                                                 placeholder=''
@@ -119,10 +119,10 @@ function UserProfile() {
                                     </Form.Group>
 
                                     <Form.Group className='mb-4 d-flex'>
-                                        <Form.Label column sm="3">
+                                        <Form.Label column xs="3">
                                             Địa chỉ
                                         </Form.Label>
-                                        <Col sm={9}>
+                                        <Col xs={9}>
                                             <Form.Control
                                                 type='text'
                                                 placeholder=''

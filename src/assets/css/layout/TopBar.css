@@ -93,3 +93,17 @@
         #profile-icon:hover{
             border-color: white;
         }
+
+.notification-list {
+    overflow-y: 'auto';
+    height: 100%;
+}
+
+.notification-element {
+    height: 80px;
+}
+
+.nav-element {
+    display: flex;
+    justify-content: center;
+}

@@ -8,9 +8,9 @@ import 'assets/css/layout/TopBar.css';
 
 // Components
 import Logo from 'components/common/Logo';
-
+import Notification from './Notification';
 // Assets
-import { MdOutlineNotificationsNone, MdOutlineShoppingBag } from 'react-icons/md';
+import { MdOutlineShoppingBag } from 'react-icons/md';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
@@ -53,8 +53,8 @@ const TopBar = () => {
           <Navbar.Toggle aria-controls='responsive-navbar-nav' />
           <Navbar.Collapse id='responsive-navbar-nav'>
             <Nav className='me-auto'>
-              <Nav.Link href=''>Giới thiệu</Nav.Link>
-              <Nav.Link href=''>Tin tức</Nav.Link>
+              <Nav.Link href='' className='nav-element'>Giới thiệu</Nav.Link>
+              <Nav.Link href='' className='nav-element'>Tin tức</Nav.Link>
             </Nav>
             <Nav>
               {Object.keys(userInfo).length === 0 ?
@@ -84,8 +84,8 @@ const TopBar = () => {
                     </Stack>
                     :
                     <>
-                      <Nav.Link href='/login'>Đăng nhập</Nav.Link>
-                      <Nav.Link href='/signup'>Đăng ký</Nav.Link>
+                      <Nav.Link href='/login' className='nav-element'>Đăng nhập</Nav.Link>
+                      <Nav.Link href='/signup' className='nav-element'>Đăng ký</Nav.Link>
                     </>
                   }
                 </>
@@ -111,7 +111,7 @@ const TopBar = () => {
                           </Button>
                         </Form>
                       }
-                      <MdOutlineNotificationsNone className='top-bar-icon' />
+                      <Notification/>
                       <MdOutlineShoppingBag className='top-bar-icon' onClick={() => navigate('/donate-bag')}/>
                       <div onClick={() => navigate('/profile')} className='d-flex align-items-center'>
                         <img className='nav-profile-icon' src={`http://bachkhoi.online/static/${userInfo.avatar}?${date.getTime()}`} alt='profile' id="profile-icon" />
@@ -119,9 +119,9 @@ const TopBar = () => {
                     </Stack>
                     :
                     <>
-                      <Nav.Link href='/'>Thông báo</Nav.Link>
-                      <Nav.Link href='/donate-bag'>Túi nhận Quyên góp</Nav.Link>
-                      <Nav.Link href='/profile'>Trang cá nhân</Nav.Link>
+                      <Nav.Link href='/' className='nav-element'>Thông báo</Nav.Link>
+                      <Nav.Link href='/donate-bag' className='nav-element'>Túi nhận Quyên góp</Nav.Link>
+                      <Nav.Link href='/profile' className='nav-element'>Trang cá nhân</Nav.Link>
                     </>
                   }
                 </>

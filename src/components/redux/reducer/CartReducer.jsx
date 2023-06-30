@@ -89,12 +89,12 @@ export const updateProduct = (data, user, navigate) => {
                 product_id: data.product_id,
                 quantity: data.quantity
             }).then((res) => {
-                //dispatch(retrieveAllProducts({}, user, navigate))
+                
             })
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
                     console.log(err)
-                    dispatch(setModalMessage(err.response.data.message))
+                    dispatch(setModalMessage('Cập nhật thực phẩm không thành công'))
                     dispatch(showModal())
                 }
             });
@@ -121,7 +121,7 @@ export const deleteProduct = (data, user, navigate) => {
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
                     console.log(err)
-                    dispatch(setModalMessage(err.response.data.message))
+                    dispatch(setModalMessage('Xóa thực phẩm không thành công'))
                     dispatch(showModal())
                 }
             });

@@ -13,9 +13,5 @@ export default instance;
 
 export const ggApiInstance = axios.create({
     baseURL: 'https://maps.googleapis.com',
-    headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-    },
     timeout: 20000,
 });

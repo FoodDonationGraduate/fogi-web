@@ -77,8 +77,10 @@ export const refreshToken = (navigate) => {
 }
 
 export function handleExpiredToken (data, dispatch, navigate) {
-    if (data.message === "unauthorized") {
+    if (data.exit_code === 401) {
         dispatch(logout(navigate))
+        dispatch(setModalMessage(`Phiên đăng nhập hết hạn. Vui lòng đăng nhập lại!`))
+        dispatch(showModal())
         return false;
     }
     return true;
@@ -114,22 +116,15 @@ export const login = (data, navigate, setFailAuthentication) => {
                         break;
                     default: navigate(-1);
                 }
-                // let intervalID =  setInterval(() => {
-                //     const userInfo = JSON.parse(localStorage.getItem("user"));
-                //     const userToken = localStorage.getItem("token");
-                //     if (Object.keys(userInfo).length !== 0 && userToken !== ''){
-                //         dispatch(refreshToken(navigate));
-                //     }
-                //   }, 5000);
             })
             .catch((err) => {
                 if (err.response.data.message === 'User email is not verified') {
                     dispatch(signupUserAccount())
                     localStorage.setItem('currentEmail', data.email)
                     navigate('/verification')
-                    dispatch(setModalMessage(`Bạn cần phải xác minh email của bạn!`))
+                    dispatch(setModalMessage(`Vui lòng xác minh email của bạn!`))
                     dispatch(showModal())
-                } else if (err.response.data.message === 'Email or password is wrong') {
+                } else if (err.response.data.exit_code === 402) {
                     setFailAuthentication(true);
                 } else {
                     dispatch(setModalMessage(`Đã xảy ra lỗi!!`))

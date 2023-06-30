@@ -55,7 +55,6 @@ export const retrieveCategory = (data, navigate) => {
                 id: data.id,
             }}).then((res) => {
                 dispatch(setCurrentCategory(res.data))
-                return res.data;
             })
             .catch((err) => {
                 console.log(err)
