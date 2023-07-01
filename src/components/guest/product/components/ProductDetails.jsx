@@ -27,6 +27,7 @@ const ProductDetails = ({product}) => {
   
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const buttonRef = React.useRef(null);
 
   const [count, setCount] = useState(1);
   const increaseCount = () => { setCount(count + 1) };
@@ -35,6 +36,10 @@ const ProductDetails = ({product}) => {
   };
 
   const onSubmit = () => {
+    buttonRef.current.disabled = true;
+    setTimeout(() => {
+      buttonRef.current.disabled = false;
+    }, 2000)
     if (handleEmptyToken({userInfo, userToken}, navigate)) {
       if (userInfo.user_type === 'donee') {
         dispatch(addNewProduct({product_id: product.id, quantity: 1}, {userInfo, userToken}, navigate));
@@ -100,7 +105,7 @@ const ProductDetails = ({product}) => {
 
         <Row className='mt-3'>
           <Col className='ps-0' xs='auto'>
-            <Button className='fogi' variant='primary' onClick={onSubmit}>
+            <Button ref={buttonRef} className='fogi' variant='primary' onClick={() => onSubmit()}>
               Thêm vào Túi
             </Button>
           </Col>
