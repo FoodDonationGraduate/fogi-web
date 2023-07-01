@@ -28,8 +28,13 @@ const ProductCard = ({product}) => {
   
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const buttonRef = React.useRef(null);
 
   const onSubmit = (event) => {
+    buttonRef.current.disabled = true;
+    setTimeout(() => {
+      buttonRef.current.disabled = false;
+    }, 2000)
     if (handleEmptyToken({userInfo, userToken}, navigate)) {
       if (userInfo.user_type === 'donee') {
         dispatch(addNewProduct({product_id: product.id, quantity: 1}, {userInfo, userToken}, navigate));
@@ -89,7 +94,7 @@ const ProductCard = ({product}) => {
         </EqualHeightElement>
         
         <div className='d-grid'>
-          <Button className='fogi mt-2' variant='primary' onClick={(event) => onSubmit(event)}>
+          <Button ref={buttonRef} className='fogi mt-2' variant='primary' onClick={(event) => onSubmit(event)}>
             Thêm vào Túi
           </Button>
         </div>
