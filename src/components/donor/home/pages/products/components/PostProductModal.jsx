@@ -18,6 +18,7 @@ import UploadButton from 'components/common/UploadButton';
 import Tooltip from 'components/common/Tooltip';
 import { retrieveAllCategories } from 'components/redux/reducer/CategoryReducer';
 import { postNewProduct } from 'components/redux/reducer/ProductReducer';
+import { setModalMessage, showModal } from 'components/redux/reducer/ModalReducer';
 
 // Assets imports
 import { FaExclamationTriangle } from 'react-icons/fa';
@@ -90,6 +91,8 @@ const PostProductModal = ({
   const onSubmit = (data) => {
     console.log('post item');
     if (images.length === 0) {
+      dispatch(setModalMessage('Bạn cần phải đính kèm hình ảnh thực phẩm'));
+      dispatch(showModal())
       return;
     }
     dispatch(postNewProduct({...data, images: base64Images}, {userInfo, userToken}, navigate));
@@ -160,7 +163,7 @@ const PostProductModal = ({
               <Form.Label style={{ fontWeight: 'bold' }}>
                 Ngày hết hạn
               </Form.Label>
-              <Form.Control type='date' {...register('expired_time')} />
+              <Form.Control type='date' min={new Date().toISOString().slice(0,10)} {...register('expired_time')} />
               {errors.expired_time && errors.expired_time.type === 'required' && (
                 <p className="mt-2 error">
                   <FaExclamationTriangle className="mx-2" />

@@ -53,7 +53,7 @@ export const retrieveAllAddresses = (user, navigate) => {
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
                     console.log(err)
-                    dispatch(setModalMessage(err.response.data.message))
+                    dispatch(setModalMessage('Đã xảy ra lỗi'))
                     dispatch(showModal())
                     dispatch(setAllAddresses({}))
                 }
@@ -79,7 +79,7 @@ export const retrieveAddress = (data, user, navigate) => {
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
                     console.log(err)
-                    dispatch(setModalMessage(err.response.data.message))
+                    dispatch(setModalMessage('Đã xảy ra lỗi'))
                     dispatch(showModal())
                     dispatch(setCurrentAddress({}))
                 }
@@ -111,7 +111,7 @@ export const addNewAddress = (data, user, navigate) => {
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
                     console.log(err)
-                    dispatch(setModalMessage(err.response.data.message))
+                    dispatch(setModalMessage('Đã xảy ra lỗi'))
                     dispatch(showModal())
                 }
             });
@@ -143,7 +143,7 @@ export const updateAddress = (data, user, navigate) => {
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
                     console.log(err)
-                    dispatch(setModalMessage(err.response.data.message))
+                    dispatch(setModalMessage('Đã xảy ra lỗi'))
                     dispatch(showModal())
                 }
             });

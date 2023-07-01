@@ -48,8 +48,6 @@ const ProductItem = ({
     setTimer(window.setTimeout(updateCount, 1000, newCount));
   };
 
-
-
   const deleteProductModal = (id) => { 
     dispatch(setModalQuestion('Bạn có muốn xóa sản phẩm này không??'));
     dispatch(showQuestionModal());

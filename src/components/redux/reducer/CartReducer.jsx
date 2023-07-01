@@ -40,7 +40,7 @@ export const retrieveAllProducts = (data, user, navigate) => {
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
                     console.log(err)
-                    dispatch(setModalMessage(err.response.data.message))
+                    dispatch(setModalMessage('Đã xảy ra lỗi'))
                     dispatch(showModal())
                 }
             });
@@ -68,7 +68,7 @@ export const addNewProduct = (data, user, navigate) => {
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
                     console.log(err)
-                    dispatch(setModalMessage(err.response.data.message))
+                    dispatch(setModalMessage('Đã xảy ra lỗi'))
                     dispatch(showModal())
                 }
             });

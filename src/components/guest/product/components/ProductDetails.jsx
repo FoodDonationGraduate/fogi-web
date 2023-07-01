@@ -16,8 +16,10 @@ import { MdAllInbox } from 'react-icons/md';
 import { distanceTime } from 'utils/helpers/Time';
 import { getUnit } from 'utils/helpers/Food';
 
+// Components 
 import { addNewProduct } from 'components/redux/reducer/CartReducer';
 import { handleEmptyToken } from 'components/redux/reducer/AuthenticationReducer';
+import { setModalMessage, showModal } from 'components/redux/reducer/ModalReducer';
 
 const ProductDetails = ({product}) => {
   const userInfo = useSelector(state => state.authenticationReducer.user);
@@ -34,7 +36,12 @@ const ProductDetails = ({product}) => {
 
   const onSubmit = () => {
     if (handleEmptyToken({userInfo, userToken}, navigate)) {
-      dispatch(addNewProduct({product_id: product.id, quantity: count}, {userInfo, userToken}, navigate));
+      if (userInfo.user_type === 'donee') {
+        dispatch(addNewProduct({product_id: product.id, quantity: 1}, {userInfo, userToken}, navigate));
+      } else {
+        dispatch(setModalMessage('Không thể thêm sản phẩm vào giỏ hàng!'))
+        dispatch(showModal())
+      }
     }
   }
 

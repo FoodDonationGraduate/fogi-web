@@ -52,7 +52,7 @@ export const retrieveAllRequests = (data, user, navigate) => {
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
                     console.log(err)
-                    dispatch(setModalMessage(err.response.data.message))
+                    dispatch(setModalMessage('Đã xảy ra lỗi'))
                     dispatch(showModal())
                     dispatch(setAllRequests({}))
                 }
@@ -78,7 +78,7 @@ export const retrieveRequest = (data, user, navigate) => {
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
                     console.log(err)
-                    dispatch(setModalMessage(err.response.data.message))
+                    dispatch(setModalMessage('Đã xảy ra lỗi'))
                     dispatch(showModal())
                     dispatch(setCurrentRequest({}))
                 }
@@ -110,7 +110,7 @@ export const postDonorRequest = (data, user, navigate) => {
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
                     console.log(err)
-                    dispatch(setModalMessage(err.response.data.message))
+                    dispatch(setModalMessage('Đã xảy ra lỗi'))
                     dispatch(showModal())
                 }
             });
@@ -147,7 +147,7 @@ export const postDoneeRequest = (data, user, navigate) => {
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
                     console.log(err)
-                    dispatch(setModalMessage(err.response.data.message))
+                    dispatch(setModalMessage('Đã xảy ra lỗi'))
                     dispatch(showModal())
                 }
             });
@@ -180,7 +180,7 @@ export const updateRequest = (data, user, navigate) => {
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
                     console.log(err)
-                    dispatch(setModalMessage(err.response.data.message))
+                    dispatch(setModalMessage('Đã xảy ra lỗi'))
                     dispatch(showModal())
                 }
             });
@@ -207,7 +207,7 @@ export const remakeDonorBag = (data, user, navigate) => {
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
                     console.log(err)
-                    dispatch(setModalMessage(err.response.data.message))
+                    dispatch(setModalMessage('Đã xảy ra lỗi'))
                     dispatch(showModal())
                 }
             });
@@ -235,7 +235,7 @@ export const createReport = (data, volunteer, user, navigate) => {
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
                     console.log(err)
-                    dispatch(setModalMessage(err.response.data.message))
+                    dispatch(setModalMessage('Đã xảy ra lỗi'))
                     dispatch(showModal())
                 }
             });

@@ -35,6 +35,13 @@ const OrderInfoCard = ({ order }) => {
     dispatch(updateRequest({request_id: order.id, request_status: 'shipping'}, { userInfo, userToken}, navigate));
   };
 
+  // handle pickup map
+  const [isHovering, setIsHovering] = useState(false);
+  const handleClick = (address) => {
+    let newAdress = address.replaceAll(' ', '+')
+    window.open(`https://www.google.com/maps/dir/?api=1&destination=${newAdress}`, '_blank', 'noopener,noreferrer');
+  }
+
   return (
     <>
       <CancelModal show={show} onClose={onClose} volunteerInfo={order.volunteer} orderId={order.id} />
@@ -66,7 +73,17 @@ const OrderInfoCard = ({ order }) => {
               <header className='order-item-secondary'>
                 <Stack direction='horizontal' gap={2}>
                   <div className='fw-bold'>{`Địa chỉ ${order.delivery_type === 'pickup' ? ' nhận thực phẩm' : 'giao hàng'}:`}</div>
-                  <div>{order.address}</div>
+                  {
+                    order.delivery_type === 'pickup' 
+                      ? <div 
+                          style={{boxShadow: isHovering ? '0 0 8px #82CD47' : ''}} 
+                          onClick={() => handleClick(order.address)}
+                          onMouseEnter={() => setIsHovering(true)}
+                          onMouseLeave={() => setIsHovering(false)}
+                          >{order.address}
+                          </div>
+                      : <div>{order.address}</div> 
+                  }
                 </Stack>
               </header>
 

@@ -112,6 +112,11 @@ export const login = (data, navigate, setFailAuthentication) => {
                     case 'director':
                         navigate('/director/home');
                         break;
+                    case 'volunteer':
+                        dispatch(logout(navigate));
+                        dispatch(setModalMessage(`Vui lòng sử dụng app dành riêng cho tình nguyện viên!`));
+                        dispatch(showModal());
+                        break;
                     default: navigate(-1);
                 }
             })
