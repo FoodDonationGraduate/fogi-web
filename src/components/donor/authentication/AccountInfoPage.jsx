@@ -36,8 +36,7 @@ const AccountInfo = () => {
 
   const formSchema = Yup.object().shape({
     name: Yup.string().required(''),
-    phone: Yup.string().required(''),
-    address: Yup.string().required('')
+    phone: Yup.string().required('')
   });
   const formOptions = { resolver: yupResolver(formSchema) };
   const { register, handleSubmit, formState } = useForm(formOptions);
@@ -124,22 +123,6 @@ const AccountInfo = () => {
                         <p className="mt-2 error">
                           <FaExclamationTriangle className="mx-2" />
                           Bạn chưa nhập số điện thoại
-                        </p>
-                      )}
-                    </Form.Group>
-
-                    <Form.Group className='mb-3'>
-                      <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
-                        Địa chỉ
-                      </Form.Label>
-                      <Form.Control 
-                        type='text'
-                        defaultValue={registeredUser.address ? registeredUser.address : ''}
-                        {...register("address")} />
-                      {errors.address && errors.address.type === "required" && (
-                        <p className="mt-2 error">
-                          <FaExclamationTriangle className="mx-2" />
-                          Bạn chưa nhập địa chỉ
                         </p>
                       )}
                     </Form.Group>

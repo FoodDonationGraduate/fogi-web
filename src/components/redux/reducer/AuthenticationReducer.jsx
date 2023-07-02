@@ -121,11 +121,14 @@ export const login = (data, navigate, setFailAuthentication) => {
                 }
             })
             .catch((err) => {
-                if (err.response.data.message === 'User email is not verified') {
+                if (err.response.data.exit_code === 404) {
                     dispatch(signupUserAccount())
                     localStorage.setItem('currentEmail', data.email)
                     navigate('/verification')
-                    dispatch(setModalMessage(`Vui lòng xác minh email của bạn!`))
+                    dispatch(setModalMessage(`Email chưa được xác minh. Vui lòng xác minh email của bạn!`))
+                    dispatch(showModal())
+                } else if (err.response.data.exit_code === 403) {
+                    dispatch(setModalMessage(`Xin lỗi, tài khoản của bạn hiện đang bị khóa. Vui lòng liên hệ hỗ trợ để được trợ giúp.!`))
                     dispatch(showModal())
                 } else if (err.response.data.exit_code === 402) {
                     setFailAuthentication(true);
@@ -176,16 +179,16 @@ export const signup = (data, navigate) => {
                 dispatch(removeRegisterdUser())
             })
             .catch((err) => {
-                if (err.response.data.message === 'Email is already existed') {
+                if (err.response.data.exit_code === 405) {
                     dispatch(removeRegisterdUser())
                     navigate('/signup')
-                    dispatch(setModalMessage(`Đăng ký không thành công! Email đã tồn tại, vui lòng đăng ký lại`))
+                    dispatch(setModalMessage(`Email đã tồn tại. Vui lòng sử dụng email khác!`))
                     dispatch(showModal())
                 } else {
                     console.log(err.response.data)
                     dispatch(removeRegisterdUser())
                     navigate('/signup')
-                    dispatch(setModalMessage(`Signup unsuccessfully! ${err.response.data.message}. Please signup again.`))
+                    dispatch(setModalMessage(`Đăng ký không thành công!`))
                     dispatch(showModal())
                 }
                 
@@ -216,16 +219,16 @@ export const signupForDonor = (data, navigate) => {
                 dispatch(removeRegisterdUser())
             })
             .catch((err) => {
-                if (err.response.data.message === 'Email is already existed') {
+                if (err.response.data.exit_code === 405) {
                     dispatch(removeRegisterdUser())
                     navigate('/donor/signup')
-                    dispatch(setModalMessage(`Đăng ký không thành công! Email đã tồn tại, vui lòng đăng ký lại`))
+                    dispatch(setModalMessage(`Email đã tồn tại. Vui lòng sử dụng email khác!`))
                     dispatch(showModal())
                 } else {
                     console.log(err.response.data)
                     dispatch(removeRegisterdUser())
                     navigate('/donor/signup')
-                    dispatch(setModalMessage(`Signup unsuccessfully! ${err.response.data.message}. Please signup again.`))
+                    dispatch(setModalMessage(`Đăng ký không thành công!`))
                     dispatch(showModal())
                 }
             });
@@ -235,45 +238,6 @@ export const signupForDonor = (data, navigate) => {
         }
     }
 }
-
-// export const signupForVolunteer = (data, navigate) => {
-//     return async dispatch => {
-//         try {
-//             console.log("signup for volunteer")
-//             await axiosInstance.post(`/signup`, {
-//                 email: data.email,
-//                 user_type: 'volunteer',
-//                 password: data.password,
-//                 address: data.address,
-//                 phone: data.phonenumber,
-//                 name: data.name,
-//                 avatar: '',
-//                 id_front: data.id_front,
-//                 id_back: data.id_back
-//             }).then((res) => {
-//                 if (res.data.message === 'Signup successfully') {
-//                     navigate('/signupsuccess')
-//                 }
-//             })
-//             .catch((err) => {
-//                 if (err.response.data.message === 'Email is already existed') {
-//                     dispatch(removeRegisterdUser())
-//                     navigate('/volunteer/signup')
-//                     dispatch(setModalMessage(`Signup unsuccessfully! ${err.response.data.message}. Please signup again.`))
-//                     dispatch(showModal())
-//                 } else {
-//                     console.log(err.response.data)
-//                     dispatch(removeRegisterdUser())
-//                     navigate('/volunteer/signup')
-//                      dispatch(showModal())
-//                 }
-//             });
-//         } catch (err) {
-//             console.log(err)
-//             navigate('/')
-//         }
-//     }
-// }
 
 export const resendVerificationEmail = (data, navigate) => {
     return async dispatch => {

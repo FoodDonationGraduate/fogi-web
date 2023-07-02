@@ -25,8 +25,7 @@ function UserProfile() {
         name: Yup.string().required('Name is required'),
         email: Yup.string().required('Email is required'),
         phone: Yup.string().required('Phone number is required'),
-        dob: Yup.string().required('Date of birth is required'),
-        address: Yup.string().required('Address is required')
+        dob: Yup.string().required('Date of birth is required')
     });
     const formOptions = { resolver: yupResolver(formSchema) };
     const { register, handleSubmit, formState } = useForm(formOptions);
@@ -133,25 +132,6 @@ function UserProfile() {
                                                 <p className="mt-2 error">
                                                 <FaExclamationTriangle className="mx-2" />
                                                     Bạn chưa điền ngày sinh
-                                                </p>
-                                            )}
-                                        </Col>
-                                    </Form.Group>
-
-                                    <Form.Group className='mb-4 d-flex'>
-                                        <Form.Label column xs="3">
-                                            Địa chỉ
-                                        </Form.Label>
-                                        <Col xs={9}>
-                                            <Form.Control
-                                                type='text'
-                                                placeholder=''
-                                                defaultValue={userInfo.address ? userInfo.address : ''}
-                                                {...register("address")} />
-                                            {errors.address && errors.address.type === "required" && (
-                                                <p className="mt-2 error">
-                                                <FaExclamationTriangle className="mx-2" />
-                                                    Bạn chưa điền địa chỉ
                                                 </p>
                                             )}
                                         </Col>

@@ -81,6 +81,7 @@ export const addNewProduct = (data, user, navigate) => {
 
 export const updateProduct = (data, user, navigate) => {
     return async dispatch => {
+        var result = false;
         try {
             console.log("update product in cart")
             await axiosInstance.patch(`/cart`, {
@@ -89,7 +90,7 @@ export const updateProduct = (data, user, navigate) => {
                 product_id: data.product_id,
                 quantity: data.quantity
             }).then((res) => {
-                
+                result = true;
             })
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
@@ -102,6 +103,7 @@ export const updateProduct = (data, user, navigate) => {
             console.log(err)
             navigate('/')
         }
+        return result;
     }
 }
 
