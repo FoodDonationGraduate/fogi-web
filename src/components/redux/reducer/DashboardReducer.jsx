@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axiosInstance from 'services/axios/axiosConfig.js';
+import { handleExpiredToken } from './AuthenticationReducer';
+import { setModalMessage, showModal, setModalType } from 'components/redux/reducer/ModalReducer';
 
 const initialState = {
   stats: {},
@@ -36,8 +38,13 @@ export const retrieveStats = (data, user, navigate) => {
       }}).then((res) => {
         dispatch(setStats(res.data));
       }).catch((err) => {
-        console.log(err.response.data);
-        navigate('/');
+        if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+        } else {
+          console.log(err.response.data);
+          dispatch(setModalMessage("Đã xảy ra lỗi!"))
+          dispatch(setModalType('danger'))
+          dispatch(showModal())
+       }
       });
     } catch (err) {
       console.log(err);
@@ -73,8 +80,13 @@ export const retrieveChart = (data, user, navigate) => {
       }).then((res) => {
         dispatch(setChart(res.data));
       }).catch((err) => {
-        console.log(err.response.data);
-        navigate('/');
+        if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+        } else {
+          console.log(err.response.data);
+          dispatch(setModalMessage("Đã xảy ra lỗi!"))
+          dispatch(setModalType('danger'))
+          dispatch(showModal())
+       }
       });
     } catch (err) {
       console.log(err);

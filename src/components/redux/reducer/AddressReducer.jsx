@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import axiosInstance, {ggApiInstance} from "services/axios/axiosConfig.js";
-import { setModalMessage, showModal } from './ModalReducer';
+import { setModalMessage, showModal, setModalType } from './ModalReducer';
 import { handleExpiredToken } from './AuthenticationReducer';
 
 const initialState = {
@@ -52,10 +52,12 @@ export const retrieveAllAddresses = (user, navigate) => {
             })
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
-                    console.log(err)
-                    dispatch(setModalMessage('Đã xảy ra lỗi'))
-                    dispatch(showModal())
                     dispatch(setAllAddresses({}))
+                } else {
+                    console.log(err)
+                    dispatch(setModalMessage("Đã xảy ra lỗi!"))
+                    dispatch(setModalType('danger'));
+                    dispatch(showModal())
                 }
             });
         } catch (err) {
@@ -78,10 +80,12 @@ export const retrieveAddress = (data, user, navigate) => {
             })
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
-                    console.log(err)
-                    dispatch(setModalMessage('Đã xảy ra lỗi'))
-                    dispatch(showModal())
                     dispatch(setCurrentAddress({}))
+                } else {
+                    console.log(err)
+                    dispatch(setModalMessage("Đã xảy ra lỗi!"))
+                    dispatch(setModalType('danger'));
+                    dispatch(showModal())
                 }
             });
         } catch (err) {
@@ -110,8 +114,14 @@ export const addNewAddress = (data, user, navigate) => {
             })
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+                } else if (err.response.data.exit_code === 103 || err.response.data.exit_code === 104) {
+                    dispatch(setModalMessage('Tên địa chỉ đã tồn tại!'))
+                    dispatch(setModalType('danger'));
+                    dispatch(showModal())
+                } else {
                     console.log(err)
-                    dispatch(setModalMessage('Đã xảy ra lỗi'))
+                    dispatch(setModalMessage("Thêm địa chỉ mới không thành công!"))
+                    dispatch(setModalType('danger'));
                     dispatch(showModal())
                 }
             });
@@ -142,8 +152,10 @@ export const updateAddress = (data, user, navigate) => {
             })
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+                } else {
                     console.log(err)
-                    dispatch(setModalMessage('Đã xảy ra lỗi'))
+                    dispatch(setModalMessage('Cập nhật địa chỉ không thành công!'))
+                    dispatch(setModalType('danger'));
                     dispatch(showModal())
                 }
             });

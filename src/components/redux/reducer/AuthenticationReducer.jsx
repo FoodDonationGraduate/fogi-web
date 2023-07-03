@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import axiosInstance from "services/axios/axiosConfig.js";
-import { setModalMessage, showModal, hideModal } from 'components/redux/reducer/ModalReducer';
+import { setModalMessage, showModal, hideModal, setModalType } from 'components/redux/reducer/ModalReducer';
 
 const initialState = {
     user: localStorage.getItem("user") !== "undefined" 
@@ -78,6 +78,7 @@ export function handleExpiredToken (data, dispatch, navigate) {
     if (data.exit_code === 401) {
         dispatch(logout(navigate))
         dispatch(setModalMessage(`Phiên đăng nhập hết hạn. Vui lòng đăng nhập lại!`))
+        dispatch(setModalType('danger'));
         dispatch(showModal())
         return false;
     }
@@ -126,14 +127,17 @@ export const login = (data, navigate, setFailAuthentication) => {
                     localStorage.setItem('currentEmail', data.email)
                     navigate('/verification')
                     dispatch(setModalMessage(`Email chưa được xác minh. Vui lòng xác minh email của bạn!`))
+                    dispatch(setModalType('danger'));
                     dispatch(showModal())
                 } else if (err.response.data.exit_code === 403) {
                     dispatch(setModalMessage(`Xin lỗi, tài khoản của bạn hiện đang bị khóa. Vui lòng liên hệ hỗ trợ để được trợ giúp.!`))
+                    dispatch(setModalType('danger'));
                     dispatch(showModal())
                 } else if (err.response.data.exit_code === 402) {
                     setFailAuthentication(true);
                 } else {
                     dispatch(setModalMessage(`Đã xảy ra lỗi!!`))
+                    dispatch(setModalType('danger'));
                     dispatch(showModal())
                 }
             });
@@ -183,12 +187,14 @@ export const signup = (data, navigate) => {
                     dispatch(removeRegisterdUser())
                     navigate('/signup')
                     dispatch(setModalMessage(`Email đã tồn tại. Vui lòng sử dụng email khác!`))
+                    dispatch(setModalType('danger'));
                     dispatch(showModal())
                 } else {
                     console.log(err.response.data)
                     dispatch(removeRegisterdUser())
                     navigate('/signup')
                     dispatch(setModalMessage(`Đăng ký không thành công!`))
+                    dispatch(setModalType('danger'));
                     dispatch(showModal())
                 }
                 
@@ -223,12 +229,14 @@ export const signupForDonor = (data, navigate) => {
                     dispatch(removeRegisterdUser())
                     navigate('/donor/signup')
                     dispatch(setModalMessage(`Email đã tồn tại. Vui lòng sử dụng email khác!`))
+                    dispatch(setModalType('danger'));
                     dispatch(showModal())
                 } else {
                     console.log(err.response.data)
                     dispatch(removeRegisterdUser())
                     navigate('/donor/signup')
                     dispatch(setModalMessage(`Đăng ký không thành công!`))
+                    dispatch(setModalType('danger'));
                     dispatch(showModal())
                 }
             });
@@ -254,6 +262,7 @@ export const resendVerificationEmail = (data, navigate) => {
             .catch((err) => {
                 console.log(err.response.data)
                 dispatch(setModalMessage("Đã xảy ra lỗi!"));
+                dispatch(setModalType('danger'));
                 dispatch(showModal());
             });
         } catch (err) {
@@ -275,9 +284,11 @@ export const retrieveProfile = (user, navigate) => {
             })
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
-                    console.log(err.response.data)
-                    dispatch(setModalMessage("Đã xảy ra lỗi!"));
-                    dispatch(showModal());
+                } else {
+                    console.log(err)
+                    dispatch(setModalMessage("Đã xảy ra lỗi!"))
+                    dispatch(setModalType('danger'));
+                    dispatch(showModal())
                 }
             });
         } catch (err) {
@@ -296,15 +307,17 @@ export const patchProfile = (data, user, navigate) => {
                 token: user.userToken,
                 user_type: user.userInfo.user_type,
                 ...data
-            }).then((res) => {
+            }).then(() => {
                 dispatch(retrieveProfile(user, navigate));
-                dispatch(setModalMessage("Cập nhật thành công!"));
+                dispatch(setModalMessage("Cập nhật thành công"));
                 dispatch(showModal());
             }).catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
-                    console.log(err.response.data);
-                    dispatch(setModalMessage("Đã xảy ra lỗi!"));
-                    dispatch(showModal());
+                } else {
+                    console.log(err)
+                    dispatch(setModalMessage("Cập nhật không thành công!"));
+                    dispatch(setModalType('danger'));
+                    dispatch(showModal())
                 }
             });
         } catch (err) {
@@ -329,8 +342,10 @@ export const updateAvatar = (data, user, navigate) => {
                 dispatch(showModal())
             }).catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+                } else {
                     console.log(err)
-                    dispatch(setModalMessage("Đã xảy ra lỗi!"))
+                    dispatch(setModalMessage("Cập nhật hình ảnh đại diện không thành công!"))
+                    dispatch(setModalType('danger'));
                     dispatch(showModal())
                 }
             });
@@ -356,8 +371,10 @@ export const changePassword = (data, user, navigate) => {
                 dispatch(showModal())
             }).catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+                } else {
                     console.log(err)
-                    dispatch(setModalMessage("Đã xảy ra lỗi!"))
+                    dispatch(setModalMessage("Đổi mật khẩu không thành công!"))
+                    dispatch(setModalType('danger'));
                     dispatch(showModal())
                 }
             });
@@ -380,6 +397,7 @@ export const forgotPassword = (data, navigate) => {
             }).catch((err) => {
                 console.log(err)
                 dispatch(setModalMessage("Đã xảy ra lỗi!"))
+                dispatch(setModalType('danger'));
                 dispatch(showModal())
             });
         } catch (err) {
@@ -403,8 +421,10 @@ export const resetPassword = (data, navigate) => {
                 navigate('/login')
             }).catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+                } else {
                     console.log(err)
-                    dispatch(setModalMessage("Đã xảy ra lỗi!"))
+                    dispatch(setModalMessage("Cập nhật mật khẩu không thành công!"))
+                    dispatch(setModalType('danger'));
                     dispatch(showModal())
                 }
             });
