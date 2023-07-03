@@ -1,11 +1,8 @@
 // Essentials
 import React, { useState } from 'react';
-import { Button, Container, Col, Row, Stack } from 'react-bootstrap';
+import { Button, Container, Col, OverlayTrigger, Row, Tooltip } from 'react-bootstrap';
 import RequestInfoCard from './RequestInfoCard';
 import { useDispatch, useSelector } from 'react-redux';
-
-// Assets imports
-import { FaExclamationTriangle } from 'react-icons/fa';
 
 // Components
 import VolunteerInfo from 'components/common/request/VolunteerInfo';
@@ -38,25 +35,33 @@ const CartTitle = ({
           {volunteerInfo ? 
             <>
               <Col className='mb-2' xs={12} lg={7} xl={8}>
-                <div className='mb-2'>
+                <div className='mb-3'>
                   <h2>Túi nhận Quyên góp</h2>
                 </div>
-                <Stack direction='horizontal' gap={4}>
+                {!isError ?
                   <Button
                     className='fogi'
                     variant='primary'
                     onClick={() => createRequest()}
-                    disabled={isError}
                   >
                     Tạo Yêu cầu
                   </Button>
-                  {isError &&
-                    <div className='error'>
-                      <FaExclamationTriangle className='mb-1' /> {' '}
-                      Không thể tạo Yêu cầu
-                    </div>
-                  }
-                </Stack>
+                  :
+                  <OverlayTrigger
+                    placement={'bottom'}
+                    overlay={
+                      <Tooltip>
+                        Chưa thể tạo Yêu cầu do còn lỗi
+                      </Tooltip>
+                    }
+                  >
+                    <span>
+                      <Button className='fogi' variant='primary' disabled>
+                        Tạo Yêu cầu
+                      </Button>
+                    </span>
+                  </OverlayTrigger>
+                }
               </Col>
               <Col>
                 <VolunteerInfo isCard={true} volunteerInfo={volunteerInfo} />
@@ -66,7 +71,21 @@ const CartTitle = ({
             <>
               <div className='mb-2'>
                 <div className='mb-4'>
-                  <h2>Túi nhận Quyên góp</h2>
+                  <h2 className='mb-3'>Túi nhận Quyên góp</h2>
+                  <OverlayTrigger
+                    placement={'bottom'}
+                    overlay={
+                      <Tooltip>
+                        Chưa có Thực phẩm để tạo Yêu cầu
+                      </Tooltip>
+                    }
+                  >
+                    <span>
+                      <Button className='fogi' variant='primary' disabled>
+                        Tạo Yêu cầu
+                      </Button>
+                    </span>
+                  </OverlayTrigger>
                 </div>
               </div>
             </>

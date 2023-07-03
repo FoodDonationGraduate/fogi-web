@@ -43,8 +43,9 @@ const ProductList = ({ setVolunteerInfo, setIsError }) => {
   useEffect(() => {
     for (let i = 0; i < allProducts.total_cart_items; i++) {
       const p = allProducts.cart[i];
-      if (p.quantity < 1 || p.quantity > p.stock)
+      if (p.quantity < 1 || p.quantity > p.stock) {
         if (!overStock.includes(p.id)) setOverStock([...overStock, p.id]);
+      }
     }
     if (overStock.length > 0) setIsError(true);
   }, [allProducts]);

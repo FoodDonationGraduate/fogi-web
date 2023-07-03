@@ -47,11 +47,25 @@ const ProductItem = ({
       navigate
     ));
   };
+  const checkOverStock = (newCount) => {
+    if (!overStock.includes(product.id)) {
+      if (newCount < 1 || newCount > product.stock) {
+        setOverStock([...overStock, product.id]);
+        return true; // if true, return
+      }
+      return false;
+    }
+    if (newCount >= 1 && newCount <= product.stock) {
+      setOverStock(overStock.filter(p => p !== product.id));
+      return false;
+    }
+    return true;
+  };
   const onUpdateCount = (amount) => {
     setCount(Number(count) + amount);
     window.clearTimeout(timer);
 
-    if (overStock.includes(product.id)) setOverStock(overStock.filter(p => p !== product.id));
+    if (checkOverStock(Number(count) + amount)) return;
 
     setTimer(window.setTimeout(updateCount, 1000, count + amount));
   };
@@ -60,10 +74,8 @@ const ProductItem = ({
     setCount(newCount);
     window.clearTimeout(timer);
 
-    if (newCount < 1 || newCount > product.stock) {
-      if (!overStock.includes(product.id)) setOverStock([...overStock, product.id]);
-      return;
-    }
+    if (checkOverStock(newCount)) return;
+
     setTimer(window.setTimeout(updateCount, 1000, newCount));
   };
 
@@ -157,9 +169,10 @@ const ProductItem = ({
                         </Button>
                       }
                     </Stack>
-                    {product.quantity > product.stock ?
+                    {(count < 1 || count > product.stock) ?
                       <small className='error'>
-                        <FaExclamationTriangle className='mb-1' /> Tồn kho: {product.stock}
+                        <FaExclamationTriangle className='mb-1' />
+                        Tồn kho: {product.stock} ({count < 1 && 'Không thể ít hơn 1'}{count > product.stock && 'Không thể vượt quá số lượng tồn kho'})
                       </small>
                       :
                       <small className='small-text'>Tồn kho: {product.stock}</small>

@@ -6,22 +6,29 @@ import { useState } from 'react';
 import ListTitle from './components/ListTitle';
 import LocationCard from './components/LocationCard';
 import PostProductModal from './components/PostProductModal';
+import CreateRequestModal from './components/CreateRequestModal';
 import ProductList from './components/ProductList';
 
 const ProductListPage = () => {
   // Post Product Modal
-  const [show, setShow] = useState(false);
-  const onClose = () => setShow(false);
-  const onShow = () => setShow(true);
+  const [showAddFood, setShowAddFood] = useState(false);
+  const onCloseAddFood = () => setShowAddFood(false);
+  const onShowAddFood = () => setShowAddFood(true);
+
+  // Create Request Modal
+  const [showCreateRequest, setShowCreateRequest] = useState(false);
+  const onCloseCreateRequest = () => setShowCreateRequest(false);
+  const onShowCreateRequest = () => setShowCreateRequest(true);
 
   return (
     <>
       <div>
-        <ListTitle onShowAdd={onShow} />
+        <ListTitle onShowAddFood={onShowAddFood} onShowCreateRequest={onShowCreateRequest} />
         <LocationCard />
         <ProductList />
       </div>
-      <PostProductModal show={show} onClose={onClose} />
+      <PostProductModal show={showAddFood} onClose={onCloseAddFood} />
+      <CreateRequestModal show={showCreateRequest} onClose={onCloseCreateRequest} />
     </>
   );
 };
