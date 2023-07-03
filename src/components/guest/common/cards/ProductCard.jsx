@@ -20,24 +20,35 @@ import { getUnit } from 'utils/helpers/Food';
 // Components
 import { addNewProduct } from 'components/redux/reducer/CartReducer';
 import { handleEmptyToken } from 'components/redux/reducer/AuthenticationReducer';
-import { setModalMessage, showModal } from 'components/redux/reducer/ModalReducer';
+import { setModalMessage, showModal, setModalQuestion, showQuestionModal, cancelQuestionModal } from 'components/redux/reducer/ModalReducer';
 
 const ProductCard = ({product}) => {
   const userInfo = useSelector(state => state.authenticationReducer.user);
   const userToken = useSelector(state => state.authenticationReducer.token);
-  
+  const modalLogic = useSelector(state => state.modalReducer.logic);
+  const volunteerInfo = useSelector(state => state.cartReducer.volunteerInfo);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const buttonRef = React.useRef(null);
+  const date = new Date();
+  const [data, setData] = React.useState({})
 
   const onSubmit = (event) => {
-    buttonRef.current.disabled = true;
+    let clone = Object.assign({}, buttonRef)
+    clone.current.disabled = true;
     setTimeout(() => {
-      buttonRef.current.disabled = false;
+      clone.current.disabled = false;
     }, 2000)
     if (handleEmptyToken({userInfo, userToken}, navigate)) {
       if (userInfo.user_type === 'donee') {
-        dispatch(addNewProduct({product_id: product.id, quantity: 1}, {userInfo, userToken}, navigate));
+        if (product.volunteer.email === volunteerInfo.email) {
+          dispatch(addNewProduct({product_id: product.id, quantity: 1}, {userInfo, userToken}, navigate));
+        } else {
+          dispatch(setModalQuestion("Bạn có muốn tạo túi nhận mới?"))
+          dispatch(showQuestionModal())
+          setData({product_id: product.id, quantity: 1})
+        }
       } else {
         dispatch(setModalMessage('Không thể thêm sản phẩm vào giỏ hàng!'))
         dispatch(showModal())
@@ -45,8 +56,13 @@ const ProductCard = ({product}) => {
     }
     event.stopPropagation();
   }
-    
-  const date = new Date();
+
+  React.useEffect(() => {
+    if (modalLogic) {
+        dispatch(cancelQuestionModal())
+        dispatch(addNewProduct(data, {userInfo, userToken}, navigate))
+    }
+  })
 
   return (
     <Card className='product-card h-100' onClick={() => navigate(`/product/${product.id}`)}> 

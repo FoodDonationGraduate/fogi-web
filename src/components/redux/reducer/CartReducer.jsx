@@ -4,7 +4,8 @@ import { setModalMessage, showModal, setModalType } from './ModalReducer';
 import { handleExpiredToken } from './AuthenticationReducer';
 
 const initialState = {
-    allProducts: {}
+    allProducts: {},
+    volunteerInfo: {}
 }
 const cartReducer = createSlice({
     name: "cartReducer",
@@ -12,12 +13,15 @@ const cartReducer = createSlice({
     reducers: {
         setAllProducts: (state, action) => {
             state.allProducts = action.payload
-        }
+        },
+        setVolunteerInfo: (state, action) => {
+            state.volunteerInfo = action.payload
+        },
     }
 })
 
 export const { 
-    setAllProducts
+    setAllProducts, setVolunteerInfo
 } = cartReducer.actions
 
 export default cartReducer.reducer
@@ -36,6 +40,7 @@ export const retrieveAllProducts = (data, user, navigate) => {
                 offset: data.offset
             }}).then((res) => {
                 dispatch(setAllProducts(res.data))
+                dispatch(setVolunteerInfo(res.data.volunteer))
             })
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {

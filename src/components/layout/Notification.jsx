@@ -12,14 +12,14 @@ import { setModalMessage, showModal } from 'components/redux/reducer/ModalReduce
 function Notification() {
   const [show, setShow] = React.useState(false);
   const messaging = getMessaging(firebaseInstance);
-  const [isTokenFound, setTokenFound] = React.useState(false);
+  const [token, setToken] = React.useState(false);
   
   const dispatch = useDispatch();
   React.useEffect(() => {
     window.Notification.requestPermission().then((permission) => {
       if (permission === 'granted') {
         console.log('Notification permission granted.');
-        requestForToken(messaging, setTokenFound);
+        requestForToken(messaging, setToken);
         onMessage(messaging, (payload) => {
           console.log('Message received: ', payload);
         });

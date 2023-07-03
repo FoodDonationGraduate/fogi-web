@@ -12,6 +12,7 @@ import { retrieveCurrentProduct } from 'components/redux/reducer/ProductReducer'
 import EmptyProductBody from './components/EmptyProductBody';
 import ProductSimilar from './components/ProductSimilar';
 import InfoModal from 'components/layout/InfoModal';
+import ConfirmModal from 'components/layout/ConfirmModal';
 
 // Styling
 import 'assets/css/Fogi.css';
@@ -45,6 +46,7 @@ const ProductDetailsPage = () => {
       <div>
         <Footer />
         <InfoModal />
+        <ConfirmModal />
       </div>
     </>
   );
