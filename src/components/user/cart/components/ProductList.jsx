@@ -1,6 +1,5 @@
 // Essentials
-import React, { useEffect } from 'react';
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Col, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
@@ -11,7 +10,7 @@ import Pagination from 'components/common/pagination/Pagination';
 import { retrieveAllProducts } from 'components/redux/reducer/CartReducer';
 import CommonNotFoundBody from 'components/common/CommonNotFoundBody';
 
-const ProductList = ({ setVolunteerInfo }) => {
+const ProductList = ({ setVolunteerInfo, setIsError }) => {
   const allProducts = useSelector(state => state.cartReducer.allProducts)
   const userInfo = useSelector(state => state.authenticationReducer.user)
   const userToken = useSelector(state => state.authenticationReducer.token)
@@ -38,6 +37,23 @@ const ProductList = ({ setVolunteerInfo }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allProducts]);
 
+  // Check if quantity > stock
+  const [overStock, setOverStock] = useState([]);
+
+  useEffect(() => {
+    for (let i = 0; i < allProducts.total_cart_items; i++) {
+      const p = allProducts.cart[i];
+      if (p.quantity < 1 || p.quantity > p.stock)
+        if (!overStock.includes(p.id)) setOverStock([...overStock, p.id]);
+    }
+    if (overStock.length > 0) setIsError(true);
+  }, [allProducts]);
+
+  useEffect(() => {
+    if (overStock.length === 0) setIsError(false);
+    else setIsError(true);
+  }, [overStock]);
+
   return (
     <Container>
       {(Object.keys(allProducts).length !== 0 && allProducts.total_cart_items !== 0) &&
@@ -46,15 +62,19 @@ const ProductList = ({ setVolunteerInfo }) => {
             <div className='mb-4' style={{minHeight: '400px'}}>
               {allProducts.cart.map((product) => (
                 <div className='mb-3' key={product.id}>
-                  <ProductItem product={product} />
+                  <ProductItem
+                    product={product}
+                    overStock={overStock}
+                    setOverStock={setOverStock}
+                  />
                 </div>
               ))}
             </div>
             <div className='d-flex justify-content-center'>
                 <Pagination
-                pageCount={Math.ceil(allProducts.total_cart_items / PRODUCT_COUNT)}
-                activeIdx={page}
-                onChangePage={onChangePage}
+                  pageCount={Math.ceil(allProducts.total_cart_items / PRODUCT_COUNT)}
+                  activeIdx={page}
+                  onChangePage={onChangePage}
                 />
             </div>
           </Col>

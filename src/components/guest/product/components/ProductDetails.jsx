@@ -1,6 +1,5 @@
 // Essentials
-import * as React from 'react';
-import { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Button, Card, Col, Form, Row, Stack } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
@@ -27,7 +26,7 @@ const ProductDetails = ({product}) => {
   
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const buttonRef = React.useRef(null);
+  const buttonRef = useRef(null);
 
   const [count, setCount] = useState(1);
   const increaseCount = () => { setCount(count + 1) };
@@ -79,9 +78,10 @@ const ProductDetails = ({product}) => {
       </Card.Body>
 
       <Row className='mb-3' style={{ bottom: '0' }}>
-        <Stack direction='horizontal' gap={2}>
-          <header className='me-2'>{`Số lượng (${getUnit(product.unit)})`}</header>
+        <Stack direction='horizontal'>
+          <header className='me-4'>{`Số lượng (${getUnit(product.unit)})`}</header>
           <Button
+            className='count-btn-left'
             variant='outline-secondary'
             onClick={decreaseCount}
           >
@@ -89,6 +89,7 @@ const ProductDetails = ({product}) => {
           </Button>
           <Form.Group style={{ width: '8%' }}>
             <Form.Control
+              className='count-input'
               type='number'
               value={count}
               style={{ textAlign: 'center' }}
@@ -96,6 +97,7 @@ const ProductDetails = ({product}) => {
             />
           </Form.Group>
           <Button
+            className='count-btn-right'
             variant='outline-secondary'
             onClick={increaseCount}
           >

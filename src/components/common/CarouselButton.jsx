@@ -7,11 +7,12 @@ import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
 
 const CarouselButton = ({
   isLeft,
-  onClick
+  onClick,
+  isAbsolute=true // position: absolute
 }) => {
 
   return (
-    <Button className={`carousel-btn carousel-btn-${isLeft ? 'left' : 'right'}`} onClick={onClick}>
+    <Button className={`carousel-btn ${isAbsolute ? `carousel-btn-absolute carousel-btn-${isLeft ? 'left' : 'right'}` : ''}`} onClick={onClick}>
       {isLeft ?
         <MdChevronLeft size={28} />
         :

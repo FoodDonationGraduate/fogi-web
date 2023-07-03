@@ -1,20 +1,26 @@
 // Essentials
-import React from 'react';
-import { Button, Container, Col, Row } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Button, Container, Col, Row, Stack } from 'react-bootstrap';
 import RequestInfoCard from './RequestInfoCard';
 import { useDispatch, useSelector } from 'react-redux';
+
+// Assets imports
+import { FaExclamationTriangle } from 'react-icons/fa';
 
 // Components
 import VolunteerInfo from 'components/common/request/VolunteerInfo';
 import { setModalMessage, showModal } from 'components/redux/reducer/ModalReducer';
+
 // Styling
 import 'assets/css/Fogi.css';
-
-const CartTitle = ({ volunteerInfo }) => {
+const CartTitle = ({
+  volunteerInfo,
+  isError
+}) => {
   const dispatch = useDispatch();
   const allProducts = useSelector(state => state.cartReducer.allProducts)
 
-  const [isActive, setActive] = React.useState(false);
+  const [isActive, setActive] = useState(false);
 
   const createRequest = () => {
     if ((Object.keys(allProducts).length !== 0 && allProducts.total_cart_items !== 0)) {
@@ -24,6 +30,7 @@ const CartTitle = ({ volunteerInfo }) => {
       dispatch(showModal())
     }
   }
+
   return (
     <div className='bg'>
       <Container>
@@ -34,9 +41,22 @@ const CartTitle = ({ volunteerInfo }) => {
                 <div className='mb-2'>
                   <h2>Túi nhận Quyên góp</h2>
                 </div>
-                <div>
-                  <Button className='fogi' variant='primary' onClick={() => createRequest()}>Tạo Yêu cầu</Button>
-                </div>
+                <Stack direction='horizontal' gap={4}>
+                  <Button
+                    className='fogi'
+                    variant='primary'
+                    onClick={() => createRequest()}
+                    disabled={isError}
+                  >
+                    Tạo Yêu cầu
+                  </Button>
+                  {isError &&
+                    <div className='error'>
+                      <FaExclamationTriangle className='mb-1' /> {' '}
+                      Không thể tạo Yêu cầu
+                    </div>
+                  }
+                </Stack>
               </Col>
               <Col>
                 <VolunteerInfo isCard={true} volunteerInfo={volunteerInfo} />
@@ -44,23 +64,22 @@ const CartTitle = ({ volunteerInfo }) => {
             </>
             :
             <>
-              <div className='d-flex justify-content-between mb-2'>
-                <div className='mb-2'>
+              <div className='mb-2'>
+                <div className='mb-4'>
                   <h2>Túi nhận Quyên góp</h2>
-                </div>
-                <div>
-                  <Button className='fogi' variant='primary' onClick={() => createRequest()}>Tạo Yêu cầu</Button>
                 </div>
               </div>
             </>
           }
         </Row>
       </Container>
-      <RequestInfoCard 
-        isActive={isActive === true}
-        setActive={setActive}
-        volunteerInfo={volunteerInfo}
-      />
+      {isError &&
+        <RequestInfoCard 
+          isActive={isActive === true}
+          setActive={setActive}
+          volunteerInfo={volunteerInfo}
+        />
+      }
     </div>
   );
 };

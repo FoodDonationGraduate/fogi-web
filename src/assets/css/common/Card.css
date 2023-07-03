@@ -56,6 +56,18 @@
   color: white;
 }
 
+.count-btn-left {
+  border-radius: 8px 0px 0px 8px;
+}
+.count-btn-right {
+  border-radius: 0px 8px 8px 0px;
+}
+.count-input {
+  border-radius: 0px;
+  border-color: #999;
+  border-width: 2px 0px 2px 0px;
+}
+
 .donor-card-storefront {
   width: 100%;
   aspect-ratio : 5 / 2;

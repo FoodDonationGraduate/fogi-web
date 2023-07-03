@@ -90,13 +90,14 @@ export const updateProduct = (data, user, navigate) => {
                 product_id: data.product_id,
                 quantity: data.quantity
             }).then((res) => {
-                result = true;
+                data.setOldCount(data.quantity);
             })
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
                     console.log(err)
                     dispatch(setModalMessage('Cập nhật thực phẩm không thành công'))
                     dispatch(showModal())
+                    data.setCount(data.oldCount);
                 }
             });
         } catch (err) {

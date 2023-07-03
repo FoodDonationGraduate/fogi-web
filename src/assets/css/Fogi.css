@@ -113,6 +113,11 @@ a.fogi:active {
   font-size: 14px;
 }
 
+.small-text {
+  color: #999;
+  font-size: 14px;
+}
+
 .long-product-item {
   padding: 16px;
   user-select: none;
@@ -232,8 +237,6 @@ a.fogi:active {
   }
 
 .carousel-btn {
-  position: absolute;
-  top: 43%;
   padding: 4px 4px;
   z-index: 1;
   border-radius: 50%;
@@ -242,6 +245,10 @@ a.fogi:active {
   border: 2px solid white;
   box-shadow: 4px 4px 16px #00000024;
 }
+  .carousel-btn-absolute {
+    position: absolute;
+    top: 43%;
+  }
   .carousel-btn-left {
     right: auto;
   }
