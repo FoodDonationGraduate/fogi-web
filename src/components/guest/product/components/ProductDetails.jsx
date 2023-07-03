@@ -47,11 +47,11 @@ const ProductDetails = ({product}) => {
     if (handleEmptyToken({userInfo, userToken}, navigate)) {
       if (userInfo.user_type === 'donee') {
         if (product.volunteer.email === volunteerInfo.email) {
-          dispatch(addNewProduct({product_id: product.id, quantity: 1}, {userInfo, userToken}, navigate));
+          dispatch(addNewProduct({product_id: product.id, quantity: count}, {userInfo, userToken}, navigate));
         } else {
           dispatch(setModalQuestion("Bạn có muốn tạo túi nhận mới?"))
           dispatch(showQuestionModal())
-          setData({product_id: product.id, quantity: 1})
+          setData({product_id: product.id, quantity: count})
         }
       } else {
         dispatch(setModalMessage('Không thể thêm thực phẩm vào túi nhận!'))
