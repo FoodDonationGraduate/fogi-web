@@ -24,22 +24,24 @@ const ListTitle = ({
 
   return (
     <Row className='mb-4'>
-      <Col className='ps-0'>
-        <h2 className='fw-bold'>Phân loại Thực phẩm</h2>
-      </Col>
-      <Col className='pe-0 d-flex justify-content-end' xs={3}>
-        <Stack direction='horizontal' gap={2}>
-          <Button
-            className='fogi' variant='primary'
-            onClick={showAddCategoryModal}
-          >
-            {size > 1 ? 
-              <>Thêm Phân loại</> : 
-              <MdAddCircle className='mb-1' />
-            }
-          </Button>
-        </Stack>
-      </Col>
+      <Row>
+        <Col className='ps-0'>
+          <h2 className='fw-bold'>Phân loại Thực phẩm</h2>
+        </Col>
+        <Col className='pe-0 d-flex justify-content-end' xs={3}>
+          <Stack direction='horizontal' gap={2}>
+            <Button
+              className='fogi' variant='primary'
+              onClick={showAddCategoryModal}
+            >
+              {size > 1 ? 
+                <>Thêm Phân loại</> : 
+                <MdAddCircle className='mb-1' />
+              }
+            </Button>
+          </Stack>
+        </Col>
+      </Row>
     </Row>
   );
 };

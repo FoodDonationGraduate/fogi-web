@@ -4,6 +4,7 @@ import { Container, Row, Stack } from 'react-bootstrap';
 
 // Components
 import ChipList from 'components/common/chip/ChipList';
+import ListTitle from 'components/common/ListTitle';
 
 import RequestList from './components/RequestList';
 

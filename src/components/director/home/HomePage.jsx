@@ -13,7 +13,7 @@ import DashboardPage from './pages/dashboard/DashboardPage';
 import RequestListPage from './pages/request/list/RequestListPage';
 import ApproveListPage from './pages/approve/ApproveListPage';
 import ManageUserPage from './pages/manage/ManageUserPage';
-import CategoryListPage from './pages/category/CategoryListPage';
+import CategoryPage from './pages/category/CategoryPage';
 
 // Assets
 import { MdMenu } from 'react-icons/md';
@@ -68,7 +68,7 @@ const HomePage = () => {
                 {activeIdx === 1 && <RequestListPage />}
                 {activeIdx === 2 && <ApproveListPage />}
                 {activeIdx === 3 && <ManageUserPage />}
-                {activeIdx === 4 && <CategoryListPage />}
+                {activeIdx === 4 && <CategoryPage />}
               </Col>
             </Row>
           </Col>

@@ -140,6 +140,7 @@ const CategoryModal = ({
                 <Button
                   className='fogi'
                   variant='primary'
+                  type='submit'
                 >
                   Lưu thay đổi
                 </Button>
