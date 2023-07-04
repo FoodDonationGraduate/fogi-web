@@ -87,7 +87,7 @@ export const addNewProduct = (data, user, navigate) => {
                     dispatch(showModal())
                 } else {
                     console.log(err)
-                    dispatch(setModalMessage('Thêm thực phẩm không thành công'))
+                    dispatch(setModalMessage('Thêm thực phẩm không thành công!'))
                     dispatch(setModalType('danger'));
                     dispatch(showModal())
                 }
