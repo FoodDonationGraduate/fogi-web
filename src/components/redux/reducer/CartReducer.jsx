@@ -5,7 +5,9 @@ import { handleExpiredToken } from './AuthenticationReducer';
 
 const initialState = {
     allProducts: {},
-    volunteerInfo: {}
+    volunteerInfo: localStorage.getItem("volunteerInfo") !== "undefined" 
+    && localStorage.getItem("volunteerInfo") !== null 
+    ? JSON.parse(localStorage.getItem("volunteerInfo")) : {},
 }
 const cartReducer = createSlice({
     name: "cartReducer",
@@ -16,6 +18,7 @@ const cartReducer = createSlice({
         },
         setVolunteerInfo: (state, action) => {
             state.volunteerInfo = action.payload
+            localStorage.setItem('volunteerInfo', JSON.stringify(action.payload))
         },
     }
 })
@@ -40,7 +43,7 @@ export const retrieveAllProducts = (data, user, navigate) => {
                 offset: data.offset
             }}).then((res) => {
                 dispatch(setAllProducts(res.data))
-                dispatch(setVolunteerInfo(res.data.volunteer))
+                dispatch(setVolunteerInfo(res.data.volunteer ? res.data.volunteer : {}))
             })
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
@@ -84,7 +87,7 @@ export const addNewProduct = (data, user, navigate) => {
                     dispatch(showModal())
                 } else {
                     console.log(err)
-                    dispatch(setModalMessage('Thêm thực phẩm không thành công'))
+                    dispatch(setModalMessage('Thêm thực phẩm không thành công!'))
                     dispatch(setModalType('danger'));
                     dispatch(showModal())
                 }
