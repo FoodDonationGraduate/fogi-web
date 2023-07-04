@@ -7,8 +7,8 @@ import { useNavigate } from 'react-router';
 // Components
 import VolunteerInfo from 'components/common/request/VolunteerInfo';
 
-// Sources
-import { FaRegClock } from 'react-icons/fa';
+// Assets 
+import { FaRegClock, FaExclamationTriangle } from 'react-icons/fa';
 import { MdAllInbox } from 'react-icons/md';
 
 // Utility
@@ -29,9 +29,16 @@ const ProductDetails = ({product}) => {
   const buttonRef = useRef(null);
 
   const [count, setCount] = useState(1);
-  const increaseCount = () => { setCount(count + 1) };
+  const increaseCount = () => {
+    setCount(count + 1)
+  };
   const decreaseCount = () => {
     if (count > 1) setCount(count - 1)
+  };
+
+  const onUpdateInput = (event) => {
+    let newCount = Number(event.target.value);
+    setCount(newCount);
   };
 
   const onSubmit = () => {
@@ -84,6 +91,7 @@ const ProductDetails = ({product}) => {
             className='count-btn-left'
             variant='outline-secondary'
             onClick={decreaseCount}
+            disabled={count <= 1}
           >
             -
           </Button>
@@ -91,23 +99,36 @@ const ProductDetails = ({product}) => {
             <Form.Control
               className='count-input'
               type='number'
-              value={count}
+              value={Number(count).toString()}
               style={{ textAlign: 'center' }}
-              onChange={(e) => setCount(Number(e.target.value))}
+              onChange={(e) => onUpdateInput(e)}
             />
           </Form.Group>
           <Button
             className='count-btn-right'
             variant='outline-secondary'
             onClick={increaseCount}
+            disabled={count >= product.stock}
           >
             +
           </Button>
+          {(count < 1 || count > product.stock) &&
+            <small className='ms-4 error'>
+              <FaExclamationTriangle className='mb-1' />{' '}
+              {count < 1 && 'Không thể ít hơn 1'}{count > product.stock && 'Không thể vượt quá số lượng tồn kho'}
+            </small>
+          }
         </Stack>
 
         <Row className='mt-3'>
           <Col className='ps-0' xs='auto'>
-            <Button ref={buttonRef} className='fogi' variant='primary' onClick={() => onSubmit()}>
+            <Button
+              ref={buttonRef}
+              className='fogi'
+              variant='primary'
+              onClick={() => onSubmit()}
+              disabled={count < 1 || count > product.stock}
+            >
               Thêm vào Túi
             </Button>
           </Col>
