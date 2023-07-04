@@ -31,13 +31,13 @@ const ProductItem = ({
   const navigate = useNavigate();
 
   const deleteProductById = (id) => {
-    dispatch(setModalQuestion('Bạn có muốn xóa sản phẩm này không?'));
+    dispatch(setModalQuestion('Bạn có muốn xóa thực phẩm này không?'));
     dispatch(showQuestionModal());
     setCurrentProduct(id);
   }
 
   React.useEffect(() => {
-    if (modalLogic && question === 'Bạn có muốn xóa sản phẩm này không?') {
+    if (modalLogic && question === 'Bạn có muốn xóa thực phẩm này không?') {
       dispatch(cancelQuestionModal());
       dispatch(deleteProduct({id: currentProduct}, {userInfo, userToken}, navigate));
     }
