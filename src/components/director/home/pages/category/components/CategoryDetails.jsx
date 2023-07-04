@@ -1,9 +1,12 @@
 // Essentials
 import React from 'react';
 import { Col, Row } from 'react-bootstrap';
+import { EqualHeight } from 'react-equal-height';
 
 // Components
 import BackButton from 'components/common/BackButton';
+import ListTitle from 'components/common/ListTitle';
+import SubCategoryCard from 'components/common/category/SubCategoryCard';
 
 import CategoryInfoCard from './CategoryInfoCard';
 
@@ -24,6 +27,21 @@ const CategoryDetails = ({
               <CategoryInfoCard
                 category={category}
               />
+            </Col>
+          </Row>
+
+          <Row>
+            <Col>
+              <ListTitle title={'Danh sách Thực phẩm lớn'} />
+              <Row className='mb-2' xs={2} sm={3} md={4}>
+                <EqualHeight>
+                  {Array.from({ length: 14 }).map((_, idx) => (
+                    <Col className='mb-4' key={idx}>
+                      <SubCategoryCard subCategory={{ name: 'Thực phẩm lớn' }} />
+                    </Col>
+                  ))}
+                </EqualHeight>
+              </Row>
             </Col>
           </Row>
         </Col>

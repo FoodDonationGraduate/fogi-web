@@ -32,11 +32,17 @@ const CategoryInfoCard = ({
             <h3 className='manage-card-name fw-bold'>
               {category.name}
             </h3>
-            <div>
+            <Stack direction='horizontal' gap={2}>
               <Button variant='outline-secondary' onClick={onShow}>
                 Chỉnh sửa
               </Button>
-            </div>
+              <Button
+                className='fogi'
+                variant='primary'
+              >
+                Thêm Thực phẩm lớn
+              </Button>
+            </Stack>
           </Stack>
         </Stack>
       </div>
