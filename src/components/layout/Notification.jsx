@@ -1,35 +1,17 @@
 import React from "react";
 import { MdOutlineNotificationsNone } from 'react-icons/md';
-import { getMessaging, onMessage } from "firebase/messaging";
-import { useDispatch } from 'react-redux'
 import { Offcanvas } from 'react-bootstrap';
-
-
-import firebaseInstance from "services/axios/firebaseConfig";
-import { requestForToken } from "./notification/token";
-import { setModalMessage, showModal } from 'components/redux/reducer/ModalReducer';
+import { onMessageListener } from "utils/helpers/Notification";
 
 function Notification() {
   const [show, setShow] = React.useState(false);
-  const messaging = getMessaging(firebaseInstance);
-  const [token, setToken] = React.useState(false);
+
+  onMessageListener()
+    .then((payload) => {
+      console.log(payload);    
+    })
+    .catch((err) => console.log('failed: ', err));
   
-  const dispatch = useDispatch();
-  React.useEffect(() => {
-    window.Notification.requestPermission().then((permission) => {
-      if (permission === 'granted') {
-        console.log('Notification permission granted.');
-        requestForToken(messaging, setToken);
-        onMessage(messaging, (payload) => {
-          console.log('Message received: ', payload);
-        });
-      } else {
-        console.log('Notification permission ungranted.');
-        dispatch(setModalMessage('Vui lòng cho phép trang web hiện thông báo!'))
-        dispatch(showModal())
-      }
-    });
-  }, [])
   return (
     <>
       <MdOutlineNotificationsNone className='top-bar-icon' onClick={() => setShow(true)} />

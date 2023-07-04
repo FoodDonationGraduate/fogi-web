@@ -9,6 +9,7 @@ import directorReducer from './reducer/DirectorReducer.jsx'
 import dashboardReducer from './reducer/DashboardReducer.jsx'
 import requestReducer from './reducer/RequestReducer.jsx'
 import addressReducer from './reducer/AddressReducer.jsx'
+import notificationReducer from './reducer/NotificationReducer.jsx'
 const store = configureStore({
     reducer: {
         authenticationReducer,
@@ -20,7 +21,8 @@ const store = configureStore({
         directorReducer,
         dashboardReducer,
         requestReducer,
-        addressReducer
+        addressReducer,
+        notificationReducer
     },
 })
 export default store
