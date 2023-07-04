@@ -11,6 +11,7 @@ import InfoModal from 'components/layout/InfoModal';
 
 // Styling
 import 'assets/css/Fogi.css';
+import ConfirmModal from 'components/layout/ConfirmModal';
 
 const ProductListPage = () => {
     const { name } = useParams()
@@ -25,7 +26,8 @@ const ProductListPage = () => {
         </div>
         <div>
             <Footer />
-        <InfoModal />
+            <InfoModal />
+            <ConfirmModal />
         </div>
         </>
     );

@@ -9,6 +9,7 @@ import InfoModal from 'components/layout/InfoModal';
 
 // Styling
 import 'assets/css/Fogi.css';
+import ConfirmModal from 'components/layout/ConfirmModal';
 
 const ProductListPage = () => {
     return (
@@ -22,6 +23,7 @@ const ProductListPage = () => {
         <div>
             <Footer />
             <InfoModal />
+            <ConfirmModal />
         </div>
         </>
     );

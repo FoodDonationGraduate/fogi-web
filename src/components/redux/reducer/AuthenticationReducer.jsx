@@ -1,8 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 import axiosInstance from "services/axios/axiosConfig.js";
 import { setModalMessage, showModal, hideModal, setModalType } from 'components/redux/reducer/ModalReducer';
+import { retrieveAllProducts } from './CartReducer';
+import { enableNotification } from 'utils/helpers/Notification';
 
 const initialState = {
+
     user: localStorage.getItem("user") !== "undefined" 
         && localStorage.getItem("user") !== null 
         ? JSON.parse(localStorage.getItem("user")) : {},
@@ -85,8 +88,6 @@ export function handleExpiredToken (data, dispatch, navigate) {
     return true;
 }
 
-
-
 export function handleEmptyToken (user, navigate) {
     if ((user.userInfo === undefined || Object.keys(user.userInfo).length === 0)){
         navigate('/login')
@@ -94,6 +95,8 @@ export function handleEmptyToken (user, navigate) {
     }
     return true;
 }
+
+
 // ----------- THUNK ----------------------
 
 export const login = (data, navigate, setFailAuthentication) => {
@@ -106,6 +109,7 @@ export const login = (data, navigate, setFailAuthentication) => {
             }).then((res) => {
                 dispatch(setUserInfo(res.data.user));
                 dispatch(setUserToken(res.data.token));
+                let user = {userInfo: res.data.user, userToken: res.data.token}
                 switch (res.data.user.user_type) {
                     case 'donor':
                         navigate('/donor/home');
@@ -118,8 +122,11 @@ export const login = (data, navigate, setFailAuthentication) => {
                         dispatch(setModalMessage(`Vui lòng sử dụng app dành riêng cho tình nguyện viên!`));
                         dispatch(showModal());
                         break;
-                    default: navigate(-1);
+                    default: 
+                        dispatch(retrieveAllProducts({}, user, navigate));
+                        navigate(-1);
                 }
+                enableNotification(dispatch, navigate, user);
             })
             .catch((err) => {
                 if (err.response.data.exit_code === 404) {
@@ -155,6 +162,7 @@ export const logout = (navigate) => {
             dispatch(setUserToken(''))
             dispatch(hideModal())
             localStorage.removeItem('selectedAddress')
+            localStorage.removeItem('volunteerInfo')
             navigate('/login')
         } catch (err) {
             console.log(err)
