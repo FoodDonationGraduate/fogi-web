@@ -265,3 +265,8 @@ a.fogi:active {
     color: black !important;
     border: 2px solid #999 !important;
   }
+
+.secondary-text {
+  color: #999;
+  font-weight: bold;
+}

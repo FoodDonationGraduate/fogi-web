@@ -6,9 +6,10 @@ import { Stack } from 'react-bootstrap';
 // Assets
 import {
   MdOutlineAnalytics, // 0
-  MdCheckCircleOutline, // 1
-  MdOutlineGroup, // 2
-  MdOutlineCategory // 3
+  MdOutlineArticle, // 1
+  MdCheckCircleOutline, // 2
+  MdOutlineGroup, // 3
+  MdOutlineCategory // 4
 } from 'react-icons/md';
 
 // Utility
@@ -30,9 +31,10 @@ const SideMenuItem = ({
 
   useEffect(() => {
     switch (type) {
-      case 1: setLabel('Xét duyệt'); break;
-      case 2: setLabel('Quản lý Người dùng'); break;
-      case 3: setLabel('Quản lý Phân loại'); break;
+      case 1: setLabel('Yêu cầu'); break;
+      case 2: setLabel('Xét duyệt'); break;
+      case 3: setLabel('Người dùng'); break;
+      case 4: setLabel('Phân loại'); break;
       default: setLabel('Thống kê');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -59,9 +61,10 @@ const SideMenuItem = ({
           <Stack className={`side-menu-item${active}`} direction='horizontal' gap={4}>
             <Stack direction='horizontal' gap={4}>
               {type === 0 && <MdOutlineAnalytics className={`side-menu-icon${active}`} />}
-              {type === 1 && <MdCheckCircleOutline className={`side-menu-icon${active}`} />}
-              {type === 2 && <MdOutlineGroup className={`side-menu-icon${active}`} />}
-              {type === 3 && <MdOutlineCategory className={`side-menu-icon${active}`} />}
+              {type === 1 && <MdOutlineArticle className={`side-menu-icon${active}`} />}
+              {type === 2 && <MdCheckCircleOutline className={`side-menu-icon${active}`} />}
+              {type === 3 && <MdOutlineGroup className={`side-menu-icon${active}`} />}
+              {type === 4 && <MdOutlineCategory className={`side-menu-icon${active}`} />}
 
               <header className={`side-menu-label${active}`}>{label}</header>
             </Stack>
@@ -75,9 +78,10 @@ const SideMenuItem = ({
         <div className='mb-2' onClick={handleOnClick}>
           <Stack className={`side-menu-item${active} align-items-center`} direction='vertical' gap={4}>
             {type === 0 && <MdOutlineAnalytics className={`side-menu-icon${active}`} />}
-            {type === 1 && <MdCheckCircleOutline className={`side-menu-icon${active}`} />}
-            {type === 2 && <MdOutlineGroup className={`side-menu-icon${active}`} />}
-            {type === 3 && <MdOutlineCategory className={`side-menu-icon${active}`} />}
+            {type === 1 && <MdOutlineArticle className={`side-menu-icon${active}`} />}
+            {type === 2 && <MdCheckCircleOutline className={`side-menu-icon${active}`} />}
+            {type === 3 && <MdOutlineGroup className={`side-menu-icon${active}`} />}
+            {type === 4 && <MdOutlineCategory className={`side-menu-icon${active}`} />}
           </Stack>
         </div>
       )}
