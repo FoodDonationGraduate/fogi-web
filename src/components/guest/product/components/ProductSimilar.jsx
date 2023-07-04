@@ -28,7 +28,6 @@ const ProductSimilar = ({ product }) => {
         limit: 7,
         offset: 0
       },
-      {},
       navigate
     ));
     // eslint-disable-next-line react-hooks/exhaustive-deps

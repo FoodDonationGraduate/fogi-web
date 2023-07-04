@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import axiosInstance from "services/axios/axiosConfig.js";
 import { handleExpiredToken } from './AuthenticationReducer';
-import { setModalMessage, showModal } from './ModalReducer';
+import { setModalMessage, showModal, setModalType } from './ModalReducer';
 const initialState = {
     newProducts: {},
     amootProducts: {},
@@ -68,6 +68,7 @@ export const retrieveNewProducts = (data, navigate) => {
             .catch((err) => {
                 console.log(err)
                 dispatch(setModalMessage("Đã xảy ra lỗi!"))
+                dispatch(setModalType('danger'));
                 dispatch(showModal())
                 dispatch(setNewProducts({}))
             });
@@ -92,6 +93,7 @@ export const retrieveAmootProducts = (data, navigate) => {
             .catch((err) => {
                 console.log(err.response.data)
                 dispatch(setModalMessage("Đã xảy ra lỗi!"))
+                dispatch(setModalType('danger'));
                 dispatch(showModal())
                 dispatch(setAmootProducts({}))
             });
@@ -117,6 +119,7 @@ export const searchProduct = (data, navigate) => {
             .catch((err) => {
                 console.log(err.response.data)
                 dispatch(setModalMessage("Đã xảy ra lỗi!"))
+                dispatch(setModalType('danger'));
                 dispatch(showModal())
                 dispatch(setSearchingProducts({}))
             });
@@ -142,6 +145,7 @@ export const retrieveCategoryProducts = (data, navigate) => {
             .catch((err) => {
                 console.log(err.response.data)
                 dispatch(setModalMessage("Đã xảy ra lỗi!"))
+                dispatch(setModalType('danger'));
                 dispatch(showModal())
                 dispatch(setCategoryProducts({}))
             });
@@ -164,6 +168,7 @@ export const retrieveCurrentProduct = (data, navigate) => {
             .catch((err) => {
                 console.log(err.response.data)
                 dispatch(setModalMessage("Đã xảy ra lỗi!"))
+                dispatch(setModalType('danger'));
                 dispatch(showModal())
                 dispatch(setCurrentProduct({}))
             });
@@ -188,10 +193,12 @@ export const retrieveDonorProducts = (data, user, navigate) => {
             })
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+                    dispatch(setDonorProducts({}))
+                } else {
                     console.log(err)
                     dispatch(setModalMessage("Đã xảy ra lỗi!"))
+                    dispatch(setModalType('danger'));
                     dispatch(showModal())
-                    dispatch(setDonorProducts({}))
                 }
             });
         } catch (err) {
@@ -216,13 +223,15 @@ export const postNewProduct = (data, user, navigate) => {
                 category_id: parseInt(data.category_id),
                 images: data.images
             }).then((res) => {
-                dispatch(setModalMessage("Tạo sản phẩm thành công!"))
+                dispatch(setModalMessage("Tạo thực phẩm thành công!"))
                 dispatch(showModal())
                 dispatch(retrieveDonorProducts({}, user, navigate))
             }).catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+                } else {
                     console.log(err)
-                    dispatch(setModalMessage("Đã xảy ra lỗi!"))
+                    dispatch(setModalMessage("Tạo thực phẩm không thành công!"))
+                    dispatch(setModalType('danger'));
                     dispatch(showModal())
                 }
             });
@@ -242,13 +251,14 @@ export const deleteProduct = (data, user, navigate) => {
                 token: user.userToken,
                 id: data.id
             }}).then((res) => {
-                dispatch(setModalMessage("Xóa sản phẩm thành công!"))
+                dispatch(setModalMessage("Xóa thực phẩm thành công"))
                 dispatch(showModal())
                 dispatch(retrieveDonorProducts({}, user, navigate))
             })
             .catch((err) => {
                 console.log(err)
-                dispatch(setModalMessage("Đã xảy ra lỗi!"))
+                dispatch(setModalMessage("Xóa thực phẩm không thành công!"))
+                dispatch(setModalType('danger'));
                 dispatch(showModal())
             });
         } catch (err) {
@@ -259,7 +269,7 @@ export const deleteProduct = (data, user, navigate) => {
 }
 
 
-export const retrieveVolunteerProducts = (data, user, navigate) => {
+export const retrieveVolunteerProducts = (data, navigate) => {
     return async dispatch => {
         try {
             console.log("retrieve volunteer's products")
@@ -268,16 +278,14 @@ export const retrieveVolunteerProducts = (data, user, navigate) => {
                 limit: data.limit ? data.limit : 6,
                 offset: data.offset ? data.offset : 0
             }}).then((res) => {
-                console.log('siuuuu');
                 dispatch(setVolunteerProducts(res.data))
             })
             .catch((err) => {
-                if (handleExpiredToken(err.response.data, dispatch, navigate)) {
-                    console.log(err)
-                    dispatch(setModalMessage("Đã xảy ra lỗi!"))
-                    dispatch(showModal())
-                    dispatch(setVolunteerProducts({}))
-                }
+                dispatch(setVolunteerProducts({}))
+                console.log(err)
+                dispatch(setModalMessage("Đã xảy ra lỗi!"))
+                dispatch(setModalType('danger'));
+                dispatch(showModal())
             });
         } catch (err) {
             console.log(err)

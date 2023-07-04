@@ -18,15 +18,19 @@ import { getUnit } from 'utils/helpers/Food';
 // Components 
 import { addNewProduct } from 'components/redux/reducer/CartReducer';
 import { handleEmptyToken } from 'components/redux/reducer/AuthenticationReducer';
-import { setModalMessage, showModal } from 'components/redux/reducer/ModalReducer';
+import { setModalMessage, showModal, setModalQuestion, showQuestionModal, cancelQuestionModal } from 'components/redux/reducer/ModalReducer';
 
 const ProductDetails = ({product}) => {
   const userInfo = useSelector(state => state.authenticationReducer.user);
   const userToken = useSelector(state => state.authenticationReducer.token);
-  
+  const modalLogic = useSelector(state => state.modalReducer.logic);
+  const volunteerInfo = useSelector(state => state.cartReducer.volunteerInfo);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  
   const buttonRef = useRef(null);
+  const [data, setData] = React.useState({})
 
   const [count, setCount] = useState(1);
   const increaseCount = () => {
@@ -42,19 +46,33 @@ const ProductDetails = ({product}) => {
   };
 
   const onSubmit = () => {
-    buttonRef.current.disabled = true;
+    let clone = Object.assign({}, buttonRef)
+    clone.current.disabled = true;
     setTimeout(() => {
-      buttonRef.current.disabled = false;
+      clone.current.disabled = false;
     }, 2000)
     if (handleEmptyToken({userInfo, userToken}, navigate)) {
       if (userInfo.user_type === 'donee') {
-        dispatch(addNewProduct({product_id: product.id, quantity: 1}, {userInfo, userToken}, navigate));
+        if (product.volunteer.email === volunteerInfo.email) {
+          dispatch(addNewProduct({product_id: product.id, quantity: count}, {userInfo, userToken}, navigate));
+        } else {
+          dispatch(setModalQuestion("Bạn có muốn tạo túi nhận mới?"))
+          dispatch(showQuestionModal())
+          setData({product_id: product.id, quantity: count})
+        }
       } else {
-        dispatch(setModalMessage('Không thể thêm sản phẩm vào giỏ hàng!'))
+        dispatch(setModalMessage('Không thể thêm thực phẩm vào túi nhận!'))
         dispatch(showModal())
       }
     }
   }
+
+  React.useEffect(() => {
+    if (modalLogic) {
+        dispatch(cancelQuestionModal())
+        dispatch(addNewProduct(data, {userInfo, userToken}, navigate))
+    }
+  })
 
   return (
     <Card className='h-100'>

@@ -56,31 +56,33 @@ const ProductSection = ({ type }) => {
 
   return (
     <div className='bg'>
-      <Container>
-        <Row className='pt-4 py-2'>
-          <Col>
-            {type === 0 ? 
-              <h2>Thực phẩm mới</h2>
-              :
-              <h2>Thực phẩm sắp hết hàng</h2>
-            }
-          </Col>
-        </Row>
-        <Row xs={2} sm={3} md={4} xl={6}>
-          <EqualHeight>
-            {Object.keys(products).length !== 0 && shownProducts.map((product) => (
-              <Col className='pb-4' key={product.id}>
-                <ProductCard product={product}/>
-              </Col>
-            ))}
-          </EqualHeight>
-        </Row>
-        <Row>
-          <Col className='d-flex justify-content-center'>
-            <Button variant='light' onClick={toProductList}>Xem thêm</Button>
-          </Col>
-        </Row>
-      </Container>
+      {(Object.keys(products).length !== 0 && products.total_products !== 0) && 
+        <Container>
+          <Row className='pt-4 py-2'>
+            <Col>
+              {type === 0 ? 
+                <h2>Thực phẩm mới</h2>
+                :
+                <h2>Thực phẩm sắp hết hàng</h2>
+              }
+            </Col>
+          </Row>
+          <Row xs={2} sm={3} md={4} xl={6}>
+            <EqualHeight>
+              {Object.keys(products).length !== 0 && shownProducts.map((product) => (
+                <Col className='pb-4' key={product.id}>
+                  <ProductCard product={product}/>
+                </Col>
+              ))}
+            </EqualHeight>
+          </Row>
+          <Row>
+            <Col className='d-flex justify-content-center'>
+              <Button variant='light' onClick={toProductList}>Xem thêm</Button>
+            </Col>
+          </Row>
+        </Container>
+      }
     </div>
   );
 };

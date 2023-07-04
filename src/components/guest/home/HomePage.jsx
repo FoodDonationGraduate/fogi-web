@@ -3,7 +3,8 @@ import * as React from 'react';
 
 // Components
 import TopSection from 'components/layout/TopSection';
-import Modal from 'components/layout/InfoModal'
+import InfoModal from 'components/layout/InfoModal';
+import ConfirmModal from 'components/layout/ConfirmModal';
 import Footer from 'components/layout/Footer';
 import AdBanner from './components/AdBanner';
 import CategorySection from './components/CategorySection';
@@ -26,7 +27,8 @@ const ProductListPage = () => {
       </div>
       <div>
         <Footer />
-        <Modal />
+        <InfoModal />
+        <ConfirmModal />
       </div>
     </>
   );

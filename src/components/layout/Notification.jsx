@@ -12,29 +12,24 @@ import { setModalMessage, showModal } from 'components/redux/reducer/ModalReduce
 function Notification() {
   const [show, setShow] = React.useState(false);
   const messaging = getMessaging(firebaseInstance);
-  const [isTokenFound, setTokenFound] = React.useState(false);
+  const [token, setToken] = React.useState(false);
   
   const dispatch = useDispatch();
-
-  React.useEffect( () => {
-  }, []);
-
-  const handleClick = () => {
-    // window.Notification.requestPermission().then((permission) => {
-    //   if (permission === 'granted') {
-    //     console.log('Notification permission granted.');
-    //     requestForToken(messaging, setTokenFound);
-    //     onMessage(messaging, (payload) => {
-    //       console.log('Message received. ', payload);
-    //     });
-    //   } else {
-    //     console.log('Notification permission ungranted.');
-    //     dispatch(setModalMessage('Vui lòng cho phép trang web hiện thông báo!'))
-    //     dispatch(showModal())
-    //   }
-    // });
-
-  }
+  React.useEffect(() => {
+    window.Notification.requestPermission().then((permission) => {
+      if (permission === 'granted') {
+        console.log('Notification permission granted.');
+        requestForToken(messaging, setToken);
+        onMessage(messaging, (payload) => {
+          console.log('Message received: ', payload);
+        });
+      } else {
+        console.log('Notification permission ungranted.');
+        dispatch(setModalMessage('Vui lòng cho phép trang web hiện thông báo!'))
+        dispatch(showModal())
+      }
+    });
+  }, [])
   return (
     <>
       <MdOutlineNotificationsNone className='top-bar-icon' onClick={() => setShow(true)} />

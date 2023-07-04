@@ -1,10 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 import axiosInstance from "services/axios/axiosConfig.js";
-import { setModalMessage, showModal } from './ModalReducer';
+import { setModalMessage, showModal, setModalType } from './ModalReducer';
 import { handleExpiredToken } from './AuthenticationReducer';
 
 const initialState = {
-    allProducts: {}
+    allProducts: {},
+    volunteerInfo: {}
 }
 const cartReducer = createSlice({
     name: "cartReducer",
@@ -12,12 +13,15 @@ const cartReducer = createSlice({
     reducers: {
         setAllProducts: (state, action) => {
             state.allProducts = action.payload
-        }
+        },
+        setVolunteerInfo: (state, action) => {
+            state.volunteerInfo = action.payload
+        },
     }
 })
 
 export const { 
-    setAllProducts
+    setAllProducts, setVolunteerInfo
 } = cartReducer.actions
 
 export default cartReducer.reducer
@@ -36,11 +40,14 @@ export const retrieveAllProducts = (data, user, navigate) => {
                 offset: data.offset
             }}).then((res) => {
                 dispatch(setAllProducts(res.data))
+                dispatch(setVolunteerInfo(res.data.volunteer))
             })
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+                } else {
                     console.log(err)
                     dispatch(setModalMessage('Đã xảy ra lỗi'))
+                    dispatch(setModalType('danger'));
                     dispatch(showModal())
                 }
             });
@@ -67,8 +74,18 @@ export const addNewProduct = (data, user, navigate) => {
             })
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+                } else if (err.response.data.exit_code === 100) {
+                    dispatch(setModalMessage('Không đủ số lượng tồn kho!'))
+                    dispatch(setModalType('danger'));
+                    dispatch(showModal())
+                } else if (err.response.data.exit_code === 101) {
+                    dispatch(setModalMessage('Không tìm thấy sản phẩm này!'))
+                    dispatch(setModalType('danger'));
+                    dispatch(showModal())
+                } else {
                     console.log(err)
-                    dispatch(setModalMessage('Đã xảy ra lỗi'))
+                    dispatch(setModalMessage('Thêm thực phẩm không thành công'))
+                    dispatch(setModalType('danger'));
                     dispatch(showModal())
                 }
             });
@@ -94,8 +111,14 @@ export const updateProduct = (data, user, navigate) => {
             })
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+                } else if (err.response.data.exit_code === 102) {
+                    dispatch(setModalMessage('Không tìm thấy sản phẩm này!'))
+                    dispatch(setModalType('danger'));
+                    dispatch(showModal())
+                } else {
                     console.log(err)
                     dispatch(setModalMessage('Cập nhật thực phẩm không thành công'))
+                    dispatch(setModalType('danger'))
                     dispatch(showModal())
                     data.setCount(data.oldCount);
                 }
@@ -123,8 +146,10 @@ export const deleteProduct = (data, user, navigate) => {
             })
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+                } else {
                     console.log(err)
                     dispatch(setModalMessage('Xóa thực phẩm không thành công'))
+                    dispatch(setModalType('danger'))
                     dispatch(showModal())
                 }
             });

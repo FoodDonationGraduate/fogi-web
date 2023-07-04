@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import axiosInstance from "services/axios/axiosConfig.js";
-import { setModalMessage, showModal } from './ModalReducer';
+import { setModalMessage, showModal, setModalType } from './ModalReducer';
 import { handleExpiredToken } from './AuthenticationReducer';
 import { retrieveDonorProducts } from './ProductReducer';
 import { retrieveAllProducts } from './CartReducer';
@@ -51,10 +51,12 @@ export const retrieveAllRequests = (data, user, navigate) => {
             })
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+                    dispatch(setAllRequests({}))
+                } else {
                     console.log(err)
                     dispatch(setModalMessage('Đã xảy ra lỗi'))
+                    dispatch(setModalType('danger'));
                     dispatch(showModal())
-                    dispatch(setAllRequests({}))
                 }
             });
         } catch (err) {
@@ -77,10 +79,16 @@ export const retrieveRequest = (data, user, navigate) => {
             })
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+                    dispatch(setCurrentRequest({}))
+                } else if (err.response.data.exit_code === 201) {
+                    dispatch(setModalMessage('Không tìm thấy yêu cầu này!'))
+                    dispatch(setModalType('danger'));
+                    dispatch(showModal())
+                } else {
                     console.log(err)
                     dispatch(setModalMessage('Đã xảy ra lỗi'))
+                    dispatch(setModalType('danger'));
                     dispatch(showModal())
-                    dispatch(setCurrentRequest({}))
                 }
             });
         } catch (err) {
@@ -109,8 +117,14 @@ export const postDonorRequest = (data, user, navigate) => {
             })
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+                } else if (err.response.data.exit_code === 202) {
+                    dispatch(setModalMessage('Túi cho của bạn đang trống. Vui lòng thêm thực phẩm trước khi tạo yêu cầu!'))
+                    dispatch(setModalType('danger'));
+                    dispatch(showModal())
+                } else {
                     console.log(err)
-                    dispatch(setModalMessage('Đã xảy ra lỗi'))
+                    dispatch(setModalMessage('Tạo yêu cầu mới không thành công!'))
+                    dispatch(setModalType('danger'));
                     dispatch(showModal())
                 }
             });
@@ -140,14 +154,20 @@ export const postDoneeRequest = (data, user, navigate) => {
                 token: user.userToken,
                 ...body
             }).then((res) => {
-                dispatch(setModalMessage('Tạo yêu cầu mới thành công!'));
+                dispatch(setModalMessage('Tạo yêu cầu mới thành công'));
                 dispatch(showModal());
                 dispatch(retrieveAllProducts({}, user, navigate))
             })
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+                } else if (err.response.data.exit_code === 202) {
+                    dispatch(setModalMessage('Túi nhận của bạn đang trống. Vui lòng thêm thực phẩm trước khi tạo yêu cầu!'))
+                    dispatch(setModalType('danger'));
+                    dispatch(showModal())
+                } else {
                     console.log(err)
-                    dispatch(setModalMessage('Đã xảy ra lỗi'))
+                    dispatch(setModalMessage('Tạo yêu cầu mới không thành công!'))
+                    dispatch(setModalType('danger'));
                     dispatch(showModal())
                 }
             });
@@ -179,8 +199,18 @@ export const updateRequest = (data, user, navigate) => {
             })
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+                } else if (err.response.data.exit_code === 201) {
+                    dispatch(setModalMessage('Không tìm thấy yêu cầu này!'))
+                    dispatch(setModalType('danger'));
+                    dispatch(showModal())
+                } else if (err.response.data.exit_code === 203) {
+                    dispatch(setModalMessage('Cập nhật trạng thái yêu cầu không hợp lệ!'))
+                    dispatch(setModalType('danger'));
+                    dispatch(showModal())
+                } else {
                     console.log(err)
-                    dispatch(setModalMessage('Đã xảy ra lỗi'))
+                    dispatch(setModalMessage('Cập nhật yêu cầu không thành công!'))
+                    dispatch(setModalType('danger'));
                     dispatch(showModal())
                 }
             });
@@ -199,15 +229,21 @@ export const remakeDonorBag = (data, user, navigate) => {
                 email: user.userInfo.email,
                 token: user.userToken,
                 request_id: data.request_id
-            }).then((res) => {
+            }).then(() => {
                 dispatch(setModalMessage('Vui lòng kiểm tra lại túi quyên góp!'));
                 dispatch(showModal());
                 dispatch(retrieveRequest({ request_id: data.request_id }, user, navigate));
             })
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+                } else if (err.response.data.exit_code === 204) {
+                    dispatch(setModalMessage('Yêu cầu không hợp lệ, khôi phục túi cho không thành công!'))
+                    dispatch(setModalType('danger'));
+                    dispatch(showModal())
+                } else {
                     console.log(err)
-                    dispatch(setModalMessage('Đã xảy ra lỗi'))
+                    dispatch(setModalMessage('Khôi phục túi cho không thành công'))
+                    dispatch(setModalType('danger'));
                     dispatch(showModal())
                 }
             });
@@ -234,8 +270,18 @@ export const createReport = (data, volunteer, user, navigate) => {
             })
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+                } else if (err.response.data.exit_code === 700) {
+                    dispatch(setModalMessage('Báo cáo không thành công'))
+                    dispatch(setModalType('danger'));
+                    dispatch(showModal())
+                } else if (err.response.data.exit_code === 701) {
+                    dispatch(setModalMessage('Yêu cầu không hợp lệ, báo cáo không thành công!'))
+                    dispatch(setModalType('danger'));
+                    dispatch(showModal())
+                } else {
                     console.log(err)
-                    dispatch(setModalMessage('Đã xảy ra lỗi'))
+                    dispatch(setModalMessage('Báo cáo không thành công!'))
+                    dispatch(setModalType('danger'));
                     dispatch(showModal())
                 }
             });

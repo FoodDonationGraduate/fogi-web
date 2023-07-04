@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axiosInstance from 'services/axios/axiosConfig.js';
 import { handleExpiredToken } from './AuthenticationReducer';
-import { setModalMessage, showModal } from './ModalReducer';
+import { setModalMessage, showModal ,setModalType } from './ModalReducer';
 
 import { retrieveAllCategories } from 'components/redux/reducer/CategoryReducer';
 
@@ -50,8 +50,13 @@ export const retrieveUnverifiedUsers = (data, director, navigate) => {
       }}).then((res) => {
         dispatch(setUnverifiedUsers(res.data));
       }).catch((err) => {
-        console.log(err.response.data);
-        navigate('/');
+        if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+        } else {
+          console.log(err.response.data);
+          dispatch(setModalMessage("Đã xảy ra lỗi!"))
+          dispatch(setModalType('danger'))
+          dispatch(showModal())
+       }
       });
     } catch (err) {
       console.log(err);
@@ -73,8 +78,13 @@ export const retrieveManageUsers = (data, director, navigate) => {
       }}).then((res) => {
         dispatch(setManageUsers(res.data));
       }).catch((err) => {
-        console.log(err.response.data);
-        navigate('/');
+        if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+        } else {
+          console.log(err.response.data);
+          dispatch(setModalMessage("Đã xảy ra lỗi!"))
+          dispatch(setModalType('danger'))
+          dispatch(showModal())
+       }
       });
     } catch (err) {
       console.log(err);
@@ -96,8 +106,13 @@ export const retrieveReports = (data, director, navigate) => {
       }}).then((res) => {
         dispatch(setReports(res.data));
       }).catch((err) => {
-        console.log(err.response.data);
-        navigate('/');
+        if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+        } else {
+          console.log(err.response.data);
+          dispatch(setModalMessage("Đã xảy ra lỗi!"))
+          dispatch(setModalType('danger'))
+          dispatch(showModal())
+       }
       });
     } catch (err) {
       console.log(err);
@@ -121,8 +136,13 @@ export const verifyUser = (data, director, navigate) => {
         dispatch(showModal());
         dispatch(retrieveUnverifiedUsers(data, director, navigate));
       }).catch((err) => {
-        console.log(err);
-        navigate('/');
+        if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+        } else {
+          console.log(err.response.data);
+          dispatch(setModalMessage("Xét duyệt người dùng không thành công!"));
+          dispatch(setModalType('danger'))
+          dispatch(showModal())
+       }
       });
     } catch (err) {
       console.log(err);
@@ -146,8 +166,13 @@ export const lockUser = (data, director, navigate) => {
         dispatch(setModalMessage(`${!data.isLock ? 'Mở k' : 'K'}hóa tài khoản thành công!`));
         dispatch(showModal());
       }).catch((err) => {
-        console.log(err);
-        navigate('/');
+        if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+        } else {
+          console.log(err.response.data);
+          dispatch(setModalMessage(`${!data.isLock ? 'Mở k' : 'K'}hóa tài khoản không thành công!`));
+          dispatch(setModalType('danger'))
+          dispatch(showModal())
+       }
       });
     } catch (err) {
       console.log(err);
@@ -172,10 +197,12 @@ export const addCategory = (data, director, navigate) => {
         dispatch(showModal());
       }).catch((err) => {
         if (handleExpiredToken(err.response.data, dispatch, navigate)) {
-          console.log(err);
-          dispatch(setModalMessage("Đã xảy ra lỗi!"));
-          dispatch(showModal());
-        }
+        } else {
+          console.log(err.response.data);
+          dispatch(setModalMessage("Thêm phân loại không thành công!"))
+          dispatch(setModalType('danger'))
+          dispatch(showModal())
+       }
       });
     } catch (err) {
       console.log(err);

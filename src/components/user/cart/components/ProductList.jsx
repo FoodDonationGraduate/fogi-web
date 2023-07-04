@@ -32,8 +32,9 @@ const ProductList = ({ setVolunteerInfo, setIsError }) => {
   }, []);
 
   useEffect(() => {
-    if (allProducts.total_cart_items > 0) setVolunteerInfo(allProducts.volunteer);
-    else setVolunteerInfo(null);
+    if (allProducts.total_cart_items > 0) {
+      setVolunteerInfo(allProducts.volunteer);
+    } else setVolunteerInfo(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allProducts]);
 

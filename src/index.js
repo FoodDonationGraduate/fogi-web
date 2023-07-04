@@ -123,13 +123,13 @@ function Auth ({ allowedRoles }) {
 
   localStorage.allowedRoles = JSON.stringify(allowedRoles);
   
-  return userInfo === undefined || Object.keys(userInfo).length === 0 ? (
+  return (userInfo === undefined || Object.keys(userInfo).length === 0) ? (
     <Navigate to="/login" state={{ from: location }} replace />
   ) : (
     allowedRoles.find((role) => userInfo.user_type.includes(role)) ? (
       <Outlet />
     ) : (
-      <Navigate to="/login" state={{ from: location }} replace />
+      <NotFoundPage/>
     ) 
   );
 };

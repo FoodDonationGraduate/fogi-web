@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import axiosInstance from "services/axios/axiosConfig.js";
-import { setModalMessage, showModal } from './ModalReducer';
+import { setModalMessage, showModal, setModalType } from './ModalReducer';
 
 const initialState = {
     allCategories: {},
@@ -38,6 +38,7 @@ export const retrieveAllCategories = (navigate) => {
             .catch((err) => {
                 console.log(err)
                 dispatch(setModalMessage(`Đã xảy ra lỗi!`))
+                dispatch(setModalType('danger'))
                 dispatch(showModal())
             });
         } catch (err) {
@@ -59,6 +60,7 @@ export const retrieveCategory = (data, navigate) => {
             .catch((err) => {
                 console.log(err)
                 dispatch(setModalMessage(`Đã xảy ra lỗi!`))
+                dispatch(setModalType('danger'))
                 dispatch(showModal())
             });
         } catch (err) {
