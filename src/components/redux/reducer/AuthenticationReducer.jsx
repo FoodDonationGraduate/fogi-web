@@ -83,9 +83,9 @@ export function handleExpiredToken (data, dispatch, navigate) {
         dispatch(setModalMessage(`Phiên đăng nhập hết hạn. Vui lòng đăng nhập lại!`))
         dispatch(setModalType('danger'));
         dispatch(showModal())
-        return false;
+        return true;
     }
-    return true;
+    return false;
 }
 
 export function handleEmptyToken (user, navigate) {
