@@ -92,7 +92,7 @@ const CartTitle = ({
           }
         </Row>
       </Container>
-      {isError &&
+      {!isError &&
         <RequestInfoCard 
           isActive={isActive === true}
           setActive={setActive}
