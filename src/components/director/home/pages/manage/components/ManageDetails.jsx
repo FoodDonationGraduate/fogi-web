@@ -1,7 +1,7 @@
 // Essentials
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { Col, Row } from 'react-bootstrap';
+import { Col, Row, Stack } from 'react-bootstrap';
 import { EqualHeight } from 'react-equal-height';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,8 +13,9 @@ import ManageInfoCard from './ManageInfoCard';
 import ReportItem from './ReportItem';
 import Pagination from 'components/common/pagination/Pagination';
 import ListTitle from 'components/common/ListTitle';
+import BackButton from 'components/common/BackButton';
 
-const ManageDetails = ({ user }) => {
+const ManageDetails = ({ user, setTargetUser }) => {
   const reports = useSelector(state => state.directorReducer.reports);
   const directorInfo = useSelector(state => state.authenticationReducer.user);
   const directorToken = useSelector(state => state.authenticationReducer.token);
@@ -61,6 +62,9 @@ const ManageDetails = ({ user }) => {
       <Col className='px-0'>
         <Row className='mb-4'>
           <Col>
+            <div className='mb-2'>
+              <BackButton setTarget={setTargetUser} />
+            </div>
             <ManageInfoCard
               user={user}
               userInfo={directorInfo}
@@ -70,7 +74,7 @@ const ManageDetails = ({ user }) => {
         </Row>
         
         <Row>
-          <Col className='px-0'>
+          <Col>
             <ListTitle title={`Báo cáo (${reports.total_reports})`} />
             <Row className='mb-2' xs={1} md={2}>
               <EqualHeight>
