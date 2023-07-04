@@ -107,7 +107,7 @@ export const updateProduct = (data, user, navigate) => {
                 product_id: data.product_id,
                 quantity: data.quantity
             }).then((res) => {
-                result = true;
+                data.setOldCount(data.quantity);
             })
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
@@ -120,6 +120,7 @@ export const updateProduct = (data, user, navigate) => {
                     dispatch(setModalMessage('Cập nhật thực phẩm không thành công'))
                     dispatch(setModalType('danger'))
                     dispatch(showModal())
+                    data.setCount(data.oldCount);
                 }
             });
         } catch (err) {

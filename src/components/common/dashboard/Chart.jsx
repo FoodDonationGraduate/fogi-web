@@ -13,9 +13,10 @@ const Chart = ({ chart }) => {
         <BarChart
           data={chart.data}
           margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+          baseValue={1}
         >
           <XAxis dataKey='label' />
-          <YAxis />
+          <YAxis allowDecimals={false} />
           <Tooltip content={<ChartTooltip unit={chart.unit} />} />
           <Bar dataKey='value' fill='#82CD47' />
         </BarChart>

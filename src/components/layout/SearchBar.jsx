@@ -16,7 +16,7 @@ function SearchingBar() {
                 className="search-box"
                 aria-label="Search"
               />
-              <Button className='px-4' variant='dark'>
+              <Button className='px-4 search-btn' variant='dark'>
                 <FontAwesomeIcon icon={faSearch} />
               </Button>
             </Form>

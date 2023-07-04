@@ -1,6 +1,5 @@
 // Essentials
-import * as React from 'react';
-import { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Button, Col, Form,
   Modal, Row, Stack
@@ -49,25 +48,7 @@ const PostProductModal = ({
   const { errors } = formState;
   const [submitted, setSubmitted] = useState(false);
 
-  // Price handling
-  // const [price, setPrice] = useState(0);
-  // const onChangePrice = (val) => {
-  //   if (Number(val) === 0) {
-  //     setPrice(val.substring(0, 1));
-  //   } else if (val.length === 1) {
-  //     setPrice(Number(val) * 1000);
-  //   } else {
-  //     if (val.length > String(price).length) {
-  //       let temp = val.substring(0, val.length - 4);
-  //       let tail = val.substring(val.length - 1, val.length);
-  //       setPrice(Number(temp + tail) * 1000);
-  //     }
-  //     if (val.length < String(price).length) {
-  //       let temp = val.substring(0, val.length - 3);
-  //       setPrice(Number(temp) * 1000);
-  //     }
-  //   }
-  // };
+  const refForm = useRef(null);
 
   // Image handling
   const imageOnly = 'image/png, image/gif, image/jpeg';
@@ -90,16 +71,20 @@ const PostProductModal = ({
   // Submit
   const onSubmit = (data) => {
     console.log('post item');
+    console.log(JSON.stringify(data));
     if (images.length === 0) {
       dispatch(setModalMessage('Bạn cần phải đính kèm hình ảnh thực phẩm'));
       dispatch(showModal())
       return;
     }
     dispatch(postNewProduct({...data, images: base64Images}, {userInfo, userToken}, navigate));
+    refForm.current.reset();
+    setImages([]);
+    setSubmitted(false);
     onClose();
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(retrieveAllCategories(navigate));
     var newImages = [];
     for (let i = 0; i < images.length; i++) {
@@ -127,7 +112,10 @@ const PostProductModal = ({
           <Modal.Title>Thêm thực phẩm</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form onSubmit={handleSubmit(onSubmit)}>
+          <Form
+            ref={refForm}
+            onSubmit={handleSubmit(onSubmit)}
+          >
             
             <Form.Group className='mb-3'>
               <Form.Label style={{ fontWeight: 'bold' }}>

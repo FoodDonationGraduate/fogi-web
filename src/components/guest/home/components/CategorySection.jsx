@@ -1,6 +1,6 @@
 // Essentials
 import React, { useEffect, useState, useRef } from 'react';
-import { Container, Carousel, Col, Row } from 'react-bootstrap';
+import { Container, Carousel, Col, Row, Stack } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { EqualHeight } from 'react-equal-height';
@@ -94,6 +94,14 @@ const CategorySection = () => {
             <CarouselButton isLeft={false} onClick={onNextClick} />
           }
         </div>
+        {size <= 1 &&
+          <div className='d-flex justify-content-center mt-3'>
+            <Stack direction='horizontal' gap={3}>
+              <CarouselButton isLeft={true} onClick={onPrevClick} isAbsolute={false} />
+              <CarouselButton isLeft={false} onClick={onNextClick} isAbsolute={false} />
+            </Stack>
+          </div>
+        }
       </Container>
     </div>
   );
