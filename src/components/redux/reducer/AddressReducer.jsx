@@ -10,7 +10,7 @@ const initialState = {
         && localStorage.getItem("selectedAddress") !== null 
         ? JSON.parse(localStorage.getItem("selectedAddress"))
         : {
-            address: '227 Nguyễn Văn Cừ, P. 4, Q. 5, TP. Hồ Chí Minh',
+            address: 'Địa chỉ của bạn',
             lat: 10.762613,
             long: 106.681868
         }

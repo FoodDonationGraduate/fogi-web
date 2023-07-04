@@ -65,9 +65,9 @@ function AvatarSection() {
                 </Modal.Body>
 
                 <Modal.Footer>
-                    <Button style={{fontFamily: "Jost"}} className="btn btn-light" 
+                    <Button variant='outline-secondary'
                         onClick={() => {setShowModal(false); onClose()}}>Hủy</Button>
-                    <Button style={{fontFamily: "Jost"}} className="btn btnLogin"  
+                    <Button className='fogi' variant='primary'
                         onClick={() => {onSubmit(); setShowModal(false); onClose();}}>Xác nhận</Button>
                 </Modal.Footer>
             </Modal>
