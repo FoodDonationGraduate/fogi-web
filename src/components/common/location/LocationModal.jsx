@@ -14,7 +14,7 @@ import * as Yup from 'yup';
 import LocationItem from './LocationItem';
 import { addNewAddress, updateAddress, retrieveAllAddresses, findAddress } from 'components/redux/reducer/AddressReducer';
 
-// Assets imports
+// Assets
 import { FaExclamationTriangle } from 'react-icons/fa';
 import { MdOutlineMap } from 'react-icons/md';
 import { FaMapMarkerAlt } from 'react-icons/fa';

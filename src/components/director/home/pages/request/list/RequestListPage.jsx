@@ -27,7 +27,7 @@ const RequestListPage = () => {
   const getStatusLabel = (status) => {
     switch (status) {
       case 'pending': return 'Chờ duyệt';
-      case 'finding': return 'Tìm TNV';
+      case 'finding': return 'Đang tìm';
       case 'receiving': return 'Đang nhận';
       case 'shipping': return 'Đang giao';
       case 'cancel': return 'Đã hủy';

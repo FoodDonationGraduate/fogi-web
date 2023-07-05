@@ -10,7 +10,7 @@ import InfoModal from 'components/layout/InfoModal.jsx';
 import ConfirmModal from 'components/layout/ConfirmModal.jsx';
 
 import DashboardPage from './pages/dashboard/DashboardPage';
-import RequestListPage from './pages/request/list/RequestListPage';
+import RequestPage from './pages/request/RequestPage';
 import ApproveListPage from './pages/approve/ApproveListPage';
 import ManageUserPage from './pages/manage/ManageUserPage';
 import CategoryPage from './pages/category/CategoryPage';
@@ -65,7 +65,7 @@ const HomePage = () => {
             <Row className={`${size >= 2 && 'workspace'} py-4`}>
               <Col>
                 {activeIdx === 0 && <DashboardPage />}
-                {activeIdx === 1 && <RequestListPage />}
+                {activeIdx === 1 && <RequestPage />}
                 {activeIdx === 2 && <ApproveListPage />}
                 {activeIdx === 3 && <ManageUserPage />}
                 {activeIdx === 4 && <CategoryPage />}

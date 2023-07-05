@@ -15,10 +15,14 @@ import { reduceString } from 'utils/helpers/String';
 import { convertToString } from 'utils/helpers/Time';
 import { getUnit } from 'utils/helpers/Food';
 
+// Utility
+import { useResizer } from 'utils/helpers/Resizer.jsx';
+
 const RequestCard = ({
-  order,
-  isDirector=false
+  order
 }) => {
+  const size = useResizer();
+
   const productListDisplayLength = () => {
     return order.products.length < 4 ? order.products.length : 2;
   };
@@ -52,9 +56,13 @@ const RequestCard = ({
       <hr className='my-3' />
       
       <EqualHeightElement name='request-volunteer'>
-        <Stack gap={2}>
+        <Stack
+          direction={size > 3 ? 'horizontal' : 'vertical'}
+          gap={3  }
+          className={size > 3 ? 'd-flex justify-content-between' : ''}
+        >
           <UserItem user={order.volunteer} />
-          {isDirector && <UserItem user={order.user} user_type={order.user.user_type} />}
+          {order.user && <UserItem user={order.user} user_type={order.user.user_type} />}
         </Stack>
       </EqualHeightElement>
       <hr className='my-3' />

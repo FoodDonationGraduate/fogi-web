@@ -110,7 +110,7 @@ const OrderInfoCard = ({ order }) => {
                     </Row>
                     :
                     <header className='order-item-secondary text-center mt-2'>
-                      Hiện tại: {getStep(order.status, false, true).label} {`(${convertStepToNumber(order.status) + 1}/4)`}
+                      Hiện tại: {getStep(order.status, false, true).label} {`(${convertStepToNumber(order.status) + 1}/5)`}
                     </header>
                   }
                 </>

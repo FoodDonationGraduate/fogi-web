@@ -9,8 +9,12 @@ export const getStatus = (order) => {
       css = 'grey';
       break;
     case 'accepted':
-      label = 'Chấp nhận';
+      label = 'Đang tìm';
       css = 'blue';
+      break;
+    case 'receiving':
+      label = 'Đang nhận';
+      css = 'yellow';
       break;
     case 'shipping':
       label = 'Đang giao';
@@ -37,14 +41,18 @@ export const getStatusByIdx = (idx) => {
       css = 'grey'
       break;
     case 1:
-      label = 'Chấp nhận';
+      label = 'Đang tìm';
       css = 'blue';
       break;
     case 2:
+      label = 'Đang nhận';
+      css = 'yellow';
+      break;
+    case 3:
       label = 'Đang giao';
       css = 'yellow';
       break;
-    case 4:
+    case 5:
       label = 'Đã hủy';
       css = 'red';
       break;
@@ -67,16 +75,21 @@ export const getStep = (step, isDonee, isDelivery, isVolunteerCancel) => {
       icon = <MdSmartphone className='step-item-icon' />;
       break;
 
-    case 'accepted':
-      header = 'Tình nguyện viên đã chấp nhận Yêu cầu và ';
-      if (isDonee) {
-        if (isDelivery) header += 'chuẩn bị giao';
-        else header += 'đang chờ bạn đến nhận'
-      } else {
-        header += ' chuẩn bị đến nhận Thực phẩm';
-      }
-      label = 'Chấp nhận';
+    case 'finding':
+      header = 'Đang tìm Tình nguyện viên cho bạn';
+      label = 'Đang tìm';
       icon = <MdLabelImportant className='step-item-icon' />;
+      break;
+
+    case 'receiving':
+      header = 'Tình nguyện viên đang đến nhận Thực phẩm từ ';
+      if (isDonee) {
+        header += 'kho'
+      } else {
+        header += 'bạn';
+      }
+      label = 'Đang nhận';
+      icon = <MdDeliveryDining className='step-item-icon' />;
       break;
 
     case 'shipping':
@@ -87,7 +100,7 @@ export const getStep = (step, isDonee, isDelivery, isVolunteerCancel) => {
       } else {
         header += 'đến nhận Thực phẩm';
       }
-      label = 'Đang ' + (isDonee ? (isDelivery ? 'giao' : 'đến') : 'đến');
+      label = 'Đang giao';
       if (isDonee && !isDelivery) icon = <MdDirectionsWalk className='step-item-icon' />;
       else icon = <MdDeliveryDining className='step-item-icon' />;
       break;
@@ -118,14 +131,17 @@ export const convertStepToNumber = (step) => {
     case 'pending':
       number = 0;
       break;
-    case 'accepted':
+    case 'finding':
       number = 1;
       break;
-    case 'shipping':
+    case 'receiving':
       number = 2;
       break;
-    default:
+    case 'shipping':
       number = 3;
+      break;
+    default:
+      number = 4;
   }
   return number;
 };
@@ -137,9 +153,12 @@ export const convertNumberToStep = (number) => {
       step = 'pending';
       break;
     case 1:
-      step = 'accepted';
+      step = 'finding';
       break;
     case 2:
+      step = 'receiving';
+      break;
+    case 3:
       step = 'shipping';
       break;
     default:
