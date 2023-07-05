@@ -139,6 +139,10 @@ a.fogi:active {
     object-fit: cover;
     border-radius: 8px;
   }
+  .long-product-image-round {
+    object-fit: cover;
+    border-radius: 50%;
+  }
   .long-product-type {
     padding: 4px 8px;
     border-radius: 4px;

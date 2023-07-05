@@ -15,22 +15,22 @@ const FoodListModal = ({
 
   const [sampleList, setSampleList] = useState([{
     id: 1,
-    name: 'Thực heo 502',
+    name: 'Thịt heo 502',
     stock: 100,
     unit: 'kg'
   },{
     id: 2,
-    name: 'Thực heo bà Tư',
+    name: 'Thịt heo bà Tư',
     stock: 40,
     unit: 'kg'
   },{
     id: 3,
-    name: 'Thực heo con',
+    name: 'Thịt heo con',
     stock: 25,
     unit: 'kg'
   },{
     id: 4,
-    name: 'Thực heo 100',
+    name: 'Thịt heo 100',
     stock: 50,
     unit: 'kg'
   }]);
@@ -48,7 +48,7 @@ const FoodListModal = ({
         show={subShow}
         onHide={onSubClose}
         backdrop='static'
-        size='xl'
+        size='lg'
       >
         <Modal.Header closeButton>
           <Modal.Title>{subCategory.name}</Modal.Title>
@@ -63,7 +63,7 @@ const FoodListModal = ({
               />
             </div>
           ))}
-          <div className='d-flex justify-content-center mt-2'>
+          <div className='d-flex justify-content-center mt-4'>
             <Pagination
               pageCount={Math.ceil(14 / FOOD_COUNT)}
               activeIdx={page}

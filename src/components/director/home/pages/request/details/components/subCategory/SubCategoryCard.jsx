@@ -1,7 +1,10 @@
 // Essentials
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Accordion, Button, Card, Col, Row, Stack } from 'react-bootstrap';
 import { getUnit } from 'utils/helpers/Food';
+
+// Assets
+import { FaExclamationTriangle } from "react-icons/fa";
 
 // Components
 import FoodCard from './FoodCard';
@@ -12,12 +15,33 @@ import FoodListModal from './FoodListModal';
 import { useResizer } from 'utils/helpers/Resizer.jsx';
 
 const SubCategoryCard = ({
-  subCategory
+  subCategory,
+  subCategoryList, setSubCategoryList
 }) => {
   let size = useResizer();
 
   // Selected Food handling
-  const [foodList, setFoodList] = useState([]);
+  const [foodList, setFoodList] = useState(subCategory.foodList);
+  const getTotalCount = () => {
+    let total = 0;
+    for (let i = 0; i < foodList.length; i++) {
+      total += foodList[i].count;
+    }
+    return total;
+  };
+
+  // Change SubCategory List
+  useEffect(() => {
+    const idx = subCategoryList.findIndex(c => c.id === subCategory.id);
+    setSubCategoryList([
+      ...subCategoryList.slice(0, idx),
+      {
+        ...subCategory,
+        foodList
+      },
+      ...subCategoryList.slice(idx + 1)
+    ]);
+  }, [foodList]);
 
   // Modal handling
   const [subShow, setSubShow] = useState(false);
@@ -52,12 +76,18 @@ const SubCategoryCard = ({
                 <div className={`d-flex ${size < 3 && 'ps-0'} ${size < 2 && 'mt-2'}`} xs={12} md={6}>
                   <div>
                     <header className='long-product-label'>{`${subCategory.unit === 'kg' ? 'Khối' : 'Số'} lượng (${getUnit(subCategory.unit)})`}</header>
-                    <h5 className='mt-2'>{subCategory.count}</h5>
+                    <h5
+                      className='mt-2'
+                      style={{ color: `${getTotalCount() > subCategory.count ? '#bf1650' : 'black'}` }}
+                    >
+                      {getTotalCount()}/{subCategory.count}{' '}
+                      {getTotalCount() > subCategory.count && <FaExclamationTriangle size={14} className='mb-1' />}
+                    </h5>
                   </div>
                 </div>
 
                 <div className={`d-flex ${size < 3 && 'ps-0'} ${size < 2 && 'mt-2'}`}>
-                  <Button className='fogi' variant='primary' onClick={onSubShow}>
+                  <Button variant='secondary' onClick={onSubShow}>
                     Chọn Thực phẩm
                   </Button>
                 </div>

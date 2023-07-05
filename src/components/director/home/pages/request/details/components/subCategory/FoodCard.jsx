@@ -52,7 +52,10 @@ const FoodCard = ({
     <>
       <Row>
         <Col className='px-0'>
-          <Card className='p-4'>
+          <Card
+            className='p-4'
+            style={{ border: `${isInFoodList() ? '1px solid #82CD47': ''}` }}
+          >
             <div className='d-flex justify-content-between align-items-center'>
               <div>
                 <Stack direction='horizontal'>

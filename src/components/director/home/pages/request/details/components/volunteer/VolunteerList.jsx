@@ -6,12 +6,32 @@ import { Container, Col, Row } from 'react-bootstrap';
 import ListTitle from 'components/common/ListTitle';
 import Pagination from 'components/common/pagination/Pagination';
 
-import SubCategoryCard from './SubCategoryCard';
+import VolunteerCard from './VolunteerCard';
 
-const SubCategoryList = ({
-  subCategoryList, setSubCategoryList
+const sampleList = [
+  {
+    name: 'Tùng TNV',
+    phone: '0919127311'
+  },
+  {
+    name: 'Duy TNV',
+    phone: '0919127377'
+  },
+  {
+    name: 'Du TNV',
+    phone: '0919127366'
+  },
+  {
+    name: 'Long TNV',
+    phone: '0919127203'
+  }
+]
+
+const VolunteerList = ({
+  targetVolunteer, setTargetVolunteer
 }) => {
 
+  // Pagination handling
   const SUB_CATEGORY_COUNT = 4; // per page
   const [page, setPage] = useState(0); // a.k.a activeIdx
   const onChangePage = async (idx) => {
@@ -23,11 +43,11 @@ const SubCategoryList = ({
       <Container>
         <ListTitle title={'Danh sách Thực phẩm lớn'} />
         <Row xs={1}>
-          {subCategoryList.map((subCategory, idx) => (
+          {sampleList.map((sample, idx) => (
             <Col className='mb-3' key={idx}>
-              <SubCategoryCard
-                subCategory={subCategory}
-                subCategoryList={subCategoryList} setSubCategoryList={setSubCategoryList}
+              <VolunteerCard
+                volunteer={sample}
+                targetVolunteer={targetVolunteer} setTargetVolunteer={setTargetVolunteer}
               />
             </Col>
           ))}
@@ -45,4 +65,4 @@ const SubCategoryList = ({
   )
 };
 
-export default SubCategoryList;
+export default VolunteerList;
