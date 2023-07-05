@@ -1,27 +1,28 @@
 // Essentials
 import React, { useState } from 'react';
-import { Accordion, Button, Card, Col, Row, Stack, Form } from 'react-bootstrap';
+import { Accordion, Button, Card, Col, Row, Stack } from 'react-bootstrap';
 import { getUnit } from 'utils/helpers/Food';
 
 // Components
 import FoodCard from './FoodCard';
 
+import FoodListModal from './FoodListModal';
+
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
 
-const sampleData = {
-  name: 'Thực phẩm con',
-  stock: 100,
-  unit: 'kg'
-};
-
-
 const SubCategoryCard = ({
-  subCategory,
-  setSubCategory,
-  onSubShow
+  subCategory
 }) => {
   let size = useResizer();
+
+  // Selected Food handling
+  const [foodList, setFoodList] = useState([]);
+
+  // Modal handling
+  const [subShow, setSubShow] = useState(false);
+  const onSubShow = () => setSubShow(true);
+  const onSubClose = () => setSubShow(false);
 
   return (
     <>
@@ -51,42 +52,44 @@ const SubCategoryCard = ({
                 <div className={`d-flex ${size < 3 && 'ps-0'} ${size < 2 && 'mt-2'}`} xs={12} md={6}>
                   <div>
                     <header className='long-product-label'>{`${subCategory.unit === 'kg' ? 'Khối' : 'Số'} lượng (${getUnit(subCategory.unit)})`}</header>
-                    <div className='mt-2'>
-                      <Form.Group>
-                        <Form.Control
-                          type='number'
-                          value={subCategory.count}
-                          readOnly
-                        />
-                      </Form.Group>
-                    </div>
+                    <h5 className='mt-2'>{subCategory.count}</h5>
                   </div>
                 </div>
 
                 <div className={`d-flex ${size < 3 && 'ps-0'} ${size < 2 && 'mt-2'}`}>
-                  <Button className='fogi' variant='primary'>
+                  <Button className='fogi' variant='primary' onClick={onSubShow}>
                     Chọn Thực phẩm
                   </Button>
                 </div>
               </Col>
             </Row>
-            <Accordion className='mt-3'>
-              <Accordion.Item eventKey="0">
-                <Accordion.Header>Danh sách Thực phẩm (0)</Accordion.Header>
-                <Accordion.Body>
-                  {Array.from({ length: 2 }).map((_,idx) => (
-                    <div className={idx !== 0 && 'mt-3'} key={idx}>
-                      <FoodCard
-                        food={sampleData}
-                      />
-                    </div>
-                  ))}
-                </Accordion.Body>
-              </Accordion.Item>
-            </Accordion>
+            {foodList.length > 0 &&
+              <Accordion className='mt-3'>
+                <Accordion.Item eventKey="0">
+                  <Accordion.Header>
+                    Danh sách Thực phẩm ({foodList.length})
+                  </Accordion.Header>
+                  <Accordion.Body>
+                    {foodList.map((food,idx) => (
+                      <div className={idx !== 0 && 'mt-3'} key={idx}>
+                        <FoodCard
+                          food={food}
+                          foodList={foodList} setFoodList={setFoodList}
+                        />
+                      </div>
+                    ))}
+                  </Accordion.Body>
+                </Accordion.Item>
+              </Accordion>
+            }
           </Card>
         </Col>
       </Row>
+      <FoodListModal
+        subCategory={subCategory}
+        foodList={foodList} setFoodList={setFoodList}
+        subShow={subShow} onSubClose={onSubClose}
+      />
     </>
   )
 };

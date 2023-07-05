@@ -1,32 +1,51 @@
 // Essentials
 import React, { useState } from 'react';
-import { Accordion, Button, Card, Col, Row, Stack, Form } from 'react-bootstrap';
+import { Button, Card, Col, Row, Stack, Form } from 'react-bootstrap';
 import { getUnit } from 'utils/helpers/Food';
-
-// Assets
-import { FaExclamationTriangle } from 'react-icons/fa';
 
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
 
 const FoodCard = ({
-  food
+  food,
+  foodList, setFoodList,
+  isShowStock=false
 }) => {
   let size = useResizer();
 
-  // Count handling
-  const [count, setCount] = useState(1);
+  // Foop List handling
+  const isInFoodList = () => {
+    return foodList.filter(f => f.content.id === food.content.id).length > 0;
+  };
+  const onSelect = () => {
+    setFoodList([...foodList, { content: food.content, count: 1 }]);
+  };
+  const onDeselect = () => {
+    setFoodList(foodList.filter(f => f.content.id != food.content.id));
+  };
+  const onChangeCount = (count) => {
+    const idx = foodList.findIndex(f => f.content.id === food.content.id);
+    setFoodList([
+      ...foodList.slice(0, idx),
+      {
+        content: food.content,
+        count: count
+      },
+      ...foodList.slice(idx + 1)
+    ]);
+  };
+
   const onUpdateCount = (amount) => {
-    let newCount = Number(count) + amount;
-    if (newCount < 1 || newCount > food.stock) return;
-    setCount(Number(count) + amount);
+    let newCount = Number(food.count) + amount;
+    if (newCount < 1 || newCount > food.content.stock) return;
+    onChangeCount(Number(food.count) + amount);
   };
 
   const onUpdateInput = (event) => {
     let newCount = Number(event.target.value);
-    if (newCount < 1) setCount(1);
-    else if (newCount > food.stock) setCount(food.stock);
-    else setCount(newCount);
+    if (newCount < 1) onChangeCount(1);
+    else if (newCount > food.content.stock) onChangeCount(food.content.stock);
+    else onChangeCount(newCount);
   };
 
   return (
@@ -34,8 +53,8 @@ const FoodCard = ({
       <Row>
         <Col className='px-0'>
           <Card className='p-4'>
-            <Row className='d-flex align-items-center' xs={1} md={2}>
-              <Col className='ps-0' xs={12} md={9}>
+            <div className='d-flex justify-content-between align-items-center'>
+              <div>
                 <Stack direction='horizontal'>
                   <img
                     className='long-product-image'
@@ -44,48 +63,72 @@ const FoodCard = ({
                   />
                   <div className='ms-4'>
                     <h5 className='fw-bold'>
-                      {food.name}
+                      {food.content.name}
                     </h5>
                   </div>
                 </Stack>
-              </Col>
+              </div>
 
-              <Col md={3} className={`${size < 3 && 'ps-0 py-3'}`}>
-                <header className='long-product-label'>{`${food.unit === 'kg' ? 'Khối' : 'Số'} lượng (${getUnit(food.unit)})`}</header>
-                <Stack direction='horizontal'>
-                  {size > 0 &&
-                    <Button
-                      className='count-btn-left'
-                      variant='outline-secondary'
-                      onClick={() => onUpdateCount(-1)}
-                      disabled={count <= 1}
-                    >
-                      -
+              <div className={`d-flex justify-content-between align-items-center`}>
+                {!isShowStock ?
+                  <div>
+                    <header className='long-product-label mb-2'>{`${food.content.unit === 'kg' ? 'Khối' : 'Số'} lượng (${getUnit(food.content.unit)})`}</header>
+                    <Stack direction='horizontal'>
+                      {size > 0 &&
+                        <Button
+                          className='count-btn-left'
+                          variant='outline-secondary'
+                          onClick={() => onUpdateCount(-1)}
+                          disabled={food.count <= 1}
+                        >
+                          -
+                        </Button>
+                      }
+                      <Form.Group>
+                        <Form.Control
+                          className='count-input'
+                          type='number'
+                          value={Number(food.count).toString()}
+                          style={{ textAlign: 'center' }}
+                          onChange={(e) => onUpdateInput(e) }
+                        />
+                      </Form.Group>
+                      {size > 0 &&
+                        <Button
+                          className='count-btn-right'
+                          variant='outline-secondary'
+                          onClick={() => onUpdateCount(1)}
+                          disabled={food.count >= food.stock}
+                        >
+                          +
+                        </Button>
+                      }
+                    </Stack>
+                    <small className='small-text'>Tồn kho: {food.content.stock}</small>
+                  </div>
+                  :
+                  <>
+                    <div className={`d-flex ${size < 3 && 'ps-0'} ${size < 2 && 'mt-2'}`} xs={12} md={6}>
+                      <div>
+                        <header className='long-product-label'>Tồn kho</header>
+                        <h5 className='mt-2'>{food.content.stock} {getUnit(food.content.unit)}</h5>
+                      </div>
+                    </div>
+                  </>
+                }
+                <div className='ms-4'>
+                  {!isInFoodList() ?
+                    <Button className='fogi' variant='primary' onClick={onSelect}>
+                      Chọn
+                    </Button>
+                    :
+                    <Button variant='outline-danger' onClick={onDeselect}>
+                      Bỏ chọn
                     </Button>
                   }
-                  <Form.Group>
-                    <Form.Control
-                      className='count-input'
-                      type='number'
-                      value={Number(count).toString()}
-                      style={{ textAlign: 'center' }}
-                      onChange={(e) => onUpdateInput(e) }
-                    />
-                  </Form.Group>
-                  {size > 0 &&
-                    <Button
-                      className='count-btn-right'
-                      variant='outline-secondary'
-                      onClick={() => onUpdateCount(1)}
-                      disabled={count >= food.stock}
-                    >
-                      +
-                    </Button>
-                  }
-                </Stack>
-                <small className='small-text'>Tồn kho: {food.stock}</small>
-              </Col>
-            </Row>
+                </div>
+              </div>
+            </div>
           </Card>
         </Col>
       </Row>

@@ -15,7 +15,7 @@ const sampleData = {
   unit: 'kg'
 };
 
-const SubCategoryList = () => {
+const SubCategoryList = ({}) => {
 
   const SUB_CATEGORY_COUNT = 4; // per page
   const [page, setPage] = useState(0); // a.k.a activeIdx
@@ -30,12 +30,14 @@ const SubCategoryList = () => {
         <Row xs={1}>
           {Array.from({  length: 4 }).map((_, idx) => (
             <Col className='mb-2' key={idx}>
-              <SubCategoryCard subCategory={sampleData} />
+              <SubCategoryCard
+                subCategory={sampleData}
+              />
             </Col>
           ))}
         </Row>
       </Container>
-      <div className='d-flex justify-content-center'>
+      <div className='d-flex justify-content-center mt-2'>
         <Pagination
           pageCount={Math.ceil(16 / SUB_CATEGORY_COUNT)}
           // pageCount={Math.ceil(allRequests.total_requests / REQUEST_COUNT)}
