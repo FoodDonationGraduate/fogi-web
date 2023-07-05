@@ -13,8 +13,12 @@ import CategoryInfoCard from './CategoryInfoCard';
 
 const CategoryDetails = ({
   category,
-  setTargetCategory
+  setTargetCategory,
+  setTargetSubCategory,
+  onShow,
+  onSubShow
 }) => {
+
   return (
     <>
       <Row>
@@ -26,6 +30,10 @@ const CategoryDetails = ({
               </div>
               <CategoryInfoCard
                 category={category}
+                setTargetCategory={setTargetCategory}
+                setTargetSubCategory={setTargetSubCategory}
+                onShow={onShow}
+                onSubShow={onSubShow}
               />
             </Col>
           </Row>
@@ -37,7 +45,11 @@ const CategoryDetails = ({
                 <EqualHeight>
                   {Array.from({ length: 14 }).map((_, idx) => (
                     <Col className='mb-4' key={idx}>
-                      <SubCategoryCard subCategory={{ name: 'Thực phẩm lớn' }} />
+                      <SubCategoryCard
+                        subCategory={{ name: 'Thực phẩm lớn' }}
+                        setTargetSubCategory={setTargetSubCategory}
+                        onSubShow={onSubShow}
+                      />
                     </Col>
                   ))}
                 </EqualHeight>

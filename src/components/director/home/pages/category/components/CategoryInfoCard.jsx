@@ -9,22 +9,24 @@ import CategoryModal from './CategoryModal';
 import 'assets/css/director/HomePage.css';
 
 const CategoryInfoCard = ({
-  category
+  category,
+  setTargetCategory,
+  setTargetSubCategory,
+  onShow,
+  onSubShow
 }) => {
+  const showCategoryModal = () => {
+    setTargetCategory(category);
+    onShow();
+  };
 
-  // Category Modal
-  const [show, setShow] = useState(false);
-  const onShow = () => setShow(true);
-  const onClose = () => setShow(false);
+  const showSubCategoryModal = () => {
+    setTargetSubCategory(null);
+    onSubShow();
+  };
 
   return (
     <>
-      <CategoryModal
-        targetCategory={category}
-        show={show}
-        onShow={onShow}
-        onClose={onClose}
-      />
       <div className='manage-card'>
         <Stack direction='horizontal' gap={4}>
           <img className='manage-details-profile-logo' src={`https://bachkhoi.online/static/${category.image}`} alt='director logo'/>
@@ -33,12 +35,13 @@ const CategoryInfoCard = ({
               {category.name}
             </h3>
             <Stack direction='horizontal' gap={2}>
-              <Button variant='outline-secondary' onClick={onShow}>
+              <Button variant='outline-secondary' onClick={showCategoryModal}>
                 Chỉnh sửa
               </Button>
               <Button
                 className='fogi'
                 variant='primary'
+                onClick={showSubCategoryModal}
               >
                 Thêm Thực phẩm lớn
               </Button>
