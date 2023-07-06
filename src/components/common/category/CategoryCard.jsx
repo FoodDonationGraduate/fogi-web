@@ -11,7 +11,6 @@ const CategoryCard = ({
   category,
   isDonee=true,
   setTargetCategory=null, // for Edit Category Modal
-  onShow=undefined
 }) => {
   const navigate = useNavigate();
 
@@ -22,7 +21,6 @@ const CategoryCard = ({
   const editCategory = () => { // for Director
     if (!setTargetCategory) return;
     setTargetCategory(category);
-    onShow();
   };
 
   return (

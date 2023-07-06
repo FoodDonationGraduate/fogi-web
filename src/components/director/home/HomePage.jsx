@@ -10,9 +10,10 @@ import InfoModal from 'components/layout/InfoModal.jsx';
 import ConfirmModal from 'components/layout/ConfirmModal.jsx';
 
 import DashboardPage from './pages/dashboard/DashboardPage';
+import RequestPage from './pages/request/RequestPage';
 import ApproveListPage from './pages/approve/ApproveListPage';
 import ManageUserPage from './pages/manage/ManageUserPage';
-import CategoryListPage from './pages/category/CategoryListPage';
+import CategoryPage from './pages/category/CategoryPage';
 
 // Assets
 import { MdMenu } from 'react-icons/md';
@@ -64,9 +65,10 @@ const HomePage = () => {
             <Row className={`${size >= 2 && 'workspace'} py-4`}>
               <Col>
                 {activeIdx === 0 && <DashboardPage />}
-                {activeIdx === 1 && <ApproveListPage />}
-                {activeIdx === 2 && <ManageUserPage />}
-                {activeIdx === 3 && <CategoryListPage />}
+                {activeIdx === 1 && <RequestPage />}
+                {activeIdx === 2 && <ApproveListPage />}
+                {activeIdx === 3 && <ManageUserPage />}
+                {activeIdx === 4 && <CategoryPage />}
               </Col>
             </Row>
           </Col>

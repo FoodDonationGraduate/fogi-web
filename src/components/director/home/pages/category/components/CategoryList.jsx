@@ -14,8 +14,7 @@ import CategoryCard from 'components/common/category/CategoryCard';
 import { retrieveAllCategories } from 'components/redux/reducer/CategoryReducer';
 
 const CategoryList = ({
-  setTargetCategory,
-  onShow
+  setTargetCategory
 }) => {
   const allCategories = useSelector(state => state.categoryReducer.allCategories);
 
@@ -40,7 +39,6 @@ const CategoryList = ({
                     category={category}
                     isDonee={false}
                     setTargetCategory={setTargetCategory}
-                    onShow={onShow}
                   />
                 </Col>
               ))}

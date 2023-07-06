@@ -26,38 +26,26 @@ const AdBanner = () => {
           }
           <Row>
             <Carousel ref={ref} variant='light' controls={false}>
-              <Carousel.Item interval={4000}>
-                <Row>
-                  <Col>
-                  <img
-                    className="d-block w-100"
-                    src={Banner_1}
-                    alt="First slide"
-                  />
-                  </Col>
-                </Row>
+              <Carousel.Item interval={40000}>
+                <img
+                  className="d-block w-100"
+                  src={Banner_1}
+                  alt="First slide"
+                />
               </Carousel.Item>
-              <Carousel.Item interval={4000}>
-                <Row>
-                  <Col>
-                  <img
-                    className="d-block w-100"
-                    src={Banner_1}
-                    alt="Middle slide"
-                  />
-                  </Col>
-                </Row>
+              <Carousel.Item interval={40000}>
+                <img
+                  className="d-block w-100"
+                  src={Banner_1}
+                  alt="Second slide"
+                />
               </Carousel.Item>
-              <Carousel.Item interval={4000}>
-                <Row>
-                  <Col>
-                  <img
-                    className="d-block w-100"
-                    src={Banner_1}
-                    alt="Last slide"
-                  />
-                  </Col>
-                </Row>
+              <Carousel.Item interval={40000}>
+                <img
+                  className="d-block w-100"
+                  src={Banner_1}
+                  alt="Third slide"
+                />
               </Carousel.Item>
             </Carousel>
           </Row>

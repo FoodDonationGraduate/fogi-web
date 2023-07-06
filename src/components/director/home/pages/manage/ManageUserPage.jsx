@@ -58,7 +58,7 @@ const ManageUserPage = () => {
             </>
           }
           {targetUser &&
-            <ManageDetails user={targetUser} />
+            <ManageDetails user={targetUser} setTargetUser={setTargetUser} />
           }
           
         </Container>

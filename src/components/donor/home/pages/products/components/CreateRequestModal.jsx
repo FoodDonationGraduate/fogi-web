@@ -23,7 +23,7 @@ import { MdClose } from 'react-icons/md';
 // Style imports
 import 'assets/css/Authentication.css';
 
-const PostProductModal = ({
+const CreateRequestModal = ({
   show,
   onClose
 }) => {
@@ -130,4 +130,4 @@ const PostProductModal = ({
   );
 };
 
-export default PostProductModal;
+export default CreateRequestModal;

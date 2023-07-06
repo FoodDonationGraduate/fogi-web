@@ -139,6 +139,10 @@ a.fogi:active {
     object-fit: cover;
     border-radius: 8px;
   }
+  .long-product-image-round {
+    object-fit: cover;
+    border-radius: 50%;
+  }
   .long-product-type {
     padding: 4px 8px;
     border-radius: 4px;
@@ -264,4 +268,25 @@ a.fogi:active {
     background-color: #999 !important;
     color: black !important;
     border: 2px solid #999 !important;
+  }
+
+.secondary-text {
+  color: #999;
+  font-weight: bold;
+}
+
+.back-btn {
+  font-size: 16px;
+  display: inline-block;
+  color: #999;
+  padding: 4px 8px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+  .back-btn:hover {
+    background-color: #ccc;
+  }
+  .back-btn:active {
+    background-color: #999;
+    color: #ccc;
   }
