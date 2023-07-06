@@ -4,8 +4,9 @@ import { Container } from 'react-bootstrap';
 
 // Components
 import CategoryModal from './components/CategoryModal';
-import CategoryListPage from './components/CategoryListPage';
-import CategoryDetails from './components/CategoryDetails';
+import CategoryListPage from './components/list/CategoryListPage';
+import CategoryDetailsPage from './components/details/CategoryDetailsPage';
+import SubCategoryDetailsPage from './components/details/subCategory/SubCategoryDetailsPage';
 
 const CategoryPage = () => {
 
@@ -33,12 +34,19 @@ const CategoryPage = () => {
               onShow={onShow}
             />
           }
-          {targetCategory &&
-            <CategoryDetails
+          {targetCategory && !targetSubCategory &&
+            <CategoryDetailsPage
               category={targetCategory}
               setTargetCategory={setTargetCategory}
               setTargetSubCategory={setTargetSubCategory}
               onShow={onShow}
+              onSubShow={onSubShow}
+            />
+          }
+          {targetSubCategory &&
+            <SubCategoryDetailsPage
+              subCategory={targetSubCategory}
+              setTargetSubCategory={setTargetSubCategory}
               onSubShow={onSubShow}
             />
           }

@@ -87,7 +87,7 @@ const SubCategoryCard = ({
                 </div>
 
                 <div className={`d-flex ${size < 3 && 'ps-0'} ${size < 2 && 'mt-2'}`}>
-                  <Button variant='secondary' onClick={onSubShow}>
+                  <Button className='fogi' variant='primary' onClick={onSubShow}>
                     Chọn Thực phẩm
                   </Button>
                 </div>

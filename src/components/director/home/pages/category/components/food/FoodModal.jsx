@@ -5,10 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 
 // Components
-import CategoryImageModal from './CategoryImageModal';
-
-// Reducer
-import { addCategory } from 'components/redux/reducer/DirectorReducer';
+import CategoryImageModal from '../CategoryImageModal';
 
 // Form handling
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -18,24 +15,17 @@ import * as Yup from 'yup';
 // Assets
 import { FaExclamationTriangle } from 'react-icons/fa';
 
-const CategoryModal = ({
-  targetCategory, // for edit
-  show,
-  onShow,
-  onClose,
-  isSubCategory=false
+const FoodModal = ({
+  food,
+  show, onShow, onClose
 }) => {
-  const userInfo = useSelector(state => state.authenticationReducer.user);
-  const userToken = useSelector(state => state.authenticationReducer.token);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   // Form handling
   const formSchema = Yup.object().shape({
     name: Yup.string().required('')
   });
   const formOptions = { resolver: yupResolver(formSchema) };
-  const { register, handleSubmit, formState, reset } = useForm(formOptions);
+  const { register, handleSubmit, formState } = useForm(formOptions);
   const { errors } = formState;
 
   const [name, setName] = useState('');
@@ -54,31 +44,17 @@ const CategoryModal = ({
     onClose();
   };
 
-  const onOpen = () => {
-    reset({
-      name: targetCategory ? targetCategory.name : ''
-    });
-    onShow();
-  };
-
-  const onHide = () => {
-    reset({
-      name: ''
-    });
-    onClose();
-  };
-
   const onSubmit = (data) => {
     if (!image) return;
 
-    dispatch(addCategory(
-      {
-        name: data.name,
-        image: image.split('base64,')[1]
-      },
-      { userInfo, userToken },
-      navigate
-    ));
+    // dispatch(addCategory(
+    //   {
+    //     name: data.name,
+    //     image: image.split('base64,')[1]
+    //   },
+    //   { userInfo, userToken },
+    //   navigate
+    // ));
 
     setImage(undefined);
     setSubmitted(false);
@@ -90,30 +66,24 @@ const CategoryModal = ({
 
   // Edit handling
   useEffect(() => {
-    console.log(JSON.stringify(targetCategory))
-    if (targetCategory) {
-      if (!isSubCategory)
-        setImage(`https://bachkhoi.online/static/${targetCategory.image}`);
-      else setImage(`https://bachkhoi.online/static/${'category_13_image'}`);
-      setName(targetCategory.name);
+    console.log(JSON.stringify(food))
+    if (food) {
+      setImage(`https://bachkhoi.online/static/${'category_13_image'}`);
+      setName(food.name);
     } else {
       setImage(undefined);
       setName('');
     }
-  }, [targetCategory]);
-
-  // Title
-  const getTitle = () => { return isSubCategory ? 'Thực phẩm lớn' : 'Phân loại' };
+  }, [food]);
 
   return (
     <>
       <Modal
         show={show}
-        onShow={onOpen}
-        onHide={onHide}
+        onHide={onClose}
       >
         <Modal.Header closeButton>
-          <Modal.Title>{targetCategory ? 'Chỉnh sửa' : 'Thêm'} {getTitle()}</Modal.Title>
+          <Modal.Title>Chỉnh sửa Thực phẩm</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleSubmit(onSubmit)}>
@@ -130,7 +100,7 @@ const CategoryModal = ({
                 />
               }
               <Button variant='outline-secondary' onClick={onShowImage}>
-                Đăng tải Ảnh {getTitle()}
+                Đăng tải Ảnh Thực phẩm
               </Button>
             </Stack>
             {!image && submitted && (
@@ -142,7 +112,7 @@ const CategoryModal = ({
 
             <Form.Group className='mb-3'>
               <Form.Label style={{ fontWeight: 'bold'}}>
-                Tên {getTitle()}
+                Tên Thực phẩm
               </Form.Label>
               <Form.Control
                 {...register('name')}
@@ -152,20 +122,20 @@ const CategoryModal = ({
               {errors.name && errors.name.type === 'required' && (
                 <p className="mt-2 error">
                   <FaExclamationTriangle className="mx-2" />
-                  Bạn chưa điền tên {getTitle()}
+                  Bạn chưa điền tên Thực phẩm
                 </p>
               )}
             </Form.Group>
 
             <div className='d-grid'>
-              {!targetCategory ? 
+              {!food ? 
                 <Button
                   className='fogi'
                   variant='primary'
                   type='submit'
                   onClick={() => setSubmitted(true)}
                 >
-                  Thêm {getTitle()}
+                  Thêm Thực phẩm
                 </Button>
                 :
                 <Button
@@ -189,4 +159,4 @@ const CategoryModal = ({
   )
 };
 
-export default CategoryModal;
+export default FoodModal;

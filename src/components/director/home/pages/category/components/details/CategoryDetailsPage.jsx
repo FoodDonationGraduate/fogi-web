@@ -11,7 +11,7 @@ import SubCategoryCard from 'components/common/category/SubCategoryCard';
 import CategoryInfoCard from './CategoryInfoCard';
 
 
-const CategoryDetails = ({
+const CategoryDetailsPage = ({
   category,
   setTargetCategory,
   setTargetSubCategory,
@@ -39,7 +39,7 @@ const CategoryDetails = ({
           </Row>
 
           <Row>
-            <Col>
+            <Col className='ps-0'>
               <ListTitle title={'Danh sách Thực phẩm lớn'} />
               <Row className='mb-2' xs={2} sm={3} md={4}>
                 <EqualHeight>
@@ -48,7 +48,6 @@ const CategoryDetails = ({
                       <SubCategoryCard
                         subCategory={{ name: 'Thực phẩm lớn' }}
                         setTargetSubCategory={setTargetSubCategory}
-                        onSubShow={onSubShow}
                       />
                     </Col>
                   ))}
@@ -62,4 +61,4 @@ const CategoryDetails = ({
   )
 };
 
-export default CategoryDetails;
+export default CategoryDetailsPage;
