@@ -99,7 +99,7 @@ const OrderInfoCard = ({ order }) => {
               <hr />
               
               <h3 className='order-item-date text-center'>
-                {getStep(order.status, true, order.delivery_type === 'delivery').header}
+                {getStep(order.status, true, order.delivery_type === 'delivery', order).header}
               </h3>
 
               {order.status === 'canceled' && 
