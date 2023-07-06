@@ -55,6 +55,8 @@ const ManageItemList = ({ setTargetUser }) => {
   }, [user_type]);
 
   return (
+    <>
+    {(Object.keys(manageUsers).length !== 0 && manageUsers.num_of_users !== 0) &&
     <Row>
       <Col className='px-0'>
         <Row className='mb-4' xs={1} md={2}>
@@ -78,6 +80,8 @@ const ManageItemList = ({ setTargetUser }) => {
         </div>
       </Col>
     </Row>
+      }
+    </>
   );
 };
 
