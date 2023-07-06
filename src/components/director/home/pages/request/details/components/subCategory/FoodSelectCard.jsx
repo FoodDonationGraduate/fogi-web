@@ -6,7 +6,7 @@ import { getUnit } from 'utils/helpers/Food';
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
 
-const FoodCard = ({
+const FoodSelectCard = ({
   food,
   foodList, setFoodList,
   isShowStock=false
@@ -111,7 +111,7 @@ const FoodCard = ({
                   </div>
                   :
                   <>
-                    <div className={`d-flex ${size < 3 && 'ps-0'} ${size < 2 && 'mt-2'}`} xs={12} md={6}>
+                    <div className={`d-flex ${size < 3 ? 'ps-0' : ''} ${size < 2 ? 'mt-2' : ''}`} xs={12} md={6}>
                       <div>
                         <header className='long-product-label'>Tồn kho</header>
                         <h5 className='mt-2'>{food.content.stock} {getUnit(food.content.unit)}</h5>
@@ -139,4 +139,4 @@ const FoodCard = ({
   );
 };
 
-export default FoodCard;
+export default FoodSelectCard;

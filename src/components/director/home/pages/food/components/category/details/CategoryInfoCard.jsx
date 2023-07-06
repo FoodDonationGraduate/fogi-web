@@ -2,9 +2,6 @@
 import React, { useState } from 'react';
 import { Button, Stack } from 'react-bootstrap';
 
-// Components
-import CategoryModal from './CategoryModal';
-
 // Style
 import 'assets/css/director/HomePage.css';
 

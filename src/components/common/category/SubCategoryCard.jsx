@@ -8,17 +8,15 @@ import 'assets/css/common/Card.css';
 
 const SubCategoryCard = ({
   subCategory,
-  setTargetSubCategory,
-  onSubShow
+  setTargetSubCategory
 }) => {
 
-  const editSubCategory = () => {
+  const onSelect = () => {
     setTargetSubCategory(subCategory);
-    onSubShow();
   };
 
   return (
-    <Card className='category-card' onClick={editSubCategory}>
+    <Card className='category-card' onClick={onSelect}>
       <Card.Img className='category-logo mx-auto' src={`https://bachkhoi.online/static/category_13_image`}/>
       <Card.Body className='text-center'>
         <EqualHeightElement name="category-name">

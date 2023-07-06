@@ -55,34 +55,38 @@ const ApproveList = () => {
   }, [user_type]);
 
   return (
-    <Row>
-      <Col className='px-0'>
-        <Row className='mb-4' xs={1} md={2}>
-          <EqualHeight>
-            {Object.keys(unverifiedUsers).length !== 0 &&
-            unverifiedUsers.users.map((user) => (
-              <Col className='mb-4' key={user.email}>
-                <ApproveItem
-                  approve={user}
-                  approveCount={APPROVE_COUNT}
-                  currentPage={page}
-                  user_type={user_type}
-                  userInfo={userInfo}
-                  userToken={userToken}
-                />
-              </Col>
-            ))}
-          </EqualHeight>
+    <>
+      {(Object.keys(unverifiedUsers).length !== 0 && unverifiedUsers.total_users !== 0) &&
+        <Row>
+          <Col className='px-0'>
+            <Row className='mb-4' xs={1} md={2}>
+              <EqualHeight>
+                {Object.keys(unverifiedUsers).length !== 0 &&
+                unverifiedUsers.users.map((user) => (
+                  <Col className='mb-4' key={user.email}>
+                    <ApproveItem
+                      approve={user}
+                      approveCount={APPROVE_COUNT}
+                      currentPage={page}
+                      user_type={user_type}
+                      userInfo={userInfo}
+                      userToken={userToken}
+                    />
+                  </Col>
+                ))}
+              </EqualHeight>
+            </Row>
+            <div className='d-flex justify-content-center'>
+              <Pagination
+                pageCount={Math.ceil(unverifiedUsers.total_users / APPROVE_COUNT)}
+                activeIdx={page}
+                onChangePage={onChangePage}
+              />
+            </div>
+          </Col>
         </Row>
-        <div className='d-flex justify-content-center'>
-          <Pagination
-            pageCount={Math.ceil(unverifiedUsers.total_users / APPROVE_COUNT)}
-            activeIdx={page}
-            onChangePage={onChangePage}
-          />
-        </div>
-      </Col>
-    </Row>
+      }
+    </>
   );
 };
 

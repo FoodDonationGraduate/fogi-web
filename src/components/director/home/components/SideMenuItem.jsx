@@ -7,9 +7,9 @@ import { Stack } from 'react-bootstrap';
 import {
   MdOutlineAnalytics, // 0
   MdOutlineArticle, // 1
-  MdCheckCircleOutline, // 2
-  MdOutlineGroup, // 3
-  MdOutlineCategory // 4
+  MdOutlineShoppingBag, // 2
+  MdCheckCircleOutline, // 3
+  MdOutlineGroup // 4
 } from 'react-icons/md';
 
 // Utility
@@ -32,9 +32,9 @@ const SideMenuItem = ({
   useEffect(() => {
     switch (type) {
       case 1: setLabel('Yêu cầu'); break;
-      case 2: setLabel('Xét duyệt'); break;
-      case 3: setLabel('Người dùng'); break;
-      case 4: setLabel('Phân loại'); break;
+      case 2: setLabel('Thực phẩm'); break;
+      case 3: setLabel('Xét duyệt'); break;
+      case 4: setLabel('Người dùng'); break;
       default: setLabel('Thống kê');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -62,9 +62,9 @@ const SideMenuItem = ({
             <Stack direction='horizontal' gap={4}>
               {type === 0 && <MdOutlineAnalytics className={`side-menu-icon${active}`} />}
               {type === 1 && <MdOutlineArticle className={`side-menu-icon${active}`} />}
-              {type === 2 && <MdCheckCircleOutline className={`side-menu-icon${active}`} />}
-              {type === 3 && <MdOutlineGroup className={`side-menu-icon${active}`} />}
-              {type === 4 && <MdOutlineCategory className={`side-menu-icon${active}`} />}
+              {type === 2 && <MdOutlineShoppingBag className={`side-menu-icon${active}`} />}
+              {type === 3 && <MdCheckCircleOutline className={`side-menu-icon${active}`} />}
+              {type === 4 && <MdOutlineGroup className={`side-menu-icon${active}`} />}
 
               <header className={`side-menu-label${active}`}>{label}</header>
             </Stack>
@@ -79,9 +79,9 @@ const SideMenuItem = ({
           <Stack className={`side-menu-item${active} align-items-center`} direction='vertical' gap={4}>
             {type === 0 && <MdOutlineAnalytics className={`side-menu-icon${active}`} />}
             {type === 1 && <MdOutlineArticle className={`side-menu-icon${active}`} />}
-            {type === 2 && <MdCheckCircleOutline className={`side-menu-icon${active}`} />}
-            {type === 3 && <MdOutlineGroup className={`side-menu-icon${active}`} />}
-            {type === 4 && <MdOutlineCategory className={`side-menu-icon${active}`} />}
+            {type === 2 && <MdOutlineShoppingBag className={`side-menu-icon${active}`} />}
+            {type === 3 && <MdCheckCircleOutline className={`side-menu-icon${active}`} />}
+            {type === 4 && <MdOutlineGroup className={`side-menu-icon${active}`} />}
           </Stack>
         </div>
       )}

@@ -4,6 +4,9 @@ import { Card } from 'react-bootstrap';
 import { useNavigate } from 'react-router';
 import { EqualHeightElement } from 'react-equal-height';
 
+// Asset
+import PlaceHolder from 'assets/images/placeholder.jpg';
+
 // Styling
 import 'assets/css/common/Card.css';
 
@@ -25,7 +28,15 @@ const CategoryCard = ({
 
   return (
     <Card className='category-card' onClick={isDonee ? toCategoryPage : editCategory}>
-      <Card.Img className='category-logo mx-auto' src={`https://bachkhoi.online/static/${category.image}`}/>
+      <Card.Img
+        className='category-logo mx-auto'
+        src={
+          category.image ?
+          `https://bachkhoi.online/static/${category.image}`
+          :
+          PlaceHolder
+        }
+      />
       <Card.Body className='text-center'>
         <EqualHeightElement name="category-name">
           <Card.Title >{category.name}</Card.Title>

@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import 'assets/css/director/HomePage.css';
 
 // Reducers
-import { lockUser } from 'components/redux/reducer/DirectorReducer.jsx';
+import { lockUser, approveUser } from 'components/redux/reducer/DirectorReducer.jsx';
 
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
@@ -39,6 +39,7 @@ const ManageInfoCard = ({
 
   // Lock handling
   const [isLocked, setIsLocked] = useState(user.is_locked);
+  const [isApproved, setIsApproved] = useState(user.is_approved);
 
   const handleLock = (isLock) => {
     dispatch(lockUser(
@@ -53,6 +54,22 @@ const ManageInfoCard = ({
       },
       navigate
     ));
+  };
+
+  const handleApprove = (isApprove) => {
+    var result =dispatch(approveUser(
+      {
+        email: user.email,
+        action: isApprove ? 'approve' : 'decline',
+      }, {
+        userInfo,
+        userToken
+      },
+      navigate
+    ));
+    if (result) {
+      setIsApproved(isApprove);
+    }
   };
 
   return (
@@ -84,20 +101,25 @@ const ManageInfoCard = ({
           </Stack>
         </Stack>
 
-        {user.user_type !== 'volunteer' &&
-          <>
-            <hr />
-            
-            {!isLocked ? 
-              <Button variant='outline-danger' onClick={() => handleLock(true)}>
-                Khóa tài khoản
-              </Button>
-              :
-              <Button variant='outline-secondary' onClick={() => handleLock(false)}>
-                Mở khóa tài khoản
-              </Button>
-            }
-          </>
+        <hr />
+        
+        {!isLocked ? 
+          <Button variant='outline-danger' onClick={() => handleLock(true)}>
+            Khóa tài khoản
+          </Button>
+          :
+          <Button variant='outline-secondary' onClick={() => handleLock(false)}>
+            Mở khóa tài khoản
+          </Button>
+        }
+        {!isApproved ? 
+          <Button variant='outline-secondary' onClick={() => handleApprove(true)}>
+            Chấp thuận người dùng
+          </Button>
+          :
+          <Button variant='outline-danger' onClick={() => handleApprove(false)}>
+            Hạn chế người dùng
+          </Button>
         }
       </div>
     </>

@@ -1,18 +1,19 @@
 // Essentials
 import React, { useState } from 'react';
-import { Row } from 'react-bootstrap';
+import { Container, Row } from 'react-bootstrap';
 
 // Components
 import ChipList from 'components/common/chip/ChipList';
 
 import RequestInfoCard from './components/RequestInfoCard';
+import FoodList from './components/food/FoodList';
 import SubCategoryList from './components/subCategory/SubCategoryList';
 import VolunteerList from './components/volunteer/VolunteerList';
 
 // Style
 import 'assets/css/user/order/Order.css';
 
-const sampleData = [
+const sampleSubCategoryList = [
   {
     id: 0,
     name: 'Thịt heo',
@@ -47,6 +48,33 @@ const sampleData = [
   }
 ];
 
+const sampleFoodList = [
+  {
+    id: 0,
+    name: 'Thịt heo 502',
+    stock: '100',
+    unit: 'kg'
+  },
+  {
+    id: 1,
+    name: 'Bắp cải 104',
+    stock: '80',
+    unit: 'kg'
+  },
+  {
+    id: 2,
+    name: 'Gạo tẻ 375',
+    stock: '25',
+    unit: 'kg'
+  },
+  {
+    id: 3,
+    name: 'Hành tím 047',
+    stock: '50',
+    unit: 'kg'
+  }
+];
+
 const RequestDetailsPage = ({ request }) => {
 
   // Chip List
@@ -62,8 +90,9 @@ const RequestDetailsPage = ({ request }) => {
   };
   const styleList = ['success', 'success'];
 
-  // Sub-Category handling
-  const [subCategoryList, setSubCategoryList] = useState(sampleData);
+  // List handling
+  const [subCategoryList, setSubCategoryList] = useState(sampleSubCategoryList);
+  const [foodList, setFoodList] = useState(sampleFoodList);
 
   // Volunteer handling
   const [targetVolunteer, setTargetVolunteer] = useState(null);
@@ -74,19 +103,30 @@ const RequestDetailsPage = ({ request }) => {
         <div>
           <RequestInfoCard request={request} />
         </div>
-        <Row className='my-4'>
-          <ChipList
-            activeStatusIdx={activeStatusIdx}
-            setActiveStatusIdx={setActiveStatusIdx}
-            statusList={statusList}
-            getStatusLabel={getStatusLabel}
-            styleList={styleList}
-          />
-        </Row>
+        <Container>
+          <Row className='my-4'>
+            <ChipList
+              activeStatusIdx={activeStatusIdx}
+              setActiveStatusIdx={setActiveStatusIdx}
+              statusList={statusList}
+              getStatusLabel={getStatusLabel}
+              styleList={styleList}
+            />
+          </Row>
+        </Container>
         {activeStatusIdx === 0 ?
-          <SubCategoryList
-            subCategoryList={subCategoryList} setSubCategoryList={setSubCategoryList}
-          />
+          <>
+            {/* for later: request.donor */}
+            {true ?
+              <FoodList
+                foodList={foodList}
+              />
+              :
+              <SubCategoryList
+                subCategoryList={subCategoryList} setSubCategoryList={setSubCategoryList}
+              />
+            }
+          </>
           :
           <VolunteerList
             targetVolunteer={targetVolunteer} setTargetVolunteer={setTargetVolunteer}
