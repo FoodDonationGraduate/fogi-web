@@ -8,7 +8,7 @@ export const getStatus = (order) => {
       label = 'Chờ duyệt';
       css = 'grey';
       break;
-    case 'accepted':
+    case 'finding':
       label = 'Đang tìm';
       css = 'blue';
       break;
