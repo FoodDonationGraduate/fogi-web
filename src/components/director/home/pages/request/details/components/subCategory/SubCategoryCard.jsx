@@ -7,9 +7,9 @@ import { getUnit } from 'utils/helpers/Food';
 import { FaExclamationTriangle } from "react-icons/fa";
 
 // Components
-import FoodCard from './FoodCard';
+import FoodSelectCard from './FoodSelectCard';
 
-import FoodListModal from './FoodListModal';
+import FoodListModal from './FoodSelectListModal';
 
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
@@ -72,8 +72,8 @@ const SubCategoryCard = ({
                 </Stack>
               </Col>
 
-              <Col lg={8} className={`${size > 0 && 'd-flex justify-content-between align-items-center'} ${size < 3 && 'ps-0 py-3'}`}>
-                <div className={`d-flex ${size < 3 && 'ps-0'} ${size < 2 && 'mt-2'}`} xs={12} md={6}>
+              <Col lg={8} className={`${size > 0 ? 'd-flex justify-content-between align-items-center' : ''} ${size < 3 ? 'ps-0 py-3' : ''}`}>
+                <div className={`d-flex ${size < 3 ? 'ps-0' : ''} ${size < 2 ? 'mt-2' : ''}`} xs={12} md={6}>
                   <div>
                     <header className='long-product-label'>{`${subCategory.unit === 'kg' ? 'Khối' : 'Số'} lượng (${getUnit(subCategory.unit)})`}</header>
                     <h5
@@ -86,7 +86,7 @@ const SubCategoryCard = ({
                   </div>
                 </div>
 
-                <div className={`d-flex ${size < 3 && 'ps-0'} ${size < 2 && 'mt-2'}`}>
+                <div className={`d-flex ${size < 3 ? 'ps-0' : ''} ${size < 2 ? 'mt-2' : ''}`}>
                   <Button className='fogi' variant='primary' onClick={onSubShow}>
                     Chọn Thực phẩm
                   </Button>
@@ -101,8 +101,8 @@ const SubCategoryCard = ({
                   </Accordion.Header>
                   <Accordion.Body>
                     {foodList.map((food,idx) => (
-                      <div className={idx !== 0 && 'mt-3'} key={idx}>
-                        <FoodCard
+                      <div className={idx !== 0 ? 'mt-3' : ''} key={idx}>
+                        <FoodSelectCard
                           food={food}
                           foodList={foodList} setFoodList={setFoodList}
                         />

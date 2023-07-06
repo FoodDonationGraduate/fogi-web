@@ -41,13 +41,13 @@ const FoodCard = ({
               </div>
 
               <Stack direction='horizontal' gap={4}>
-                <div className={`d-flex ${size < 3 && 'ps-0'} ${size < 2 && 'mt-2'}`}>
+                <div className={`d-flex ${size < 3 ? 'ps-0' : ''} ${size < 2 ? 'mt-2' : ''}`}>
                   <div>
                     <header className='long-product-label'>Còn</header>
                     <h5 className='mt-2'>2 ngày</h5>
                   </div>
                 </div>
-                <div className={`d-flex ${size < 3 && 'ps-0'} ${size < 2 && 'mt-2'}`}>
+                <div className={`d-flex ${size < 3 ? 'ps-0' : ''} ${size < 2 ? 'mt-2' : ''}`}>
                   <div>
                     <header className='long-product-label'>Tồn kho</header>
                     <h5 className='mt-2'>{food.stock} {getUnit(food.unit)}</h5>
@@ -55,7 +55,7 @@ const FoodCard = ({
                 </div>
                 <div className='ms-4'>
                   <Button variant='outline-secondary' onClick={onShow}>
-                    Chỉnh sửa
+                    {food.subCategory ? 'Chỉnh sửa' : 'Phân loại'}
                   </Button>
                 </div>
               </Stack>

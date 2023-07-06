@@ -62,7 +62,7 @@ const HomePage = () => {
             </div>
           )}
           <Col>
-            <Row className={`${size >= 2 && 'workspace'} py-4`}>
+            <Row className={`${size >= 2 ? 'workspace' : ''} py-4`}>
               <Col>
                 {activeIdx === 0 && <DashboardPage />}
                 {activeIdx === 1 && <RequestPage />}

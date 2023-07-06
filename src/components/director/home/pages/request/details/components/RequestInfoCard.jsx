@@ -1,6 +1,6 @@
 // Essentials
 import React, { useState, useEffect } from 'react';
-import { Button, Container, Col, Row, Stack } from 'react-bootstrap';
+import { Button, Container, Col, OverlayTrigger, Row, Stack, Tooltip } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from "react-router-dom";
 
@@ -10,7 +10,6 @@ import { MdOutlineLocationOn, MdAccessTime } from 'react-icons/md';
 // Components
 import UserItem from 'components/common/request/UserItem';
 import StepItem from 'components/common/StepItem';
-import VolunteerInfo from 'components/common/request/VolunteerInfo';
 import CancelModal from 'components/common/request/CancelModal';
 import { setModalMessage, showModal ,cancelQuestionModal, setModalQuestion, showQuestionModal } from 'components/redux/reducer/ModalReducer';
 
@@ -35,7 +34,7 @@ const RequestInfoCard = ({ request }) => {
         <Row>
           <Col>
             <div className='order-info-card'>
-              <div className={size > 2 && 'd-flex justify-content-between'}>
+              <div className={size > 2 ? 'd-flex justify-content-between' : ''}>
                 <div>
                   <span
                     className={`order-item-status order-item-status-${getStatus(request).css}`}
@@ -96,29 +95,22 @@ const RequestInfoCard = ({ request }) => {
                   }
                 </>
               }
-              {(request.status === 'init' || request.status === 'pending' || request.status === 'canceled') &&
-                <>
-                  {request.status === 'canceled' &&
-                    <div>
-                      <h5 className='order-item-date mt-4'>
-                        Lí do bị hủy
-                      </h5>
-                      <header className='order-item-secondary'>
-                        {request.cancel_reason !== undefined ? request.cancel_reason : 'Không có lý do cụ thể.'}
-                      </header>
-                    </div>
+              <div className='d-flex mt-4 justify-content-end'>
+                <OverlayTrigger
+                  placement={'left'}
+                  overlay={
+                    <Tooltip>
+                      Bạn chưa chọn Tình nguyện viên
+                    </Tooltip>
                   }
-                  <Row className='mt-4'>
-                    <Col className='d-flex justify-content-end'>
-                      {(request.status === 'init' || request.status === 'pending') && (
-                        <Button variant='outline-danger' onClick={onShow}>
-                          Hủy Yêu cầu
-                        </Button>
-                      )}
-                    </Col>
-                  </Row>
-                </>
-              }
+                >
+                  <span>
+                    <Button className='fogi' variant='primary' disabled>
+                      Xác nhận
+                    </Button>
+                  </span>
+                </OverlayTrigger>
+              </div>
             </div>
           </Col>
         </Row>
