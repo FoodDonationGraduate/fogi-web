@@ -3,10 +3,10 @@ import React, { useState } from 'react';
 import { Container } from 'react-bootstrap';
 
 // Components
-import CategoryModal from './components/CategoryModal';
-import CategoryListPage from './components/list/CategoryListPage';
-import CategoryDetailsPage from './components/details/CategoryDetailsPage';
-import SubCategoryDetailsPage from './components/details/subCategory/SubCategoryDetailsPage';
+import CategoryModal from './components/category/CategoryModal';
+import CategoryListPage from './components/category/list/CategoryListPage';
+import CategoryDetailsPage from './components/category/details/CategoryDetailsPage';
+import SubCategoryDetailsPage from './components/category/details/subCategory/SubCategoryDetailsPage';
 
 const CategoryPage = () => {
 

@@ -32,6 +32,13 @@ const CategoryList = ({
         <Col className='px-0'>
           <Row className='mb-4' xs={3} md={4} xl={5}>
             <EqualHeight>
+              <Col className='mb-4'>
+                <CategoryCard
+                  category={{ name: 'Chưa phân loại' }}
+                  isDonee={false}
+                  setTargetCategory={setTargetCategory}
+                />
+              </Col>
               {Object.keys(allCategories).length !== 0 && allCategories.categories.map((category) => (
                 <Col className='mb-4' key={category.id}>
                   <CategoryCard

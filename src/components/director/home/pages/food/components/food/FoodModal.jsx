@@ -1,11 +1,11 @@
 // Essentials
 import React, { useState, useEffect } from 'react';
-import { Button, Form, Modal, Stack } from 'react-bootstrap';
+import { Button, Col, Form, Modal, Row, Stack } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 
 // Components
-import CategoryImageModal from '../CategoryImageModal';
+import CategoryImageModal from '../category/CategoryImageModal';
 
 // Form handling
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -22,14 +22,15 @@ const FoodModal = ({
 
   // Form handling
   const formSchema = Yup.object().shape({
-    name: Yup.string().required('')
+    name: Yup.string().required(''),
+    stock: Yup.number().required(),
+    unit: Yup.string().required(),
+    category: Yup.string().required(),
+    subCategory: Yup.string().required()
   });
   const formOptions = { resolver: yupResolver(formSchema) };
-  const { register, handleSubmit, formState } = useForm(formOptions);
+  const { register, handleSubmit, formState, reset } = useForm(formOptions);
   const { errors } = formState;
-
-  const [name, setName] = useState('');
-  const onNameChange = (event) => setName(event.target.value);
 
   // Avatar
   const [image, setImage] = useState(undefined);
@@ -42,6 +43,18 @@ const FoodModal = ({
   const onShowImage = () => {
     setShowImage(true);
     onClose();
+  };
+
+  const onOpen = () => {
+    reset({
+      name: food.name,
+      stock: food.stock,
+      unit: food.unit,
+      category: 0,
+      subCategory: 1
+    });
+    setImage(`https://bachkhoi.online/static/${'category_13_image'}`);
+    onShow();
   };
 
   const onSubmit = (data) => {
@@ -59,8 +72,6 @@ const FoodModal = ({
     setImage(undefined);
     setSubmitted(false);
 
-    setName('');
-
     onClose();
   };
 
@@ -69,10 +80,8 @@ const FoodModal = ({
     console.log(JSON.stringify(food))
     if (food) {
       setImage(`https://bachkhoi.online/static/${'category_13_image'}`);
-      setName(food.name);
     } else {
       setImage(undefined);
-      setName('');
     }
   }, [food]);
 
@@ -80,6 +89,7 @@ const FoodModal = ({
     <>
       <Modal
         show={show}
+        onShow={onOpen}
         onHide={onClose}
       >
         <Modal.Header closeButton>
@@ -116,8 +126,7 @@ const FoodModal = ({
               </Form.Label>
               <Form.Control
                 {...register('name')}
-                value={name}
-                onChange={onNameChange}
+                defaultValue={food ? food.name : ''}
               />
               {errors.name && errors.name.type === 'required' && (
                 <p className="mt-2 error">
@@ -125,6 +134,63 @@ const FoodModal = ({
                   Bạn chưa điền tên Thực phẩm
                 </p>
               )}
+            </Form.Group>
+
+            <Form.Group className='mb-3'>
+              <Form.Label style={{ fontWeight: 'bold' }}>
+                Số lượng
+              </Form.Label>
+              <Row>
+                <Col className='ps-0' sm={8} md={8} lg={8}>
+                  <Form.Control
+                    type='number'
+                    {...register('stock')}
+                    defaultValue={food ? food.stock : 1}
+                  />
+                  {errors.stock && errors.stock.type === 'required' && (
+                    <p className="mt-2 error">
+                      <FaExclamationTriangle className="mx-2" />
+                      Bạn chưa điền số lượng
+                    </p>
+                  )}
+                </Col>
+                <Col className='px-0' sm={4} md={4} lg={4}>
+                  <Form.Select 
+                    aria-label="Default select exampe" 
+                    {...register('unit')}
+                  >
+                    <option value='kg'>Kilogram</option>
+                    <option value='item'>Cái</option>
+                  </Form.Select>
+                </Col>
+              </Row>
+            </Form.Group>
+
+            <Form.Group className='mb-3'>
+              <Form.Label style={{ fontWeight: 'bold' }}>
+                Phân loại
+              </Form.Label>
+              <Row>
+                <Col className='ps-0' sm={6}>
+                  <Form.Select 
+                    {...register('category')}
+                  >
+                    <option value='0'>Đông lạnh</option>
+                    <option value='1'>Tươi sống</option>
+                    <option value='2'>Cơm</option>
+                    <option value='3'>Không phân loại</option>
+                  </Form.Select>
+                </Col>
+                <Col className='px-0' sm={6}>
+                  <Form.Select 
+                    {...register('subCategory')}
+                  >
+                    <option value='0'>Thịt heo</option>
+                    <option value='1'>Thịt bò</option>
+                    <option value='2'>Thịt cá</option>
+                  </Form.Select>
+                </Col>
+              </Row>
             </Form.Group>
 
             <div className='d-grid'>
@@ -141,6 +207,7 @@ const FoodModal = ({
                 <Button
                   className='fogi'
                   variant='primary'
+                  type='submit'
                 >
                   Lưu thay đổi
                 </Button>

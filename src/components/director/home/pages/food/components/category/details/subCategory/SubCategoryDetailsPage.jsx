@@ -9,7 +9,7 @@ import ListTitle from 'components/common/ListTitle';
 import Pagination from 'components/common/pagination/Pagination';
 
 import SubCategoryInfoCard from './SubCategoryInfoCard';
-import FoodCard from '../../food/FoodCard';
+import FoodCard from 'components/director/home/pages/food/components/food/FoodCard';
 
 const SubCategoryDetailsPage = ({
   subCategory,
