@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Button, Stack } from 'react-bootstrap';
 import { useNavigate } from 'react-router';
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux';
 
 // Style
 import 'assets/css/director/HomePage.css';

@@ -35,15 +35,15 @@
     }
       .order-item-volunteer-avatar-m {
         border-radius: 50%;
-        width: 64px;
-        height: 64px;
+        width: 48px;
+        height: 48px;
       }
     .order-item-volunteer-label {
       color: #999;
       font-size: 14px;
     }
     .order-item-volunteer-name {
-      font-size: 18px;
+      font-size: 16px;
     }
   .order-item-volunteer-info-card {
     padding: 16px;

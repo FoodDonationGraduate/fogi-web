@@ -2,10 +2,12 @@
 import React from 'react';
 import { Stack } from 'react-bootstrap';
 import { EqualHeightElement } from 'react-equal-height';
-import { useNavigate } from 'react-router-dom';
 
 // Assets
 import { MdOutlineLocationOn, MdAccessTime } from 'react-icons/md';
+
+// Components
+import UserItem from './UserItem';
 
 // Utility
 import { getStatus } from 'utils/helpers/Order.jsx';
@@ -13,12 +15,18 @@ import { reduceString } from 'utils/helpers/String';
 import { convertToString } from 'utils/helpers/Time';
 import { getUnit } from 'utils/helpers/Food';
 
-const RequestCard = ({ order }) => {
+// Utility
+import { useResizer } from 'utils/helpers/Resizer.jsx';
+
+const RequestCard = ({
+  order
+}) => {
+  const size = useResizer();
+
   const productListDisplayLength = () => {
     return order.products.length < 4 ? order.products.length : 2;
   };
 
-  const navigate = useNavigate();
   return (
     <>
       <span
@@ -35,7 +43,7 @@ const RequestCard = ({ order }) => {
       <EqualHeightElement name="request-food-list">
         {order.products.slice(0, productListDisplayLength()).map((product) => (
           <header className='order-item-secondary my-1' key={product.name}>
-            - {product.name} ({product.quantity} {getUnit(product.unit)})
+            • {product.name} ({product.quantity} {getUnit(product.unit)})
           </header>
         ))}
         {order.products.length >= 4 &&
@@ -48,23 +56,14 @@ const RequestCard = ({ order }) => {
       <hr className='my-3' />
       
       <EqualHeightElement name='request-volunteer'>
-        {order.volunteer ? 
-          <>
-            <Stack direction='horizontal' gap={3}>
-              <img src={`https://bachkhoi.online/static/${order.volunteer.avatar}`} alt='volunteer-avatar'
-              className='order-item-volunteer-avatar-m volunteer-avatar'
-              onClick={() => navigate(`/volunteer/${order.volunteer.username}`)}/>
-              <Stack direction='vertical' className='justify-content-center'>
-                <small className='order-item-volunteer-label'>Tình nguyện viên</small>
-                <div className='order-item-volunteer-name'>{order.volunteer.name}</div>
-              </Stack>
-            </Stack>
-          </>
-          :
-          <div className='text-center h-100'>
-            <small className='order-item-volunteer-label'>Chưa có Tình nguyện viên</small>
-          </div>
-        }
+        <Stack
+          direction={size > 3 ? 'horizontal' : 'vertical'}
+          gap={3  }
+          className={size > 3 ? 'd-flex justify-content-between' : ''}
+        >
+          <UserItem user={order.volunteer} />
+          {order.user && <UserItem user={order.user} user_type={order.user.user_type} />}
+        </Stack>
       </EqualHeightElement>
       <hr className='my-3' />
 

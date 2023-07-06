@@ -22,7 +22,8 @@ const CategoryModal = ({
   targetCategory, // for edit
   show,
   onShow,
-  onClose
+  onClose,
+  isSubCategory=false
 }) => {
   const userInfo = useSelector(state => state.authenticationReducer.user);
   const userToken = useSelector(state => state.authenticationReducer.token);
@@ -75,14 +76,20 @@ const CategoryModal = ({
 
   // Edit handling
   useEffect(() => {
+    console.log(JSON.stringify(targetCategory))
     if (targetCategory) {
-      setImage(`https://bachkhoi.online/static/${targetCategory.image}`);
+      if (!isSubCategory)
+        setImage(`https://bachkhoi.online/static/${targetCategory.image}`);
+      else setImage(`https://bachkhoi.online/static/${'category_13_image'}`);
       setName(targetCategory.name);
     } else {
       setImage(undefined);
       setName('');
     }
   }, [targetCategory]);
+
+  // Title
+  const getTitle = () => { return isSubCategory ? 'Thực phẩm lớn' : 'Phân loại' };
 
   return (
     <>
@@ -91,7 +98,7 @@ const CategoryModal = ({
         onHide={onClose}
       >
         <Modal.Header closeButton>
-          <Modal.Title>{targetCategory ? 'Chỉnh sửa' : 'Thêm'} Phân loại</Modal.Title>
+          <Modal.Title>{targetCategory ? 'Chỉnh sửa' : 'Thêm'} {getTitle()}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleSubmit(onSubmit)}>
@@ -99,7 +106,7 @@ const CategoryModal = ({
             <Stack direction='horizontal' className='mb-2' gap={4}>
               {image && <img src={image} className='rounded-circle' alt='category-img' width='128' height='128' />}
               <Button variant='outline-secondary' onClick={onShowImage}>
-                Đăng tải Ảnh Phân loại
+                Đăng tải Ảnh {getTitle()}
               </Button>
             </Stack>
             {!image && submitted && (
@@ -111,7 +118,7 @@ const CategoryModal = ({
 
             <Form.Group className='mb-3'>
               <Form.Label style={{ fontWeight: 'bold'}}>
-                Tên Phân loại
+                Tên {getTitle()}
               </Form.Label>
               <Form.Control
                 {...register('name')}
@@ -121,7 +128,7 @@ const CategoryModal = ({
               {errors.name && errors.name.type === 'required' && (
                 <p className="mt-2 error">
                   <FaExclamationTriangle className="mx-2" />
-                  Bạn chưa điền tên phân loại
+                  Bạn chưa điền tên {getTitle()}
                 </p>
               )}
             </Form.Group>
@@ -134,7 +141,7 @@ const CategoryModal = ({
                   type='submit'
                   onClick={() => setSubmitted(true)}
                 >
-                  Thêm Phân loại
+                  Thêm {getTitle()}
                 </Button>
                 :
                 <Button
