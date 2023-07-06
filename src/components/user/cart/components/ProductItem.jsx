@@ -15,7 +15,9 @@ import { getUnit } from 'utils/helpers/Food';
 import { showQuestionModal, cancelQuestionModal, setModalQuestion } from 'components/redux/reducer/ModalReducer';
 
 const ProductItem = ({
-  product
+  product,
+  overStock,
+  setOverStock
 }) => {
 
   const userInfo = useSelector(state => state.authenticationReducer.user);
@@ -27,24 +29,53 @@ const ProductItem = ({
 
   let size = useResizer();
   const [count, setCount] = useState(0);
+  const [oldCount, setOldCount] = useState(count);
   const [currentProduct, setCurrentProduct] = useState('');
 
   // Count handling
   const [timer, setTimer] = useState(null);
   const updateCount = (newCount) => { 
     console.log(`update count: ${product.id} | ${newCount} | ${isNaN(newCount)}`);
-    dispatch(updateProduct({product_id: product.id, quantity: Number(newCount)}, {userInfo, userToken}, navigate));
+    dispatch(updateProduct(
+      {
+        product_id: product.id,
+        quantity: Number(newCount),
+        setCount,
+        oldCount, setOldCount
+      },
+      { userInfo, userToken },
+      navigate
+    ));
+  };
+  const checkOverStock = (newCount) => {
+    if (!overStock.includes(product.id)) {
+      if (newCount < 1 || newCount > product.stock) {
+        setOverStock([...overStock, product.id]);
+        return true; // if true, return
+      }
+      return false;
+    }
+    if (newCount >= 1 && newCount <= product.stock) {
+      setOverStock(overStock.filter(p => p !== product.id));
+      return false;
+    }
+    return true;
   };
   const onUpdateCount = (amount) => {
     setCount(Number(count) + amount);
     window.clearTimeout(timer);
+
+    if (checkOverStock(Number(count) + amount)) return;
+
     setTimer(window.setTimeout(updateCount, 1000, count + amount));
   };
   const onUpdateInput = (event) => {
     let newCount = Number(event.target.value);
     setCount(newCount);
     window.clearTimeout(timer);
-    if (newCount < 1 || newCount > product.stock) return;
+
+    if (checkOverStock(newCount)) return;
+
     setTimer(window.setTimeout(updateCount, 1000, newCount));
   };
 
@@ -57,6 +88,7 @@ const ProductItem = ({
 
   useEffect(() => {
     setCount(product.quantity);
+    setOldCount(product.quantity);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product]);
 
@@ -95,7 +127,7 @@ const ProductItem = ({
             <Col lg={8} className={size < 3 && 'ps-0 py-3'}>
               <Row>
                 <Col className={`d-flex ${size < 3 && 'ps-0'}`} xs={12} md={3}>
-                  <Stack className='my-auto' direction='vertical' gap={2}>
+                  <Stack direction='vertical' gap={2}>
                     <header className='long-product-label'>
                       Còn
                     </header>
@@ -104,11 +136,12 @@ const ProductItem = ({
                 </Col>
 
                 <Col className={`d-flex ${size < 3 && 'ps-0'} ${size < 2 && 'mt-2'}`} xs={12} md={3}>
-                  <Stack className='my-auto' direction='vertical' gap={2}>
-                    <header className='long-product-label'>Số lượng ({getUnit(product.unit)})</header>
+                  <Stack direction='vertical' gap={2}>
+                    <header className='long-product-label'>{`${product.unit === 'kg' ? 'Khối' : 'Số'} lượng (${getUnit(product.unit)})`}</header>
                     <Stack direction='horizontal'>
                       {size > 0 &&
                         <Button
+                          className='count-btn-left'
                           variant='outline-secondary'
                           onClick={() => onUpdateCount(-1)}
                           disabled={count <= 1}
@@ -118,6 +151,7 @@ const ProductItem = ({
                       }
                       <Form.Group>
                         <Form.Control
+                          className='count-input'
                           type='number'
                           value={Number(count).toString()}
                           style={{ textAlign: 'center' }}
@@ -126,6 +160,7 @@ const ProductItem = ({
                       </Form.Group>
                       {size > 0 &&
                         <Button
+                          className='count-btn-right'
                           variant='outline-secondary'
                           onClick={() => onUpdateCount(1)}
                           disabled={count >= product.stock}
@@ -134,18 +169,19 @@ const ProductItem = ({
                         </Button>
                       }
                     </Stack>
-                    {size < 2 && (count > product.stock || count < 1) && (
-                      <small className='ps-0 error'>
-                        <FaExclamationTriangle className="mx-2" />
-                        {count > product.stock && 'Số lượng bạn điền vượt quá số lượng tồn kho'}
-                        {count < 1 && 'Số lượng bạn điền phải ít nhất là 1'}
+                    {(count < 1 || count > product.stock) ?
+                      <small className='error'>
+                        <FaExclamationTriangle className='mb-1' />
+                        Tồn kho: {product.stock} ({count < 1 && 'Không thể ít hơn 1'}{count > product.stock && 'Không thể vượt quá số lượng tồn kho'})
                       </small>
-                    )}
+                      :
+                      <small className='small-text'>Tồn kho: {product.stock}</small>
+                    }
                   </Stack>
                 </Col>
 
                 <Col className={`d-flex ${size < 3 && 'ps-0'} ${size < 2 && 'mt-2'}`}>
-                  <Stack className='my-auto' direction='vertical' gap={2}>
+                  <Stack direction='vertical' gap={2}>
                     <header className='long-product-label'>
                       Tùy chỉnh
                     </header>
@@ -159,15 +195,7 @@ const ProductItem = ({
                     </Stack>
                   </Stack>
                 </Col>
-                
               </Row>
-              {size >= 2 && (count > product.stock || count < 1) && (
-                <small className='mt-2 ps-0 error'>
-                  <FaExclamationTriangle className="mx-2" />
-                  {count > product.stock && 'Số lượng bạn điền vượt quá số lượng tồn kho'}
-                  {count < 1 && 'Số lượng bạn điền phải ít nhất là 1'}
-                </small>
-              )}
             </Col>
           </Row>
         </Card>

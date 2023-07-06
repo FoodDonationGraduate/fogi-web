@@ -5,12 +5,15 @@
     height: 40px;}
     .search-form .search-box {
         border: 2px solid #CCCCCC;
-        border-radius: 8px;}
+        border-radius: 16px;
+    }
     .search-form .search-button{
         background-color: black;
         width: 70px;
-        height: 40px;}
+        height: 40px;
+    }
     .search-form .search-button .search-icon {
         width: 24px;
-        height: 24px;}
+        height: 24px;
+    }
 

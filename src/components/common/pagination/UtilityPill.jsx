@@ -5,6 +5,9 @@ import { Button } from 'react-bootstrap';
 // Style imports
 import './Pagination.css';
 
+// Assets
+import { MdArrowLeft, MdArrowRight } from 'react-icons/md';
+
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
 
@@ -26,12 +29,18 @@ const UtilityPill = ({
   return (
     <>
       <Button
-        className={size < 1 ? 'fogi pagination-pill-sm' : 'fogi pagination-pill'}
+        className={`d-flex justify-content-center align-items-center ${size < 1 ? 'fogi pagination-pill-sm' : 'fogi pagination-pill'}`}
         variant={(idx !== -1 ? 'primary' : 'outline-secondary')}
         onClick={handleOnClick}
         key={idx}
       >
-        {idx === -1 ? '...' : (idx === -2 ? '<' : '>' )}
+        {idx === -1 ?
+          '...'
+          :
+          <>
+            {idx === -2 ? <MdArrowLeft size={28} /> : <MdArrowRight size={28} />}
+          </>
+        }
       </Button>
     </>
   );

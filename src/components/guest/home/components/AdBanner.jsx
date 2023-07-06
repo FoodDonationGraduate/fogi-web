@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { Carousel, Container, Col, Row } from 'react-bootstrap';
+import { Carousel, Container, Col, Row, Stack } from 'react-bootstrap';
 import Banner_1 from 'assets/images/AdBanner.svg';
 
 // Components
@@ -65,6 +65,14 @@ const AdBanner = () => {
             <CarouselButton isLeft={false} onClick={onNextClick} />
           }
         </div>
+        {size <= 1 &&
+          <div className='d-flex justify-content-center mt-3'>
+            <Stack direction='horizontal' gap={3}>
+              <CarouselButton isLeft={true} onClick={onPrevClick} isAbsolute={false} />
+              <CarouselButton isLeft={false} onClick={onNextClick} isAbsolute={false} />
+            </Stack>
+          </div>
+        }
       </Container>
     </div>
   );

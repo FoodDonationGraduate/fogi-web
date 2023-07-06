@@ -9,6 +9,7 @@ import 'assets/css/layout/TopBar.css';
 // Components
 import Logo from 'components/common/Logo';
 import Notification from './Notification';
+
 // Assets
 import { MdOutlineShoppingBag } from 'react-icons/md';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -73,7 +74,7 @@ const TopBar = () => {
                               {...register("query")}
                             />
                           </Form.Group>
-                          <Button className='px-4' variant='dark' type='submit'>
+                          <Button className='px-4 search-btn' variant='dark' type='submit'>
                             <FontAwesomeIcon icon={faSearch} />
                           </Button>
                         </Form>
@@ -92,7 +93,7 @@ const TopBar = () => {
                 // Logged in
                 <>
                   {size > 1 ?
-                    <Stack direction='horizontal' gap={4}>
+                    <Stack direction='horizontal' gap={2}>
                       {size > 2 && 
                         <Form className="search-form d-flex" onSubmit={handleSubmit(onSubmit)}>
                           <Form.Group>
@@ -105,7 +106,7 @@ const TopBar = () => {
                               {...register("query")}
                             />
                           </Form.Group>
-                          <Button className='px-4' variant='dark' type='submit'>
+                          <Button className='px-4 search-btn' variant='dark' type='submit'>
                             <FontAwesomeIcon icon={faSearch} />
                           </Button>
                         </Form>

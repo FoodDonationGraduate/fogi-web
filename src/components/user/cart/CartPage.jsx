@@ -15,6 +15,9 @@ import 'assets/css/user/cart/Cart.css';
 const CartPage = () => {
   const [volunteerInfo, setVolunteerInfo] = useState(null);
 
+  // Error handling
+  const [isError, setIsError] = useState(false);
+
   return (
     <>
       <div>
@@ -22,10 +25,10 @@ const CartPage = () => {
       </div>
       <div className='bg'  style={{minHeight: '600px'}}>
         <div className='mb-4'>
-          <CartTitle volunteerInfo={volunteerInfo} />
+          <CartTitle volunteerInfo={volunteerInfo} isError={isError} />
         </div>
         <div className='pb-4'>
-          <ProductList setVolunteerInfo={setVolunteerInfo} />
+          <ProductList setVolunteerInfo={setVolunteerInfo} setIsError={setIsError} />
         </div>
       </div>
       <div>
