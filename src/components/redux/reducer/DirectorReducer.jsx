@@ -9,7 +9,10 @@ const initialState = {
   unverifiedUsers: {},
   manageUsers: {},
   reports: {},
-  user_type: 'donee'
+  user_type: 'donee',
+
+  allRequests: {},
+  availableVolunteers: {}
 };
 
 const directorReducer = createSlice({
@@ -27,12 +30,21 @@ const directorReducer = createSlice({
     },
     setTypeOfUser: (state, action) => {
       state.user_type = action.payload;
+    },
+
+    setAllRequests: (state, action) => {
+      state.allRequests = action.payload;
+    },
+    setAvailableVolunteers: (state, action) => {
+      state.availableVolunteers = action.payload;
     }
   }
 });
 
 export const {
-  setUnverifiedUsers, setManageUsers, setReports, setTypeOfUser
+  setUnverifiedUsers, setManageUsers, setReports, setTypeOfUser,
+
+  setAllRequests, setAvailableVolunteers
 } = directorReducer.actions
 
 export default directorReducer.reducer
@@ -200,6 +212,66 @@ export const addCategory = (data, director, navigate) => {
         } else {
           console.log(err.response.data);
           dispatch(setModalMessage("Thêm phân loại không thành công!"))
+          dispatch(setModalType('danger'))
+          dispatch(showModal())
+       }
+      });
+    } catch (err) {
+      console.log(err);
+      navigate('/');
+    }
+  }
+}
+
+export const retrieveAllRequests = (data, director, navigate) => {
+  return async dispatch => {
+    try {
+      console.log('retrieve requests for director');
+      await axiosInstance.get(`/request/director`, { params: {
+        email: director.userInfo.email,
+        token: director.userToken,
+        limit: data.limit,
+        offset: data.offset,
+        sort_field: 'created_time',
+        sort_by: 'desc',
+        request_from: data.request_from,
+        request_status: data.request_status
+      }}).then((res) => {
+        dispatch(setAllRequests(res.data));
+      }).catch((err) => {
+        if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+          
+        } else {
+          console.log(err.response.data);
+          dispatch(setModalMessage("Đã xảy ra lỗi!"))
+          dispatch(setModalType('danger'))
+          dispatch(showModal())
+       }
+      });
+    } catch (err) {
+      console.log(err);
+      navigate('/');
+    }
+  }
+}
+
+export const retrieveAvailableVolunteers = (data, director, navigate) => {
+  return async dispatch => {
+    try {
+      console.log('retrieve available volunteers');
+      await axiosInstance.get(`/director/volunteer`, { params: {
+        email: director.userInfo.email,
+        token: director.userToken,
+        limit: data.limit,
+        offset: data.offset
+      }}).then((res) => {
+        dispatch(setAvailableVolunteers(res.data));
+      }).catch((err) => {
+        if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+          
+        } else {
+          console.log(err.response.data);
+          dispatch(setModalMessage("Đã xảy ra lỗi!"))
           dispatch(setModalType('danger'))
           dispatch(showModal())
        }

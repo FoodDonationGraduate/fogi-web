@@ -4,18 +4,19 @@ import { Container, Row, Stack } from 'react-bootstrap';
 
 // Components
 import ChipList from 'components/common/chip/ChipList';
-import ListTitle from 'components/common/ListTitle';
 
 import RequestList from './components/RequestList';
 
-const RequestListPage = () => {
+const RequestListPage = ({
+  setTargetRequest
+}) => {
 
   // Chip List - Request type
   const [activeTypeIdx, setActiveTypeIdx] = useState(0);
-  const typeList = ['give', 'take'];
+  const typeList = ['donor', 'donee'];
   const getTypeLabel = (status) => {
     switch (status) {
-      case 'take': return 'Nhận';
+      case 'donee': return 'Nhận';
       default: return 'Cho';
     }
   };
@@ -23,7 +24,7 @@ const RequestListPage = () => {
 
   // Chip List - Request status
   const [activeStatusIdx, setActiveStatusIdx] = useState(0);
-  const statusList = ['pending', 'finding', 'receiving', 'shipping', 'success', 'cancel'];
+  const statusList = ['pending', 'finding', 'receiving', 'shipping', 'success', 'canceled'];
   const getStatusLabel = (status) => {
     switch (status) {
       case 'pending': return 'Chờ duyệt';
@@ -66,6 +67,7 @@ const RequestListPage = () => {
           <RequestList
             currentType={typeList[activeTypeIdx]}
             currentStatus={statusList[activeStatusIdx]}
+            setTargetRequest={setTargetRequest}
           />
         </div>
 

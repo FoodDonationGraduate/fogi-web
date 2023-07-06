@@ -1,6 +1,5 @@
 // Essentials
 import React, { useState } from 'react';
-import { Container, Row } from 'react-bootstrap';
 
 // Components
 import ChipList from 'components/common/chip/ChipList';
@@ -77,61 +76,34 @@ const sampleFoodList = [
 
 const RequestDetailsPage = ({ request }) => {
 
-  // Chip List
-  const [activeStatusIdx, setActiveStatusIdx] = useState(0);
-  const statusList = ['subCategory', 'volunteer'];
-  const getStatusLabel = (status) => {
-    switch (status) {
-      case 'subCategory':
-        return 'Thực phẩm';
-      default:
-        return 'Tình nguyện viên';
-    }
-  };
-  const styleList = ['success', 'success'];
-
   // List handling
   const [subCategoryList, setSubCategoryList] = useState(sampleSubCategoryList);
   const [foodList, setFoodList] = useState(sampleFoodList);
 
   // Volunteer handling
-  const [targetVolunteer, setTargetVolunteer] = useState(null);
+  const [targetVolunteer, setTargetVolunteer] = useState(null); // volunteer.email
 
   return (
     <>
       <div className='bg'>
-        <div>
+        <div className='mb-4'>
           <RequestInfoCard request={request} />
         </div>
-        <Container>
-          <Row className='my-4'>
-            <ChipList
-              activeStatusIdx={activeStatusIdx}
-              setActiveStatusIdx={setActiveStatusIdx}
-              statusList={statusList}
-              getStatusLabel={getStatusLabel}
-              styleList={styleList}
+        <div className='mb-4'>
+          {/* for later: request.donor */}
+          {true ?
+            <FoodList
+              foodList={foodList}
             />
-          </Row>
-        </Container>
-        {activeStatusIdx === 0 ?
-          <>
-            {/* for later: request.donor */}
-            {true ?
-              <FoodList
-                foodList={foodList}
-              />
-              :
-              <SubCategoryList
-                subCategoryList={subCategoryList} setSubCategoryList={setSubCategoryList}
-              />
-            }
-          </>
-          :
-          <VolunteerList
-            targetVolunteer={targetVolunteer} setTargetVolunteer={setTargetVolunteer}
-          />
-        }
+            :
+            <SubCategoryList
+              subCategoryList={subCategoryList} setSubCategoryList={setSubCategoryList}
+            />
+          }
+        </div>
+        <VolunteerList
+          targetVolunteer={targetVolunteer} setTargetVolunteer={setTargetVolunteer}
+        />
       </div>
     </>
   );

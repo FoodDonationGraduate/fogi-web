@@ -27,6 +27,14 @@ const RequestInfoCard = ({ request }) => {
   const onShow = () => setShow(true);
   const onClose = () => setShow(false);
 
+  const getTooltip = (text) => {
+    return (
+      <Tooltip style={{position:"fixed"}}>
+        {text}
+      </Tooltip>
+    );
+  };
+
   return (
     <>
       <CancelModal show={show} onClose={onClose} volunteerInfo={request.volunteer} orderId={request.id} />
@@ -96,20 +104,11 @@ const RequestInfoCard = ({ request }) => {
                 </>
               }
               <div className='d-flex mt-4 justify-content-end'>
-                <OverlayTrigger
-                  placement={'left'}
-                  overlay={
-                    <Tooltip>
-                      Bạn chưa chọn Tình nguyện viên
-                    </Tooltip>
+                <Stack direction='horizontal' gap={2}>
+                  {
+
                   }
-                >
-                  <span>
-                    <Button className='fogi' variant='primary' disabled>
-                      Xác nhận
-                    </Button>
-                  </span>
-                </OverlayTrigger>
+                </Stack>
               </div>
             </div>
           </Col>

@@ -17,11 +17,11 @@ const VolunteerCard = ({
 }) => {
   let size = useResizer();
 
-  const isSelected = () => { return volunteer === targetVolunteer; }
+  const isSelected = () => { return volunteer.email === targetVolunteer; }
   
   const onSelect = () => {
     if (isSelected()) setTargetVolunteer(null);
-    else  setTargetVolunteer(volunteer);
+    else  setTargetVolunteer(volunteer.email);
   };
 
   return (
@@ -37,7 +37,7 @@ const VolunteerCard = ({
                 <Stack direction='horizontal'>
                     <img
                       className='long-product-image-round'
-                      src={`https://bachkhoi.online/static/${'donortung007@yopmail.com_avatar'}`} alt='product-img'
+                      src={`https://bachkhoi.online/static/${volunteer.image}`} alt='product-img'
                       width='96' height='96'
                     />
                     <Stack direction='horizontal' gap={4}>
@@ -57,7 +57,7 @@ const VolunteerCard = ({
               </div>
 
               <div className='ms-4'>
-                {volunteer !== targetVolunteer ?
+                {volunteer.email !== targetVolunteer ?
                   <Button className='fogi' variant='primary' onClick={onSelect}>
                     Chọn
                   </Button>
