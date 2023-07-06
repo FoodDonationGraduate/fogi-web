@@ -35,7 +35,7 @@ const CategoryModal = ({
     name: Yup.string().required('')
   });
   const formOptions = { resolver: yupResolver(formSchema) };
-  const { register, handleSubmit, formState } = useForm(formOptions);
+  const { register, handleSubmit, formState, reset } = useForm(formOptions);
   const { errors } = formState;
 
   const [name, setName] = useState('');
@@ -51,6 +51,20 @@ const CategoryModal = ({
   };
   const onShowImage = () => {
     setShowImage(true);
+    onClose();
+  };
+
+  const onOpen = () => {
+    reset({
+      name: targetCategory ? targetCategory.name : ''
+    });
+    onShow();
+  };
+
+  const onHide = () => {
+    reset({
+      name: ''
+    });
     onClose();
   };
 
@@ -95,7 +109,8 @@ const CategoryModal = ({
     <>
       <Modal
         show={show}
-        onHide={onClose}
+        onShow={onOpen}
+        onHide={onHide}
       >
         <Modal.Header closeButton>
           <Modal.Title>{targetCategory ? 'Chỉnh sửa' : 'Thêm'} {getTitle()}</Modal.Title>
@@ -104,7 +119,16 @@ const CategoryModal = ({
           <Form onSubmit={handleSubmit(onSubmit)}>
 
             <Stack direction='horizontal' className='mb-2' gap={4}>
-              {image && <img src={image} className='rounded-circle' alt='category-img' width='128' height='128' />}
+              {image && 
+                <img
+                  src={image}
+                  className='rounded-circle'
+                  style={{ objectFit: 'cover' }}
+                  alt='category-img'
+                  width='128'
+                  height='128'
+                />
+              }
               <Button variant='outline-secondary' onClick={onShowImage}>
                 Đăng tải Ảnh {getTitle()}
               </Button>

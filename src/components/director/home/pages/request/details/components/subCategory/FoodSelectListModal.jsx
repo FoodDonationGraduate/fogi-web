@@ -5,9 +5,9 @@ import { Modal } from 'react-bootstrap';
 // Components
 import Pagination from 'components/common/pagination/Pagination';
 
-import FoodCard from './FoodCard';
+import FoodSelectCard from './FoodSelectCard';
 
-const FoodListModal = ({
+const FoodSelectListModal = ({
   subCategory,
   foodList, setFoodList,
   subShow, onSubClose
@@ -55,8 +55,8 @@ const FoodListModal = ({
         </Modal.Header>
         <Modal.Body>
           {sampleList.map((sample, idx) => (
-            <div className={idx !== 0 && 'mt-3'} key={idx}>
-              <FoodCard
+            <div className={idx !== 0 ? 'mt-3' : ''} key={idx}>
+              <FoodSelectCard
                 food={{ content: sample, count: 1 }}
                 foodList={foodList} setFoodList={setFoodList}
                 isShowStock={true}
@@ -76,4 +76,4 @@ const FoodListModal = ({
   );
 };
 
-export default FoodListModal;
+export default FoodSelectListModal;
