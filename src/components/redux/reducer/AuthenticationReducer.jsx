@@ -3,6 +3,7 @@ import axiosInstance from "services/axios/axiosConfig.js";
 import { setModalMessage, showModal, hideModal, setModalType } from 'components/redux/reducer/ModalReducer';
 import { retrieveAllProducts } from './CartReducer';
 import { enableNotification } from 'utils/helpers/Notification';
+import { removeSelectedAddress } from './AddressReducer';
 
 const initialState = {
 
@@ -161,8 +162,8 @@ export const logout = (navigate) => {
             dispatch(setUserInfo({}))
             dispatch(setUserToken(''))
             dispatch(hideModal())
-            localStorage.removeItem('selectedAddress')
-            localStorage.removeItem('volunteerInfo')
+            // 
+            dispatch(removeSelectedAddress())
             navigate('/login')
         } catch (err) {
             console.log(err)

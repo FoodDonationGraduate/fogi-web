@@ -18,7 +18,7 @@ const ListTitle = ({
 }) => {
   const size = useResizer();
   const donorProducts = useSelector(state => state.productReducer.donorProducts);
-
+  const selectedAddress = useSelector(state => state.addressReducer.selectedAddress)
   return (
     <>
       <Row className='mb-4'>
@@ -36,7 +36,7 @@ const ListTitle = ({
                 <MdAddCircle className='mb-1' />
               }
             </Button>
-            {donorProducts.total_products > 0 ?
+            {(donorProducts.total_products > 0 && selectedAddress.address !== 'Địa chỉ của bạn')?
               <Button
                 variant='outline-dark'
                 onClick={onShowCreateRequest}
@@ -51,7 +51,9 @@ const ListTitle = ({
                 placement={'bottom'}
                 overlay={
                   <Tooltip>
-                    Chưa có Thực phẩm để tạo Yêu cầu
+                    {donorProducts.total_products === 0 
+                      ? 'Chưa có Thực phẩm để tạo Yêu cầu'
+                      : 'Vui lòng chọn địa điểm mặc định'}
                   </Tooltip>
                 }
               >

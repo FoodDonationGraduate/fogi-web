@@ -212,15 +212,14 @@ export const postNewProduct = (data, user, navigate) => {
     return async dispatch => {
         try {
             console.log("post new product")
-            await axiosInstance.post(`/product`, {
-                donor_email: user.userInfo.email,
+            await axiosInstance.post(`/product/donor`, {
+                email: user.userInfo.email,
                 token: user.userToken,
                 name: data.name,
                 description: data.description,
                 unit: data.unit,
                 expired_time: data.expired_time,
                 stock: data.stock,
-                category_id: parseInt(data.category_id),
                 images: data.images
             }).then((res) => {
                 dispatch(setModalMessage("Tạo thực phẩm thành công!"))
@@ -246,8 +245,8 @@ export const deleteProduct = (data, user, navigate) => {
     return async dispatch => {
         try {
             console.log("delete donor's products")
-            await axiosInstance.delete(`/product`, {params: {
-                donor_email: user.userInfo.email,
+            await axiosInstance.delete(`/product/donor`, {params: {
+                email: user.userInfo.email,
                 token: user.userToken,
                 id: data.id
             }}).then((res) => {

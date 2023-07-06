@@ -17,15 +17,8 @@ import { useResizer } from 'utils/helpers/Resizer';
 
 const LocationCard = () => {
   let size = useResizer();
-  const exampleLocation = '227 Nguyễn Văn Cừ, P. 4, Q. 5, TP. Hồ Chí Minh'; // temporary
-  const [location, setLocation] = useState(exampleLocation);
+  const [location, setLocation] = useState();
   const selectedAddress = useSelector(state => state.addressReducer.selectedAddress)
-  
-  useEffect(() => {
-    if (size < 4) setLocation(location.substring(0, (size + 3) * 5) + '...');
-    else setLocation(location);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [size]);
 
   useEffect(() => {
     if (Object.keys(selectedAddress).length !== 0) {
