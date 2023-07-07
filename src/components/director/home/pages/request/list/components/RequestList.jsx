@@ -1,8 +1,8 @@
 // Essentials
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Col, Row } from 'react-bootstrap';
 import { EqualHeight } from 'react-equal-height';
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 
 // Components
@@ -10,74 +10,68 @@ import RequestCard from 'components/common/request/RequestCard';
 import Pagination from 'components/common/pagination/Pagination';
 import CommonNotFoundBody from 'components/common/CommonNotFoundBody';
 
+// Reducers
+import { retrieveAllRequests, setCurrentRequest } from 'components/redux/reducer/DirectorReducer';
+
 const RequestList = ({
   currentType,
   currentStatus
 }) => {
-  
+  const allRequests = useSelector(state => state.directorReducer.allRequests);
+  const userInfo = useSelector(state => state.authenticationReducer.user);
+  const userToken = useSelector(state => state.authenticationReducer.token);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // Pagination handling
   const REQUEST_COUNT = 4; // per page
   const [page, setPage] = useState(0); // a.k.a activeIdx
-
   const onChangePage = async (idx) => {
     setPage(idx);
+    await dispatch(retrieveAllRequests(
+      {
+        limit: REQUEST_COUNT,
+        offset: idx * REQUEST_COUNT,
+        request_from: currentType,
+        request_status: currentStatus
+      },
+      { userInfo, userToken },
+      navigate
+    ));
   };
 
-  const sampleData = {
-    address: "227 Đ. Nguyễn Văn Cừ, Phường 4, Quận 5, Thành phố Hồ Chí Minh",
-    created_time: "2023-05-23 14:13:24",
-    id: 89,
-    products: [
-        {
-            category_name: "Đông lạnh",
-            expired_time: "2023-06-23 00:00:00",
-            image_filename: "product_image_487849f0ad47f36af0ab",
-            name: "Thịt bò tươi",
-            quantity: 2,
-            unit: "kg"
-        }
-    ],
-    status: "shipping",
-    volunteer: {
-        address: "280 Đ. An D. Vương, Phường 4, Quận 5, Thành phố Hồ Chí Minh",
-        avatar: "akafatana@gmail.com_avatar",
-        email: "akafatana@gmail.com",
-        name: "Duy",
-        phone: "0919127311",
-        username: "akafatana"
-    },
-    user: {
-        address: "227 Nguyễn Văn Cừ",
-        avatar: "doneetung006@yopmail.com_avatar",
-        email: "doneetung006@yopmail.com",
-        name: "Trần Thanh Tùng",
-        phone: "0919127311",
-        user_type: "donee"
-    }
-  };
+  // Get Available Volunteers
+  useEffect(() => {
+    setPage(0);
+    dispatch(retrieveAllRequests(
+      {
+        limit: REQUEST_COUNT,
+        offset: 0,
+        request_from: currentType,
+        request_status: currentStatus
+      },
+      { userInfo, userToken },
+      navigate
+    ));
+  }, [currentType, currentStatus]);
 
   return (
     <div>
-      {/* {(Object.keys(allRequests).length !== 0 && allRequests.total_requests !== 0) &&  */}
-      {true &&
+      {(Object.keys(allRequests).length !== 0 && allRequests.total !== 0) && 
         <Container>
           <Row>
             <Col className='px-0'>
-              <Row className='mb-4' xs={1} md={2} lg={2} >
+              <Row className='mb-2' xs={1} md={2} lg={2} >
                 <EqualHeight>
-                  {/* {Object.keys(allRequests).length !== 0 && allRequests.requests.map((request) => (
-                    <Col className='mb-4' key={request.id}>
-                      <div className='order-item' onClick={() => navigate(`/donor/request/${request.id}`)}>
-                        <RequestCard order={request} isDirector={true} />
-                      </div>
-                    </Col>
-                  ))} */}
-                  {Array.from({ length: 4 }).map((_, idx) => (
+                  {Object.keys(allRequests).length !== 0 && allRequests.requests.map((request, idx) => (
                     <Col className='mb-4' key={idx}>
-                      <div className='order-item'>
-                        <RequestCard order={sampleData} />
+                      <div
+                        className='order-item'
+                        onClick={() => dispatch(setCurrentRequest(request))}
+                      >
+                        <RequestCard
+                          request={request}
+                        />
                       </div>
                     </Col>
                   ))}
@@ -85,8 +79,7 @@ const RequestList = ({
               </Row>
               <div className='d-flex justify-content-center'>
                 <Pagination
-                  pageCount={Math.ceil(30 / REQUEST_COUNT)}
-                  // pageCount={Math.ceil(allRequests.total_requests / REQUEST_COUNT)}
+                  pageCount={Math.ceil(allRequests.total / REQUEST_COUNT)}
                   activeIdx={page}
                   onChangePage={onChangePage}
                 />
@@ -95,9 +88,9 @@ const RequestList = ({
           </Row>
         </Container>
       }
-      {/* {(Object.keys(allRequests).length === 0 || allRequests.total_requests === 0) && 
+      {(Object.keys(allRequests).length === 0 || allRequests.total === 0) && 
         <CommonNotFoundBody title='Chưa có Yêu cầu nào'/>
-      } */}
+      }
     </div>
   );
 };

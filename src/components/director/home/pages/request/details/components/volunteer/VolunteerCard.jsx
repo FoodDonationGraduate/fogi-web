@@ -6,22 +6,25 @@ import { Button, Card, Col, Row, Stack } from 'react-bootstrap';
 import {
   MdOutlinePhone
 } from 'react-icons/md';
+import PlaceHolder from 'assets/images/avatar.png';
 
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
 
 const VolunteerCard = ({
+  request=undefined,
   volunteer,
   targetVolunteer,
   setTargetVolunteer
 }) => {
   let size = useResizer();
 
-  const isSelected = () => { return volunteer === targetVolunteer; }
+  const isSelected = () => { return targetVolunteer ? (volunteer.email === targetVolunteer.email) : false; }
   
   const onSelect = () => {
+    if (!setTargetVolunteer) return;
     if (isSelected()) setTargetVolunteer(null);
-    else  setTargetVolunteer(volunteer);
+    else setTargetVolunteer(volunteer);
   };
 
   return (
@@ -36,8 +39,13 @@ const VolunteerCard = ({
               <div>
                 <Stack direction='horizontal'>
                     <img
-                      className='long-product-image-round'
-                      src={`https://bachkhoi.online/static/${'donortung007@yopmail.com_avatar'}`} alt='product-img'
+                      className='long-product-image-round'  alt='product-img'
+                      src={
+                        volunteer.avatar ?
+                        `https://bachkhoi.online/static/${volunteer.avatar}`
+                        :
+                        PlaceHolder
+                      }
                       width='96' height='96'
                     />
                     <Stack direction='horizontal' gap={4}>
@@ -49,24 +57,28 @@ const VolunteerCard = ({
                           <MdOutlinePhone /> {volunteer.phone}
                         </small>
                     </div>
-                    <span className={size > 0 ? 'long-product-type' : 'long-product-type-sm'}>
-                      Sẵn sàng
-                    </span>
+                    {!request && 
+                      <span className={size > 0 ? 'long-product-type' : 'long-product-type-sm'}>
+                        Sẵn sàng
+                      </span>
+                    }
                   </Stack> 
                 </Stack>
               </div>
 
-              <div className='ms-4'>
-                {volunteer !== targetVolunteer ?
-                  <Button className='fogi' variant='primary' onClick={onSelect}>
-                    Chọn
-                  </Button>
-                  :
-                  <Button variant='outline-danger' onClick={onSelect}>
-                    Bỏ chọn
-                  </Button>
-                }
-              </div>
+              {!request && 
+                <div className='ms-4'>
+                  {(!targetVolunteer || volunteer.email !== targetVolunteer.email) ?
+                    <Button className='fogi' variant='primary' onClick={onSelect}>
+                      Chọn
+                    </Button>
+                    :
+                    <Button variant='outline-danger' onClick={onSelect}>
+                      Bỏ chọn
+                    </Button>
+                  }
+                </div>
+              }
             </div>
           </Card>
         </Col>

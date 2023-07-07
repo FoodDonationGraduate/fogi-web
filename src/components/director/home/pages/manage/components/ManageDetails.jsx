@@ -63,7 +63,7 @@ const ManageDetails = ({ user, setTargetUser }) => {
         <Row className='mb-4'>
           <Col>
             <div className='mb-2'>
-              <BackButton setTarget={setTargetUser} />
+              <BackButton setTargetList={[{ setTarget: setTargetUser, isReducer: false }]} />
             </div>
             <ManageInfoCard
               user={user}

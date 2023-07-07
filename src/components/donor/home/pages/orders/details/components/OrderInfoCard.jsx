@@ -57,7 +57,7 @@ const OrderInfoCard = ({ order }) => {
 
   return (
     <>
-      <CancelModal show={show} onClose={onClose} volunteerInfo={order.volunteer} orderId={order.id} />
+      <CancelModal show={show} onClose={onClose} request={order} />
       <Container>
         <Row>
           <Col>

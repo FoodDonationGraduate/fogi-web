@@ -1,8 +1,6 @@
 // Essentials
-import React, { useState, useEffect } from 'react';
-import { Button, Container, Col, OverlayTrigger, Row, Stack, Tooltip } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from "react-router-dom";
+import React from 'react';
+import { Container, Col, Row } from 'react-bootstrap';
 
 // Assets
 import { MdOutlineLocationOn, MdAccessTime } from 'react-icons/md';
@@ -10,8 +8,6 @@ import { MdOutlineLocationOn, MdAccessTime } from 'react-icons/md';
 // Components
 import UserItem from 'components/common/request/UserItem';
 import StepItem from 'components/common/StepItem';
-import CancelModal from 'components/common/request/CancelModal';
-import { setModalMessage, showModal ,cancelQuestionModal, setModalQuestion, showQuestionModal } from 'components/redux/reducer/ModalReducer';
 
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
@@ -22,14 +18,8 @@ import { reduceString } from 'utils/helpers/String';
 const RequestInfoCard = ({ request }) => {
   let size = useResizer();
 
-  // Cancel Modal
-  const [show, setShow] = useState(false);
-  const onShow = () => setShow(true);
-  const onClose = () => setShow(false);
-
   return (
     <>
-      <CancelModal show={show} onClose={onClose} volunteerInfo={request.volunteer} orderId={request.id} />
       <Container>
         <Row>
           <Col>
@@ -43,7 +33,7 @@ const RequestInfoCard = ({ request }) => {
                   </span>
 
                   <h3 className='order-item-date mt-3'>
-                    Yêu cầu {request.id}
+                    Yêu cầu {request.user.user_type === 'donor' ? 'Cho' : 'Nhận'} {request.id}
                   </h3>
 
                   <div className='mt-2'> 
@@ -57,8 +47,12 @@ const RequestInfoCard = ({ request }) => {
                 </div>
                 {size <= 2 && <hr />}
                 <div>
-                  {request.volunteer && <UserItem user={request.volunteer} />}
-                  <div className='my-3' />
+                  {request.volunteer &&
+                    <>
+                      <UserItem user={request.volunteer} />
+                      <div className='my-3' />
+                    </>
+                  }
                   {request.user && <UserItem user={request.user} user_type={request.user.user_type} />}
                 </div>
               </div>
@@ -95,22 +89,6 @@ const RequestInfoCard = ({ request }) => {
                   }
                 </>
               }
-              <div className='d-flex mt-4 justify-content-end'>
-                <OverlayTrigger
-                  placement={'left'}
-                  overlay={
-                    <Tooltip>
-                      Bạn chưa chọn Tình nguyện viên
-                    </Tooltip>
-                  }
-                >
-                  <span>
-                    <Button className='fogi' variant='primary' disabled>
-                      Xác nhận
-                    </Button>
-                  </span>
-                </OverlayTrigger>
-              </div>
             </div>
           </Col>
         </Row>
