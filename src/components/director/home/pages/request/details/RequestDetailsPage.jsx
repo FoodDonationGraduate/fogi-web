@@ -1,11 +1,18 @@
 // Essentials
 import React, { useState } from 'react';
-import { Button, Container, Row, Stack } from 'react-bootstrap';
+import { Button, Container, OverlayTrigger, Row, Stack, Tooltip } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
+// Components
+import BackButton from 'components/common/BackButton';
 import RequestInfoCard from './components/RequestInfoCard';
 import FoodList from './components/food/FoodList';
 import SubCategoryList from './components/subCategory/SubCategoryList';
 import VolunteerList from './components/volunteer/VolunteerList';
+
+// Reducers
+import { setCurrentRequest, updateRequest } from 'components/redux/reducer/DirectorReducer';
 
 // Style
 import 'assets/css/user/order/Order.css';
@@ -45,18 +52,63 @@ const sampleSubCategoryList = [
   }
 ];
 
-const RequestDetailsPage = ({ request }) => {
+const RequestDetailsPage = ({
+  request
+}) => {
+  const userInfo = useSelector(state => state.authenticationReducer.user);
+  const userToken = useSelector(state => state.authenticationReducer.token);
+  const dispatch = useDispatch(); const navigate = useNavigate();
 
   // List handling
   const [subCategoryList, setSubCategoryList] = useState(sampleSubCategoryList);
   const [foodList, setFoodList] = useState(request.products);
 
   // Volunteer handling
-  const [targetVolunteer, setTargetVolunteer] = useState(null);
+  const [targetVolunteer, setTargetVolunteer] = useState(request.volunteer ? request.volunteer : null);
+
+
+  // STATUS HANDLING ----------------------------
+
+  const tooltip = (tip) => {
+    return (
+      <Tooltip style={{ position: 'fixed' }}>{tip}</Tooltip>
+    )
+  };
+
+  const getNextCondition = () => {
+    switch (request.status) {
+      default: return {
+        condition: !targetVolunteer,
+        tip: 'Bạn chưa chọn Tình nguyện viên'
+      };
+    }
+  }
+
+  const onUpdate = () => {
+    const newStatus = 'finding';
+    dispatch(updateRequest(
+      {
+        request_status: newStatus,
+        request_id: request.id,
+        request_from: request.user.user_type,
+        volunteer_email: targetVolunteer.email
+      },
+      { userInfo, userToken },
+      navigate
+    ));
+  };
+
+  // --------------------------------------------
 
   return (
     <>
       <div className='bg'>
+        <div className='mb-2'>
+          <BackButton setTargetList={[
+            { setTarget: setCurrentRequest, isReducer: true },
+            { setTarget: setTargetVolunteer, isReducer: false }
+          ]} />
+        </div>
         <div className='mb-4'>
           <RequestInfoCard request={request} />
         </div>
@@ -82,9 +134,22 @@ const RequestDetailsPage = ({ request }) => {
                 <Button variant='outline-danger'>
                   Hủy Yêu cầu
                 </Button>
-                <Button className='fogi' variant='primary'>
-                  Duyệt Yêu cầu
-                </Button>
+                {getNextCondition().condition ?
+                  <OverlayTrigger
+                    placement={'top'}
+                    overlay={tooltip(getNextCondition().tip)}
+                  >
+                    <span>
+                      <Button className='fogi' variant='primary' disabled>
+                        Duyệt Yêu cầu
+                      </Button>
+                    </span>
+                  </OverlayTrigger>
+                  :
+                  <Button className='fogi' variant='primary' onClick={onUpdate}>
+                    Duyệt Yêu cầu
+                  </Button>
+                }
               </Stack>
             </div>
           </Row>

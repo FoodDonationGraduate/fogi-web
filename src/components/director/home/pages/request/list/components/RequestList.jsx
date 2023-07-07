@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Col, Row } from 'react-bootstrap';
 import { EqualHeight } from 'react-equal-height';
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 
 // Components
@@ -11,12 +11,11 @@ import Pagination from 'components/common/pagination/Pagination';
 import CommonNotFoundBody from 'components/common/CommonNotFoundBody';
 
 // Reducers
-import { retrieveAllRequests } from 'components/redux/reducer/DirectorReducer';
+import { retrieveAllRequests, setCurrentRequest } from 'components/redux/reducer/DirectorReducer';
 
 const RequestList = ({
   currentType,
-  currentStatus,
-  setTargetRequest
+  currentStatus
 }) => {
   const allRequests = useSelector(state => state.directorReducer.allRequests);
   const userInfo = useSelector(state => state.authenticationReducer.user);
@@ -68,7 +67,7 @@ const RequestList = ({
                     <Col className='mb-4' key={idx}>
                       <div
                         className='order-item'
-                        onClick={() => setTargetRequest(request)}
+                        onClick={() => dispatch(setCurrentRequest(request))}
                       >
                         <RequestCard
                           request={request}

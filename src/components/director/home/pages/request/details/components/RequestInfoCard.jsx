@@ -1,7 +1,7 @@
 // Essentials
 import React, { useState, useEffect } from 'react';
 import { Button, Container, Col, OverlayTrigger, Row, Stack, Tooltip } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 
 // Assets
@@ -65,8 +65,12 @@ const RequestInfoCard = ({ request }) => {
                 </div>
                 {size <= 2 && <hr />}
                 <div>
-                  {request.volunteer && <UserItem user={request.volunteer} />}
-                  <div className='my-3' />
+                  {request.volunteer &&
+                    <>
+                      <UserItem user={request.volunteer} />
+                      <div className='my-3' />
+                    </>
+                  }
                   {request.user && <UserItem user={request.user} user_type={request.user.user_type} />}
                 </div>
               </div>

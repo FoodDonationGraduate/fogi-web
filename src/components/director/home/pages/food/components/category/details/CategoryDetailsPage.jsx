@@ -33,7 +33,7 @@ const CategoryDetailsPage = ({
           <Row className='mb-4'>
             <Col>
               <div className='mb-2'>
-                <BackButton setTarget={setTargetCategory} />
+                <BackButton setTargetList={[{ setTarget: setTargetCategory, isReducer: false }]} />
               </div>
               {category.image &&
                 <CategoryInfoCard

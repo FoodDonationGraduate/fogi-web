@@ -7,9 +7,7 @@ import ChipList from 'components/common/chip/ChipList';
 
 import RequestList from './components/RequestList';
 
-const RequestListPage = ({
-  setTargetRequest
-}) => {
+const RequestListPage = () => {
 
   // Chip List - Request type
   const [activeTypeIdx, setActiveTypeIdx] = useState(0);
@@ -49,7 +47,7 @@ const RequestListPage = ({
               setActiveStatusIdx={setActiveTypeIdx}
               statusList={typeList}
               getStatusLabel={getTypeLabel}
-              styleList={typeStyleList}s
+              styleList={typeStyleList}
             />
           </Stack>
           <ChipList
@@ -67,7 +65,6 @@ const RequestListPage = ({
           <RequestList
             currentType={typeList[activeTypeIdx]}
             currentStatus={statusList[activeStatusIdx]}
-            setTargetRequest={setTargetRequest}
           />
         </div>
 

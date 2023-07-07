@@ -12,6 +12,7 @@ const initialState = {
   user_type: 'donee',
 
   allRequests: {},
+  currentRequest: null,
   availableVolunteers: {}
 };
 
@@ -35,6 +36,9 @@ const directorReducer = createSlice({
     setAllRequests: (state, action) => {
       state.allRequests = action.payload;
     },
+    setCurrentRequest: (state, action) => {
+      state.currentRequest = action.payload;
+    },
     setAvailableVolunteers: (state, action) => {
       state.availableVolunteers = action.payload;
     }
@@ -44,7 +48,7 @@ const directorReducer = createSlice({
 export const {
   setUnverifiedUsers, setManageUsers, setReports, setTypeOfUser,
 
-  setAllRequests, setAvailableVolunteers
+  setAllRequests, setCurrentRequest, setAvailableVolunteers
 } = directorReducer.actions
 
 export default directorReducer.reducer
@@ -238,6 +242,64 @@ export const retrieveAllRequests = (data, director, navigate) => {
         request_status: data.request_status
       }}).then((res) => {
         dispatch(setAllRequests(res.data));
+      }).catch((err) => {
+        if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+          
+        } else {
+          console.log(err.response.data);
+          dispatch(setModalMessage("Đã xảy ra lỗi!"))
+          dispatch(setModalType('danger'))
+          dispatch(showModal())
+       }
+      });
+    } catch (err) {
+      console.log(err);
+      navigate('/');
+    }
+  }
+}
+
+export const retrieveCurrentRequest = (data, director, navigate) => {
+  return async dispatch => {
+    try {
+      console.log('retrieve current request for director');
+      await axiosInstance.get(`/request/director`, { params: {
+        email: director.userInfo.email,
+        token: director.userToken,
+        request_from: data.request_from,
+        request_id: data.request_id
+      }}).then((res) => {
+        dispatch(setCurrentRequest(res.data.request));
+      }).catch((err) => {
+        if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+          
+        } else {
+          console.log(err.response.data);
+          dispatch(setModalMessage("Đã xảy ra lỗi!"))
+          dispatch(setModalType('danger'))
+          dispatch(showModal())
+       }
+      });
+    } catch (err) {
+      console.log(err);
+      navigate('/');
+    }
+  }
+}
+
+export const updateRequest = (data, director, navigate) => {
+  return async dispatch => {
+    try {
+      console.log('update request');
+      await axiosInstance.patch(`/request/director`, {
+        email: director.userInfo.email,
+        token: director.userToken,
+        request_status: data.request_status,
+        request_id: data.request_id,
+        request_from: data.request_from,
+        volunteer_email: data.volunteer_email
+      }).then((res) => {
+        dispatch(retrieveCurrentRequest(data, director, navigate));
       }).catch((err) => {
         if (handleExpiredToken(err.response.data, dispatch, navigate)) {
           

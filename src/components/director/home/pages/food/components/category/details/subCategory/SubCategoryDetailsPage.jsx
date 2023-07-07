@@ -29,7 +29,7 @@ const SubCategoryDetailsPage = ({
           <Row className='mb-4'>
             <Col>
               <div className='mb-2'>
-                <BackButton setTarget={setTargetSubCategory} />
+                <BackButton setTargetList={[{ setTarget: setTargetSubCategory, isReducer: false }]} />
               </div>
               <SubCategoryInfoCard
                 subCategory={subCategory}
