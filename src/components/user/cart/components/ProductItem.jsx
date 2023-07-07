@@ -80,7 +80,7 @@ const ProductItem = ({
   };
 
   const deleteProductModal = (id) => { 
-    dispatch(setModalQuestion('Bạn có muốn xóa sản phẩm này không??'));
+    dispatch(setModalQuestion('Bạn có muốn xóa thực phẩm này không??'));
     dispatch(showQuestionModal());
     setCurrentProduct(id)
   };

@@ -39,10 +39,10 @@ const OrderInfoCard = ({ order }) => {
   const recreateRequest = (products, request_id) => {
     console.log(products.every((product) => {return distanceTime(product.expired_time) !== 'Đã hết hạn'}))
     if (!products.every((product) => {return distanceTime(product.expired_time) !== 'Đã hết hạn'})) {
-      dispatch(setModalMessage('Một trong những sản phẩm của yêu cầu đã hết hạn!'))
+      dispatch(setModalMessage('Một trong những thực phẩm của yêu cầu đã hết hạn!'))
       dispatch(showModal())
     } else {
-      dispatch(setModalQuestion("Bạn có muốn phục hồi những sản phẩm này không?"))
+      dispatch(setModalQuestion("Bạn có muốn phục hồi những thực phẩm này không?"))
       dispatch(showQuestionModal())
       setId(request_id)
     }
@@ -86,14 +86,14 @@ const OrderInfoCard = ({ order }) => {
               <hr />
 
               <h3 className='order-item-date text-center'>
-                {getStep(order.status, false, true).header}
+                {getStep(order.status, false, true, order).header}
               </h3>
 
               {order.status !== 'canceled' &&
                 <>
                   {size > 1 ? 
                     <Row className='mt-4'>
-                      {Array.from({ length : 7 }).map((_, idx) => (
+                      {Array.from({ length : 9 }).map((_, idx) => (
                         <Col key={idx}>
                           {idx % 2 === 0 ?
                             <StepItem
@@ -115,7 +115,7 @@ const OrderInfoCard = ({ order }) => {
                   }
                 </>
               }
-              {(order.status === 'init' || order.status === 'pending' || order.status === 'canceled') &&
+              {(order.status === 'pending' || order.status === 'canceled') &&
                 <>
                   {order.status === 'canceled' &&
                     <div>
@@ -129,7 +129,7 @@ const OrderInfoCard = ({ order }) => {
                   }
                   <Row className='mt-4'>
                     <Col className='d-flex justify-content-end'>
-                      {(order.status === 'init' || order.status === 'pending') && (
+                      {(order.status === 'pending') && (
                         <Button variant='outline-danger' onClick={onShow}>
                           Hủy Yêu cầu
                         </Button>

@@ -64,13 +64,14 @@ export const getStatusByIdx = (idx) => {
   return { label, css };
 };
 
-export const getStep = (step, isDonee, isDelivery, isVolunteerCancel) => {
+export const getStep = (step, isDonee, isDelivery, order) => {
   let header = '';
   let label = '';
   let icon = <MdSmartphone className='step-item-icon' />;
+  let currentRole = isDonee ? 'donee' : 'donor';
   switch (step) {
     case 'pending':
-      header = `Đang chờ ${!isDonee ? 'một ' : ''}Tình nguyện viên duyệt Yêu cầu`;
+      header = `Đang chờ ${!isDonee ? 'một ' : ''}Điều phối viên duyệt Yêu cầu`;
       label = 'Chờ duyệt';
       icon = <MdSmartphone className='step-item-icon' />;
       break;
@@ -98,7 +99,7 @@ export const getStep = (step, isDonee, isDelivery, isVolunteerCancel) => {
         if (isDelivery) header += 'giao Thực phẩm đến bạn';
         else header = 'Bạn đang đến nhận Thực phẩm';
       } else {
-        header += 'đến nhận Thực phẩm';
+        header += 'đến giao Thực phẩm đến kho';
       }
       label = 'Đang giao';
       if (isDonee && !isDelivery) icon = <MdDirectionsWalk className='step-item-icon' />;
@@ -106,7 +107,12 @@ export const getStep = (step, isDonee, isDelivery, isVolunteerCancel) => {
       break;
     
     case 'canceled':
-      header = 'Yêu cầu của bạn đã bị hủy bởi ' + (isVolunteerCancel ? 'Tình nguyện viên' : 'bạn');
+      header = 'Yêu cầu của bạn đã bị hủy bởi ' 
+      if (order.cancel_user_role === currentRole) {
+        header += 'bạn'
+      } else {
+        header += order.cancel_user_role === 'volunteer' ? ' Tình nguyện viên' : 'Điều phối viên'
+      }
       label = 'Đã hủy';
       icon = <MdLabelImportant className='step-item-icon' />;
       break;
@@ -114,9 +120,9 @@ export const getStep = (step, isDonee, isDelivery, isVolunteerCancel) => {
     default:
       if (isDonee) {
         if (isDelivery) header = 'Thực phẩm đã đến nơi';
-        else header = 'Bạn đã đến nhận Thực phẩm';
+        else header = 'Bạn đã nhận Thực phẩm';
       } else {
-        header = 'Tình nguyện viên đã đến nhận Thực phẩm';
+        header = 'Tình nguyện viên đã giao Thực phẩm tới kho';
       }
       header += ' thành công!';
       label = 'Thành công';

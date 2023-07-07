@@ -82,7 +82,7 @@ export const addNewProduct = (data, user, navigate) => {
                     dispatch(setModalType('danger'));
                     dispatch(showModal())
                 } else if (err.response.data.exit_code === 101) {
-                    dispatch(setModalMessage('Không tìm thấy sản phẩm này!'))
+                    dispatch(setModalMessage('Không tìm thấy thực phẩm này!'))
                     dispatch(setModalType('danger'));
                     dispatch(showModal())
                 } else {
@@ -115,7 +115,7 @@ export const updateProduct = (data, user, navigate) => {
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
                 } else if (err.response.data.exit_code === 102) {
-                    dispatch(setModalMessage('Không tìm thấy sản phẩm này!'))
+                    dispatch(setModalMessage('Không tìm thấy thực phẩm này!'))
                     dispatch(setModalType('danger'));
                     dispatch(showModal())
                 } else {

@@ -19,17 +19,8 @@ const LocationBar = () => {
   const userInfo = useSelector(state => state.authenticationReducer.user);
 
   let size = useResizer();
-  const exampleLocation = 'Địa chỉ của bạn'; // temporary
-  const [location, setLocation] = useState(exampleLocation);
+  const [location, setLocation] = useState();
   const selectedAddress = useSelector(state => state.addressReducer.selectedAddress);
-
-  useEffect(() => {
-    if (size < 2) 
-      setLocation(location.substring(0, (size + 2) * 5) + '...');
-    else 
-      setLocation(location);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [size]);
 
   useEffect(() => {
     if (Object.keys(selectedAddress).length !== 0) {

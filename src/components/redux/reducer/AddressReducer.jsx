@@ -3,17 +3,18 @@ import axiosInstance, {ggApiInstance} from "services/axios/axiosConfig.js";
 import { setModalMessage, showModal, setModalType } from './ModalReducer';
 import { handleExpiredToken } from './AuthenticationReducer';
 
+const defaultLocation = {
+    address: 'Địa chỉ của bạn',
+    lat: 10.762613,
+    long: 106.681868
+}
 const initialState = {
     allAdresses: {},
     currentAddress: {},
     selectedAddress: localStorage.getItem("selectedAddress") !== "undefined" 
         && localStorage.getItem("selectedAddress") !== null 
         ? JSON.parse(localStorage.getItem("selectedAddress"))
-        : {
-            address: 'Địa chỉ của bạn',
-            lat: 10.762613,
-            long: 106.681868
-        }
+        : defaultLocation
 }
 const addressReducer = createSlice({
     name: "addressReducer",
@@ -28,12 +29,16 @@ const addressReducer = createSlice({
         setSelectedAddress: (state, action) => {
             state.selectedAddress = action.payload
             localStorage.setItem('selectedAddress', JSON.stringify(state.selectedAddress))
-        }
+        },
+        removeSelectedAddress: (state, action) => {
+            state.selectedAddress = defaultLocation
+            localStorage.removeItem('selectedAddress')
+        },
     }
 })
 
 export const { 
-    setAllAddresses, setCurrentAddress, setSelectedAddress
+    setAllAddresses, setCurrentAddress, setSelectedAddress, removeSelectedAddress
 } = addressReducer.actions
 
 export default addressReducer.reducer

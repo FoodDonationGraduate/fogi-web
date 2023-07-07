@@ -50,7 +50,7 @@ const ProductCard = ({product}) => {
           setData({product_id: product.id, quantity: 1})
         }
       } else {
-        dispatch(setModalMessage('Không thể thêm sản phẩm vào giỏ hàng!'))
+        dispatch(setModalMessage('Không thể thêm thực phẩm vào giỏ hàng!'))
         dispatch(showModal())
       }
     }

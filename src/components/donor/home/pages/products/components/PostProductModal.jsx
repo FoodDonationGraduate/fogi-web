@@ -37,7 +37,6 @@ const PostProductModal = ({
   // Form handling
   const formSchema = Yup.object().shape({
     name: Yup.string().required(''),
-    category_id: Yup.string().required(''),
     description: Yup.string().required(''),
     expired_time: Yup.string().required(''),
     stock: Yup.number().required(''),
@@ -126,23 +125,6 @@ const PostProductModal = ({
                 <p className="mt-2 error">
                   <FaExclamationTriangle className="mx-2" />
                   Bạn chưa điền tên thực phẩm
-                </p>
-              )}
-            </Form.Group>
-
-            <Form.Group className='mb-3'>
-              <Form.Label style={{ fontWeight: 'bold' }}>
-                Danh mục
-              </Form.Label>
-              <Form.Select aria-label="Default select exampe" {...register('category_id')} >
-                {Object.keys(allCategories).length !== 0 && allCategories.categories.map((category) => (
-                  <option value={category.id} key={category.id}>{category.name}</option>))
-                }
-              </Form.Select>
-              {errors.name && errors.name.type === 'required' && (
-                <p className="mt-2 error">
-                  <FaExclamationTriangle className="mx-2" />
-                  Bạn chưa chọn danh mục thực phẩm
                 </p>
               )}
             </Form.Group>

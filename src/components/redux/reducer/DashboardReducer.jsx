@@ -76,7 +76,7 @@ export const retrieveChart = (data, user, navigate) => {
   return async dispatch => {
     try {
       console.log('retrieve chart');
-      await axiosInstance.get(`/chart/${user.userInfo.user_type}`, { params: parameters
+      await axiosInstance.get(`/${user.userInfo.user_type}/chart`, { params: parameters
       }).then((res) => {
         dispatch(setChart(res.data));
       }).catch((err) => {

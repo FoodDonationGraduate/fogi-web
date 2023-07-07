@@ -85,7 +85,7 @@ export const retrieveManageUsers = (data, director, navigate) => {
   return async dispatch => {
     try {
       console.log(`retrieve list of ${data.user_type}s to manage`);
-      await axiosInstance.get(`/profile/director`, { params: {
+      await axiosInstance.get(`/director/profile`, { params: {
         email: director.userInfo.email,
         token: director.userToken,
         user_type: data.user_type,
@@ -164,6 +164,38 @@ export const verifyUser = (data, director, navigate) => {
       console.log(err);
       navigate('/');
     }
+  }
+}
+
+export const approveUser = (data, director, navigate) => {
+  return async dispatch => {
+    var result = false;
+    try {
+      console.log(`${data.action} user`);
+      await axiosInstance.patch(`/verify/info`, {
+        email: director.userInfo.email,
+        token: director.userToken,
+        user_email: data.email,
+        action: data.action
+      }).then((res) => {
+        handleExpiredToken(res, dispatch, navigate);
+        dispatch(setModalMessage(`${data.action === 'approve' ? 'Chấp thuận ' : 'Hạn chế '}người dùng thành công!"`));
+        dispatch(showModal());
+        result = true;
+      }).catch((err) => {
+        if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+        } else {
+          console.log(err.response.data);
+          dispatch(setModalMessage(`${data.action === 'approve' ? 'Chấp thuận ' : 'Hạn chế '}người dùng không thành công!"`));
+          dispatch(setModalType('danger'))
+          dispatch(showModal())
+       }
+      });
+    } catch (err) {
+      console.log(err);
+      navigate('/');
+    }
+    return result;
   }
 }
 
