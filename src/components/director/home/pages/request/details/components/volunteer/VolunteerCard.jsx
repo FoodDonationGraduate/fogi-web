@@ -12,6 +12,7 @@ import PlaceHolder from 'assets/images/avatar.png';
 import { useResizer } from 'utils/helpers/Resizer.jsx';
 
 const VolunteerCard = ({
+  request=undefined,
   volunteer,
   targetVolunteer,
   setTargetVolunteer
@@ -21,8 +22,9 @@ const VolunteerCard = ({
   const isSelected = () => { return targetVolunteer ? (volunteer.email === targetVolunteer.email) : false; }
   
   const onSelect = () => {
+    if (!setTargetVolunteer) return;
     if (isSelected()) setTargetVolunteer(null);
-    else  setTargetVolunteer(volunteer);
+    else setTargetVolunteer(volunteer);
   };
 
   return (
@@ -39,8 +41,8 @@ const VolunteerCard = ({
                     <img
                       className='long-product-image-round'  alt='product-img'
                       src={
-                        volunteer.image ?
-                        `https://bachkhoi.online/static/${volunteer.image}`
+                        volunteer.avatar ?
+                        `https://bachkhoi.online/static/${volunteer.avatar}`
                         :
                         PlaceHolder
                       }
@@ -55,24 +57,28 @@ const VolunteerCard = ({
                           <MdOutlinePhone /> {volunteer.phone}
                         </small>
                     </div>
-                    <span className={size > 0 ? 'long-product-type' : 'long-product-type-sm'}>
-                      Sẵn sàng
-                    </span>
+                    {!request && 
+                      <span className={size > 0 ? 'long-product-type' : 'long-product-type-sm'}>
+                        Sẵn sàng
+                      </span>
+                    }
                   </Stack> 
                 </Stack>
               </div>
 
-              <div className='ms-4'>
-                {(!targetVolunteer || volunteer.email !== targetVolunteer.email) ?
-                  <Button className='fogi' variant='primary' onClick={onSelect}>
-                    Chọn
-                  </Button>
-                  :
-                  <Button variant='outline-danger' onClick={onSelect}>
-                    Bỏ chọn
-                  </Button>
-                }
-              </div>
+              {!request && 
+                <div className='ms-4'>
+                  {(!targetVolunteer || volunteer.email !== targetVolunteer.email) ?
+                    <Button className='fogi' variant='primary' onClick={onSelect}>
+                      Chọn
+                    </Button>
+                    :
+                    <Button variant='outline-danger' onClick={onSelect}>
+                      Bỏ chọn
+                    </Button>
+                  }
+                </div>
+              }
             </div>
           </Card>
         </Col>

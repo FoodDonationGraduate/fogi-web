@@ -11,12 +11,13 @@ import * as Yup from 'yup';
 
 // Utility
 import { updateRequest } from 'components/redux/reducer/RequestReducer';
+import { cancelRequest as cancelRequestDir } from 'components/redux/reducer/DirectorReducer';
 import { handleMaxInput } from 'utils/helpers/String';
 
 // Assets imports
 import { FaExclamationTriangle } from 'react-icons/fa';
 
-const CancelModal = ({ show, onClose, volunteerInfo, orderId }) => {
+const CancelModal = ({ show, onClose, request }) => {
   const userInfo = useSelector(state => state.authenticationReducer.user);
   const userToken = useSelector(state => state.authenticationReducer.token);
 
@@ -31,7 +32,26 @@ const CancelModal = ({ show, onClose, volunteerInfo, orderId }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const cancelRequest = (data) => {
-    dispatch(updateRequest({request_id: orderId, request_status: 'canceled', cancel_reason: data.reason}, {userInfo, userToken}, navigate));
+    if (!request.user)
+      dispatch(updateRequest(
+        {
+          request_id: request.id,
+          request_status: 'canceled',
+          cancel_reason: data.reason
+        },
+        {userInfo, userToken},
+        navigate
+      ));
+    else
+      dispatch(cancelRequestDir(
+        {
+          request_id: request.id,
+          request_from: request.user.user_type,
+          cancel_reason: data.reason
+        },
+        {userInfo, userToken},
+        navigate
+      ));
   };
   const [reason, setReason] = useState('');
 
@@ -48,17 +68,33 @@ const CancelModal = ({ show, onClose, volunteerInfo, orderId }) => {
           <Form onSubmit={handleSubmit(cancelRequest)}>
 
             <Form.Label style={{ fontWeight: 'bold'}}>
-              Mã Yêu cầu: {orderId}
+              Mã Yêu cầu: {request.id}
             </Form.Label>
 
-            {volunteerInfo && (
+            {request.volunteer && (
               <>
                 <Form.Group className='mb-3'>
                   <Stack direction='horizontal' gap={3}>
-                    <img alt='volunteer-avatar' src={`https://bachkhoi.online/static/${volunteerInfo.avatar}`} className='order-item-volunteer-avatar-m' />
+                    <img alt='volunteer-avatar' src={`https://bachkhoi.online/static/${request.volunteer.avatar}`} className='order-item-volunteer-avatar-m' />
                     <Stack direction='vertical'>
                       <div className='order-item-volunteer-label'>Tình nguyện viên</div>
-                      <div className='order-item-volunteer-name'>{volunteerInfo.name}</div>
+                      <div className='order-item-volunteer-name'>{request.volunteer.name}</div>
+                    </Stack>
+                  </Stack>
+                </Form.Group>
+              </>
+            )}
+
+            {request.user && (
+              <>
+                <Form.Group className='mb-3'>
+                  <Stack direction='horizontal' gap={3}>
+                    <img alt='volunteer-avatar' src={`https://bachkhoi.online/static/${request.user.avatar}`} className='order-item-volunteer-avatar-m' />
+                    <Stack direction='vertical'>
+                      <div className='order-item-volunteer-label'>
+                        Người {request.user.user_type === 'donor' ? 'cho' : 'nhận'}
+                      </div>
+                      <div className='order-item-volunteer-name'>{request.user.name}</div>
                     </Stack>
                   </Stack>
                 </Form.Group>

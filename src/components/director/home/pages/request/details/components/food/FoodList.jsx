@@ -21,7 +21,7 @@ const FoodList = ({
   return (
     <>
       <Container>
-        <ListTitle title={'Danh sách Thực phẩm lớn'} />
+        <ListTitle title={'Danh sách Thực phẩm'} />
         <Row xs={1}>
           {foodList.map((food, idx) => (
             <Col className='mb-3' key={idx}>

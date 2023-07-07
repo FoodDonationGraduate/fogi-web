@@ -297,9 +297,44 @@ export const updateRequest = (data, director, navigate) => {
         request_status: data.request_status,
         request_id: data.request_id,
         request_from: data.request_from,
-        volunteer_email: data.volunteer_email
+        volunteer_email: data.volunteer_email,
+        cancel_reason: data.cancel_reason
       }).then((res) => {
         dispatch(retrieveCurrentRequest(data, director, navigate));
+        dispatch(setModalMessage(`Cập nhật trạng thái Yêu cầu ${data.request_id} thành công`));
+        dispatch(showModal());
+      }).catch((err) => {
+        if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+          
+        } else {
+          console.log(err.response.data);
+          dispatch(setModalMessage("Đã xảy ra lỗi!"))
+          dispatch(setModalType('danger'))
+          dispatch(showModal())
+       }
+      });
+    } catch (err) {
+      console.log(err);
+      navigate('/');
+    }
+  }
+}
+
+export const cancelRequest = (data, director, navigate) => {
+  return async dispatch => {
+    try {
+      console.log('cancel request');
+      await axiosInstance.patch(`/request/director`, {
+        email: director.userInfo.email,
+        token: director.userToken,
+        request_status: 'canceled',
+        request_id: data.request_id,
+        request_from: data.request_from,
+        cancel_reason: data.cancel_reason
+      }).then((res) => {
+        dispatch(setCurrentRequest(null));
+        dispatch(setModalMessage(`Hủy Yêu cầu ${data.request_id} thành công`));
+        dispatch(showModal());
       }).catch((err) => {
         if (handleExpiredToken(err.response.data, dispatch, navigate)) {
           

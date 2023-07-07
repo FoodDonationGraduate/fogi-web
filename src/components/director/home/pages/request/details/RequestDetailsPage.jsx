@@ -1,14 +1,18 @@
 // Essentials
 import React, { useState } from 'react';
-import { Button, Container, OverlayTrigger, Row, Stack, Tooltip } from 'react-bootstrap';
+import { Button, Col, Container, OverlayTrigger, Row, Stack, Tooltip } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 // Components
 import BackButton from 'components/common/BackButton';
+import CancelModal from 'components/common/request/CancelModal';
+import ListTitle from 'components/common/ListTitle';
+
 import RequestInfoCard from './components/RequestInfoCard';
 import FoodList from './components/food/FoodList';
 import SubCategoryList from './components/subCategory/SubCategoryList';
+import VolunteerCard from './components/volunteer/VolunteerCard';
 import VolunteerList from './components/volunteer/VolunteerList';
 
 // Reducers
@@ -75,15 +79,31 @@ const RequestDetailsPage = ({
     )
   };
 
+  // Update
   const getNextCondition = () => {
     switch (request.status) {
-      default: return {
+      case 'pending': return {
         condition: !targetVolunteer,
+        label: 'Duyệt Yêu cầu',
         tip: 'Bạn chưa chọn Tình nguyện viên'
       };
+      case 'finding':
+        if (request.volunteer) return undefined;
+        else return {
+          condition: !targetVolunteer,
+          label: 'Chọn lại Tình nguyện viên',
+          tip: 'Bạn chưa chọn Tình nguyện viên'
+        }
+      default: return undefined;
     }
   }
 
+  // Cancel
+  const [show, setShow] = useState(false);
+  const onShow = () => setShow(true);
+  const onClose = () => setShow(false);
+
+  // On Update
   const onUpdate = () => {
     const newStatus = 'finding';
     dispatch(updateRequest(
@@ -102,6 +122,13 @@ const RequestDetailsPage = ({
 
   return (
     <>
+      <CancelModal
+        show={show}
+        onClose={onClose}
+        volunteerInfo={request.volunteer}
+        userInfo={request.user}
+        request={request}
+      />
       <div className='bg'>
         <div className='mb-2'>
           <BackButton setTargetList={[
@@ -124,32 +151,49 @@ const RequestDetailsPage = ({
             />
           }
         </div>
-        <VolunteerList
-          targetVolunteer={targetVolunteer} setTargetVolunteer={setTargetVolunteer}
-        />
+        {!request.volunteer ?
+          <VolunteerList
+            targetVolunteer={targetVolunteer} setTargetVolunteer={setTargetVolunteer}
+          />
+          :
+          <Container>
+            <ListTitle title={'Tình nguyện viên'} />
+            <Row>
+              <Col>
+                <VolunteerCard
+                  request={request} volunteer={request.volunteer}
+                />
+              </Col>
+            </Row>
+          </Container>
+        }
         <Container>
           <Row>
             <div className='d-flex justify-content-end mt-4'>
               <Stack direction='horizontal' gap={2}>
-                <Button variant='outline-danger'>
+                {(request.status === 'pending' || request.status === 'finding') &&
+                  <Button variant='outline-danger' onClick={onShow}>
                   Hủy Yêu cầu
-                </Button>
-                {getNextCondition().condition ?
+                  </Button>
+                }
+
+                {getNextCondition() && (getNextCondition().condition ?
                   <OverlayTrigger
                     placement={'top'}
                     overlay={tooltip(getNextCondition().tip)}
                   >
                     <span>
                       <Button className='fogi' variant='primary' disabled>
-                        Duyệt Yêu cầu
+                        {getNextCondition().label}
                       </Button>
                     </span>
                   </OverlayTrigger>
                   :
                   <Button className='fogi' variant='primary' onClick={onUpdate}>
-                    Duyệt Yêu cầu
+                    {getNextCondition().label}
                   </Button>
-                }
+                )}
+
               </Stack>
             </div>
           </Row>

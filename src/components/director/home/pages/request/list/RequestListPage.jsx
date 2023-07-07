@@ -29,7 +29,7 @@ const RequestListPage = () => {
       case 'finding': return 'Đang tìm';
       case 'receiving': return 'Đang nhận';
       case 'shipping': return 'Đang giao';
-      case 'cancel': return 'Đã hủy';
+      case 'canceled': return 'Đã hủy';
       default: return 'Thành công';
     }
   };
