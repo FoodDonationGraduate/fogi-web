@@ -5,6 +5,7 @@ import { getUnit } from 'utils/helpers/Food';
 
 // Assets
 import { FaExclamationTriangle } from "react-icons/fa";
+import PlaceHolder from 'assets/images/placeholder.jpg';
 
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
@@ -23,8 +24,11 @@ const FoodCard = ({
               <Col className='ps-0' xs={12} md={6}>
                 <Stack direction='horizontal'>
                   <img
-                    className='long-product-image'
-                    src={`https://bachkhoi.online/static/${'category_13_image'}`} alt='product-img'
+                    className='long-product-image' alt='product-img'
+                    src={
+                      food.image ? `https://bachkhoi.online/static/${food.image}`
+                      : PlaceHolder
+                    }
                     width='64' height='64'
                   />
                   <div className='ms-4'>
@@ -46,7 +50,7 @@ const FoodCard = ({
                   <Col className={`d-flex ${size < 3 ? 'ps-0' : ''} ${size < 2 ? 'mt-2' : ''}`} xs={6}>
                     <div>
                       <header className='long-product-label'>Tồn kho</header>
-                      <h5 className='mt-2'>{food.stock} {getUnit(food.unit)}</h5>
+                      <h5 className='mt-2'>{food.quantity} {getUnit(food.unit)}</h5>
                     </div>
                   </Col>
                 </Row>

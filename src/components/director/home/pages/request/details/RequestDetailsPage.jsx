@@ -1,8 +1,6 @@
 // Essentials
 import React, { useState } from 'react';
-
-// Components
-import ChipList from 'components/common/chip/ChipList';
+import { Button, Container, Row, Stack } from 'react-bootstrap';
 
 import RequestInfoCard from './components/RequestInfoCard';
 import FoodList from './components/food/FoodList';
@@ -47,41 +45,14 @@ const sampleSubCategoryList = [
   }
 ];
 
-const sampleFoodList = [
-  {
-    id: 0,
-    name: 'Thịt heo 502',
-    stock: '100',
-    unit: 'kg'
-  },
-  {
-    id: 1,
-    name: 'Bắp cải 104',
-    stock: '80',
-    unit: 'kg'
-  },
-  {
-    id: 2,
-    name: 'Gạo tẻ 375',
-    stock: '25',
-    unit: 'kg'
-  },
-  {
-    id: 3,
-    name: 'Hành tím 047',
-    stock: '50',
-    unit: 'kg'
-  }
-];
-
 const RequestDetailsPage = ({ request }) => {
 
   // List handling
   const [subCategoryList, setSubCategoryList] = useState(sampleSubCategoryList);
-  const [foodList, setFoodList] = useState(sampleFoodList);
+  const [foodList, setFoodList] = useState(request.products);
 
   // Volunteer handling
-  const [targetVolunteer, setTargetVolunteer] = useState(null); // volunteer.email
+  const [targetVolunteer, setTargetVolunteer] = useState(null);
 
   return (
     <>
@@ -104,6 +75,20 @@ const RequestDetailsPage = ({ request }) => {
         <VolunteerList
           targetVolunteer={targetVolunteer} setTargetVolunteer={setTargetVolunteer}
         />
+        <Container>
+          <Row>
+            <div className='d-flex justify-content-end mt-4'>
+              <Stack direction='horizontal' gap={2}>
+                <Button variant='outline-danger'>
+                  Hủy Yêu cầu
+                </Button>
+                <Button className='fogi' variant='primary'>
+                  Duyệt Yêu cầu
+                </Button>
+              </Stack>
+            </div>
+          </Row>
+        </Container>
       </div>
     </>
   );

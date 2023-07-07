@@ -6,6 +6,7 @@ import { Button, Card, Col, Row, Stack } from 'react-bootstrap';
 import {
   MdOutlinePhone
 } from 'react-icons/md';
+import PlaceHolder from 'assets/images/avatar.png';
 
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
@@ -17,11 +18,11 @@ const VolunteerCard = ({
 }) => {
   let size = useResizer();
 
-  const isSelected = () => { return volunteer.email === targetVolunteer; }
+  const isSelected = () => { return targetVolunteer ? (volunteer.email === targetVolunteer.email) : false; }
   
   const onSelect = () => {
     if (isSelected()) setTargetVolunteer(null);
-    else  setTargetVolunteer(volunteer.email);
+    else  setTargetVolunteer(volunteer);
   };
 
   return (
@@ -36,8 +37,13 @@ const VolunteerCard = ({
               <div>
                 <Stack direction='horizontal'>
                     <img
-                      className='long-product-image-round'
-                      src={`https://bachkhoi.online/static/${volunteer.image}`} alt='product-img'
+                      className='long-product-image-round'  alt='product-img'
+                      src={
+                        volunteer.image ?
+                        `https://bachkhoi.online/static/${volunteer.image}`
+                        :
+                        PlaceHolder
+                      }
                       width='96' height='96'
                     />
                     <Stack direction='horizontal' gap={4}>
@@ -57,7 +63,7 @@ const VolunteerCard = ({
               </div>
 
               <div className='ms-4'>
-                {volunteer.email !== targetVolunteer ?
+                {(!targetVolunteer || volunteer.email !== targetVolunteer.email) ?
                   <Button className='fogi' variant='primary' onClick={onSelect}>
                     Chọn
                   </Button>
