@@ -61,8 +61,8 @@ const RequestCard = ({
           gap={3}
           className={size > 3 ? 'd-flex justify-content-between' : ''}
         >
-          <UserItem user={request.volunteer} />
           {request.user && <UserItem user={request.user} user_type={request.user.user_type} />}
+          <UserItem user={request.volunteer} />
         </Stack>
       </EqualHeightElement>
       <hr className='my-3' />

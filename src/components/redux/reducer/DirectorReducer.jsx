@@ -13,7 +13,9 @@ const initialState = {
 
   allRequests: {},
   currentRequest: null,
-  availableVolunteers: {}
+  availableVolunteers: {},
+
+  unsortedFood: {}
 };
 
 const directorReducer = createSlice({
@@ -41,6 +43,10 @@ const directorReducer = createSlice({
     },
     setAvailableVolunteers: (state, action) => {
       state.availableVolunteers = action.payload;
+    },
+
+    setUnsortedFood: (state, action) => {
+      state.unsortedFood = action.payload;
     }
   }
 });
@@ -48,7 +54,9 @@ const directorReducer = createSlice({
 export const {
   setUnverifiedUsers, setManageUsers, setReports, setTypeOfUser,
 
-  setAllRequests, setCurrentRequest, setAvailableVolunteers
+  setAllRequests, setCurrentRequest, setAvailableVolunteers,
+
+  setUnsortedFood
 } = directorReducer.actions
 
 export default directorReducer.reducer
@@ -395,6 +403,37 @@ export const retrieveAvailableVolunteers = (data, director, navigate) => {
         offset: data.offset
       }}).then((res) => {
         dispatch(setAvailableVolunteers(res.data));
+      }).catch((err) => {
+        if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+          
+        } else {
+          console.log(err.response.data);
+          dispatch(setModalMessage("Đã xảy ra lỗi!"))
+          dispatch(setModalType('danger'))
+          dispatch(showModal())
+       }
+      });
+    } catch (err) {
+      console.log(err);
+      navigate('/');
+    }
+  }
+}
+
+export const retrieveUnsortedFood = (data, director, navigate) => {
+  return async dispatch => {
+    try {
+      console.log('retrieve unsorted volunteers');
+      await axiosInstance.get(`/child/product/director`, { params: {
+        email: director.userInfo.email,
+        token: director.userToken,
+        limit: data.limit,
+        offset: data.offset,
+        sort_field: 'stock',
+        sort_by: 'desc',
+        filter: 'in_stock'
+      }}).then((res) => {
+        dispatch(setUnsortedFood(res.data));
       }).catch((err) => {
         if (handleExpiredToken(err.response.data, dispatch, navigate)) {
           
