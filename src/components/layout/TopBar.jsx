@@ -8,7 +8,6 @@ import 'assets/css/layout/TopBar.css';
 
 // Components
 import Logo from 'components/common/Logo';
-import Notification from './Notification';
 
 // Assets
 import { MdOutlineShoppingBag } from 'react-icons/md';

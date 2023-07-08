@@ -102,25 +102,27 @@ const ManageInfoCard = ({
         </Stack>
 
         <hr />
+        <Stack direction='horizontal' gap={4}>
+          {!isLocked ? 
+            <Button variant='outline-danger' onClick={() => handleLock(true)}>
+              Khóa tài khoản
+            </Button>
+            :
+            <Button variant='outline-secondary' onClick={() => handleLock(false)}>
+              Mở khóa tài khoản
+            </Button>
+          }
+          {!isApproved ? 
+            <Button variant='outline-secondary' onClick={() => handleApprove(true)}>
+              Chấp thuận người dùng
+            </Button>
+            :
+            <Button variant='outline-secondary' onClick={() => handleApprove(false)}>
+              Hạn chế người dùng
+            </Button>
+          }
+        </Stack>
         
-        {!isLocked ? 
-          <Button variant='outline-danger' onClick={() => handleLock(true)}>
-            Khóa tài khoản
-          </Button>
-          :
-          <Button variant='outline-secondary' onClick={() => handleLock(false)}>
-            Mở khóa tài khoản
-          </Button>
-        }
-        {!isApproved ? 
-          <Button variant='outline-secondary' onClick={() => handleApprove(true)}>
-            Chấp thuận người dùng
-          </Button>
-          :
-          <Button variant='outline-danger' onClick={() => handleApprove(false)}>
-            Hạn chế người dùng
-          </Button>
-        }
       </div>
     </>
   );

@@ -10,7 +10,7 @@ import Pagination from 'components/common/pagination/Pagination';
 import { retrieveAllProducts } from 'components/redux/reducer/CartReducer';
 import CommonNotFoundBody from 'components/common/CommonNotFoundBody';
 
-const ProductList = ({ setVolunteerInfo, setIsError }) => {
+const ProductList = ({ setIsError }) => {
   const allProducts = useSelector(state => state.cartReducer.allProducts)
   const userInfo = useSelector(state => state.authenticationReducer.user)
   const userToken = useSelector(state => state.authenticationReducer.token)
@@ -30,13 +30,6 @@ const ProductList = ({ setVolunteerInfo, setIsError }) => {
     dispatch(retrieveAllProducts({limit: PRODUCT_COUNT, offset: page * PRODUCT_COUNT}, {userInfo, userToken}, navigate));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  useEffect(() => {
-    if (allProducts.total_cart_items > 0) {
-      setVolunteerInfo(allProducts.volunteer);
-    } else setVolunteerInfo(null);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [allProducts]);
 
   // Check if quantity > stock
   const [overStock, setOverStock] = useState([]);

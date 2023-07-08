@@ -22,7 +22,7 @@ import { postDoneeRequest } from 'components/redux/reducer/RequestReducer';
 import { handleMaxInput } from 'utils/helpers/String';
 
 const RequestInfoCard = (
-  {isActive, setActive, volunteerInfo}
+  {isActive, setActive}
 ) => {
   const userInfo = useSelector(state => state.authenticationReducer.user)
   const userToken = useSelector(state => state.authenticationReducer.token)
@@ -104,7 +104,7 @@ const RequestInfoCard = (
                   <header className='order-item-secondary'>
                     <Stack direction='horizontal' gap={2}>
                       <div className='fw-bold'>{activeStatusIdx === 0 ? 'Địa chỉ lấy tại chỗ:' : 'Địa chỉ giao hàng:'}</div>
-                      <div>{activeStatusIdx === 0 ? (volunteerInfo ? volunteerInfo.address : 'Không có') : selectedAddress.address}</div>
+                      <div>{activeStatusIdx === 0 ? ('2 - 4 Đ. Hồng Hà, Phường 2, Tân Bình, Thành phố Hồ Chí Minh, Việt Nam') : selectedAddress.address}</div>
                     </Stack>
                   </header>
                   
@@ -133,6 +133,7 @@ const RequestInfoCard = (
                     <Row className='mt-4'>
                       <Col className='d-flex justify-content-end'>
                         <Stack direction='horizontal' gap={2}>
+                          {}
                           <Button className='fogi' variant='primary' type='submit'>
                             Tạo Yêu cầu
                           </Button>

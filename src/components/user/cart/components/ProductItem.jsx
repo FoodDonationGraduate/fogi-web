@@ -106,7 +106,7 @@ const ProductItem = ({
       <Col className='px-0'>
         <Card className='long-product-item-static'>
           <Row xs={1} lg={2}>
-            <Col className='ps-0' xs={12} lg={4}>
+            <Col className='ps-0' xs={12} md={6}>
               <Stack direction='horizontal'>
                 <img
                   className='long-product-image'
@@ -124,16 +124,8 @@ const ProductItem = ({
               </Stack>
             </Col>
 
-            <Col lg={8} className={size < 3 && 'ps-0 py-3'}>
+            <Col md={6} className={size < 3 && 'ps-0 py-3'}>
               <Row>
-                <Col className={`d-flex ${size < 3 && 'ps-0'}`} xs={12} md={3}>
-                  <Stack direction='vertical' gap={2}>
-                    <header className='long-product-label'>
-                      Còn
-                    </header>
-                    <h5>{distanceTime(product.expired_time)}</h5>
-                  </Stack>
-                </Col>
 
                 <Col className={`d-flex ${size < 3 && 'ps-0'} ${size < 2 && 'mt-2'}`} xs={12} md={3}>
                   <Stack direction='vertical' gap={2}>

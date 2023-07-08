@@ -41,8 +41,8 @@ const RequestCard = ({
       </div>
 
       <EqualHeightElement name="request-food-list">
-        {request.products.slice(0, productListDisplayLength()).map((product) => (
-          <header className='order-item-secondary my-1' key={product.id}>
+        {request.products.slice(0, productListDisplayLength()).map((product, idx) => (
+          <header className='order-item-secondary my-1' key={idx}>
             • {product.name} ({product.quantity} {getUnit(product.unit)})
           </header>
         ))}
