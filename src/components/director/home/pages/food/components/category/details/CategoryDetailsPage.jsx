@@ -16,7 +16,7 @@ import FoodCard from 'components/director/home/pages/food/components/food/FoodCa
 import FoodModal from 'components/director/home/pages/food/components/food/FoodModal';
 
 // Reducers
-import { retrieveUnsortedFood } from 'components/redux/reducer/DirectorReducer';
+import { retrieveUnsortedFood, retrieveParentFood } from 'components/redux/reducer/DirectorReducer';
 
 const CategoryDetailsPage = ({
   category,
@@ -49,10 +49,20 @@ const CategoryDetailsPage = ({
     ))
   }, [page]);
   
-  // Modal handling
   const [foodShow, setFoodShow] = useState(false);
   const onFoodShow = () => setFoodShow(true);
   const onFoodClose = () => setFoodShow(false);
+
+  // Parent Food
+  const parentFood = useSelector(state => state.directorReducer.parentFood);
+  useEffect(() => {
+    if (!category.id) return;
+    dispatch(retrieveParentFood(
+      { category_id: category.id },
+      { userInfo, userToken },
+      navigate
+    ))
+  }, [category]);
 
   return (
     <>
@@ -78,13 +88,13 @@ const CategoryDetailsPage = ({
           <Row>
             <Col className='ps-0'>
               <ListTitle title={`Thực phẩm ${category.image ? 'lớn' : 'chưa phân loại'}`} />
-              {category.image ?
+              {category.id ?
                 <Row className='mb-2' xs={2} sm={3} md={4}>
                   <EqualHeight>
-                    {Array.from({ length: 14 }).map((_, idx) => (
+                    {Object.keys(parentFood).length !== 0 && parentFood.products.map((food, idx) => (
                       <Col className='mb-4' key={idx}>
                         <SubCategoryCard
-                          subCategory={{ name: 'Thực phẩm lớn' }}
+                          subCategory={food}
                           setTargetSubCategory={setTargetSubCategory}
                         />
                       </Col>
@@ -119,9 +129,10 @@ const CategoryDetailsPage = ({
       </Row>
       {targetFood &&
         <FoodModal
-        food={targetFood}
-        setTargetFood={setTargetFood}
-        show={foodShow} onShow={onFoodShow} onClose={onFoodClose}
+          food={targetFood}
+          setTargetFood={setTargetFood}
+          show={foodShow} onShow={onFoodShow} onClose={onFoodClose}
+          limit={FOOD_COUNT} offset={page * FOOD_COUNT}
         />
       }
     </>

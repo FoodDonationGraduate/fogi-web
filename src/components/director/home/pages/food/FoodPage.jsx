@@ -4,6 +4,7 @@ import { Container } from 'react-bootstrap';
 
 // Components
 import CategoryModal from './components/category/CategoryModal';
+import SubCategoryModal from './components/category/SubCategoryModal';
 import CategoryListPage from './components/category/list/CategoryListPage';
 import CategoryDetailsPage from './components/category/details/CategoryDetailsPage';
 import SubCategoryDetailsPage from './components/category/details/subCategory/SubCategoryDetailsPage';
@@ -58,12 +59,12 @@ const CategoryPage = () => {
         onShow={onShow}
         onClose={onClose}
       />
-      <CategoryModal
-        targetCategory={targetSubCategory}
+      <SubCategoryModal
+        targetCategory={targetCategory}
+        targetSubCategory={targetSubCategory}
         show={subShow}
         onShow={onSubShow}
         onClose={onSubClose}
-        isSubCategory={true}
       />
     </>
   );

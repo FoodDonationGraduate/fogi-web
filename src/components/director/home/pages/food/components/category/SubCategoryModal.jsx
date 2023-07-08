@@ -18,8 +18,9 @@ import * as Yup from 'yup';
 // Assets
 import { FaExclamationTriangle } from 'react-icons/fa';
 
-const CategoryModal = ({
-  targetCategory, // for edit
+const SubCategoryModal = ({
+  targetCategory,
+  targetSubCategory,
   show,
   onShow,
   onClose
@@ -32,7 +33,8 @@ const CategoryModal = ({
   // Form handling
   const formSchema = Yup.object().shape({
     name: Yup.string().required(''),
-    description: Yup.string().required('')
+    description: Yup.string().required(''),
+    unit: Yup.string().required('')
   });
   const formOptions = { resolver: yupResolver(formSchema) };
   const { register, handleSubmit, formState, reset } = useForm(formOptions);
@@ -53,17 +55,18 @@ const CategoryModal = ({
 
   const onOpen = () => {
     reset({
-      name: targetCategory ? targetCategory.name : '',
-      description: targetCategory ? targetCategory.description : ''
+      name: targetSubCategory ? targetSubCategory.name : '',
+      description: targetSubCategory ? targetSubCategory.description : '',
+      unit: targetSubCategory ? targetSubCategory.unit : 'kg'
     });
     onShow();
   };
 
   const onHide = () => {
-    reset(
-      {
+    reset({
         name: '',
-        description: ''
+        description: '',
+        unit: 'kg'
       }
     );
     onClose();
@@ -72,16 +75,18 @@ const CategoryModal = ({
   const onSubmit = (data) => {
     if (!image) return;
 
-    dispatch(addCategory(
+    dispatch(addParentFood(
       {
         name: data.name,
         description: data.description,
+        unit: data.unit,
+        category_id: targetCategory.id,
         image: image.split('base64,')[1]
       },
       { userInfo, userToken },
       navigate
     ));
-    
+
     setImage(undefined);
     setSubmitted(false);
 
@@ -90,13 +95,13 @@ const CategoryModal = ({
 
   // Edit handling
   useEffect(() => {
-    console.log(JSON.stringify(targetCategory))
-    if (targetCategory) {
-      setImage(`https://bachkhoi.online/static/${targetCategory.image}`);
+    console.log(JSON.stringify(targetSubCategory))
+    if (targetSubCategory) {
+      setImage(`https://bachkhoi.online/static/${targetSubCategory.image_filename}`);
     } else {
       setImage(undefined);
     }
-  }, [targetCategory]);
+  }, [targetSubCategory]);
 
   return (
     <>
@@ -106,7 +111,7 @@ const CategoryModal = ({
         onHide={onHide}
       >
         <Modal.Header closeButton>
-          <Modal.Title>{targetCategory ? 'Chỉnh sửa' : 'Thêm'} Phân loại</Modal.Title>
+          <Modal.Title>{targetSubCategory ? 'Chỉnh sửa' : 'Thêm'} Thực phẩm Cha</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleSubmit(onSubmit)}>
@@ -123,7 +128,7 @@ const CategoryModal = ({
                 />
               }
               <Button variant='outline-secondary' onClick={onShowImage}>
-                Đăng tải Ảnh Phân loại
+                Đăng tải Ảnh Thực phẩm Cha
               </Button>
             </Stack>
             {!image && submitted && (
@@ -135,7 +140,7 @@ const CategoryModal = ({
 
             <Form.Group className='mb-3'>
               <Form.Label style={{ fontWeight: 'bold'}}>
-                Tên Phân loại
+                Tên Thực phẩm Cha
               </Form.Label>
               <Form.Control
                 {...register('name')}
@@ -143,7 +148,7 @@ const CategoryModal = ({
               {errors.name && errors.name.type === 'required' && (
                 <p className="mt-2 error">
                   <FaExclamationTriangle className="mx-2" />
-                  Bạn chưa điền tên Phân loại
+                  Bạn chưa điền tên Thực phẩm Cha
                 </p>
               )}
             </Form.Group>
@@ -164,15 +169,27 @@ const CategoryModal = ({
               )}
             </Form.Group>
 
+            <Form.Group className='mb-3'>
+              <Form.Label style={{ fontWeight: 'bold' }}>
+                Đơn vị
+              </Form.Label>
+              <Form.Select
+                {...register('unit')}
+              >
+                <option value='kg'>Kilogram</option>
+                <option value='item'>Cái</option>
+              </Form.Select>
+            </Form.Group>
+
             <div className='d-grid'>
-              {!targetCategory ? 
+              {!targetSubCategory ? 
                 <Button
                   className='fogi'
                   variant='primary'
                   type='submit'
                   onClick={() => setSubmitted(true)}
                 >
-                  Thêm Phân loại
+                  Thêm Thực phẩm Cha
                 </Button>
                 :
                 <Button
@@ -196,4 +213,4 @@ const CategoryModal = ({
   )
 };
 
-export default CategoryModal;
+export default SubCategoryModal;

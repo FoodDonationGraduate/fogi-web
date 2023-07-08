@@ -2,6 +2,9 @@
 import React, { useState } from 'react';
 import { Button, Stack } from 'react-bootstrap';
 
+// Asset
+import PlaceHolder from 'assets/images/placeholder.jpg';
+
 // Style
 import 'assets/css/director/HomePage.css';
 
@@ -26,7 +29,13 @@ const CategoryInfoCard = ({
     <>
       <div className='manage-card'>
         <Stack direction='horizontal' gap={4}>
-          <img className='manage-details-profile-logo' src={`https://bachkhoi.online/static/${category.image}`} alt='director logo'/>
+          <img
+            className='manage-details-profile-logo' alt='director logo'
+            src={
+              category.image ? `https://bachkhoi.online/static/${category.image}`
+              : PlaceHolder
+            }
+          />
           <Stack className='justify-content-center' direction='vertical' gap={2}>
             <h3 className='manage-card-name fw-bold'>
               {category.name}

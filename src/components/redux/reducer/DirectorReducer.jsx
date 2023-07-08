@@ -17,7 +17,6 @@ const initialState = {
 
   unsortedFood: {},
   parentFood: {},
-  parentOptions: []
 };
 
 const directorReducer = createSlice({
@@ -52,9 +51,6 @@ const directorReducer = createSlice({
     },
     setParentFood: (state, action) => {
       state.parentFood = action.payload;
-    },
-    setParentOptions: (state, action) => {
-      state.parentOptions = action.payload;
     }
   }
 });
@@ -64,7 +60,7 @@ export const {
 
   setAllRequests, setCurrentRequest, setAvailableVolunteers,
 
-  setUnsortedFood, setParentFood, setParentOptions
+  setUnsortedFood, setParentFood
 } = directorReducer.actions
 
 export default directorReducer.reducer
@@ -465,9 +461,73 @@ export const retrieveParentFood = (data, director, navigate) => {
       console.log('retrieve parent food');
       await axiosInstance.get(`/parent/product/director`, { params: {
         email: director.userInfo.email,
-        token: director.userToken
+        token: director.userToken,
+        category_id: data.category_id
       }}).then((res) => {
         dispatch(setParentFood(res.data));
+      }).catch((err) => {
+        if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+          
+        } else {
+          console.log(err.response.data);
+          dispatch(setModalMessage("Đã xảy ra lỗi!"))
+          dispatch(setModalType('danger'))
+          dispatch(showModal())
+       }
+      });
+    } catch (err) {
+      console.log(err);
+      navigate('/');
+    }
+  }
+}
+
+export const addParentFood = (data, director, navigate) => {
+  return async dispatch => {
+    try {
+      console.log('add parent food');
+      axiosInstance.post(`/parent/product/director`, {
+        email: director.userInfo.email,
+        token: director.userToken,
+        name: data.name,
+        description: data.name,
+        unit: data.unit,
+        category_id: data.category_id,
+        images: [data.image]
+      }).then((res) => {
+        dispatch(retrieveParentFood(data, director, navigate));
+        dispatch(setModalMessage("Thêm Thực phẩm cha thành công!"));
+        dispatch(showModal());
+      }).catch((err) => {
+        if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+        } else {
+          console.log(err.response.data);
+          dispatch(setModalMessage("Thêm Thực phẩm cha không thành công!"))
+          dispatch(setModalType('danger'))
+          dispatch(showModal())
+       }
+      });
+    } catch (err) {
+      console.log(err);
+      navigate('/');
+    }
+  }
+}
+
+export const updateFood = (data, director, navigate) => {
+  return async dispatch => {
+    try {
+      console.log('update food');
+      await axiosInstance.post(`/child/product/director`, { 
+        email: director.userInfo.email,
+        token: director.userToken,
+        child_id: data.child_id,
+        parent_id: data.parent_id,
+        child_name: data.child_name,
+        child_stock: data.child_stock,
+        child_unit: data.child_unit
+      }).then((res) => {
+        dispatch(retrieveUnsortedFood(data, director, navigate));
       }).catch((err) => {
         if (handleExpiredToken(err.response.data, dispatch, navigate)) {
           

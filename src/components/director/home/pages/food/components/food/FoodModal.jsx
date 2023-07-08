@@ -13,11 +13,12 @@ import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 
 // Reducers
-import { retrieveParentFood } from 'components/redux/reducer/DirectorReducer';
+import { retrieveParentFood, updateFood } from 'components/redux/reducer/DirectorReducer';
 
 const FoodModal = ({
   food,
-  show, onShow, onClose
+  show, onShow, onClose,
+  limit, offset
 }) => {
   const userInfo = useSelector(state => state.authenticationReducer.user);
   const userToken = useSelector(state => state.authenticationReducer.token);
@@ -27,21 +28,6 @@ const FoodModal = ({
   useEffect(() => {
     dispatch(retrieveParentFood({}, { userInfo, userToken }, navigate));
   }, []);
-
-  const [parentOptions, setParentOptions] = useState([]);
-  useEffect(() => {
-    if (Object.keys(parentFood).length === 0) return;
-    const parents = parentFood.products;
-    for (let i = 0; i < parentFood.number_of_products; i++) {
-      setParentOptions([
-        ...parentOptions,
-        {
-          value: parents[i].id,
-          label: parents[i].name
-        }
-      ])
-    }
-  }, [parentFood]);
 
   // Form handling
   const formSchema = Yup.object().shape({
@@ -65,6 +51,20 @@ const FoodModal = ({
   };
 
   const onSubmit = (data) => {
+    dispatch(updateFood(
+      {
+        child_id: food.id,
+        parent_id: data.parentProduct,
+        child_name: data.name,
+        child_stock: data.stock,
+        child_unit: data.unit,
+        limit: limit,
+        offset: offset
+      },
+      { userInfo, userToken },
+      navigate
+    ));
+
     onClose();
   };
 
@@ -143,8 +143,10 @@ const FoodModal = ({
                 {...register('parentProduct')}
               >
                 <option value={-1}>-</option>
-                {parentOptions.length > 0 && parentOptions.map((parentOption, idx) => (
-                  <option value={parentOption.value} key={idx}>{parentOption.label}</option>
+                {Object.keys(parentFood).length > 0 && parentFood.products.map((parentOption, idx) => (
+                  <option value={parentOption.id} key={idx}>
+                    {parentOption.name} - {parentOption.category_name}
+                  </option>
                 ))}
               </Form.Select>
               {errors.parentProduct && errors.parentProduct.type === 'min' && (

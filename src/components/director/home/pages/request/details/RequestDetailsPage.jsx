@@ -106,7 +106,7 @@ const RequestDetailsPage = ({
         </div>
         <div className='mb-4'>
           {/* for later: request.donor */}
-          {true ?
+          {false ?
             <FoodList
               foodList={foodList}
             />
