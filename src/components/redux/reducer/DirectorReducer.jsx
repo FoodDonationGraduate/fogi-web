@@ -15,7 +15,9 @@ const initialState = {
   currentRequest: null,
   availableVolunteers: {},
 
-  unsortedFood: {}
+  unsortedFood: {},
+  parentFood: {},
+  parentOptions: []
 };
 
 const directorReducer = createSlice({
@@ -47,6 +49,12 @@ const directorReducer = createSlice({
 
     setUnsortedFood: (state, action) => {
       state.unsortedFood = action.payload;
+    },
+    setParentFood: (state, action) => {
+      state.parentFood = action.payload;
+    },
+    setParentOptions: (state, action) => {
+      state.parentOptions = action.payload;
     }
   }
 });
@@ -56,7 +64,7 @@ export const {
 
   setAllRequests, setCurrentRequest, setAvailableVolunteers,
 
-  setUnsortedFood
+  setUnsortedFood, setParentFood, setParentOptions
 } = directorReducer.actions
 
 export default directorReducer.reducer
@@ -423,7 +431,7 @@ export const retrieveAvailableVolunteers = (data, director, navigate) => {
 export const retrieveUnsortedFood = (data, director, navigate) => {
   return async dispatch => {
     try {
-      console.log('retrieve unsorted volunteers');
+      console.log('retrieve unsorted food');
       await axiosInstance.get(`/child/product/director`, { params: {
         email: director.userInfo.email,
         token: director.userToken,
@@ -434,6 +442,32 @@ export const retrieveUnsortedFood = (data, director, navigate) => {
         filter: 'in_stock'
       }}).then((res) => {
         dispatch(setUnsortedFood(res.data));
+      }).catch((err) => {
+        if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+          
+        } else {
+          console.log(err.response.data);
+          dispatch(setModalMessage("Đã xảy ra lỗi!"))
+          dispatch(setModalType('danger'))
+          dispatch(showModal())
+       }
+      });
+    } catch (err) {
+      console.log(err);
+      navigate('/');
+    }
+  }
+}
+
+export const retrieveParentFood = (data, director, navigate) => {
+  return async dispatch => {
+    try {
+      console.log('retrieve parent food');
+      await axiosInstance.get(`/parent/product/director`, { params: {
+        email: director.userInfo.email,
+        token: director.userToken
+      }}).then((res) => {
+        dispatch(setParentFood(res.data));
       }).catch((err) => {
         if (handleExpiredToken(err.response.data, dispatch, navigate)) {
           

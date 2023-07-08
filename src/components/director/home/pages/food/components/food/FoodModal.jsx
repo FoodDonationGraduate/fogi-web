@@ -1,29 +1,54 @@
 // Essentials
 import React, { useState, useEffect } from 'react';
-import { Button, Col, Form, Modal, Row, Stack } from 'react-bootstrap';
+import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
+
+// Assets
+import { FaExclamationTriangle } from 'react-icons/fa';
 
 // Form handling
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 
-// Assets
-import { FaExclamationTriangle } from 'react-icons/fa';
+// Reducers
+import { retrieveParentFood } from 'components/redux/reducer/DirectorReducer';
 
 const FoodModal = ({
   food,
   show, onShow, onClose
 }) => {
+  const userInfo = useSelector(state => state.authenticationReducer.user);
+  const userToken = useSelector(state => state.authenticationReducer.token);
+  const parentFood = useSelector(state => state.directorReducer.parentFood);
+  const dispatch = useDispatch(); const navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch(retrieveParentFood({}, { userInfo, userToken }, navigate));
+  }, []);
+
+  const [parentOptions, setParentOptions] = useState([]);
+  useEffect(() => {
+    if (Object.keys(parentFood).length === 0) return;
+    const parents = parentFood.products;
+    for (let i = 0; i < parentFood.number_of_products; i++) {
+      setParentOptions([
+        ...parentOptions,
+        {
+          value: parents[i].id,
+          label: parents[i].name
+        }
+      ])
+    }
+  }, [parentFood]);
 
   // Form handling
   const formSchema = Yup.object().shape({
     name: Yup.string().required(''),
     stock: Yup.number().required(),
     unit: Yup.string().required(),
-    category: Yup.string().required(),
-    subCategory: Yup.string().required()
+    parentProduct: Yup.number().required().min(0)
   });
   const formOptions = { resolver: yupResolver(formSchema) };
   const { register, handleSubmit, formState, reset } = useForm(formOptions);
@@ -34,22 +59,12 @@ const FoodModal = ({
       name: food.name,
       stock: food.stock,
       unit: food.unit,
-      category: 0,
-      subCategory: 1
+      parentProduct: -1
     });
     onShow();
   };
 
   const onSubmit = (data) => {
-    // dispatch(addCategory(
-    //   {
-    //     name: data.name,
-    //     image: image.split('base64,')[1]
-    //   },
-    //   { userInfo, userToken },
-    //   navigate
-    // ));
-
     onClose();
   };
 
@@ -109,8 +124,7 @@ const FoodModal = ({
                   )}
                 </Col>
                 <Col className='px-0' sm={4} md={4} lg={4}>
-                  <Form.Select 
-                    aria-label="Default select exampe" 
+                  <Form.Select
                     {...register('unit')}
                   >
                     <option value='kg'>Kilogram</option>
@@ -124,14 +138,21 @@ const FoodModal = ({
               <Form.Label style={{ fontWeight: 'bold' }}>
                 Phân loại
               </Form.Label>
-              <Form.Select 
-                {...register('category')}
+              <Form.Select
+                default-value={-1}
+                {...register('parentProduct')}
               >
-                <option value='0'>Đông lạnh</option>
-                <option value='1'>Tươi sống</option>
-                <option value='2'>Cơm</option>
-                <option value='3'>Không phân loại</option>
+                <option value={-1}>-</option>
+                {parentOptions.length > 0 && parentOptions.map((parentOption, idx) => (
+                  <option value={parentOption.value} key={idx}>{parentOption.label}</option>
+                ))}
               </Form.Select>
+              {errors.parentProduct && errors.parentProduct.type === 'min' && (
+                <p className="mt-2 error">
+                  <FaExclamationTriangle className="mx-2" />
+                  Bạn chưa chọn Thực phẩm cha
+                </p>
+              )}
             </Form.Group>
 
             <div className='d-grid'>

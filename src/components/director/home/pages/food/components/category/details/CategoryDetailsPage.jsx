@@ -13,6 +13,7 @@ import Pagination from 'components/common/pagination/Pagination';
 
 import CategoryInfoCard from './CategoryInfoCard';
 import FoodCard from 'components/director/home/pages/food/components/food/FoodCard';
+import FoodModal from 'components/director/home/pages/food/components/food/FoodModal';
 
 // Reducers
 import { retrieveUnsortedFood } from 'components/redux/reducer/DirectorReducer';
@@ -30,6 +31,7 @@ const CategoryDetailsPage = ({
 
   // Unsorted food
   const unsortedFood = useSelector(state => state.directorReducer.unsortedFood);
+  const [targetFood, setTargetFood] = useState(null);
   const FOOD_COUNT = 4;
   const [page, setPage] = useState(0); // a.k.a activeIdx
   const onChangePage = async (idx) => {
@@ -46,6 +48,11 @@ const CategoryDetailsPage = ({
       navigate
     ))
   }, [page]);
+  
+  // Modal handling
+  const [foodShow, setFoodShow] = useState(false);
+  const onFoodShow = () => setFoodShow(true);
+  const onFoodClose = () => setFoodShow(false);
 
   return (
     <>
@@ -91,6 +98,8 @@ const CategoryDetailsPage = ({
                       <Col className='mb-3' key={idx}>
                         <FoodCard
                           food={food}
+                          onFoodShow={onFoodShow}
+                          setTargetFood={setTargetFood}
                         />
                       </Col>
                     ))}
@@ -108,6 +117,13 @@ const CategoryDetailsPage = ({
           </Row>
         </Col>
       </Row>
+      {targetFood &&
+        <FoodModal
+        food={targetFood}
+        setTargetFood={setTargetFood}
+        show={foodShow} onShow={onFoodShow} onClose={onFoodClose}
+        />
+      }
     </>
   )
 };

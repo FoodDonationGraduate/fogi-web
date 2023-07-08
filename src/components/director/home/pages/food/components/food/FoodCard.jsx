@@ -1,24 +1,26 @@
 // Essentials
-import React, { useState } from 'react';
+import React from 'react';
 import { Button, Card, Col, Row, Stack } from 'react-bootstrap';
 import { getUnit } from 'utils/helpers/Food';
 
-// Components
-import FoodModal from './FoodModal';
+// Asset
+import PlaceHolder from 'assets/images/placeholder.jpg';
 
 // Utility
 import { distanceTime } from 'utils/helpers/Time.jsx';
 import { useResizer } from 'utils/helpers/Resizer.jsx';
 
 const FoodCard = ({
-  food
+  food,
+  onFoodShow,
+  setTargetFood
 }) => {
   let size = useResizer();
-  
-  // Modal handling
-  const [show, setShow] = useState(false);
-  const onShow = () => setShow(true);
-  const onClose = () => setShow(false);
+
+  const onClick = () => {
+    setTargetFood(food);
+    onFoodShow();
+  };
 
   return (
     <>
@@ -27,8 +29,11 @@ const FoodCard = ({
           <Col className='px-0' lg={5} xl={6}>
             <Stack direction='horizontal'>
               <img
-                className='long-product-image'
-                src={`https://bachkhoi.online/static/${food.image_filename}`} alt='product-img'
+                className='long-product-image' alt='product-img'
+                src={
+                  food.image_filename ? `https://bachkhoi.online/static/${food.image_filename}`
+                  : PlaceHolder
+                }
                 width='64' height='64'
               />
               <div className='ms-4'>
@@ -54,7 +59,7 @@ const FoodCard = ({
                 </div>
               </Col>
               <Col className={`d-grid px-0 ${size < 3 ? 'mt-3' : ''}`} sm={4}>
-                <Button variant='outline-secondary' onClick={onShow}>
+                <Button variant='outline-secondary' onClick={onClick}>
                   {food.subCategory ? 'Chỉnh sửa' : 'Phân loại'}
                 </Button>
               </Col>
@@ -62,10 +67,6 @@ const FoodCard = ({
           </Col>
         </Row>
       </Card>
-      <FoodModal
-        food={food}
-        show={show} onShow={onShow} onClose={onClose}
-      />
     </>
   );
 };
