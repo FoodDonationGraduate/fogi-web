@@ -5,13 +5,11 @@ import RequestInfoCard from './RequestInfoCard';
 import { useDispatch, useSelector } from 'react-redux';
 
 // Components
-import VolunteerInfo from 'components/common/request/VolunteerInfo';
 import { setModalMessage, showModal } from 'components/redux/reducer/ModalReducer';
 
 // Styling
 import 'assets/css/Fogi.css';
 const CartTitle = ({
-  volunteerInfo,
   isError
 }) => {
   const dispatch = useDispatch();
@@ -32,7 +30,7 @@ const CartTitle = ({
     <div className='bg'>
       <Container>
         <Row className='pt-4 pb-2'>
-          {volunteerInfo ? 
+          {allProducts.total_cart_items > 0 ? 
             <>
               <Col className='mb-2' xs={12} lg={7} xl={8}>
                 <div className='mb-3'>
@@ -62,9 +60,6 @@ const CartTitle = ({
                     </span>
                   </OverlayTrigger>
                 }
-              </Col>
-              <Col>
-                <VolunteerInfo isCard={true} volunteerInfo={volunteerInfo} />
               </Col>
             </>
             :
@@ -96,7 +91,6 @@ const CartTitle = ({
         <RequestInfoCard 
           isActive={isActive === true}
           setActive={setActive}
-          volunteerInfo={volunteerInfo}
         />
       }
     </div>
