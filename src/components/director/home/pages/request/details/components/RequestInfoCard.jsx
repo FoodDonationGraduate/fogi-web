@@ -60,7 +60,7 @@ const RequestInfoCard = ({ request }) => {
               <hr />
 
               <h3 className='order-item-date text-center'>
-                {getStep(request.status, false, true).header}
+                {getStep(request.status, false, true, request).header}
               </h3>
 
               {request.status !== 'canceled' &&
@@ -84,7 +84,7 @@ const RequestInfoCard = ({ request }) => {
                     </Row>
                     :
                     <header className='order-item-secondary text-center mt-2'>
-                      Hiện tại: {getStep(request.status, false, true).label} {`(${convertStepToNumber(request.status) + 1}/5)`}
+                      Hiện tại: {getStep(request.status, false, true, request).label} {`(${convertStepToNumber(request.status) + 1}/5)`}
                     </header>
                   }
                 </>

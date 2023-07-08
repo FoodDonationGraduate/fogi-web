@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import CategoryImageModal from './CategoryImageModal';
 
 // Reducer
-import { addCategory, addParentFood } from 'components/redux/reducer/DirectorReducer';
+import { addParentFood, updateParentFood } from 'components/redux/reducer/DirectorReducer';
 
 // Form handling
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -21,6 +21,7 @@ import { FaExclamationTriangle } from 'react-icons/fa';
 const SubCategoryModal = ({
   targetCategory,
   targetSubCategory,
+  setTargetSubCategory,
   show,
   onShow,
   onClose
@@ -73,19 +74,37 @@ const SubCategoryModal = ({
   };
 
   const onSubmit = (data) => {
+    console.log('hahaha')
     if (!image) return;
 
-    dispatch(addParentFood(
-      {
-        name: data.name,
-        description: data.description,
-        unit: data.unit,
-        category_id: targetCategory.id,
-        image: image.split('base64,')[1]
-      },
-      { userInfo, userToken },
-      navigate
-    ));
+    if (!targetSubCategory) {
+      dispatch(addParentFood(
+        {
+          name: data.name,
+          description: data.description,
+          unit: data.unit,
+          category_id: targetCategory.id,
+          image: image.split('base64,')[1]
+        },
+        { userInfo, userToken },
+        navigate
+      ));
+    } else {
+      dispatch(updateParentFood(
+        {
+          name: data.name,
+          description: data.description,
+          unit: data.unit,
+          id: targetSubCategory.id,
+          category_id: targetCategory.id,
+          image: image.split('base64,')[1],
+          targetSubCategory: targetSubCategory,
+          setTargetSubCategory: setTargetSubCategory
+        },
+        { userInfo, userToken },
+        navigate
+      ));
+    }
 
     setImage(undefined);
     setSubmitted(false);
@@ -195,6 +214,8 @@ const SubCategoryModal = ({
                 <Button
                   className='fogi'
                   variant='primary'
+                  type='submit'
+                  onClick={() => setSubmitted(true)}
                 >
                   Lưu thay đổi
                 </Button>

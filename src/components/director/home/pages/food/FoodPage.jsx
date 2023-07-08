@@ -55,6 +55,7 @@ const CategoryPage = () => {
       </div>
       <CategoryModal
         targetCategory={targetCategory}
+        setTargetCategory={setTargetCategory}
         show={show}
         onShow={onShow}
         onClose={onClose}
@@ -62,6 +63,7 @@ const CategoryPage = () => {
       <SubCategoryModal
         targetCategory={targetCategory}
         targetSubCategory={targetSubCategory}
+        setTargetSubCategory={setTargetSubCategory}
         show={subShow}
         onShow={onSubShow}
         onClose={onSubClose}

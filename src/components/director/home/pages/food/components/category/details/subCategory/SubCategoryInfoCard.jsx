@@ -1,6 +1,6 @@
 // Essentials
 import React, { useState } from 'react';
-import { Button, Stack } from 'react-bootstrap';
+import { Button, Col, Row, Stack } from 'react-bootstrap';
 
 // Style
 import 'assets/css/director/HomePage.css';
@@ -19,22 +19,32 @@ const CategoryInfoCard = ({
   return (
     <>
       <div className='manage-card'>
-        <Stack direction='horizontal' gap={4}>
-          <img
-            className='manage-details-profile-logo' alt='director logo'
-            src={`https://bachkhoi.online/static/${subCategory.image_filename}`}
-          />
-          <Stack className='justify-content-center' direction='vertical' gap={2}>
-            <h3 className='manage-card-name fw-bold'>
-              {subCategory.name}
-            </h3>
-            <Stack direction='horizontal' gap={2}>
-              <Button variant='outline-secondary' onClick={showSubCategoryModal}>
-                Chỉnh sửa
-              </Button>
+        <Row>
+          <Col className='px-0' md={9} xl={10}>
+            <Stack direction='horizontal' gap={4}>
+              <img
+                className='manage-details-profile-logo' alt='director logo'
+                src={`https://bachkhoi.online/static/${subCategory.image_filename}`}
+              />
+              <Stack className='justify-content-center' direction='vertical'>
+                <h4 className='manage-card-name fw-bold'>
+                  {subCategory.name}
+                </h4>
+                <div className='mb-2'>
+                  <div>Tồn kho: {subCategory.stock} {subCategory.unit}</div>
+                </div>
+                <div>
+                  <small style={{ color: '#999' }}>{subCategory.description}</small>
+                </div>
+              </Stack>
             </Stack>
-          </Stack>
-        </Stack>
+          </Col>
+          <Col className='d-grid align-items-center px-0'>
+            <Button variant='outline-secondary' onClick={showSubCategoryModal}>
+              Chỉnh sửa
+            </Button>
+          </Col>
+        </Row>
       </div>
     </>
   );

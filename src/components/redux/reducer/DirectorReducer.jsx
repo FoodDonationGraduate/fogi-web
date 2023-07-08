@@ -518,6 +518,39 @@ export const addParentFood = (data, director, navigate) => {
   }
 }
 
+export const updateParentFood = (data, director, navigate) => {
+  return async dispatch => {
+    try {
+      console.log('update parent food');
+      axiosInstance.patch(`/parent/product/director`, {
+        email: director.userInfo.email,
+        token: director.userToken,
+        name: data.name,
+        description: data.description,
+        unit: data.unit,
+        id: data.id,
+        category_id: data.category_id,
+        images: [data.image]
+      }).then((res) => {
+        dispatch(retrieveParentFood(data, director, navigate));
+        dispatch(setModalMessage("Cập nhật Thực phẩm cha thành công!"));
+        dispatch(showModal());
+      }).catch((err) => {
+        if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+        } else {
+          console.log(err.response.data);
+          dispatch(setModalMessage("Cập nhật Thực phẩm cha không thành công!"))
+          dispatch(setModalType('danger'))
+          dispatch(showModal())
+       }
+      });
+    } catch (err) {
+      console.log(err);
+      navigate('/');
+    }
+  }
+}
+
 export const retrieveFood = (data, director, navigate) => {
   return async dispatch => {
     try {
