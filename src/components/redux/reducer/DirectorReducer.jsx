@@ -17,6 +17,7 @@ const initialState = {
 
   unsortedFood: {},
   parentFood: {},
+  food: {}
 };
 
 const directorReducer = createSlice({
@@ -51,6 +52,9 @@ const directorReducer = createSlice({
     },
     setParentFood: (state, action) => {
       state.parentFood = action.payload;
+    },
+    setFood: (state, action) => {
+      state.food = action.payload;
     }
   }
 });
@@ -60,7 +64,7 @@ export const {
 
   setAllRequests, setCurrentRequest, setAvailableVolunteers,
 
-  setUnsortedFood, setParentFood
+  setUnsortedFood, setParentFood, setFood
 } = directorReducer.actions
 
 export default directorReducer.reducer
@@ -514,6 +518,38 @@ export const addParentFood = (data, director, navigate) => {
   }
 }
 
+export const retrieveFood = (data, director, navigate) => {
+  return async dispatch => {
+    try {
+      console.log('retrieve food');
+      await axiosInstance.get(`/child/product/director`, { params: {
+        email: director.userInfo.email,
+        token: director.userToken,
+        limit: data.limit,
+        offset: data.offset,
+        sort_field: 'stock',
+        sort_by: 'desc',
+        filter: 'in_stock',
+        parent_id: data.parent_id,
+      }}).then((res) => {
+        dispatch(setFood(res.data));
+      }).catch((err) => {
+        if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+          
+        } else {
+          console.log(err.response.data);
+          dispatch(setModalMessage("Đã xảy ra lỗi!"))
+          dispatch(setModalType('danger'))
+          dispatch(showModal())
+       }
+      });
+    } catch (err) {
+      console.log(err);
+      navigate('/');
+    }
+  }
+}
+
 export const updateFood = (data, director, navigate) => {
   return async dispatch => {
     try {
@@ -527,7 +563,14 @@ export const updateFood = (data, director, navigate) => {
         child_stock: data.child_stock,
         child_unit: data.child_unit
       }).then((res) => {
-        dispatch(retrieveUnsortedFood(data, director, navigate));
+        if (!data.is_sorted) dispatch(retrieveUnsortedFood({
+          ...data,
+          offset: (data.food_list_length % data.offset !== 1) ? data.offset : 0
+        }, director, navigate));
+        else dispatch(retrieveFood({
+          ...data,
+          offset: (data.food_list_length % data.offset !== 1) ? data.offset : 0
+        }, director, navigate));
       }).catch((err) => {
         if (handleExpiredToken(err.response.data, dispatch, navigate)) {
           

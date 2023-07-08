@@ -2,9 +2,6 @@
 import React, { useState } from 'react';
 import { Button, Stack } from 'react-bootstrap';
 
-// Asset
-import PlaceHolder from 'assets/images/placeholder.jpg';
-
 // Style
 import 'assets/css/director/HomePage.css';
 

@@ -149,7 +149,9 @@ const PostProductModal = ({
               <Row>
                 <Col className='ps-0' sm={8} md={8} lg={8}>
                   <Form.Control
-                    type='number' {...register('stock')}
+                    type='number'
+                    step='0.01'
+                    {...register('stock')}
                   />
                   {errors.stock && errors.stock.type === 'required' && (
                     <p className="mt-2 error">

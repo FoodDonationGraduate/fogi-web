@@ -130,6 +130,7 @@ const CategoryDetailsPage = ({
       {targetFood &&
         <FoodModal
           food={targetFood}
+          foodList={unsortedFood}
           setTargetFood={setTargetFood}
           show={foodShow} onShow={onFoodShow} onClose={onFoodClose}
           limit={FOOD_COUNT} offset={page * FOOD_COUNT}

@@ -17,6 +17,8 @@ import { retrieveParentFood, updateFood } from 'components/redux/reducer/Directo
 
 const FoodModal = ({
   food,
+  foodList,
+  isSorted=false,
   show, onShow, onClose,
   limit, offset
 }) => {
@@ -59,7 +61,9 @@ const FoodModal = ({
         child_stock: data.stock,
         child_unit: data.unit,
         limit: limit,
-        offset: offset
+        offset: offset,
+        food_list_length: foodList.total_products,
+        is_sorted: isSorted
       },
       { userInfo, userToken },
       navigate
@@ -113,6 +117,7 @@ const FoodModal = ({
                 <Col className='ps-0' sm={8} md={8} lg={8}>
                   <Form.Control
                     type='number'
+                    step='0.01'
                     {...register('stock')}
                     defaultValue={food ? food.stock : 1}
                   />
