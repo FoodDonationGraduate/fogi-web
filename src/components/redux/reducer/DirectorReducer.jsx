@@ -469,6 +469,7 @@ export const retrieveParentFood = (data, director, navigate) => {
         category_id: data.category_id
       }}).then((res) => {
         dispatch(setParentFood(res.data));
+        console.log(JSON.stringify(directorReducer))
       }).catch((err) => {
         if (handleExpiredToken(err.response.data, dispatch, navigate)) {
           
@@ -535,6 +536,12 @@ export const updateParentFood = (data, director, navigate) => {
         dispatch(retrieveParentFood(data, director, navigate));
         dispatch(setModalMessage("Cập nhật Thực phẩm cha thành công!"));
         dispatch(showModal());
+        data.setTargetSubCategory({
+          ...data.targetSubCategory,
+          name: data.name,
+          description: data.description,
+          unit: data.unit
+        });
       }).catch((err) => {
         if (handleExpiredToken(err.response.data, dispatch, navigate)) {
         } else {

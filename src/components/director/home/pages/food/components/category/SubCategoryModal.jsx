@@ -74,7 +74,6 @@ const SubCategoryModal = ({
   };
 
   const onSubmit = (data) => {
-    console.log('hahaha')
     if (!image) return;
 
     if (!targetSubCategory) {

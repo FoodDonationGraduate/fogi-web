@@ -9,6 +9,7 @@ import { EqualHeight } from 'react-equal-height';
 import BackButton from 'components/common/BackButton';
 import ListTitle from 'components/common/ListTitle';
 import Pagination from 'components/common/pagination/Pagination';
+import CommonNotFoundBody from 'components/common/CommonNotFoundBody';
 
 import SubCategoryInfoCard from './SubCategoryInfoCard';
 import FoodCard from 'components/director/home/pages/food/components/food/FoodCard';
@@ -82,6 +83,9 @@ const SubCategoryDetailsPage = ({
                       />
                     </Col>
                   ))}
+                  {(Object.keys(foodList).length === 0 || foodList.total_products === 0) && 
+                    <CommonNotFoundBody title='Chưa có thực phẩm nào'/>
+                  }
                   <div className='d-flex justify-content-center mt-4'>
                     <Pagination
                       pageCount={Math.ceil(foodList.total_products / FOOD_COUNT)}

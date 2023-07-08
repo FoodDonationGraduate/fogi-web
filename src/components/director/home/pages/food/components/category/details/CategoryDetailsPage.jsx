@@ -10,6 +10,7 @@ import BackButton from 'components/common/BackButton';
 import ListTitle from 'components/common/ListTitle';
 import SubCategoryCard from 'components/common/category/SubCategoryCard';
 import Pagination from 'components/common/pagination/Pagination';
+import CommonNotFoundBody from 'components/common/CommonNotFoundBody';
 
 import CategoryInfoCard from './CategoryInfoCard';
 import FoodCard from 'components/director/home/pages/food/components/food/FoodCard';
@@ -89,18 +90,23 @@ const CategoryDetailsPage = ({
             <Col className='ps-0'>
               <ListTitle title={`Thực phẩm ${category.image ? 'lớn' : 'chưa phân loại'}`} />
               {category.id ?
-                <Row className='mb-2' xs={2} sm={3} md={4}>
-                  <EqualHeight>
-                    {Object.keys(parentFood).length !== 0 && parentFood.products.map((food, idx) => (
-                      <Col className='mb-4' key={idx}>
-                        <SubCategoryCard
-                          subCategory={food}
-                          setTargetSubCategory={setTargetSubCategory}
-                        />
-                      </Col>
-                    ))}
-                  </EqualHeight>
-                </Row>
+                <>
+                  <Row className='mb-2' xs={2} sm={3} md={4}>
+                    <EqualHeight>
+                      {Object.keys(parentFood).length !== 0 && parentFood.products.map((food, idx) => (
+                        <Col className='mb-4' key={idx}>
+                          <SubCategoryCard
+                            subCategory={food}
+                            setTargetSubCategory={setTargetSubCategory}
+                          />
+                        </Col>
+                      ))}
+                    </EqualHeight>
+                  </Row>
+                  {(Object.keys(parentFood).length === 0 || parentFood.total_products === 0) && 
+                    <CommonNotFoundBody title='Chưa có Thực phẩm Cha nào'/>
+                  }
+                </>
                 :
                 <Row className='mb-2' xs={1}>
                   <EqualHeight>
@@ -113,6 +119,9 @@ const CategoryDetailsPage = ({
                         />
                       </Col>
                     ))}
+                    {(Object.keys(unsortedFood).length === 0 || unsortedFood.total_products === 0) && 
+                      <CommonNotFoundBody title='Không có Thực phẩm chưa phân loại'/>
+                    }
                     <div className='d-flex justify-content-center mt-4'>
                       <Pagination
                         pageCount={Math.ceil(unsortedFood.total_products / FOOD_COUNT)}
