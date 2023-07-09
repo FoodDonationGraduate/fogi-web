@@ -528,7 +528,7 @@ export const addParentFood = (data, director, navigate) => {
         email: director.userInfo.email,
         token: director.userToken,
         name: data.name,
-        description: data.name,
+        description: data.description,
         unit: data.unit,
         category_id: data.category_id,
         images: [data.image]

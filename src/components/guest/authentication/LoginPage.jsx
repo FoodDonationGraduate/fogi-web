@@ -16,8 +16,6 @@ import InfoModal from 'components/layout/InfoModal'
 
 // Assets imports
 import { FaExclamationTriangle } from "react-icons/fa";
-import Facebook from "assets/images/facebook.svg";
-import Google from "assets/images/google.svg";
 
 // Style imports
 import 'assets/css/Authentication.css';
@@ -116,27 +114,6 @@ const Login = () => {
                       </Button>
                     </div>
                   </Form>
-                  
-                  <hr />
-                  
-                  <Row lg={2}>
-                    <Col className='d-grid ps-0'>
-                      <Button
-                        variant='outline-secondary'
-                      >
-                        <img className='me-2' src={Facebook} width='24px' height='24px' alt='facebook' />
-                        Facebook
-                      </Button>
-                    </Col>
-                    <Col className='d-grid pe-0'>
-                      <Button
-                        variant='outline-secondary'
-                      >
-                        <img className='me-2' src={Google} width='24px' height='24px' alt='google' />
-                        Google
-                      </Button>
-                    </Col>
-                  </Row>
                 </div>
               </div>
             </Card.Body>
