@@ -32,9 +32,6 @@ const ProductItem = ({
                   <h5 className='fw-bold mb-3'>
                     {product.name}
                   </h5>
-                  <span className={size > 0 ? 'long-product-type' : 'long-product-type-sm'}>
-                    {product.category_name}
-                  </span>
                 </div>
               </Stack>
             </Col>
