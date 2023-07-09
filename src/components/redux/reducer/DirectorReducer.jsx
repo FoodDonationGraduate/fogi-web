@@ -13,7 +13,11 @@ const initialState = {
 
   allRequests: {},
   currentRequest: null,
-  availableVolunteers: {}
+  availableVolunteers: {},
+
+  unsortedFood: {},
+  parentFood: {},
+  food: {}
 };
 
 const directorReducer = createSlice({
@@ -41,6 +45,16 @@ const directorReducer = createSlice({
     },
     setAvailableVolunteers: (state, action) => {
       state.availableVolunteers = action.payload;
+    },
+
+    setUnsortedFood: (state, action) => {
+      state.unsortedFood = action.payload;
+    },
+    setParentFood: (state, action) => {
+      state.parentFood = action.payload;
+    },
+    setFood: (state, action) => {
+      state.food = action.payload;
     }
   }
 });
@@ -48,7 +62,9 @@ const directorReducer = createSlice({
 export const {
   setUnverifiedUsers, setManageUsers, setReports, setTypeOfUser,
 
-  setAllRequests, setCurrentRequest, setAvailableVolunteers
+  setAllRequests, setCurrentRequest, setAvailableVolunteers,
+
+  setUnsortedFood, setParentFood, setFood
 } = directorReducer.actions
 
 export default directorReducer.reducer
@@ -395,6 +411,206 @@ export const retrieveAvailableVolunteers = (data, director, navigate) => {
         offset: data.offset
       }}).then((res) => {
         dispatch(setAvailableVolunteers(res.data));
+      }).catch((err) => {
+        if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+          
+        } else {
+          console.log(err.response.data);
+          dispatch(setModalMessage("Đã xảy ra lỗi!"))
+          dispatch(setModalType('danger'))
+          dispatch(showModal())
+       }
+      });
+    } catch (err) {
+      console.log(err);
+      navigate('/');
+    }
+  }
+}
+
+export const retrieveUnsortedFood = (data, director, navigate) => {
+  return async dispatch => {
+    try {
+      console.log('retrieve unsorted food');
+      await axiosInstance.get(`/child/product/director`, { params: {
+        email: director.userInfo.email,
+        token: director.userToken,
+        limit: data.limit,
+        offset: data.offset,
+        sort_field: 'stock',
+        sort_by: 'desc',
+        filter: 'in_stock'
+      }}).then((res) => {
+        dispatch(setUnsortedFood(res.data));
+      }).catch((err) => {
+        if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+          
+        } else {
+          console.log(err.response.data);
+          dispatch(setModalMessage("Đã xảy ra lỗi!"))
+          dispatch(setModalType('danger'))
+          dispatch(showModal())
+       }
+      });
+    } catch (err) {
+      console.log(err);
+      navigate('/');
+    }
+  }
+}
+
+export const retrieveParentFood = (data, director, navigate) => {
+  return async dispatch => {
+    try {
+      console.log('retrieve parent food');
+      await axiosInstance.get(`/parent/product/director`, { params: {
+        email: director.userInfo.email,
+        token: director.userToken,
+        category_id: data.category_id
+      }}).then((res) => {
+        dispatch(setParentFood(res.data));
+        console.log(JSON.stringify(directorReducer))
+      }).catch((err) => {
+        if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+          
+        } else {
+          console.log(err.response.data);
+          dispatch(setModalMessage("Đã xảy ra lỗi!"))
+          dispatch(setModalType('danger'))
+          dispatch(showModal())
+       }
+      });
+    } catch (err) {
+      console.log(err);
+      navigate('/');
+    }
+  }
+}
+
+export const addParentFood = (data, director, navigate) => {
+  return async dispatch => {
+    try {
+      console.log('add parent food');
+      axiosInstance.post(`/parent/product/director`, {
+        email: director.userInfo.email,
+        token: director.userToken,
+        name: data.name,
+        description: data.name,
+        unit: data.unit,
+        category_id: data.category_id,
+        images: [data.image]
+      }).then((res) => {
+        dispatch(retrieveParentFood(data, director, navigate));
+        dispatch(setModalMessage("Thêm Thực phẩm cha thành công!"));
+        dispatch(showModal());
+      }).catch((err) => {
+        if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+        } else {
+          console.log(err.response.data);
+          dispatch(setModalMessage("Thêm Thực phẩm cha không thành công!"))
+          dispatch(setModalType('danger'))
+          dispatch(showModal())
+       }
+      });
+    } catch (err) {
+      console.log(err);
+      navigate('/');
+    }
+  }
+}
+
+export const updateParentFood = (data, director, navigate) => {
+  return async dispatch => {
+    try {
+      console.log('update parent food');
+      axiosInstance.patch(`/parent/product/director`, {
+        email: director.userInfo.email,
+        token: director.userToken,
+        name: data.name,
+        description: data.description,
+        unit: data.unit,
+        id: data.id,
+        category_id: data.category_id,
+        images: [data.image]
+      }).then((res) => {
+        dispatch(retrieveParentFood(data, director, navigate));
+        dispatch(setModalMessage("Cập nhật Thực phẩm cha thành công!"));
+        dispatch(showModal());
+        data.setTargetSubCategory({
+          ...data.targetSubCategory,
+          name: data.name,
+          description: data.description,
+          unit: data.unit
+        });
+      }).catch((err) => {
+        if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+        } else {
+          console.log(err.response.data);
+          dispatch(setModalMessage("Cập nhật Thực phẩm cha không thành công!"))
+          dispatch(setModalType('danger'))
+          dispatch(showModal())
+       }
+      });
+    } catch (err) {
+      console.log(err);
+      navigate('/');
+    }
+  }
+}
+
+export const retrieveFood = (data, director, navigate) => {
+  return async dispatch => {
+    try {
+      console.log('retrieve food');
+      await axiosInstance.get(`/child/product/director`, { params: {
+        email: director.userInfo.email,
+        token: director.userToken,
+        limit: data.limit,
+        offset: data.offset,
+        sort_field: 'stock',
+        sort_by: 'desc',
+        filter: 'in_stock',
+        parent_id: data.parent_id,
+      }}).then((res) => {
+        dispatch(setFood(res.data));
+      }).catch((err) => {
+        if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+          
+        } else {
+          console.log(err.response.data);
+          dispatch(setModalMessage("Đã xảy ra lỗi!"))
+          dispatch(setModalType('danger'))
+          dispatch(showModal())
+       }
+      });
+    } catch (err) {
+      console.log(err);
+      navigate('/');
+    }
+  }
+}
+
+export const updateFood = (data, director, navigate) => {
+  return async dispatch => {
+    try {
+      console.log('update food');
+      await axiosInstance.post(`/child/product/director`, { 
+        email: director.userInfo.email,
+        token: director.userToken,
+        child_id: data.child_id,
+        parent_id: data.parent_id,
+        child_name: data.child_name,
+        child_stock: data.child_stock,
+        child_unit: data.child_unit
+      }).then((res) => {
+        if (!data.is_sorted) dispatch(retrieveUnsortedFood({
+          ...data,
+          offset: (data.food_list_length % data.offset !== 1) ? data.offset : 0
+        }, director, navigate));
+        else dispatch(retrieveFood({
+          ...data,
+          offset: (data.food_list_length % data.offset !== 1) ? data.offset : 0
+        }, director, navigate));
       }).catch((err) => {
         if (handleExpiredToken(err.response.data, dispatch, navigate)) {
           

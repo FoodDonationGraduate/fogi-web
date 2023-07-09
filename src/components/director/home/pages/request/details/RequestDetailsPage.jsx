@@ -21,41 +21,6 @@ import { setCurrentRequest, updateRequest } from 'components/redux/reducer/Direc
 // Style
 import 'assets/css/user/order/Order.css';
 
-const sampleSubCategoryList = [
-  {
-    id: 0,
-    name: 'Thịt heo',
-    category_name: 'Đông lạnh',
-    count: '100',
-    unit: 'kg',
-    foodList: []
-  },
-  {
-    id: 1,
-    name: 'Bắp cải',
-    category_name: 'Rau củ',
-    count: '80',
-    unit: 'kg',
-    foodList: []
-  },
-  {
-    id: 2,
-    name: 'Gạo tẻ',
-    category_name: 'Gạo',
-    count: '25',
-    unit: 'kg',
-    foodList: []
-  },
-  {
-    id: 3,
-    name: 'Hành tím',
-    category_name: 'Rau củ',
-    count: '50',
-    unit: 'kg',
-    foodList: []
-  }
-];
-
 const RequestDetailsPage = ({
   request
 }) => {
@@ -64,7 +29,7 @@ const RequestDetailsPage = ({
   const dispatch = useDispatch(); const navigate = useNavigate();
 
   // List handling
-  const [subCategoryList, setSubCategoryList] = useState(sampleSubCategoryList);
+  const [subCategoryList, setSubCategoryList] = useState([]);
   const [foodList, setFoodList] = useState(request.products);
 
   // Volunteer handling
