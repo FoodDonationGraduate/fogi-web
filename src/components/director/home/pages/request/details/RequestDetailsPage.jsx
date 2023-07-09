@@ -216,7 +216,9 @@ const RequestDetailsPage = ({
         </div>
         {!request.volunteer ?
           <>
-            {((request.delivery_type && request.delivery_type !== 'pickup' ) && (['pending', 'finding'].includes(request.status))) &&
+            {
+            (((request.delivery_type && request.delivery_type !== 'pickup' ) && (['pending', 'finding'].includes(request.status)))
+            || (request.user.user_type === 'donor')) &&
               <VolunteerList
                 targetVolunteer={targetVolunteer} setTargetVolunteer={setTargetVolunteer}
               />

@@ -30,9 +30,11 @@ const PostProductModal = ({
   show,
   onClose
 }) => {
-  const userInfo = useSelector(state => state.authenticationReducer.user)
-  const userToken = useSelector(state => state.authenticationReducer.token)
-  const allCategories = useSelector(state => state.categoryReducer.allCategories);
+  const userInfo = useSelector(state => state.authenticationReducer.user);
+  const userToken = useSelector(state => state.authenticationReducer.token);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // Form handling
   const formSchema = Yup.object().shape({
@@ -43,11 +45,9 @@ const PostProductModal = ({
     unit: Yup.string().required('')
   });
   const formOptions = { resolver: yupResolver(formSchema) };
-  const { register, handleSubmit, formState } = useForm(formOptions);
+  const { register, handleSubmit, formState, reset } = useForm(formOptions);
   const { errors } = formState;
   const [submitted, setSubmitted] = useState(false);
-
-  const refForm = useRef(null);
 
   // Image handling
   const imageOnly = 'image/png, image/gif, image/jpeg';
@@ -64,20 +64,23 @@ const PostProductModal = ({
     setImages(newImages.files);
   };
 
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
   // Submit
   const onSubmit = (data) => {
     console.log('post item');
     console.log(JSON.stringify(data));
     if (images.length === 0) {
       dispatch(setModalMessage('Bạn cần phải đính kèm hình ảnh thực phẩm'));
-      dispatch(showModal())
+      dispatch(showModal());
       return;
     }
     dispatch(postNewProduct({...data, images: base64Images}, {userInfo, userToken}, navigate));
-    refForm.current.reset();
+    reset({
+      name: '',
+      description: '',
+      expired_time: '',
+      stock: null,
+      unit: 'item'
+    });
     setImages([]);
     setSubmitted(false);
     onClose();
@@ -98,7 +101,8 @@ const PostProductModal = ({
     }
     setBase64Images(newImages);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [images])
+  }, [images]);
+
   return (
     <>
       <Modal
@@ -112,7 +116,6 @@ const PostProductModal = ({
         </Modal.Header>
         <Modal.Body>
           <Form
-            ref={refForm}
             onSubmit={handleSubmit(onSubmit)}
           >
             
