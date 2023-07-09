@@ -16,13 +16,15 @@ import 'assets/css/user/order/Order.css';
 const OrderListPage = () => {
   // Chip List
   const [activeStatusIdx, setActiveStatusIdx] = useState(0);
-  const statusList = ['pending', 'accepted', 'shipping', 'success', 'canceled'];
+  const statusList = ['pending', 'finding', 'receiving', 'shipping', 'success', 'canceled'];
   const getStatusLabel = (status) => {
     switch (status) {
       case 'pending':
         return 'Chờ duyệt';
-      case 'accepted':
-        return 'Chấp nhận';
+      case 'finding':
+        return 'Đang tìm';
+      case 'receiving':
+        return 'Đang nhận';
       case 'shipping':
         return 'Đang giao';
       case 'canceled':
@@ -31,7 +33,7 @@ const OrderListPage = () => {
         return 'Thành công';
     }
   };
-  const styleList = ['neutral', 'info', 'warning', 'success', 'danger'];
+  const styleList = ['neutral', 'info', 'warning', 'warning', 'success', 'danger'];
 
   return (
     <>

@@ -14,6 +14,7 @@ const CartTitle = ({
 }) => {
   const dispatch = useDispatch();
   const allProducts = useSelector(state => state.cartReducer.allProducts)
+  const selectedAddress = useSelector(state => state.addressReducer.selectedAddress)
 
   const [isActive, setActive] = useState(false);
 
@@ -30,7 +31,7 @@ const CartTitle = ({
     <div className='bg'>
       <Container>
         <Row className='pt-4 pb-2'>
-          {allProducts.total_cart_items > 0 ? 
+          {(allProducts.total_cart_items > 0 && selectedAddress.address !== 'Địa chỉ của bạn') ?
             <>
               <Col className='mb-2' xs={12} lg={7} xl={8}>
                 <div className='mb-3'>
@@ -71,7 +72,9 @@ const CartTitle = ({
                     placement={'bottom'}
                     overlay={
                       <Tooltip>
-                        Chưa có Thực phẩm để tạo Yêu cầu
+                        {allProducts.total_cart_items === 0 
+                        ? 'Chưa có Thực phẩm để tạo Yêu cầu'
+                        : 'Vui lòng chọn địa điểm mặc định'}
                       </Tooltip>
                     }
                   >

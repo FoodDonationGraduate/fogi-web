@@ -12,6 +12,10 @@ export const getStatus = (order) => {
       label = 'Đang tìm';
       css = 'blue';
       break;
+    case 'accepted':
+      label = 'Chấp nhận';
+      css = 'blue';
+      break;
     case 'receiving':
       label = 'Đang nhận';
       css = 'yellow';
@@ -61,6 +65,7 @@ export const getStatusByIdx = (idx) => {
       css = 'green';
       break;
   }
+
   return { label, css };
 };
 
@@ -82,10 +87,19 @@ export const getStep = (step, isDonee, isDelivery, order) => {
       icon = <MdLabelImportant className='step-item-icon' />;
       break;
 
+    case 'accepted':
+      header = 'Điều phối viên đã duyệt Yêu cầu của bạn';
+      label = 'Chấp nhận';
+      icon = <MdLabelImportant className='step-item-icon' />;
+      break;
+
     case 'receiving':
       header = 'Tình nguyện viên đang đến nhận Thực phẩm từ ';
       if (isDonee) {
         header += 'kho'
+        if (!isDelivery) {
+          header = "Bạn đang đi đến nhận thực phẩm từ kho"
+        }
       } else {
         header += 'bạn';
       }
@@ -140,6 +154,9 @@ export const convertStepToNumber = (step) => {
     case 'finding':
       number = 1;
       break;
+    case 'accepted':
+      number = 1;
+      break;
     case 'receiving':
       number = 2;
       break;
@@ -152,7 +169,7 @@ export const convertStepToNumber = (step) => {
   return number;
 };
 
-export const convertNumberToStep = (number) => {
+export const convertNumberToStep = (number, isDonee, isDelivery) => {
   let step = '';
   switch (number) {
     case 0:
@@ -169,6 +186,9 @@ export const convertNumberToStep = (number) => {
       break;
     default:
       step = 'success';
+  }
+  if (isDonee && !isDelivery && number === 1) {
+    step = 'accepted';
   }
   return step;
 };
