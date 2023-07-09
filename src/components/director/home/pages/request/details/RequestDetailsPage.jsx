@@ -105,7 +105,7 @@ const RequestDetailsPage = ({
 
     if (request.user.user_type === 'donor') {
       // default: donor
-      var data = request.status === 'pending' ? {
+      var data = (request.status === 'pending' || (request.status === 'finding' && !request.volunteer)) ? {
         request_status: 'finding',
         request_id: request.id,
         request_from: request.user.user_type,

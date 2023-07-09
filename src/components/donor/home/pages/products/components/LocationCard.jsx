@@ -22,10 +22,10 @@ const LocationCard = () => {
 
   useEffect(() => {
     if (Object.keys(selectedAddress).length !== 0) {
-      setLocation(size < 2 ? selectedAddress.address.substring(0, (size + 2) * 5) + '...' : selectedAddress.address)
+      setLocation(size < 3 ? (selectedAddress.address.substring(0, (size + 2) * 5) + '...') : selectedAddress.address)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedAddress]);
+  }, [size, selectedAddress]);
 
   // Location Modal
   const [show, setShow] = useState(false);

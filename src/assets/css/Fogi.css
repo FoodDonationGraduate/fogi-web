@@ -290,3 +290,9 @@ a.fogi:active {
     background-color: #999;
     color: #ccc;
   }
+
+.truncate-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
