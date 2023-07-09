@@ -16,45 +16,10 @@ import VolunteerCard from './components/volunteer/VolunteerCard';
 import VolunteerList from './components/volunteer/VolunteerList';
 
 // Reducers
-import { setCurrentRequest, updateRequest } from 'components/redux/reducer/DirectorReducer';
+import { setCurrentRequest, updateRequest, updateRequestChild } from 'components/redux/reducer/DirectorReducer';
 
 // Style
 import 'assets/css/user/order/Order.css';
-
-const sampleData = [
-  {
-    id: 0,
-    name: 'Thịt heo',
-    category_name: 'Đông lạnh',
-    count: '100',
-    unit: 'kg',
-    foodList: []
-  },
-  {
-    id: 1,
-    name: 'Bắp cải',
-    category_name: 'Rau củ',
-    count: '80',
-    unit: 'kg',
-    foodList: []
-  },
-  {
-    id: 2,
-    name: 'Gạo tẻ',
-    category_name: 'Gạo',
-    count: '25',
-    unit: 'kg',
-    foodList: []
-  },
-  {
-    id: 3,
-    name: 'Hành tím',
-    category_name: 'Rau củ',
-    count: '50',
-    unit: 'kg',
-    foodList: []
-  }
-];
 
 const RequestDetailsPage = ({
   request
@@ -64,7 +29,8 @@ const RequestDetailsPage = ({
   const dispatch = useDispatch(); const navigate = useNavigate();
 
   // List handling
-  const [subCategoryList, setSubCategoryList] = useState(sampleData);
+  const [subCategoryList, setSubCategoryList] = useState(request.products);
+  const [childList, setChildList] = useState([]);
   const [foodList, setFoodList] = useState(request.products);
 
   // Volunteer handling
@@ -72,6 +38,8 @@ const RequestDetailsPage = ({
 
 
   // STATUS HANDLING ----------------------------
+
+  const [isError, setIsError] = useState(false);
 
   const tooltip = (tip) => {
     return (
@@ -81,36 +49,57 @@ const RequestDetailsPage = ({
 
   // Update
   const getNextCondition = () => {
-    switch (request.status) {
-      case 'pending': return {
-        condition: targetVolunteer,
-        label: 'Duyệt Yêu cầu',
-        tip: 'Bạn chưa chọn Tình nguyện viên'
-      };
-      case 'finding':
-        if (request.volunteer) return undefined;
-        else return {
+    if (request.user.user_type === 'donor') {
+      switch (request.status) {
+        case 'pending': return {
           condition: targetVolunteer,
-          label: 'Chọn lại Tình nguyện viên',
+          label: 'Duyệt Yêu cầu',
           tip: 'Bạn chưa chọn Tình nguyện viên'
+        };
+        case 'finding':
+          if (request.volunteer) return undefined;
+          else return {
+            condition: targetVolunteer,
+            label: 'Chọn lại Tình nguyện viên',
+            tip: 'Bạn chưa chọn Tình nguyện viên'
+          }
+        case 'shipping': return {
+          condition: true,
+          label: 'Đã nhận Túi Quyên góp',
+          tip: ''
+        };
+        default: return undefined;
+      }
+    } else {
+      switch (request.status) {
+        case 'pending': return {
+          condition: !isError && childList.length === foodList.length && targetVolunteer,
+          label: 'Duyệt Yêu cầu',
+          tip: 'Bạn chưa phân phối đủ Thực phẩm hoặc chưa chọn Tình nguyện viên'
         }
-      case 'shipping': return {
-        condition: true,
-        label: 'Đã nhận Túi Quyên góp',
-        tip: ''
-      };
-      default: return undefined;
+        case 'accepted': return {
+          condition: true,
+          label: 'Chuyển trạng thái',
+          tip: ''
+        }
+        case 'receiving':
+        if (request.delivery_type && request.delivery_type === 'pickup') {
+          return {
+              condition: true,
+              label: 'Nhận thành công',
+              tip: ''
+            }
+        } else return undefined;
+        default: return undefined;
+      }
     }
   }
 
-  // Cancel
-  const [show, setShow] = useState(false);
-  const onShow = () => setShow(true);
-  const onClose = () => setShow(false);
-
   // On Update
   const onUpdate = () => {
-    const data = request.status === 'pending' ? {
+
+    // default: donor
+    var data = request.status === 'pending' ? {
       request_status: 'finding',
       request_id: request.id,
       request_from: request.user.user_type,
@@ -121,12 +110,61 @@ const RequestDetailsPage = ({
       request_from: request.user.user_type,
     }
 
-    dispatch(updateRequest(
-      data,
-      { userInfo, userToken },
-      navigate
-    ));
+    // change if is donee
+    if (request.user.user_type === 'donee') {
+      var newStatus = (request.delivery_type && request.delivery_type === 'pickup') ? 'accepted' : 'finding';
+      switch (request.status) {
+        case 'finding': newStatus = 'receiving'; break;
+        case 'accepted': newStatus = 'success'; break;
+        case 'receiving': newStatus = (request.delivery_type && request.delivery_type === 'pickup') ? 'success' : 'shipping'; break;
+        case 'shipping': newStatus = 'success'; break;
+      }
+      data = request.status === 'pending' ? {
+        request_status: (request.delivery_type && request.delivery_type === 'pickup') ? 'accepted' : 'finding',
+        request_id: request.id,
+        request_from: request.user.user_type,
+        volunteer_email: targetVolunteer.email
+      } : {
+        request_status: newStatus,
+        request_id: request.id,
+        request_from: request.user.user_type,
+      }
+    }
+
+    if (request.user.user_type === 'donee' && request.status === 'pending') {
+
+
+      var result = dispatch(updateRequestChild(
+        {
+          request_id: request.id,
+          child_products: childList
+        },
+        { userInfo, userToken },
+        navigate
+      ));
+
+      if (result) {
+        dispatch(updateRequest(
+          data,
+          { userInfo, userToken },
+          navigate
+        ));
+      }
+
+    } else {
+      dispatch(updateRequest(
+        data,
+        { userInfo, userToken },
+        navigate
+      ));
+    }
+
   };
+  
+  // Cancel
+  const [show, setShow] = useState(false);
+  const onShow = () => setShow(true);
+  const onClose = () => setShow(false);
 
   // --------------------------------------------
 
@@ -139,6 +177,8 @@ const RequestDetailsPage = ({
         userInfo={request.user}
         request={request}
       />
+      {/* {JSON.stringify(isError)}
+      {JSON.stringify(request)} */}
       <div className='bg'>
         <div className='mb-2'>
           <BackButton setTargetList={[
@@ -156,9 +196,15 @@ const RequestDetailsPage = ({
               foodList={foodList}
             />
             :
-            <SubCategoryList
-              subCategoryList={subCategoryList} setSubCategoryList={setSubCategoryList}
-            />
+            <>
+            {request.status === 'pending' &&
+              <SubCategoryList
+                subCategoryList={subCategoryList} setSubCategoryList={setSubCategoryList}
+                childList={childList} setChildList={setChildList}
+                isError={isError} setIsError={setIsError}
+              />
+            }
+            </>
           }
         </div>
         {!request.volunteer ?
@@ -185,7 +231,7 @@ const RequestDetailsPage = ({
           <Row>
             <div className='d-flex justify-content-end mt-4'>
               <Stack direction='horizontal' gap={2}>
-                {['pending', 'finding', 'receiving'].includes(request.status) &&
+                {['pending', 'accepted', 'finding',  'receiving', (request.delivery_type && request.delivery_type === 'delivery') ? 'shipping' : ''].includes(request.status) &&
                   <Button variant='outline-danger' onClick={onShow}>
                   Hủy Yêu cầu
                   </Button>

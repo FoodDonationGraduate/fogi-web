@@ -169,7 +169,7 @@ export const convertStepToNumber = (step) => {
   return number;
 };
 
-export const convertNumberToStep = (number, isDonee, isDelivery) => {
+export const convertNumberToStep = (number, isDonee, isDelivery=true) => {
   let step = '';
   switch (number) {
     case 0:
@@ -187,10 +187,12 @@ export const convertNumberToStep = (number, isDonee, isDelivery) => {
     default:
       step = 'success';
   }
-  if (!isDelivery && number === 1) {
-    step = 'accepted';
-  } else if (!isDelivery && number === 3) {
-    step = 'success';
+  if (isDonee) {
+    if (!isDelivery && number === 1) {
+      step = 'accepted';
+    } else if (!isDelivery && number === 3) {
+      step = 'success';
+    }
   }
   return step;
 };

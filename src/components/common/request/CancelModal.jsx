@@ -28,11 +28,13 @@ const CancelModal = ({ show, onClose, request }) => {
   const formOptions = { resolver: yupResolver(formSchema) };
   const { register, handleSubmit, formState } = useForm(formOptions);
   const { errors } = formState;
+    
+  const date = new Date();
   
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const cancelRequest = (data) => {
-    if (!request.user)
+    if (userInfo.user_type != 'director')
       dispatch(updateRequest(
         {
           request_id: request.id,
@@ -75,7 +77,7 @@ const CancelModal = ({ show, onClose, request }) => {
               <>
                 <Form.Group className='mb-3'>
                   <Stack direction='horizontal' gap={3}>
-                    <img alt='volunteer-avatar' src={`https://bachkhoi.online/static/${request.volunteer.avatar}`} className='order-item-volunteer-avatar-m' />
+                    <img alt='volunteer-avatar' src={`https://bachkhoi.online/static/${request.volunteer.avatar}?${date.getTime()}`} className='order-item-volunteer-avatar-m' />
                     <Stack direction='vertical'>
                       <div className='order-item-volunteer-label'>Tình nguyện viên</div>
                       <div className='order-item-volunteer-name'>{request.volunteer.name}</div>
@@ -89,7 +91,7 @@ const CancelModal = ({ show, onClose, request }) => {
               <>
                 <Form.Group className='mb-3'>
                   <Stack direction='horizontal' gap={3}>
-                    <img alt='volunteer-avatar' src={`https://bachkhoi.online/static/${request.user.avatar}`} className='order-item-volunteer-avatar-m' />
+                    <img alt='volunteer-avatar' src={`https://bachkhoi.online/static/${request.user.avatar}?${date.getTime()}`} className='order-item-volunteer-avatar-m' />
                     <Stack direction='vertical'>
                       <div className='order-item-volunteer-label'>
                         Người {request.user.user_type === 'donor' ? 'cho' : 'nhận'}

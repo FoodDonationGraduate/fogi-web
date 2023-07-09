@@ -4,7 +4,7 @@ import React from 'react-bootstrap';
 const ChartTooltip = ({ payload, label, active, unit }) => {
   return (
     <>
-      {active && (
+      {(active && payload) && (
         <div className='chart-tooltip'>
           <p>{`${payload[0].value} ${unit}`}</p>
         </div>
