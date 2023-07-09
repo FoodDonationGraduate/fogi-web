@@ -121,6 +121,10 @@ export const postDonorRequest = (data, user, navigate) => {
                     dispatch(setModalMessage('Túi cho của bạn đang trống. Vui lòng thêm thực phẩm trước khi tạo yêu cầu!'))
                     dispatch(setModalType('danger'));
                     dispatch(showModal())
+                } else if (err.response.data.exit_code === 206) {
+                    dispatch(setModalMessage('Tài khoản bạn đang bị hạn chế. Bạn không thể tạo yêu cầu!'))
+                    dispatch(setModalType('danger'));
+                    dispatch(showModal())
                 } else {
                     console.log(err)
                     dispatch(setModalMessage('Tạo yêu cầu mới không thành công!'))
@@ -162,6 +166,10 @@ export const postDoneeRequest = (data, user, navigate) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {
                 } else if (err.response.data.exit_code === 202) {
                     dispatch(setModalMessage('Túi nhận của bạn đang trống. Vui lòng thêm thực phẩm trước khi tạo yêu cầu!'))
+                    dispatch(setModalType('danger'));
+                    dispatch(showModal())
+                } else if (err.response.data.exit_code === 206) {
+                    dispatch(setModalMessage('Tài khoản bạn đang bị hạn chế. Bạn không thể tạo yêu cầu!'))
                     dispatch(setModalType('danger'));
                     dispatch(showModal())
                 } else {

@@ -108,7 +108,7 @@ export const searchProduct = (data, navigate) => {
     return async dispatch => {
         try {
             console.log("search product with query param: " + data.query)
-            await axiosInstance.post(`/search/product`, {
+            await axiosInstance.post(`/search/product/parent`, {
                 query: data.query,
                 limit: data.limit,
                 offset: data.offset,

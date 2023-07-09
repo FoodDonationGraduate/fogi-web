@@ -60,9 +60,6 @@ const ProductItem = ({
                   <h5 className='fw-bold mb-3'>
                     {product.name}
                   </h5>
-                  <span className='long-product-type'>
-                    {product.category_name}
-                  </span>
                 </div>
               </Stack>
             </Col>

@@ -55,7 +55,7 @@ const ApproveItem = ({
 
   return (
     <>
-      <DocumentModal show={show} handleClose={handleClose} />
+      <DocumentModal user={approve} show={show} handleClose={handleClose} />
       <div className='manage-card' id='manage-card'>
         <EqualHeightElement name='manage-content'>
           <h4 className='manage-card-name'>

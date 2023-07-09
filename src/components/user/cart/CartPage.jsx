@@ -13,8 +13,6 @@ import ConfirmModal from "components/layout/ConfirmModal.jsx";
 import 'assets/css/user/cart/Cart.css';
 
 const CartPage = () => {
-  const [volunteerInfo, setVolunteerInfo] = useState(null);
-
   // Error handling
   const [isError, setIsError] = useState(false);
 
@@ -25,10 +23,10 @@ const CartPage = () => {
       </div>
       <div className='bg'  style={{minHeight: '600px'}}>
         <div className='mb-4'>
-          <CartTitle volunteerInfo={volunteerInfo} isError={isError} />
+          <CartTitle isError={isError} />
         </div>
         <div className='pb-4'>
-          <ProductList setVolunteerInfo={setVolunteerInfo} setIsError={setIsError} />
+          <ProductList setIsError={setIsError} />
         </div>
       </div>
       <div>
