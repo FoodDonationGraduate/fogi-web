@@ -111,7 +111,7 @@ const RequestInfoCard = (
                   <Form className='mt-4' onSubmit={handleSubmit(onSubmit)}>
                     <Form.Group className='mb-3'>
                       <Form.Label style={{ fontWeight: 'bold' }}>
-                        Lí do đặt các Thực phẩm
+                        Lí do đặt Thực phẩm
                       </Form.Label>
                       <Form.Control
                         {...register('reason')}

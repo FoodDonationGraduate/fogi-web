@@ -12,6 +12,7 @@ import ListTitle from 'components/common/ListTitle';
 import RequestInfoCard from './components/RequestInfoCard';
 import FoodList from './components/food/FoodList';
 import SubCategoryList from './components/subCategory/SubCategoryList';
+import SubCategoryDisplayList from './components/subCategory/SubCategoryDisplayList';
 import VolunteerCard from './components/volunteer/VolunteerCard';
 import VolunteerList from './components/volunteer/VolunteerList';
 
@@ -32,6 +33,18 @@ const RequestDetailsPage = ({
   const [subCategoryList, setSubCategoryList] = useState(request.products);
   const [childList, setChildList] = useState([]);
   const [foodList, setFoodList] = useState(request.products);
+
+  const isEnough = () => {
+    for (let i = 0; i < foodList.length; i++) {
+      const currentChildList = childList.filter(c => c.parent_id === foodList[i].id);
+      let total = 0;
+      for (let j = 0; j < currentChildList.length; j++) {
+        total += currentChildList[j].quantity;
+      }
+      if (total < foodList[i].quantity) return false;
+    }
+    return true;
+  };
 
   // Volunteer handling
   const [targetVolunteer, setTargetVolunteer] = useState(request.volunteer ? request.volunteer : null);
@@ -74,11 +87,11 @@ const RequestDetailsPage = ({
       switch (request.status) {
         case 'pending': 
           return request.delivery_type === 'delivery' ? {
-            condition: !isError && childList.length === foodList.length && targetVolunteer,
+            condition: !isError && isEnough() && targetVolunteer,
             label: 'Duyệt Yêu cầu',
             tip: 'Bạn chưa phân phối đủ Thực phẩm hoặc chưa chọn Tình nguyện viên'
           } : {
-            condition: !isError && childList.length === foodList.length,
+            condition: !isError && isEnough(),
             label: 'Duyệt Yêu cầu',
             tip: 'Bạn chưa phân phối đủ Thực phẩm'
           }
@@ -184,8 +197,6 @@ const RequestDetailsPage = ({
         userInfo={request.user}
         request={request}
       />
-      {/* {JSON.stringify(isError)}
-      {JSON.stringify(request)} */}
       <div className='bg'>
         <div className='mb-2'>
           <BackButton setTargetList={[
@@ -197,20 +208,23 @@ const RequestDetailsPage = ({
           <RequestInfoCard request={request} />
         </div>
         <div className='mb-4'>
-          {/* for later: request.donor */}
           {request.user.user_type === 'donor' ?
             <FoodList
               foodList={foodList}
             />
             :
             <>
-            {request.status === 'pending' &&
-              <SubCategoryList
-                subCategoryList={subCategoryList} setSubCategoryList={setSubCategoryList}
-                childList={childList} setChildList={setChildList}
-                isError={isError} setIsError={setIsError}
-              />
-            }
+              {request.status === 'pending' ?
+                <SubCategoryList
+                  subCategoryList={subCategoryList} setSubCategoryList={setSubCategoryList}
+                  childList={childList} setChildList={setChildList}
+                  isError={isError} setIsError={setIsError}
+                />
+                :
+                <SubCategoryDisplayList
+                  subCategoryList={subCategoryList}
+                />
+              }
             </>
           }
         </div>
@@ -240,7 +254,8 @@ const RequestDetailsPage = ({
           <Row>
             <div className='d-flex justify-content-end mt-4'>
               <Stack direction='horizontal' gap={2}>
-                {['pending', 'accepted', 'finding',  'receiving', (request.delivery_type && request.delivery_type === 'delivery') ? 'shipping' : ''].includes(request.status) &&
+                {['pending', 'accepted', 'finding', 'receiving', 'shipping']
+                .includes(request.status) &&
                   <Button variant='outline-danger' onClick={onShow}>
                   Hủy Yêu cầu
                   </Button>

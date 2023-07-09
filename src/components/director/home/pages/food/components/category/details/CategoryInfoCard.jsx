@@ -49,7 +49,7 @@ const CategoryInfoCard = ({
                 variant='primary'
                 onClick={showSubCategoryModal}
               >
-                Thêm Thực phẩm lớn
+                Thêm Thực phẩm Đại diện
               </Button>
             </Stack>
           </Stack>

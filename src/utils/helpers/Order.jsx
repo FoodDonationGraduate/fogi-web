@@ -82,13 +82,13 @@ export const getStep = (step, isDonee, isDelivery, order) => {
       break;
 
     case 'finding':
-      header = 'Đang tìm Tình nguyện viên cho bạn';
+      header = 'Đang tìm Tình nguyện viên';
       label = 'Đang tìm';
       icon = <MdLabelImportant className='step-item-icon' />;
       break;
 
     case 'accepted':
-      header = 'Điều phối viên đã duyệt Yêu cầu của bạn';
+      header = 'Điều phối viên đã duyệt Yêu cầu';
       label = 'Chấp nhận';
       icon = <MdLabelImportant className='step-item-icon' />;
       break;

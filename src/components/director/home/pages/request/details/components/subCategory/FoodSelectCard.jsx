@@ -50,7 +50,8 @@ const FoodSelectCard = ({
         parent_id: subCategory.id,
         child_id: food.content.id,
         quantity: count
-      }
+      },
+      ...childList.slice(child_idx + 1)
     ]);
   };
 

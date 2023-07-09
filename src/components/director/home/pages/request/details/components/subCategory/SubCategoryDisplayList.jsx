@@ -6,12 +6,10 @@ import { Container, Col, Row } from 'react-bootstrap';
 import ListTitle from 'components/common/ListTitle';
 import Pagination from 'components/common/pagination/Pagination';
 
-import SubCategoryCard from './SubCategoryCard';
+import SubCategoryDisplay from './SubCategoryDisplay';
 
-const SubCategoryList = ({
-  subCategoryList, setSubCategoryList,
-  childList, setChildList,
-  isError, setIsError
+const SubCategoryDisplayList = ({
+  subCategoryList
 }) => {
 
   const SUB_CATEGORY_COUNT = 4; // per page
@@ -27,11 +25,8 @@ const SubCategoryList = ({
         <Row xs={1}>
           {subCategoryList.map((subCategory, idx) => (
             <Col className='mb-3' key={idx}>
-              <SubCategoryCard
+              <SubCategoryDisplay
                 subCategory={subCategory}
-                subCategoryList={subCategoryList} setSubCategoryList={setSubCategoryList}
-                childList={childList} setChildList={setChildList}
-                isError={isError} setIsError={setIsError}
               />
             </Col>
           ))}
@@ -40,7 +35,6 @@ const SubCategoryList = ({
       <div className='d-flex justify-content-center mt-2'>
         <Pagination
           pageCount={Math.ceil(subCategoryList.length / SUB_CATEGORY_COUNT)}
-          // pageCount={Math.ceil(allRequests.total_requests / REQUEST_COUNT)}
           activeIdx={page}
           onChangePage={onChangePage}
         />
@@ -49,4 +43,4 @@ const SubCategoryList = ({
   )
 };
 
-export default SubCategoryList;
+export default SubCategoryDisplayList;

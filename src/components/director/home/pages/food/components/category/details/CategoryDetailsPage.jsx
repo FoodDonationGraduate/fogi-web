@@ -88,7 +88,7 @@ const CategoryDetailsPage = ({
 
           <Row>
             <Col className='ps-0'>
-              <ListTitle title={`Thực phẩm ${category.image ? 'lớn' : 'chưa phân loại'}`} />
+              <ListTitle title={`Thực phẩm ${category.image ? 'Đại diện' : 'chưa phân loại'}`} />
               {category.id ?
                 <>
                   <Row className='mb-2' xs={2} sm={3} md={4}>

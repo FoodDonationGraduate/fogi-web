@@ -1,6 +1,6 @@
 // Essentials
-import React from 'react';
-import { Container, Col, Row } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Container, Col, Row, Stack } from 'react-bootstrap';
 
 // Assets
 import { MdOutlineLocationOn, MdAccessTime } from 'react-icons/md';
@@ -17,6 +17,13 @@ import { reduceString } from 'utils/helpers/String';
 
 const RequestInfoCard = ({ request }) => {
   let size = useResizer();
+
+  // handle pickup map
+  const [isHovering, setIsHovering] = useState(false);
+  const handleClick = (address) => {
+    let newAdress = address.replaceAll(' ', '+')
+    window.open(`https://www.google.com/maps/dir/?api=1&destination=${newAdress}`, '_blank', 'noopener,noreferrer');
+  }
 
   return (
     <>
@@ -47,6 +54,27 @@ const RequestInfoCard = ({ request }) => {
                         : '2 - 4 Đ. Hồng Hà, Phường 2, Tân Bình, Thành phố Hồ Chí Minh'
                       }
                     </header>
+
+                    {request.delivery_type &&
+                      <>
+                        <Stack className='mt-3' direction='horizontal' gap={2}>
+                          <h5 className='order-item-date'>
+                            Hình thức nhận thực phẩm
+                          </h5>
+                          <div className='order-tag'>{request.delivery_type === 'pickup' ? 'Lấy tại chỗ' : 'Giao hàng'}</div>
+                        </Stack>
+                      </>
+                    }
+                    {request.reason &&
+                      <>
+                        <h5 className='order-item-date mt-4'>
+                          Lí do đặt Thực phẩm
+                        </h5>
+                        <header className='order-item-secondary'>
+                          {request.reason.length > 0 ? request.reason : 'Không có lý do cụ thể.'}
+                        </header>
+                      </>
+                    }
                   </div>
                 </div>
                 {size <= 2 && <hr />}

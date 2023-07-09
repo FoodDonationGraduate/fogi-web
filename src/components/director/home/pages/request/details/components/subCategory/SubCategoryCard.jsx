@@ -27,7 +27,6 @@ const SubCategoryCard = ({
 }) => {
   let size = useResizer();
 
-
   // Selected Food handling
   const [foodList, setFoodList] = useState([]);
   const getTotalCount = () => {
@@ -41,6 +40,9 @@ const SubCategoryCard = ({
     if (getTotalCount() !== subCategory.quantity) setIsError(true);
     else setIsError(false);
   }, [foodList]);
+
+  // Check food change
+  const [modalTrigger, setModalTrigger] = useState(false);
 
   // Change SubCategory List
   useEffect(() => {
@@ -75,7 +77,7 @@ const SubCategoryCard = ({
                   />
                   <div className='ms-4'>
                     <h5 className='fw-bold'>
-                      {subCategory.name} - {subCategory.id}
+                      {subCategory.name}
                     </h5>
                     <span className={size > 0 ? 'long-product-type' : 'long-product-type-sm'}>
                       {subCategory.category_name}
@@ -99,7 +101,10 @@ const SubCategoryCard = ({
                 </div>
 
                 <div className={`d-flex ${size < 3 ? 'ps-0' : ''} ${size < 2 ? 'mt-2' : ''}`}>
-                  <Button className='fogi' variant='primary' onClick={onSubShow}>
+                  <Button className='fogi' variant='primary' onClick={() => {
+                    setModalTrigger(true);
+                    onSubShow();
+                  }}>
                     Chọn Thực phẩm
                   </Button>
                 </div>
@@ -134,6 +139,7 @@ const SubCategoryCard = ({
         subCategory={subCategory}
         foodList={foodList} setFoodList={setFoodList}
         childList={childList} setChildList={setChildList}
+        modalTrigger={modalTrigger} setModalTrigger={setModalTrigger}
         subShow={subShow} onSubClose={onSubClose}
       />
     </>

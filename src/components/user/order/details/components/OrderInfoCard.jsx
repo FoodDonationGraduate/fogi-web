@@ -32,7 +32,7 @@ const OrderInfoCard = ({ order }) => {
   const navigate = useNavigate();
 
   const setArriving = () => {
-    dispatch(updateRequest({request_id: order.id, request_status: 'shipping'}, { userInfo, userToken}, navigate));
+    dispatch(updateRequest({request_id: order.id, request_status: 'receiving'}, { userInfo, userToken}, navigate));
   };
 
   // handle pickup map
@@ -89,7 +89,7 @@ const OrderInfoCard = ({ order }) => {
               </header>
 
               <h5 className='order-item-date mt-4'>
-                Lí do đặt các Thực phẩm
+                Lí do đặt Thực phẩm
               </h5>
               <header className='order-item-secondary'>
                 {order.reason !== undefined ? order.reason : 'Không có lý do cụ thể.'}

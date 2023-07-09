@@ -16,6 +16,7 @@ const FoodSelectListModal = ({
   subCategory,
   foodList, setFoodList,
   childList, setChildList,
+  modalTrigger, setModalTrigger,
   subShow, onSubClose
 }) => {
   const userInfo = useSelector(state => state.authenticationReducer.user);
@@ -32,6 +33,7 @@ const FoodSelectListModal = ({
   };
 
   useEffect(() => {
+    if (!modalTrigger) return;
     dispatch(retrieveFood(
       {
         limit: FOOD_COUNT,
@@ -41,29 +43,9 @@ const FoodSelectListModal = ({
       { userInfo, userToken },
       navigate
     ));
-  }, [page])
 
-  const [sampleList, setSampleList] = useState([{
-    id: 1,
-    name: 'Thịt heo 502',
-    stock: 100,
-    unit: 'kg'
-  },{
-    id: 2,
-    name: 'Thịt heo bà Tư',
-    stock: 40,
-    unit: 'kg'
-  },{
-    id: 3,
-    name: 'Thịt heo con',
-    stock: 25,
-    unit: 'kg'
-  },{
-    id: 4,
-    name: 'Thịt heo 100',
-    stock: 50,
-    unit: 'kg'
-  }]);
+    setModalTrigger(false);
+  }, [modalTrigger, page]);
 
   return (
     <>
