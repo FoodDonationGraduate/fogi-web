@@ -63,7 +63,7 @@ const RequestList = ({
             <Col className='px-0'>
               <Row className='mb-2' xs={1} md={2} lg={2} >
                 <EqualHeight>
-                  {Object.keys(allRequests).length !== 0 && allRequests.requests.map((request, idx) => (
+                  {allRequests.requests.map((request, idx) => (
                     <Col className='mb-4' key={idx}>
                       <div
                         className='order-item'

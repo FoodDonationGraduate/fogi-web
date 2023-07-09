@@ -83,17 +83,22 @@ const RequestDetailsPage = ({
   const getNextCondition = () => {
     switch (request.status) {
       case 'pending': return {
-        condition: !targetVolunteer,
+        condition: targetVolunteer,
         label: 'Duyệt Yêu cầu',
         tip: 'Bạn chưa chọn Tình nguyện viên'
       };
       case 'finding':
         if (request.volunteer) return undefined;
         else return {
-          condition: !targetVolunteer,
+          condition: targetVolunteer,
           label: 'Chọn lại Tình nguyện viên',
           tip: 'Bạn chưa chọn Tình nguyện viên'
         }
+      case 'shipping': return {
+        condition: true,
+        label: 'Đã nhận Túi Quyên góp',
+        tip: ''
+      };
       default: return undefined;
     }
   }
@@ -105,14 +110,19 @@ const RequestDetailsPage = ({
 
   // On Update
   const onUpdate = () => {
-    const newStatus = 'finding';
+    const data = request.status === 'pending' ? {
+      request_status: 'finding',
+      request_id: request.id,
+      request_from: request.user.user_type,
+      volunteer_email: targetVolunteer.email
+    } : {
+      request_status: 'success',
+      request_id: request.id,
+      request_from: request.user.user_type,
+    }
+
     dispatch(updateRequest(
-      {
-        request_status: newStatus,
-        request_id: request.id,
-        request_from: request.user.user_type,
-        volunteer_email: targetVolunteer.email
-      },
+      data,
       { userInfo, userToken },
       navigate
     ));
@@ -141,7 +151,7 @@ const RequestDetailsPage = ({
         </div>
         <div className='mb-4'>
           {/* for later: request.donor */}
-          {false ?
+          {request.user.user_type === 'donor' ?
             <FoodList
               foodList={foodList}
             />
@@ -152,9 +162,13 @@ const RequestDetailsPage = ({
           }
         </div>
         {!request.volunteer ?
-          <VolunteerList
-            targetVolunteer={targetVolunteer} setTargetVolunteer={setTargetVolunteer}
-          />
+          <>
+            {request.status !== 'canceled' &&
+              <VolunteerList
+                targetVolunteer={targetVolunteer} setTargetVolunteer={setTargetVolunteer}
+              />
+            }
+          </>
           :
           <Container>
             <ListTitle title={'Tình nguyện viên'} />
@@ -171,13 +185,13 @@ const RequestDetailsPage = ({
           <Row>
             <div className='d-flex justify-content-end mt-4'>
               <Stack direction='horizontal' gap={2}>
-                {(request.status === 'pending' || request.status === 'finding') &&
+                {['pending', 'finding', 'receiving'].includes(request.status) &&
                   <Button variant='outline-danger' onClick={onShow}>
                   Hủy Yêu cầu
                   </Button>
                 }
 
-                {getNextCondition() && (getNextCondition().condition ?
+                {getNextCondition() && (!getNextCondition().condition ?
                   <OverlayTrigger
                     placement={'top'}
                     overlay={tooltip(getNextCondition().tip)}
