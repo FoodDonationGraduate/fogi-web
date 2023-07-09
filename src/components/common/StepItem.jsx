@@ -11,7 +11,7 @@ const StepItem = ({
   isDonee,
   isDelivery=true
 }) => {
-  const stepOptions = getStep(convertNumberToStep(step), isDonee, isDelivery);
+  const stepOptions = getStep(convertNumberToStep(step, isDonee, isDelivery), isDonee, isDelivery);
 
   return (
     <>

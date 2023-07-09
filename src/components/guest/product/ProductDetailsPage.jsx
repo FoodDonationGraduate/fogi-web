@@ -37,7 +37,7 @@ const ProductDetailsPage = () => {
         {(Object.keys(product).length !== 0 && Object.keys(product.product).length !== 0) &&
           <div className='bg'>
             <ProductSection product={product.product} />
-            <ProductSimilar product={product.product} />
+            {/* <ProductSimilar product={product.product} /> */}
           </div>
         }
         {Object.keys(product).length === 0 && 

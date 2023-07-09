@@ -19,36 +19,36 @@ import { getUnit } from 'utils/helpers/Food';
 import { useResizer } from 'utils/helpers/Resizer.jsx';
 
 const RequestCard = ({
-  request
+  order
 }) => {
   const size = useResizer();
 
   const productListDisplayLength = () => {
-    return request.products.length < 4 ? request.products.length : 2;
+    return order.products.length < 4 ? order.products.length : 2;
   };
 
   return (
     <>
       <span
-        className={`order-item-status order-item-status-${getStatus(request).css}`}
+        className={`order-item-status order-item-status-${getStatus(order).css}`}
       >
-        {getStatus(request).label}
+        {getStatus(order).label}
       </span>
       <div className='mt-3 mb-1'>
         <h4 className='order-item-date'>
-          Yêu cầu {request.id}
+          Yêu cầu {order.id}
         </h4>
       </div>
 
       <EqualHeightElement name="request-food-list">
-        {request.products.slice(0, productListDisplayLength()).map((product, idx) => (
+        {order.products.slice(0, productListDisplayLength()).map((product, idx) => (
           <header className='order-item-secondary my-1' key={idx}>
             • {product.name} ({product.quantity} {getUnit(product.unit)})
           </header>
         ))}
-        {request.products.length >= 4 &&
+        {order.products.length >= 4 &&
           <header className='order-item-secondary my-1'>
-            và {request.products.length - 2} món khác
+            và {order.products.length - 2} món khác
           </header>
         }
       </EqualHeightElement>
@@ -61,18 +61,18 @@ const RequestCard = ({
           gap={3}
           className={size > 3 ? 'd-flex justify-content-between' : ''}
         >
-          {request.user && <UserItem user={request.user} user_type={request.user.user_type} />}
-          <UserItem user={request.volunteer} />
+          <UserItem user={order.volunteer} />
+          {order.user && <UserItem user={order.user} user_type={order.user.user_type} />}
         </Stack>
       </EqualHeightElement>
       <hr className='my-3' />
 
       <EqualHeightElement name='request-descriptors'>
         <header className='order-item-secondary'>
-          <MdOutlineLocationOn /> {reduceString(request.address, 80)}
+          <MdOutlineLocationOn /> {reduceString(order.address, 80)}
         </header>
         <header className='order-item-secondary'>
-          <MdAccessTime /> {convertToString(request.created_time, 'LocaleDateString')}
+          <MdAccessTime /> {convertToString(order.created_time, 'LocaleDateString')}
         </header>
       </EqualHeightElement>
     </>

@@ -117,7 +117,7 @@ const OrderInfoCard = ({ order }) => {
                 <div>
                   {size > 1 ? 
                     <Row className='mt-4'>
-                      {Array.from({ length : 7 }).map((_, idx) => (
+                      {Array.from({ length : order.delivery_type === 'delivery' ? 9 : 7 }).map((_, idx) => (
                         <Col key={idx}>
                           {idx % 2 === 0 ?
                             <StepItem

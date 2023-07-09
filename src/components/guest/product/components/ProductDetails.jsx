@@ -86,10 +86,6 @@ const ProductDetails = ({product}) => {
           </Stack>
         </Card.Title>
         <Stack direction='horizontal' gap={4}>
-          <header className='me-4' style={{ color: 'gray' }}>
-            <FaRegClock className='me-2 mb-1' />
-            {distanceTime(product.expired_time)}
-          </header>
           <header style={{ color: 'gray' }}>
             <MdAllInbox className='me-2 mb-1' />
             {product.stock} {getUnit(product.unit)} còn lại

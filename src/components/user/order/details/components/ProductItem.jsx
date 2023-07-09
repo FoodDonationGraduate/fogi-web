@@ -37,14 +37,14 @@ const ProductItem = ({
 
             <Col lg={8} className={size < 3 && 'ps-0 py-3'}>
               <Row xs={2} md={4}>
-                <Col className={`d-flex ${size < 3 && 'ps-0'}`}>
+                {/* <Col className={`d-flex ${size < 3 && 'ps-0'}`}>
                   <Stack className='my-auto' direction='vertical' gap={2}>
                     <header className='long-product-label'>
                       {size > 0 ? 'Còn' : 'HSD'}
                     </header>
                     <h5>{distanceTime(product.expired_time)}</h5>
                   </Stack>
-                </Col>
+                </Col> */}
 
                 <Col className={`d-flex ${size < 3 && 'ps-0'}`}>
                   <Stack className='my-auto' direction='vertical' gap={2}>
