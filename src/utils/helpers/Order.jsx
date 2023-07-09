@@ -187,8 +187,10 @@ export const convertNumberToStep = (number, isDonee, isDelivery) => {
     default:
       step = 'success';
   }
-  if (isDonee && !isDelivery && number === 1) {
+  if (!isDelivery && number === 1) {
     step = 'accepted';
+  } else if (!isDelivery && number === 3) {
+    step = 'success';
   }
   return step;
 };

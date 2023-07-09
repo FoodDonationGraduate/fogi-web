@@ -26,7 +26,7 @@ const FoodCard = ({
                   <img
                     className='long-product-image' alt='product-img'
                     src={
-                      food.image ? `https://bachkhoi.online/static/${food.image}`
+                      food.image_filename ? `https://bachkhoi.online/static/${food.image_filename}`
                       : PlaceHolder
                     }
                     width='64' height='64'

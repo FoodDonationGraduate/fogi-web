@@ -60,14 +60,14 @@ const RequestInfoCard = ({ request }) => {
               <hr />
 
               <h3 className='order-item-date text-center'>
-                {getStep(request.status, false, true, request).header}
+                {getStep(request.status, false, request.delivery_type === 'delivery', request).header}
               </h3>
 
               {request.status !== 'canceled' &&
                 <>
                   {size > 2 ? 
                     <Row className='mt-4'>
-                      {Array.from({ length : 9 }).map((_, idx) => (
+                      {Array.from({ length : request.delivery_type === 'pickup' ? 7 : 9}).map((_, idx) => (
                         <Col key={idx}>
                           {idx % 2 === 0 ?
                             <StepItem
@@ -75,6 +75,7 @@ const RequestInfoCard = ({ request }) => {
                               step={idx / 2}
                               currentStep={request.status}
                               isDonee={false}
+                              isDelivery={request.delivery_type === 'delivery'}
                             />
                             :
                             <hr className='step-connector' />

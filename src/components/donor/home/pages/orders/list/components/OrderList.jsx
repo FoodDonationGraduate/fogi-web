@@ -48,7 +48,7 @@ const OrderList = ({
                   {Object.keys(allRequests).length !== 0 && allRequests.requests.map((request) => (
                     <Col className='mb-4' key={request.id}>
                       <div className='order-item' onClick={() => navigate(`/donor/request/${request.id}`)}>
-                        <RequestCard order={request} />
+                        <RequestCard request={request} />
                       </div>
                     </Col>
                   ))}
