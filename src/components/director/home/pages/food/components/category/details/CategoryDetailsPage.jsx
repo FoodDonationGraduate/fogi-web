@@ -1,5 +1,7 @@
 // Essentials
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { Col, Row } from 'react-bootstrap';
 import { EqualHeight } from 'react-equal-height';
 
@@ -8,9 +10,14 @@ import BackButton from 'components/common/BackButton';
 import ListTitle from 'components/common/ListTitle';
 import SubCategoryCard from 'components/common/category/SubCategoryCard';
 import Pagination from 'components/common/pagination/Pagination';
+import CommonNotFoundBody from 'components/common/CommonNotFoundBody';
 
 import CategoryInfoCard from './CategoryInfoCard';
 import FoodCard from 'components/director/home/pages/food/components/food/FoodCard';
+import FoodModal from 'components/director/home/pages/food/components/food/FoodModal';
+
+// Reducers
+import { retrieveUnsortedFood, retrieveParentFood } from 'components/redux/reducer/DirectorReducer';
 
 const CategoryDetailsPage = ({
   category,
@@ -19,12 +26,44 @@ const CategoryDetailsPage = ({
   onShow,
   onSubShow
 }) => {
+  const userInfo = useSelector(state => state.authenticationReducer.user);
+  const userToken = useSelector(state => state.authenticationReducer.token);
+  const dispatch = useDispatch(); const navigate = useNavigate();
+
   // Unsorted food
+  const unsortedFood = useSelector(state => state.directorReducer.unsortedFood);
+  const [targetFood, setTargetFood] = useState(null);
   const FOOD_COUNT = 4;
   const [page, setPage] = useState(0); // a.k.a activeIdx
   const onChangePage = async (idx) => {
     setPage(idx);
   };
+
+  useEffect(() => {
+    dispatch(retrieveUnsortedFood(
+      {
+        limit: FOOD_COUNT,
+        offset: page * FOOD_COUNT
+      },
+      { userInfo, userToken },
+      navigate
+    ))
+  }, [page]);
+  
+  const [foodShow, setFoodShow] = useState(false);
+  const onFoodShow = () => setFoodShow(true);
+  const onFoodClose = () => setFoodShow(false);
+
+  // Parent Food
+  const parentFood = useSelector(state => state.directorReducer.parentFood);
+  useEffect(() => {
+    if (!category.id) return;
+    dispatch(retrieveParentFood(
+      { category_id: category.id },
+      { userInfo, userToken },
+      navigate
+    ))
+  }, [category]);
 
   return (
     <>
@@ -50,36 +89,42 @@ const CategoryDetailsPage = ({
           <Row>
             <Col className='ps-0'>
               <ListTitle title={`Thực phẩm ${category.image ? 'lớn' : 'chưa phân loại'}`} />
-              {category.image ?
-                <Row className='mb-2' xs={2} sm={3} md={4}>
-                  <EqualHeight>
-                    {Array.from({ length: 14 }).map((_, idx) => (
-                      <Col className='mb-4' key={idx}>
-                        <SubCategoryCard
-                          subCategory={{ name: 'Thực phẩm lớn' }}
-                          setTargetSubCategory={setTargetSubCategory}
-                        />
-                      </Col>
-                    ))}
-                  </EqualHeight>
-                </Row>
+              {category.id ?
+                <>
+                  <Row className='mb-2' xs={2} sm={3} md={4}>
+                    <EqualHeight>
+                      {Object.keys(parentFood).length !== 0 && parentFood.products.map((food, idx) => (
+                        <Col className='mb-4' key={idx}>
+                          <SubCategoryCard
+                            subCategory={food}
+                            setTargetSubCategory={setTargetSubCategory}
+                          />
+                        </Col>
+                      ))}
+                    </EqualHeight>
+                  </Row>
+                  {(Object.keys(parentFood).length === 0 || parentFood.total_products === 0) && 
+                    <CommonNotFoundBody title='Chưa có Thực phẩm Cha nào'/>
+                  }
+                </>
                 :
                 <Row className='mb-2' xs={1}>
                   <EqualHeight>
-                    {Array.from({ length: 4 }).map((_, idx) => (
+                    {Object.keys(unsortedFood).length !== 0 && unsortedFood.products.map((food, idx) => (
                       <Col className='mb-3' key={idx}>
                         <FoodCard
-                          food={{
-                            name: 'Thực phẩm',
-                            stock: 100,
-                            unit: 'kg'
-                          }}
+                          food={food}
+                          onFoodShow={onFoodShow}
+                          setTargetFood={setTargetFood}
                         />
                       </Col>
                     ))}
+                    {(Object.keys(unsortedFood).length === 0 || unsortedFood.total_products === 0) && 
+                      <CommonNotFoundBody title='Không có Thực phẩm chưa phân loại'/>
+                    }
                     <div className='d-flex justify-content-center mt-4'>
                       <Pagination
-                        pageCount={Math.ceil(14 / FOOD_COUNT)}
+                        pageCount={Math.ceil(unsortedFood.total_products / FOOD_COUNT)}
                         activeIdx={page}
                         onChangePage={onChangePage}
                       />
@@ -91,6 +136,15 @@ const CategoryDetailsPage = ({
           </Row>
         </Col>
       </Row>
+      {targetFood &&
+        <FoodModal
+          food={targetFood}
+          foodList={unsortedFood}
+          setTargetFood={setTargetFood}
+          show={foodShow} onShow={onFoodShow} onClose={onFoodClose}
+          limit={FOOD_COUNT} offset={page * FOOD_COUNT}
+        />
+      }
     </>
   )
 };

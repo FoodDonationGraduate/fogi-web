@@ -117,6 +117,7 @@ const ProductDetails = ({product}) => {
             <Form.Control
               className='count-input'
               type='number'
+              step='0.01'
               value={Number(count).toString()}
               style={{ textAlign: 'center' }}
               onChange={(e) => onUpdateInput(e)}

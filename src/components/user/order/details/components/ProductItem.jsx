@@ -53,6 +53,7 @@ const ProductItem = ({
                       <Form.Group style={{width: '50%'}}>
                         <Form.Control
                           type='number'
+                          step='0.01'
                           value={product.quantity}
                           style={{ textAlign: 'center' }}
                           readOnly
