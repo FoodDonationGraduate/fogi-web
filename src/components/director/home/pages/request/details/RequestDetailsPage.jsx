@@ -72,11 +72,16 @@ const RequestDetailsPage = ({
       }
     } else {
       switch (request.status) {
-        case 'pending': return {
-          condition: !isError && childList.length === foodList.length && targetVolunteer,
-          label: 'Duyệt Yêu cầu',
-          tip: 'Bạn chưa phân phối đủ Thực phẩm hoặc chưa chọn Tình nguyện viên'
-        }
+        case 'pending': 
+          return request.delivery_type === 'delivery' ? {
+            condition: !isError && childList.length === foodList.length && targetVolunteer,
+            label: 'Duyệt Yêu cầu',
+            tip: 'Bạn chưa phân phối đủ Thực phẩm hoặc chưa chọn Tình nguyện viên'
+          } : {
+            condition: !isError && childList.length === foodList.length,
+            label: 'Duyệt Yêu cầu',
+            tip: 'Bạn chưa phân phối đủ Thực phẩm'
+          }
         case 'accepted': return {
           condition: true,
           label: 'Chuyển trạng thái',
@@ -98,20 +103,23 @@ const RequestDetailsPage = ({
   // On Update
   const onUpdate = () => {
 
-    // default: donor
-    var data = request.status === 'pending' ? {
-      request_status: 'finding',
-      request_id: request.id,
-      request_from: request.user.user_type,
-      volunteer_email: targetVolunteer.email
-    } : {
-      request_status: 'success',
-      request_id: request.id,
-      request_from: request.user.user_type,
+    if (request.user.user_type === 'donor') {
+      // default: donor
+      var data = request.status === 'pending' ? {
+        request_status: 'finding',
+        request_id: request.id,
+        request_from: request.user.user_type,
+        volunteer_email: targetVolunteer.email
+      } : {
+        request_status: 'success',
+        request_id: request.id,
+        request_from: request.user.user_type,
+      }
     }
 
     // change if is donee
     if (request.user.user_type === 'donee') {
+
       var newStatus = (request.delivery_type && request.delivery_type === 'pickup') ? 'accepted' : 'finding';
       switch (request.status) {
         case 'finding': newStatus = 'receiving'; break;
@@ -119,8 +127,8 @@ const RequestDetailsPage = ({
         case 'receiving': newStatus = (request.delivery_type && request.delivery_type === 'pickup') ? 'success' : 'shipping'; break;
         case 'shipping': newStatus = 'success'; break;
       }
-      data = request.status === 'pending' ? {
-        request_status: (request.delivery_type && request.delivery_type === 'pickup') ? 'accepted' : 'finding',
+      data = (request.status === 'pending' && request.delivery_type !== 'pickup') ? {
+        request_status: newStatus,
         request_id: request.id,
         request_from: request.user.user_type,
         volunteer_email: targetVolunteer.email
@@ -132,7 +140,6 @@ const RequestDetailsPage = ({
     }
 
     if (request.user.user_type === 'donee' && request.status === 'pending') {
-
 
       var result = dispatch(updateRequestChild(
         {
@@ -209,7 +216,7 @@ const RequestDetailsPage = ({
         </div>
         {!request.volunteer ?
           <>
-            {request.status !== 'canceled' &&
+            {((request.delivery_type && request.delivery_type !== 'pickup' ) && (['pending', 'finding'].includes(request.status))) &&
               <VolunteerList
                 targetVolunteer={targetVolunteer} setTargetVolunteer={setTargetVolunteer}
               />

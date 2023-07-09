@@ -69,7 +69,11 @@ const RequestCard = ({
 
       <EqualHeightElement name='request-descriptors'>
         <header className='order-item-secondary'>
-          <MdOutlineLocationOn /> {reduceString(request.address, 80)}
+          <MdOutlineLocationOn />{' '}
+          {
+            request.address.length > 0 ? reduceString(request.address, 80)
+            : '2 - 4 Đ. Hồng Hà, Phường 2, Tân Bình, Thành phố Hồ Chí Minh'
+          }
         </header>
         <header className='order-item-secondary'>
           <MdAccessTime /> {convertToString(request.created_time, 'LocaleDateString')}

@@ -80,7 +80,8 @@ const OrderInfoCard = ({ order }) => {
                           onClick={() => handleClick(order.address)}
                           onMouseEnter={() => setIsHovering(true)}
                           onMouseLeave={() => setIsHovering(false)}
-                          >{order.address}
+                          >
+                            2 - 4 Đ. Hồng Hà, Phường 2, Tân Bình, Thành phố Hồ Chí Minh
                           </div>
                       : <div>{order.address}</div> 
                   }
