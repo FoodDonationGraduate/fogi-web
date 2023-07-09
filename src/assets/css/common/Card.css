@@ -2,12 +2,14 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  object-fit: cover;
 }
 
 .profile-logo-sm {
   width: 64px;
   height: 64px;
   border-radius: 50%;
+  object-fit: cover;
 }
 
 .profile-logo-m {

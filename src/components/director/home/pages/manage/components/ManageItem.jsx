@@ -3,6 +3,9 @@ import React from 'react';
 import { Stack } from 'react-bootstrap';
 import { EqualHeightElement } from 'react-equal-height';
 
+// Asset
+import PlaceHolder from 'assets/images/avatar.png';
+
 // Style
 import 'assets/css/director/HomePage.css';
 
@@ -22,7 +25,13 @@ const ManageItem = ({
       <div className='manage-card manage-clickable'>
         <EqualHeightElement name='manage-content'>
           <Stack className='mb-2' direction='horizontal' gap={4}>
-            <img className='profile-logo-sm' src={`https://bachkhoi.online/static/${user.avatar}`} alt='director logo'/>
+            <img
+              className='profile-logo-sm' alt='director logo'
+              src={
+                user.avatar ? `https://bachkhoi.online/static/${user.avatar}`
+                : PlaceHolder
+              }
+            />
             <h4 className='manage-card-name'>
               {user.name}
             </h4>

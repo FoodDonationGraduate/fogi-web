@@ -2,7 +2,7 @@
   background-color: white;
   border-radius: 8px;
   box-shadow: 8px 8px 32px #00000008;
-  padding: 24px 32px;
+  padding: 24px;
   user-select: none;
 };
   .manage-card-name {
@@ -40,5 +40,12 @@
   width: 128px;
   height: 128px;
   border-radius: 50%;
+  object-fit: cover;
+}
+
+.manage-details-profile-logo-alt {
+  width: 128px;
+  height: 128px;
+  border-radius: 8px;
   object-fit: cover;
 }
