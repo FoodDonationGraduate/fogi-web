@@ -350,6 +350,36 @@ export const updateRequest = (data, director, navigate) => {
       }).then((res) => {
         dispatch(retrieveCurrentRequest(data, director, navigate));
         dispatch(setModalMessage(`Cập nhật trạng thái Yêu cầu ${data.request_id} thành công`));
+        dispatch(setModalType('default'))
+        dispatch(showModal());
+      }).catch((err) => {
+        if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+          
+        } else {
+          console.log(err.response.data);
+          dispatch(setModalMessage("Đã xảy ra lỗi!"))
+          dispatch(setModalType('danger'))
+          dispatch(showModal())
+       }
+      });
+    } catch (err) {
+      console.log(err);
+      navigate('/');
+    }
+  }
+}
+
+export const updateRequestChild = (data, director, navigate) => {
+  return async dispatch => {
+    try {
+      console.log('update request child list');
+      await axiosInstance.post(`/request/director/child`, {
+        email: director.userInfo.email,
+        token: director.userToken,
+        request_id: data.request_id,
+        child_products: data.child_products
+      }).then((res) => {
+        dispatch(setModalMessage(`Cập nhật Thực phẩm con Yêu cầu ${data.request_id} thành công`));
         dispatch(showModal());
       }).catch((err) => {
         if (handleExpiredToken(err.response.data, dispatch, navigate)) {

@@ -16,45 +16,10 @@ import VolunteerCard from './components/volunteer/VolunteerCard';
 import VolunteerList from './components/volunteer/VolunteerList';
 
 // Reducers
-import { setCurrentRequest, updateRequest } from 'components/redux/reducer/DirectorReducer';
+import { setCurrentRequest, updateRequest, updateRequestChild } from 'components/redux/reducer/DirectorReducer';
 
 // Style
 import 'assets/css/user/order/Order.css';
-
-const sampleData = [
-  {
-    id: 0,
-    name: 'Thịt heo',
-    category_name: 'Đông lạnh',
-    count: '100',
-    unit: 'kg',
-    foodList: []
-  },
-  {
-    id: 1,
-    name: 'Bắp cải',
-    category_name: 'Rau củ',
-    count: '80',
-    unit: 'kg',
-    foodList: []
-  },
-  {
-    id: 2,
-    name: 'Gạo tẻ',
-    category_name: 'Gạo',
-    count: '25',
-    unit: 'kg',
-    foodList: []
-  },
-  {
-    id: 3,
-    name: 'Hành tím',
-    category_name: 'Rau củ',
-    count: '50',
-    unit: 'kg',
-    foodList: []
-  }
-];
 
 const RequestDetailsPage = ({
   request
@@ -64,7 +29,8 @@ const RequestDetailsPage = ({
   const dispatch = useDispatch(); const navigate = useNavigate();
 
   // List handling
-  const [subCategoryList, setSubCategoryList] = useState(sampleData);
+  const [subCategoryList, setSubCategoryList] = useState(request.products);
+  const [childList, setChildList] = useState([]);
   const [foodList, setFoodList] = useState(request.products);
 
   // Volunteer handling
@@ -72,6 +38,8 @@ const RequestDetailsPage = ({
 
 
   // STATUS HANDLING ----------------------------
+
+  const [isError, setIsError] = useState(false);
 
   const tooltip = (tip) => {
     return (
@@ -81,25 +49,35 @@ const RequestDetailsPage = ({
 
   // Update
   const getNextCondition = () => {
-    switch (request.status) {
-      case 'pending': return {
-        condition: targetVolunteer,
-        label: 'Duyệt Yêu cầu',
-        tip: 'Bạn chưa chọn Tình nguyện viên'
-      };
-      case 'finding':
-        if (request.volunteer) return undefined;
-        else return {
+    if (request.user.user_type === 'donor') {
+      switch (request.status) {
+        case 'pending': return {
           condition: targetVolunteer,
-          label: 'Chọn lại Tình nguyện viên',
+          label: 'Duyệt Yêu cầu',
           tip: 'Bạn chưa chọn Tình nguyện viên'
+        };
+        case 'finding':
+          if (request.volunteer) return undefined;
+          else return {
+            condition: targetVolunteer,
+            label: 'Chọn lại Tình nguyện viên',
+            tip: 'Bạn chưa chọn Tình nguyện viên'
+          }
+        case 'shipping': return {
+          condition: true,
+          label: 'Đã nhận Túi Quyên góp',
+          tip: ''
+        };
+        default: return undefined;
+      }
+    } else {
+      switch (request.status) {
+        default: return {
+          condition: !isError && childList.length === foodList.length && targetVolunteer,
+          label: 'Duyệt Yêu cầu',
+          tip: 'Bạn chưa phân phối đủ Thực phẩm hoặc chưa chọn Tình nguyện viên'
         }
-      case 'shipping': return {
-        condition: true,
-        label: 'Đã nhận Túi Quyên góp',
-        tip: ''
-      };
-      default: return undefined;
+      }
     }
   }
 
@@ -121,6 +99,23 @@ const RequestDetailsPage = ({
       request_from: request.user.user_type,
     }
 
+    if (request.user.user_type === 'donee' && request.status === 'pending') {
+
+      const childData = {
+        request_id: request.id,
+        child_products: childList
+      };
+
+      dispatch(updateRequestChild(
+        {
+          request_id: request.id,
+          child_products: childList
+        },
+        { userInfo, userToken },
+        navigate
+      ));
+    }
+
     dispatch(updateRequest(
       data,
       { userInfo, userToken },
@@ -139,6 +134,8 @@ const RequestDetailsPage = ({
         userInfo={request.user}
         request={request}
       />
+      {JSON.stringify(isError)}
+      {JSON.stringify(request)}
       <div className='bg'>
         <div className='mb-2'>
           <BackButton setTargetList={[
@@ -158,9 +155,12 @@ const RequestDetailsPage = ({
             :
             <SubCategoryList
               subCategoryList={subCategoryList} setSubCategoryList={setSubCategoryList}
+              childList={childList} setChildList={setChildList}
+              isError={isError} setIsError={setIsError}
             />
           }
         </div>
+        {JSON.stringify(childList)}
         {!request.volunteer ?
           <>
             {request.status !== 'canceled' &&
