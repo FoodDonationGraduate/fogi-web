@@ -14,20 +14,22 @@ const DirectorItem = () => {
   const toProfilePage = () => { navigate('/profile'); };
   
   let size = useResizer();
+    
+  const date = new Date();
 
   return (
     <>
       {size !== 2 && (
         <div className='side-menu-profile-item' onClick={toProfilePage}>
           <Stack direction='horizontal' gap={4}>
-            <img className='profile-logo-sm' src={`https://bachkhoi.online/static/${userInfo.avatar}`} alt='director logo'/>
+            <img className='profile-logo-sm' src={`https://bachkhoi.online/static/${userInfo.avatar}?${date.getTime()}`} alt='director logo'/>
             <h5 className='fw-bold'>{userInfo.name}</h5>
           </Stack>
         </div>
       )}
       {size === 2 && (
         <Stack className='side-menu-profile-item align-items-center' direction='vertical'>
-          <img className='profile-logo-sm' src={`https://bachkhoi.online/static/${userInfo.avatar}`} alt='donor logo'/>
+          <img className='profile-logo-sm' src={`https://bachkhoi.online/static/${userInfo.avatar}?${date.getTime()}`} alt='donor logo'/>
         </Stack>
       )}
     </>

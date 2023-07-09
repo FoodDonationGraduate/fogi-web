@@ -8,8 +8,11 @@ import { useResizer } from 'utils/helpers/Resizer.jsx';
 
 const FoodSelectCard = ({
   food,
+  getTotalCount,
+  subCategory,
   foodList, setFoodList,
-  isShowStock=false
+  isShowStock=false,
+  childList, setChildList
 }) => {
   let size = useResizer();
 
@@ -19,9 +22,15 @@ const FoodSelectCard = ({
   };
   const onSelect = () => {
     setFoodList([...foodList, { content: food.content, count: 1 }]);
+    setChildList([...childList, {
+      parent_id: subCategory.id,
+      child_id: food.content.id,
+      quantity: 1
+    }]);
   };
   const onDeselect = () => {
     setFoodList(foodList.filter(f => f.content.id != food.content.id));
+    setChildList(childList.filter(f => f.child_id != food.content.id));
   };
   const onChangeCount = (count) => {
     const idx = foodList.findIndex(f => f.content.id === food.content.id);
@@ -32,6 +41,16 @@ const FoodSelectCard = ({
         count: count
       },
       ...foodList.slice(idx + 1)
+    ]);
+
+    const child_idx = childList.findIndex(f => f.child_id === food.content.id);
+    setChildList([
+      ...childList.slice(0, child_idx),
+      {
+        parent_id: subCategory.id,
+        child_id: food.content.id,
+        quantity: count
+      }
     ]);
   };
 
@@ -61,7 +80,7 @@ const FoodSelectCard = ({
                 <Stack direction='horizontal'>
                   <img
                     className='long-product-image'
-                    src={`https://bachkhoi.online/static/${'category_13_image'}`} alt='product-img'
+                    src={`https://bachkhoi.online/static/${food.content.image_filename}`} alt='product-img'
                     width='64' height='64'
                   />
                   <div className='ms-4'>

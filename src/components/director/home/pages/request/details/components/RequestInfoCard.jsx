@@ -74,7 +74,7 @@ const RequestInfoCard = ({ request }) => {
                               key={idx / 2}
                               step={idx / 2}
                               currentStep={request.status}
-                              isDonee={false}
+                              isDonee={request.user.user_type ==='donee'}
                               isDelivery={request.delivery_type === 'delivery'}
                             />
                             :

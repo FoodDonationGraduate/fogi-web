@@ -93,10 +93,10 @@ const CategoryDetailsPage = ({
                 <>
                   <Row className='mb-2' xs={2} sm={3} md={4}>
                     <EqualHeight>
-                      {Object.keys(parentFood).length !== 0 && parentFood.products.map((food, idx) => (
+                      {Object.keys(parentFood).length !== 0 && parentFood.products.map((pf, idx) => (
                         <Col className='mb-4' key={idx}>
                           <SubCategoryCard
-                            subCategory={food}
+                            subCategory={pf}
                             setTargetSubCategory={setTargetSubCategory}
                           />
                         </Col>

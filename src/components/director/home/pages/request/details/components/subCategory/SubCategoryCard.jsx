@@ -1,5 +1,7 @@
 // Essentials
 import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { Accordion, Button, Card, Col, Row, Stack } from 'react-bootstrap';
 import { getUnit } from 'utils/helpers/Food';
 
@@ -9,19 +11,25 @@ import { FaExclamationTriangle } from "react-icons/fa";
 // Components
 import FoodSelectCard from './FoodSelectCard';
 
-import FoodListModal from './FoodSelectListModal';
+import FoodSelectListModal from './FoodSelectListModal';
+
+// Reducers
+import { retrieveFood } from 'components/redux/reducer/DirectorReducer';
 
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
 
 const SubCategoryCard = ({
   subCategory,
-  subCategoryList, setSubCategoryList
+  subCategoryList, setSubCategoryList,
+  childList, setChildList,
+  isError, setIsError
 }) => {
   let size = useResizer();
 
+
   // Selected Food handling
-  const [foodList, setFoodList] = useState(subCategory.foodList);
+  const [foodList, setFoodList] = useState([]);
   const getTotalCount = () => {
     let total = 0;
     for (let i = 0; i < foodList.length; i++) {
@@ -29,6 +37,10 @@ const SubCategoryCard = ({
     }
     return total;
   };
+  useEffect(() => {
+    if (getTotalCount() !== subCategory.quantity) setIsError(true);
+    else setIsError(false);
+  }, [foodList]);
 
   // Change SubCategory List
   useEffect(() => {
@@ -58,12 +70,12 @@ const SubCategoryCard = ({
                 <Stack direction='horizontal'>
                   <img
                     className='long-product-image'
-                    src={`https://bachkhoi.online/static/${'category_13_image'}`} alt='product-img'
+                    src={`https://bachkhoi.online/static/${subCategory.image_filename}`} alt='product-img'
                     width='96' height='96'
                   />
                   <div className='ms-4'>
                     <h5 className='fw-bold'>
-                      {subCategory.name}
+                      {subCategory.name} - {subCategory.id}
                     </h5>
                     <span className={size > 0 ? 'long-product-type' : 'long-product-type-sm'}>
                       {subCategory.category_name}
@@ -78,10 +90,10 @@ const SubCategoryCard = ({
                     <header className='long-product-label'>{`${subCategory.unit === 'kg' ? 'Khối' : 'Số'} lượng (${getUnit(subCategory.unit)})`}</header>
                     <h5
                       className='mt-2'
-                      style={{ color: `${getTotalCount() > subCategory.count ? '#bf1650' : 'black'}` }}
+                      style={{ color: `${getTotalCount() > subCategory.quantity ? '#bf1650' : 'black'}` }}
                     >
-                      {getTotalCount()}/{subCategory.count}{' '}
-                      {getTotalCount() > subCategory.count && <FaExclamationTriangle size={14} className='mb-1' />}
+                      {getTotalCount()}/{subCategory.quantity}{' '}
+                      {getTotalCount() > subCategory.quantity && <FaExclamationTriangle size={14} className='mb-1' />}
                     </h5>
                   </div>
                 </div>
@@ -104,7 +116,10 @@ const SubCategoryCard = ({
                       <div className={idx !== 0 ? 'mt-3' : ''} key={idx}>
                         <FoodSelectCard
                           food={food}
+                          getTotalCount={getTotalCount}
+                          subCategory={subCategory}
                           foodList={foodList} setFoodList={setFoodList}
+                          childList={childList} setChildList={setChildList}
                         />
                       </div>
                     ))}
@@ -115,9 +130,10 @@ const SubCategoryCard = ({
           </Card>
         </Col>
       </Row>
-      <FoodListModal
+      <FoodSelectListModal
         subCategory={subCategory}
         foodList={foodList} setFoodList={setFoodList}
+        childList={childList} setChildList={setChildList}
         subShow={subShow} onSubClose={onSubClose}
       />
     </>
