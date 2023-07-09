@@ -44,7 +44,7 @@ function InfoModal() {
             </Modal> */}
 
             <ToastContainer position="top-end" className="m-2 pt-5 position-fixed" style={{ zIndex: 1065 }}>
-                <Toast delay={5000} autohide={true} onClose={() => dispatch(hideModal())} show={modalVisibility}>
+                <Toast delay={4000} autohide={true} onClose={() => dispatch(hideModal())} show={modalVisibility}>
                     <Toast.Header style={{ backgroundColor: modalColor, color: '#ffffff' }}>
                         <strong className="me-auto">{modalTitle}</strong>
                     </Toast.Header>

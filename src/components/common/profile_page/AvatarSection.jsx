@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 import 'assets/css/user/profile_page/UserProfile.css'
 import { updateAvatar } from 'components/redux/reducer/AuthenticationReducer';
 
+import PlaceHolder from 'assets/images/default_avatar.jpg';
+
 function AvatarSection() {
     const [showModal, setShowModal] = React.useState(false);
     const userInfo = useSelector(state => state.authenticationReducer.user)
@@ -38,7 +40,10 @@ function AvatarSection() {
     return (
         <div className='avartar-section'>
             <div className='user-profile-picture d-flex justify-content-left align-items-center'>
-                <img className='user-avatar' src={`https://bachkhoi.online/static/${userInfo.avatar}?${date.getTime()}`} alt='user avatar'></img>
+                <img className='user-avatar' src={
+                    userInfo.avatar ? `https://bachkhoi.online/static/${userInfo.avatar}?${date.getTime()}`
+                    : PlaceHolder
+                } alt='user avatar'></img>
                 <Button className='card-buton card-grey-button change-avatar-button' onClick={() => setShowModal(true)}>Thay đổi Ảnh đại diện</Button>
             </div>
             <Modal className="mw-80" show={showModal} onHide={() => setShowModal(false)}>
