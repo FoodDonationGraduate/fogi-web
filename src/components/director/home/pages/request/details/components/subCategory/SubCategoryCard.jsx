@@ -54,7 +54,7 @@ const SubCategoryCard = ({
         <Col className='px-0'>
           <Card className='long-product-item-static'>
             <Row xs={1} lg={2}>
-              <Col className='ps-0' xs={12} lg={4}>
+              <Col className='ps-0' xs={12} lg={6}>
                 <Stack direction='horizontal'>
                   <img
                     className='long-product-image'
@@ -72,7 +72,7 @@ const SubCategoryCard = ({
                 </Stack>
               </Col>
 
-              <Col lg={8} className={`${size > 0 ? 'd-flex justify-content-between align-items-center' : ''} ${size < 3 ? 'ps-0 py-3' : ''}`}>
+              <Col lg={6} className={`${size > 0 ? 'd-flex justify-content-between align-items-center' : ''} ${size < 3 ? 'ps-0 py-3' : ''}`}>
                 <div className={`d-flex ${size < 3 ? 'ps-0' : ''} ${size < 2 ? 'mt-2' : ''}`} xs={12} md={6}>
                   <div>
                     <header className='long-product-label'>{`${subCategory.unit === 'kg' ? 'Khối' : 'Số'} lượng (${getUnit(subCategory.unit)})`}</header>

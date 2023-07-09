@@ -70,6 +70,7 @@ const SubCategoryModal = ({
         unit: 'kg'
       }
     );
+    setImage(undefined);
     onClose();
   };
 
@@ -138,7 +139,6 @@ const SubCategoryModal = ({
               {image && 
                 <img
                   src={image}
-                  className='rounded-circle'
                   style={{ objectFit: 'cover' }}
                   alt='category-img'
                   width='128'

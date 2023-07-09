@@ -30,7 +30,7 @@ const CategoryInfoCard = ({
       <div className='manage-card'>
         <Stack direction='horizontal' gap={4}>
           <img
-            className='manage-details-profile-logo' alt='director logo'
+            className='manage-details-profile-logo-alt' alt='director logo'
             src={
               category.image ? `https://bachkhoi.online/static/${category.image}`
               : PlaceHolder

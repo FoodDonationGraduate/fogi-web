@@ -23,7 +23,7 @@ const CategoryInfoCard = ({
           <Col className='px-0' md={9} xl={10}>
             <Stack direction='horizontal' gap={4}>
               <img
-                className='manage-details-profile-logo' alt='director logo'
+                className='manage-details-profile-logo-alt' alt='director logo'
                 src={`https://bachkhoi.online/static/${subCategory.image_filename}`}
               />
               <Stack className='justify-content-center' direction='vertical'>

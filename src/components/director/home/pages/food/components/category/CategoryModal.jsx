@@ -66,6 +66,7 @@ const CategoryModal = ({
         description: ''
       }
     );
+    setImage(undefined);
     onClose();
   };
 
@@ -115,7 +116,6 @@ const CategoryModal = ({
               {image && 
                 <img
                   src={image}
-                  className='rounded-circle'
                   style={{ objectFit: 'cover' }}
                   alt='category-img'
                   width='128'

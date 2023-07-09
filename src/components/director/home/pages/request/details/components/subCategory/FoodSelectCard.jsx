@@ -56,8 +56,8 @@ const FoodSelectCard = ({
             className='p-4'
             style={{ border: `${isInFoodList() ? '1px solid #82CD47': ''}` }}
           >
-            <div className='d-flex justify-content-between align-items-center'>
-              <div>
+            <Row>
+              <Col className='px-0' md={6} xl={8}>
                 <Stack direction='horizontal'>
                   <img
                     className='long-product-image'
@@ -70,68 +70,68 @@ const FoodSelectCard = ({
                     </h5>
                   </div>
                 </Stack>
-              </div>
+              </Col>
 
-              <div className={`d-flex justify-content-between align-items-center`}>
-                {!isShowStock ?
-                  <div>
-                    <header className='long-product-label mb-2'>{`${food.content.unit === 'kg' ? 'Khối' : 'Số'} lượng (${getUnit(food.content.unit)})`}</header>
-                    <Stack direction='horizontal'>
-                      {size > 0 &&
-                        <Button
-                          className='count-btn-left'
-                          variant='outline-secondary'
-                          onClick={() => onUpdateCount(-1)}
-                          disabled={food.count <= 1}
-                        >
-                          -
-                        </Button>
-                      }
-                      <Form.Group>
-                        <Form.Control
-                          className='count-input'
-                          type='number'
-                          value={Number(food.count).toString()}
-                          style={{ textAlign: 'center' }}
-                          onChange={(e) => onUpdateInput(e) }
-                        />
-                      </Form.Group>
-                      {size > 0 &&
-                        <Button
-                          className='count-btn-right'
-                          variant='outline-secondary'
-                          onClick={() => onUpdateCount(1)}
-                          disabled={food.count >= food.stock}
-                        >
-                          +
-                        </Button>
-                      }
-                    </Stack>
-                    <small className='small-text'>Tồn kho: {food.content.stock}</small>
-                  </div>
-                  :
-                  <>
-                    <div className={`d-flex ${size < 3 ? 'ps-0' : ''} ${size < 2 ? 'mt-2' : ''}`} xs={12} md={6}>
+              <Col className='px-0'>
+                <Row>
+                  <Col className='px-0' sm={6}>
+                    {!isShowStock ?
                       <div>
-                        <header className='long-product-label'>Tồn kho</header>
-                        <h5 className='mt-2'>{food.content.stock} {getUnit(food.content.unit)}</h5>
+                        <header className='long-product-label mb-2'>{`${food.content.unit === 'kg' ? 'Khối' : 'Số'} lượng (${getUnit(food.content.unit)})`}</header>
+                      <Stack direction='horizontal'>
+                          <Button
+                            className='count-btn-left'
+                            variant='outline-secondary'
+                            onClick={() => onUpdateCount(-1)}
+                            disabled={food.count <= 1}
+                          >
+                            -
+                          </Button>
+                          <Form.Group>
+                            <Form.Control
+                              className='count-input'
+                              type='number'
+                              value={Number(food.count).toString()}
+                              style={{ textAlign: 'center' }}
+                              onChange={(e) => onUpdateInput(e) }
+                            />
+                          </Form.Group>
+                          <Button
+                            className='count-btn-right'
+                            variant='outline-secondary'
+                            onClick={() => onUpdateCount(1)}
+                            disabled={food.count >= food.stock}
+                          >
+                            +
+                          </Button>
+                        </Stack>
+                        <small className='small-text'>Tồn kho: {food.content.stock}</small>
                       </div>
-                    </div>
-                  </>
-                }
-                <div className='ms-4'>
-                  {!isInFoodList() ?
-                    <Button className='fogi' variant='primary' onClick={onSelect}>
-                      Chọn
-                    </Button>
-                    :
-                    <Button variant='outline-danger' onClick={onDeselect}>
-                      Bỏ chọn
-                    </Button>
-                  }
-                </div>
-              </div>
-            </div>
+                      :
+                      <>
+                        <div className={`d-flex ${size < 3 ? 'ps-0' : ''} ${size < 2 ? 'mt-2' : ''}`} xs={12} md={6}>
+                          <div>
+                            <header className='long-product-label'>Tồn kho</header>
+                            <h5 className='mt-2'>{food.content.stock} {getUnit(food.content.unit)}</h5>
+                          </div>
+                        </div>
+                      </>
+                    }
+                  </Col>
+                  <Col className='d-grid align-items-center px-0'>
+                    {!isInFoodList() ?
+                      <Button className='fogi' variant='primary' onClick={onSelect}>
+                        Chọn
+                      </Button>
+                      :
+                      <Button variant='outline-danger' onClick={onDeselect}>
+                        Bỏ chọn
+                      </Button>
+                    }
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
           </Card>
         </Col>
       </Row>

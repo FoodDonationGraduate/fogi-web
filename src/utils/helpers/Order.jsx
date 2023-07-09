@@ -109,7 +109,7 @@ export const getStep = (step, isDonee, isDelivery, order) => {
     case 'canceled':
       header = 'Yêu cầu của bạn đã bị hủy bởi ' 
       if (order.cancel_user_role === currentRole) {
-        header += 'bạn'
+        header += 'bạn';
       } else {
         header += order.cancel_user_role === 'volunteer' ? ' Tình nguyện viên' : 'Điều phối viên'
       }
