@@ -31,12 +31,14 @@ const FoodModal = ({
     dispatch(retrieveParentFood({}, { userInfo, userToken }, navigate));
   }, []);
 
+  const [isMatchUnit, setIsMatchUnit] = useState(true);
+
   // Form handling
   const formSchema = Yup.object().shape({
     name: Yup.string().required(''),
     stock: Yup.number().required(),
-    unit: Yup.string().required(),
-    parentProduct: Yup.number().required().min(0)
+    parentProduct: Yup.number().required().min(0),
+    unit: Yup.string().required()
   });
   const formOptions = { resolver: yupResolver(formSchema) };
   const { register, handleSubmit, formState, reset } = useForm(formOptions);
@@ -53,6 +55,12 @@ const FoodModal = ({
   };
 
   const onSubmit = (data) => {
+    if (data.unit !== parentFood.products.find(f => f.id === data.parentProduct).unit) {
+      setIsMatchUnit(false);
+      return;
+    }
+    setIsMatchUnit(true);
+    
     dispatch(updateFood(
       {
         child_id: food.id,
@@ -137,6 +145,12 @@ const FoodModal = ({
                   </Form.Select>
                 </Col>
               </Row>
+              {!isMatchUnit && (
+                <p className="mt-2 error">
+                  <FaExclamationTriangle className="mx-2" />
+                  Đơn vị đã chọn không tương ứng với Đơn vị của Thực phẩm cha
+                </p>
+              )}
             </Form.Group>
 
             <Form.Group className='mb-3'>
@@ -150,7 +164,7 @@ const FoodModal = ({
                 <option value={-1}>-</option>
                 {Object.keys(parentFood).length > 0 && parentFood.products.map((parentOption, idx) => (
                   <option value={parentOption.id} key={idx}>
-                    {parentOption.name} - {parentOption.category_name}
+                    {parentOption.name} ({parentOption.category_name}) (Đơn vị: {parentOption.unit})
                   </option>
                 ))}
               </Form.Select>
