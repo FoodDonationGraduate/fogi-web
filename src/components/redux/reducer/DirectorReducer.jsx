@@ -371,6 +371,7 @@ export const updateRequest = (data, director, navigate) => {
 
 export const updateRequestChild = (data, director, navigate) => {
   return async dispatch => {
+    var result = false;
     try {
       console.log('update request child list');
       await axiosInstance.post(`/request/director/child`, {
@@ -379,6 +380,7 @@ export const updateRequestChild = (data, director, navigate) => {
         request_id: data.request_id,
         child_products: data.child_products
       }).then((res) => {
+        result = true;
         dispatch(setModalMessage(`Cập nhật Thực phẩm con Yêu cầu ${data.request_id} thành công`));
         dispatch(showModal());
       }).catch((err) => {
@@ -395,6 +397,7 @@ export const updateRequestChild = (data, director, navigate) => {
       console.log(err);
       navigate('/');
     }
+    return result;
   }
 }
 

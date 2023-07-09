@@ -151,7 +151,7 @@ const AccountInfo = () => {
                       </Form.Label>
                       <Stack direction='horizontal' gap={2}>
                         <UploadButton label='Tải lên mặt trước' type={imageOnly} setValue={setFrontImage}/>
-                        <UploadButton label='Tải lên mặt trước' type={imageOnly} setValue={setBackImage}/>
+                        <UploadButton label='Tải lên mặt sau' type={imageOnly} setValue={setBackImage}/>
                       </Stack>
                     </Form.Group>
 
