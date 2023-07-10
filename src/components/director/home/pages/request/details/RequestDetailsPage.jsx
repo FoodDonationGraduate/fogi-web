@@ -232,7 +232,7 @@ const RequestDetailsPage = ({
           <>
             {
             (((request.delivery_type && request.delivery_type !== 'pickup' ) && (['pending', 'finding'].includes(request.status)))
-            || (request.user.user_type === 'donor')) && request.status &&
+            || (request.user.user_type === 'donor')) && request.status !== 'canceled' &&
               <VolunteerList
                 targetVolunteer={targetVolunteer} setTargetVolunteer={setTargetVolunteer}
               />
