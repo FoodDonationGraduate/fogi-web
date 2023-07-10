@@ -122,6 +122,17 @@ const RequestInfoCard = ({ request }) => {
                   }
                 </>
               }
+
+              {request.status === 'canceled' && 
+                <div>
+                  <h5 className='order-item-date mt-4'>
+                    Lí do bị hủy
+                  </h5>
+                  <header className='order-item-secondary'>
+                    {request.cancel_reason ? request.cancel_reason : 'Không có lý do cụ thể.'}
+                  </header>
+                </div>
+              }
             </div>
           </Col>
         </Row>

@@ -95,6 +95,13 @@ const RequestDetailsPage = ({
             label: 'Duyệt Yêu cầu',
             tip: 'Bạn chưa phân phối đủ Thực phẩm'
           }
+        case 'finding':
+          if (request.volunteer) return undefined;
+          else return {
+            condition: targetVolunteer,
+            label: 'Chọn lại Tình nguyện viên',
+            tip: 'Bạn chưa chọn Tình nguyện viên'
+          }
         case 'accepted': return {
           condition: true,
           label: 'Chuyển trạng thái',
@@ -135,12 +142,15 @@ const RequestDetailsPage = ({
 
       var newStatus = (request.delivery_type && request.delivery_type === 'pickup') ? 'accepted' : 'finding';
       switch (request.status) {
-        case 'finding': newStatus = 'receiving'; break;
+        case 'finding': newStatus = !request.volunteer ? 'finding' : 'receiving'; break;
         case 'accepted': newStatus = 'success'; break;
         case 'receiving': newStatus = (request.delivery_type && request.delivery_type === 'pickup') ? 'success' : 'shipping'; break;
         case 'shipping': newStatus = 'success'; break;
       }
-      data = (request.status === 'pending' && request.delivery_type !== 'pickup') ? {
+      data =
+      ((request.status === 'pending' && request.delivery_type !== 'pickup') ||
+      (request.status === 'finding' && !request.volunteer))
+      ? {
         request_status: newStatus,
         request_id: request.id,
         request_from: request.user.user_type,
