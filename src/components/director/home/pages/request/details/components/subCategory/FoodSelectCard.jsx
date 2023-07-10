@@ -94,7 +94,7 @@ const FoodSelectCard = ({
 
               <Col className='px-0'>
                 <Row>
-                  <Col className='px-0' sm={6}>
+                  <Col className='ps-0' sm={6}>
                     {!isShowStock ?
                       <div>
                         <header className='long-product-label mb-2'>{`${food.content.unit === 'kg' ? 'Khối' : 'Số'} lượng (${getUnit(food.content.unit)})`}</header>
@@ -138,7 +138,7 @@ const FoodSelectCard = ({
                       </>
                     }
                   </Col>
-                  <Col className='d-grid align-items-center px-0'>
+                  <Col className='d-grid align-items-center pe-0'>
                     {!isInFoodList() ?
                       <Button className='fogi' variant='primary' onClick={onSelect}>
                         Chọn
