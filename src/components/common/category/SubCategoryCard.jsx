@@ -30,7 +30,7 @@ const SubCategoryCard = ({
       <Card.Body className='text-center'>
         <EqualHeightElement name="category-name">
           <Card.Title>{subCategory.name}</Card.Title>
-          <div>{subCategory.stock} {subCategory.unit}</div>
+          <div>{subCategory.stock} {subCategory.unit === 'kg' ? 'Kg' : 'Cái'}</div>
         </EqualHeightElement>
       </Card.Body>
     </Card>

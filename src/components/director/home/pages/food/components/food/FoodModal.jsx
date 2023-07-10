@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
+import { getUnit } from 'utils/helpers/Food';
 
 // Assets
 import { FaExclamationTriangle } from 'react-icons/fa';
@@ -164,7 +165,7 @@ const FoodModal = ({
                 <option value={-1}>-</option>
                 {Object.keys(parentFood).length > 0 && parentFood.products.map((parentOption, idx) => (
                   <option value={parentOption.id} key={idx}>
-                    {parentOption.name} ({parentOption.category_name}) (Đơn vị: {parentOption.unit})
+                    {parentOption.name} ({parentOption.category_name}) (Đơn vị: {getUnit(parentOption.unit)})
                   </option>
                 ))}
               </Form.Select>

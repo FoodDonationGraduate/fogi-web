@@ -1,11 +1,12 @@
 // Essentials
 import React, { useState } from 'react';
 import { Button, Col, Row, Stack } from 'react-bootstrap';
+import { getUnit } from 'utils/helpers/Food';
 
 // Style
 import 'assets/css/director/HomePage.css';
 
-const CategoryInfoCard = ({
+const SubCategoryInfoCard = ({
   subCategory,
   setTargetSubCategory,
   onSubShow
@@ -31,7 +32,7 @@ const CategoryInfoCard = ({
                   {subCategory.name}
                 </h4>
                 <div className='mb-2'>
-                  <div>Tồn kho: {subCategory.stock} {subCategory.unit}</div>
+                  <div>Tồn kho: {subCategory.stock} {getUnit(subCategory.unit)}</div>
                 </div>
                 <div>
                   <small style={{ color: '#999' }}>{subCategory.description}</small>
@@ -50,4 +51,4 @@ const CategoryInfoCard = ({
   );
 };
 
-export default CategoryInfoCard;
+export default SubCategoryInfoCard;

@@ -5,6 +5,7 @@ import { getUnit } from 'utils/helpers/Food';
 
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
+import { distanceTime } from 'utils/helpers/Time.jsx';
 
 const FoodSelectCard = ({
   food,
@@ -77,7 +78,7 @@ const FoodSelectCard = ({
             style={{ border: `${isInFoodList() ? '1px solid #82CD47': ''}` }}
           >
             <Row>
-              <Col className='px-0' md={6} xl={8}>
+              <Col className='px-0' lg={6}>
                 <Stack direction='horizontal'>
                   <img
                     className='long-product-image'
@@ -94,11 +95,11 @@ const FoodSelectCard = ({
 
               <Col className='px-0'>
                 <Row>
-                  <Col className='ps-0' sm={6}>
+                  <Col className='ps-0' lg={4}>
                     {!isShowStock ?
                       <div>
                         <header className='long-product-label mb-2'>{`${food.content.unit === 'kg' ? 'Khối' : 'Số'} lượng (${getUnit(food.content.unit)})`}</header>
-                      <Stack direction='horizontal'>
+                        <Stack direction='horizontal'>
                           <Button
                             className='count-btn-left'
                             variant='outline-secondary'
@@ -138,7 +139,15 @@ const FoodSelectCard = ({
                       </>
                     }
                   </Col>
-                  <Col className='d-grid align-items-center pe-0'>
+                  <Col className={size < 3 ? 'px-0 mb-2' : ''} lg={4}>
+                    <div className={`d-flex ${size < 3 ? 'ps-0' : ''} ${size < 2 ? 'mt-2' : ''}`} xs={12} md={6}>
+                      <div>
+                        <header className='long-product-label'>Còn</header>
+                        <h5 className='mt-2'>{distanceTime(food.content.expired_time)}</h5>
+                      </div>
+                    </div>
+                  </Col>
+                  <Col className={`d-grid align-items-center pe-0 ${size < 3 ? 'ps-0' : ''}`} >
                     {!isInFoodList() ?
                       <Button className='fogi' variant='primary' onClick={onSelect}>
                         Chọn

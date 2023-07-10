@@ -53,7 +53,7 @@ const FoodSelectListModal = ({
         show={subShow}
         onHide={onSubClose}
         backdrop='static'
-        size='lg'
+        size='xl'
       >
         <Modal.Header closeButton>
           <Modal.Title>{subCategory.name}</Modal.Title>
