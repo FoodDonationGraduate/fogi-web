@@ -80,6 +80,7 @@ const SubCategoryDetailsPage = ({
                         food={food}
                         onFoodShow={onFoodShow}
                         setTargetFood={setTargetFood}
+                        isDisplay={true}
                       />
                     </Col>
                   ))}

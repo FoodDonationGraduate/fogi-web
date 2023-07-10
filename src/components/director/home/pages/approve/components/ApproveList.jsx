@@ -9,6 +9,8 @@ import { useNavigate } from 'react-router';
 import { retrieveUnverifiedUsers } from 'components/redux/reducer/DirectorReducer';
 
 // Components
+import CommonNotFoundBody from 'components/common/CommonNotFoundBody';
+
 import ApproveItem from './ApproveItem';
 import Pagination from 'components/common/pagination/Pagination';
 
@@ -20,6 +22,14 @@ const ApproveList = () => {
 
   const APPROVE_COUNT = 4; // per page
   const [page, setPage] = useState(0);
+
+  const getUserTypeLabel = () => {
+    switch (user_type) {
+      case 'donee': return 'Người nhận';
+      case 'donor': return 'Người cho';
+      case 'volunteer': return 'Tình nguyện viên';
+    }
+  };
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -85,6 +95,9 @@ const ApproveList = () => {
             </div>
           </Col>
         </Row>
+      }
+      {(Object.keys(unverifiedUsers).length === 0 || unverifiedUsers.total_users === 0) && 
+        <CommonNotFoundBody title={`Chưa có ${getUserTypeLabel()} mới`}/>
       }
     </>
   );

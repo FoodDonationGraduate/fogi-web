@@ -13,7 +13,8 @@ import { useResizer } from 'utils/helpers/Resizer.jsx';
 const FoodCard = ({
   food,
   onFoodShow,
-  setTargetFood
+  setTargetFood,
+  isDisplay=false
 }) => {
   let size = useResizer();
 
@@ -59,9 +60,11 @@ const FoodCard = ({
                 </div>
               </Col>
               <Col className={`d-grid px-0 ${size < 3 ? 'mt-3' : ''}`} sm={4}>
-                <Button variant='outline-secondary' onClick={onClick}>
-                  {food.subCategory ? 'Chỉnh sửa' : 'Phân loại'}
-                </Button>
+                {!isDisplay &&
+                  <Button variant='outline-secondary' onClick={onClick}>
+                    Phân loại
+                  </Button>
+                }
               </Col>
             </Row>
           </Col>

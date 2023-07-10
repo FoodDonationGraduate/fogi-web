@@ -127,7 +127,7 @@ const ProductItem = ({
             <Col md={6} className={size < 3 && 'ps-0 py-3'}>
               <Row>
 
-                <Col className={`d-flex ${size < 3 && 'ps-0'} ${size < 2 && 'mt-2'}`} xs={12} md={3}>
+                <Col className={`d-flex ${size < 3 && 'ps-0'} ${size < 2 && 'mt-2'}`} xs={12} md={5}>
                   <Stack direction='vertical' gap={2}>
                     <header className='long-product-label'>{`${product.unit === 'kg' ? 'Khối' : 'Số'} lượng (${getUnit(product.unit)})`}</header>
                     <Stack direction='horizontal'>
