@@ -74,6 +74,7 @@ export const getStep = (step, isDonee, isDelivery, order) => {
   let label = '';
   let icon = <MdSmartphone className='step-item-icon' />;
   let currentRole = isDonee ? 'donee' : 'donor';
+  let user = localStorage.getItem("user") !== "undefined" && localStorage.getItem("user") !== null ? JSON.parse(localStorage.getItem("user")) : {};
   switch (step) {
     case 'pending':
       header = `Đang chờ ${!isDonee ? 'một ' : ''}Điều phối viên duyệt Yêu cầu`;
@@ -122,10 +123,23 @@ export const getStep = (step, isDonee, isDelivery, order) => {
     
     case 'canceled':
       header = 'Yêu cầu của bạn đã bị hủy bởi ' 
-      if (order.cancel_user_role === currentRole) {
+      if (order.cancel_user_role === user.user_type) {
         header += 'bạn';
       } else {
-        header += order.cancel_user_role === 'volunteer' ? ' Tình nguyện viên' : 'Điều phối viên'
+        switch (order.cancel_user_role) {
+          case 'volunteer':
+            header += ' Tình nguyện viên'
+            break;
+          case 'donor':
+            header += ' Người cho'
+            break;
+          case 'donee':
+            header += ' Người nhận'
+            break;
+          default:
+            header += ' Điều phối viên'
+        }
+        
       }
       label = 'Đã hủy';
       icon = <MdLabelImportant className='step-item-icon' />;
