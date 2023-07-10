@@ -104,7 +104,7 @@ const CategoryDetailsPage = ({
                     </EqualHeight>
                   </Row>
                   {(Object.keys(parentFood).length === 0 || parentFood.total_products === 0) && 
-                    <CommonNotFoundBody title='Chưa có Thực phẩm Cha nào'/>
+                    <CommonNotFoundBody title='Chưa có Thực phẩm Đại diện nào'/>
                   }
                 </>
                 :

@@ -148,7 +148,7 @@ const FoodModal = ({
               {!isMatchUnit && (
                 <p className="mt-2 error">
                   <FaExclamationTriangle className="mx-2" />
-                  Đơn vị đã chọn không tương ứng với Đơn vị của Thực phẩm cha
+                  Đơn vị đã chọn không tương ứng với Đơn vị của Thực phẩm Đại diện
                 </p>
               )}
             </Form.Group>
@@ -171,7 +171,7 @@ const FoodModal = ({
               {errors.parentProduct && errors.parentProduct.type === 'min' && (
                 <p className="mt-2 error">
                   <FaExclamationTriangle className="mx-2" />
-                  Bạn chưa chọn Thực phẩm cha
+                  Bạn chưa chọn Thực phẩm Đại diện
                 </p>
               )}
             </Form.Group>

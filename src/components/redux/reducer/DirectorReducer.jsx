@@ -534,13 +534,13 @@ export const addParentFood = (data, director, navigate) => {
         images: [data.image]
       }).then((res) => {
         dispatch(retrieveParentFood(data, director, navigate));
-        dispatch(setModalMessage("Thêm Thực phẩm cha thành công!"));
+        dispatch(setModalMessage("Thêm Thực phẩm Đại diện thành công!"));
         dispatch(showModal());
       }).catch((err) => {
         if (handleExpiredToken(err.response.data, dispatch, navigate)) {
         } else {
           console.log(err.response.data);
-          dispatch(setModalMessage("Thêm Thực phẩm cha không thành công!"))
+          dispatch(setModalMessage("Thêm Thực phẩm Đại diện không thành công!"))
           dispatch(setModalType('danger'))
           dispatch(showModal())
        }
@@ -567,7 +567,7 @@ export const updateParentFood = (data, director, navigate) => {
         images: [data.image]
       }).then((res) => {
         dispatch(retrieveParentFood(data, director, navigate));
-        dispatch(setModalMessage("Cập nhật Thực phẩm cha thành công!"));
+        dispatch(setModalMessage("Cập nhật Thực phẩm Đại diện thành công!"));
         dispatch(showModal());
         data.setTargetSubCategory({
           ...data.targetSubCategory,
@@ -579,7 +579,7 @@ export const updateParentFood = (data, director, navigate) => {
         if (handleExpiredToken(err.response.data, dispatch, navigate)) {
         } else {
           console.log(err.response.data);
-          dispatch(setModalMessage("Cập nhật Thực phẩm cha không thành công!"))
+          dispatch(setModalMessage("Cập nhật Thực phẩm Đại diện không thành công!"))
           dispatch(setModalType('danger'))
           dispatch(showModal())
        }

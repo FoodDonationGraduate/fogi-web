@@ -130,7 +130,7 @@ const SubCategoryModal = ({
         onHide={onHide}
       >
         <Modal.Header closeButton>
-          <Modal.Title>{targetSubCategory ? 'Chỉnh sửa' : 'Thêm'} Thực phẩm Cha</Modal.Title>
+          <Modal.Title>{targetSubCategory ? 'Chỉnh sửa' : 'Thêm'} Thực phẩm Đại diện</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleSubmit(onSubmit)}>
@@ -146,7 +146,7 @@ const SubCategoryModal = ({
                 />
               }
               <Button variant='outline-secondary' onClick={onShowImage}>
-                Đăng tải Ảnh Thực phẩm Cha
+                Đăng tải Ảnh Thực phẩm Đại diện
               </Button>
             </Stack>
             {!image && submitted && (
@@ -158,7 +158,7 @@ const SubCategoryModal = ({
 
             <Form.Group className='mb-3'>
               <Form.Label style={{ fontWeight: 'bold'}}>
-                Tên Thực phẩm Cha
+                Tên Thực phẩm Đại diện
               </Form.Label>
               <Form.Control
                 {...register('name')}
@@ -166,7 +166,7 @@ const SubCategoryModal = ({
               {errors.name && errors.name.type === 'required' && (
                 <p className="mt-2 error">
                   <FaExclamationTriangle className="mx-2" />
-                  Bạn chưa điền tên Thực phẩm Cha
+                  Bạn chưa điền tên Thực phẩm Đại diện
                 </p>
               )}
             </Form.Group>
@@ -207,7 +207,7 @@ const SubCategoryModal = ({
                   type='submit'
                   onClick={() => setSubmitted(true)}
                 >
-                  Thêm Thực phẩm Cha
+                  Thêm Thực phẩm Đại diện
                 </Button>
                 :
                 <Button
