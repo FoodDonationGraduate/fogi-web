@@ -4,8 +4,8 @@ import { useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 
 // Components & Pages
-import SideMenu from 'components/common/management/SideMenu';
-import SideMenuOffCanvas from 'components/common/management/SideMenuOffCanvas';
+import SideMenu from 'components/common/sideMenu/SideMenu';
+import SideMenuOffCanvas from 'components/common/sideMenu/SideMenuOffCanvas';
 import InfoModal from 'components/layout/InfoModal.jsx';
 import ConfirmModal from 'components/layout/ConfirmModal.jsx';
 

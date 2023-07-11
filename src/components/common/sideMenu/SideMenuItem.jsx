@@ -1,5 +1,5 @@
 // Essentials
-import React, { useState, useEffect }  from 'react';
+import React  from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Stack } from 'react-bootstrap';
 
@@ -30,10 +30,6 @@ const SideMenuItem = ({
   // Handle all the onClick events
   const handleOnClick = () => {
     navigate(`/${userType}/${sideMenuInfo.link}`);
-    if ((userType === 'director' && sideMenuInfo.idx === 1)
-    || (userType === 'donor' && sideMenuInfo.idx === 2)) {
-      localStorage.removeItem('requestAttributes');
-    }
   };
 
   return (

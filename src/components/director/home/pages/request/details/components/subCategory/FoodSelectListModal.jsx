@@ -10,7 +10,7 @@ import Pagination from 'components/common/pagination/Pagination';
 import FoodSelectCard from './FoodSelectCard';
 
 // Reducer
-import { retrieveFood } from 'components/redux/reducer/DirectorReducer';
+import { retrieveAllFood } from 'components/redux/reducer/DirectorReducer';
 
 const FoodSelectListModal = ({
   subCategory,
@@ -21,7 +21,7 @@ const FoodSelectListModal = ({
 }) => {
   const userInfo = useSelector(state => state.authenticationReducer.user);
   const userToken = useSelector(state => state.authenticationReducer.token);
-  const retrievedFoodList = useSelector(state => state.directorReducer.food);
+  const retrievedFoodList = useSelector(state => state.directorReducer.allFood);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -34,7 +34,7 @@ const FoodSelectListModal = ({
 
   useEffect(() => {
     if (!modalTrigger) return;
-    dispatch(retrieveFood(
+    dispatch(retrieveAllFood(
       {
         limit: FOOD_COUNT,
         offset: page * FOOD_COUNT,

@@ -14,7 +14,8 @@ import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 
 // Reducers
-import { retrieveParentFood, updateFood } from 'components/redux/reducer/DirectorReducer';
+import { retrieveAllParentFood, updateFood } from 'components/redux/reducer/DirectorReducer';
+import { retrieveAllCategories } from 'components/redux/reducer/CategoryReducer';
 
 const FoodModal = ({
   food,
@@ -29,7 +30,7 @@ const FoodModal = ({
   const dispatch = useDispatch(); const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(retrieveParentFood({}, { userInfo, userToken }, navigate));
+    dispatch(retrieveAllParentFood({}, { userInfo, userToken }, navigate));
   }, []);
 
   const [isMatchUnit, setIsMatchUnit] = useState(true);
@@ -161,7 +162,7 @@ const FoodModal = ({
               <Form.Select
                 default-value={-1}
                 {...register('parentProduct')}
-              >
+              > 
                 <option value={-1}>-</option>
                 {Object.keys(parentFood).length > 0 && parentFood.products.map((parentOption, idx) => (
                   <option value={parentOption.id} key={idx}>

@@ -15,9 +15,9 @@ const initialState = {
   currentRequest: null,
   availableVolunteers: {},
 
-  unsortedFood: {},
-  parentFood: {},
-  food: {}
+  allUnsortedFood: {},
+  allParentFood: {},
+  allFood: {}
 };
 
 const directorReducer = createSlice({
@@ -47,14 +47,14 @@ const directorReducer = createSlice({
       state.availableVolunteers = action.payload;
     },
 
-    setUnsortedFood: (state, action) => {
-      state.unsortedFood = action.payload;
+    setAllUnsortedFood: (state, action) => {
+      state.allUnsortedFood = action.payload;
     },
-    setParentFood: (state, action) => {
-      state.parentFood = action.payload;
+    setAllParentFood: (state, action) => {
+      state.allParentFood = action.payload;
     },
-    setFood: (state, action) => {
-      state.food = action.payload;
+    setAllFood: (state, action) => {
+      state.allFood = action.payload;
     }
   }
 });
@@ -64,7 +64,7 @@ export const {
 
   setAllRequests, setCurrentRequest, setAvailableVolunteers,
 
-  setUnsortedFood, setParentFood, setFood
+  setAllUnsortedFood, setAllParentFood, setAllFood
 } = directorReducer.actions
 
 export default directorReducer.reducer
@@ -461,7 +461,7 @@ export const retrieveAvailableVolunteers = (data, director, navigate) => {
   }
 }
 
-export const retrieveUnsortedFood = (data, director, navigate) => {
+export const retrieveAllUnsortedFood = (data, director, navigate) => {
   return async dispatch => {
     try {
       console.log('retrieve unsorted food');
@@ -474,7 +474,7 @@ export const retrieveUnsortedFood = (data, director, navigate) => {
         sort_by: 'desc',
         filter: 'in_stock'
       }}).then((res) => {
-        dispatch(setUnsortedFood(res.data));
+        dispatch(setAllUnsortedFood(res.data));
       }).catch((err) => {
         if (handleExpiredToken(err.response.data, dispatch, navigate)) {
           
@@ -492,7 +492,7 @@ export const retrieveUnsortedFood = (data, director, navigate) => {
   }
 }
 
-export const retrieveParentFood = (data, director, navigate) => {
+export const retrieveAllParentFood = (data, director, navigate) => {
   return async dispatch => {
     try {
       console.log('retrieve parent food');
@@ -501,7 +501,7 @@ export const retrieveParentFood = (data, director, navigate) => {
         token: director.userToken,
         category_id: data.category_id
       }}).then((res) => {
-        dispatch(setParentFood(res.data));
+        dispatch(setAllParentFood(res.data));
         console.log(JSON.stringify(directorReducer))
       }).catch((err) => {
         if (handleExpiredToken(err.response.data, dispatch, navigate)) {
@@ -533,7 +533,7 @@ export const addParentFood = (data, director, navigate) => {
         category_id: data.category_id,
         images: [data.image]
       }).then((res) => {
-        dispatch(retrieveParentFood(data, director, navigate));
+        dispatch(retrieveAllParentFood(data, director, navigate));
         dispatch(setModalMessage("Thêm Thực phẩm Đại diện thành công!"));
         dispatch(showModal());
       }).catch((err) => {
@@ -566,7 +566,7 @@ export const updateParentFood = (data, director, navigate) => {
         category_id: data.category_id,
         images: [data.image]
       }).then((res) => {
-        dispatch(retrieveParentFood(data, director, navigate));
+        dispatch(retrieveAllParentFood(data, director, navigate));
         dispatch(setModalMessage("Cập nhật Thực phẩm Đại diện thành công!"));
         dispatch(showModal());
         data.setTargetSubCategory({
@@ -591,7 +591,7 @@ export const updateParentFood = (data, director, navigate) => {
   }
 }
 
-export const retrieveFood = (data, director, navigate) => {
+export const retrieveAllFood = (data, director, navigate) => {
   return async dispatch => {
     try {
       console.log('retrieve food');
@@ -605,7 +605,7 @@ export const retrieveFood = (data, director, navigate) => {
         filter: 'in_stock',
         parent_id: data.parent_id,
       }}).then((res) => {
-        dispatch(setFood(res.data));
+        dispatch(setAllFood(res.data));
       }).catch((err) => {
         if (handleExpiredToken(err.response.data, dispatch, navigate)) {
           
@@ -636,11 +636,11 @@ export const updateFood = (data, director, navigate) => {
         child_stock: data.child_stock,
         child_unit: data.child_unit
       }).then((res) => {
-        if (!data.is_sorted) dispatch(retrieveUnsortedFood({
+        if (!data.is_sorted) dispatch(retrieveAllUnsortedFood({
           ...data,
           offset: (data.food_list_length % data.offset !== 1) ? data.offset : 0
         }, director, navigate));
-        else dispatch(retrieveFood({
+        else dispatch(retrieveAllFood({
           ...data,
           offset: (data.food_list_length % data.offset !== 1) ? data.offset : 0
         }, director, navigate));

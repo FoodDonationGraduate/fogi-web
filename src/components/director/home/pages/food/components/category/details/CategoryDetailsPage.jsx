@@ -17,7 +17,7 @@ import FoodCard from 'components/director/home/pages/food/components/food/FoodCa
 import FoodModal from 'components/director/home/pages/food/components/food/FoodModal';
 
 // Reducers
-import { retrieveUnsortedFood, retrieveParentFood } from 'components/redux/reducer/DirectorReducer';
+import { retrieveAllUnsortedFood, retrieveAllParentFood } from 'components/redux/reducer/DirectorReducer';
 
 const CategoryDetailsPage = ({
   category,
@@ -31,7 +31,7 @@ const CategoryDetailsPage = ({
   const dispatch = useDispatch(); const navigate = useNavigate();
 
   // Unsorted food
-  const unsortedFood = useSelector(state => state.directorReducer.unsortedFood);
+  const allUnsortedFood = useSelector(state => state.directorReducer.allUnsortedFood);
   const [targetFood, setTargetFood] = useState(null);
   const FOOD_COUNT = 4;
   const [page, setPage] = useState(0); // a.k.a activeIdx
@@ -40,7 +40,7 @@ const CategoryDetailsPage = ({
   };
 
   useEffect(() => {
-    dispatch(retrieveUnsortedFood(
+    dispatch(retrieveAllUnsortedFood(
       {
         limit: FOOD_COUNT,
         offset: page * FOOD_COUNT
@@ -55,10 +55,10 @@ const CategoryDetailsPage = ({
   const onFoodClose = () => setFoodShow(false);
 
   // Parent Food
-  const parentFood = useSelector(state => state.directorReducer.parentFood);
+  const allParentFood = useSelector(state => state.directorReducer.allParentFood);
   useEffect(() => {
     if (!category.id) return;
-    dispatch(retrieveParentFood(
+    dispatch(retrieveAllParentFood(
       { category_id: category.id },
       { userInfo, userToken },
       navigate
@@ -93,7 +93,7 @@ const CategoryDetailsPage = ({
                 <>
                   <Row className='mb-2' xs={2} sm={3} md={4}>
                     <EqualHeight>
-                      {Object.keys(parentFood).length !== 0 && parentFood.products.map((pf, idx) => (
+                      {Object.keys(allParentFood).length !== 0 && allParentFood.products.map((pf, idx) => (
                         <Col className='mb-4' key={idx}>
                           <SubCategoryCard
                             subCategory={pf}
@@ -103,14 +103,14 @@ const CategoryDetailsPage = ({
                       ))}
                     </EqualHeight>
                   </Row>
-                  {(Object.keys(parentFood).length === 0 || parentFood.total_products === 0) && 
+                  {(Object.keys(allParentFood).length === 0 || allParentFood.total_products === 0) && 
                     <CommonNotFoundBody title='Chưa có Thực phẩm Đại diện nào'/>
                   }
                 </>
                 :
                 <Row className='mb-2' xs={1}>
                   <EqualHeight>
-                    {Object.keys(unsortedFood).length !== 0 && unsortedFood.products.map((food, idx) => (
+                    {Object.keys(allUnsortedFood).length !== 0 && allUnsortedFood.products.map((food, idx) => (
                       <Col className='mb-3' key={idx}>
                         <FoodCard
                           food={food}
@@ -119,12 +119,12 @@ const CategoryDetailsPage = ({
                         />
                       </Col>
                     ))}
-                    {(Object.keys(unsortedFood).length === 0 || unsortedFood.total_products === 0) && 
+                    {(Object.keys(allUnsortedFood).length === 0 || allUnsortedFood.total_products === 0) && 
                       <CommonNotFoundBody title='Không có Thực phẩm chưa phân loại'/>
                     }
                     <div className='d-flex justify-content-center mt-4'>
                       <Pagination
-                        pageCount={Math.ceil(unsortedFood.total_products / FOOD_COUNT)}
+                        pageCount={Math.ceil(allUnsortedFood.total_products / FOOD_COUNT)}
                         activeIdx={page}
                         onChangePage={onChangePage}
                       />
@@ -139,7 +139,7 @@ const CategoryDetailsPage = ({
       {targetFood &&
         <FoodModal
           food={targetFood}
-          foodList={unsortedFood}
+          foodList={allUnsortedFood}
           setTargetFood={setTargetFood}
           show={foodShow} onShow={onFoodShow} onClose={onFoodClose}
           limit={FOOD_COUNT} offset={page * FOOD_COUNT}

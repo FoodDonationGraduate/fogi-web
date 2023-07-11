@@ -16,7 +16,7 @@ import FoodCard from 'components/director/home/pages/food/components/food/FoodCa
 import FoodModal from 'components/director/home/pages/food/components/food/FoodModal';
 
 // Reducers
-import { retrieveFood } from 'components/redux/reducer/DirectorReducer';
+import { retrieveAllFood } from 'components/redux/reducer/DirectorReducer';
 
 const SubCategoryDetailsPage = ({
   subCategory,
@@ -28,7 +28,7 @@ const SubCategoryDetailsPage = ({
   const dispatch = useDispatch(); const navigate = useNavigate();
 
   // Food
-  const foodList = useSelector(state => state.directorReducer.food);
+  const foodList = useSelector(state => state.directorReducer.allFood);
   const [targetFood, setTargetFood] = useState(null);
   const FOOD_COUNT = 4;
   const [page, setPage] = useState(0); // a.k.a activeIdx
@@ -41,7 +41,7 @@ const SubCategoryDetailsPage = ({
   const onFoodClose = () => setFoodShow(false);
 
   useEffect(() => {
-    dispatch(retrieveFood(
+    dispatch(retrieveAllFood(
       {
         limit: FOOD_COUNT,
         offset: page * FOOD_COUNT,
