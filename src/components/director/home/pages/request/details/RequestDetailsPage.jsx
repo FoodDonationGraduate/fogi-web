@@ -1,8 +1,8 @@
 // Essentials
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Col, Container, OverlayTrigger, Row, Stack, Tooltip } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 // Components
 import BackButton from 'components/common/BackButton';
@@ -17,37 +17,55 @@ import VolunteerCard from './components/volunteer/VolunteerCard';
 import VolunteerList from './components/volunteer/VolunteerList';
 
 // Reducers
-import { setCurrentRequest, updateRequest, updateRequestChild } from 'components/redux/reducer/DirectorReducer';
+import { retrieveCurrentRequest, updateRequest, updateRequestChild } from 'components/redux/reducer/DirectorReducer';
 
 // Style
 import 'assets/css/user/order/Order.css';
 
-const RequestDetailsPage = ({
-  request
-}) => {
+const RequestDetailsPage = () => {
   const userInfo = useSelector(state => state.authenticationReducer.user);
   const userToken = useSelector(state => state.authenticationReducer.token);
   const dispatch = useDispatch(); const navigate = useNavigate();
+  const { from, id } = useParams();
+
+  const request = useSelector(state => state.directorReducer.currentRequest);
 
   // List handling
-  const [subCategoryList, setSubCategoryList] = useState(request.products);
+  const [subCategoryList, setSubCategoryList] = useState([]);
   const [childList, setChildList] = useState([]);
-  const [foodList, setFoodList] = useState(request.products);
 
   const isEnough = () => {
-    for (let i = 0; i < foodList.length; i++) {
-      const currentChildList = childList.filter(c => c.parent_id === foodList[i].id);
+    for (let i = 0; i < request.products.length; i++) {
+      const currentChildList = childList.filter(c => c.parent_id === request.products[i].id);
       let total = 0;
       for (let j = 0; j < currentChildList.length; j++) {
         total += currentChildList[j].quantity;
       }
-      if (total < foodList[i].quantity) return false;
+      if (total < request.products[i].quantity) return false;
     }
     return true;
   };
 
+  useEffect(() => {
+    dispatch(retrieveCurrentRequest(
+      {
+        request_from: from,
+        request_id: id
+      },
+      { userInfo, userToken },
+      navigate
+    ));
+  }, []);
+
+
+  useEffect(() => {
+    if (!request) return;
+    
+    setSubCategoryList(request.products);
+  }, [request]);
+
   // Volunteer handling
-  const [targetVolunteer, setTargetVolunteer] = useState(request.volunteer ? request.volunteer : null);
+  const [targetVolunteer, setTargetVolunteer] = useState(request ? request.volunteer : null);
 
 
   // STATUS HANDLING ----------------------------
@@ -200,99 +218,100 @@ const RequestDetailsPage = ({
 
   return (
     <>
-      <CancelModal
-        show={show}
-        onClose={onClose}
-        volunteerInfo={request.volunteer}
-        userInfo={request.user}
-        request={request}
-      />
-      <div className='bg'>
-        <div className='mb-2'>
-          <BackButton setTargetList={[
-            { setTarget: setCurrentRequest, isReducer: true },
-            { setTarget: setTargetVolunteer, isReducer: false }
-          ]} />
-        </div>
-        <div className='mb-4'>
-          <RequestInfoCard request={request} />
-        </div>
-        <div className='mb-4'>
-          {request.user.user_type === 'donor' ?
-            <FoodList
-              foodList={foodList}
-            />
-            :
-            <>
-              {request.status === 'pending' ?
-                <SubCategoryList
-                  subCategoryList={subCategoryList} setSubCategoryList={setSubCategoryList}
-                  childList={childList} setChildList={setChildList}
-                  isError={isError} setIsError={setIsError}
+      {request &&
+        <>
+          <CancelModal
+            show={show}
+            onClose={onClose}
+            volunteerInfo={request.volunteer}
+            userInfo={request.user}
+            request={request}
+          />
+          <div className='bg'>
+            <div className='mb-2'>
+              <BackButton />
+            </div>
+            <div className='mb-4'>
+              <RequestInfoCard request={request} />
+            </div>
+            <div className='mb-4'>
+              {request.user.user_type === 'donor' ?
+                <FoodList
+                  foodList={request.products}
                 />
                 :
-                <SubCategoryDisplayList
-                  subCategoryList={subCategoryList}
-                />
-              }
-            </>
-          }
-        </div>
-        {!request.volunteer ?
-          <>
-            {
-            (((request.delivery_type && request.delivery_type !== 'pickup' ) && (['pending', 'finding'].includes(request.status)))
-            || (request.user.user_type === 'donor')) && request.status !== 'canceled' &&
-              <VolunteerList
-                targetVolunteer={targetVolunteer} setTargetVolunteer={setTargetVolunteer}
-              />
-            }
-          </>
-          :
-          <Container>
-            <ListTitle title={'Tình nguyện viên'} />
-            <Row>
-              <Col>
-                <VolunteerCard
-                  request={request} volunteer={request.volunteer}
-                />
-              </Col>
-            </Row>
-          </Container>
-        }
-        <Container>
-          <Row>
-            <div className='d-flex justify-content-end mt-4'>
-              <Stack direction='horizontal' gap={2}>
-                {['pending', 'accepted', 'finding', 'receiving', 'shipping']
-                .includes(request.status) &&
-                  <Button variant='outline-danger' onClick={onShow}>
-                  Hủy Yêu cầu
-                  </Button>
+                <>
+                {request.status === 'pending' ?
+                  <SubCategoryList
+                    subCategoryList={subCategoryList} setSubCategoryList={setSubCategoryList}
+                    childList={childList} setChildList={setChildList}
+                    isError={isError} setIsError={setIsError}
+                  />
+                  :
+                  <SubCategoryDisplayList
+                    subCategoryList={subCategoryList}
+                  />
                 }
+                </>
+              }
+            </div>
+            {!request.volunteer ?
+              <>
+                {
+                (((request.delivery_type && request.delivery_type !== 'pickup' ) && (['pending', 'finding'].includes(request.status)))
+                || (request.user.user_type === 'donor')) && request.status !== 'canceled' &&
+                  <VolunteerList
+                    targetVolunteer={targetVolunteer} setTargetVolunteer={setTargetVolunteer}
+                  />
+                }
+              </>
+              :
+              <Container>
+                <ListTitle title={'Tình nguyện viên'} />
+                <Row>
+                  <Col>
+                    <VolunteerCard
+                      request={request} volunteer={request.volunteer}
+                    />
+                  </Col>
+                </Row>
+              </Container>
+            }
+            <Container>
+              <Row>
+                <div className='d-flex justify-content-end mt-4'>
+                  <Stack direction='horizontal' gap={2}>
+                    {['pending', 'accepted', 'finding', 'receiving', 'shipping']
+                    .includes(request.status) &&
+                      <Button variant='outline-danger' onClick={onShow}>
+                      Hủy Yêu cầu
+                      </Button>
+                    }
 
-                {getNextCondition() && (!getNextCondition().condition ?
-                  <OverlayTrigger
-                    placement={'top'}
-                    overlay={tooltip(getNextCondition().tip)}
-                  >
-                    <span>
-                      <Button className='fogi' variant='primary' disabled>
+                    {getNextCondition() && (!getNextCondition().condition ?
+                      <OverlayTrigger
+                        placement={'top'}
+                        overlay={tooltip(getNextCondition().tip)}
+                      >
+                        <span>
+                          <Button className='fogi' variant='primary' disabled>
+                            {getNextCondition().label}
+                          </Button>
+                        </span>
+                      </OverlayTrigger>
+                      :
+                      <Button className='fogi' variant='primary' onClick={onUpdate}>
                         {getNextCondition().label}
                       </Button>
-                    </span>
-                  </OverlayTrigger>
-                  :
-                  <Button className='fogi' variant='primary' onClick={onUpdate}>
-                    {getNextCondition().label}
-                  </Button>
-                )}
+                    )}
 
-              </Stack>
-            </div>
-          </Row>
-        </Container>
-      </div>
+                  </Stack>
+                </div>
+              </Row>
+            </Container>
+          </div>
+        </>
+      }
     </>
   );
 };

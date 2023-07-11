@@ -1,6 +1,6 @@
 // Essentials
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 
 // Components
@@ -8,16 +8,14 @@ import RequestListPage from './list/RequestListPage';
 import RequestDetailsPage from './details/RequestDetailsPage';
 
 const RequestPage = () => {
-  const currentRequest = useSelector(state => state.directorReducer.currentRequest);
+  const { from, id } = useParams();
 
   return (
     <>
-      {!currentRequest ?
+      {(!from || !id) ?
         <RequestListPage />
         :
-        <RequestDetailsPage
-          request={currentRequest}
-        />
+        <RequestDetailsPage />
       }
     </>
   );

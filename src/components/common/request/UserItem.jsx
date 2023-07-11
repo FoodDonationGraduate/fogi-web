@@ -5,7 +5,8 @@ import { useNavigate } from 'react-router-dom';
 
 const UserItem = ({
   user,
-  user_type='volunteer'
+  user_type='volunteer',
+  isPickup=false
 }) => {
   const navigate = useNavigate();
 
@@ -25,7 +26,7 @@ const UserItem = ({
     <>
       {user ? 
         <>
-          <Stack direction='horizontal' gap={2}>
+          <Stack direction='horizontal' gap={3}>
             <img
               src={`https://bachkhoi.online/static/${user.avatar}`}
               alt='volunteer-avatar'
@@ -42,7 +43,9 @@ const UserItem = ({
         </>
         :
         <div className='text-center h-100'>
-          <small className='order-item-volunteer-label'>Chưa có {getUserTypeLabel()}</small>
+          <small className='order-item-volunteer-label'>
+            {isPickup ? 'Không' : 'Chưa'} có {getUserTypeLabel()}{isPickup ? ' vì lấy tại chỗ' : ''}
+          </small>
         </div>
       }
     </>

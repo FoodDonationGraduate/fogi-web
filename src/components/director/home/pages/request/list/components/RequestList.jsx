@@ -11,7 +11,7 @@ import Pagination from 'components/common/pagination/Pagination';
 import CommonNotFoundBody from 'components/common/CommonNotFoundBody';
 
 // Reducers
-import { retrieveAllRequests, setCurrentRequest } from 'components/redux/reducer/DirectorReducer';
+import { retrieveAllRequests } from 'components/redux/reducer/DirectorReducer';
 
 const RequestList = ({
   currentType,
@@ -26,34 +26,27 @@ const RequestList = ({
   // Pagination handling
   const REQUEST_COUNT = 4; // per page
   const [page, setPage] = useState(0); // a.k.a activeIdx
-  const onChangePage = async (idx) => {
+  const onChangePage = (idx) => {
     setPage(idx);
-    await dispatch(retrieveAllRequests(
-      {
-        limit: REQUEST_COUNT,
-        offset: idx * REQUEST_COUNT,
-        request_from: currentType,
-        request_status: currentStatus
-      },
-      { userInfo, userToken },
-      navigate
-    ));
   };
 
-  // Get Available Volunteers
+  // Get all requests
   useEffect(() => {
     setPage(0);
+  }, [currentType, currentStatus]);
+
+  useEffect(() => {
     dispatch(retrieveAllRequests(
       {
         limit: REQUEST_COUNT,
-        offset: 0,
+        offset: page * REQUEST_COUNT,
         request_from: currentType,
         request_status: currentStatus
       },
       { userInfo, userToken },
       navigate
     ));
-  }, [currentType, currentStatus]);
+  }, [page, currentType, currentStatus]);
 
   return (
     <div>
@@ -62,20 +55,24 @@ const RequestList = ({
           <Row>
             <Col className='px-0'>
               <Row className='mb-2' xs={1} md={2} lg={2} >
-                <EqualHeight>
-                  {allRequests.requests.map((request, idx) => (
-                    <Col className='mb-4' key={idx}>
-                      <div
-                        className='order-item'
-                        onClick={() => dispatch(setCurrentRequest(request))}
-                      >
-                        <RequestCard
-                          request={request}
-                        />
-                      </div>
-                    </Col>
-                  ))}
-                </EqualHeight>
+                {Object.keys(allRequests).length > 0 && 
+                  <EqualHeight
+                    animationSpeed={0.1}
+                  >
+                    {allRequests.requests.map((request, idx) => (
+                      <Col className='mb-4' key={idx}>
+                        <div
+                          className='order-item'
+                          onClick={() => navigate(`/director/request/${currentType}/${request.id}`)}
+                        >
+                          <RequestCard
+                            request={request}
+                          />
+                        </div>
+                      </Col>
+                    ))}
+                  </EqualHeight>
+                }
               </Row>
               <div className='d-flex justify-content-center'>
                 <Pagination

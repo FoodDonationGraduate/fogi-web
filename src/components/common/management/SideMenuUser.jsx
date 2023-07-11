@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
 
-const DirectorItem = () => {
+const SideMenuUser = () => {
   const userInfo = useSelector(state => state.authenticationReducer.user);
 
   const navigate = useNavigate();
@@ -36,4 +36,4 @@ const DirectorItem = () => {
   );
 };
 
-export default DirectorItem;
+export default SideMenuUser;
