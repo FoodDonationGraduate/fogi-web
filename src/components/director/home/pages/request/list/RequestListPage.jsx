@@ -8,9 +8,11 @@ import ChipList from 'components/common/chip/ChipList';
 import RequestList from './components/RequestList';
 
 const RequestListPage = () => {
+  // Request attributes
+  const requestAttributes = JSON.parse(localStorage.getItem('requestAttributes'));
 
   // Chip List - Request type
-  const [activeTypeIdx, setActiveTypeIdx] = useState(0);
+  const [activeFromIdx, setActiveFromIdx] = useState((requestAttributes && requestAttributes.from === 'donee') ? 1 : 0);
   const typeList = ['donor', 'donee'];
   const getTypeLabel = (status) => {
     switch (status) {
@@ -21,8 +23,8 @@ const RequestListPage = () => {
   const typeStyleList = ['success', 'success'];
 
   // Chip List - Request status
-  const [activeStatusIdx, setActiveStatusIdx] = useState(0);
   const statusList = ['pending', 'accepted', 'finding', 'receiving', 'shipping', 'success', 'canceled'];
+  const [activeStatusIdx, setActiveStatusIdx] = useState(requestAttributes ? statusList.indexOf(requestAttributes.status) : 0);
   const getStatusLabel = (status) => {
     switch (status) {
       case 'pending':
@@ -51,8 +53,8 @@ const RequestListPage = () => {
           <Stack direction='horizontal' className='mb-4' gap={3}>
             <h2 className='fw-bold'>Quản lý Yêu cầu</h2>
             <ChipList
-              activeStatusIdx={activeTypeIdx}
-              setActiveStatusIdx={setActiveTypeIdx}
+              activeStatusIdx={activeFromIdx}
+              setActiveStatusIdx={setActiveFromIdx}
               statusList={typeList}
               getStatusLabel={getTypeLabel}
               styleList={typeStyleList}
@@ -71,7 +73,7 @@ const RequestListPage = () => {
         {/* --- Request List --- */}
         <div>
           <RequestList
-            currentType={typeList[activeTypeIdx]}
+            currentFrom={typeList[activeFromIdx]}
             currentStatus={statusList[activeStatusIdx]}
           />
         </div>

@@ -1,6 +1,5 @@
 // Essentials
-import * as React from 'react';
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Col, Row } from 'react-bootstrap';
 import { EqualHeight } from 'react-equal-height';
 import { useDispatch, useSelector } from 'react-redux'
@@ -28,13 +27,20 @@ const OrderList = ({
 
   const onChangePage = async (idx) => {
     setPage(idx);
-    await dispatch(retrieveAllRequests({limit: ORDER_COUNT, offset: idx * ORDER_COUNT, sort_field: sort, request_status: currentStatus}, {userInfo, userToken}, navigate))
   };
 
-  React.useEffect(()=>{
-    dispatch(retrieveAllRequests({limit: ORDER_COUNT, offset: page * ORDER_COUNT, sort_field: sort, request_status: currentStatus}, {userInfo, userToken}, navigate))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  // Get all requests
+  useEffect(() => {
+    setPage(0);
   }, [sort, currentStatus]);
+
+  useEffect(()=>{
+    dispatch(retrieveAllRequests({limit: ORDER_COUNT, offset: page * ORDER_COUNT, sort_field: sort, request_status: currentStatus}, {userInfo, userToken}, navigate))
+    localStorage.setItem('requestAttributes', JSON.stringify({
+      status: currentStatus
+    }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page, sort, currentStatus]);
 
 
   return (
