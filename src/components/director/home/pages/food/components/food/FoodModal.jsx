@@ -14,7 +14,7 @@ import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 
 // Reducers
-import { retrieveAllParentFood, updateFood } from 'components/redux/reducer/DirectorReducer';
+import { retrieveAllParentFood, setAllParentFood, updateFood } from 'components/redux/reducer/DirectorReducer';
 import { retrieveAllCategories } from 'components/redux/reducer/CategoryReducer';
 
 const FoodModal = ({
@@ -26,12 +26,10 @@ const FoodModal = ({
 }) => {
   const userInfo = useSelector(state => state.authenticationReducer.user);
   const userToken = useSelector(state => state.authenticationReducer.token);
-  const parentFood = useSelector(state => state.directorReducer.parentFood);
-  const dispatch = useDispatch(); const navigate = useNavigate();
+  const allParentFood = useSelector(state => state.directorReducer.allParentFood);
+  const allCategories = useSelector(state => state.categoryReducer.allCategories);
 
-  useEffect(() => {
-    dispatch(retrieveAllParentFood({}, { userInfo, userToken }, navigate));
-  }, []);
+  const dispatch = useDispatch(); const navigate = useNavigate();
 
   const [isMatchUnit, setIsMatchUnit] = useState(true);
 
@@ -39,11 +37,12 @@ const FoodModal = ({
   const formSchema = Yup.object().shape({
     name: Yup.string().required(''),
     stock: Yup.number().required(),
-    parentProduct: Yup.number().required().min(0),
+    category: Yup.number().required().min(0),
+    parentFood: Yup.number().required().min(0),
     unit: Yup.string().required()
   });
   const formOptions = { resolver: yupResolver(formSchema) };
-  const { register, handleSubmit, formState, reset } = useForm(formOptions);
+  const { register, setValue, handleSubmit, formState, reset } = useForm(formOptions);
   const { errors } = formState;
 
   const onOpen = () => {
@@ -51,13 +50,14 @@ const FoodModal = ({
       name: food.name,
       stock: food.stock,
       unit: food.unit,
-      parentProduct: -1
+      category: -1,
+      parentFood: -1
     });
     onShow();
   };
 
   const onSubmit = (data) => {
-    if (data.unit !== parentFood.products.find(f => f.id === data.parentProduct).unit) {
+    if (data.unit !== allParentFood.products.find(f => f.id === data.parentFood).unit) {
       setIsMatchUnit(false);
       return;
     }
@@ -66,7 +66,7 @@ const FoodModal = ({
     dispatch(updateFood(
       {
         child_id: food.id,
-        parent_id: data.parentProduct,
+        parent_id: data.parentFood,
         child_name: data.name,
         child_stock: data.stock,
         child_unit: data.unit,
@@ -80,6 +80,17 @@ const FoodModal = ({
     ));
 
     onClose();
+  };
+
+  useEffect(() => {
+    dispatch(retrieveAllCategories(navigate));
+    dispatch(setAllParentFood({}));
+  }, []);
+
+  const getAllParentFood = (event) => {
+    const category_id = event.target.value;
+    setValue('category', category_id);
+    dispatch(retrieveAllParentFood({ category_id }, { userInfo, userToken }, navigate));
   };
 
   return (
@@ -156,24 +167,60 @@ const FoodModal = ({
             </Form.Group>
 
             <Form.Group className='mb-3'>
-              <Form.Label style={{ fontWeight: 'bold' }}>
-                Phân loại
-              </Form.Label>
-              <Form.Select
-                default-value={-1}
-                {...register('parentProduct')}
-              > 
-                <option value={-1}>-</option>
-                {Object.keys(parentFood).length > 0 && parentFood.products.map((parentOption, idx) => (
-                  <option value={parentOption.id} key={idx}>
-                    {parentOption.name} ({parentOption.category_name}) (Đơn vị: {getUnit(parentOption.unit)})
-                  </option>
-                ))}
-              </Form.Select>
-              {errors.parentProduct && errors.parentProduct.type === 'min' && (
+              <Row>
+                <Col className='ps-0'>
+                  <div className='d-flex justify-content-between'>
+                    <Form.Label style={{ fontWeight: 'bold' }}>
+                      Phân loại
+                    </Form.Label>
+                    {/* <div className='tag' onClick={() => {
+                      onCatShow(); onClose();
+                    }}>
+                      Tạo mới
+                    </div> */}
+                  </div>
+                  <Form.Select
+                    default-value={-1}
+                    onChange={(event) => getAllParentFood(event)}
+                  >
+                    <option value={-1}>-</option>
+                    {Object.keys(allCategories).length > 0 && allCategories.categories.map((category, idx) => (
+                      <option value={category.id} key={idx}>
+                        {category.name}
+                      </option>
+                    ))}
+                  </Form.Select>
+                </Col>
+
+                <Col className='pe-0'>
+                  <div className='d-flex justify-content-between'>
+                    <Form.Label style={{ fontWeight: 'bold' }}>
+                      Thực phẩm cha
+                    </Form.Label>
+                    <div className='tag' onClick={() => {
+                      
+                    }}>
+                      Tạo mới
+                    </div>
+                  </div>
+                  <Form.Select
+                    default-value={-1}
+                    {...register('parentFood')}
+                    disabled={Object.keys(allParentFood).length === 0}
+                  >
+                    <option value={-1}>-</option>
+                    {Object.keys(allParentFood).length > 0 && allParentFood.products.map((parentOption, idx) => (
+                      <option value={parentOption.id} key={idx}>
+                        {parentOption.name} ({getUnit(parentOption.unit)})
+                      </option>
+                    ))}
+                  </Form.Select>
+                </Col>
+              </Row>
+              {errors.parentFood && errors.parentFood.type === 'min' && (
                 <p className="mt-2 error">
                   <FaExclamationTriangle className="mx-2" />
-                  Bạn chưa chọn Thực phẩm Đại diện
+                  Bạn chưa phân loại Thực phẩm
                 </p>
               )}
             </Form.Group>

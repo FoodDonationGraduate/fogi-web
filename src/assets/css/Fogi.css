@@ -296,3 +296,15 @@ a.fogi:active {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.tag {
+  color: #82CD47;
+  font-size: 14px;
+  cursor: pointer;
+}
+  .tag:hover {
+    color: #5A9829;
+  }
+  .tag:active {
+    color: #5A9829;
+  }
