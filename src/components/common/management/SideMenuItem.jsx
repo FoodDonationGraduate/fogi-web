@@ -30,6 +30,10 @@ const SideMenuItem = ({
   // Handle all the onClick events
   const handleOnClick = () => {
     navigate(`/${userType}/${sideMenuInfo.link}`);
+    if ((userType === 'director' && sideMenuInfo.idx === 1)
+    || (userType === 'donor' && sideMenuInfo.idx === 2)) {
+      localStorage.removeItem('requestAttributes');
+    }
   };
 
   return (

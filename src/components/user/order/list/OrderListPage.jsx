@@ -14,9 +14,12 @@ import InfoModal from 'components/layout/InfoModal';
 import 'assets/css/user/order/Order.css';
 
 const OrderListPage = () => {
+  // Request attributes
+  const requestAttributes = JSON.parse(localStorage.getItem('requestAttributes'));
+  
   // Chip List
-  const [activeStatusIdx, setActiveStatusIdx] = useState(0);
   const statusList = ['pending', 'accepted', 'finding', 'receiving', 'shipping', 'success', 'canceled'];
+  const [activeStatusIdx, setActiveStatusIdx] = useState(requestAttributes ? statusList.indexOf(requestAttributes.status) : 0);
   const getStatusLabel = (status) => {
     switch (status) {
       case 'pending':

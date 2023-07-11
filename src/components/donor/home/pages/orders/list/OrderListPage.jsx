@@ -8,9 +8,12 @@ import OrderList from './components/OrderList';
 import ChipList from 'components/common/chip/ChipList';
 
 const OrderListPage = () => {
+  // Request attributes
+  const requestAttributes = JSON.parse(localStorage.getItem('requestAttributes'));
+  
   // Chip List
-  const [activeStatusIdx, setActiveStatusIdx] = useState(0);
   const statusList = ['pending', 'accepted', 'finding', 'receiving', 'shipping', 'success', 'canceled'];
+  const [activeStatusIdx, setActiveStatusIdx] = useState(requestAttributes ? statusList.indexOf(requestAttributes.status) : 0);
   const getStatusLabel = (status) => {
     switch (status) {
       case 'pending':

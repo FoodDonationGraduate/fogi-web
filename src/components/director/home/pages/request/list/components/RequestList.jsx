@@ -14,7 +14,7 @@ import CommonNotFoundBody from 'components/common/CommonNotFoundBody';
 import { retrieveAllRequests } from 'components/redux/reducer/DirectorReducer';
 
 const RequestList = ({
-  currentType,
+  currentFrom,
   currentStatus
 }) => {
   const allRequests = useSelector(state => state.directorReducer.allRequests);
@@ -33,20 +33,24 @@ const RequestList = ({
   // Get all requests
   useEffect(() => {
     setPage(0);
-  }, [currentType, currentStatus]);
+  }, [currentFrom, currentStatus]);
 
   useEffect(() => {
     dispatch(retrieveAllRequests(
       {
         limit: REQUEST_COUNT,
         offset: page * REQUEST_COUNT,
-        request_from: currentType,
+        request_from: currentFrom,
         request_status: currentStatus
       },
       { userInfo, userToken },
       navigate
     ));
-  }, [page, currentType, currentStatus]);
+    localStorage.setItem('requestAttributes', JSON.stringify({
+      from: currentFrom,
+      status: currentStatus
+    }));
+  }, [page, currentFrom, currentStatus]);
 
   return (
     <div>
@@ -63,7 +67,7 @@ const RequestList = ({
                       <Col className='mb-4' key={idx}>
                         <div
                           className='order-item'
-                          onClick={() => navigate(`/director/request/${currentType}/${request.id}`)}
+                          onClick={() => navigate(`/director/request/${currentFrom}/${request.id}`)}
                         >
                           <RequestCard
                             request={request}
