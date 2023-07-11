@@ -113,10 +113,10 @@ export const login = (data, navigate, setFailAuthentication) => {
                 let user = {userInfo: res.data.user, userToken: res.data.token}
                 switch (res.data.user.user_type) {
                     case 'donor':
-                        navigate('/donor/home');
+                        navigate('/donor/dashboard');
                         break;
                     case 'director':
-                        navigate('/director/home');
+                        navigate('/director/dashboard');
                         break;
                     case 'volunteer':
                         dispatch(logout(navigate));

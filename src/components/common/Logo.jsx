@@ -14,8 +14,8 @@ const Logo = ({
 
   const navigate = useNavigate(); 
   const toHomePage = () => { navigate('/'); };
-  const toDonorHomePage = () => { navigate('/donor/home'); };
-  const toDirectorHomePage = () => { navigate('/director/home'); };
+  const toDonorHomePage = () => { navigate('/donor/dashboard'); };
+  const toDirectorHomePage = () => { navigate('/director/dashboard'); };
   const className = 'logo' + (isWhite ? '-alt' : '') + (isLarge ? ' logo-large' : '');
 
   return (

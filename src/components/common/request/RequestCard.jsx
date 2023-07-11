@@ -31,13 +31,12 @@ const RequestCard = ({
 
   return (
     <>
-      <EqualHeightElement name="request-food">
+      <span
+        className={`order-item-status order-item-status-${getStatus(request).css}`}
+      >
+        {getStatus(request).label}
+      </span>
         
-        <span
-          className={`order-item-status order-item-status-${getStatus(request).css}`}
-        >
-          {getStatus(request).label}
-        </span>
         <div className='mt-3 mb-1'>
           <h4 className='order-item-date'>
             Yêu cầu {request.id}
@@ -59,36 +58,41 @@ const RequestCard = ({
 
         <hr className='my-3' />
         
-        {!(userInfo.user_type === 'donee' && request.delivery_type && request.delivery_type === 'pickup') &&
-          <>
-            <EqualHeightElement name='request-volunteer'>
-              <Stack
-                direction={size > 3 ? 'horizontal' : 'vertical'}
-                gap={3}
-                className={size > 3 ? 'd-flex justify-content-between' : ''}
-              >
-                {(!request.delivery_type || request.delivery_type !== 'pickup') && 
-                  <UserItem user={request.volunteer} />}
-                {request.user && <UserItem user={request.user} user_type={request.user.user_type} />}
-              </Stack>
-            </EqualHeightElement>
-            <hr className='my-3' />
-          </>
-        }
-
-        <EqualHeightElement name='request-descriptors'>
-          <header className='order-item-secondary'>
-            <MdOutlineLocationOn />{' '}
-            {
-              request.address.length > 0 ? reduceString(request.address, 80)
-              : '2 - 4 Đ. Hồng Hà, Phường 2, Tân Bình, Thành phố Hồ Chí Minh'
+        <EqualHeightElement name='request-user'>
+          <div>
+            {(userInfo.user_type === 'director' && request.user) &&
+              <>
+                <UserItem user={request.user} user_type={request.user.user_type} />
+              </>
             }
-          </header>
-          <header className='order-item-secondary'>
-            <MdAccessTime /> {convertToString(request.created_time, 'LocaleDateString')}
-          </header>
+          </div>
         </EqualHeightElement>
-      </EqualHeightElement>
+        
+        <EqualHeightElement name='request-volunteer'>
+          {(userInfo.user_type === 'director') &&
+            <hr className='my-3' />
+          }
+          <div>
+            <>
+              <UserItem user={request.volunteer} isPickup={request.delivery_type === 'pickup'} />
+            </>
+          </div>
+        </EqualHeightElement>
+
+        <hr className='my-3' />
+      
+        <EqualHeightElement name='request-descriptors'>
+            <header className='order-item-secondary'>
+              <MdOutlineLocationOn />{' '}
+              {
+                request.address.length > 0 ? reduceString(request.address, 80)
+                : '2 - 4 Đ. Hồng Hà, Phường 2, Tân Bình, Thành phố Hồ Chí Minh'
+              }
+            </header>
+            <header className='order-item-secondary'>
+              <MdAccessTime /> {convertToString(request.created_time, 'LocaleDateString')}
+            </header>
+        </EqualHeightElement>
     </>
   );
 }

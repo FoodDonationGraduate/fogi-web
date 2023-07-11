@@ -4,11 +4,12 @@ import { Col, Stack } from 'react-bootstrap';
 
 // Components
 import SideMenuItem from './SideMenuItem';
-import DonorItem from './DonorItem';
+import SideMenuUser from './SideMenuUser';
 
 const SideMenu = ({
   activeIdx,
-  setActiveIdx
+  sideMenuInfoList,
+  userType
 }) => {
 
   // let size = useResizer();
@@ -16,15 +17,15 @@ const SideMenu = ({
   return (
     <>
       <Col className='side-menu' md={2} lg={3}>
-        <DonorItem className='mb-4' />
-        
+        <SideMenuUser className='mb-4' />
+
         <Stack className='mt-4' direction='vertical'>
-          {Array.from({ length: 3 }).map((_, idx) => (
+          {sideMenuInfoList.length > 0 && sideMenuInfoList.map((sideMenuInfo, idx) => (
             <SideMenuItem
               key={idx}
-              type={idx}
-              isActive={idx === activeIdx}
-              setActiveIdx={setActiveIdx}
+              isActive={activeIdx === sideMenuInfo.idx}
+              sideMenuInfo={sideMenuInfo}
+              userType={userType}
             />
           ))}
         </Stack>

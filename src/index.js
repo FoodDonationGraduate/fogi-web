@@ -90,14 +90,22 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/donor" element={
             <Auth allowedRoles={["donor"]} />}
         >
-          <Route path="/donor/home" element={ <DonorHome/> } />
+          <Route path="/donor/dashboard" element={ <DonorHome activeIdx={0} /> } />
+          <Route path="/donor/donate-bag" element={ <DonorHome activeIdx={1} /> } />
+          <Route path="/donor/requests" element={ <DonorHome activeIdx={2} /> } />
+
           <Route path="/donor/request/:id" element={ <DonorOrderDetailsPage/> } />
         </Route>
 
         <Route path="/director" element={
             <Auth allowedRoles={["director"]} />}
         >
-          <Route path="/director/home" element={ <DirectorHome /> } />
+          <Route path="/director/dashboard" element={ <DirectorHome activeIdx={0} /> } />
+          <Route path="/director/requests" element={ <DirectorHome activeIdx={1} /> } />
+          <Route path="/director/request/:from/:id" element={ <DirectorHome activeIdx={1} /> } />
+          <Route path="/director/food" element={ <DirectorHome activeIdx={2} /> } />
+          <Route path="/director/approve" element={ <DirectorHome activeIdx={3} /> } />
+          <Route path="/director/users" element={ <DirectorHome activeIdx={4} /> } />
         </Route>
       </Routes>
     </BrowserRouter >

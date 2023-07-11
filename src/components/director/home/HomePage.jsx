@@ -4,8 +4,8 @@ import { useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 
 // Components & Pages
-import SideMenu from './components/SideMenu';
-import SideMenuOffCanvas from './components/SideMenuOffCanvas';
+import SideMenu from 'components/common/management/SideMenu';
+import SideMenuOffCanvas from 'components/common/management/SideMenuOffCanvas';
 import InfoModal from 'components/layout/InfoModal.jsx';
 import ConfirmModal from 'components/layout/ConfirmModal.jsx';
 
@@ -27,14 +27,44 @@ import { setTypeOfUser } from 'components/redux/reducer/DirectorReducer';
 // Styles
 import 'assets/css/donor/HomePage.css';
 
-const HomePage = () => {
-  const [activeIdx, setActiveIdx] = useState(0);
+// Side Menu
+const sideMenuInfoList = [
+  {
+    idx: 0,
+    label: 'Thống kê',
+    link: 'dashboard'
+  },
+  {
+    idx: 1,
+    label: 'Yêu cầu',
+    link: 'requests'
+  },
+  {
+    idx: 2,
+    label: 'Thực phẩm',
+    link: 'food'
+  },
+  {
+    idx: 3,
+    label: 'Xét duyệt',
+    link: 'approve'
+  },
+  {
+    idx: 4,
+    label: 'Người dùng',
+    link: 'users'
+  }
+];
+
+const HomePage = ({
+  activeIdx
+}) => {
   let size = useResizer();
 
   // for SideMenu Offcanvas
   const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const onShow = () => setShow(true);
+  const onHide = () => setShow(false);
 
   useEffect(() => {
     setTypeOfUser('donee');
@@ -44,20 +74,21 @@ const HomePage = () => {
     <>
       <SideMenuOffCanvas
         activeIdx={activeIdx}
-        setActiveIdx={setActiveIdx}
-        show={show}
-        handleClose={handleClose}
+        show={show} onHide={onHide}
+        sideMenuInfoList={sideMenuInfoList}
+        userType={'director'}
       />
       <div className='bg'>
         <Row>
           {size > 1 && (
             <SideMenu
               activeIdx={activeIdx}
-              setActiveIdx={setActiveIdx}
+              sideMenuInfoList={sideMenuInfoList}
+              userType={'director'}
             />
           )}
           {size <= 1 && (
-            <div className='side-menu-sm' onClick={handleShow}>
+            <div className='side-menu-sm' onClick={onShow}>
               <MdMenu className='side-menu-icon-sm' />
             </div>
           )}

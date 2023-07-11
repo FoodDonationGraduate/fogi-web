@@ -10,9 +10,9 @@ import { useResizer } from 'utils/helpers/Resizer.jsx';
 
 const SideMenuOffCanvas = ({
   activeIdx,
-  setActiveIdx,
-  show,
-  handleClose
+  show, onHide,
+  sideMenuInfoList,
+  userType
 }) => {
 
   let size = useResizer();
@@ -20,13 +20,14 @@ const SideMenuOffCanvas = ({
   return (
     <>
       {size < 2 && (
-        <Offcanvas show={show} onHide={handleClose}>
+        <Offcanvas show={show} onHide={onHide}>
           <Offcanvas.Header closeButton>
             <h4 className='fw-bold'>Menu</h4>
           </Offcanvas.Header>
           <SideMenu 
             activeIdx={activeIdx}
-            setActiveIdx={setActiveIdx}
+            sideMenuInfoList={sideMenuInfoList}
+            userType={userType}
           />
         </Offcanvas>
       )}

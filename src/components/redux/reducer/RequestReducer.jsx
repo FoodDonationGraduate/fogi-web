@@ -200,7 +200,7 @@ export const updateRequest = (data, user, navigate) => {
                 dispatch(setModalMessage((data.request_status === 'canceled' ? 'Hủy' : 'Cập nhật') + ' Yêu cầu thành công!'))
                 dispatch(showModal())
                 if (data.request_status === 'canceled') {
-                    user.userInfo.user_type === 'donor' ? navigate('/donor/home') : navigate('/requests');
+                    user.userInfo.user_type === 'donor' ? navigate('/donor/dashboard') : navigate('/requests');
                 } else {
                     dispatch(retrieveRequest({ request_id: data.request_id }, user, navigate));
                 }
