@@ -2,7 +2,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  padding: 16px;
+  padding: 32px 24px;
   background-color: white;
   height: 100vh;
   position: relative;
@@ -27,41 +27,41 @@
     }
 
 .side-menu-item {
-  padding: 4px 8px;
+  padding: 6px 12px;
   background-color: white;
-  color: #999;
+  color: #ccc;
   border-radius: 4px;
   cursor: pointer;
   user-select: none;
 }
   .side-menu-item:hover {
     background-color: #F2F2F2;
-    color: #666;
+    color: #999;
   }
   .side-menu-item:active {
     background-color: #ccc;
-    color: #666;
+    color: #999;
   }
   .side-menu-item-active {
-    padding: 4px 8px;
+    padding: 6px 12px;
     background-color: #F2F2F2;
     border-radius: 4px;
     cursor: default;
   }
   .side-menu-item-active-md {
-    padding: 4px 8px;
+    padding: 6px 12px;
     background-color: #82CD47;
     border-radius: 4px;
     cursor: default;
   }
 
 .side-menu-icon {
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
 }  
   .side-menu-icon-active {
-    width: 28px;
-    height: 28px;
+    width: 32px;
+    height: 32px;
     color: #82CD47;
   }
   .side-menu-icon-active-md {
@@ -71,7 +71,7 @@
   }
 
 .side-menu-label {
-  font-weight: 500;
+  font-weight: 600;
 }
   .side-menu-label-active {
     font-weight: bold;

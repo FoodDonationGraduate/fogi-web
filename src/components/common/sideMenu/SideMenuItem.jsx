@@ -29,7 +29,7 @@ const SideMenuItem = ({
       {size !== 2 && (
         <div className='mb-2' onClick={handleOnClick}>
           <Stack className={`side-menu-item${style}`} direction='horizontal' gap={4}>
-            <Stack direction='horizontal' gap={2}>
+            <Stack direction='horizontal' gap={3}>
               <sideMenuInfo.icon className={`side-menu-icon${style}`} />
 
               <header className={`side-menu-label${style}`}>{sideMenuInfo.label}</header>
