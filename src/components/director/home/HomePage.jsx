@@ -2,6 +2,7 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
+import { useParams } from 'react-router-dom';
 
 // Components & Pages
 import SideMenu from 'components/common/sideMenu/SideMenu';
@@ -14,6 +15,7 @@ import RequestPage from './pages/request/RequestPage';
 import UnsortedFoodPage from './pages/food/UnsortedFoodPage';
 import CategoryPage from './pages/food/CategoryPage';
 import ParentFoodPage from './pages/food/ParentFoodPage';
+import FoodPage from './pages/food/FoodPage';
 import ApproveListPage from './pages/approve/ApproveListPage';
 import ManageUserPage from './pages/manage/ManageUserPage';
 
@@ -72,6 +74,7 @@ const HomePage = ({
   activeIdx
 }) => {
   let size = useResizer();
+  const { categoryId, parentFoodId } = useParams();
 
   // for SideMenu Offcanvas
   const [show, setShow] = useState(false);
@@ -111,7 +114,7 @@ const HomePage = ({
                 {activeIdx === 1 && <RequestPage />}
                 {activeIdx === 2 && <UnsortedFoodPage />}
                 {activeIdx === 3 && <CategoryPage />}
-                {activeIdx === 4 && <ParentFoodPage />}
+                {activeIdx === 4 && (!parentFoodId ? <ParentFoodPage /> : <FoodPage />)}
                 {activeIdx === 5 && <ApproveListPage />}
                 {activeIdx === 6 && <ManageUserPage />}
               </Col>

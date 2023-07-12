@@ -29,6 +29,7 @@ const SideMenuItem = ({
 
   // Handle all the onClick events
   const handleOnClick = () => {
+    if (isActive) return;
     navigate(`/${userType}/${sideMenuInfo.link}`);
   };
 

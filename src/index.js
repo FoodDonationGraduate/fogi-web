@@ -105,8 +105,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/director/request/:from/:id" element={ <DirectorHome activeIdx={1} /> } />
           <Route path="/director/unsorted-food" element={ <DirectorHome activeIdx={2} /> } />
           <Route path="/director/categories" element={ <DirectorHome activeIdx={3} /> } />
-          <Route path="/director/category/:id" element={ <DirectorHome activeIdx={4} /> } />
+          <Route path="/director/category/:categoryId" element={ <DirectorHome activeIdx={4} /> } />
           <Route path="/director/parent-food" element={ <DirectorHome activeIdx={4} /> } />
+          <Route path="/director/parent-food/:parentFoodId" element={ <DirectorHome activeIdx={4} /> } />
           <Route path="/director/approve" element={ <DirectorHome activeIdx={5} /> } />
           <Route path="/director/users" element={ <DirectorHome activeIdx={6} /> } />
         </Route>

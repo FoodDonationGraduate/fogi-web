@@ -1,5 +1,6 @@
 // Essentials
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
 import { EqualHeightElement } from 'react-equal-height';
 
@@ -10,12 +11,12 @@ import PlaceHolder from 'assets/images/placeholder.jpg';
 import 'assets/css/common/Card.css';
 
 const SubCategoryCard = ({
-  subCategory,
-  setTargetSubCategory
+  subCategory
 }) => {
+  const navigate = useNavigate();
 
   const onSelect = () => {
-    setTargetSubCategory(subCategory);
+    navigate(`/director/parent-food/${subCategory.id}`);
   };
 
   return (

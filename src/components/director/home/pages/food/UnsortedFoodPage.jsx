@@ -10,8 +10,8 @@ import ListTitle from 'components/common/ListTitle';
 import Pagination from 'components/common/pagination/Pagination';
 import CommonNotFoundBody from 'components/common/CommonNotFoundBody';
 
-import FoodCard from 'components/director/home/pages/food/components/food/FoodCard';
-import FoodModal from 'components/director/home/pages/food/components/food/FoodModal';
+import FoodCard from './components/food/FoodCard';
+import FoodModal from './components/food/FoodModal';
 
 // Reducers
 import { retrieveAllUnsortedFood } from 'components/redux/reducer/DirectorReducer';

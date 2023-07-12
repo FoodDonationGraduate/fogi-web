@@ -20,8 +20,12 @@ const CategoryCard = ({
     navigate(`/category/${category.name}`);
   };
 
+  const toSubCategoryPage = () => { // for Director
+    navigate(`/director/category/${category.id}`);
+  };
+
   return (
-    <Card className='category-card' onClick={user_type === 'donee' ? toCategoryPage : () => {}}>
+    <Card className='category-card' onClick={user_type === 'donee' ? toCategoryPage : toSubCategoryPage}>
       <Card.Img
         className='category-logo mx-auto'
         src={

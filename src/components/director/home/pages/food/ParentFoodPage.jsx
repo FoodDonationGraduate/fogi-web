@@ -19,18 +19,17 @@ const ParentFoodPage = () => {
   const userInfo = useSelector(state => state.authenticationReducer.user);
   const userToken = useSelector(state => state.authenticationReducer.token);
   const dispatch = useDispatch(); const navigate = useNavigate();
-  const { id } = useParams();
+  const { categoryId } = useParams();
 
   // Parent Food
   const allParentFood = useSelector(state => state.directorReducer.allParentFood);
-  const currentCategory = useSelector(state => state.categoryReducer.currentCategory);
   useEffect(() => {
     dispatch(retrieveAllParentFood(
-      id ? { category_id: id } : {},
+      categoryId ? { category_id: categoryId } : {},
       { userInfo, userToken },
       navigate
     ))
-  }, [currentCategory]);
+  }, [categoryId]);
 
   return (
     <>

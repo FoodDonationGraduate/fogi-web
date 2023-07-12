@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 
 // Components
 import CategoryModal from './components/category/CategoryModal';
-import ListTitle from './components/category/list/ListTitle';
-import CategoryList from './components/category/list/CategoryList';
+import ListTitle from './components/category/ListTitle';
+import CategoryList from './components/category/CategoryList';
 
 const CategoryListPage = () => {
 

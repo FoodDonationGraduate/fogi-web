@@ -17,6 +17,7 @@ const initialState = {
 
   allUnsortedFood: {},
   allParentFood: {},
+  currentParentFood: {},
   allFood: {}
 };
 
@@ -53,6 +54,9 @@ const directorReducer = createSlice({
     setAllParentFood: (state, action) => {
       state.allParentFood = action.payload;
     },
+    setCurrentParentFood: (state, action) => {
+      state.currentParentFood = action.payload;
+    },
     setAllFood: (state, action) => {
       state.allFood = action.payload;
     }
@@ -64,7 +68,7 @@ export const {
 
   setAllRequests, setCurrentRequest, setAvailableVolunteers,
 
-  setAllUnsortedFood, setAllParentFood, setAllFood
+  setAllUnsortedFood, setAllParentFood, setCurrentParentFood, setAllFood
 } = directorReducer.actions
 
 export default directorReducer.reducer
@@ -536,6 +540,7 @@ export const addParentFood = (data, director, navigate) => {
         dispatch(retrieveAllParentFood(data, director, navigate));
         dispatch(setModalMessage("Thêm Thực phẩm Đại diện thành công!"));
         dispatch(showModal());
+        navigate(`/director/category/${data.category_id}`);
       }).catch((err) => {
         if (handleExpiredToken(err.response.data, dispatch, navigate)) {
         } else {

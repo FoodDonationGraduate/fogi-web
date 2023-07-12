@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 
 // Components
-import CategoryImageModal from './CategoryImageModal';
+import CategoryImageModal from '../CategoryImageModal';
 
 // Reducer
 import { addCategory, addParentFood } from 'components/redux/reducer/DirectorReducer';
