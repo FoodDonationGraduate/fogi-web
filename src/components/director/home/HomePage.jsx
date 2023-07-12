@@ -11,9 +11,11 @@ import ConfirmModal from 'components/layout/ConfirmModal.jsx';
 
 import DashboardPage from './pages/dashboard/DashboardPage';
 import RequestPage from './pages/request/RequestPage';
+import UnsortedFoodPage from './pages/food/UnsortedFoodPage';
+import CategoryPage from './pages/food/CategoryPage';
+import ParentFoodPage from './pages/food/ParentFoodPage';
 import ApproveListPage from './pages/approve/ApproveListPage';
 import ManageUserPage from './pages/manage/ManageUserPage';
-import FoodPage from './pages/food/FoodPage';
 
 // Assets
 import { MdMenu } from 'react-icons/md';
@@ -41,16 +43,26 @@ const sideMenuInfoList = [
   },
   {
     idx: 2,
-    label: 'Thực phẩm',
-    link: 'food'
+    label: 'Phân loại Thực phẩm',
+    link: 'unsorted-food'
   },
   {
     idx: 3,
+    label: 'Hạng mục',
+    link: 'categories'
+  },
+  {
+    idx: 4,
+    label: 'Thực phẩm Đại diện',
+    link: 'parent-food'
+  },
+  {
+    idx: 5,
     label: 'Xét duyệt',
     link: 'approve'
   },
   {
-    idx: 4,
+    idx: 6,
     label: 'Người dùng',
     link: 'users'
   }
@@ -97,9 +109,11 @@ const HomePage = ({
               <Col>
                 {activeIdx === 0 && <DashboardPage />}
                 {activeIdx === 1 && <RequestPage />}
-                {activeIdx === 2 && <FoodPage />}
-                {activeIdx === 3 && <ApproveListPage />}
-                {activeIdx === 4 && <ManageUserPage />}
+                {activeIdx === 2 && <UnsortedFoodPage />}
+                {activeIdx === 3 && <CategoryPage />}
+                {activeIdx === 4 && <ParentFoodPage />}
+                {activeIdx === 5 && <ApproveListPage />}
+                {activeIdx === 6 && <ManageUserPage />}
               </Col>
             </Row>
           </Col>

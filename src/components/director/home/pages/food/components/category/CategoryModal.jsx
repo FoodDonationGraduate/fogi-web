@@ -19,7 +19,7 @@ import * as Yup from 'yup';
 import { FaExclamationTriangle } from 'react-icons/fa';
 
 const CategoryModal = ({
-  targetCategory, // for edit
+  category=undefined, // for edit
   show,
   onShow,
   onClose
@@ -53,8 +53,8 @@ const CategoryModal = ({
 
   const onOpen = () => {
     reset({
-      name: targetCategory ? targetCategory.name : '',
-      description: targetCategory ? targetCategory.description : ''
+      name: category ? category.name : '',
+      description: category ? category.description : ''
     });
     onShow();
   };
@@ -91,13 +91,13 @@ const CategoryModal = ({
 
   // Edit handling
   useEffect(() => {
-    console.log(JSON.stringify(targetCategory))
-    if (targetCategory) {
-      setImage(`https://bachkhoi.online/static/${targetCategory.image}`);
+    console.log(JSON.stringify(category))
+    if (category) {
+      setImage(`https://bachkhoi.online/static/${category.image}`);
     } else {
       setImage(undefined);
     }
-  }, [targetCategory]);
+  }, [category]);
 
   return (
     <>
@@ -107,7 +107,7 @@ const CategoryModal = ({
         onHide={onHide}
       >
         <Modal.Header closeButton>
-          <Modal.Title>{targetCategory ? 'Chỉnh sửa' : 'Thêm'} Phân loại</Modal.Title>
+          <Modal.Title>{category ? 'Chỉnh sửa' : 'Thêm'} Phân loại</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleSubmit(onSubmit)}>
@@ -165,7 +165,7 @@ const CategoryModal = ({
             </Form.Group>
 
             <div className='d-grid'>
-              {!targetCategory ? 
+              {!category ? 
                 <Button
                   className='fogi'
                   variant='primary'

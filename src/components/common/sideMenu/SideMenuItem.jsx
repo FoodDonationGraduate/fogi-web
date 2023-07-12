@@ -43,6 +43,8 @@ const SideMenuItem = ({
               {sideMenuInfo.idx === 2 && <MdOutlineShoppingBag className={`side-menu-icon${style}`} />}
               {sideMenuInfo.idx === 3 && <MdCheckCircleOutline className={`side-menu-icon${style}`} />}
               {sideMenuInfo.idx === 4 && <MdOutlineGroup className={`side-menu-icon${style}`} />}
+              {sideMenuInfo.idx === 5 && <MdOutlineGroup className={`side-menu-icon${style}`} />}
+              {sideMenuInfo.idx === 6 && <MdOutlineGroup className={`side-menu-icon${style}`} />}
 
               <header className={`side-menu-label${style}`}>{sideMenuInfo.label}</header>
             </Stack>
@@ -60,6 +62,8 @@ const SideMenuItem = ({
             {sideMenuInfo.idx === 2 && <MdOutlineShoppingBag className={`side-menu-icon${style}`} />}
             {sideMenuInfo.idx === 3 && <MdCheckCircleOutline className={`side-menu-icon${style}`} />}
             {sideMenuInfo.idx === 4 && <MdOutlineGroup className={`side-menu-icon${style}`} />}
+            {sideMenuInfo.idx === 5 && <MdOutlineGroup className={`side-menu-icon${style}`} />}
+            {sideMenuInfo.idx === 6 && <MdOutlineGroup className={`side-menu-icon${style}`} />}
           </Stack>
         </div>
       )}

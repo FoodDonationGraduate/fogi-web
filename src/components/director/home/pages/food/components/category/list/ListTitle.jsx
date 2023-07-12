@@ -12,13 +12,11 @@ import { MdAddCircle } from 'react-icons/md';
 import { useResizer } from 'utils/helpers/Resizer';
 
 const ListTitle = ({
-  onShow,
-  setTargetCategory
+  onShow
 }) => {
   const size = useResizer();
 
   const showAddCategoryModal = () => {
-    setTargetCategory(null);
     onShow();
   };
 
