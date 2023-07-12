@@ -21,15 +21,15 @@ const SideMenuUser = () => {
     <>
       {size !== 2 && (
         <div className='side-menu-profile-item' onClick={toProfilePage}>
-          <Stack direction='horizontal' gap={4}>
-            <img className='profile-logo-sm' src={`https://bachkhoi.online/static/${userInfo.avatar}?${date.getTime()}`} alt='director logo'/>
-            <h5 className='fw-bold'>{userInfo.name}</h5>
+          <Stack direction='horizontal' gap={3}>
+            <img className='profile-logo-s' src={`https://bachkhoi.online/static/${userInfo.avatar}?${date.getTime()}`} alt='director logo'/>
+            <header className='fw-bold'>{userInfo.name}</header>
           </Stack>
         </div>
       )}
       {size === 2 && (
         <Stack className='side-menu-profile-item align-items-center' direction='vertical'>
-          <img className='profile-logo-sm' src={`https://bachkhoi.online/static/${userInfo.avatar}?${date.getTime()}`} alt='donor logo'/>
+          <img className='profile-logo-s' src={`https://bachkhoi.online/static/${userInfo.avatar}?${date.getTime()}`} alt='donor logo'/>
         </Stack>
       )}
     </>

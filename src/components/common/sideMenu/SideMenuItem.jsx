@@ -3,15 +3,6 @@ import React  from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Stack } from 'react-bootstrap';
 
-// Assets
-import {
-  MdOutlineAnalytics, // 0
-  MdOutlineArticle, // 1
-  MdOutlineShoppingBag, // 2
-  MdCheckCircleOutline, // 3
-  MdOutlineGroup // 4
-} from 'react-icons/md';
-
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
 
@@ -38,14 +29,8 @@ const SideMenuItem = ({
       {size !== 2 && (
         <div className='mb-2' onClick={handleOnClick}>
           <Stack className={`side-menu-item${style}`} direction='horizontal' gap={4}>
-            <Stack direction='horizontal' gap={4}>
-              {sideMenuInfo.idx === 0 && <MdOutlineAnalytics className={`side-menu-icon${style}`} />}
-              {sideMenuInfo.idx === 1 && <MdOutlineArticle className={`side-menu-icon${style}`} />}
-              {sideMenuInfo.idx === 2 && <MdOutlineShoppingBag className={`side-menu-icon${style}`} />}
-              {sideMenuInfo.idx === 3 && <MdCheckCircleOutline className={`side-menu-icon${style}`} />}
-              {sideMenuInfo.idx === 4 && <MdOutlineGroup className={`side-menu-icon${style}`} />}
-              {sideMenuInfo.idx === 5 && <MdOutlineGroup className={`side-menu-icon${style}`} />}
-              {sideMenuInfo.idx === 6 && <MdOutlineGroup className={`side-menu-icon${style}`} />}
+            <Stack direction='horizontal' gap={2}>
+              <sideMenuInfo.icon className={`side-menu-icon${style}`} />
 
               <header className={`side-menu-label${style}`}>{sideMenuInfo.label}</header>
             </Stack>
@@ -58,13 +43,7 @@ const SideMenuItem = ({
       {size === 2 && (
         <div className='mb-2' onClick={handleOnClick}>
           <Stack className={`side-menu-item${style} align-items-center`} direction='vertical' gap={4}>
-            {sideMenuInfo.idx === 0 && <MdOutlineAnalytics className={`side-menu-icon${style}`} />}
-            {sideMenuInfo.idx === 1 && <MdOutlineArticle className={`side-menu-icon${style}`} />}
-            {sideMenuInfo.idx === 2 && <MdOutlineShoppingBag className={`side-menu-icon${style}`} />}
-            {sideMenuInfo.idx === 3 && <MdCheckCircleOutline className={`side-menu-icon${style}`} />}
-            {sideMenuInfo.idx === 4 && <MdOutlineGroup className={`side-menu-icon${style}`} />}
-            {sideMenuInfo.idx === 5 && <MdOutlineGroup className={`side-menu-icon${style}`} />}
-            {sideMenuInfo.idx === 6 && <MdOutlineGroup className={`side-menu-icon${style}`} />}
+            <sideMenuInfo.icon className={`side-menu-icon${style}`} />
           </Stack>
         </div>
       )}

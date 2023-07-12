@@ -1,0 +1,101 @@
+.side-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 16px;
+  background-color: white;
+  height: 100vh;
+  position: relative;
+}
+  .side-menu-sm {
+    background-color: #82CD47;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    margin-bottom: 4px;
+  }
+  .side-menu-icon-sm {
+    width: 32px;
+    height: 32px;
+    color: white;
+    cursor: pointer;
+  }
+    .side-menu-icon-sm:hover {
+      color: #f2f2f2;
+    }
+    .side-menu-icon-sm:active {
+      color: #ccc;
+    }
+
+.side-menu-item {
+  padding: 4px 8px;
+  background-color: white;
+  color: #999;
+  border-radius: 4px;
+  cursor: pointer;
+  user-select: none;
+}
+  .side-menu-item:hover {
+    background-color: #F2F2F2;
+    color: #666;
+  }
+  .side-menu-item:active {
+    background-color: #ccc;
+    color: #666;
+  }
+  .side-menu-item-active {
+    padding: 4px 8px;
+    background-color: #F2F2F2;
+    border-radius: 4px;
+    cursor: default;
+  }
+  .side-menu-item-active-md {
+    padding: 4px 8px;
+    background-color: #82CD47;
+    border-radius: 4px;
+    cursor: default;
+  }
+
+.side-menu-icon {
+  width: 28px;
+  height: 28px;
+}  
+  .side-menu-icon-active {
+    width: 28px;
+    height: 28px;
+    color: #82CD47;
+  }
+  .side-menu-icon-active-md {
+    width: 28px;
+    height: 28px;
+    color: white;
+  }
+
+.side-menu-label {
+  font-weight: 500;
+}
+  .side-menu-label-active {
+    font-weight: bold;
+    color: black;
+  }
+
+.side-menu-tail {
+  margin-right: 0;
+  margin-left: auto;
+  width: 4px;
+  height: 24px;
+  border-radius: 2px;
+  background-color: #82CD47;
+}
+
+.side-menu-profile-item {
+  font-size: 18px;
+  border-radius: 8px;
+  user-select: none;
+  cursor: pointer;
+}
+  .side-menu-profile-item:hover {
+    background-color: #F2F2F2;
+  }
+  .side-menu-profile-item:active {
+    background-color: #ccc;
+  }

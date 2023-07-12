@@ -20,7 +20,16 @@ import ApproveListPage from './pages/approve/ApproveListPage';
 import ManageUserPage from './pages/manage/ManageUserPage';
 
 // Assets
-import { MdMenu } from 'react-icons/md';
+import {
+  MdMenu,
+  MdOutlineAnalytics,
+  MdOutlineArticle,
+  MdOutlineCategory,
+  MdOutlineShoppingBag,
+  MdOutlineFastfood,
+  MdCheckCircleOutline,
+  MdOutlineGroup // 4
+} from 'react-icons/md';
 
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
@@ -36,37 +45,44 @@ const sideMenuInfoList = [
   {
     idx: 0,
     label: 'Thống kê',
-    link: 'dashboard'
+    link: 'dashboard',
+    icon: MdOutlineAnalytics
   },
   {
     idx: 1,
     label: 'Yêu cầu',
-    link: 'requests'
+    link: 'requests',
+    icon: MdOutlineArticle
   },
   {
     idx: 2,
     label: 'Phân loại Thực phẩm',
-    link: 'unsorted-food'
+    link: 'unsorted-food',
+    icon: MdOutlineFastfood 
   },
   {
     idx: 3,
     label: 'Hạng mục',
-    link: 'categories'
+    link: 'categories',
+    icon: MdOutlineCategory
   },
   {
     idx: 4,
     label: 'Thực phẩm Đại diện',
-    link: 'parent-food'
+    link: 'parent-food',
+    icon: MdOutlineShoppingBag
   },
   {
     idx: 5,
     label: 'Xét duyệt',
-    link: 'approve'
+    link: 'approve',
+    icon: MdCheckCircleOutline
   },
   {
     idx: 6,
     label: 'Người dùng',
-    link: 'users'
+    link: 'users',
+    icon: MdOutlineGroup
   }
 ];
 

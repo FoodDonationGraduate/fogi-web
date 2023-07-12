@@ -24,7 +24,7 @@ const ListTitle = ({
     <Row className='mb-4'>
       <Row>
         <Col className='ps-0'>
-          <h2 className='fw-bold'>Phân loại Thực phẩm</h2>
+          <h2 className='fw-bold'>Hạng mục</h2>
         </Col>
         <Col className='pe-0 d-flex justify-content-end' xs={3}>
           <Stack direction='horizontal' gap={2}>

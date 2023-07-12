@@ -14,7 +14,14 @@ import ProductListPage from './pages/products/ProductListPage';
 import OrderListPage from './pages/orders/list/OrderListPage';
 
 // Assets
-import { MdMenu } from 'react-icons/md';
+import {
+  MdMenu,
+  MdOutlineAnalytics, // 0
+  MdOutlineArticle, // 1
+  MdOutlineShoppingBag, // 2
+  MdCheckCircleOutline, // 3
+  MdOutlineGroup // 4
+} from 'react-icons/md';
 
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
@@ -27,17 +34,20 @@ const sideMenuInfoList = [
   {
     idx: 0,
     label: 'Thống kê',
-    link: 'dashboard'
+    link: 'dashboard',
+    icon: MdOutlineAnalytics
   },
   {
     idx: 1,
     label: 'Túi Quyên góp',
-    link: 'donate-bag'
+    link: 'donate-bag',
+    icon: MdOutlineShoppingBag
   },
   {
     idx: 2,
     label: 'Yêu cầu',
-    link: 'requests'
+    link: 'requests',
+    icon: MdOutlineArticle
   }
 ];
 
