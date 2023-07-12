@@ -71,7 +71,7 @@ const CartTitle = ({
                   <OverlayTrigger
                     placement={'bottom'}
                     overlay={
-                      <Tooltip>
+                      <Tooltip style={{ position: 'fixed '}}>
                         {allProducts.total_cart_items === 0 
                         ? 'Chưa có Thực phẩm để tạo Yêu cầu'
                         : 'Vui lòng chọn địa điểm mặc định'}

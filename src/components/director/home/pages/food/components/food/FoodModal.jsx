@@ -8,6 +8,9 @@ import { getUnit } from 'utils/helpers/Food';
 // Assets
 import { FaExclamationTriangle } from 'react-icons/fa';
 
+// Components
+import SubCategoryModal from '../parentFood/SubCategoryModal';
+
 // Form handling
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from 'react-hook-form';
@@ -42,7 +45,7 @@ const FoodModal = ({
     unit: Yup.string().required()
   });
   const formOptions = { resolver: yupResolver(formSchema) };
-  const { register, setValue, handleSubmit, formState, reset } = useForm(formOptions);
+  const { register, getValues, setValue, handleSubmit, formState, reset } = useForm(formOptions);
   const { errors } = formState;
 
   const onOpen = () => {
@@ -92,6 +95,11 @@ const FoodModal = ({
     setValue('category', category_id);
     dispatch(retrieveAllParentFood({ category_id }, { userInfo, userToken }, navigate));
   };
+
+  // SubCategory Modal
+  const [subShow, setSubShow] = useState(false);
+  const onSubShow = () => setSubShow(true);
+  const onSubClose = () => setSubShow(false);
 
   return (
     <>
@@ -195,10 +203,10 @@ const FoodModal = ({
                 <Col className='pe-0'>
                   <div className='d-flex justify-content-between'>
                     <Form.Label style={{ fontWeight: 'bold' }}>
-                      Thực phẩm cha
+                      Thực phẩm Đại diện
                     </Form.Label>
                     <div className='tag' onClick={() => {
-                      
+                      onSubShow(); onClose();
                     }}>
                       Tạo mới
                     </div>
@@ -206,7 +214,7 @@ const FoodModal = ({
                   <Form.Select
                     default-value={-1}
                     {...register('parentFood')}
-                    disabled={Object.keys(allParentFood).length === 0}
+                    disabled={getValues('category') === -1}
                   >
                     <option value={-1}>-</option>
                     {Object.keys(allParentFood).length > 0 && allParentFood.products.map((parentOption, idx) => (
@@ -237,6 +245,10 @@ const FoodModal = ({
           </Form>
         </Modal.Body>
       </Modal>
+      <SubCategoryModal
+        foodModal={{ food }} onFoodShow={onShow}
+        show={subShow} onShow={onSubShow} onClose={onSubClose}
+      />
     </>
   )
 };

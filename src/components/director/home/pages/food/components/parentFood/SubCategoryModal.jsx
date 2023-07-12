@@ -24,6 +24,7 @@ import { FaExclamationTriangle } from "react-icons/fa";
 
 const SubCategoryModal = ({
   subCategory = undefined, // for edit
+  foodModal=undefined, onFoodShow=undefined, // for FoodModal
   show,
   onShow,
   onClose,
@@ -84,6 +85,9 @@ const SubCategoryModal = ({
     });
     setImage(undefined);
     onClose();
+    if (foodModal) {
+      onFoodShow();
+    }
   };
 
   const onSubmit = (data) => {
@@ -96,7 +100,8 @@ const SubCategoryModal = ({
           description: data.description,
           image: image.split("base64,")[1],
           category_id: data.category_id,
-          unit: data.unit
+          unit: data.unit,
+          foodModal: foodModal
         },
         { userInfo, userToken },
         navigate

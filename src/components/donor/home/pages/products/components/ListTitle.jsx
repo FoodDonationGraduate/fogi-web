@@ -50,7 +50,7 @@ const ListTitle = ({
               <OverlayTrigger
                 placement={'bottom'}
                 overlay={
-                  <Tooltip>
+                  <Tooltip style={{ position: 'fixed '}}>
                     {donorProducts.total_products === 0 
                       ? 'Chưa có Thực phẩm để tạo Yêu cầu'
                       : 'Vui lòng chọn địa điểm mặc định'}

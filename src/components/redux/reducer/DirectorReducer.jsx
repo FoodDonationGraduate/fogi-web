@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { useSelector } from 'react-redux';
 import axiosInstance from 'services/axios/axiosConfig.js';
 import { handleExpiredToken } from './AuthenticationReducer';
 import { setModalMessage, showModal ,setModalType } from './ModalReducer';
@@ -540,7 +541,9 @@ export const addParentFood = (data, director, navigate) => {
         dispatch(retrieveAllParentFood(data, director, navigate));
         dispatch(setModalMessage("Thêm Thực phẩm Đại diện thành công!"));
         dispatch(showModal());
-        navigate(`/director/category/${data.category_id}`);
+        if (!data.foodModal) {
+          navigate(`/director/category/${data.category_id}`);
+        }
       }).catch((err) => {
         if (handleExpiredToken(err.response.data, dispatch, navigate)) {
         } else {
