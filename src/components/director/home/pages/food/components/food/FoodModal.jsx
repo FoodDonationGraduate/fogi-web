@@ -9,6 +9,7 @@ import { getUnit } from 'utils/helpers/Food';
 import { FaExclamationTriangle } from 'react-icons/fa';
 
 // Components
+import CategoryModal from '../category/CategoryModal';
 import SubCategoryModal from '../parentFood/SubCategoryModal';
 
 // Form handling
@@ -90,11 +91,20 @@ const FoodModal = ({
     dispatch(setAllParentFood({}));
   }, []);
 
+  useEffect(() => {
+    setValue('parentFood', -1);
+  }, [getValues('category')]);
+
   const getAllParentFood = (event) => {
     const category_id = event.target.value;
     setValue('category', category_id);
     dispatch(retrieveAllParentFood({ category_id }, { userInfo, userToken }, navigate));
   };
+
+  // Category Modal
+  const [catShow, setCatShow] = useState(false);
+  const onCatShow = () => setCatShow(true);
+  const onCatClose = () => setCatShow(false);
 
   // SubCategory Modal
   const [subShow, setSubShow] = useState(false);
@@ -181,11 +191,11 @@ const FoodModal = ({
                     <Form.Label style={{ fontWeight: 'bold' }}>
                       Phân loại
                     </Form.Label>
-                    {/* <div className='tag' onClick={() => {
+                    <div className='tag' onClick={() => {
                       onCatShow(); onClose();
                     }}>
                       Tạo mới
-                    </div> */}
+                    </div>
                   </div>
                   <Form.Select
                     default-value={-1}
@@ -245,6 +255,10 @@ const FoodModal = ({
           </Form>
         </Modal.Body>
       </Modal>
+      <CategoryModal
+        foodModal={{ food }} onFoodShow={onShow}
+        show={catShow} onShow={onCatShow} onClose={onCatClose}
+      />
       <SubCategoryModal
         foodModal={{ food }} onFoodShow={onShow}
         show={subShow} onShow={onSubShow} onClose={onSubClose}

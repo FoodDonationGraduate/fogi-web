@@ -60,7 +60,7 @@ const ListTitle = () => {
                 className='fogi' variant='primary'
                 onClick={onShow}
               >
-                Thêm Phân loại
+                Thêm mới
               </Button>
               <Dropdown onSelect={onSelect}>
                 <Dropdown.Toggle variant="outline-secondary">

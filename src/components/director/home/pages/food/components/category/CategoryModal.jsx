@@ -20,6 +20,7 @@ import { FaExclamationTriangle } from 'react-icons/fa';
 
 const CategoryModal = ({
   category=undefined, // for edit
+  foodModal=undefined, onFoodShow=undefined, // for FoodModal
   show,
   onShow,
   onClose
@@ -68,6 +69,9 @@ const CategoryModal = ({
     );
     setImage(undefined);
     onClose();
+    if (foodModal) {
+      onFoodShow();
+    }
   };
 
   const onSubmit = (data) => {
