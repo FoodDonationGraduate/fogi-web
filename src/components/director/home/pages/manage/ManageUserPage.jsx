@@ -1,10 +1,9 @@
 // Essentials
 import React, { useState, useEffect } from 'react';
-import { Container, Row } from 'react-bootstrap';
+import { Container, Row, Stack, Form, Button } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 
 // Components
-import ListTitle from 'components/common/ListTitle';
 import ManageItemList from './components/ManageItemList';
 import ManageDetails from './components/ManageDetails';
 import ChipList from 'components/common/chip/ChipList';
@@ -12,9 +11,19 @@ import ChipList from 'components/common/chip/ChipList';
 // Redux
 import { setTypeOfUser } from 'components/redux/reducer/DirectorReducer';
 
+// Form handling
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from 'react-hook-form';
+import * as Yup from 'yup';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+
 const ManageUserPage = () => {
   const dispatch = useDispatch();
   
+  // users attributes
+  const usersAttributes = JSON.parse(localStorage.getItem('usersAttributes'));
+
   // Chip List
   const [activeStatusIdx, setActiveStatusIdx] = useState(0);
   const statusList = ['donee', 'donor', 'volunteer'];
@@ -38,14 +47,45 @@ const ManageUserPage = () => {
   // Details
   const [targetUser, setTargetUser] = useState(null);
 
+  // Handle search users
+  const [queryData, setQueryData] = useState(usersAttributes ? usersAttributes.query : '');
+  const formSchema = Yup.object().shape({
+    query: Yup.string().required('')
+  });
+  const formOptions = { resolver: yupResolver(formSchema) };
+  const { register, watch, handleSubmit } = useForm(formOptions);
+  const onSubmit = (data) => {
+    setQueryData(data.query)
+  }
+  React.useEffect(() => {
+    let data = watch('query');
+    if (data === '') {
+      setQueryData(data)
+    }
+  }, [watch('query')])
   return (
     <>
       <div>
         <Container>
           {!targetUser && 
             <>
-              <ListTitle title={'Quản lý Người dùng'} />
-              <Row className='my-4'>
+              <Row className='mb-4'>
+                <Stack direction='horizontal' className='mb-2 d-flex' gap={3}>
+                  <h2 className='fw-bold me-auto'>Quản lý Người dùng</h2>
+                  <Form className="search-form d-flex justify-content-right" onSubmit={handleSubmit(onSubmit)}>
+                    <Form.Control
+                      type="search"
+                      placeholder="Tìm kiếm"
+                      className="search-box"
+                      aria-label="Search"
+                      defaultValue={queryData}
+                      {...register("query")}
+                    />
+                    <Button className='px-4 search-btn' type='submit' variant='dark'>
+                      <FontAwesomeIcon icon={faSearch} />
+                    </Button>
+                  </Form>
+                </Stack>
                 <ChipList
                   activeStatusIdx={activeStatusIdx}
                   setActiveStatusIdx={setActiveStatusIdx}
@@ -54,7 +94,9 @@ const ManageUserPage = () => {
                   styleList={styleList}
                 />
               </Row>
-              <ManageItemList setTargetUser={setTargetUser} />
+              <ManageItemList 
+                setTargetUser={setTargetUser}
+                queryData={queryData} />
             </>
           }
           {targetUser &&

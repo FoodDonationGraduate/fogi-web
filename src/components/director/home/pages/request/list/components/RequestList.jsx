@@ -58,7 +58,8 @@ const RequestList = ({
     localStorage.setItem('requestAttributes', JSON.stringify({
       from: currentFrom,
       status: currentStatus,
-      filter: currentFilter
+      filter: currentFilter,
+      query: queryData
     }));
   }, [page, currentFrom, currentStatus, currentFilter, queryData]);
 

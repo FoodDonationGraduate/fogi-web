@@ -49,7 +49,8 @@ const OrderList = ({
     dispatch(retrieveAllRequests(data, {userInfo, userToken}, navigate))
     localStorage.setItem('requestAttributes', JSON.stringify({
       status: currentStatus,
-      filter: currentFilter
+      filter: currentFilter,
+      query: queryData
     }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, currentStatus, currentFilter, queryData]);

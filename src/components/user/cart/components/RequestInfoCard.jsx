@@ -49,9 +49,9 @@ const RequestInfoCard = (
   const formSchema = Yup.object().shape({
     reason: Yup.string().required(''),
     currentAddress: Yup.object().required(''),
-    ready_date: Yup.string().required(''),
-    start_time: Yup.string().required(''),
-    end_time: Yup.string().required('')
+    available_date: Yup.string().required(''),
+    available_start: Yup.string().required(''),
+    available_end: Yup.string().required('')
   });
   const formOptions = { resolver: yupResolver(formSchema) };
   const { register, handleSubmit, setValue, formState } = useForm(formOptions);
@@ -63,7 +63,10 @@ const RequestInfoCard = (
       delivery_type: activeStatusIdx === 0 ? 'pickup' : 'delivery',
       address: data.currentAddress.address,
       lat: data.currentAddress.lat,
-      long: data.currentAddress.long
+      long: data.currentAddress.long,
+      available_date: data.available_date,
+      available_start: data.available_start,
+      available_end: data.available_end
     }, {userInfo, userToken}, navigate));
     setActive(false);
   };
@@ -138,8 +141,8 @@ const RequestInfoCard = (
                       <Form.Label style={{ fontWeight: 'bold' }}>
                         `Ngày sẵn sàng ${activeStatusIdx === 1 ? 'giao' : 'nhận'} thực phẩm`
                       </Form.Label>
-                      <Form.Control type='date' min={new Date().toISOString().slice(0,10)} {...register('ready_date')} />
-                      {errors.ready_date && errors.ready_date.type === 'required' && (
+                      <Form.Control type='date' min={new Date().toISOString().slice(0,10)} {...register('available_date')} />
+                      {errors.available_date && errors.available_date.type === 'required' && (
                         <p className="mt-2 error">
                           <FaExclamationTriangle className="mx-2" />
                           Bạn chưa điền ngày sẵn sàng
@@ -157,9 +160,9 @@ const RequestInfoCard = (
                       </Form.Label>
                       <Form.Control
                         type='time'
-                        {...register('start_time')}
+                        {...register('available_start')}
                       />
-                      {errors.start_time && errors.start_time.type === 'required' && (
+                      {errors.available_start && errors.available_start.type === 'required' && (
                         <p className="mt-2 error">
                           <FaExclamationTriangle className="mx-2" />
                           Bạn chưa điền thời gian bắt đầu
@@ -177,9 +180,9 @@ const RequestInfoCard = (
                       </Form.Label>
                       <Form.Control
                         type='time'
-                        {...register('end_time')}
+                        {...register('available_end')}
                       />
-                      {errors.end_time && errors.end_time.type === 'required' && (
+                      {errors.available_end && errors.available_end.type === 'required' && (
                         <p className="mt-2 error">
                           <FaExclamationTriangle className="mx-2" />
                           Bạn chưa điền thời gian kết thúc
