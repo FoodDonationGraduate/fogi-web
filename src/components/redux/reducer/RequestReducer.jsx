@@ -114,6 +114,7 @@ export const postDonorRequest = (data, user, navigate) => {
                 address: data.address,
                 lat: data.lat,
                 long: data.long,
+                available_date: data.available_date,
                 available_start: data.available_start,
                 available_end: data.available_end
             }).then((res) => {
@@ -149,15 +150,19 @@ export const postDoneeRequest = (data, user, navigate) => {
     return async dispatch => {
         try {
             console.log("post donee's request")
-            let body = data.delivery_type === 'pickup' ? {
-                reason: data.reason,
-                delivery_type: data.delivery_type
-            } : {
+            let body = {
                 reason: data.reason,
                 delivery_type: data.delivery_type,
-                address: data.address,
-                lat: data.lat,
-                long: data.long
+                available_date: data.available_date,
+                available_start: data.available_start,
+                available_end: data.available_end
+            }
+            if (data.delivery_type !== 'pickup') {
+                body = {...body, ...{
+                    address: data.address,
+                    lat: data.lat,
+                    long: data.long
+                }}
             }
             await axiosInstance.post(`/request/donee`, {
                 email: user.userInfo.email,

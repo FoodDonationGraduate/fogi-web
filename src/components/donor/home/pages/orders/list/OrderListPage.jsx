@@ -56,7 +56,7 @@ const OrderListPage = () => {
   const [activeFilterIdx, setActiveFilterIdx] = useState(requestAttributes ? filterList.indexOf(requestAttributes.filter) : 0);
 
   // Handle search request
-  const [queryData, setQueryData] = useState('')
+  const [queryData, setQueryData] = useState(requestAttributes ? requestAttributes.query : '')
   const formSchema = Yup.object().shape({
     query: Yup.string().required('')
   });
@@ -82,6 +82,7 @@ const OrderListPage = () => {
                   type="search"
                   placeholder="Tìm kiếm"
                   className="search-box"
+                  defaultValue={queryData}
                   aria-label="Search"
                   {...register("query")}
                 />

@@ -51,7 +51,8 @@ const OrderList = ({
     localStorage.setItem('requestAttributes', JSON.stringify({
       delivery_type: currentDeliveryType,
       status: currentStatus,
-      filter: currentFilter
+      filter: currentFilter,
+      query: queryData
     }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, currentDeliveryType, currentStatus, currentFilter, queryData]);

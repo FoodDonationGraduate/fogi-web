@@ -12,7 +12,7 @@ import { retrieveManageUsers } from 'components/redux/reducer/DirectorReducer';
 import ManageItem from './ManageItem';
 import Pagination from 'components/common/pagination/Pagination';
 
-const ManageItemList = ({ setTargetUser }) => {
+const ManageItemList = ({ setTargetUser, queryData }) => {
   const manageUsers = useSelector(state => state.directorReducer.manageUsers);
   const user_type = useSelector(state => state.directorReducer.user_type);
   const userInfo = useSelector(state => state.authenticationReducer.user);
@@ -23,36 +23,33 @@ const ManageItemList = ({ setTargetUser }) => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const onChangePage = async (idx) => {
-    setPage(idx);
-    await dispatch(retrieveManageUsers(
-      {
-        limit: MANAGE_COUNT,
-        offset: idx * MANAGE_COUNT,
-        user_type: user_type
-      }, {
-        userInfo,
-        userToken
-      },
-      navigate
-    ));
-  };
   
+  const onChangePage = (idx) => {
+    setPage(idx);
+  };
+
   useEffect(() => {
     setPage(0);
+  }, [user_type, queryData]);
+
+  useEffect(() => { 
+    var data = {
+      limit: MANAGE_COUNT,
+      offset: page * MANAGE_COUNT,
+      user_type: user_type,
+      search_query: queryData
+    };
+
     dispatch(retrieveManageUsers(
-      {
-        limit: MANAGE_COUNT,
-        offset: 0,
-        user_type: user_type
-      }, {
-        userInfo,
-        userToken
-      },
+      data,
+      { userInfo, userToken },
       navigate
     ));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user_type]);
+    
+    localStorage.setItem('usersAttributes', JSON.stringify({
+      query: queryData
+    }));
+  }, [page, user_type, queryData]);
 
   return (
     <>

@@ -19,6 +19,7 @@ import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import TopBar from 'components/layout/TopBar';
 
 const OrderListPage = () => {
   // Request attributes
@@ -64,7 +65,7 @@ const OrderListPage = () => {
     ['neutral', 'neutral', 'info', 'warning', 'warning', 'success', 'danger'],
     ['neutral', 'neutral', 'info', 'warning', 'success', 'danger']
   ];
-  const [activeStatusIdx, setActiveStatusIdx] = useState(requestAttributes ? statusList[typeList.indexOf(requestAttributes.from)].indexOf(requestAttributes.status) : 0);
+  const [activeStatusIdx, setActiveStatusIdx] = useState(requestAttributes ? statusList[typeList.indexOf(requestAttributes.delivery_type)].indexOf(requestAttributes.status) : 0);
   React.useEffect(() => {
     if (activeStatusIdx > statusList[activeFromIdx].length) { setActiveStatusIdx(0); }
   }, [activeFromIdx])
@@ -83,7 +84,7 @@ const OrderListPage = () => {
   const [activeFilterIdx, setActiveFilterIdx] = useState(requestAttributes ? filterList.indexOf(requestAttributes.filter) : 0);
 
   // Handle search request
-  const [queryData, setQueryData] = useState('')
+  const [queryData, setQueryData] = useState(requestAttributes ? requestAttributes.query : '');
   const formSchema = Yup.object().shape({
     query: Yup.string().required('')
   });
@@ -102,62 +103,62 @@ const OrderListPage = () => {
   return (
     <>
       <div>
-        <TopSection />
+        <TopBar searchFlag={false}/>
       </div>
       <div className='bg'>
-        <div className='my-4'>
-          <Container>
-            <Row>
-              <Stack direction='horizontal' className='mb-2 d-flex' gap={3}>
-                <h2 className='fw-bold me-auto'>Yêu cầu của bạn</h2>
-                <Form className="search-form d-flex justify-content-right" onSubmit={handleSubmit(onSubmit)}>
-                  <Form.Control
-                    type="search"
-                    placeholder="Tìm kiếm"
-                    className="search-box"
-                    aria-label="Search"
-                    {...register("query")}
-                  />
-                  <Button className='px-4 search-btn' type='submit' variant='dark'>
-                    <FontAwesomeIcon icon={faSearch} />
-                  </Button>
-                </Form>
-              </Stack>
-              <ChipList
-                activeStatusIdx={activeFromIdx}
-                setActiveStatusIdx={setActiveFromIdx}
-                statusList={typeList}
-                getStatusLabel={getTypeLabel}
-                styleList={typeStyleList}
-                title={'Loại yêu cầu'}
-                style={'mb-2'}
-              />
-              <ChipList
-                activeStatusIdx={activeStatusIdx}
-                setActiveStatusIdx={setActiveStatusIdx}
-                statusList={statusList[activeFromIdx]}
-                getStatusLabel={getStatusLabel}
-                styleList={styleList[activeFromIdx]}
-                title={'Trạng thái'}
-                style={'mb-2'}
-              />
-              <DropdownList
-                activeStatusIdx={activeFilterIdx}
-                setActiveStatusIdx={setActiveFilterIdx}
-                statusList={filterList}
-                getStatusLabel={getFilterLabel}
-                styleList={filterStyleList}
-                title={'Sắp xếp'}
-              />
-            </Row>
-            <OrderList 
-              currentDeliveryType={typeList[activeFromIdx]}
-              currentStatus={statusList[activeFromIdx][activeStatusIdx]}
-              currentFilter={filterList[activeFilterIdx]}
-              queryData={queryData}
+        <div className='mt-2'></div>
+        <Container>
+          <Row className='mb-4'>
+            <Stack direction='horizontal' className='mb-2 d-flex' gap={3}>
+              <h2 className='fw-bold me-auto'>Yêu cầu của bạn</h2>
+              <Form className="search-form d-flex justify-content-right" onSubmit={handleSubmit(onSubmit)}>
+                <Form.Control
+                  type="search"
+                  placeholder="Tìm kiếm"
+                  className="search-box"
+                  aria-label="Search"
+                  defaultValue={queryData}
+                  {...register("query")}
+                />
+                <Button className='px-4 search-btn' type='submit' variant='dark'>
+                  <FontAwesomeIcon icon={faSearch} />
+                </Button>
+              </Form>
+            </Stack>
+            <ChipList
+              activeStatusIdx={activeFromIdx}
+              setActiveStatusIdx={setActiveFromIdx}
+              statusList={typeList}
+              getStatusLabel={getTypeLabel}
+              styleList={typeStyleList}
+              title={'Loại yêu cầu'}
+              style={'mb-2'}
             />
-          </Container>
-        </div>
+            <ChipList
+              activeStatusIdx={activeStatusIdx}
+              setActiveStatusIdx={setActiveStatusIdx}
+              statusList={statusList[activeFromIdx]}
+              getStatusLabel={getStatusLabel}
+              styleList={styleList[activeFromIdx]}
+              title={'Trạng thái'}
+              style={'mb-2'}
+            />
+            <DropdownList
+              activeStatusIdx={activeFilterIdx}
+              setActiveStatusIdx={setActiveFilterIdx}
+              statusList={filterList}
+              getStatusLabel={getFilterLabel}
+              styleList={filterStyleList}
+              title={'Sắp xếp'}
+            />
+          </Row>
+          <OrderList 
+            currentDeliveryType={typeList[activeFromIdx]}
+            currentStatus={statusList[activeFromIdx][activeStatusIdx]}
+            currentFilter={filterList[activeFilterIdx]}
+            queryData={queryData}
+          />
+        </Container>
       </div>
       <div>
         <Footer />

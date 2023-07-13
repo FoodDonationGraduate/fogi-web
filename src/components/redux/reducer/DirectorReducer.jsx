@@ -106,13 +106,15 @@ export const retrieveManageUsers = (data, director, navigate) => {
   return async dispatch => {
     try {
       console.log(`retrieve list of ${data.user_type}s to manage`);
-      await axiosInstance.get(`/director/profile`, { params: {
+      let currentData = {
         email: director.userInfo.email,
         token: director.userToken,
         user_type: data.user_type,
         limit: data.limit,
         offset: data.offset
-      }}).then((res) => {
+      }
+      if (data.search_query !== '') {currentData.search_query = data.search_query}
+      await axiosInstance.get(`/director/profile`, { params: currentData}).then((res) => {
         dispatch(setManageUsers(res.data));
       }).catch((err) => {
         if (handleExpiredToken(err.response.data, dispatch, navigate)) {
