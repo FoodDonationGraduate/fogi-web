@@ -18,7 +18,6 @@ import { postDonorRequest } from 'components/redux/reducer/RequestReducer';
 
 // Assets imports
 import { FaExclamationTriangle } from 'react-icons/fa';
-import { MdClose } from 'react-icons/md';
 
 // Style imports
 import 'assets/css/Authentication.css';
@@ -35,6 +34,7 @@ const CreateRequestModal = ({
 
   // Form handling
   const formSchema = Yup.object().shape({
+    ready_date: Yup.string().required(''),
     start_time: Yup.string().required(''),
     end_time: Yup.string().required('')
   });
@@ -46,6 +46,7 @@ const CreateRequestModal = ({
     if (data.start_time < data.end_time) {
       dispatch(postDonorRequest({
           ...selectedAddress,
+          ready_date: data.ready_date,
           available_start: data.start_time,
           available_end: data.end_time
         },
@@ -82,13 +83,13 @@ const CreateRequestModal = ({
 
             <Form.Group className='mb-3'>
               <Form.Label style={{ fontWeight: 'bold' }}>
-                Ngày sẵn sàng quyên góp
+                Ngày sẵn sàng giao thực phẩm
               </Form.Label>
-              <Form.Control type='date' min={new Date().toISOString().slice(0,10)} {...register('expired_time')} />
-              {errors.expired_time && errors.expired_time.type === 'required' && (
+              <Form.Control type='date' min={new Date().toISOString().slice(0,10)} {...register('ready_date')} />
+              {errors.ready_date && errors.ready_date.type === 'required' && (
                 <p className="mt-2 error">
                   <FaExclamationTriangle className="mx-2" />
-                  Bạn chưa điền ngày sẵn sàng quyên góp
+                  Bạn chưa điền ngày sẵn sàng
                 </p>
               )}
             </Form.Group>

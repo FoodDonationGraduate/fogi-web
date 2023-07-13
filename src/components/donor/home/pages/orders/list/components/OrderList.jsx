@@ -41,11 +41,11 @@ const OrderList = ({
       limit: ORDER_COUNT, 
       offset: page * ORDER_COUNT, 
       sort_field: currentFilter, 
+      sort_by: 'desc',
       request_status: currentStatus,
-      queryData: queryData
+      search_query: queryData,
+      delivery_type: ''
     }
-    if (queryData !== '') { data.search_query = queryData}
-
     dispatch(retrieveAllRequests(data, {userInfo, userToken}, navigate))
     localStorage.setItem('requestAttributes', JSON.stringify({
       status: currentStatus,
@@ -84,7 +84,7 @@ const OrderList = ({
         </Container>
       }
       {(Object.keys(allRequests).length === 0 || allRequests.total_requests === 0) && 
-        <CommonNotFoundBody title='Bạn chưa tạo yêu cầu nào'/>
+        <CommonNotFoundBody title='Không tìm thấy yêu cầu nào'/>
       }
     </div>
   );

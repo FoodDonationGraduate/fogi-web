@@ -278,8 +278,7 @@ export const addCategory = (data, director, navigate) => {
 export const retrieveAllRequests = (data, director, navigate) => {
   return async dispatch => {
     try {
-      console.log('retrieve requests for director');
-      await axiosInstance.get(`/request/director`, { params: {
+      var currentData = {
         email: director.userInfo.email,
         token: director.userToken,
         limit: data.limit,
@@ -287,9 +286,13 @@ export const retrieveAllRequests = (data, director, navigate) => {
         sort_field: data.sort_field,
         sort_by: data.sort_by,
         request_from: data.request_from,
-        request_status: data.request_status,
-        search_query: data.search_query
-      }}).then((res) => {
+        request_status: data.request_status
+      }
+      if (data.search_query !== '') {currentData.search_query = data.search_query}
+      if (data.delivery_type !== '') {currentData.delivery_type = data.delivery_type}
+
+      console.log('retrieve requests for director');
+      await axiosInstance.get(`/request/director`, { params: currentData}).then((res) => {
         dispatch(setAllRequests(res.data));
       }).catch((err) => {
         if (handleExpiredToken(err.response.data, dispatch, navigate)) {
