@@ -51,6 +51,10 @@ const RequestInfoCard = ({ request }) => {
                       <MdAccessTime /> Cập nhật: {convertToString(request.last_updated_state_time, 'LocaleString')}
                     </header>
                     <header className='order-item-secondary'>
+                      <MdAccessTime /> Thời gian giao: {convertToString(request.ready_time, 'LocaleDateString')} 
+                      {convertToString(request.start_time, 'LocaleTimeString')} - {convertToString(request.end_time, 'LocaleTimeString')} 
+                    </header>
+                    <header className='order-item-secondary'>
                       <MdOutlineLocationOn />{' '}
                       {
                         request.address.length > 0 ? reduceString(request.address, 80)

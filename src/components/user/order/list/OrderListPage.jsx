@@ -1,25 +1,45 @@
 // Essentials
 import React, { useState } from 'react';
-import { Container, Row } from 'react-bootstrap';
+import { Container, Row, Stack, Button, Form } from 'react-bootstrap';
 
 // Components
 import TopSection from 'components/layout/TopSection';
 import Footer from 'components/layout/Footer';
-import OrderListTitle from './components/OrderListTitle';
 import OrderList from './components/OrderList';
 import ChipList from 'components/common/chip/ChipList';
 import InfoModal from 'components/layout/InfoModal';
+import DropdownList from 'components/common/dropdown/DropdownList';
 
 // Style
 import 'assets/css/user/order/Order.css';
+
+// Form handling
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from 'react-hook-form';
+import * as Yup from 'yup';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 const OrderListPage = () => {
   // Request attributes
   const requestAttributes = JSON.parse(localStorage.getItem('requestAttributes'));
   
-  // Chip List
-  const statusList = ['pending', 'accepted', 'finding', 'receiving', 'shipping', 'success', 'canceled'];
-  const [activeStatusIdx, setActiveStatusIdx] = useState(requestAttributes ? statusList.indexOf(requestAttributes.status) : 0);
+  // Chip List - Request type
+  const typeList = ['delivery', 'pickup'];
+  const getTypeLabel = (status) => {
+    switch (status) {
+      case 'delivery': return 'Nhận (giao hàng)';
+      default: return 'Nhận (tại kho)';
+    }
+  };
+  const typeStyleList = ['success', 'success', 'success'];
+  const [activeFromIdx, setActiveFromIdx] = useState(requestAttributes ? typeList.indexOf(requestAttributes.delivery_type) : 0);
+
+  // Chip List - Request status
+  const statusList = [
+    ['', 'pending', 'finding', 'receiving', 'shipping', 'success', 'canceled'],
+    ['', 'pending', 'accepted', 'receiving', 'success', 'canceled'],
+  ];
   const getStatusLabel = (status) => {
     switch (status) {
       case 'pending':
@@ -34,11 +54,50 @@ const OrderListPage = () => {
         return 'Đang giao';
       case 'canceled':
         return 'Đã hủy';
-      default:
+      case 'success':
         return 'Thành công';
+      default:
+        return 'Tất cả';
     }
   };
-  const styleList = ['neutral', 'info', 'info', 'warning', 'warning', 'success', 'danger'];
+  const styleList = [
+    ['neutral', 'neutral', 'info', 'warning', 'warning', 'success', 'danger'],
+    ['neutral', 'neutral', 'info', 'warning', 'success', 'danger']
+  ];
+  const [activeStatusIdx, setActiveStatusIdx] = useState(requestAttributes ? statusList[typeList.indexOf(requestAttributes.from)].indexOf(requestAttributes.status) : 0);
+  React.useEffect(() => {
+    if (activeStatusIdx > statusList[activeFromIdx].length) { setActiveStatusIdx(0); }
+  }, [activeFromIdx])
+  
+  // Chip List - Request filter
+  const filterList = ['last_updated_state_time', 'created_time'];
+  const getFilterLabel = (status) => {
+    switch (status) {
+      case 'last_updated_state_time':
+        return 'Thời gian cập nhật';
+      case 'created_time':
+        return 'Thời gian khởi tạo';
+    }
+  };
+  const filterStyleList = ['success', 'success'];
+  const [activeFilterIdx, setActiveFilterIdx] = useState(requestAttributes ? filterList.indexOf(requestAttributes.filter) : 0);
+
+  // Handle search request
+  const [queryData, setQueryData] = useState('')
+  const formSchema = Yup.object().shape({
+    query: Yup.string().required('')
+  });
+  const formOptions = { resolver: yupResolver(formSchema) };
+  const { register, watch, handleSubmit } = useForm(formOptions);
+  const onSubmit = (data) => {
+    setQueryData(data.query)
+  }
+  React.useEffect(() => {
+    let data = watch('query');
+    if (data === '') {
+      setQueryData(data)
+    }
+  }, [watch('query')])
 
   return (
     <>
@@ -46,24 +105,58 @@ const OrderListPage = () => {
         <TopSection />
       </div>
       <div className='bg'>
-        <div className='mb-4'>
-          <OrderListTitle />
-        </div>
         <div className='my-4'>
           <Container>
             <Row>
+              <Stack direction='horizontal' className='mb-2 d-flex' gap={3}>
+                <h2 className='fw-bold me-auto'>Yêu cầu của bạn</h2>
+                <Form className="search-form d-flex justify-content-right" onSubmit={handleSubmit(onSubmit)}>
+                  <Form.Control
+                    type="search"
+                    placeholder="Tìm kiếm"
+                    className="search-box"
+                    aria-label="Search"
+                    {...register("query")}
+                  />
+                  <Button className='px-4 search-btn' type='submit' variant='dark'>
+                    <FontAwesomeIcon icon={faSearch} />
+                  </Button>
+                </Form>
+              </Stack>
+              <ChipList
+                activeStatusIdx={activeFromIdx}
+                setActiveStatusIdx={setActiveFromIdx}
+                statusList={typeList}
+                getStatusLabel={getTypeLabel}
+                styleList={typeStyleList}
+                title={'Loại yêu cầu'}
+                style={'mb-2'}
+              />
               <ChipList
                 activeStatusIdx={activeStatusIdx}
                 setActiveStatusIdx={setActiveStatusIdx}
-                statusList={statusList}
+                statusList={statusList[activeFromIdx]}
                 getStatusLabel={getStatusLabel}
-                styleList={styleList}
+                styleList={styleList[activeFromIdx]}
+                title={'Trạng thái'}
+                style={'mb-2'}
+              />
+              <DropdownList
+                activeStatusIdx={activeFilterIdx}
+                setActiveStatusIdx={setActiveFilterIdx}
+                statusList={filterList}
+                getStatusLabel={getFilterLabel}
+                styleList={filterStyleList}
+                title={'Sắp xếp'}
               />
             </Row>
+            <OrderList 
+              currentDeliveryType={typeList[activeFromIdx]}
+              currentStatus={statusList[activeFromIdx][activeStatusIdx]}
+              currentFilter={filterList[activeFilterIdx]}
+              queryData={queryData}
+            />
           </Container>
-        </div>
-        <div className='pb-4'>
-          <OrderList currentStatus={statusList[activeStatusIdx]} />
         </div>
       </div>
       <div>

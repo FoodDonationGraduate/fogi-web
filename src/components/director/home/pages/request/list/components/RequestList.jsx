@@ -41,12 +41,13 @@ const RequestList = ({
     var data = {
       limit: REQUEST_COUNT,
       offset: page * REQUEST_COUNT,
-      request_from: currentFrom === 'donee-pickup' ? 'donee' : currentFrom,
+      request_from: currentFrom.slice(0,5) === 'donee' ? 'donee' : currentFrom,
       request_status: currentStatus,
       sort_field: currentFilter,
-      sort_by: 'desc'
+      sort_by: 'desc',
+      search_query: queryData,
+      delivery_type: currentFrom !== 'donor' ? currentFrom.slice(6) : ''
     };
-    if (queryData !== '') {data.search_query = queryData}
 
     dispatch(retrieveAllRequests(
       data,

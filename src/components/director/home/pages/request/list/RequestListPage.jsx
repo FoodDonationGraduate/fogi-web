@@ -19,10 +19,10 @@ const RequestListPage = () => {
   const requestAttributes = JSON.parse(localStorage.getItem('requestAttributes'));
 
   // Chip List - Request type
-  const typeList = ['donor', 'donee', 'donee-pickup'];
+  const typeList = ['donor', 'donee-delivery', 'donee-pickup'];
   const getTypeLabel = (status) => {
     switch (status) {
-      case 'donee': return 'Nhận (giao hàng)';
+      case 'donee-delivery': return 'Nhận (giao hàng)';
       case 'donee-pickup': return 'Nhận (tại kho)';
       default: return 'Cho';
     }
