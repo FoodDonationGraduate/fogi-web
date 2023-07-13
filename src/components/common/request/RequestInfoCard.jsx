@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Container, Col, Row, Stack } from 'react-bootstrap';
 
 // Assets
-import { MdOutlineLocationOn, MdAccessTime, MdTimelapse } from 'react-icons/md';
+import { MdOutlineLocationOn, MdAccessTime } from 'react-icons/md';
 
 // Components
 import UserItem from 'components/common/request/UserItem';
@@ -17,13 +17,6 @@ import { reduceString } from 'utils/helpers/String';
 
 const RequestInfoCard = ({ request }) => {
   let size = useResizer();
-
-  // handle pickup map
-  const [isHovering, setIsHovering] = useState(false);
-  const handleClick = (address) => {
-    let newAdress = address.replaceAll(' ', '+')
-    window.open(`https://www.google.com/maps/dir/?api=1&destination=${newAdress}`, '_blank', 'noopener,noreferrer');
-  }
 
   return (
     <>
@@ -103,7 +96,7 @@ const RequestInfoCard = ({ request }) => {
                   {size > 2 ? 
                     <Row className='mt-4'>
                       {Array.from({ length : request.delivery_type === 'pickup' ? 7 : 9}).map((_, idx) => (
-                        <Col className='px-0' key={idx}>
+                        <Col key={idx}>
                           {idx % 2 === 0 ?
                             <StepItem
                               key={idx / 2}

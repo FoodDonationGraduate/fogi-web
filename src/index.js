@@ -41,6 +41,8 @@ import ProfileDirectorPage from "./components/director/profile_page/ProfilePage.
 
 import DirectorHome from "./components/director/home/HomePage.jsx";
 
+import TestPage from "./components/TestPage.jsx";
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
     <BrowserRouter>
@@ -111,6 +113,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/director/approve" element={ <DirectorHome activeIdx={5} /> } />
           <Route path="/director/users" element={ <DirectorHome activeIdx={6} /> } />
         </Route>
+
+        <Route path="/test" element={ <TestPage /> } />
       </Routes>
     </BrowserRouter >
   </Provider>

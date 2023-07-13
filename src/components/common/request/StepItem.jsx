@@ -19,9 +19,9 @@ const StepItem = ({
         <div className={`step-item step-item-${getStepStatus(step, convertStepToNumber(currentStep))} mx-auto`}>
           {stepOptions.icon}
         </div>
-        <h5 className={`step-text-${getStepStatus(step, convertStepToNumber(currentStep))} mx-auto text-center`}>
+        <header className={`step-text step-text-${getStepStatus(step, convertStepToNumber(currentStep))} mx-auto text-center`}>
           {stepOptions.label}
-        </h5>
+        </header>
       </Stack>
     </>
   )

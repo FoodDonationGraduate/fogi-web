@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { MdOutlineLocationOn, MdAccessTime } from 'react-icons/md';
 
 // Components
-import StepItem from 'components/common/StepItem';
+import StepItem from 'components/common/request/StepItem';
 import VolunteerInfo from 'components/common/request/VolunteerInfo';
 import CancelModal from 'components/common/request/CancelModal';
 import { setModalMessage, showModal ,cancelQuestionModal, setModalQuestion, showQuestionModal } from 'components/redux/reducer/ModalReducer';

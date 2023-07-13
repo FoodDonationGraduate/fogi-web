@@ -44,7 +44,7 @@ import 'assets/css/donor/HomePage.css';
 // Side Menu
 const sideMenuInfoList = [
   {
-    user_type: 'keeper',
+    user_type: 'director',
     menu: [
       { idx: 0, label: 'Thống kê', link: 'dashboard', icon: MdOutlineAnalytics },
       { idx: 1, label: 'Yêu cầu', link: 'requests', icon: MdOutlineArticle },
@@ -53,7 +53,7 @@ const sideMenuInfoList = [
     ]
   },
   {
-    user_type: 'director',
+    user_type: 'keeper',
     menu: [
       { idx: 0, label: 'Thống kê', link: 'dashboard', icon: MdOutlineAnalytics },
       { idx: 1, label: 'Yêu cầu', link: 'requests', icon: MdOutlineArticle },
@@ -108,11 +108,11 @@ const HomePage = ({
           <Col>
             <Row className={`${size >= 2 ? 'workspace' : ''} py-4`}>
               <Col>
-                {userInfo.user_type === 'keeper' && <>
+                {userInfo.user_type === 'director' && <>
                   {activeIdx === 5 && <ApproveListPage />}
                   {activeIdx === 6 && <ManageUserPage />}
                 </>}
-                {userInfo.user_type === 'director' && <>
+                {userInfo.user_type === 'keeper' && <>
                   {activeIdx === 2 && <UnsortedFoodPage />}
                   {activeIdx === 3 && <CategoryPage />}
                   {activeIdx === 4 && (!parentFoodId ? <ParentFoodPage /> : <FoodPage />)}

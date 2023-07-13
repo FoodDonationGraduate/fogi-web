@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router';
 
 // Components
-import StepItem from 'components/common/StepItem';
+import StepItem from 'components/common/request/StepItem';
 import { updateRequest } from 'components/redux/reducer/RequestReducer';
 import VolunteerInfo from 'components/common/request/VolunteerInfo';
 import CancelModal from 'components/common/request/CancelModal';

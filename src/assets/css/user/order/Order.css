@@ -57,7 +57,12 @@
 .step-item {
   border-radius: 50%;
   align-self: start;
-  padding: 16px;
+  padding: 8px;
+  width: 48px;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
   .step-item-sm {
     border-radius: 50%;
@@ -80,8 +85,9 @@
     color: #ccc;
   }
   .step-item-icon {
-    width: 32px;
-    height: 32px;
+    width: 24px;
+    height: 24px;
+    padding-top: 0px;
   }
     .step-item-icon-sm {
       width: 16px;
@@ -89,6 +95,9 @@
     }
   .step-connector {
     margin-top: 32px;
+  }
+  .step-text {
+    font-weight: 500;
   }
   .step-text-current {
     color: black;
