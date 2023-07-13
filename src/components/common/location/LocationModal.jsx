@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Button, Form, Modal, Stack } from 'react-bootstrap';
 import GoogleMapReact from 'google-map-react';
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 
 // Form handling

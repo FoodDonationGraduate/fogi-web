@@ -14,7 +14,7 @@ import FoodSelectCard from './FoodSelectCard';
 import FoodSelectListModal from './FoodSelectListModal';
 
 // Reducers
-import { retrieveFood } from 'components/redux/reducer/DirectorReducer';
+import { retrieveAllFood } from 'components/redux/reducer/DirectorReducer';
 
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';

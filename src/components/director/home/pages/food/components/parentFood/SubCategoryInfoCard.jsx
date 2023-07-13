@@ -7,15 +7,8 @@ import { getUnit } from 'utils/helpers/Food';
 import 'assets/css/director/HomePage.css';
 
 const SubCategoryInfoCard = ({
-  subCategory,
-  setTargetSubCategory,
-  onSubShow
+  subCategory
 }) => {
-
-  const showSubCategoryModal = () => {
-    setTargetSubCategory(subCategory);
-    onSubShow();
-  };
 
   return (
     <>
@@ -41,7 +34,7 @@ const SubCategoryInfoCard = ({
             </Stack>
           </Col>
           <Col className='d-grid align-items-center px-0'>
-            <Button variant='outline-secondary' onClick={showSubCategoryModal}>
+            <Button variant='outline-secondary'>
               Chỉnh sửa
             </Button>
           </Col>

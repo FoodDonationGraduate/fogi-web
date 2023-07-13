@@ -21,9 +21,9 @@ const SideMenuUser = () => {
     <>
       {size !== 2 && (
         <div className='side-menu-profile-item' onClick={toProfilePage}>
-          <Stack direction='horizontal' gap={4}>
+          <Stack direction='horizontal' gap={3}>
             <img className='profile-logo-sm' src={`https://bachkhoi.online/static/${userInfo.avatar}?${date.getTime()}`} alt='director logo'/>
-            <h5 className='fw-bold'>{userInfo.name}</h5>
+            <header className='fw-bold'>{userInfo.name}</header>
           </Stack>
         </div>
       )}

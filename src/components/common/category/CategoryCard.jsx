@@ -12,8 +12,7 @@ import 'assets/css/common/Card.css';
 
 const CategoryCard = ({
   category,
-  isDonee=true,
-  setTargetCategory=null, // for Edit Category Modal
+  user_type='donee'
 }) => {
   const navigate = useNavigate();
 
@@ -21,13 +20,12 @@ const CategoryCard = ({
     navigate(`/category/${category.name}`);
   };
 
-  const editCategory = () => { // for Director
-    if (!setTargetCategory) return;
-    setTargetCategory(category);
+  const toSubCategoryPage = () => { // for Director
+    navigate(`/director/category/${category.id}`);
   };
 
   return (
-    <Card className='category-card' onClick={isDonee ? toCategoryPage : editCategory}>
+    <Card className='category-card' onClick={user_type === 'donee' ? toCategoryPage : toSubCategoryPage}>
       <Card.Img
         className='category-logo mx-auto'
         src={
