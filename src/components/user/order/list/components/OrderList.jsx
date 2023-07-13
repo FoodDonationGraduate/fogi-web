@@ -12,10 +12,12 @@ import { retrieveAllRequests } from 'components/redux/reducer/RequestReducer';
 import CommonNotFoundBody from 'components/common/CommonNotFoundBody';
 
 const OrderList = ({
-  currentStatus
+  currentDeliveryType,
+  currentStatus,
+  currentFilter,
+  queryData=""
 }) => {
   const allRequests = useSelector(state => state.requestReducer.allRequests)
-  const sort = useSelector(state => state.requestReducer.sort)
   const userInfo = useSelector(state => state.authenticationReducer.user)
   const userToken = useSelector(state => state.authenticationReducer.token)
 
@@ -32,15 +34,27 @@ const OrderList = ({
   // Get all requests
   useEffect(() => {
     setPage(0);
-  }, [sort, currentStatus]);
+  }, [currentDeliveryType, currentStatus, currentFilter, queryData]);
 
   useEffect(()=>{
-    dispatch(retrieveAllRequests({limit: ORDER_COUNT, offset: page * ORDER_COUNT, sort_field: sort, request_status: currentStatus}, {userInfo, userToken}, navigate))
+    var data = {
+      limit: ORDER_COUNT,
+      offset: page * ORDER_COUNT,
+      request_status: currentStatus,
+      sort_field: currentFilter,
+      sort_by: 'desc',
+      search_query: queryData,
+      delivery_type: currentDeliveryType
+    };
+
+    dispatch(retrieveAllRequests(data, {userInfo, userToken}, navigate))
     localStorage.setItem('requestAttributes', JSON.stringify({
-      status: currentStatus
+      delivery_type: currentDeliveryType,
+      status: currentStatus,
+      filter: currentFilter
     }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, sort, currentStatus]);
+  }, [page, currentDeliveryType, currentStatus, currentFilter, queryData]);
 
   return (
     <div>
@@ -71,7 +85,7 @@ const OrderList = ({
       </Container>
       }
       {(Object.keys(allRequests).length === 0 || allRequests.total_requests === 0) && 
-        <CommonNotFoundBody title='Bạn chưa tạo yêu cầu nào'/>
+        <CommonNotFoundBody title='Không tìm thấy yêu cầu nào'/>
       }
     </div>
     

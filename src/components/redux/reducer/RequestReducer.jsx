@@ -37,17 +37,22 @@ export default cartReducer.reducer
 export const retrieveAllRequests = (data, user, navigate) => {
     return async dispatch => {
         try {
-            console.log("retrieve all requests")
-            data = Object.keys(data).length === 0 ? {limit: 4, offset: 0, sort_field: 'created_time'} : data
-            await axiosInstance.get(`/request/`+user.userInfo.user_type, {params: {
+            var currentData = {
                 email: user.userInfo.email,
                 token: user.userToken,
                 limit: data.limit,
                 offset: data.offset,
                 sort_field: data.sort_field,
+                sort_by: data.sort_by,
                 request_status: data.request_status,
                 search_query: data.search_query
-            }}).then((res) => {
+            }
+            if (data.search_query !== '') {currentData.search_query = data.search_query}
+            if (data.delivery_type !== '') {currentData.delivery_type = data.delivery_type}
+
+            console.log("retrieve all requests")
+            data = Object.keys(data).length === 0 ? {limit: 4, offset: 0, sort_field: 'created_time'} : data
+            await axiosInstance.get(`/request/`+user.userInfo.user_type, {params: currentData}).then((res) => {
                 dispatch(setAllRequests(res.data))
             })
             .catch((err) => {
