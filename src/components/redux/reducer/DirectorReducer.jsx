@@ -284,10 +284,11 @@ export const retrieveAllRequests = (data, director, navigate) => {
         token: director.userToken,
         limit: data.limit,
         offset: data.offset,
-        sort_field: 'created_time',
-        sort_by: 'desc',
+        sort_field: data.sort_field,
+        sort_by: data.sort_by,
         request_from: data.request_from,
-        request_status: data.request_status
+        request_status: data.request_status,
+        search_query: data.search_query
       }}).then((res) => {
         dispatch(setAllRequests(res.data));
       }).catch((err) => {

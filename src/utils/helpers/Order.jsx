@@ -73,7 +73,6 @@ export const getStep = (step, isDonee, isDelivery, order) => {
   let header = '';
   let label = '';
   let icon = <MdSmartphone className='step-item-icon' />;
-  let currentRole = isDonee ? 'donee' : 'donor';
   let user = localStorage.getItem("user") !== "undefined" && localStorage.getItem("user") !== null ? JSON.parse(localStorage.getItem("user")) : {};
   switch (step) {
     case 'pending':

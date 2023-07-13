@@ -15,7 +15,9 @@ import { retrieveAllRequests } from 'components/redux/reducer/DirectorReducer';
 
 const RequestList = ({
   currentFrom,
-  currentStatus
+  currentStatus,
+  currentFilter,
+  queryData=""
 }) => {
   const allRequests = useSelector(state => state.directorReducer.allRequests);
   const userInfo = useSelector(state => state.authenticationReducer.user);
@@ -33,24 +35,31 @@ const RequestList = ({
   // Get all requests
   useEffect(() => {
     setPage(0);
-  }, [currentFrom, currentStatus]);
+  }, [currentFrom, currentStatus, currentFilter, queryData]);
 
-  useEffect(() => {
+  useEffect(() => { 
+    var data = {
+      limit: REQUEST_COUNT,
+      offset: page * REQUEST_COUNT,
+      request_from: currentFrom === 'donee-pickup' ? 'donee' : currentFrom,
+      request_status: currentStatus,
+      sort_field: currentFilter,
+      sort_by: 'desc'
+    };
+    if (queryData !== '') {data.search_query = queryData}
+
     dispatch(retrieveAllRequests(
-      {
-        limit: REQUEST_COUNT,
-        offset: page * REQUEST_COUNT,
-        request_from: currentFrom,
-        request_status: currentStatus
-      },
+      data,
       { userInfo, userToken },
       navigate
     ));
+    
     localStorage.setItem('requestAttributes', JSON.stringify({
       from: currentFrom,
-      status: currentStatus
+      status: currentStatus,
+      filter: currentFilter
     }));
-  }, [page, currentFrom, currentStatus]);
+  }, [page, currentFrom, currentStatus, currentFilter, queryData]);
 
   return (
     <div>
@@ -67,7 +76,7 @@ const RequestList = ({
                       <Col className='mb-4' key={idx}>
                         <div
                           className='order-item'
-                          onClick={() => navigate(`/director/request/${currentFrom}/${request.id}`)}
+                          onClick={() => navigate(`/director/request/${currentFrom === 'donee-pickup' ? 'donee' : currentFrom}/${request.id}`)}
                         >
                           <RequestCard
                             request={request}

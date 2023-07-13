@@ -81,6 +81,19 @@ const CreateRequestModal = ({
             </Form.Group>
 
             <Form.Group className='mb-3'>
+              <Form.Label style={{ fontWeight: 'bold' }}>
+                Ngày sẵn sàng quyên góp
+              </Form.Label>
+              <Form.Control type='date' min={new Date().toISOString().slice(0,10)} {...register('expired_time')} />
+              {errors.expired_time && errors.expired_time.type === 'required' && (
+                <p className="mt-2 error">
+                  <FaExclamationTriangle className="mx-2" />
+                  Bạn chưa điền ngày sẵn sàng quyên góp
+                </p>
+              )}
+            </Form.Group>
+
+            <Form.Group className='mb-3'>
               <Form.Label style={{ fontWeight: 'bold'}}>
                 Thời gian bắt đầu{' '}
                 <Tooltip tip={'Thời gian Tình nguyện viên có thể bắt đầu nhận thực phẩm'} />

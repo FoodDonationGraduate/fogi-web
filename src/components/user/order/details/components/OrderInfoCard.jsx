@@ -11,12 +11,13 @@ import VolunteerInfo from 'components/common/request/VolunteerInfo';
 import CancelModal from 'components/common/request/CancelModal';
 
 // Assets
-import { MdAccessTime } from 'react-icons/md';
+import { MdAccessTime, MdOutlineLocationOn } from 'react-icons/md';
 
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
 import { getStatus, getStep, convertStepToNumber } from 'utils/helpers/Order.jsx';
 import { convertToString } from 'utils/helpers/Time';
+import { reduceString } from 'utils/helpers/String';
 
 const OrderInfoCard = ({ order }) => {
   let size = useResizer();
@@ -60,9 +61,15 @@ const OrderInfoCard = ({ order }) => {
                   Yêu cầu {order.id}
                 </h4>
               </div>
-              <header className='order-item-secondary mt-2'>
-                <MdAccessTime /> {convertToString(order.created_time, 'LocaleDateString')}
-              </header>
+              
+              <div className='mt-2'> 
+                <header className='order-item-secondary'>
+                  <MdAccessTime /> Khởi tạo: {convertToString(order.created_time, 'LocaleString')}
+                </header>
+                <header className='order-item-secondary'>
+                  <MdAccessTime /> Cập nhật: {convertToString(order.last_updated_state_time, 'LocaleString')}
+                </header>
+              </div>
 
               <Stack className='mb-2 mt-3' direction='horizontal' gap={2}>
                 <h5 className='order-item-date'>
