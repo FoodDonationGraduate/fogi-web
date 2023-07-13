@@ -11,13 +11,14 @@ import StepItem from 'components/common/request/StepItem';
 
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
-import { getStatus, getStep, convertStepToNumber } from 'utils/helpers/Order.jsx';
 import { getState } from 'utils/helpers/Request.jsx';
 import { convertToString } from 'utils/helpers/Time';
 import { reduceString } from 'utils/helpers/String';
 
 const RequestInfoCard = ({ request }) => {
   let size = useResizer();
+
+  const { content, color } = getState({ request });
 
   // handle pickup map
   const [isHovering, setIsHovering] = useState(false);
@@ -35,9 +36,9 @@ const RequestInfoCard = ({ request }) => {
               <div className={size > 2 ? 'd-flex justify-content-between' : ''}>
                 <div>
                   <span
-                    className={`order-item-status order-item-status-${getStatus(request).css}`}
+                    className={`order-item-status order-item-status-${color}`}
                   >
-                    {getStatus(request).label}
+                    {content.chip}
                   </span>
 
                   <h3 className='order-item-date mt-3'>
@@ -100,37 +101,33 @@ const RequestInfoCard = ({ request }) => {
               <hr />
 
               <h5 className='order-item-date text-center'>
-                {getStep(request.status, false, request.delivery_type === 'delivery', request).header}
+                {getState({ request }).content.text}
               </h5>
 
               {request.status !== 'canceled' &&
                 <>
                   {size > 2 ? 
-                    <Row className='mt-4'>
-                      {Array.from({ length : 9 }).map((_, idx) => (
-                        <span key={idx}>
-                          {(request.delivery_type !== 'pickup' || ![6, 7].includes(idx)) &&
-                            <Col className='px-0'>
-                                {idx % 2 === 0 ?
-                                  <StepItem
-                                    key={idx / 2}
-                                    request={request}
-                                    step={idx / 2}
-                                    currentStep={request.status}
-                                    isDonee={request.user.user_type ==='donee'}
-                                    isDelivery={request.delivery_type === 'delivery'}
-                                  />
-                                  :
-                                  <hr className='step-connector' />
-                                }
-                            </Col>
+                    <div className='mt-4'>
+                      {Array.from({ length : 11 }).map((_, idx) => 
+                      ((request.delivery_type === 'pickup' && ![3, 4, 7, 8].includes(idx)) ||
+                      (request.delivery_type !== 'pickup' && ![1, 2].includes(idx))) && (
+                        <div key={idx}>
+                          {idx % 2 === 0 ?
+                            <StepItem
+                              request={request}
+                              step={idx / 2}
+                            />
+                            :
+                            <div
+                              className={`step-connector pass`}
+                            />
                           }
-                        </span>
+                        </div>
                       ))}
-                    </Row>
+                    </div>
                     :
                     <header className='order-item-secondary text-center mt-2'>
-                      Hiện tại: {getStep(request.status, false, true, request).label} {`(${convertStepToNumber(request.status) + 1}/5)`}
+                      Hiện tại: {getState({ request }).content.not_pass}
                     </header>
                   }
                 </>

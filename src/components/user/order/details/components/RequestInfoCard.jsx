@@ -15,11 +15,11 @@ import { MdAccessTime, MdOutlineLocationOn } from 'react-icons/md';
 
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
-import { getStatus, getStep, convertStepToNumber } from 'utils/helpers/Order.jsx';
+import { getState } from 'utils/helpers/Request.jsx';
 import { convertToString } from 'utils/helpers/Time';
 import { reduceString } from 'utils/helpers/String';
 
-const OrderInfoCard = ({ order }) => {
+const RequestInfoCard = ({ request }) => {
   let size = useResizer();
   const userInfo = useSelector(state => state.authenticationReducer.user);
   const userToken = useSelector(state => state.authenticationReducer.token);
@@ -33,7 +33,7 @@ const OrderInfoCard = ({ order }) => {
   const navigate = useNavigate();
 
   const setArriving = () => {
-    dispatch(updateRequest({request_id: order.id, request_status: 'receiving'}, { userInfo, userToken}, navigate));
+    dispatch(updateRequest({request_id: request.id, request_status: 'receiving'}, { userInfo, userToken}, navigate));
   };
 
   // handle pickup map
@@ -43,35 +43,37 @@ const OrderInfoCard = ({ order }) => {
     window.open(`https://www.google.com/maps/dir/?api=1&destination=${newAdress}`, '_blank', 'noopener,noreferrer');
   }
 
+  const { content, color } = getState({ request });
+
   return (
     <>
-      <CancelModal show={show} onClose={onClose} request={order} />
+      <CancelModal show={show} onClose={onClose} request={request} />
       <Container>
         <Row>
           <Col>
             <div className='order-info-card'>
               <span
-                className={`order-item-status order-item-status-${getStatus(order).css}`}
+                className={`order-item-status order-item-status-${color}`}
               >
-                {getStatus(order).label}
+                {content.chip}
               </span>
 
               <div className='mt-3 mb-1'>
                 <h4 className='order-item-date'>
-                  Yêu cầu {order.id}
+                  Yêu cầu {request.id}
                 </h4>
               </div>
               
               <div className='mt-2'> 
                 <header className='order-item-secondary'>
-                  <MdAccessTime /> Khởi tạo: {convertToString(order.created_time, 'LocaleString')}
+                  <MdAccessTime /> Khởi tạo: {convertToString(request.created_time, 'LocaleString')}
                 </header>
                 <header className='order-item-secondary'>
-                  <MdAccessTime /> Cập nhật: {convertToString(order.last_updated_state_time, 'LocaleString')}
+                  <MdAccessTime /> Cập nhật: {convertToString(request.last_updated_state_time, 'LocaleString')}
                 </header>
                 <header className='order-item-secondary'>
-                  <MdAccessTime /> Thời gian giao: {convertToString(order.ready_time, 'LocaleDateString')} 
-                  {convertToString(order.start_time, 'LocaleTimeString')} - {convertToString(order.end_time, 'LocaleTimeString')} 
+                  <MdAccessTime /> Thời gian giao: {convertToString(request.ready_time, 'LocaleDateString')} 
+                  {convertToString(request.start_time, 'LocaleTimeString')} - {convertToString(request.end_time, 'LocaleTimeString')} 
                 </header>
               </div>
 
@@ -79,22 +81,22 @@ const OrderInfoCard = ({ order }) => {
                 <h5 className='order-item-date'>
                   Hình thức nhận thực phẩm
                 </h5>
-                <div className='order-tag'>{order.delivery_type === 'pickup' ? 'Lấy tại chỗ' : 'Giao hàng'}</div>
+                <div className='order-tag'>{request.delivery_type === 'pickup' ? 'Lấy tại chỗ' : 'Giao hàng'}</div>
               </Stack>
               <header className='order-item-secondary'>
                 <Stack direction='horizontal' gap={2}>
-                  <div className='fw-bold'>{`Địa chỉ ${order.delivery_type === 'pickup' ? ' nhận thực phẩm' : 'giao hàng'}:`}</div>
+                  <div className='fw-bold'>{`Địa chỉ ${request.delivery_type === 'pickup' ? ' nhận thực phẩm' : 'giao hàng'}:`}</div>
                   {
-                    order.delivery_type === 'pickup' 
+                    request.delivery_type === 'pickup' 
                       ? <div 
                           style={{boxShadow: isHovering ? '0 0 8px #82CD47' : ''}} 
-                          onClick={() => handleClick(order.address)}
+                          onClick={() => handleClick(request.address)}
                           onMouseEnter={() => setIsHovering(true)}
                           onMouseLeave={() => setIsHovering(false)}
                           >
                             2 - 4 Đ. Hồng Hà, Phường 2, Tân Bình, Thành phố Hồ Chí Minh
                           </div>
-                      : <div>{order.address}</div> 
+                      : <div>{request.address}</div> 
                   }
                 </Stack>
               </header>
@@ -103,57 +105,58 @@ const OrderInfoCard = ({ order }) => {
                 Lí do đặt Thực phẩm
               </h5>
               <header className='order-item-secondary'>
-                {order.reason !== undefined ? order.reason : 'Không có lý do cụ thể.'}
+                {request.reason !== undefined ? request.reason : 'Không có lý do cụ thể.'}
               </header>
 
-              <VolunteerInfo volunteerInfo={order.volunteer} order={order} />
+              <VolunteerInfo volunteerInfo={request.volunteer} order={request} />
               
               <hr />
-              
-              <h3 className='order-item-date text-center'>
-                {getStep(order.status, true, order.delivery_type === 'delivery', order).header}
-              </h3>
 
-              {order.status === 'canceled' && 
+              <h5 className='order-item-date text-center'>
+                {getState({ request }).content.text}
+              </h5>
+
+              {request.status !== 'canceled' &&
+                <>
+                  {size > 2 ? 
+                    <div className='mt-4'>
+                      {Array.from({ length : 11 }).map((_, idx) => 
+                      ((request.delivery_type === 'pickup' && ![3, 4, 7, 8].includes(idx)) ||
+                      (request.delivery_type !== 'pickup' && ![1, 2].includes(idx))) && (
+                        <div key={idx}>
+                          {idx % 2 === 0 ?
+                            <StepItem
+                              request={request}
+                              step={idx / 2}
+                            />
+                            :
+                            <div
+                              className={`step-connector pass`}
+                            />
+                          }
+                        </div>
+                      ))}
+                    </div>
+                    :
+                    <header className='order-item-secondary text-center mt-2'>
+                      Hiện tại: {getState({ request }).content.not_pass}
+                    </header>
+                  }
+                </>
+              }
+
+              {request.status === 'canceled' && 
                 <div>
                   <h5 className='order-item-date mt-4'>
                     Lí do bị hủy
                   </h5>
                   <header className='order-item-secondary'>
-                    {order.cancel_reason !== undefined ? order.cancel_reason : 'Không có lý do cụ thể.'}
+                    {request.cancel_reason !== undefined ? request.cancel_reason : 'Không có lý do cụ thể.'}
                   </header>
                 </div>
               }
 
-              {order.status !== 'canceled' && 
-                <div>
-                  {size > 1 ? 
-                    <Row className='mt-4'>
-                      {Array.from({ length : order.delivery_type === 'delivery' ? 9 : 7 }).map((_, idx) => (
-                        <Col className='px-0' key={idx}>
-                          {idx % 2 === 0 ?
-                            <StepItem
-                              key={idx / 2}
-                              request={order}
-                              step={idx / 2}
-                              currentStep={order.status}
-                              isDonee={true}
-                              isDelivery={order.delivery_type === 'delivery'}
-                            />
-                            :
-                            <hr className='step-connector' />
-                          }
-                        </Col>
-                      ))}
-                    </Row>
-                    :
-                    <header className='order-item-secondary text-center mt-2'>
-                      Hiện tại: {getStep(order.status, true, order.delivery_type === 'delivery').label} {`(${convertStepToNumber(order.status) + 1}/5)`}
-                    </header>
-                  }
-                </div>
-              }
-              {order.status === 'pending' &&
+              {request.status === 'pending' &&
                 <Row className='mt-4'>
                   <Col className='d-flex justify-content-end'>
                     <Stack direction='horizontal' gap={2}>
@@ -164,7 +167,7 @@ const OrderInfoCard = ({ order }) => {
                   </Col>
                 </Row>
               }
-              {order.status === 'accepted' && order.delivery_type === 'pickup' &&
+              {request.status === 'accepted' && request.delivery_type === 'pickup' &&
                 <Row className='mt-4'>
                   <Col className='d-flex justify-content-end'>
                     <Stack direction='horizontal' gap={2}>
@@ -183,4 +186,4 @@ const OrderInfoCard = ({ order }) => {
   );
 };
 
-export default OrderInfoCard;
+export default RequestInfoCard;

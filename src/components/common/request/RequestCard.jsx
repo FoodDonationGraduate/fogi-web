@@ -11,7 +11,7 @@ import { MdOutlineLocationOn, MdAccessTime } from 'react-icons/md';
 import UserItem from './UserItem';
 
 // Utility
-import { getStatus } from 'utils/helpers/Order.jsx';
+import { getState } from 'utils/helpers/Request.jsx';
 import { reduceString } from 'utils/helpers/String';
 import { convertToString } from 'utils/helpers/Time';
 import { getUnit } from 'utils/helpers/Food';
@@ -29,12 +29,14 @@ const RequestCard = ({
     return request.products.length < 4 ? request.products.length : 2;
   };
 
+  const { content, color } = getState({ request });
+
   return (
     <>
       <span
-        className={`order-item-status order-item-status-${getStatus(request).css}`}
+        className={`order-item-status order-item-status-${color}`}
       >
-        {getStatus(request).label}
+        {content.chip}
       </span>
         
         <div className='mt-3 mb-1'>

@@ -4,41 +4,52 @@ import { MdSmartphone, MdLabelImportant, MdDeliveryDining, MdCheckCircle, MdDire
 // Data
 import State from 'utils/constants/State.json';
 
-export const getState = (request) => {
-  let user = localStorage.getItem('user') !== 'undefined' && localStorage.getItem('user') !== null ? JSON.parse(localStorage.getItem('user')) : {};
-  const user_type = user.user_type;
-  
-  const state = State.allStates.find(s => s.status == request.status);
-  let content = {};
-  for (let i = 0; i < state.content.length; i++) {
-    const current = state.content[i]; // current content
-    if (current.condition.length === 0 || current.condition.includes(
-      {
-        user_type,
-        delivery_type: request.delivery_type ? request.delivery_type : 'give'
-      }
-    )) {
-      content = current;
-      break;
-    }
-  }
-
-  return { id: state.id, content };
+export const getStatusIdx = (status) => {
+  const state = State.allStates.find(s => s.status == status);
+  return state.id;
 };
 
-export const getStateForStep = (step, request) => {
+export const getStepStatus = (step) => {
+  const state = State.allStates.find(s => s.id == step);
+  return state.status;
+};
+
+export const getStepStyle = (step, currentStep) => {
+  let status = 'unfinished';
+  if (step < currentStep) status = 'finished';
+  else if (step === currentStep) status = 'current';
+  return status;
+};
+
+export const getStepIcon = (step) => {
+  switch (step) {
+    case 0: return MdSmartphone; 
+    case 1: return MdLabelImportant; 
+    case 2: return MdLabelImportant; 
+    case 3: return MdDeliveryDining; 
+    case 4: return MdDeliveryDining; 
+    case 5: return MdCheckCircle; 
+  };
+};
+
+export const getState = ({ request, step }) => {
   let user = localStorage.getItem('user') !== 'undefined' && localStorage.getItem('user') !== null ? JSON.parse(localStorage.getItem('user')) : {};
   const user_type = user.user_type;
   
-  const state = State.allStates.find(s => s.id == step);
+  const findCondition = (s) => {
+    return step !== undefined ? s.id == step : s.status == request.status;
+  };
+  const state = State.allStates.find(s => findCondition(s));
 
   let content = {};
   const condition = {
     user_type: user_type,
     delivery_type: request.delivery_type ? request.delivery_type : 'give'
   };
+
   for (let i = 0; i < state.content.length; i++) {
     const current = state.content[i]; // current content
+    console.log(JSON.stringify(current.condition));
 
     if (current.condition.length === 0 ||
       current.condition.find(c => c.user_type == condition.user_type && c.delivery_type == condition.delivery_type)) {
@@ -47,5 +58,13 @@ export const getStateForStep = (step, request) => {
     }
   }
 
-  return { id: state.id, content };
-}
+  if (request.user) {
+    content.pass = content.pass.replace(`{${request.user.user_type}_name}`, request.user.name);
+  }
+
+  if (request.volunteer) {
+    content.pass = content.pass.replace(`{volunteer_name}`, request.volunteer.name);
+  }
+
+  return { id: state.id, color: state.color, content };
+};

@@ -57,7 +57,6 @@
 .step-item {
   border-radius: 50%;
   align-self: start;
-  padding: 8px;
   width: 48px;
   aspect-ratio: 1 / 1;
   display: flex;
@@ -67,7 +66,6 @@
   .step-item-sm {
     border-radius: 50%;
     align-self: start;
-    padding: 8px;
   }
   .step-item-finished {
     border: 2px solid #82CD47;
@@ -94,13 +92,19 @@
       height: 16px;
     }
   .step-connector {
-    margin-top: 32px;
+    width: 1px; height: 16px;
+    background-color: #ccc;
+    margin-left: 24px;
   }
+    .step-connector.pass {
+      background-color: #82CD47;
+    }
   .step-text {
-    font-weight: 500;
+    font-size: 18px;
   }
   .step-text-current {
     color: black;
+    font-weight: 500;
   }
   .step-text-unfinished {
     color: #ccc;

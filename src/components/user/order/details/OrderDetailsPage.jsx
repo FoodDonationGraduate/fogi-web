@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom'
 // Components
 import TopSection from 'components/layout/TopSection';
 import Footer from 'components/layout/Footer';
-import OrderInfoCard from './components/OrderInfoCard';
+import OrderInfoCard from './components/RequestInfoCard';
 import ProductList from './components/ProductList';
 import { retrieveRequest } from 'components/redux/reducer/RequestReducer';
 import NotFoundBody from 'components/common/PageNotFoundBody';
@@ -39,7 +39,7 @@ const OrderDetailsPage = () => {
       {Object.keys(currentRequest).length !== 0 && 
         <div className='bg pt-4'>
           <div className='pb-4'>
-            <OrderInfoCard order={currentRequest.request} />
+            <OrderInfoCard request={currentRequest.request} />
           </div>
           <div className='pb-4'>
             <ProductList products={currentRequest.request.products}/>

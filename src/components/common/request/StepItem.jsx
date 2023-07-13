@@ -3,28 +3,26 @@ import React from 'react';
 import { Stack } from 'react-bootstrap';
 
 // Utility
-import { getStep, getStepStatus, convertStepToNumber, convertNumberToStep } from 'utils/helpers/Order.jsx';
-import { getStateForStep } from 'utils/helpers/Request.jsx';
+import { getStatusIdx, getState, getStepIcon, getStepStyle } from 'utils/helpers/Request.jsx';
 
 const StepItem = ({
   request,
-  step,
-  currentStep,
-  isDonee,
-  isDelivery=true
+  step
 }) => {
-  const stepOptions = getStep(convertNumberToStep(step, isDonee, isDelivery), isDonee, isDelivery);
-  const { id, content } = getStateForStep(step, request)
+  const { id, content } = getState({ request, step });
+  const currentStep = getStatusIdx(request.status);
+  const icon =  { icon: getStepIcon(step) };
+  const stepStyle = getStepStyle(step, currentStep);
 
   return (
     <>
-      <Stack direction='vertical' gap={2}>
-        <div className={`step-item step-item-${getStepStatus(step, convertStepToNumber(currentStep))} mx-auto`}>
-          {stepOptions.icon}
+      <Stack direction='horizontal' gap={3}>
+        <div className={`step-item step-item-${stepStyle}`}>
+          <icon.icon className='step-item-icon' />
         </div>
-        <header className={`step-text step-text-${getStepStatus(step, convertStepToNumber(currentStep))} mx-auto text-center`}>
-          {(step <= currentStep && content.not_pass) ? content.not_pass : content.pass}
-        </header>
+        <div className={`step-text step-text-${stepStyle}`}>
+          {(content.not_pass && currentStep <= step) ? content.not_pass : content.pass}
+        </div>
       </Stack>
     </>
   )

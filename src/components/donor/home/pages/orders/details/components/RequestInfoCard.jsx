@@ -16,12 +16,12 @@ import { remakeDonorBag } from 'components/redux/reducer/RequestReducer';
 
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
-import { getStatus, getStep, convertStepToNumber } from 'utils/helpers/Order.jsx';
+import { getState } from 'utils/helpers/Request.jsx';
 import { convertToString } from 'utils/helpers/Time';
 import { reduceString } from 'utils/helpers/String';
 import { distanceTime } from 'utils/helpers/Time';
 
-const OrderInfoCard = ({ order }) => {
+const RequestInfoCard = ({ request }) => {
   let size = useResizer();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -55,97 +55,101 @@ const OrderInfoCard = ({ order }) => {
       }
   })
 
+  const { content, color } = getState({ request });
+
   return (
     <>
-      <CancelModal show={show} onClose={onClose} request={order} />
+      <CancelModal show={show} onClose={onClose} request={request} />
       <Container>
         <Row>
           <Col>
             <div className='order-info-card'>
               <span
-                className={`order-item-status order-item-status-${getStatus(order).css}`}
+                className={`order-item-status order-item-status-${color}`}
               >
-                {getStatus(order).label}
+                {content.chip}
               </span>
 
               <h3 className='order-item-date mt-3'>
-                Yêu cầu {order.id}
+                Yêu cầu {request.id}
               </h3>
 
               <div className='mt-2'> 
                 <header className='order-item-secondary'>
-                  <MdAccessTime /> Khởi tạo: {convertToString(order.created_time, 'LocaleString')}
+                  <MdAccessTime /> Khởi tạo: {convertToString(request.created_time, 'LocaleString')}
                 </header>
                 <header className='order-item-secondary'>
-                  <MdAccessTime /> Cập nhật: {convertToString(order.last_updated_state_time, 'LocaleString')}
+                  <MdAccessTime /> Cập nhật: {convertToString(request.last_updated_state_time, 'LocaleString')}
                 </header>
                 <header className='order-item-secondary'>
-                  <MdAccessTime /> Thời gian giao: {convertToString(order.ready_time, 'LocaleDateString')} 
-                  {convertToString(order.start_time, 'LocaleTimeString')} - {convertToString(order.end_time, 'LocaleTimeString')} 
+                  <MdAccessTime /> Thời gian giao: {convertToString(request.ready_time, 'LocaleDateString')} 
+                  {convertToString(request.start_time, 'LocaleTimeString')} - {convertToString(request.end_time, 'LocaleTimeString')} 
                 </header>
                 <header className='order-item-secondary'>
-                  <MdOutlineLocationOn /> {reduceString(order.address, 80)}
+                  <MdOutlineLocationOn /> {reduceString(request.address, 80)}
                 </header>
               </div>
 
-              <VolunteerInfo volunteerInfo={order.volunteer} order={order} />
+              <VolunteerInfo volunteerInfo={request.volunteer} order={request} />
 
               <hr />
 
-              <h3 className='order-item-date text-center'>
-                {getStep(order.status, false, true, order).header}
-              </h3>
+              <h5 className='order-item-date text-center'>
+                {content.text}
+              </h5>
 
-              {order.status !== 'canceled' &&
+              {request.status !== 'canceled' &&
                 <>
-                  {size > 1 ? 
-                    <Row className='mt-4'>
-                      {Array.from({ length : 9 }).map((_, idx) => (
-                        <Col className='px-0' key={idx}>
+                  {size > 2 ? 
+                    <div className='mt-4'>
+                      {Array.from({ length : 11 }).map((_, idx) => 
+                      ((request.delivery_type === 'pickup' && ![3, 4, 7, 8].includes(idx)) ||
+                      (request.delivery_type !== 'pickup' && ![1, 2].includes(idx))) && (
+                        <div key={idx}>
                           {idx % 2 === 0 ?
                             <StepItem
-                              key={idx / 2}
-                              request={order}
+                              request={request}
                               step={idx / 2}
-                              currentStep={order.status}
-                              isDonee={false}
                             />
                             :
-                            <hr className='step-connector' />
+                            <div
+                              className={`step-connector pass`}
+                            />
                           }
-                        </Col>
+                        </div>
                       ))}
-                    </Row>
+                    </div>
                     :
                     <header className='order-item-secondary text-center mt-2'>
-                      Hiện tại: {getStep(order.status, false, true).label} {`(${convertStepToNumber(order.status) + 1}/5)`}
+                      Hiện tại: {content.not_pass}
                     </header>
                   }
                 </>
               }
-              {(order.status === 'pending' || order.status === 'canceled') &&
+              
+              {(request.status === 'pending' || request.status === 'canceled') &&
                 <>
-                  {order.status === 'canceled' &&
+                  {request.status === 'canceled' &&
                     <div>
                       <h5 className='order-item-date mt-4'>
                         Lí do bị hủy
                       </h5>
                       <header className='order-item-secondary'>
-                        {order.cancel_reason !== undefined ? order.cancel_reason : 'Không có lý do cụ thể.'}
+                        {request.cancel_reason !== undefined ? request.cancel_reason : 'Không có lý do cụ thể.'}
                       </header>
                     </div>
                   }
                   <Row className='mt-4'>
                     <Col className='d-flex justify-content-end'>
-                      {(order.status === 'pending') && (
+                      {(request.status === 'pending') && (
                         <Button variant='outline-danger' onClick={onShow}>
                           Hủy Yêu cầu
                         </Button>
                       )}
-                      {order.status === 'canceled' && (
+                      {request.status === 'canceled' && (
                         <>
-                          {!order.is_request_remade ?
-                            <Button variant='primary' className='fogi' onClick={() => recreateRequest(order.products, order.id)}> 
+                          {!request.is_request_remade ?
+                            <Button variant='primary' className='fogi' onClick={() => recreateRequest(request.products, request.id)}> 
                               Tạo lại Túi Quyên góp
                             </Button>
                             :
@@ -167,4 +171,4 @@ const OrderInfoCard = ({ order }) => {
   );
 };
 
-export default OrderInfoCard;
+export default RequestInfoCard;
