@@ -130,10 +130,11 @@ const OrderInfoCard = ({ order }) => {
                   {size > 1 ? 
                     <Row className='mt-4'>
                       {Array.from({ length : order.delivery_type === 'delivery' ? 9 : 7 }).map((_, idx) => (
-                        <Col key={idx}>
+                        <Col className='px-0' key={idx}>
                           {idx % 2 === 0 ?
                             <StepItem
                               key={idx / 2}
+                              request={order}
                               step={idx / 2}
                               currentStep={order.status}
                               isDonee={true}

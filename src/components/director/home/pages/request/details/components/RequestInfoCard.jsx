@@ -12,6 +12,7 @@ import StepItem from 'components/common/request/StepItem';
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
 import { getStatus, getStep, convertStepToNumber } from 'utils/helpers/Order.jsx';
+import { getState } from 'utils/helpers/Request.jsx';
 import { convertToString } from 'utils/helpers/Time';
 import { reduceString } from 'utils/helpers/String';
 
@@ -98,28 +99,33 @@ const RequestInfoCard = ({ request }) => {
 
               <hr />
 
-              <h3 className='order-item-date text-center'>
+              <h5 className='order-item-date text-center'>
                 {getStep(request.status, false, request.delivery_type === 'delivery', request).header}
-              </h3>
+              </h5>
 
               {request.status !== 'canceled' &&
                 <>
                   {size > 2 ? 
                     <Row className='mt-4'>
-                      {Array.from({ length : request.delivery_type === 'pickup' ? 7 : 9}).map((_, idx) => (
-                        <Col className='px-0' key={idx}>
-                          {idx % 2 === 0 ?
-                            <StepItem
-                              key={idx / 2}
-                              step={idx / 2}
-                              currentStep={request.status}
-                              isDonee={request.user.user_type ==='donee'}
-                              isDelivery={request.delivery_type === 'delivery'}
-                            />
-                            :
-                            <hr className='step-connector' />
+                      {Array.from({ length : 9 }).map((_, idx) => (
+                        <span key={idx}>
+                          {(request.delivery_type !== 'pickup' || ![6, 7].includes(idx)) &&
+                            <Col className='px-0'>
+                                {idx % 2 === 0 ?
+                                  <StepItem
+                                    key={idx / 2}
+                                    request={request}
+                                    step={idx / 2}
+                                    currentStep={request.status}
+                                    isDonee={request.user.user_type ==='donee'}
+                                    isDelivery={request.delivery_type === 'delivery'}
+                                  />
+                                  :
+                                  <hr className='step-connector' />
+                                }
+                            </Col>
                           }
-                        </Col>
+                        </span>
                       ))}
                     </Row>
                     :
