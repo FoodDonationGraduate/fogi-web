@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Container, Col, Row, Stack } from 'react-bootstrap';
 
 // Assets
-import { MdOutlineLocationOn, MdAccessTime } from 'react-icons/md';
+import { MdOutlineLocationOn, MdAccessTime, MdTimelapse } from 'react-icons/md';
 
 // Components
 import UserItem from 'components/common/request/UserItem';
@@ -45,7 +45,10 @@ const RequestInfoCard = ({ request }) => {
 
                   <div className='mt-2'> 
                     <header className='order-item-secondary'>
-                      <MdAccessTime /> {convertToString(request.created_time, 'LocaleDateString')}
+                      <MdAccessTime /> Khởi tạo: {convertToString(request.created_time, 'LocaleString')}
+                    </header>
+                    <header className='order-item-secondary'>
+                      <MdAccessTime /> Cập nhật: {convertToString(request.last_updated_state_time, 'LocaleString')}
                     </header>
                     <header className='order-item-secondary'>
                       <MdOutlineLocationOn />{' '}

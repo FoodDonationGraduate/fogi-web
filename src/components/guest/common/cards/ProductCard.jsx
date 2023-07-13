@@ -25,8 +25,6 @@ import { setModalMessage, showModal } from 'components/redux/reducer/ModalReduce
 const ProductCard = ({product}) => {
   const userInfo = useSelector(state => state.authenticationReducer.user);
   const userToken = useSelector(state => state.authenticationReducer.token);
-  // const modalLogic = useSelector(state => state.modalReducer.logic);
-  // const volunteerInfo = useSelector(state => state.cartReducer.volunteerInfo);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();

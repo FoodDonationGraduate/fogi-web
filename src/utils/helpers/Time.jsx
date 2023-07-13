@@ -19,5 +19,7 @@ export const convertToString = (date, type) => {
     const newDate = new Date (date);
     if (type === 'LocaleDateString') {
         return newDate.toLocaleDateString();
+    } else if (type === 'LocaleString') {
+        return newDate.toLocaleString();
     }
 }

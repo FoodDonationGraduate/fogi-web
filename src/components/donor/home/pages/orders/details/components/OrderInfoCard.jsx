@@ -74,7 +74,10 @@ const OrderInfoCard = ({ order }) => {
 
               <div className='mt-2'> 
                 <header className='order-item-secondary'>
-                  <MdAccessTime /> {convertToString(order.created_time, 'LocaleDateString')}
+                  <MdAccessTime /> Khởi tạo: {convertToString(order.created_time, 'LocaleString')}
+                </header>
+                <header className='order-item-secondary'>
+                  <MdAccessTime /> Cập nhật: {convertToString(order.last_updated_state_time, 'LocaleString')}
                 </header>
                 <header className='order-item-secondary'>
                   <MdOutlineLocationOn /> {reduceString(order.address, 80)}

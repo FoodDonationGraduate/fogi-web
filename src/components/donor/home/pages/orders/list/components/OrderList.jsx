@@ -12,7 +12,9 @@ import { retrieveAllRequests } from 'components/redux/reducer/RequestReducer';
 import CommonNotFoundBody from 'components/common/CommonNotFoundBody';
 
 const OrderList = ({
-  currentStatus
+  currentStatus,
+  currentFilter,
+  queryData=''
 }) => {
   const allRequests = useSelector(state => state.requestReducer.allRequests)
   const sort = useSelector(state => state.requestReducer.sort)
@@ -32,15 +34,25 @@ const OrderList = ({
   // Get all requests
   useEffect(() => {
     setPage(0);
-  }, [sort, currentStatus]);
+  }, [currentStatus, currentFilter, queryData]);
 
   useEffect(()=>{
-    dispatch(retrieveAllRequests({limit: ORDER_COUNT, offset: page * ORDER_COUNT, sort_field: sort, request_status: currentStatus}, {userInfo, userToken}, navigate))
+    var data = {
+      limit: ORDER_COUNT, 
+      offset: page * ORDER_COUNT, 
+      sort_field: currentFilter, 
+      request_status: currentStatus,
+      queryData: queryData
+    }
+    if (queryData !== '') { data.search_query = queryData}
+
+    dispatch(retrieveAllRequests(data, {userInfo, userToken}, navigate))
     localStorage.setItem('requestAttributes', JSON.stringify({
-      status: currentStatus
+      status: currentStatus,
+      filter: currentFilter
     }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, sort, currentStatus]);
+  }, [page, currentStatus, currentFilter, queryData]);
 
 
   return (
