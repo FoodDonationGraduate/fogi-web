@@ -109,8 +109,8 @@ const ParentFoodPage = () => {
     var data = {
       limit: PARENT_FOOD_COUNT,
       offset: page * PARENT_FOOD_COUNT,
-      search_query: queryData,
       category_id: categoryId,
+      search_query: queryData,
       sort_field: filterList[activeFilterIdx],
       sort_by: isAsc ? 'asc' : 'desc'
     };

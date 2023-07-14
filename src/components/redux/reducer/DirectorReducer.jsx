@@ -473,16 +473,20 @@ export const retrieveAvailableVolunteers = (data, director, navigate) => {
 export const retrieveAllUnsortedFood = (data, director, navigate) => {
   return async dispatch => {
     try {
-      console.log('retrieve unsorted food');
-      await axiosInstance.get(`/child/product/director`, { params: {
+      var currentData = {
         email: director.userInfo.email,
         token: director.userToken,
         limit: data.limit,
         offset: data.offset,
-        sort_field: 'stock',
-        sort_by: 'desc',
-        filter: 'in_stock'
-      }}).then((res) => {
+        sort_field: data.sort_field,
+        sort_by: data.sort_by,
+        filter: 'in_stock',
+      }
+      if (data.search_query !== '') { currentData.search_query = data.search_query }
+
+      console.log('retrieve unsorted food');
+      await axiosInstance.get(`/child/product/director`, { params: currentData })
+      .then((res) => {
         dispatch(setAllUnsortedFood(res.data));
       }).catch((err) => {
         if (handleExpiredToken(err.response.data, dispatch, navigate)) {
@@ -644,17 +648,21 @@ export const updateParentFood = (data, director, navigate) => {
 export const retrieveAllFood = (data, director, navigate) => {
   return async dispatch => {
     try {
-      console.log('retrieve food');
-      await axiosInstance.get(`/child/product/director`, { params: {
+      var currentData = {
         email: director.userInfo.email,
         token: director.userToken,
         limit: data.limit,
         offset: data.offset,
-        sort_field: 'stock',
-        sort_by: 'desc',
+        sort_field: data.sort_field,
+        sort_by: data.sort_by,
         filter: 'in_stock',
-        parent_id: data.parent_id,
-      }}).then((res) => {
+        parent_id: data.parent_id
+      }
+      if (data.search_query !== '') { currentData.search_query = data.search_query }
+
+      console.log('retrieve food');
+      await axiosInstance.get(`/child/product/director`, { params: currentData})
+      .then((res) => {
         dispatch(setAllFood(res.data));
       }).catch((err) => {
         if (handleExpiredToken(err.response.data, dispatch, navigate)) {
