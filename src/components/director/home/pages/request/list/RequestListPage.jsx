@@ -1,5 +1,5 @@
 // Essentials
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Button, Container, Row, Stack } from 'react-bootstrap';
 
 // Components
@@ -87,14 +87,15 @@ const RequestListPage = () => {
   const formOptions = { resolver: yupResolver(formSchema) };
   const { register, watch, handleSubmit } = useForm(formOptions);
   const onSubmit = (data) => {
-    setQueryData(data.query)
+    setQueryData(data.query);
   }
-  React.useEffect(() => {
+  useEffect(() => {
     let data = watch('query');
     if (data === '') {
-      setQueryData(data)
+      setQueryData(data);
     }
-  }, [watch('query')])
+  }, [watch('query')]);
+  
   return (
     <>
       <Container>

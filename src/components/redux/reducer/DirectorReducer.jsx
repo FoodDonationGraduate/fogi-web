@@ -504,12 +504,20 @@ export const retrieveAllUnsortedFood = (data, director, navigate) => {
 export const retrieveAllParentFood = (data, director, navigate) => {
   return async dispatch => {
     try {
-      console.log('retrieve parent food');
-      await axiosInstance.get(`/parent/product/director`, { params: {
+      var currentData = {
         email: director.userInfo.email,
         token: director.userToken,
-        category_id: data.category_id
-      }}).then((res) => {
+        limit: data.limit,
+        offset: data.offset,
+        category_id: data.category_id,
+        sort_field: data.sort_field,
+        sort_by: data.sort_by
+      }
+      if (data.search_query !== '') { currentData.search_query = data.search_query }
+
+      console.log('retrieve parent food');
+      await axiosInstance.get(`/parent/product/director`, { params: currentData })
+      .then((res) => {
         dispatch(setAllParentFood(res.data));
         console.log(JSON.stringify(directorReducer))
       }).catch((err) => {

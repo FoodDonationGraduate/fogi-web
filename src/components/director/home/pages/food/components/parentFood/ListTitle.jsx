@@ -13,8 +13,12 @@ import 'assets/css/Fogi.css';
 // Reducers
 import { retrieveAllCategories, setCurrentCategory } from 'components/redux/reducer/CategoryReducer';
 
+// Utility
+import { useResizer } from 'utils/helpers/Resizer';
+
 const ListTitle = () => {
   // Constants
+  const size = useResizer();
   const navigate = useNavigate(); const dispatch = useDispatch();
   const { categoryId } = useParams();
 
@@ -54,7 +58,7 @@ const ListTitle = () => {
           <Col className='ps-0'>
             <h2 className='fw-bold'>Thực phẩm Đại diện</h2>
           </Col>
-          <Col className='pe-0 d-flex justify-content-end' xs={4}>
+          <Col className={`${size > 1 ? 'pe-0 d-flex justify-content-end' : 'ps-0 mt-2'}`} md={4}>
             <Stack direction='horizontal' gap={2}>
               <Button
                 className='fogi' variant='primary'
@@ -77,9 +81,6 @@ const ListTitle = () => {
           </Col>
         </Row>
       </Row>
-      <SubCategoryModal
-        show={show} onShow={onShow} onClose={onClose}
-      />
     </>
   );
 };
