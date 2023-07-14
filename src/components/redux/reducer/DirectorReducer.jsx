@@ -18,7 +18,7 @@ const initialState = {
 
   allUnsortedFood: {},
   allParentFood: {},
-  currentParentFood: {},
+  currentParentFood: null,
   allFood: {}
 };
 
@@ -520,6 +520,36 @@ export const retrieveAllParentFood = (data, director, navigate) => {
       .then((res) => {
         dispatch(setAllParentFood(res.data));
         console.log(JSON.stringify(directorReducer))
+      }).catch((err) => {
+        if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+          
+        } else {
+          console.log(err.response.data);
+          dispatch(setModalMessage("Đã xảy ra lỗi!"))
+          dispatch(setModalType('danger'))
+          dispatch(showModal())
+       }
+      });
+    } catch (err) {
+      console.log(err);
+      navigate('/');
+    }
+  }
+}
+
+export const retrieveCurrentParentFood = (data, director, navigate) => {
+  return async dispatch => {
+    try {
+      var currentData = {
+        email: director.userInfo.email,
+        token: director.userToken,
+        parent_id: data.parent_id
+      }
+
+      console.log('retrieve current parent food');
+      await axiosInstance.get(`/parent/product/director`, { params: currentData })
+      .then((res) => {
+        dispatch(setCurrentParentFood(res.data.parent_product));
       }).catch((err) => {
         if (handleExpiredToken(err.response.data, dispatch, navigate)) {
           

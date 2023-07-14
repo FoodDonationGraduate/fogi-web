@@ -14,7 +14,7 @@ import SubCategoryInfoCard from './components/parentFood/SubCategoryInfoCard';
 import FoodCard from './components/food/FoodCard';
 import FoodModal from './components/food/FoodModal';
 // Reducers
-import { retrieveAllParentFood, retrieveAllFood, setCurrentParentFood } from 'components/redux/reducer/DirectorReducer';
+import { retrieveCurrentParentFood, retrieveAllFood } from 'components/redux/reducer/DirectorReducer';
 
 const ParentFoodPage = () => {
   // Constants
@@ -24,10 +24,13 @@ const ParentFoodPage = () => {
   const { parentFoodId } = useParams();
 
   // Parent Food
-  const allParentFood = useSelector(state => state.directorReducer.allParentFood);
   const currentParentFood = useSelector(state => state.directorReducer.currentParentFood);
   useEffect(() => {
-    dispatch(setCurrentParentFood(allParentFood.products.find(p => p.id == parentFoodId)));
+    dispatch(retrieveCurrentParentFood(
+      { parent_id: parentFoodId },
+      { userInfo, userToken },
+      navigate
+    ));
   }, []);
 
   // Food
@@ -64,9 +67,11 @@ const ParentFoodPage = () => {
               <div className='mb-2'>
                 <BackButton />
               </div>
-              <SubCategoryInfoCard
-                subCategory={currentParentFood}
-              />
+              {currentParentFood &&
+                <SubCategoryInfoCard
+                  subCategory={currentParentFood}
+                />
+              }
             </Col>
           </Row>
 

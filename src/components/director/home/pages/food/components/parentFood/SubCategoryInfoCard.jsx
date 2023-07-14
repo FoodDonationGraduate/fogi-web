@@ -18,7 +18,7 @@ const SubCategoryInfoCard = ({
             <Stack direction='horizontal' gap={4}>
               <img
                 className='manage-details-profile-logo-alt' alt='director logo'
-                src={`https://bachkhoi.online/static/${subCategory.image_filename}`}
+                src={`https://bachkhoi.online/static/${subCategory.images[0]}`}
               />
               <Stack className='justify-content-center' direction='vertical'>
                 <h4 className='manage-card-name fw-bold'>
