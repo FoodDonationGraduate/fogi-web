@@ -80,8 +80,8 @@ const OrderInfoCard = ({ order }) => {
                   <MdAccessTime /> Cập nhật: {convertToString(order.last_updated_state_time, 'LocaleString')}
                 </header>
                 <header className='order-item-secondary'>
-                  <MdAccessTime /> Thời gian giao: {convertToString(order.available_date, 'LocaleDateString')} 
-                  {convertToString(order.available_start, 'LocaleTimeString')} - {convertToString(order.available_end, 'LocaleTimeString')} 
+                  <MdAccessTime /> Thời gian giao: {convertToString(order.available_start_date, 'LocaleDateString')} {order.available_start_time.slice(0,5)} 
+                  - {convertToString(order.available_end_date, 'LocaleDateString')} {order.available_end_time.slice(0,5)} 
                 </header>
                 <header className='order-item-secondary'>
                   <MdOutlineLocationOn /> {reduceString(order.address, 80)}

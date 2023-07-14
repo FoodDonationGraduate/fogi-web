@@ -50,10 +50,13 @@ const RequestInfoCard = ({ request }) => {
                     <header className='order-item-secondary'>
                       <MdAccessTime /> Cập nhật: {convertToString(request.last_updated_state_time, 'LocaleString')}
                     </header>
+                    {request.user.user_type === 'donor' && 
                     <header className='order-item-secondary'>
-                      <MdAccessTime /> Thời gian giao: {convertToString(request.available_date, 'LocaleDateString')} 
-                      {convertToString(request.available_start, 'LocaleTimeString')} - {convertToString(request.available_end, 'LocaleTimeString')} 
+                      <MdAccessTime /> Thời gian giao: {convertToString(request.available_start_date, 'LocaleDateString')} {request.available_start_time.slice(0,5)} 
+                      - {convertToString(request.available_end_date, 'LocaleDateString')} {request.available_end_time.slice(0,5)} 
                     </header>
+                    }
+                    
                     <header className='order-item-secondary'>
                       <MdOutlineLocationOn />{' '}
                       {

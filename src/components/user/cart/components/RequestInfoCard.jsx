@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from 'react-redux'
 
 // Components
 import ChipList from 'components/common/chip/ChipList';
-import Tooltip from 'components/common/Tooltip';
 
 // Form handling
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -48,10 +47,7 @@ const RequestInfoCard = (
   // Form handling
   const formSchema = Yup.object().shape({
     reason: Yup.string().required(''),
-    currentAddress: Yup.object().required(''),
-    available_date: Yup.string().required(''),
-    available_start: Yup.string().required(''),
-    available_end: Yup.string().required('')
+    currentAddress: Yup.object().required('')
   });
   const formOptions = { resolver: yupResolver(formSchema) };
   const { register, handleSubmit, setValue, formState } = useForm(formOptions);
@@ -63,10 +59,7 @@ const RequestInfoCard = (
       delivery_type: activeStatusIdx === 0 ? 'pickup' : 'delivery',
       address: data.currentAddress.address,
       lat: data.currentAddress.lat,
-      long: data.currentAddress.long,
-      available_date: data.available_date,
-      available_start: data.available_start,
-      available_end: data.available_end
+      long: data.currentAddress.long
     }, {userInfo, userToken}, navigate));
     setActive(false);
   };
@@ -133,59 +126,6 @@ const RequestInfoCard = (
                         <p className="mt-2 error">
                           <FaExclamationTriangle className="mx-2" />
                           Bạn chưa điền lí do
-                        </p>
-                      )}
-                    </Form.Group>
-
-                    <Form.Group className='mb-3'>
-                      <Form.Label style={{ fontWeight: 'bold' }}>
-                        `Ngày sẵn sàng ${activeStatusIdx === 1 ? 'giao' : 'nhận'} thực phẩm`
-                      </Form.Label>
-                      <Form.Control type='date' min={new Date().toISOString().slice(0,10)} {...register('available_date')} />
-                      {errors.available_date && errors.available_date.type === 'required' && (
-                        <p className="mt-2 error">
-                          <FaExclamationTriangle className="mx-2" />
-                          Bạn chưa điền ngày sẵn sàng
-                        </p>
-                      )}
-                    </Form.Group>
-
-                    <Form.Group className='mb-3'>
-                      <Form.Label style={{ fontWeight: 'bold'}}>
-                        Thời gian bắt đầu{' '}
-                        <Tooltip tip={'Thời gian' 
-                          + activeStatusIdx === 1 ? 'Tình nguyện viên' : 'bạn' + 'có thể bắt đầu'
-                          + activeStatusIdx === 1 ? 'giao' : 'nhận'
-                          + 'thực phẩm'} />
-                      </Form.Label>
-                      <Form.Control
-                        type='time'
-                        {...register('available_start')}
-                      />
-                      {errors.available_start && errors.available_start.type === 'required' && (
-                        <p className="mt-2 error">
-                          <FaExclamationTriangle className="mx-2" />
-                          Bạn chưa điền thời gian bắt đầu
-                        </p>
-                      )}
-                    </Form.Group>
-
-                    <Form.Group className='mb-3'>
-                      <Form.Label style={{ fontWeight: 'bold'}}>
-                        Thời gian kết thúc{' '}
-                        <Tooltip tip={'Thời gian' 
-                          + activeStatusIdx === 1 ? 'Tình nguyện viên' : 'bạn' + 'không thể'
-                          + activeStatusIdx === 1 ? 'giao' : 'nhận'
-                          + 'thực phẩm nữa'} />
-                      </Form.Label>
-                      <Form.Control
-                        type='time'
-                        {...register('available_end')}
-                      />
-                      {errors.available_end && errors.available_end.type === 'required' && (
-                        <p className="mt-2 error">
-                          <FaExclamationTriangle className="mx-2" />
-                          Bạn chưa điền thời gian kết thúc
                         </p>
                       )}
                     </Form.Group>

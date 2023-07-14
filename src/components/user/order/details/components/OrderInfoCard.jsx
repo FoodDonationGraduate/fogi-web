@@ -69,10 +69,6 @@ const OrderInfoCard = ({ order }) => {
                 <header className='order-item-secondary'>
                   <MdAccessTime /> Cập nhật: {convertToString(order.last_updated_state_time, 'LocaleString')}
                 </header>
-                <header className='order-item-secondary'>
-                  <MdAccessTime /> Thời gian giao: {convertToString(order.available_date, 'LocaleDateString')} 
-                  {convertToString(order.available_start, 'LocaleTimeString')} - {convertToString(order.available_end, 'LocaleTimeString')} 
-                </header>
               </div>
 
               <Stack className='mb-2 mt-3' direction='horizontal' gap={2}>
