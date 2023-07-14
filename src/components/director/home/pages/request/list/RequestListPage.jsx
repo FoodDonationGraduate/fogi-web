@@ -1,5 +1,6 @@
 // Essentials
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { Form, Button, Container, Row, Stack } from 'react-bootstrap';
 
 // Components
@@ -17,6 +18,7 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 const RequestListPage = () => {
   // Request attributes
   const requestAttributes = JSON.parse(localStorage.getItem('requestAttributes'));
+  const userInfo = useSelector(state => state.authenticationReducer.user);
 
   // Chip List - Request type
   const typeList = ['donor', 'donee-delivery', 'donee-pickup'];
@@ -62,7 +64,7 @@ const RequestListPage = () => {
     ['neutral', 'neutral', 'info', 'warning', 'success', 'danger']
   ];
   const [activeStatusIdx, setActiveStatusIdx] = useState(requestAttributes ? statusList[typeList.indexOf(requestAttributes.from)].indexOf(requestAttributes.status) : 0);
-  React.useEffect(() => {
+  useEffect(() => {
     if (activeStatusIdx > statusList[activeFromIdx].length) { setActiveStatusIdx(0); }
   }, [activeFromIdx])
   
@@ -116,24 +118,28 @@ const RequestListPage = () => {
               </Button>
             </Form>
           </Stack>
-          <ChipList
-            activeStatusIdx={activeFromIdx}
-            setActiveStatusIdx={setActiveFromIdx}
-            statusList={typeList}
-            getStatusLabel={getTypeLabel}
-            styleList={typeStyleList}
-            title={'Loại yêu cầu'}
-            style={'mb-2'}
-          />
-          <ChipList
-            activeStatusIdx={activeStatusIdx}
-            setActiveStatusIdx={setActiveStatusIdx}
-            statusList={statusList[activeFromIdx]}
-            getStatusLabel={getStatusLabel}
-            styleList={styleList[activeFromIdx]}
-            title={'Trạng thái'}
-            style={'mb-2'}
-          />
+          {userInfo.user_type === 'director' && 
+            <>
+              <ChipList
+                activeStatusIdx={activeFromIdx}
+                setActiveStatusIdx={setActiveFromIdx}
+                statusList={typeList}
+                getStatusLabel={getTypeLabel}
+                styleList={typeStyleList}
+                title={'Loại yêu cầu'}
+                style={'mb-2'}
+              />
+              <ChipList
+                activeStatusIdx={activeStatusIdx}
+                setActiveStatusIdx={setActiveStatusIdx}
+                statusList={statusList[activeFromIdx]}
+                getStatusLabel={getStatusLabel}
+                styleList={styleList[activeFromIdx]}
+                title={'Trạng thái'}
+                style={'mb-2'}
+              />
+            </>
+          }
           <DropdownList
             activeStatusIdx={activeFilterIdx}
             setActiveStatusIdx={setActiveFilterIdx}

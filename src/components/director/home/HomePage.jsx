@@ -44,18 +44,19 @@ import 'assets/css/donor/HomePage.css';
 // Side Menu
 const sideMenuInfoList = [
   {
-    user_type: 'keeper',
+    user_type: 'director',
     menu: [
       { idx: 0, label: 'Thống kê', link: 'dashboard', icon: MdOutlineAnalytics },
       { idx: 1, label: 'Yêu cầu', link: 'requests', icon: MdOutlineArticle },
+      { idx: 3, label: 'Hạng mục', link: 'categories', icon: MdOutlineCategory },
+      { idx: 4, label: 'Thực phẩm Đại diện', link: 'parent-food', icon: MdOutlineShoppingBag },
       { idx: 5, label: 'Xét duyệt', link: 'approve', icon: MdCheckCircleOutline },
       { idx: 6, label: 'Người dùng', link: 'users', icon: MdOutlineGroup }
     ]
   },
   {
-    user_type: 'director',
+    user_type: 'warehouse_keeper',
     menu: [
-      { idx: 0, label: 'Thống kê', link: 'dashboard', icon: MdOutlineAnalytics },
       { idx: 1, label: 'Yêu cầu', link: 'requests', icon: MdOutlineArticle },
       { idx: 2, label: 'Phân loại Thực phẩm', link: 'unsorted-food', icon: MdOutlineFastfood },
       { idx: 3, label: 'Hạng mục', link: 'categories', icon: MdOutlineCategory },
@@ -108,17 +109,17 @@ const HomePage = ({
           <Col>
             <Row className={`${size >= 2 ? 'workspace' : ''} py-4`}>
               <Col>
-                {userInfo.user_type === 'keeper' && <>
+                {userInfo.user_type === 'director' && <>
+                  {activeIdx === 0 && <DashboardPage />}
                   {activeIdx === 5 && <ApproveListPage />}
                   {activeIdx === 6 && <ManageUserPage />}
                 </>}
-                {userInfo.user_type === 'director' && <>
+                {userInfo.user_type === 'warehouse_keeper' && <>
                   {activeIdx === 2 && <UnsortedFoodPage />}
-                  {activeIdx === 3 && <CategoryPage />}
-                  {activeIdx === 4 && (!parentFoodId ? <ParentFoodPage /> : <FoodPage />)}
                 </>}
-                {activeIdx === 0 && <DashboardPage />}
                 {activeIdx === 1 && <RequestPage />}
+                {activeIdx === 3 && <CategoryPage />}
+                {activeIdx === 4 && (!parentFoodId ? <ParentFoodPage /> : <FoodPage />)}
               </Col>
             </Row>
           </Col>

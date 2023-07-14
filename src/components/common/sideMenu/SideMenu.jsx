@@ -19,7 +19,7 @@ const SideMenu = ({
 
   return (
     <>
-      <Col className='side-menu' md={1} lg={3}>
+      <Col className='side-menu' md={2} lg={3}>
         <SideMenuUser className='mb-4' />
 
         <Stack className='mt-4' direction='vertical'>

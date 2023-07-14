@@ -94,11 +94,13 @@ const RequestDetailsPage = () => {
             label: 'Chọn lại Tình nguyện viên',
             tip: 'Bạn chưa chọn Tình nguyện viên'
           }
-        case 'shipping': return {
-          condition: true,
-          label: 'Đã nhận Túi Quyên góp',
-          tip: ''
-        };
+        case 'shipping': 
+          if (userInfo.user_type === 'director') return undefined;
+          return {
+            condition: true,
+            label: 'Đã nhận Túi Quyên góp',
+            tip: ''
+          };
         default: return undefined;
       }
     } else {
@@ -282,7 +284,7 @@ const RequestDetailsPage = () => {
                 <div className='d-flex justify-content-end mt-4'>
                   <Stack direction='horizontal' gap={2}>
                     {['pending', 'accepted', 'finding', 'receiving', 'shipping']
-                    .includes(request.status) &&
+                    .includes(request.status) && userInfo.user_type === 'director' &&
                       <Button variant='outline-danger' onClick={onShow}>
                       Hủy Yêu cầu
                       </Button>

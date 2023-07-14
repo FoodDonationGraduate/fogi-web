@@ -49,7 +49,6 @@ export const getState = ({ request, step }) => {
 
   for (let i = 0; i < state.content.length; i++) {
     const current = state.content[i]; // current content
-    console.log(JSON.stringify(current.condition));
 
     if (current.condition.length === 0 ||
       current.condition.find(c => c.user_type == condition.user_type && c.delivery_type == condition.delivery_type)) {

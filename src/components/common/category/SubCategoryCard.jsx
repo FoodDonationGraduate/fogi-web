@@ -1,6 +1,7 @@
 // Essentials
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { Card } from 'react-bootstrap';
 import { EqualHeightElement } from 'react-equal-height';
 
@@ -14,9 +15,10 @@ const SubCategoryCard = ({
   subCategory
 }) => {
   const navigate = useNavigate();
+  const userInfo = useSelector(state => state.authenticationReducer.user);
 
   const onSelect = () => {
-    navigate(`/director/parent-food/${subCategory.id}`);
+    navigate(`/${userInfo.user_type}/parent-food/${subCategory.id}`);
   };
 
   return (

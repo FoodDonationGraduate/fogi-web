@@ -23,7 +23,7 @@ import FoodModal from './components/food/FoodModal';
 // Reducers
 import { retrieveCurrentParentFood, retrieveAllFood } from 'components/redux/reducer/DirectorReducer';
 
-const ParentFoodPage = () => {
+const FoodPage = () => {
   // Constants
   const userInfo = useSelector(state => state.authenticationReducer.user);
   const userToken = useSelector(state => state.authenticationReducer.token);
@@ -182,4 +182,4 @@ const ParentFoodPage = () => {
   );
 };
 
-export default ParentFoodPage;
+export default FoodPage;

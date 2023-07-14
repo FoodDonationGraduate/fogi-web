@@ -20,7 +20,7 @@
           "condition": [
             { "user_type": "director", "delivery_type": "pickup" },
             { "user_type": "donee", "delivery_type": "pickup" },
-            { "user_type": "keeper", "delivery_type": "give" }
+            { "user_type": "warehouse_keeper", "delivery_type": "give" }
           ],
           "chip": "Đang Xác nhận",
           "not_pass": "Chờ xác nhận",
@@ -38,7 +38,7 @@
             { "user_type": "director", "delivery_type": "delivery" },
             { "user_type": "donor", "delivery_type": "give" },
             { "user_type": "donee", "delivery_type": "delivery" },
-            { "user_type": "keeper", "delivery_type": "give" }
+            { "user_type": "warehouse_keeper", "delivery_type": "give" }
           ],
           "chip": "Đang điều phối",
           "not_pass": "Chờ điều phối",
@@ -93,7 +93,7 @@
           "text": "Tình nguyện viên {volunteer_name} đang đi lấy thực phẩm ở kho và giao đến bạn"
         },
         {
-          "condition": [{ "user_type": "keeper", "delivery_type": "give" }],
+          "condition": [{ "user_type": "warehouse_keeper", "delivery_type": "give" }],
           "chip": "Đang nhận",
           "not_pass": "Tình nguyện viên đang tới Người quyên góp",
           "pass": "Tình nguyện viên {volunteer_name} đã nhận được thực phẩm từ Người quyên góp {donor_name}",
@@ -108,7 +108,7 @@
           "condition": [{ "user_type": "director", "delivery_type": "give" }],
           "chip": "Đang giao",
           "not_pass": "Nhập kho",
-          "pass": "Người giữ kho {keeper_name} đã nhập kho",
+          "pass": "Người giữ kho {warehouse_keeper_name} đã nhập kho",
           "text": "Tình nguyện viên {volunteer_name} đang giao thực phẩm tới kho"
         },
         {
@@ -133,7 +133,7 @@
           "text": "Tình nguyện viên {volunteer_name} đang trên đường giao thực phẩm tới bạn."
         },
         {
-          "condition": [{ "user_type": "keeper", "delivery_type": "give" }],
+          "condition": [{ "user_type": "warehouse_keeper", "delivery_type": "give" }],
           "chip": "Đang giao",
           "not_pass": "Tình nguyện viên giao thực phẩm tới kho",
           "pass": "Kho đã nhận được thực phẩm từ Tình nguyện viên {volunteer_name}",
@@ -149,7 +149,7 @@
           "chip": "Thành công",
           "not_pass": "Nhập kho thành công",
           "pass": "Nhập kho thành công",
-          "text": "Thực phẩm được nhập kho bởi Người giữ kho {keeper_name} thành công"
+          "text": "Thực phẩm được nhập kho bởi Người giữ kho {warehouse_keeper_name} thành công"
         },
         {
           "condition": [{ "user_type": "director", "delivery_type": "delivery" }],
@@ -183,7 +183,7 @@
           "text": "Thực phẩm quyên góp đã tới tay bạn. Xin cảm ơn bạn đã sử dụng hệ thống."
         },
         {
-          "condition": [{ "user_type": "keeper", "delivery_type": "give" }],
+          "condition": [{ "user_type": "warehouse_keeper", "delivery_type": "give" }],
           "chip": "Thành công",
           "not_pass": "Giao thực phẩm thành công",
           "pass": "Giao thực phẩm thành công",

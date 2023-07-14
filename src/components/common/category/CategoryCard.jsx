@@ -2,6 +2,7 @@
 import * as React from 'react';
 import { Card } from 'react-bootstrap';
 import { useNavigate } from 'react-router';
+import { useSelector } from 'react-redux';
 import { EqualHeightElement } from 'react-equal-height';
 
 // Asset
@@ -19,13 +20,14 @@ const CategoryCard = ({
   user_type='donee'
 }) => {
   const navigate = useNavigate();
+  const userInfo = useSelector(state => state.authenticationReducer.user);
 
   const toCategoryPage = () => { // for Donee
     navigate(`/category/${category.name}`);
   };
 
   const toSubCategoryPage = () => { // for Director
-    navigate(`/director/category/${category.id}`);
+    navigate(`/${userInfo.user_type}/category/${category.id}`);
   };
 
   return (

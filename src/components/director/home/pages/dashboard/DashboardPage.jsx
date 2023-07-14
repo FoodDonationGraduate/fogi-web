@@ -114,7 +114,7 @@ const DashboardPage = () => {
           </div>
           <ListTitle title={'Tổng quan'} />
         </Row>
-        <StatsList stats={stats} />
+        {Object.keys(stats).length > 0 && <StatsList stats={stats} /> }
       </div>
       
       {/* BIỂU ĐỒ */}
@@ -157,7 +157,7 @@ const DashboardPage = () => {
           <Row>
             <div className='chart-container'>
               <div className='d-grid' style={{ height: '320px' }}>
-                <Chart chart={chart} />
+                {Object.keys(chart).length > 0 && <Chart chart={chart} /> }
               </div>
             </div>
           </Row>

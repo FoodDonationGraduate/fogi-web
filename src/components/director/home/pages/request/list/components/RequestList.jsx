@@ -77,7 +77,7 @@ const RequestList = ({
                       <Col className='mb-4' key={idx}>
                         <div
                           className='order-item'
-                          onClick={() => navigate(`/director/request/${currentFrom === 'donee-pickup' ? 'donee' : currentFrom}/${request.id}`)}
+                          onClick={() => navigate(`/${userInfo.user_type}/request/${currentFrom !== 'donor' ? 'donee' : currentFrom}/${request.id}`)}
                         >
                           <RequestCard
                             request={request}

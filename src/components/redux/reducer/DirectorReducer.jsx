@@ -289,15 +289,18 @@ export const retrieveAllRequests = (data, director, navigate) => {
         limit: data.limit,
         offset: data.offset,
         sort_field: data.sort_field,
-        sort_by: data.sort_by,
-        request_from: data.request_from,
-        request_status: data.request_status
+        sort_by: data.sort_by
+      }
+      if (director.userInfo.user_type === 'director') {
+        currentData.request_from = data.request_from;
+        currentData.request_status = data.request_status;
       }
       if (data.search_query !== '') {currentData.search_query = data.search_query}
       if (data.delivery_type !== '') {currentData.delivery_type = data.delivery_type}
 
       console.log('retrieve requests for director');
-      await axiosInstance.get(`/request/director`, { params: currentData}).then((res) => {
+      await axiosInstance.get(`/request/${director.userInfo.user_type}`, { params: currentData })
+      .then((res) => {
         dispatch(setAllRequests(res.data));
       }).catch((err) => {
         if (handleExpiredToken(err.response.data, dispatch, navigate)) {
@@ -320,7 +323,7 @@ export const retrieveCurrentRequest = (data, director, navigate) => {
   return async dispatch => {
     try {
       console.log('retrieve current request for director');
-      await axiosInstance.get(`/request/director`, { params: {
+      await axiosInstance.get(`/request/${director.userInfo.user_type}`, { params: {
         email: director.userInfo.email,
         token: director.userToken,
         request_from: data.request_from,
@@ -348,7 +351,7 @@ export const updateRequest = (data, director, navigate) => {
   return async dispatch => {
     try {
       console.log('update request');
-      await axiosInstance.patch(`/request/director`, {
+      await axiosInstance.patch(`/request/${director.userInfo.user_type}`, {
         email: director.userInfo.email,
         token: director.userToken,
         request_status: data.request_status,
@@ -357,7 +360,11 @@ export const updateRequest = (data, director, navigate) => {
         volunteer_email: data.volunteer_email,
         cancel_reason: data.cancel_reason
       }).then((res) => {
-        dispatch(retrieveCurrentRequest(data, director, navigate));
+        if (director.userInfo.user_type === 'director') {
+          dispatch(retrieveCurrentRequest(data, director, navigate));
+        } else {
+          navigate('/warehouse_keeper/requests');
+        }
         dispatch(setModalMessage(`Cập nhật trạng thái Yêu cầu ${data.request_id} thành công`));
         dispatch(setModalType('default'))
         dispatch(showModal());
@@ -575,7 +582,7 @@ export const addParentFood = (data, director, navigate) => {
   return async dispatch => {
     try {
       console.log('add parent food');
-      axiosInstance.post(`/parent/product/director`, {
+      axiosInstance.post(`/parent/product/${director.userInfo.user_type}`, {
         email: director.userInfo.email,
         token: director.userToken,
         name: data.name,
@@ -610,7 +617,7 @@ export const updateParentFood = (data, director, navigate) => {
   return async dispatch => {
     try {
       console.log('update parent food');
-      axiosInstance.patch(`/parent/product/director`, {
+      axiosInstance.patch(`/parent/product/${director.userInfo.user_type}`, {
         email: director.userInfo.email,
         token: director.userToken,
         name: data.name,
@@ -685,7 +692,7 @@ export const updateFood = (data, director, navigate) => {
   return async dispatch => {
     try {
       console.log('update food');
-      await axiosInstance.post(`/child/product/director`, { 
+      await axiosInstance.post(`/child/product/${director.userInfo.user_type}`, { 
         email: director.userInfo.email,
         token: director.userToken,
         child_id: data.child_id,

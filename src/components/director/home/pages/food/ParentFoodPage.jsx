@@ -45,11 +45,11 @@ const ParentFoodPage = () => {
   
   const onSelect = (eventKey, event) => {
     if (eventKey == -1) {
-      navigate(`/director/parent-food`);
+      navigate(`/${userInfo.user_type}/parent-food`);
       dispatch(setCurrentCategory({}));
       return;
     }
-    navigate(`/director/category/${eventKey}`);
+    navigate(`/${userInfo.user_type}/category/${eventKey}`);
     dispatch(setCurrentCategory(
       allCategories.categories.find(c => c.id == eventKey)
     ));

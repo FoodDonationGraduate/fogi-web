@@ -118,6 +118,9 @@ export const login = (data, navigate, setFailAuthentication) => {
                     case 'director':
                         navigate('/director/dashboard');
                         break;
+                    case 'warehouse_keeper':
+                        navigate('/warehouse_keeper/categories');
+                        break;
                     case 'volunteer':
                         dispatch(logout(navigate));
                         dispatch(setModalMessage(`Vui lòng sử dụng app dành riêng cho tình nguyện viên!`));
