@@ -26,7 +26,7 @@ const ApproveList = () => {
   const getUserTypeLabel = () => {
     switch (user_type) {
       case 'donee': return 'Người nhận';
-      case 'donor': return 'Người cho';
+      case 'donor': return 'Người quyên góp';
       case 'volunteer': return 'Tình nguyện viên';
     }
   };

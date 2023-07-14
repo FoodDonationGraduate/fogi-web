@@ -4,7 +4,7 @@ import { EqualHeightElement } from 'react-equal-height';
 import { useNavigate } from 'react-router-dom';
 
 // Utility
-import { getStatus } from 'utils/helpers/Order.jsx';
+import { getState } from 'utils/helpers/Request.jsx';
 import { reduceString } from 'utils/helpers/String';
 import { convertToString } from 'utils/helpers/Time';
 import { getUnit } from 'utils/helpers/Food';
@@ -15,13 +15,15 @@ const OrderItem = ({ order }) => {
   };
   const navigate = useNavigate();
 
+  const { content, color } = getState({ request: order });
+
   return (
     <>
       <div className='order-item' onClick={() => navigate(`/request/${order.id}`)}>
         <span
-          className={`order-item-status order-item-status-${getStatus(order).css}`}
+          className={`order-item-status order-item-status-${color}`}
         >
-          {getStatus(order).label}
+          {content.chip}
         </span>
         <div className='mt-3 mb-1'>
           <EqualHeightElement name="order-date">

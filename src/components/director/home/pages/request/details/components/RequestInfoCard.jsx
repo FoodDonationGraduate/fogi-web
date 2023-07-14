@@ -86,22 +86,22 @@ const RequestInfoCard = ({ request }) => {
                     }
                   </div>
                 </div>
+                
                 {size <= 2 && <hr />}
+
                 <div>
-                  {request.volunteer &&
-                    <>
-                      <UserItem user={request.volunteer} />
-                      <div className='my-3' />
-                    </>
-                  }
-                  {request.user && <UserItem user={request.user} user_type={request.user.user_type} />}
+                  <Stack direction='vertical' gap={3}>
+                    {request.director && <UserItem user={request.director} user_type={'director'} />}
+                    {request.volunteer && <UserItem user={request.volunteer} /> }
+                    {request.user && <UserItem user={request.user} user_type={request.user.user_type} />}
+                  </Stack>
                 </div>
               </div>
 
               <hr />
 
               <h5 className='order-item-date text-center'>
-                {getState({ request }).content.text}
+                {content.text}
               </h5>
 
               {request.status !== 'canceled' &&
@@ -127,7 +127,7 @@ const RequestInfoCard = ({ request }) => {
                     </div>
                     :
                     <header className='order-item-secondary text-center mt-2'>
-                      Hiện tại: {getState({ request }).content.not_pass}
+                      Hiện tại: {content.not_pass}
                     </header>
                   }
                 </>

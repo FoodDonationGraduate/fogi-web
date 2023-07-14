@@ -9,7 +9,7 @@ const StepItem = ({
   request,
   step
 }) => {
-  const { id, content } = getState({ request, step });
+  const { content } = getState({ request, step });
   const currentStep = getStatusIdx(request.status);
   const icon =  { icon: getStepIcon(step) };
   const stepStyle = getStepStyle(step, currentStep);

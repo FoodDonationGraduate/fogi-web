@@ -59,7 +59,7 @@ const DashboardPage = () => {
       case 'donee':
         return 'Người nhận';
       case 'donor':
-        return 'Người cho';
+        return 'Người quyên góp';
       default:
         return 'Tình nguyện viên';
     }

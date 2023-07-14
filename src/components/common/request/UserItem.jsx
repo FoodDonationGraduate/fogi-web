@@ -17,7 +17,8 @@ const UserItem = ({
   const getUserTypeLabel = () => {
     switch (user_type) {
       case 'donee': return 'Người nhận';
-      case 'donor': return 'Người cho';
+      case 'donor': return 'Người quyên góp';
+      case 'director': return 'Điều phối viên';
       default: return 'Tình nguyện viên';
     }
   };

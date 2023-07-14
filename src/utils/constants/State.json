@@ -8,7 +8,7 @@
           "condition": [],
           "chip": "Chờ duyệt",
           "not_pass": "Chờ duyệt",
-          "pass": "Đã duyệt bởi Điều phối viên {name}",
+          "pass": "Đã duyệt bởi Điều phối viên {director_name}",
           "text": "Đang chờ một Điều phối viên xét duyệt"
         }
       ]
@@ -24,8 +24,8 @@
           ],
           "chip": "Đang Xác nhận",
           "not_pass": "Chờ xác nhận",
-          "pass": "Đã xác nhận bởi Điều phối viên {name}",
-          "text": "Yêu cầu đã được xác nhận bởi Điều phối viên {name}"
+          "pass": "Đã xác nhận bởi Điều phối viên {director_name}",
+          "text": "Yêu cầu đã được xác nhận bởi Điều phối viên {director_name}"
         }
       ]
     },{
@@ -42,8 +42,8 @@
           ],
           "chip": "Đang điều phối",
           "not_pass": "Chờ điều phối",
-          "pass": "Đã được Điều phối bởi Điều phối viên {name}",
-          "text": "Yêu cầu đã được xác nhận và điều phối bởi Điều phối viên {name}"
+          "pass": "Đã được Điều phối bởi Điều phối viên {director_name}",
+          "text": "Yêu cầu đã được xác nhận và điều phối bởi Điều phối viên {director_name}"
         }
       ]
     },{
@@ -108,7 +108,7 @@
           "condition": [{ "user_type": "director", "delivery_type": "give" }],
           "chip": "Đang giao",
           "not_pass": "Nhập kho",
-          "pass": "Người giữ kho {name} đã nhập kho",
+          "pass": "Người giữ kho {keeper_name} đã nhập kho",
           "text": "Tình nguyện viên {volunteer_name} đang giao thực phẩm tới kho"
         },
         {
@@ -149,7 +149,7 @@
           "chip": "Thành công",
           "not_pass": "Nhập kho thành công",
           "pass": "Nhập kho thành công",
-          "text": "Thực phẩm được nhập kho bởi người giữ kho {name} thành công"
+          "text": "Thực phẩm được nhập kho bởi Người giữ kho {keeper_name} thành công"
         },
         {
           "condition": [{ "user_type": "director", "delivery_type": "delivery" }],
@@ -163,7 +163,7 @@
           "chip": "Thành công",
           "not_pass": "Giao thực phẩm thành công",
           "pass": "Giao thực phẩm thành công",
-          "text": "Điều phối viên {name} đã xác nhận yêu cầu thành công"
+          "text": "Điều phối viên {director_name} đã xác nhận yêu cầu thành công"
         },
         {
           "condition": [{ "user_type": "donor", "delivery_type": "give" }],

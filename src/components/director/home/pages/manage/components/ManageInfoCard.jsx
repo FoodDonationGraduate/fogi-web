@@ -22,7 +22,7 @@ import {
 const getUserType = (user_type) => {
   switch (user_type) {
     case 'donee': return 'Người nhận';
-    case 'donor': return 'Người cho';
+    case 'donor': return 'Người quyên góp';
     default: return 'Tình nguyện viên';
   }
 };

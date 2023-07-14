@@ -113,7 +113,7 @@ const RequestInfoCard = ({ request }) => {
               <hr />
 
               <h5 className='order-item-date text-center'>
-                {getState({ request }).content.text}
+                {content.text}
               </h5>
 
               {request.status !== 'canceled' &&
@@ -139,7 +139,7 @@ const RequestInfoCard = ({ request }) => {
                     </div>
                     :
                     <header className='order-item-secondary text-center mt-2'>
-                      Hiện tại: {getState({ request }).content.not_pass}
+                      Hiện tại: {content.not_pass}
                     </header>
                   }
                 </>
