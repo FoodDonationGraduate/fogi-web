@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Container, Col, Row, Stack } from 'react-bootstrap';
 
 // Assets
-import { MdOutlineLocationOn, MdAccessTime, MdTimelapse } from 'react-icons/md';
+import { MdOutlineLocationOn, MdAccessTime } from 'react-icons/md';
 
 // Components
 import UserItem from 'components/common/request/UserItem';

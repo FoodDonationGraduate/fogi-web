@@ -47,6 +47,7 @@ const ManageItemList = ({ setTargetUser, queryData }) => {
     ));
     
     localStorage.setItem('usersAttributes', JSON.stringify({
+      user_type: user_type,
       query: queryData
     }));
   }, [page, user_type, queryData]);

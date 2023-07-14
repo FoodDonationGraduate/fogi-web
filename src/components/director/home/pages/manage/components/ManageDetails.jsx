@@ -1,7 +1,7 @@
 // Essentials
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { Col, Row, Stack } from 'react-bootstrap';
+import { Accordion, Col, Row, Stack } from 'react-bootstrap';
 import { EqualHeight } from 'react-equal-height';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,8 +12,8 @@ import { retrieveReports } from 'components/redux/reducer/DirectorReducer';
 import ManageInfoCard from './ManageInfoCard';
 import ReportItem from './ReportItem';
 import Pagination from 'components/common/pagination/Pagination';
-import ListTitle from 'components/common/ListTitle';
 import BackButton from 'components/common/BackButton';
+import ManageRequestList from './ManageRequestList';
 
 const ManageDetails = ({ user, setTargetUser }) => {
   const reports = useSelector(state => state.directorReducer.reports);
@@ -75,28 +75,47 @@ const ManageDetails = ({ user, setTargetUser }) => {
         
         <Row>
           <Col>
-            <ListTitle title={`Báo cáo (${reports.total_reports})`} />
-            <Row className='mb-2' xs={1} md={2}>
-              <EqualHeight>
-                {Object.keys(reports).length !== 0 &&
-                reports.reports.map((report) => (
-                  <Col className='mb-4' key={report.id}>
-                    <ReportItem
-                      report={report}
-                    />
-                  </Col>
-                ))}
-              </EqualHeight>
-            </Row>
-            {reports.total_reports > 0 &&
-              <div className='d-flex justify-content-center'>
-                <Pagination
-                  pageCount={Math.ceil(reports.total_reports / REPORT_COUNT)}
-                  activeIdx={page}
-                  onChangePage={onChangePage}
-                />
-              </div>
-            }
+            <Accordion>
+              
+              <Accordion.Item eventKey="0">
+                <Accordion.Header>
+                  <h3>Báo cáo ({reports.total_reports})</h3>
+                </Accordion.Header>
+                <Accordion.Body className='bg'>
+                  <Row className='mb-2' xs={1} md={2}>
+                    <EqualHeight>
+                      {Object.keys(reports).length !== 0 &&
+                      reports.reports.map((report) => (
+                        <Col className='mb-4' key={report.id}>
+                          <ReportItem
+                            report={report}
+                          />
+                        </Col>
+                      ))}
+                    </EqualHeight>
+                  </Row>
+                  {reports.total_reports > 0 &&
+                    <div className='d-flex justify-content-center'>
+                      <Pagination
+                        pageCount={Math.ceil(reports.total_reports / REPORT_COUNT)}
+                        activeIdx={page}
+                        onChangePage={onChangePage}
+                      />
+                    </div>
+                  }
+                </Accordion.Body>
+              </Accordion.Item>
+              
+              <Accordion.Item eventKey="1" className='mt-4'>
+                <Accordion.Header>
+                  <h3>Danh sách yêu cầu</h3>
+                </Accordion.Header>
+                <Accordion.Body className='bg'>
+                  <ManageRequestList user={user}/>
+                </Accordion.Body>
+              </Accordion.Item>
+
+            </Accordion>
           </Col>
         </Row>
       </Col>

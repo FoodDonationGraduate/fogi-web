@@ -1,14 +1,15 @@
 // Essentials
 import React, { useState } from 'react';
 import { Container, Row, Stack, Button, Form } from 'react-bootstrap';
+import { MdOutlineSouth, MdOutlineNorth } from 'react-icons/md';
 
 // Components
-import TopSection from 'components/layout/TopSection';
 import Footer from 'components/layout/Footer';
 import OrderList from './components/OrderList';
 import ChipList from 'components/common/chip/ChipList';
 import InfoModal from 'components/layout/InfoModal';
 import DropdownList from 'components/common/dropdown/DropdownList';
+import TopBar from 'components/layout/TopBar';
 
 // Style
 import 'assets/css/user/order/Order.css';
@@ -19,7 +20,6 @@ import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import TopBar from 'components/layout/TopBar';
 
 const OrderListPage = () => {
   // Request attributes
@@ -83,6 +83,9 @@ const OrderListPage = () => {
   const filterStyleList = ['success', 'success'];
   const [activeFilterIdx, setActiveFilterIdx] = useState(requestAttributes ? filterList.indexOf(requestAttributes.filter) : 0);
 
+  // Reqest filter sort
+  const [sortBy, setSortBy] = useState(requestAttributes ? requestAttributes.sort_by : 'desc');
+
   // Handle search request
   const [queryData, setQueryData] = useState(requestAttributes ? requestAttributes.query : '');
   const formSchema = Yup.object().shape({
@@ -143,19 +146,25 @@ const OrderListPage = () => {
               title={'Trạng thái'}
               style={'mb-2'}
             />
-            <DropdownList
-              activeStatusIdx={activeFilterIdx}
-              setActiveStatusIdx={setActiveFilterIdx}
-              statusList={filterList}
-              getStatusLabel={getFilterLabel}
-              styleList={filterStyleList}
-              title={'Sắp xếp'}
-            />
+            <Stack direction='horizontal' className='mb-2 d-flex' gap={3}>
+              <DropdownList
+                activeStatusIdx={activeFilterIdx}
+                setActiveStatusIdx={setActiveFilterIdx}
+                statusList={filterList}
+                getStatusLabel={getFilterLabel}
+                styleList={filterStyleList}
+                title={'Sắp xếp'}
+              />
+              <Button onClick={() => {setSortBy(sortBy === 'desc' ? 'asc' : 'desc')}}>
+                {sortBy === 'desc' ? <MdOutlineSouth/> : <MdOutlineNorth/>}
+              </Button>
+            </Stack>
           </Row>
           <OrderList 
             currentDeliveryType={typeList[activeFromIdx]}
             currentStatus={statusList[activeFromIdx][activeStatusIdx]}
             currentFilter={filterList[activeFilterIdx]}
+            currentSortBy={sortBy}
             queryData={queryData}
           />
         </Container>

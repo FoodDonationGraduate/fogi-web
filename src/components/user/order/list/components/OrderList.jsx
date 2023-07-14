@@ -15,6 +15,7 @@ const OrderList = ({
   currentDeliveryType,
   currentStatus,
   currentFilter,
+  currentSortBy,
   queryData=""
 }) => {
   const allRequests = useSelector(state => state.requestReducer.allRequests)
@@ -34,7 +35,7 @@ const OrderList = ({
   // Get all requests
   useEffect(() => {
     setPage(0);
-  }, [currentDeliveryType, currentStatus, currentFilter, queryData]);
+  }, [currentDeliveryType, currentStatus, currentFilter, currentSortBy, queryData]);
 
   useEffect(()=>{
     var data = {
@@ -42,7 +43,7 @@ const OrderList = ({
       offset: page * ORDER_COUNT,
       request_status: currentStatus,
       sort_field: currentFilter,
-      sort_by: 'desc',
+      sort_by: currentSortBy,
       search_query: queryData,
       delivery_type: currentDeliveryType
     };
@@ -52,10 +53,11 @@ const OrderList = ({
       delivery_type: currentDeliveryType,
       status: currentStatus,
       filter: currentFilter,
+      sort_by: currentSortBy,
       query: queryData
     }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, currentDeliveryType, currentStatus, currentFilter, queryData]);
+  }, [page, currentDeliveryType, currentStatus, currentFilter, currentSortBy, queryData]);
 
   return (
     <div>

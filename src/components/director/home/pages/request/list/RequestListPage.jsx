@@ -1,6 +1,7 @@
 // Essentials
 import React, { useState } from 'react';
 import { Form, Button, Container, Row, Stack } from 'react-bootstrap';
+import { MdOutlineSouth, MdOutlineNorth } from 'react-icons/md';
 
 // Components
 import ChipList from 'components/common/chip/ChipList';
@@ -79,6 +80,9 @@ const RequestListPage = () => {
   const filterStyleList = ['success', 'success'];
   const [activeFilterIdx, setActiveFilterIdx] = useState(requestAttributes ? filterList.indexOf(requestAttributes.filter) : 0);
 
+  // Reqest filter sort
+  const [sortBy, setSortBy] = useState(requestAttributes ? requestAttributes.sort_by : 'desc');
+
   // Handle search request
   const [queryData, setQueryData] = useState(requestAttributes ? requestAttributes.query : '');
   const formSchema = Yup.object().shape({
@@ -134,14 +138,20 @@ const RequestListPage = () => {
             title={'Trạng thái'}
             style={'mb-2'}
           />
-          <DropdownList
-            activeStatusIdx={activeFilterIdx}
-            setActiveStatusIdx={setActiveFilterIdx}
-            statusList={filterList}
-            getStatusLabel={getFilterLabel}
-            styleList={filterStyleList}
-            title={'Sắp xếp'}
-          />
+          <Stack direction='horizontal' className='mb-2 d-flex' gap={3}>
+            <DropdownList
+              activeStatusIdx={activeFilterIdx}
+              setActiveStatusIdx={setActiveFilterIdx}
+              statusList={filterList}
+              getStatusLabel={getFilterLabel}
+              styleList={filterStyleList}
+              title={'Sắp xếp'}
+            />
+            <Button onClick={() => {setSortBy(sortBy === 'desc' ? 'asc' : 'desc')}}>
+              {sortBy === 'desc' ? <MdOutlineSouth/> : <MdOutlineNorth/>}
+            </Button>
+          </Stack>
+          
         </Row>
 
         {/* --- Request List --- */}
@@ -150,6 +160,7 @@ const RequestListPage = () => {
             currentFrom={typeList[activeFromIdx]}
             currentStatus={statusList[activeFromIdx][activeStatusIdx]}
             currentFilter={filterList[activeFilterIdx]}
+            currentSortBy={sortBy}
             queryData={queryData}
           />
         </div>

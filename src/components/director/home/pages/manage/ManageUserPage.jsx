@@ -25,7 +25,6 @@ const ManageUserPage = () => {
   const usersAttributes = JSON.parse(localStorage.getItem('usersAttributes'));
 
   // Chip List
-  const [activeStatusIdx, setActiveStatusIdx] = useState(0);
   const statusList = ['donee', 'donor', 'volunteer'];
   const getStatusLabel = (status) => {
     switch (status) {
@@ -38,6 +37,7 @@ const ManageUserPage = () => {
     }
   };
   const styleList = ['success', 'success', 'success'];
+  const [activeStatusIdx, setActiveStatusIdx] = useState(usersAttributes ? statusList.indexOf(usersAttributes.user_type) : 0);
 
   useEffect(() => {
     dispatch(setTypeOfUser(statusList[activeStatusIdx]));

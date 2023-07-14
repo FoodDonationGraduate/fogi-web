@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Stack } from 'react-bootstrap';
 import { EqualHeightElement } from 'react-equal-height';
+import { useNavigate } from 'react-router';
 
 // Style
 import 'assets/css/director/HomePage.css';
@@ -22,6 +23,7 @@ const ReportItem = ({
 }) => {
   let size = useResizer();
   const [reasons, setReasons] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setReasons(report.reason.split('\n'));
@@ -32,7 +34,8 @@ const ReportItem = ({
     <>
       <div className='manage-card'>
         <EqualHeightElement name='manage-content'>
-          <div className='manage-card-link mb-1'>
+          <div className='manage-card-link mb-1'
+            onClick={() => navigate(`/director/request/${report.request_type !== 'take' ? 'donee' : 'donor'}/${report.request_id}`)}>
             Yêu cầu {report.request_id}
           </div>
       
