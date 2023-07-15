@@ -1,14 +1,15 @@
 // Essentials
 import React, { useState } from 'react';
 import { Container, Row, Stack, Button, Form } from 'react-bootstrap';
+import { MdOutlineSouth, MdOutlineNorth } from 'react-icons/md';
 
 // Components
-import TopSection from 'components/layout/TopSection';
 import Footer from 'components/layout/Footer';
 import OrderList from './components/OrderList';
 import ChipList from 'components/common/chip/ChipList';
 import InfoModal from 'components/layout/InfoModal';
 import DropdownList from 'components/common/dropdown/DropdownList';
+import TopBar from 'components/layout/TopBar';
 
 // Style
 import 'assets/css/user/order/Order.css';
@@ -64,7 +65,7 @@ const OrderListPage = () => {
     ['neutral', 'neutral', 'info', 'warning', 'warning', 'success', 'danger'],
     ['neutral', 'neutral', 'info', 'warning', 'success', 'danger']
   ];
-  const [activeStatusIdx, setActiveStatusIdx] = useState(requestAttributes ? statusList[typeList.indexOf(requestAttributes.from)].indexOf(requestAttributes.status) : 0);
+  const [activeStatusIdx, setActiveStatusIdx] = useState(requestAttributes ? statusList[typeList.indexOf(requestAttributes.delivery_type)].indexOf(requestAttributes.status) : 0);
   React.useEffect(() => {
     if (activeStatusIdx > statusList[activeFromIdx].length) { setActiveStatusIdx(0); }
   }, [activeFromIdx])
@@ -82,8 +83,11 @@ const OrderListPage = () => {
   const filterStyleList = ['success', 'success'];
   const [activeFilterIdx, setActiveFilterIdx] = useState(requestAttributes ? filterList.indexOf(requestAttributes.filter) : 0);
 
+  // Reqest filter sort
+  const [sortBy, setSortBy] = useState(requestAttributes ? requestAttributes.sort_by : 'desc');
+
   // Handle search request
-  const [queryData, setQueryData] = useState('')
+  const [queryData, setQueryData] = useState(requestAttributes ? requestAttributes.query : '');
   const formSchema = Yup.object().shape({
     query: Yup.string().required('')
   });
@@ -102,45 +106,47 @@ const OrderListPage = () => {
   return (
     <>
       <div>
-        <TopSection />
+        <TopBar searchFlag={false}/>
       </div>
       <div className='bg'>
-        <div className='my-4'>
-          <Container>
-            <Row>
-              <Stack direction='horizontal' className='mb-2 d-flex' gap={3}>
-                <h2 className='fw-bold me-auto'>Yêu cầu của bạn</h2>
-                <Form className="search-form d-flex justify-content-right" onSubmit={handleSubmit(onSubmit)}>
-                  <Form.Control
-                    type="search"
-                    placeholder="Tìm kiếm"
-                    className="search-box"
-                    aria-label="Search"
-                    {...register("query")}
-                  />
-                  <Button className='px-4 search-btn' type='submit' variant='dark'>
-                    <FontAwesomeIcon icon={faSearch} />
-                  </Button>
-                </Form>
-              </Stack>
-              <ChipList
-                activeStatusIdx={activeFromIdx}
-                setActiveStatusIdx={setActiveFromIdx}
-                statusList={typeList}
-                getStatusLabel={getTypeLabel}
-                styleList={typeStyleList}
-                title={'Loại yêu cầu'}
-                style={'mb-2'}
-              />
-              <ChipList
-                activeStatusIdx={activeStatusIdx}
-                setActiveStatusIdx={setActiveStatusIdx}
-                statusList={statusList[activeFromIdx]}
-                getStatusLabel={getStatusLabel}
-                styleList={styleList[activeFromIdx]}
-                title={'Trạng thái'}
-                style={'mb-2'}
-              />
+        <div className='mt-2'></div>
+        <Container>
+          <Row className='mb-4'>
+            <Stack direction='horizontal' className='mb-2 d-flex' gap={3}>
+              <h2 className='fw-bold me-auto'>Yêu cầu của bạn</h2>
+              <Form className="search-form d-flex justify-content-right" onSubmit={handleSubmit(onSubmit)}>
+                <Form.Control
+                  type="search"
+                  placeholder="Tìm kiếm"
+                  className="search-box"
+                  aria-label="Search"
+                  defaultValue={queryData}
+                  {...register("query")}
+                />
+                <Button className='px-4 search-btn' type='submit' variant='dark'>
+                  <FontAwesomeIcon icon={faSearch} />
+                </Button>
+              </Form>
+            </Stack>
+            <ChipList
+              activeStatusIdx={activeFromIdx}
+              setActiveStatusIdx={setActiveFromIdx}
+              statusList={typeList}
+              getStatusLabel={getTypeLabel}
+              styleList={typeStyleList}
+              title={'Loại yêu cầu'}
+              style={'mb-2'}
+            />
+            <ChipList
+              activeStatusIdx={activeStatusIdx}
+              setActiveStatusIdx={setActiveStatusIdx}
+              statusList={statusList[activeFromIdx]}
+              getStatusLabel={getStatusLabel}
+              styleList={styleList[activeFromIdx]}
+              title={'Trạng thái'}
+              style={'mb-2'}
+            />
+            <Stack direction='horizontal' className='mb-2 d-flex' gap={3}>
               <DropdownList
                 activeStatusIdx={activeFilterIdx}
                 setActiveStatusIdx={setActiveFilterIdx}
@@ -149,15 +155,19 @@ const OrderListPage = () => {
                 styleList={filterStyleList}
                 title={'Sắp xếp'}
               />
-            </Row>
-            <OrderList 
-              currentDeliveryType={typeList[activeFromIdx]}
-              currentStatus={statusList[activeFromIdx][activeStatusIdx]}
-              currentFilter={filterList[activeFilterIdx]}
-              queryData={queryData}
-            />
-          </Container>
-        </div>
+              <Button onClick={() => {setSortBy(sortBy === 'desc' ? 'asc' : 'desc')}}>
+                {sortBy === 'desc' ? <MdOutlineSouth/> : <MdOutlineNorth/>}
+              </Button>
+            </Stack>
+          </Row>
+          <OrderList 
+            currentDeliveryType={typeList[activeFromIdx]}
+            currentStatus={statusList[activeFromIdx][activeStatusIdx]}
+            currentFilter={filterList[activeFilterIdx]}
+            currentSortBy={sortBy}
+            queryData={queryData}
+          />
+        </Container>
       </div>
       <div>
         <Footer />

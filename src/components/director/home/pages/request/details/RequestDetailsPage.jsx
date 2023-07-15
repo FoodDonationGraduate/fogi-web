@@ -15,6 +15,7 @@ import SubCategoryList from './components/subCategory/SubCategoryList';
 import SubCategoryDisplayList from './components/subCategory/SubCategoryDisplayList';
 import VolunteerCard from './components/volunteer/VolunteerCard';
 import VolunteerList from './components/volunteer/VolunteerList';
+import CommonNotFoundBody from 'components/common/CommonNotFoundBody';
 
 // Reducers
 import { retrieveCurrentRequest, updateRequest, updateRequestChild } from 'components/redux/reducer/DirectorReducer';
@@ -220,7 +221,7 @@ const RequestDetailsPage = () => {
 
   return (
     <>
-      {request &&
+      {(request && Object.keys(request).length !== 0) ?
         <>
           <CancelModal
             show={show}
@@ -312,9 +313,10 @@ const RequestDetailsPage = () => {
               </Row>
             </Container>
           </div>
-        </>
+        </> :
+        <CommonNotFoundBody title='Không tìm thấy yêu cầu này'/>
       }
-    </>
+    </> 
   );
 };
 

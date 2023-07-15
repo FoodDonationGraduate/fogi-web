@@ -34,30 +34,35 @@ const CreateRequestModal = ({
 
   // Form handling
   const formSchema = Yup.object().shape({
-    ready_date: Yup.string().required(''),
-    start_time: Yup.string().required(''),
-    end_time: Yup.string().required('')
+    available_start_date: Yup.string().required(''),
+    available_start_time: Yup.string().required(''),
+    available_end_date: Yup.string().required(''),
+    available_end_time: Yup.string().required('')
   });
   const formOptions = { resolver: yupResolver(formSchema) };
   const { register, handleSubmit, formState } = useForm(formOptions);
   const { errors } = formState;
 
-  const createRequest = (data) => {
-    if (data.start_time < data.end_time) {
-      dispatch(postDonorRequest({
-          ...selectedAddress,
-          ready_date: data.ready_date,
-          available_start: data.start_time,
-          available_end: data.end_time
-        },
-        {userInfo, userToken},
-        navigate)
-      );
-      onClose();
-    } else {
-      dispatch(setModalMessage('Thời gian bắt đầu phải sớm hơn Thời gian kết thúc'));
+  const createRequest = (data) =>  {
+    if (data.available_start_date > data.available_end_date) {
+      dispatch(setModalMessage('Ngày bắt đầu phải sớm hơn ngày kết thúc'));
       dispatch(setModalType('danger'));
       dispatch(showModal());
+    } else if (data.available_start_time >= data.available_end_time) {
+      dispatch(setModalMessage('Thời gian bắt đầu phải sớm hơn thời gian kết thúc'));
+      dispatch(setModalType('danger'));
+      dispatch(showModal());
+    } else {
+      dispatch(postDonorRequest({
+        ...selectedAddress,
+        available_start_date: data.available_start_date,
+        available_start_time: data.available_start_time + ':00',
+        available_end_date: data.available_end_date,
+        available_end_time: data.available_end_time + ':00'
+      },
+      {userInfo, userToken},
+      navigate));
+      onClose();
     }
   };
 
@@ -83,13 +88,32 @@ const CreateRequestModal = ({
 
             <Form.Group className='mb-3'>
               <Form.Label style={{ fontWeight: 'bold' }}>
-                Ngày sẵn sàng giao thực phẩm
+                Ngày bắt đầu giao thực phẩm
               </Form.Label>
-              <Form.Control type='date' min={new Date().toISOString().slice(0,10)} {...register('ready_date')} />
-              {errors.ready_date && errors.ready_date.type === 'required' && (
+              <Form.Control 
+                type='date' 
+                min={new Date().toISOString().slice(0,10)} 
+                {...register('available_start_date')} />
+              {errors.available_start_date && errors.available_start_date.type === 'required' && (
                 <p className="mt-2 error">
                   <FaExclamationTriangle className="mx-2" />
-                  Bạn chưa điền ngày sẵn sàng
+                  Bạn chưa điền ngày bắt đầu
+                </p>
+              )}
+            </Form.Group>
+
+            <Form.Group className='mb-3'>
+              <Form.Label style={{ fontWeight: 'bold' }}>
+                Ngày kết thúc giao thực phẩm
+              </Form.Label>
+              <Form.Control 
+                type='date' 
+                min={new Date().toISOString().slice(0,10)} 
+                {...register('available_end_date')} />
+              {errors.available_end_date && errors.available_end_date.type === 'required' && (
+                <p className="mt-2 error">
+                  <FaExclamationTriangle className="mx-2" />
+                  Bạn chưa điền ngày kết thúc
                 </p>
               )}
             </Form.Group>
@@ -101,9 +125,9 @@ const CreateRequestModal = ({
               </Form.Label>
               <Form.Control
                 type='time'
-                {...register('start_time')}
+                {...register('available_start_time')}
               />
-              {errors.start_time && errors.start_time.type === 'required' && (
+              {errors.available_start_time && errors.available_start_time.type === 'required' && (
                 <p className="mt-2 error">
                   <FaExclamationTriangle className="mx-2" />
                   Bạn chưa điền thời gian bắt đầu
@@ -118,9 +142,9 @@ const CreateRequestModal = ({
               </Form.Label>
               <Form.Control
                 type='time'
-                {...register('end_time')}
+                {...register('available_end_time')}
               />
-              {errors.end_time && errors.end_time.type === 'required' && (
+              {errors.available_end_time && errors.available_end_time.type === 'required' && (
                 <p className="mt-2 error">
                   <FaExclamationTriangle className="mx-2" />
                   Bạn chưa điền thời gian kết thúc

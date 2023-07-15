@@ -22,7 +22,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 
-const TopBar = () => {
+const TopBar = ({searchFlag = true}) => {
   const size = useResizer();
   const search = useLocation().search;
   const queryData = new URLSearchParams(search).get('query');
@@ -61,7 +61,7 @@ const TopBar = () => {
                 <>
                   {size > 1 ?
                     <Stack direction='horizontal' gap={2}>
-                      {size > 2 && 
+                      {(size > 2 && searchFlag) && 
                         <Form className="search-form d-flex" onSubmit={handleSubmit(onSubmit)}>
                           <Form.Group>
                             <Form.Control
@@ -93,7 +93,7 @@ const TopBar = () => {
                 <>
                   {size > 1 ?
                     <Stack direction='horizontal' gap={2}>
-                      {size > 2 && 
+                      {(size > 2 && searchFlag) && 
                         <Form className="search-form d-flex" onSubmit={handleSubmit(onSubmit)}>
                           <Form.Group>
                             <Form.Control

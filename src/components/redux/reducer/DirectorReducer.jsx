@@ -106,13 +106,15 @@ export const retrieveManageUsers = (data, director, navigate) => {
   return async dispatch => {
     try {
       console.log(`retrieve list of ${data.user_type}s to manage`);
-      await axiosInstance.get(`/director/profile`, { params: {
+      let currentData = {
         email: director.userInfo.email,
         token: director.userToken,
         user_type: data.user_type,
         limit: data.limit,
         offset: data.offset
-      }}).then((res) => {
+      }
+      if (data.search_query !== '') {currentData.search_query = data.search_query}
+      await axiosInstance.get(`/director/profile`, { params: currentData}).then((res) => {
         dispatch(setManageUsers(res.data));
       }).catch((err) => {
         if (handleExpiredToken(err.response.data, dispatch, navigate)) {
@@ -297,6 +299,7 @@ export const retrieveAllRequests = (data, director, navigate) => {
       }
       if (data.search_query !== '') {currentData.search_query = data.search_query}
       if (data.delivery_type !== '') {currentData.delivery_type = data.delivery_type}
+      if (data.user_email && data.user_email !== '') {currentData.user_email = data.user_email}
 
       console.log('retrieve requests for director');
       await axiosInstance.get(`/request/${director.userInfo.user_type}`, { params: currentData })
@@ -304,13 +307,13 @@ export const retrieveAllRequests = (data, director, navigate) => {
         dispatch(setAllRequests(res.data));
       }).catch((err) => {
         if (handleExpiredToken(err.response.data, dispatch, navigate)) {
-          
         } else {
           console.log(err.response.data);
           dispatch(setModalMessage("Đã xảy ra lỗi!"))
           dispatch(setModalType('danger'))
           dispatch(showModal())
        }
+       dispatch(setAllRequests({}));
       });
     } catch (err) {
       console.log(err);
@@ -332,13 +335,13 @@ export const retrieveCurrentRequest = (data, director, navigate) => {
         dispatch(setCurrentRequest(res.data.request));
       }).catch((err) => {
         if (handleExpiredToken(err.response.data, dispatch, navigate)) {
-          
         } else {
           console.log(err.response.data);
           dispatch(setModalMessage("Đã xảy ra lỗi!"))
           dispatch(setModalType('danger'))
           dispatch(showModal())
        }
+       dispatch(setCurrentRequest({}));
       });
     } catch (err) {
       console.log(err);
