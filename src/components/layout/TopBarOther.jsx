@@ -8,6 +8,7 @@ import 'assets/css/layout/TopBar.css';
 
 // Components
 import Logo from 'components/common/Logo';
+import Notification from './Notification';
 
 // Utility
 import { useResizer } from 'utils/helpers/Resizer';
@@ -41,6 +42,7 @@ const TopBar = ({ user_type = 1 }) => {
               <>
                 {size > 1 ?
                   <Stack direction='horizontal' gap={4}>
+                    <Notification/>
                     <div onClick={toProfileForm} className='d-flex align-items-center'>
                       <img className='nav-profile-icon' src={`https://bachkhoi.online/static/${userInfo.avatar}?${date.getTime()}`} alt='profile' id="profile-icon" />
                     </div>

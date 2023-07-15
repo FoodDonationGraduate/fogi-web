@@ -46,8 +46,7 @@ const VolunteerInfo = ({
             {!isCard && size <= 1 && <hr />}
             <Stack direction='horizontal' gap={3}>
               <img src={`https://bachkhoi.online/static/${volunteerInfo.avatar}`} alt='volunteer-avatar'
-                className='order-item-volunteer-avatar volunteer-avatar' 
-                onClick={() => navigate(`/volunteer/${volunteerInfo.username}`)}/>
+                className='order-item-volunteer-avatar volunteer-avatar'/>
               <Stack direction='vertical'>
                 <small className='order-item-volunteer-label'>Tình nguyện viên</small>
                 <div className='order-item-volunteer-name'>{volunteerInfo.name}</div>

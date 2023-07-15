@@ -3,18 +3,29 @@ import { MdOutlineNotificationsNone } from 'react-icons/md';
 import { Offcanvas } from 'react-bootstrap';
 import { onMessageListener } from "utils/helpers/Notification";
 
-function Notification() {
+function Notification({style={}}) {
   const [show, setShow] = React.useState(false);
-
-  onMessageListener()
-    .then((payload) => {
-      console.log(payload);    
-    })
-    .catch((err) => console.log('failed: ', err));
   
+  const onClick = (event) => {
+    setShow(true);
+    event.stopPropagation();
+  }
+
+  React.useEffect(() => {
+    onMessageListener()
+    .then((payload) => {
+      console.log(payload)
+    })
+    .catch((err) => {
+      console.log(err)
+    });
+  }, [])
+
+  
+
   return (
     <>
-      <MdOutlineNotificationsNone className='top-bar-icon' onClick={() => setShow(true)} />
+      <MdOutlineNotificationsNone className='top-bar-icon' style={style} onClick={(event) => onClick(event)} />
       <Offcanvas show={show} onHide={() => setShow(false)} placement={'end'} scroll={true}>
           <Offcanvas.Header closeButton>
             <Offcanvas.Title>Notification</Offcanvas.Title>

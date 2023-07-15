@@ -6,7 +6,8 @@ const firebaseConfig = {
     projectId: "fogi-d5187",
     storageBucket: "fogi-d5187.appspot.com",
     messagingSenderId: "157822938421",
-    appId: "1:157822938421:web:4d420230adfb43e263f07c"
+    appId: "1:157822938421:web:4d420230adfb43e263f07c",
+    measurementId: "G-XTYEWYX8PR"
   };
 
 var firebaseInstance = initializeApp(firebaseConfig);

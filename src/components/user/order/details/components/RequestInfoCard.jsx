@@ -11,13 +11,12 @@ import VolunteerInfo from 'components/common/request/VolunteerInfo';
 import CancelModal from 'components/common/request/CancelModal';
 
 // Assets
-import { MdAccessTime, MdOutlineLocationOn } from 'react-icons/md';
+import { MdAccessTime } from 'react-icons/md';
 
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
 import { getState } from 'utils/helpers/Request.jsx';
 import { convertToString } from 'utils/helpers/Time';
-import { reduceString } from 'utils/helpers/String';
 
 const RequestInfoCard = ({ request }) => {
   let size = useResizer();

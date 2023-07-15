@@ -4,7 +4,7 @@ import { Button, Card, Col, Row, Stack } from 'react-bootstrap';
 
 // Assets
 import {
-  MdOutlinePhone
+  MdOutlinePhone, MdSocialDistance
 } from 'react-icons/md';
 import PlaceHolder from 'assets/images/avatar.png';
 
@@ -56,13 +56,16 @@ const VolunteerCard = ({
                         <small style={{ color: '#999' }}>
                           <MdOutlinePhone /> {volunteer.phone}
                         </small>
-                    </div>
-                    {!request && 
-                      <span className={size > 0 ? 'long-product-type' : 'long-product-type-sm'}>
-                        Sẵn sàng
-                      </span>
-                    }
-                  </Stack> 
+                        <small style={{ color: '#999' }}>
+                          <MdSocialDistance /> {volunteer.distance}
+                        </small>
+                      </div>
+                      {!request && 
+                        <span className={size > 0 ? 'long-product-type' : 'long-product-type-sm'}>
+                          Sẵn sàng
+                        </span>
+                      }
+                    </Stack> 
                 </Stack>
               </div>
 
