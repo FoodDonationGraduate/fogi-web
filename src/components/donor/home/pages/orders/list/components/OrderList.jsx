@@ -14,6 +14,7 @@ import CommonNotFoundBody from 'components/common/CommonNotFoundBody';
 const OrderList = ({
   currentStatus,
   currentFilter,
+  currentSortBy,
   queryData=''
 }) => {
   const allRequests = useSelector(state => state.requestReducer.allRequests)
@@ -34,14 +35,14 @@ const OrderList = ({
   // Get all requests
   useEffect(() => {
     setPage(0);
-  }, [currentStatus, currentFilter, queryData]);
+  }, [currentStatus, currentFilter, currentSortBy, queryData]);
 
   useEffect(()=>{
     var data = {
       limit: ORDER_COUNT, 
       offset: page * ORDER_COUNT, 
       sort_field: currentFilter, 
-      sort_by: 'desc',
+      sort_by: currentSortBy,
       request_status: currentStatus,
       search_query: queryData,
       delivery_type: ''
@@ -49,10 +50,12 @@ const OrderList = ({
     dispatch(retrieveAllRequests(data, {userInfo, userToken}, navigate))
     localStorage.setItem('requestAttributes', JSON.stringify({
       status: currentStatus,
-      filter: currentFilter
+      filter: currentFilter,
+      sort_by: currentSortBy,
+      query: queryData
     }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, currentStatus, currentFilter, queryData]);
+  }, [page, currentStatus, currentFilter, currentSortBy, queryData]);
 
 
   return (

@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Form, Button, Container, Row, Stack } from 'react-bootstrap';
+import { MdOutlineSouth, MdOutlineNorth } from 'react-icons/md';
 
 // Components
 import ChipList from 'components/common/chip/ChipList';
@@ -81,8 +82,11 @@ const RequestListPage = () => {
   const filterStyleList = ['success', 'success'];
   const [activeFilterIdx, setActiveFilterIdx] = useState(requestAttributes ? filterList.indexOf(requestAttributes.filter) : 0);
 
+  // Reqest filter sort
+  const [sortBy, setSortBy] = useState(requestAttributes ? requestAttributes.sort_by : 'desc');
+
   // Handle search request
-  const [queryData, setQueryData] = useState('')
+  const [queryData, setQueryData] = useState(requestAttributes ? requestAttributes.query : '');
   const formSchema = Yup.object().shape({
     query: Yup.string().required('')
   });
@@ -111,6 +115,7 @@ const RequestListPage = () => {
                 placeholder="Tìm kiếm"
                 className="search-box"
                 aria-label="Search"
+                defaultValue={queryData}
                 {...register("query")}
               />
               <Button className='px-4 search-btn' type='submit' variant='dark'>
@@ -156,6 +161,7 @@ const RequestListPage = () => {
             currentFrom={typeList[activeFromIdx]}
             currentStatus={statusList[activeFromIdx][activeStatusIdx]}
             currentFilter={filterList[activeFilterIdx]}
+            currentSortBy={sortBy}
             queryData={queryData}
           />
         </div>

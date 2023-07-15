@@ -114,8 +114,10 @@ export const postDonorRequest = (data, user, navigate) => {
                 address: data.address,
                 lat: data.lat,
                 long: data.long,
-                available_start: data.available_start,
-                available_end: data.available_end
+                available_start_date: data.available_start_date,
+                available_end_date: data.available_end_date,
+                available_start_time: data.available_start_time,
+                available_end_time: data.available_end_time
             }).then((res) => {
                 dispatch(setModalMessage('Tạo yêu cầu mới thành công!'))
                 dispatch(showModal())
@@ -149,15 +151,16 @@ export const postDoneeRequest = (data, user, navigate) => {
     return async dispatch => {
         try {
             console.log("post donee's request")
-            let body = data.delivery_type === 'pickup' ? {
-                reason: data.reason,
-                delivery_type: data.delivery_type
-            } : {
+            let body = {
                 reason: data.reason,
                 delivery_type: data.delivery_type,
-                address: data.address,
-                lat: data.lat,
-                long: data.long
+            }
+            if (data.delivery_type !== 'pickup') {
+                body = {...body, ...{
+                    address: data.address,
+                    lat: data.lat,
+                    long: data.long
+                }}
             }
             await axiosInstance.post(`/request/donee`, {
                 email: user.userInfo.email,

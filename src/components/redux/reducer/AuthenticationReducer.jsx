@@ -167,6 +167,7 @@ export const logout = (navigate) => {
             dispatch(hideModal())
             //
             localStorage.removeItem('requestAttributes');
+            localStorage.removeItem('usersAttributes');
             // 
             dispatch(removeSelectedAddress())
             navigate('/login')

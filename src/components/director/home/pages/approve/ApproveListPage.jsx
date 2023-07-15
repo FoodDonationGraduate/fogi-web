@@ -1,10 +1,9 @@
 // Essentials
 import React, { useState, useEffect } from 'react';
-import { Container, Row } from 'react-bootstrap';
+import { Container, Row, Stack } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 
 // Components
-import ListTitle from 'components/common/ListTitle';
 import ApproveList from './components/ApproveList';
 import ChipList from 'components/common/chip/ChipList';
 
@@ -38,8 +37,10 @@ const ApproveListPage = () => {
     <>
       <div>
         <Container>
-          <ListTitle title={'Xét duyệt Người dùng'} />
-          <Row className='my-4'>
+          <Row className='mb-4'>
+            <Stack direction='horizontal' className='mb-2 d-flex' gap={3}>
+              <h2 className='fw-bold me-auto'>Xét duyệt Người dùng</h2>
+            </Stack>
             <ChipList
               activeStatusIdx={activeStatusIdx}
               setActiveStatusIdx={setActiveStatusIdx}

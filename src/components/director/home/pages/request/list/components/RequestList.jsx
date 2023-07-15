@@ -17,6 +17,7 @@ const RequestList = ({
   currentFrom,
   currentStatus,
   currentFilter,
+  currentSortBy,
   queryData=""
 }) => {
   const allRequests = useSelector(state => state.directorReducer.allRequests);
@@ -35,7 +36,7 @@ const RequestList = ({
   // Get all requests
   useEffect(() => {
     setPage(0);
-  }, [currentFrom, currentStatus, currentFilter, queryData]);
+  }, [currentFrom, currentStatus, currentFilter, currentSortBy, queryData]);
 
   useEffect(() => { 
     var data = {
@@ -44,7 +45,7 @@ const RequestList = ({
       request_from: currentFrom.slice(0,5) === 'donee' ? 'donee' : currentFrom,
       request_status: currentStatus,
       sort_field: currentFilter,
-      sort_by: 'desc',
+      sort_by: currentSortBy,
       search_query: queryData,
       delivery_type: currentFrom !== 'donor' ? currentFrom.slice(6) : ''
     };
@@ -58,9 +59,11 @@ const RequestList = ({
     localStorage.setItem('requestAttributes', JSON.stringify({
       from: currentFrom,
       status: currentStatus,
-      filter: currentFilter
+      filter: currentFilter,
+      sort_by: currentSortBy,
+      query: queryData
     }));
-  }, [page, currentFrom, currentStatus, currentFilter, queryData]);
+  }, [page, currentFrom, currentStatus, currentFilter, currentSortBy, queryData]);
 
   return (
     <div>
