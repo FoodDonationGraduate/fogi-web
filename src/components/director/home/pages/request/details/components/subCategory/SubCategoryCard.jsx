@@ -1,5 +1,5 @@
 // Essentials
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Accordion, Button, Card, Col, Row, Stack } from 'react-bootstrap';
@@ -45,7 +45,9 @@ const SubCategoryCard = ({
   const [modalTrigger, setModalTrigger] = useState(false);
 
   // Change SubCategory List
+  const first = useRef(true); // prevent from firing upon initial render
   useEffect(() => {
+    if (first.current) { first.current = false; return; }
     const idx = subCategoryList.findIndex(c => c.id === subCategory.id);
     setSubCategoryList([
       ...subCategoryList.slice(0, idx),
@@ -56,6 +58,11 @@ const SubCategoryCard = ({
       ...subCategoryList.slice(idx + 1)
     ]);
   }, [foodList]);
+
+  // Change foodList after auto-distribution
+  useEffect(() => {
+    setFoodList(subCategory.foodList);
+  }, [subCategory]);
 
   // Modal handling
   const [subShow, setSubShow] = useState(false);

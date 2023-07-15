@@ -44,14 +44,18 @@ const FoodSelectListModal = ({
       navigate
     ));
 
-    setModalTrigger(false);
   }, [modalTrigger, page]);
 
   return (
     <>
       <Modal
         show={subShow}
-        onHide={onSubClose}
+        onHide={
+          () => {
+            onSubClose();
+            setModalTrigger(false);
+          }
+        }
         backdrop='static'
         size='xl'
       >

@@ -1,29 +1,139 @@
 // Essentials
-import React, { useState } from 'react';
-import { Container, Col, Row } from 'react-bootstrap';
+import React, { useState, useEffect, useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { Button, Container, Col, OverlayTrigger, Row, Tooltip } from 'react-bootstrap';
+import axiosInstance from 'services/axios/axiosConfig.js';
 
 // Components
-import ListTitle from 'components/common/ListTitle';
 import Pagination from 'components/common/pagination/Pagination';
 
 import SubCategoryCard from './SubCategoryCard';
+
+// Reducers
+import { retrieveAllFood } from 'components/redux/reducer/DirectorReducer';
 
 const SubCategoryList = ({
   subCategoryList, setSubCategoryList,
   childList, setChildList,
   isError, setIsError
 }) => {
+  // Constants
+  const userInfo = useSelector(state => state.authenticationReducer.user);
+  const userToken = useSelector(state => state.authenticationReducer.token);
 
+  // Pagination
   const SUB_CATEGORY_COUNT = 4; // per page
   const [page, setPage] = useState(0); // a.k.a activeIdx
   const onChangePage = async (idx) => {
     setPage(idx);
   };
 
+  // Automatic Food Distribution
+  const autoDistributeFood = ({ resultAllFood, resultAllChild }) => {
+    
+    const currentSubCategory = subCategoryList.find(sc => sc.id == resultAllFood.parent_id);
+    const max_quantity = currentSubCategory.quantity;
+
+    let resultList = []; let total_quantity = 0;
+
+    for (let i = 0; i < resultAllFood.products.length; i++) {
+      const currentFood = resultAllFood.products[i];
+      let currentCount = currentFood.stock;
+
+      if (total_quantity + currentCount > max_quantity) {
+        currentCount = max_quantity - total_quantity;
+      }
+      if (currentCount > 0) {
+        resultList = [
+          ...resultList,
+          {
+            content: currentFood,
+            count: currentCount
+          }
+        ];
+      }
+      if (total_quantity === max_quantity) {
+        
+        const idx = subCategoryList.findIndex(c => c.id === currentSubCategory.id);
+        setSubCategoryList([
+          ...subCategoryList.slice(0, idx),
+          {
+            ...currentSubCategory,
+            foodList: resultList
+          },
+          ...subCategoryList.slice(idx + 1)
+        ]);
+        
+        subCategoryList[idx].foodList = resultList;
+        childList.children = [...childList.children, ...resultAllChild];
+        break;
+      } else {
+        total_quantity += currentCount;
+
+        const nextChild = {
+          parent_id: resultAllFood.parent_id,
+          child_id: currentFood.id,
+          quantity: currentCount
+        };
+        resultAllChild = [...resultAllChild, nextChild];
+      }
+    }
+  }
+
+  const onAutoDistribute = async () => {
+    childList.children = [];
+
+    for (let i = 0; i < subCategoryList.length; i++) {
+      const parentFood = subCategoryList[i];
+
+      var currentData = {
+        email: userInfo.email,
+        token: userToken,
+        limit: 1000,
+        offset: 0,
+        sort_field: 'expired_time',
+        sort_by: 'asc',
+        filter: 'in_stock',
+        parent_id: parentFood.id
+      }
+
+      const targetResult = await axiosInstance.get(`/child/product/director`, { params: currentData })
+      .then((res) => {
+        return { resultAllFood: res.data, resultAllChild: [] };
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+
+      autoDistributeFood(targetResult);
+    }
+  };
+
   return (
     <>
       <Container>
-        <ListTitle title={'Danh sách Thực phẩm Đại diện'} />
+        <Row className='mb-4'>
+          <Col>
+            <div className='d-flex justify-content-between align-items-center'>
+              <h2 className='fw-bold'>Thực phẩm Đại diện</h2>
+              <span>
+                <OverlayTrigger
+                  placement={'left'}
+                  overlay={
+                    <Tooltip style={{ position: 'fixed '}}>
+                      Hệ thống sẽ tự động chọn những Thực phẩm gần hết hạn
+                    </Tooltip>
+                }>
+                  <Button variant='dark' onClick={onAutoDistribute}>
+                    Tự động Điều phối
+                  </Button>
+                </OverlayTrigger>
+              </span>
+            </div>
+          </Col>
+        </Row>
+        {JSON.stringify(childList)}
         <Row xs={1}>
           {subCategoryList.map((subCategory, idx) => (
             <Col className='mb-3' key={idx}>
@@ -40,7 +150,6 @@ const SubCategoryList = ({
       <div className='d-flex justify-content-center mt-2'>
         <Pagination
           pageCount={Math.ceil(subCategoryList.length / SUB_CATEGORY_COUNT)}
-          // pageCount={Math.ceil(allRequests.total_requests / REQUEST_COUNT)}
           activeIdx={page}
           onChangePage={onChangePage}
         />

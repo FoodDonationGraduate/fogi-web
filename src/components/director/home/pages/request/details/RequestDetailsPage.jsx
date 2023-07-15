@@ -33,11 +33,11 @@ const RequestDetailsPage = () => {
 
   // List handling
   const [subCategoryList, setSubCategoryList] = useState([]);
-  const [childList, setChildList] = useState([]);
+  const [childList, setChildList] = useState({ children: [] });
 
   const isEnough = () => {
     for (let i = 0; i < request.products.length; i++) {
-      const currentChildList = childList.filter(c => c.parent_id === request.products[i].id);
+      const currentChildList = childList.children.filter(c => c.parent_id === request.products[i].id);
       let total = 0;
       for (let j = 0; j < currentChildList.length; j++) {
         total += currentChildList[j].quantity;
@@ -58,11 +58,12 @@ const RequestDetailsPage = () => {
     ));
   }, []);
 
-
+  //
   useEffect(() => {
     if (!request) return;
     
-    setSubCategoryList(request.products);
+    const parentFoodList = request.products.map(p => { return { ...p, foodList: [] } });
+    setSubCategoryList(parentFoodList);
   }, [request]);
 
   // Volunteer handling
@@ -188,7 +189,7 @@ const RequestDetailsPage = () => {
       var result = dispatch(updateRequestChild(
         {
           request_id: request.id,
-          child_products: childList
+          child_products: childList.children
         },
         { userInfo, userToken },
         navigate

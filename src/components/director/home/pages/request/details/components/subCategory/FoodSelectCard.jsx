@@ -23,15 +23,15 @@ const FoodSelectCard = ({
   };
   const onSelect = () => {
     setFoodList([...foodList, { content: food.content, count: 1 }]);
-    setChildList([...childList, {
+    setChildList({ children: [...childList.children, {
       parent_id: subCategory.id,
       child_id: food.content.id,
       quantity: 1
-    }]);
+    }]});
   };
   const onDeselect = () => {
     setFoodList(foodList.filter(f => f.content.id != food.content.id));
-    setChildList(childList.filter(f => f.child_id != food.content.id));
+    setChildList({ children: childList.children.filter(f => f.child_id != food.content.id)});
   };
   const onChangeCount = (count) => {
     const idx = foodList.findIndex(f => f.content.id === food.content.id);
@@ -44,16 +44,16 @@ const FoodSelectCard = ({
       ...foodList.slice(idx + 1)
     ]);
 
-    const child_idx = childList.findIndex(f => f.child_id === food.content.id);
-    setChildList([
-      ...childList.slice(0, child_idx),
+    const child_idx = childList.children.findIndex(f => f.child_id === food.content.id);
+    setChildList({ children: [
+      ...childList.children.slice(0, child_idx),
       {
         parent_id: subCategory.id,
         child_id: food.content.id,
         quantity: count
       },
-      ...childList.slice(child_idx + 1)
-    ]);
+      ...childList.children.slice(child_idx + 1)
+    ]});
   };
 
   const onUpdateCount = (amount) => {

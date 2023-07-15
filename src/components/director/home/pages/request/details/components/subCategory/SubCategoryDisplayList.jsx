@@ -21,7 +21,7 @@ const SubCategoryDisplayList = ({
   return (
     <>
       <Container>
-        <ListTitle title={'Danh sách Thực phẩm Đại diện'} />
+        <ListTitle title={'Thực phẩm Đại diện'} />
         <Row xs={1}>
           {subCategoryList.map((subCategory, idx) => (
             <Col className='mb-3' key={idx}>
