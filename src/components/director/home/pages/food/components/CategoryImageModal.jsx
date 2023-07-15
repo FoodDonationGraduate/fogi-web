@@ -9,7 +9,7 @@ const CategoryImageModal = ({ showImage, onClose, setImage }) => {
   const [preview, setPreview] = useState(null);
   const onBeforeFileLoad = (element) => {
     if (element.target.files[0].size > 10000000) {
-      alert('File is too big!');
+      alert('Kích thước hình ảnh quá lớn!');
       element.target.value = '';
     }
   };

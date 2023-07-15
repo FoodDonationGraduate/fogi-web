@@ -53,10 +53,12 @@ const CategoryModal = ({
   };
 
   const onOpen = () => {
-    reset({
-      name: category ? category.name : '',
-      description: category ? category.description : ''
-    });
+    if (category) {
+      reset({
+        name: category.name,
+        description: category.description
+      });
+    }
     onShow();
   };
 

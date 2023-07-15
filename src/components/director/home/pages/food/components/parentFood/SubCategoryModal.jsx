@@ -67,12 +67,14 @@ const SubCategoryModal = ({
   };
 
   const onOpen = () => {
-    reset({
-      name: subCategory ? subCategory.name : "",
-      description: subCategory ? subCategory.description : "",
-      unit: subCategory ? subCategory.unit : "kg",
-      category_id: categoryId ? categoryId : -1,
-    });
+    if (subCategory) {
+      reset({
+        name: subCategory.name,
+        description: subCategory.description,
+        unit: subCategory.unit,
+        category_id: categoryId ? categoryId : -1,
+      });
+    }
     onShow();
   };
 
