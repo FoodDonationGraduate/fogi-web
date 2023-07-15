@@ -6,7 +6,6 @@ import { sendDeviceToken } from 'components/redux/reducer/NotificationReducer';
 const messaging = getMessaging(firebaseInstance);
 
 export const requestForToken = (messaging, dispatch, navigate, user) => {
-
   return getToken(messaging, { vapidKey: "BBCATjFAqmgnBXuNb2rc5hDjj79pBh-ej-tmZJHGjx1zadpWLk0oqoQD7r5ZR1rgg_6ZlgIKVslOInl-Px8c4mU" })
     .then((currentToken) => {
       if (currentToken) {

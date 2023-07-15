@@ -26,10 +26,10 @@ function AvatarSection() {
     function onCrop(pv) {
         setPreview(pv);
     }
-    function onBeforeFileLoad(elem) {
-        if (elem.target.files[0].size > 200000) {
-            alert("File is too big!");
-            elem.target.value = "";
+    async function onBeforeFileLoad(elem) {
+        if (elem.target.files[0].size > 10000000) {
+            alert("Kích thước hình ảnh quá lớn!");
+            elem.target.value=''
         }
     }
     const onSubmit = () => {

@@ -20,6 +20,8 @@ const SubCategoryDisplayList = ({
 
   return (
     <>
+      {Object.keys(subCategoryList).length !== 0 && 
+      <>
       <Container>
         <ListTitle title={'Danh sách Thực phẩm Đại diện'} />
         <Row xs={1}>
@@ -39,6 +41,8 @@ const SubCategoryDisplayList = ({
           onChangePage={onChangePage}
         />
       </div>
+      </>
+      }
     </>
   )
 };

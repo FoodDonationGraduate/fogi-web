@@ -8,7 +8,7 @@ const CategoryImageModal = ({ showImage, onClose, setImage }) => {
   // handle avatar
   const [preview, setPreview] = useState(null);
   const onBeforeFileLoad = (element) => {
-    if (element.target.files[0].size > 200000) {
+    if (element.target.files[0].size > 10000000) {
       alert('File is too big!');
       element.target.value = '';
     }

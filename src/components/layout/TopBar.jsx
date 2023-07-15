@@ -9,6 +9,7 @@ import 'assets/css/layout/TopBar.css';
 // Components
 import Logo from 'components/common/Logo';
 
+import Notification from './Notification';
 // Assets
 import { MdOutlineShoppingBag } from 'react-icons/md';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -110,7 +111,7 @@ const TopBar = ({searchFlag = true}) => {
                           </Button>
                         </Form>
                       }
-                      {/* <Notification/> */}
+                      <Notification/>
                       <MdOutlineShoppingBag className='top-bar-icon' onClick={() => navigate('/donate-bag')}/>
                       <div onClick={() => navigate('/profile')} className='d-flex align-items-center'>
                         <img className='nav-profile-icon' src={`http://bachkhoi.online/static/${userInfo.avatar}?${date.getTime()}`} alt='profile' id="profile-icon" />

@@ -35,7 +35,7 @@ const ReportItem = ({
       <div className='manage-card'>
         <EqualHeightElement name='manage-content'>
           <div className='manage-card-link mb-1'
-            onClick={() => navigate(`/director/request/${report.request_type !== 'take' ? 'donee' : 'donor'}/${report.request_id}`)}>
+            onClick={() => navigate(`/director/request/${report.request_type === 'take' ? 'donee' : 'donor'}/${report.request_id}`)}>
             Yêu cầu {report.request_id}
           </div>
       
