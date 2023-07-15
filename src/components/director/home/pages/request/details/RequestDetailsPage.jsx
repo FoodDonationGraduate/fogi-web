@@ -18,7 +18,7 @@ import VolunteerList from './components/volunteer/VolunteerList';
 import CommonNotFoundBody from 'components/common/CommonNotFoundBody';
 
 // Reducers
-import { retrieveCurrentRequest, updateRequest, updateRequestChild } from 'components/redux/reducer/DirectorReducer';
+import { retrieveCurrentRequest, updateRequest, updateRequestChild, retrieveAllChildren } from 'components/redux/reducer/DirectorReducer';
 
 // Style
 import 'assets/css/user/order/Order.css';
@@ -30,6 +30,7 @@ const RequestDetailsPage = () => {
   const { from, id } = useParams();
 
   const request = useSelector(state => state.directorReducer.currentRequest);
+  const allChildren = useSelector(state => state.directorReducer.allChildren);
 
   // List handling
   const [subCategoryList, setSubCategoryList] = useState([]);
@@ -73,6 +74,7 @@ const RequestDetailsPage = () => {
   // STATUS HANDLING ----------------------------
 
   const [isError, setIsError] = useState(false);
+  const [isDistributed, setIsDistributed] = useState(false);
 
   const tooltip = (tip) => {
     return (
@@ -107,15 +109,27 @@ const RequestDetailsPage = () => {
       }
     } else {
       switch (request.status) {
-        case 'pending': 
-          return request.delivery_type === 'delivery' ? {
-            condition: !isError && isEnough() && targetVolunteer,
-            label: 'Duyệt Yêu cầu',
-            tip: 'Bạn chưa phân phối đủ Thực phẩm hoặc chưa chọn Tình nguyện viên'
-          } : {
-            condition: !isError && isEnough(),
-            label: 'Duyệt Yêu cầu',
-            tip: 'Bạn chưa phân phối đủ Thực phẩm'
+        case 'pending':
+          if (request.delivery === 'delivery') {
+            return !isDistributed ? {
+              condition: !isError && isEnough(),
+              label: 'Xác nhận điều phối',
+              tip: 'Bạn chưa phân phối đủ Thực phẩm'
+            } : {
+              condition: targetVolunteer,
+              label: 'Duyệt Yêu cầu',
+              tip: 'Bạn chưa chọn Tình nguyện viên'
+            }
+          } else {
+            return !isDistributed ? {
+              condition: !isError && isEnough(),
+              label: 'Xác nhận điều phối',
+              tip: 'Bạn chưa phân phối đủ Thực phẩm'
+            } : {
+              condition: true,
+              label: 'Duyệt Yêu cầu',
+              tip: ''
+            }
           }
         case 'finding':
           if (request.volunteer) return undefined;
@@ -161,8 +175,7 @@ const RequestDetailsPage = () => {
 
     // change if is donee
     if (request.user.user_type === 'donee') {
-
-      var newStatus = (request.delivery_type && request.delivery_type === 'pickup') ? 'accepted' : 'finding';
+      var newStatus = (request.delivery_type === 'pickup') ? 'accepted' : 'finding';
       switch (request.status) {
         case 'finding': newStatus = !request.volunteer ? 'finding' : 'receiving'; break;
         case 'accepted': newStatus = 'success'; break;
@@ -186,22 +199,11 @@ const RequestDetailsPage = () => {
 
     if (request.user.user_type === 'donee' && request.status === 'pending') {
 
-      var result = dispatch(updateRequestChild(
-        {
-          request_id: request.id,
-          child_products: childList.children
-        },
+      dispatch(updateRequest(
+        data,
         { userInfo, userToken },
         navigate
       ));
-
-      if (result) {
-        dispatch(updateRequest(
-          data,
-          { userInfo, userToken },
-          navigate
-        ));
-      }
 
     } else {
       dispatch(updateRequest(
@@ -211,6 +213,18 @@ const RequestDetailsPage = () => {
       ));
     }
 
+  };
+
+  const onDistributeChild = () => {
+    dispatch(updateRequestChild(
+      {
+        request_id: request.id,
+        child_products: childList.children,
+        setIsDistributed
+      },
+      { userInfo, userToken },
+      navigate
+    ));
   };
   
   // Cancel
@@ -246,11 +260,15 @@ const RequestDetailsPage = () => {
                 :
                 <>
                 {request.status === 'pending' ?
-                  <SubCategoryList
-                    subCategoryList={subCategoryList} setSubCategoryList={setSubCategoryList}
-                    childList={childList} setChildList={setChildList}
-                    isError={isError} setIsError={setIsError}
-                  />
+                  <>
+                    {!isDistributed &&
+                      <SubCategoryList
+                        subCategoryList={subCategoryList} setSubCategoryList={setSubCategoryList}
+                        childList={childList} setChildList={setChildList}
+                        isError={isError} setIsError={setIsError}
+                      />
+                    }
+                  </>
                   :
                   <SubCategoryDisplayList
                     subCategoryList={subCategoryList}
@@ -259,11 +277,12 @@ const RequestDetailsPage = () => {
                 </>
               }
             </div>
+            {JSON.stringify(childList)}
             {!request.volunteer ?
               <>
                 {
-                (((request.delivery_type && request.delivery_type !== 'pickup' ) && (['pending', 'finding'].includes(request.status)))
-                || (request.user.user_type === 'donor')) && request.status !== 'canceled' &&
+                (((request.delivery_type && request.delivery_type !== 'pickup' )&& (['pending', 'finding'].includes(request.status)))
+                || (request.user.user_type === 'donor')) && request.status !== 'canceled' && isDistributed &&
                   <VolunteerList
                     targetVolunteer={targetVolunteer} setTargetVolunteer={setTargetVolunteer}
                   />
@@ -288,7 +307,7 @@ const RequestDetailsPage = () => {
                     {['pending', 'accepted', 'finding', 'receiving', 'shipping']
                     .includes(request.status) && userInfo.user_type === 'director' &&
                       <Button variant='outline-danger' onClick={onShow}>
-                      Hủy Yêu cầu
+                        Hủy Yêu cầu
                       </Button>
                     }
 
@@ -304,7 +323,13 @@ const RequestDetailsPage = () => {
                         </span>
                       </OverlayTrigger>
                       :
-                      <Button className='fogi' variant='primary' onClick={onUpdate}>
+                      <Button
+                        className='fogi' variant='primary'
+                        onClick={
+                          (request.delivery_type && request.status === 'pending' && !isDistributed) ?
+                          onDistributeChild : onUpdate
+                        }
+                      >
                         {getNextCondition().label}
                       </Button>
                     )}

@@ -53,7 +53,21 @@ const SubCategoryList = ({
           }
         ];
       }
-      if (total_quantity === max_quantity) {
+
+      if (total_quantity < max_quantity) {
+        console.log(JSON.stringify(currentFood.name))
+        console.log(`${total_quantity}/${max_quantity}`)
+        total_quantity += currentCount;
+
+        const nextChild = {
+          parent_id: resultAllFood.parent_id,
+          child_id: currentFood.id,
+          quantity: currentCount
+        };
+        resultAllChild = [...resultAllChild, nextChild];
+      }
+
+      if (total_quantity == max_quantity) {
         
         const idx = subCategoryList.findIndex(c => c.id === currentSubCategory.id);
         setSubCategoryList([
@@ -68,15 +82,6 @@ const SubCategoryList = ({
         subCategoryList[idx].foodList = resultList;
         childList.children = [...childList.children, ...resultAllChild];
         break;
-      } else {
-        total_quantity += currentCount;
-
-        const nextChild = {
-          parent_id: resultAllFood.parent_id,
-          child_id: currentFood.id,
-          quantity: currentCount
-        };
-        resultAllChild = [...resultAllChild, nextChild];
       }
     }
   }
@@ -133,7 +138,6 @@ const SubCategoryList = ({
             </div>
           </Col>
         </Row>
-        {JSON.stringify(childList)}
         <Row xs={1}>
           {subCategoryList.map((subCategory, idx) => (
             <Col className='mb-3' key={idx}>

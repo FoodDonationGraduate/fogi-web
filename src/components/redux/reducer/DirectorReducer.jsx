@@ -19,7 +19,9 @@ const initialState = {
   allUnsortedFood: {},
   allParentFood: {},
   currentParentFood: null,
-  allFood: {}
+  allFood: {},
+
+  allChildren: {}
 };
 
 const directorReducer = createSlice({
@@ -60,6 +62,10 @@ const directorReducer = createSlice({
     },
     setAllFood: (state, action) => {
       state.allFood = action.payload;
+    },
+
+    setAllChildren: (state, action) => {
+      state.allChildren = action.payload;
     }
   }
 });
@@ -69,7 +75,9 @@ export const {
 
   setAllRequests, setCurrentRequest, setAvailableVolunteers,
 
-  setAllUnsortedFood, setAllParentFood, setCurrentParentFood, setAllFood
+  setAllUnsortedFood, setAllParentFood, setCurrentParentFood, setAllFood,
+
+  setAllChildren
 } = directorReducer.actions
 
 export default directorReducer.reducer
@@ -390,7 +398,6 @@ export const updateRequest = (data, director, navigate) => {
 
 export const updateRequestChild = (data, director, navigate) => {
   return async dispatch => {
-    var result = false;
     try {
       console.log('update request child list');
       await axiosInstance.post(`/request/director/child`, {
@@ -399,9 +406,9 @@ export const updateRequestChild = (data, director, navigate) => {
         request_id: data.request_id,
         child_products: data.child_products
       }).then((res) => {
-        result = true;
         dispatch(setModalMessage(`Cập nhật Thực phẩm con Yêu cầu ${data.request_id} thành công`));
         dispatch(showModal());
+        data.setIsDistributed(true);
       }).catch((err) => {
         if (handleExpiredToken(err.response.data, dispatch, navigate)) {
           
@@ -416,7 +423,6 @@ export const updateRequestChild = (data, director, navigate) => {
       console.log(err);
       navigate('/');
     }
-    return result;
   }
 }
 
@@ -712,6 +718,37 @@ export const updateFood = (data, director, navigate) => {
           ...data,
           offset: (data.food_list_length % data.offset !== 1) ? data.offset : 0
         }, director, navigate));
+      }).catch((err) => {
+        if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+          
+        } else {
+          console.log(err.response.data);
+          dispatch(setModalMessage("Đã xảy ra lỗi!"))
+          dispatch(setModalType('danger'))
+          dispatch(showModal())
+       }
+      });
+    } catch (err) {
+      console.log(err);
+      navigate('/');
+    }
+  }
+}
+
+export const retrieveAllChildren = (data, director, navigate) => {
+  return async dispatch => {
+    try {
+      var currentData = {
+        email: director.userInfo.email,
+        token: director.userToken,
+        request_id: data.request_id
+      }
+
+      console.log('retrieve all children');
+      await axiosInstance.get(`/request/director/child`, { params: currentData})
+      .then((res) => {
+        dispatch(setAllChildren(res.data));
+        if (data.setChildList) data.setChildList({ children: res.data.order_childs })
       }).catch((err) => {
         if (handleExpiredToken(err.response.data, dispatch, navigate)) {
           
