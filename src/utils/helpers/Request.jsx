@@ -57,20 +57,23 @@ export const getState = ({ request, step }) => {
     }
   }
 
-  if (request.user) {
-    content.pass = content.pass.replace(`{${request.user.user_type}_name}`, request.user.name);
-    content.text = content.text.replace(`{${request.user.user_type}_name}`, request.user.name);
+  if (content.pass && content.text) {
+    if (request.user) {
+      content.pass = content.pass.replace(`{${request.user.user_type}_name}`, request.user.name);
+      content.text = content.text.replace(`{${request.user.user_type}_name}`, request.user.name);
+    }
+  
+    if (request.volunteer) {
+      content.pass = content.pass.replace(`{volunteer_name}`, request.volunteer.name);
+      content.text = content.text.replace(`{volunteer_name}`, request.volunteer.name);
+    }
+  
+    if (request.director) {
+      content.pass = content.pass.replace(`{director_name}`, request.director.name);
+      content.text = content.text.replace(`{director_name}`, request.director.name);
+    }
   }
-
-  if (request.volunteer) {
-    content.pass = content.pass.replace(`{volunteer_name}`, request.volunteer.name);
-    content.text = content.text.replace(`{volunteer_name}`, request.volunteer.name);
-  }
-
-  if (request.director) {
-    content.pass = content.pass.replace(`{director_name}`, request.director.name);
-    content.text = content.text.replace(`{director_name}`, request.director.name);
-  }
+  
 
   return { id: state.id, color: state.color, content };
 };
