@@ -35,7 +35,7 @@ const ProductList = ({ setIsError }) => {
   const [overStock, setOverStock] = useState([]);
 
   useEffect(() => {
-    for (let i = 0; i < allProducts.total_cart_items; i++) {
+    for (let i = 0; i < allProducts.number_of_cart_items; i++) {
       const p = allProducts.cart[i];
       if (p.quantity < 1 || p.quantity > p.stock) {
         if (!overStock.includes(p.id)) setOverStock([...overStock, p.id]);

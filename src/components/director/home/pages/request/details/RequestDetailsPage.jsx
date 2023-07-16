@@ -48,16 +48,6 @@ const RequestDetailsPage = () => {
     return true;
   };
 
-  useEffect(() => {
-    dispatch(retrieveCurrentRequest(
-      {
-        request_from: from,
-        request_id: id
-      },
-      { userInfo, userToken },
-      navigate
-    ));
-  }, []);
 
   //
   useEffect(() => {
@@ -79,6 +69,19 @@ const RequestDetailsPage = () => {
     }
   }, [request]);
 
+
+  
+  useEffect(() => {
+    dispatch(retrieveCurrentRequest(
+      {
+        request_from: from,
+        request_id: id
+      },
+      { userInfo, userToken },
+      navigate
+    ));
+  }, []);
+  
   // Volunteer handling
   const [targetVolunteer, setTargetVolunteer] = useState(request ? request.volunteer : null);
 
