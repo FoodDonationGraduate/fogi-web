@@ -45,7 +45,7 @@ const UserItem = ({
         :
         <div className='text-center h-100'>
           <small className='order-item-volunteer-label'>
-            {isPickup ? 'Không' : 'Chưa'} có {getUserTypeLabel()}{isPickup ? ' vì lấy tại chỗ' : ''}
+            {isPickup ? 'Không' : 'Chưa'} có {getUserTypeLabel()}{isPickup ? ' vì lấy tại kho' : ''}
           </small>
         </div>
       }

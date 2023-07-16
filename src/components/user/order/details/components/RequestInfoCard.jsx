@@ -76,7 +76,7 @@ const RequestInfoCard = ({ request }) => {
                 <h5 className='order-item-date'>
                   Hình thức nhận thực phẩm
                 </h5>
-                <div className='order-tag'>{request.delivery_type === 'pickup' ? 'Lấy tại chỗ' : 'Giao hàng'}</div>
+                <div className='order-tag'>{request.delivery_type === 'pickup' ? 'Lấy tại kho' : 'Giao hàng'}</div>
               </Stack>
               <header className='order-item-secondary'>
                 <Stack direction='horizontal' gap={2}>

@@ -37,7 +37,7 @@ const RequestInfoCard = (
   const getStatusLabel = (status) => {
     switch (status) {
       case 'pickup':
-        return 'Lấy tại chỗ';
+        return 'Lấy tại kho';
       default:
         return 'Giao hàng';
     }
@@ -103,7 +103,7 @@ const RequestInfoCard = (
                   </Stack>
                   <header className='order-item-secondary'>
                     <Stack direction='horizontal' gap={2}>
-                      <div className='fw-bold'>{activeStatusIdx === 0 ? 'Địa chỉ lấy tại chỗ:' : 'Địa chỉ giao hàng:'}</div>
+                      <div className='fw-bold'>{activeStatusIdx === 0 ? 'Địa chỉ lấy tại kho:' : 'Địa chỉ giao hàng:'}</div>
                       <div>{activeStatusIdx === 0 ? ('2 - 4 Đ. Hồng Hà, Phường 2, Tân Bình, Thành phố Hồ Chí Minh, Việt Nam') : selectedAddress.address}</div>
                     </Stack>
                   </header>

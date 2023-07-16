@@ -58,25 +58,35 @@ export const getState = ({ request, step }) => {
   }
 
   if (content.pass && content.text) {
-    if (request.user) {
-      content.pass = content.pass.replace(`{${request.user.user_type}_name}`, request.user.name);
-      content.text = content.text.replace(`{${request.user.user_type}_name}`, request.user.name);
-    }
-  
-    if (request.volunteer) {
-      content.pass = content.pass.replace(`{volunteer_name}`, request.volunteer.name);
-      content.text = content.text.replace(`{volunteer_name}`, request.volunteer.name);
-    }
-  
-    if (request.director) {
-      content.pass = content.pass.replace(`{director_name}`, request.director.name);
-      content.text = content.text.replace(`{director_name}`, request.director.name);
-    }
 
-    // if (request.status === 'canceled') {
-    //   content.text = content.text.replace(`{user_role}`, request.cancel_user_role);
-    //   content.text = content.text.replace(`{user_role_name}`, request.cancel_user_name);
-    // }
+    if (request.status === 'canceled') {
+      let role = '';
+      switch (request.cancel_user_role) {
+        case 'director': role = 'Điều phối viên'; break;
+        case 'donor': role = 'Người quyên góp'; break;
+        case 'donee': role = 'Người nhận'; break;
+        case 'volunteer': role = 'Tình nguyện viên'; break;
+      }
+
+      content.text = content.text.replace(`{user_role}`, role);
+      content.text = content.text.replace(`{user_role_name}`, request.cancel_user_name);
+    }
+    else {
+      if (request.user) {
+        content.pass = content.pass.replace(`{${request.user.user_type}_name}`, request.user.name);
+        content.text = content.text.replace(`{${request.user.user_type}_name}`, request.user.name);
+      }
+    
+      if (request.volunteer) {
+        content.pass = content.pass.replace(`{volunteer_name}`, request.volunteer.name);
+        content.text = content.text.replace(`{volunteer_name}`, request.volunteer.name);
+      }
+    
+      if (request.director) {
+        content.pass = content.pass.replace(`{director_name}`, request.director.name);
+        content.text = content.text.replace(`{director_name}`, request.director.name);
+      }
+    }
   }
   
 
