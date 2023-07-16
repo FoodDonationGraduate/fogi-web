@@ -27,19 +27,19 @@ const SubCategoryList = ({
   };
 
   // Automatic Food Distribution
-  const autoDistributeFood = ({ resultAllFood, resultAllChild }) => {
-    
-    const currentSubCategory = subCategoryList.find(sc => sc.id == resultAllFood.parent_id);
-    const max_quantity = currentSubCategory.quantity;
+  const [auto, setAuto] = useState(false)
+  const autoDistributeFood = (cloneSubCategoryList, { resultAllFood, resultAllChild }) => {
+    const currentSubCategory = cloneSubCategoryList.find(sc => sc.id == resultAllFood.parent_id);
+    const max_quantity = currentSubCategory.quantity; // so luong toi da
 
     let resultList = []; let total_quantity = 0;
 
     for (let i = 0; i < resultAllFood.products.length; i++) {
       const currentFood = resultAllFood.products[i];
-      let currentQuantity = currentFood.stock;
+      let currentQuantity = currentFood.stock;   // stock cua child food
 
       if (total_quantity + currentQuantity > max_quantity) {
-        currentQuantity = max_quantity - total_quantity;
+        currentQuantity = max_quantity - total_quantity; // so luong cua child food hien tai
       }
       if (currentQuantity > 0) {
         resultList = [
@@ -65,18 +65,16 @@ const SubCategoryList = ({
       }
 
       if (total_quantity == max_quantity) {
-        
-        const idx = subCategoryList.findIndex(c => c.id === currentSubCategory.id);
-        setSubCategoryList([
-          ...subCategoryList.slice(0, idx),
+        const idx = cloneSubCategoryList.findIndex(c => c.id === currentSubCategory.id);
+        cloneSubCategoryList[idx] = 
           {
             ...currentSubCategory,
             foodList: resultList
-          },
-          ...subCategoryList.slice(idx + 1)
-        ]);
+          };
+        console.log(cloneSubCategoryList)
         
-        subCategoryList[idx].foodList = resultList;
+        setAuto(true);
+        // subCategoryList[idx].foodList = resultList;
         childList.children = [...childList.children, ...resultAllChild];
         break;
       }
@@ -85,7 +83,7 @@ const SubCategoryList = ({
 
   const onAutoDistribute = async () => {
     childList.children = [];
-
+    var cloneSubCategoryList = JSON.parse(JSON.stringify(subCategoryList));
     for (let i = 0; i < subCategoryList.length; i++) {
       const parentFood = subCategoryList[i];
 
@@ -99,7 +97,6 @@ const SubCategoryList = ({
         filter: 'in_stock',
         parent_id: parentFood.id
       }
-
       const targetResult = await axiosInstance.get(`/child/product/director`, { params: currentData })
       .then((res) => {
         return { resultAllFood: res.data, resultAllChild: [] };
@@ -107,9 +104,9 @@ const SubCategoryList = ({
       .catch((err) => {
         console.log(err);
       })
-
-      autoDistributeFood(targetResult);
+      autoDistributeFood(cloneSubCategoryList, targetResult);
     }
+    setSubCategoryList(cloneSubCategoryList);
   };
 
   return (
@@ -145,6 +142,7 @@ const SubCategoryList = ({
                 subCategoryList={subCategoryList} setSubCategoryList={setSubCategoryList}
                 childList={childList} setChildList={setChildList} oldChildList={oldChildList}
                 isError={isError} setIsError={setIsError}
+                auto={auto} setAuto={setAuto}
               />
             </Col>
           ))}
