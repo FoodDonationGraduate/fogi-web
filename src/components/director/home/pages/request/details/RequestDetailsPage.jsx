@@ -18,7 +18,7 @@ import VolunteerList from './components/volunteer/VolunteerList';
 import CommonNotFoundBody from 'components/common/CommonNotFoundBody';
 
 // Reducers
-import { retrieveCurrentRequest, updateRequest, updateRequestChild, retrieveAllChildren } from 'components/redux/reducer/DirectorReducer';
+import { retrieveCurrentRequest, updateRequest, updateRequestChild, retrieveInitialParentFood } from 'components/redux/reducer/DirectorReducer';
 
 // Style
 import 'assets/css/user/order/Order.css';
@@ -30,11 +30,11 @@ const RequestDetailsPage = () => {
   const { from, id } = useParams();
 
   const request = useSelector(state => state.directorReducer.currentRequest);
-  const allChildren = useSelector(state => state.directorReducer.allChildren);
 
   // List handling
   const [subCategoryList, setSubCategoryList] = useState([]);
   const [childList, setChildList] = useState({ children: [] });
+  const [oldChildList, setOldChildList] = useState({ children: [] });
 
   const isEnough = () => {
     for (let i = 0; i < request.products.length; i++) {
@@ -65,6 +65,17 @@ const RequestDetailsPage = () => {
     
     const parentFoodList = request.products.map(p => { return { ...p, foodList: [] } });
     setSubCategoryList(parentFoodList);
+
+    dispatch(retrieveInitialParentFood(
+      {
+        request_id: id,
+        setSubCategoryList,
+        setChildList,
+        setOldChildList
+      },
+      { userInfo, userToken },
+      navigate
+    ));
   }, [request]);
 
   // Volunteer handling
@@ -264,7 +275,7 @@ const RequestDetailsPage = () => {
                     {!isDistributed &&
                       <SubCategoryList
                         subCategoryList={subCategoryList} setSubCategoryList={setSubCategoryList}
-                        childList={childList} setChildList={setChildList}
+                        childList={childList} setChildList={setChildList} oldChildList={oldChildList}
                         isError={isError} setIsError={setIsError}
                       />
                     }
@@ -299,6 +310,7 @@ const RequestDetailsPage = () => {
                 </Row>
               </Container>
             }
+
             <Container>
               <Row>
                 <div className='d-flex justify-content-end mt-4'>

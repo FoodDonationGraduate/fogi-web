@@ -21,7 +21,7 @@ const initialState = {
   currentParentFood: null,
   allFood: {},
 
-  allChildren: {}
+  initialParentFood: {}
 };
 
 const directorReducer = createSlice({
@@ -64,8 +64,8 @@ const directorReducer = createSlice({
       state.allFood = action.payload;
     },
 
-    setAllChildren: (state, action) => {
-      state.allChildren = action.payload;
+    setInitialParentFood: (state, action) => {
+      state.initialParentFood = action.payload;
     }
   }
 });
@@ -77,7 +77,7 @@ export const {
 
   setAllUnsortedFood, setAllParentFood, setCurrentParentFood, setAllFood,
 
-  setAllChildren
+  setInitialParentFood
 } = directorReducer.actions
 
 export default directorReducer.reducer
@@ -735,7 +735,7 @@ export const updateFood = (data, director, navigate) => {
   }
 }
 
-export const retrieveAllChildren = (data, director, navigate) => {
+export const retrieveInitialParentFood = (data, director, navigate) => {
   return async dispatch => {
     try {
       var currentData = {
@@ -744,11 +744,25 @@ export const retrieveAllChildren = (data, director, navigate) => {
         request_id: data.request_id
       }
 
-      console.log('retrieve all children');
+      console.log('retrieve initial parent food');
       await axiosInstance.get(`/request/director/child`, { params: currentData})
       .then((res) => {
-        dispatch(setAllChildren(res.data));
-        if (data.setChildList) data.setChildList({ children: res.data.order_childs })
+        dispatch(setInitialParentFood(res.data));
+
+        const parentList = res.data.request_parent_list;
+        let resultChildList = [];
+        parentList.forEach((parent, idx) => {
+          parent.foodList.forEach((child, idx) => {
+            resultChildList = [...resultChildList, {
+              child_id: child.content.id,
+              parent_id: parent.id,
+              quantity: child.quantity
+            }]
+          });
+        });
+        data.setSubCategoryList(res.data.request_parent_list);
+        data.setChildList({ children: resultChildList });
+        data.setOldChildList({ children: resultChildList });
       }).catch((err) => {
         if (handleExpiredToken(err.response.data, dispatch, navigate)) {
           

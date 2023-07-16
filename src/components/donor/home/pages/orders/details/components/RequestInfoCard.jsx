@@ -1,11 +1,11 @@
 // Essentials
 import React, { useState } from 'react';
-import { Button, Container, Col, Row } from 'react-bootstrap';
+import { Button, Container, Col, Row, Stack } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from "react-router-dom";
 
 // Assets
-import { MdOutlineLocationOn, MdAccessTime } from 'react-icons/md';
+import { MdOutlineLocationOn, MdAccessTime, MdUpdate, MdLocalShipping } from 'react-icons/md';
 
 // Components
 import StepItem from 'components/common/request/StepItem';
@@ -74,16 +74,18 @@ const RequestInfoCard = ({ request }) => {
                 Yêu cầu {request.id}
               </h3>
 
-              <div className='mt-2'> 
+              <div className='mt-2'>
+                <Stack direction={size > 2 ? 'horizontal' : 'veritical'} gap={3}>
+                  <header className='order-item-secondary'>
+                    <MdAccessTime /> Khởi tạo: {convertToString(request.created_time, 'LocaleString')}
+                  </header>
+                  <header className='order-item-secondary'>
+                    <MdUpdate /> Cập nhật: {convertToString(request.last_updated_state_time, 'LocaleString')}
+                  </header>
+                </Stack>
                 <header className='order-item-secondary'>
-                  <MdAccessTime /> Khởi tạo: {convertToString(request.created_time, 'LocaleString')}
-                </header>
-                <header className='order-item-secondary'>
-                  <MdAccessTime /> Cập nhật: {convertToString(request.last_updated_state_time, 'LocaleString')}
-                </header>
-                <header className='order-item-secondary'>
-                  <MdAccessTime /> Thời gian giao: {convertToString(request.available_start_date, 'LocaleDateString')} {request.available_start_time.slice(0,5)} 
-                  - {convertToString(request.available_end_date, 'LocaleDateString')} {request.available_end_time.slice(0,5)} 
+                  <MdLocalShipping /> Thời gian giao: {convertToString(request.available_start_date, 'LocaleDateString')}, {request.available_start_time.slice(0,5)} 
+                  {' '}- {convertToString(request.available_end_date, 'LocaleDateString')}, {request.available_end_time.slice(0,5)} 
                 </header>
                 <header className='order-item-secondary'>
                   <MdOutlineLocationOn /> {reduceString(request.address, 80)}

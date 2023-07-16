@@ -15,7 +15,7 @@ import { retrieveAllFood } from 'components/redux/reducer/DirectorReducer';
 const FoodSelectListModal = ({
   subCategory,
   foodList, setFoodList,
-  childList, setChildList,
+  childList, setChildList, oldChildList,
   modalTrigger, setModalTrigger,
   subShow, onSubClose
 }) => {
@@ -69,7 +69,7 @@ const FoodSelectListModal = ({
                 food={{ content: food, quantity: 1 }}
                 subCategory={subCategory}
                 foodList={foodList} setFoodList={setFoodList}
-                childList={childList} setChildList={setChildList}
+                childList={childList} setChildList={setChildList} oldChildList={oldChildList}
                 isShowStock={true}
               />
             </div>

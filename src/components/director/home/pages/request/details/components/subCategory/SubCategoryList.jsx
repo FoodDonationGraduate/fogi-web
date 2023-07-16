@@ -12,7 +12,7 @@ import SubCategoryCard from './SubCategoryCard';
 
 const SubCategoryList = ({
   subCategoryList, setSubCategoryList,
-  childList, setChildList,
+  childList, setChildList, oldChildList,
   isError, setIsError
 }) => {
   // Constants
@@ -141,7 +141,7 @@ const SubCategoryList = ({
               <SubCategoryCard
                 subCategory={subCategory}
                 subCategoryList={subCategoryList} setSubCategoryList={setSubCategoryList}
-                childList={childList} setChildList={setChildList}
+                childList={childList} setChildList={setChildList} oldChildList={oldChildList}
                 isError={isError} setIsError={setIsError}
               />
             </Col>

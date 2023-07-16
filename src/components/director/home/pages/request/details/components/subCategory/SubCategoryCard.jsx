@@ -22,7 +22,7 @@ import { useResizer } from 'utils/helpers/Resizer.jsx';
 const SubCategoryCard = ({
   subCategory,
   subCategoryList, setSubCategoryList,
-  childList, setChildList,
+  childList, setChildList, oldChildList,
   isError, setIsError
 }) => {
   let size = useResizer();
@@ -130,7 +130,7 @@ const SubCategoryCard = ({
                           food={food}
                           subCategory={subCategory}
                           foodList={foodList} setFoodList={setFoodList}
-                          childList={childList} setChildList={setChildList}
+                          childList={childList} setChildList={setChildList} oldChildList={oldChildList}
                         />
                       </div>
                     ))}
@@ -144,7 +144,7 @@ const SubCategoryCard = ({
       <FoodSelectListModal
         subCategory={subCategory}
         foodList={foodList} setFoodList={setFoodList}
-        childList={childList} setChildList={setChildList}
+        childList={childList} setChildList={setChildList} oldChildList={oldChildList}
         modalTrigger={modalTrigger} setModalTrigger={setModalTrigger}
         subShow={subShow} onSubClose={onSubClose}
       />

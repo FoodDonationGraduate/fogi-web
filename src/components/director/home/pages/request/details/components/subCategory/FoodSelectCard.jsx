@@ -12,9 +12,25 @@ const FoodSelectCard = ({
   subCategory,
   foodList, setFoodList,
   isShowStock=false,
-  childList, setChildList
+  childList, setChildList, oldChildList
 }) => {
   let size = useResizer();
+
+  const updateChild = (quantity) => {
+    const idx = childList.children.map(c => c.child_id).indexOf(food.content.id);
+    const list = childList.children;
+    setChildList({ children:
+      [
+        ...list.slice(0, idx),
+        {
+          child_id: list[idx].child_id,
+          parent_id: list[idx].parent_id,
+          quantity
+        },
+        ...list.slice(idx + 1)
+      ]
+    });
+  };
 
   // Foop List handling
   const isInFoodList = () => {
@@ -22,6 +38,9 @@ const FoodSelectCard = ({
   };
   const onSelect = () => {
     setFoodList([...foodList, { content: food.content, quantity: 1 }]);
+    if (oldChildList.children.length > 0 && oldChildList.children.find(oc => oc.child_id == food.content.id)) {
+      updateChild(1);
+    } else
     setChildList({ children: [...childList.children, {
       parent_id: subCategory.id,
       child_id: food.content.id,
@@ -30,6 +49,10 @@ const FoodSelectCard = ({
   };
   const onDeselect = () => {
     setFoodList(foodList.filter(f => f.content.id != food.content.id));
+    
+    if (oldChildList.children.length > 0 && oldChildList.children.find(oc => oc.child_id == food.content.id)) {
+      updateChild(0);
+    } else
     setChildList({ children: childList.children.filter(f => f.child_id != food.content.id)});
   };
   const onChangeQuantity = (quantity) => {

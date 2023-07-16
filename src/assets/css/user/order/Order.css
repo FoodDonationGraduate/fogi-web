@@ -37,6 +37,7 @@
     }
   .order-item-secondary {
     color: #999;
+    font-size: 18px;
   }
   .order-item-date {
     font-weight: bold;
@@ -100,7 +101,7 @@
       background-color: #82CD47;
     }
   .step-text {
-    font-size: 18px;
+    font-size: 16px;
   }
   .step-text-current {
     color: black;

@@ -136,7 +136,7 @@ const PostProductModal = ({
               <Form.Label style={{ fontWeight: 'bold' }}>
                 Ngày hết hạn
               </Form.Label>
-              <Form.Control type='date' min={new Date().toISOString().slice(0,10)} {...register('expired_time')} />
+              <Form.Control type='date' min={new Date((new Date()).setDate((new Date()).getDate() + 2)).toISOString().split('T')[0]} {...register('expired_time')} />
               {errors.expired_time && errors.expired_time.type === 'required' && (
                 <p className="mt-2 error">
                   <FaExclamationTriangle className="mx-2" />
