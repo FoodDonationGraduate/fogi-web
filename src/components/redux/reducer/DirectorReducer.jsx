@@ -408,6 +408,9 @@ export const updateRequestChild = (data, director, navigate) => {
       }).then((res) => {
         dispatch(setModalMessage(`Cập nhật Thực phẩm con Yêu cầu ${data.request_id} thành công`));
         dispatch(showModal());
+        if (data.request.delivery_type && data.request.delivery_type === 'pickup') {
+          data.onUpdate();
+        }
         data.setIsDistributed(true);
       }).catch((err) => {
         if (handleExpiredToken(err.response.data, dispatch, navigate)) {

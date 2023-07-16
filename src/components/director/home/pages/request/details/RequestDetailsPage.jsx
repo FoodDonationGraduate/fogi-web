@@ -132,14 +132,10 @@ const RequestDetailsPage = () => {
               tip: 'Bạn chưa chọn Tình nguyện viên'
             }
           } else {
-            return !isDistributed ? {
+            return {
               condition: !isError && isEnough(),
-              label: 'Xác nhận điều phối',
-              tip: 'Bạn chưa phân phối đủ Thực phẩm'
-            } : {
-              condition: true,
               label: 'Duyệt Yêu cầu',
-              tip: ''
+              tip: 'Bạn chưa phân phối đủ Thực phẩm'
             }
           }
         case 'finding':
@@ -231,7 +227,8 @@ const RequestDetailsPage = () => {
       {
         request_id: request.id,
         child_products: childList.children,
-        setIsDistributed
+        setIsDistributed,
+        request, onUpdate
       },
       { userInfo, userToken },
       navigate
@@ -291,8 +288,8 @@ const RequestDetailsPage = () => {
             {!request.volunteer ?
               <>
                 {
-                (((request.delivery_type && request.delivery_type !== 'pickup' )&& (['pending', 'finding'].includes(request.status)))
-                || (request.user.user_type === 'donor')) && request.status !== 'canceled' && isDistributed &&
+                ((((request.delivery_type && request.delivery_type !== 'pickup' ) && (['pending', 'finding'].includes(request.status))) && isDistributed)
+                || (request.user.user_type === 'donor')) && request.status !== 'canceled' &&
                   <VolunteerList
                     targetVolunteer={targetVolunteer} setTargetVolunteer={setTargetVolunteer}
                   />
