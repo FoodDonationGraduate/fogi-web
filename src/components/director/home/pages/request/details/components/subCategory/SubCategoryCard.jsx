@@ -1,5 +1,5 @@
 // Essentials
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Accordion, Button, Card, Col, Row, Stack } from 'react-bootstrap';
@@ -22,22 +22,22 @@ import { useResizer } from 'utils/helpers/Resizer.jsx';
 const SubCategoryCard = ({
   subCategory,
   subCategoryList, setSubCategoryList,
-  childList, setChildList,
+  childList, setChildList, oldChildList,
   isError, setIsError
 }) => {
   let size = useResizer();
 
   // Selected Food handling
   const [foodList, setFoodList] = useState([]);
-  const getTotalCount = () => {
+  const getTotalQuantity = () => {
     let total = 0;
     for (let i = 0; i < foodList.length; i++) {
-      total += foodList[i].count;
+      total += foodList[i].quantity;
     }
     return total;
   };
   useEffect(() => {
-    if (getTotalCount() !== subCategory.quantity) setIsError(true);
+    if (getTotalQuantity() !== subCategory.quantity) setIsError(true);
     else setIsError(false);
   }, [foodList]);
 
@@ -45,7 +45,9 @@ const SubCategoryCard = ({
   const [modalTrigger, setModalTrigger] = useState(false);
 
   // Change SubCategory List
+  const first = useRef(true); // prevent from firing upon initial render
   useEffect(() => {
+    if (first.current) { first.current = false; return; }
     const idx = subCategoryList.findIndex(c => c.id === subCategory.id);
     setSubCategoryList([
       ...subCategoryList.slice(0, idx),
@@ -56,6 +58,11 @@ const SubCategoryCard = ({
       ...subCategoryList.slice(idx + 1)
     ]);
   }, [foodList]);
+
+  // Change foodList after auto-distribution
+  useEffect(() => {
+    setFoodList(subCategory.foodList);
+  }, [subCategory]);
 
   // Modal handling
   const [subShow, setSubShow] = useState(false);
@@ -92,10 +99,10 @@ const SubCategoryCard = ({
                     <header className='long-product-label'>{`${subCategory.unit === 'kg' ? 'Khối' : 'Số'} lượng (${getUnit(subCategory.unit)})`}</header>
                     <h5
                       className='mt-2'
-                      style={{ color: `${getTotalCount() > subCategory.quantity ? '#bf1650' : 'black'}` }}
+                      style={{ color: `${getTotalQuantity() > subCategory.quantity ? '#bf1650' : 'black'}` }}
                     >
-                      {getTotalCount()}/{subCategory.quantity}{' '}
-                      {getTotalCount() > subCategory.quantity && <FaExclamationTriangle size={14} className='mb-1' />}
+                      {getTotalQuantity()}/{subCategory.quantity}{' '}
+                      {getTotalQuantity() > subCategory.quantity && <FaExclamationTriangle size={14} className='mb-1' />}
                     </h5>
                   </div>
                 </div>
@@ -121,10 +128,9 @@ const SubCategoryCard = ({
                       <div className={idx !== 0 ? 'mt-3' : ''} key={idx}>
                         <FoodSelectCard
                           food={food}
-                          getTotalCount={getTotalCount}
                           subCategory={subCategory}
                           foodList={foodList} setFoodList={setFoodList}
-                          childList={childList} setChildList={setChildList}
+                          childList={childList} setChildList={setChildList} oldChildList={oldChildList}
                         />
                       </div>
                     ))}
@@ -138,7 +144,7 @@ const SubCategoryCard = ({
       <FoodSelectListModal
         subCategory={subCategory}
         foodList={foodList} setFoodList={setFoodList}
-        childList={childList} setChildList={setChildList}
+        childList={childList} setChildList={setChildList} oldChildList={oldChildList}
         modalTrigger={modalTrigger} setModalTrigger={setModalTrigger}
         subShow={subShow} onSubClose={onSubClose}
       />

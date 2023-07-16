@@ -9,64 +9,86 @@ import { distanceTime } from 'utils/helpers/Time.jsx';
 
 const FoodSelectCard = ({
   food,
-  getTotalCount,
   subCategory,
   foodList, setFoodList,
   isShowStock=false,
-  childList, setChildList
+  childList, setChildList, oldChildList
 }) => {
   let size = useResizer();
+
+  const updateChild = (quantity) => {
+    const idx = childList.children.map(c => c.child_id).indexOf(food.content.id);
+    const list = childList.children;
+    setChildList({ children:
+      [
+        ...list.slice(0, idx),
+        {
+          child_id: list[idx].child_id,
+          parent_id: list[idx].parent_id,
+          quantity
+        },
+        ...list.slice(idx + 1)
+      ]
+    });
+  };
 
   // Foop List handling
   const isInFoodList = () => {
     return foodList.filter(f => f.content.id === food.content.id).length > 0;
   };
   const onSelect = () => {
-    setFoodList([...foodList, { content: food.content, count: 1 }]);
-    setChildList([...childList, {
+    setFoodList([...foodList, { content: food.content, quantity: 1 }]);
+    if (oldChildList.children.length > 0 && oldChildList.children.find(oc => oc.child_id == food.content.id)) {
+      updateChild(1);
+    } else
+    setChildList({ children: [...childList.children, {
       parent_id: subCategory.id,
       child_id: food.content.id,
       quantity: 1
-    }]);
+    }]});
   };
   const onDeselect = () => {
     setFoodList(foodList.filter(f => f.content.id != food.content.id));
-    setChildList(childList.filter(f => f.child_id != food.content.id));
+    
+    if (oldChildList.children.length > 0 && oldChildList.children.find(oc => oc.child_id == food.content.id)) {
+      updateChild(0);
+    } else
+    setChildList({ children: childList.children.filter(f => f.child_id != food.content.id)});
   };
-  const onChangeCount = (count) => {
+  const onChangeQuantity = (quantity) => {
     const idx = foodList.findIndex(f => f.content.id === food.content.id);
     setFoodList([
       ...foodList.slice(0, idx),
       {
         content: food.content,
-        count: count
+        quantity: quantity
       },
       ...foodList.slice(idx + 1)
     ]);
 
-    const child_idx = childList.findIndex(f => f.child_id === food.content.id);
-    setChildList([
-      ...childList.slice(0, child_idx),
+    const child_idx = childList.children.findIndex(f => f.child_id === food.content.id);
+    setChildList({ children: [
+      ...childList.children.slice(0, child_idx),
       {
         parent_id: subCategory.id,
         child_id: food.content.id,
-        quantity: count
+        quantity: quantity
       },
-      ...childList.slice(child_idx + 1)
-    ]);
+      ...childList.children.slice(child_idx + 1)
+    ]});
   };
 
-  const onUpdateCount = (amount) => {
-    let newCount = Number(food.count) + amount;
-    if (newCount < 1 || newCount > food.content.stock) return;
-    onChangeCount(Number(food.count) + amount);
+  const onUpdateQuantity = (amount) => {
+    let newQuantity = Number(food.quantity) + amount;
+    if (newQuantity < 1 || newQuantity > food.content.stock) return;
+    onChangeQuantity(Number(food.quantity) + amount);
   };
 
   const onUpdateInput = (event) => {
-    let newCount = Number(event.target.value);
-    if (newCount < 1) onChangeCount(1);
-    else if (newCount > food.content.stock) onChangeCount(food.content.stock);
-    else onChangeCount(newCount);
+    let newQuantity = Number(event.target.value);
+    if (newQuantity < 1) onChangeQuantity(1);
+    else if (newQuantity > food.content.stock) onChangeQuantity(food.content.stock);
+    else onChangeQuantity(newQuantity);
   };
 
   return (
@@ -103,8 +125,8 @@ const FoodSelectCard = ({
                           <Button
                             className='count-btn-left'
                             variant='outline-secondary'
-                            onClick={() => onUpdateCount(-1)}
-                            disabled={food.count <= 1}
+                            onClick={() => onUpdateQuantity(-1)}
+                            disabled={food.quantity <= 1}
                           >
                             -
                           </Button>
@@ -112,7 +134,7 @@ const FoodSelectCard = ({
                             <Form.Control
                               className='count-input'
                               type='number'
-                              value={Number(food.count).toString()}
+                              value={Number(food.quantity).toString()}
                               style={{ textAlign: 'center' }}
                               onChange={(e) => onUpdateInput(e) }
                             />
@@ -120,8 +142,8 @@ const FoodSelectCard = ({
                           <Button
                             className='count-btn-right'
                             variant='outline-secondary'
-                            onClick={() => onUpdateCount(1)}
-                            disabled={food.count >= food.stock}
+                            onClick={() => onUpdateQuantity(1)}
+                            disabled={food.quantity >= food.stock}
                           >
                             +
                           </Button>
