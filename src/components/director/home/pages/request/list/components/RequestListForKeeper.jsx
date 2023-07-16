@@ -71,13 +71,13 @@ const RequestList = ({
               <Row className='mb-2' xs={1} md={2} lg={2} >
                 {Object.keys(allRequests).length > 0 && 
                   <EqualHeight
-                    animationSpeed={0.1}
-                  >
+                  animationSpeed={0.1}
+                >
                     {allRequests.requests.map((request, idx) => (
                       <Col className='mb-4' key={idx}>
                         <div
                           className='order-item'
-                          // onClick={() => navigate(`/${userInfo.user_type}/request/${currentFrom !== 'donor' ? 'donee' : currentFrom}/${request.id}`)}
+                          onClick={() => navigate(`/${userInfo.user_type}/request/donor/${request.id}`)}
                         >
                           <RequestCard
                             request={request}

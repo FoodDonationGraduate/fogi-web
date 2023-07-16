@@ -62,7 +62,6 @@ const RequestDetailsPage = () => {
   //
   useEffect(() => {
     if (!request) return;
-    
     const parentFoodList = request.products.map(p => { return { ...p, foodList: [] } });
     setSubCategoryList(parentFoodList);
 
