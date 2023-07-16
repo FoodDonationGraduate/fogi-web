@@ -607,7 +607,7 @@ export const addParentFood = (data, director, navigate) => {
         dispatch(setModalMessage("Thêm Hạng mục con thành công!"));
         dispatch(showModal());
         if (!data.foodModal) {
-          navigate(`/director/category/${data.category_id}`);
+          navigate(`/${director.userInfo.user_type}/category/${data.category_id}`);
         }
       }).catch((err) => {
         if (handleExpiredToken(err.response.data, dispatch, navigate)) {
