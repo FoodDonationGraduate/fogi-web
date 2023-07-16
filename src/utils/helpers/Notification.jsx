@@ -61,7 +61,7 @@ export const handleNotificationPayload = (payload, dispatch, setModalMessage, sh
           case 'shipping':
             modalMessage = `Tình nguyên viên đang trên đường giao thực phẩm từ yêu cầu ${request_id} đến bạn`;
             break;
-          case 'cancel':
+          case 'canceled':
             modalMessage = `Yêu cầu ${request_id} đã bị hủy`;
             break;
           default:
@@ -75,7 +75,7 @@ export const handleNotificationPayload = (payload, dispatch, setModalMessage, sh
           case 'receiving':
             modalMessage = `Người nhận quyên góp đang trên đường đến nhận thực phẩm tại kho theo yêu cầu ${request_id}`;
             break;
-          case 'cancel':
+          case 'canceled':
             modalMessage = `Yêu cầu ${request_id} đã bị hủy`;
             break;
           default:
@@ -93,7 +93,7 @@ export const handleNotificationPayload = (payload, dispatch, setModalMessage, sh
         case 'shipping':
           modalMessage = `Tình nguyên viên đang trên đường giao thực phẩm từ yêu cầu ${request_id} đến kho`;
           break;
-        case 'cancel':
+        case 'canceled':
           modalMessage = `Yêu cầu ${request_id} đã bị hủy`;
           break;
         default:
@@ -103,7 +103,7 @@ export const handleNotificationPayload = (payload, dispatch, setModalMessage, sh
       var request_from = data.request_from;
       if (request_from === 'donor') {
         switch (request_status) {
-          case 'cancel':
+          case 'canceled':
             modalMessage = `Yêu cầu quyên góp ${request_id}đã bị hủy`;
             break;
           default:
@@ -112,7 +112,7 @@ export const handleNotificationPayload = (payload, dispatch, setModalMessage, sh
       } else {
         if (delivery_type === 'delivery') {
           switch (request_status) {
-            case 'cancel':
+            case 'canceled':
               modalMessage = `Yêu cầu nhận quyên góp ${request_id} đã bị hủy`;
               break;
             default:
@@ -120,7 +120,7 @@ export const handleNotificationPayload = (payload, dispatch, setModalMessage, sh
           }
         } else {
           switch (request_status) {
-            case 'cancel':
+            case 'canceled':
               modalMessage = `Yêu cầu nhận quyên góp ${request_id} đã bị hủy`;
               break;
             default:
