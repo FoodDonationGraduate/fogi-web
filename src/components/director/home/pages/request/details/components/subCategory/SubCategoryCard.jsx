@@ -23,7 +23,8 @@ const SubCategoryCard = ({
   subCategory,
   subCategoryList, setSubCategoryList,
   childList, setChildList, oldChildList,
-  isError, setIsError
+  isError, setIsError,
+  auto, setAuto
 }) => {
   let size = useResizer();
 
@@ -36,32 +37,42 @@ const SubCategoryCard = ({
     }
     return total;
   };
-  useEffect(() => {
-    if (getTotalQuantity() !== subCategory.quantity) setIsError(true);
-    else setIsError(false);
-  }, [foodList]);
-
   // Check food change
   const [modalTrigger, setModalTrigger] = useState(false);
 
   // Change SubCategory List
   const first = useRef(true); // prevent from firing upon initial render
+  const second = useRef(false); // prevent from firing upon initial render
   useEffect(() => {
+    if (getTotalQuantity() !== subCategory.quantity) setIsError(true);
+    else setIsError(false);
     if (first.current) { first.current = false; return; }
-    const idx = subCategoryList.findIndex(c => c.id === subCategory.id);
-    setSubCategoryList([
-      ...subCategoryList.slice(0, idx),
-      {
-        ...subCategory,
-        foodList
-      },
-      ...subCategoryList.slice(idx + 1)
-    ]);
+    if (!auto) {
+      const idx = subCategoryList.findIndex(c => c.id === subCategory.id);
+
+      setSubCategoryList([
+        ...subCategoryList.slice(0, idx),
+        {
+          ...subCategory,
+          foodList
+        },
+        ...subCategoryList.slice(idx + 1)
+      ]);
+    }
   }, [foodList]);
 
   // Change foodList after auto-distribution
   useEffect(() => {
-    setFoodList(subCategory.foodList);
+    if (auto) {
+      setFoodList(subCategory.foodList);
+      // console.log(subCategoryList)
+      setAuto(false)
+    }
+    if (second.current) { return;}
+    else {
+      setFoodList(subCategory.foodList);
+      first.current = true;
+    }
   }, [subCategory]);
 
   // Modal handling
