@@ -7,7 +7,7 @@ import { MdOutlineSouth, MdOutlineNorth } from 'react-icons/md';
 // Components
 import ChipList from 'components/common/chip/ChipList';
 import DropdownList from 'components/common/dropdown/DropdownList';
-import RequestList from './components/RequestList';
+import RequestListForKeeper from './components/RequestListForKeeper';
 
 // Form handling
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -16,39 +16,17 @@ import * as Yup from 'yup';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
-const RequestListPage = () => {
+const RequestListForKeeperPage = () => {
   // Request attributes
   const requestAttributes = JSON.parse(localStorage.getItem('requestAttributes'));
   const userInfo = useSelector(state => state.authenticationReducer.user);
 
-  // Chip List - Request type
-  const typeList = ['donor', 'donee-delivery', 'donee-pickup'];
-  const getTypeLabel = (status) => {
-    switch (status) {
-      case 'donee-delivery': return 'Nhận (giao hàng)';
-      case 'donee-pickup': return 'Nhận (tại kho)';
-      default: return 'Cho';
-    }
-  };
-  const typeStyleList = ['success', 'success', 'success'];
-  const [activeFromIdx, setActiveFromIdx] = useState(requestAttributes ? typeList.indexOf(requestAttributes.from) : 0);
-
   // Chip List - Request status
   const statusList = [
-    ['', 'pending', 'finding', 'receiving', 'shipping', 'success', 'canceled'],
-    ['', 'pending', 'finding', 'receiving', 'shipping', 'success', 'canceled'],
-    ['', 'pending', 'accepted', 'receiving', 'success', 'canceled'],
+    '', 'shipping', 'success', 'canceled'
   ];
   const getStatusLabel = (status) => {
     switch (status) {
-      case 'pending':
-        return 'Chờ duyệt';
-      case 'accepted':
-        return 'Chấp nhận';
-      case 'finding':
-        return 'Đang tìm';
-      case 'receiving':
-        return 'Đang nhận';
       case 'shipping':
         return 'Đang giao';
       case 'canceled':
@@ -60,14 +38,9 @@ const RequestListPage = () => {
     }
   };
   const styleList = [
-    ['neutral', 'neutral', 'info', 'warning', 'warning', 'success', 'danger'],
-    ['neutral', 'neutral', 'info', 'warning', 'warning', 'success', 'danger'],
-    ['neutral', 'neutral', 'info', 'warning', 'success', 'danger']
+    'success', 'warning', 'success', 'danger'
   ];
-  const [activeStatusIdx, setActiveStatusIdx] = useState(requestAttributes ? statusList[typeList.indexOf(requestAttributes.from)].indexOf(requestAttributes.status) : 0);
-  useEffect(() => {
-    if (activeStatusIdx > statusList[activeFromIdx].length) { setActiveStatusIdx(0); }
-  }, [activeFromIdx])
+  const [activeStatusIdx, setActiveStatusIdx] = useState((requestAttributes && requestAttributes.status) ? statusList.indexOf(requestAttributes.status) : 0);
   
   // Chip List - Request filter
   const filterList = ['last_updated_state_time', 'created_time'];
@@ -80,7 +53,7 @@ const RequestListPage = () => {
     }
   };
   const filterStyleList = ['success', 'success'];
-  const [activeFilterIdx, setActiveFilterIdx] = useState(requestAttributes ? filterList.indexOf(requestAttributes.filter) : 0);
+  const [activeFilterIdx, setActiveFilterIdx] = useState((requestAttributes && requestAttributes.filter) ? filterList.indexOf(requestAttributes.filter) : 0);
 
   // Reqest filter sort
   const [sortBy, setSortBy] = useState(requestAttributes ? requestAttributes.sort_by : 'desc');
@@ -123,28 +96,15 @@ const RequestListPage = () => {
               </Button>
             </Form>
           </Stack>
-          {userInfo.user_type === 'director' && 
-            <>
-              <ChipList
-                activeStatusIdx={activeFromIdx}
-                setActiveStatusIdx={setActiveFromIdx}
-                statusList={typeList}
-                getStatusLabel={getTypeLabel}
-                styleList={typeStyleList}
-                title={'Loại yêu cầu'}
-                style={'mb-2'}
-              />
-              <ChipList
-                activeStatusIdx={activeStatusIdx}
-                setActiveStatusIdx={setActiveStatusIdx}
-                statusList={statusList[activeFromIdx]}
-                getStatusLabel={getStatusLabel}
-                styleList={styleList[activeFromIdx]}
-                title={'Trạng thái'}
-                style={'mb-2'}
-              />
-            </>
-          }
+          <ChipList
+            activeStatusIdx={activeStatusIdx}
+            setActiveStatusIdx={setActiveStatusIdx}
+            statusList={statusList}
+            getStatusLabel={getStatusLabel}
+            styleList={styleList}
+            title={'Trạng thái'}
+            style={'mb-2'}
+          />
           <Stack direction='horizontal' className='mb-2 d-flex' gap={3}>
             <DropdownList
               activeStatusIdx={activeFilterIdx}
@@ -158,14 +118,12 @@ const RequestListPage = () => {
               {sortBy === 'desc' ? <MdOutlineSouth/> : <MdOutlineNorth/>}
             </Button>
           </Stack>
-          
         </Row>
 
         {/* --- Request List --- */}
         <div>
-          <RequestList
-            currentFrom={typeList[activeFromIdx]}
-            currentStatus={statusList[activeFromIdx][activeStatusIdx]}
+          <RequestListForKeeper
+            currentStatus={statusList[activeStatusIdx]}
             currentFilter={filterList[activeFilterIdx]}
             currentSortBy={sortBy}
             queryData={queryData}
@@ -177,4 +135,4 @@ const RequestListPage = () => {
   )
 };
 
-export default RequestListPage;
+export default RequestListForKeeperPage;
