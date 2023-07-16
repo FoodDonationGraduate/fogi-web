@@ -199,7 +199,7 @@
           "chip": "Đã hủy",
           "not_pass": "Đã hủy",
           "pass": "Đã hủy",
-          "text": "Yêu cầu đã bị huỷ bởi {role} {name}"
+          "text": "Yêu cầu đã bị huỷ bởi {user_role} {user_role_name}"
         }
       ]
     }

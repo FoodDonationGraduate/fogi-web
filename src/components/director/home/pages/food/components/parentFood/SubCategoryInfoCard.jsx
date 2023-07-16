@@ -33,11 +33,11 @@ const SubCategoryInfoCard = ({
               </Stack>
             </Stack>
           </Col>
-          <Col className='d-grid align-items-center px-0'>
+          {/* <Col className='d-grid align-items-center px-0'>
             <Button variant='outline-secondary'>
               Chỉnh sửa
             </Button>
-          </Col>
+          </Col> */}
         </Row>
       </div>
     </>

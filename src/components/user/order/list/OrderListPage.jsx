@@ -65,7 +65,7 @@ const OrderListPage = () => {
     ['neutral', 'neutral', 'info', 'warning', 'warning', 'success', 'danger'],
     ['neutral', 'neutral', 'info', 'warning', 'success', 'danger']
   ];
-  const [activeStatusIdx, setActiveStatusIdx] = useState(requestAttributes ? statusList[typeList.indexOf(requestAttributes.delivery_type)].indexOf(requestAttributes.status) : 0);
+  const [activeStatusIdx, setActiveStatusIdx] = useState(0);
   useEffect(() => {
     if (activeStatusIdx > statusList[activeFromIdx].length) { setActiveStatusIdx(0); }
   }, [activeFromIdx])

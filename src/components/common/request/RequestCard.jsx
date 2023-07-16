@@ -5,7 +5,7 @@ import { Stack } from 'react-bootstrap';
 import { EqualHeightElement } from 'react-equal-height';
 
 // Assets
-import { MdOutlineLocationOn, MdAccessTime } from 'react-icons/md';
+import { MdOutlineLocationOn, MdAccessTime, MdUpdate } from 'react-icons/md';
 
 // Components
 import UserItem from './UserItem';
@@ -92,7 +92,10 @@ const RequestCard = ({
               }
             </header>
             <header className='order-item-secondary'>
-              <MdAccessTime /> {convertToString(request.created_time, 'LocaleDateString')}
+              <MdAccessTime /> Khởi tạo: {convertToString(request.created_time, 'LocaleDateString')}
+            </header>
+            <header className='order-item-secondary'>
+              <MdUpdate />  Cập nhật: {convertToString(request.last_updated_state_time, 'LocaleDateString')}
             </header>
         </EqualHeightElement>
     </>
