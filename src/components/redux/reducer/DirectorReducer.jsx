@@ -345,11 +345,11 @@ export const retrieveCurrentRequest = (data, director, navigate) => {
         if (handleExpiredToken(err.response.data, dispatch, navigate)) {
         } else {
           console.log(err.response.data);
-          dispatch(setModalMessage("Đã xảy ra lỗi!"))
+          dispatch(setModalMessage("Yêu cầu không tồn tại!"))
           dispatch(setModalType('danger'))
           dispatch(showModal())
        }
-       dispatch(setCurrentRequest({}));
+       dispatch(setCurrentRequest(null));
       });
     } catch (err) {
       console.log(err);
