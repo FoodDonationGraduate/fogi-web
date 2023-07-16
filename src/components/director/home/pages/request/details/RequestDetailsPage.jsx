@@ -277,7 +277,6 @@ const RequestDetailsPage = () => {
                 </>
               }
             </div>
-            {JSON.stringify(childList)}
             {!request.volunteer ?
               <>
                 {

@@ -28,7 +28,7 @@ function ProfilePage(){
     return (
         <div className="profile-page">
             <div className="page-header">
-                <TopBarOther user_type={2} />
+                <TopBarOther user_type={userInfo.user_type === 'director' ? 2 : 3} />
             </div>
             <div className="page-body">
                 <div className='profile-section-body'>

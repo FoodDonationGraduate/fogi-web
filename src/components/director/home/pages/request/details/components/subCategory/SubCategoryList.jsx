@@ -10,9 +10,6 @@ import Pagination from 'components/common/pagination/Pagination';
 
 import SubCategoryCard from './SubCategoryCard';
 
-// Reducers
-import { retrieveAllFood } from 'components/redux/reducer/DirectorReducer';
-
 const SubCategoryList = ({
   subCategoryList, setSubCategoryList,
   childList, setChildList,
@@ -39,17 +36,17 @@ const SubCategoryList = ({
 
     for (let i = 0; i < resultAllFood.products.length; i++) {
       const currentFood = resultAllFood.products[i];
-      let currentCount = currentFood.stock;
+      let currentQuantity = currentFood.stock;
 
-      if (total_quantity + currentCount > max_quantity) {
-        currentCount = max_quantity - total_quantity;
+      if (total_quantity + currentQuantity > max_quantity) {
+        currentQuantity = max_quantity - total_quantity;
       }
-      if (currentCount > 0) {
+      if (currentQuantity > 0) {
         resultList = [
           ...resultList,
           {
             content: currentFood,
-            count: currentCount
+            quantity: currentQuantity
           }
         ];
       }
@@ -57,12 +54,12 @@ const SubCategoryList = ({
       if (total_quantity < max_quantity) {
         console.log(JSON.stringify(currentFood.name))
         console.log(`${total_quantity}/${max_quantity}`)
-        total_quantity += currentCount;
+        total_quantity += currentQuantity;
 
         const nextChild = {
           parent_id: resultAllFood.parent_id,
           child_id: currentFood.id,
-          quantity: currentCount
+          quantity: currentQuantity
         };
         resultAllChild = [...resultAllChild, nextChild];
       }

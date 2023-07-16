@@ -156,6 +156,32 @@ export const retrieveCategoryProducts = (data, navigate) => {
     }
 }
 
+export const retrieveCategoryProductsById = (data, navigate) => {
+    return async dispatch => {
+        try {
+            console.log("retrieve category products by id")
+            await axiosInstance.get(`/product`, {params: {
+                category_id: data.category_id,
+                limit: data.limit,
+                offset: data.offset,
+                sort_field: data.sort_field
+            }}).then((res) => {
+                dispatch(setCategoryProducts(res.data))
+            })
+            .catch((err) => {
+                console.log(err.response.data)
+                dispatch(setModalMessage("Đã xảy ra lỗi!"))
+                dispatch(setModalType('danger'));
+                dispatch(showModal())
+                dispatch(setCategoryProducts({}))
+            });
+        } catch (err) {
+            console.log(err)
+            navigate('/')
+        }
+    }
+}
+
 export const retrieveCurrentProduct = (data, navigate) => {
     return async dispatch => {
         try {

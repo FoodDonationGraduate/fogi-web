@@ -66,7 +66,7 @@ const FoodSelectListModal = ({
           {Object.keys(retrievedFoodList).length !== 0 && retrievedFoodList.products.map((food, idx) => (
             <div className={idx !== 0 ? 'mt-3' : ''} key={idx}>
               <FoodSelectCard
-                food={{ content: food, count: 1 }}
+                food={{ content: food, quantity: 1 }}
                 subCategory={subCategory}
                 foodList={foodList} setFoodList={setFoodList}
                 childList={childList} setChildList={setChildList}

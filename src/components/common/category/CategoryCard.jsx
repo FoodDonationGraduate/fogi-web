@@ -45,7 +45,7 @@ const CategoryCard = ({
         <EqualHeightElement name="category-name">
           <Card.Title >{category.name}</Card.Title>
         </EqualHeightElement>
-        {user_type === 'director' && <EditButton />}  
+        {/* {user_type === 'director' && <EditButton />}   */}
       </Card.Body>
     </Card>
   );

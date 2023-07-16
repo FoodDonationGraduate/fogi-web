@@ -1,5 +1,5 @@
 // Essentials
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Stack, Button, Form } from 'react-bootstrap';
 import { MdOutlineSouth, MdOutlineNorth } from 'react-icons/md';
 
@@ -66,7 +66,7 @@ const OrderListPage = () => {
     ['neutral', 'neutral', 'info', 'warning', 'success', 'danger']
   ];
   const [activeStatusIdx, setActiveStatusIdx] = useState(requestAttributes ? statusList[typeList.indexOf(requestAttributes.delivery_type)].indexOf(requestAttributes.status) : 0);
-  React.useEffect(() => {
+  useEffect(() => {
     if (activeStatusIdx > statusList[activeFromIdx].length) { setActiveStatusIdx(0); }
   }, [activeFromIdx])
   
@@ -96,12 +96,17 @@ const OrderListPage = () => {
   const onSubmit = (data) => {
     setQueryData(data.query)
   }
-  React.useEffect(() => {
+  useEffect(() => {
     let data = watch('query');
     if (data === '') {
       setQueryData(data)
     }
   }, [watch('query')])
+
+  // Reset status list if type is changed
+  useEffect(() => {
+    setActiveStatusIdx(0);
+  }, [activeFromIdx]);
 
   return (
     <>
@@ -109,11 +114,11 @@ const OrderListPage = () => {
         <TopBar searchFlag={false}/>
       </div>
       <div className='bg'>
-        <div className='mt-2'></div>
+        <div className='pt-2' />
         <Container>
           <Row className='mb-4'>
             <Stack direction='horizontal' className='mb-2 d-flex' gap={3}>
-              <h2 className='fw-bold me-auto'>Yêu cầu của bạn</h2>
+              <h2 className='fw-bold mt-4 me-auto'>Yêu cầu của bạn</h2>
               <Form className="search-form d-flex justify-content-right" onSubmit={handleSubmit(onSubmit)}>
                 <Form.Control
                   type="search"
