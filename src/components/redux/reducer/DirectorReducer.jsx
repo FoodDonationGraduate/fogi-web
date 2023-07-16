@@ -299,11 +299,11 @@ export const retrieveAllRequests = (data, director, navigate) => {
         limit: data.limit,
         offset: data.offset,
         sort_field: data.sort_field,
-        sort_by: data.sort_by
+        sort_by: data.sort_by,
+        request_status: data.request_status
       }
       if (director.userInfo.user_type === 'director') {
         currentData.request_from = data.request_from;
-        currentData.request_status = data.request_status;
       }
       if (data.search_query !== '') {currentData.search_query = data.search_query}
       if (data.delivery_type !== '') {currentData.delivery_type = data.delivery_type}
