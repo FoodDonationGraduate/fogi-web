@@ -18,7 +18,7 @@ const SideMenuUser = () => {
     
   const date = new Date();
   const styleNoti={
-    color: "black"
+    visibility: "hidden"
   }
   return (
     <>
@@ -27,7 +27,7 @@ const SideMenuUser = () => {
           <Stack direction='horizontal' gap={3}>
             <img className='profile-logo-sm' src={`https://bachkhoi.online/static/${userInfo.avatar}?${date.getTime()}`} alt='director logo'/>
             <header className='fw-bold me-auto'>{userInfo.name}</header>
-            {/* <Notification style={styleNoti} /> */}
+            <Notification style={styleNoti} />
           </Stack>
         </div>
       )}

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Toast } from 'react-bootstrap';
 import ToastContainer from 'react-bootstrap/ToastContainer';
 import { useDispatch, useSelector } from 'react-redux'
-import { hideModal } from 'components/redux/reducer/ModalReducer';
+import { hideModal, setModalType } from 'components/redux/reducer/ModalReducer';
 
 function InfoModal() {
     const modalMessage = useSelector(state => state.modalReducer.message);
@@ -22,7 +22,10 @@ function InfoModal() {
         }
     }, [modalType]);
     const dispatch = useDispatch();
-
+    const onClose = () => {
+        dispatch(hideModal());
+        dispatch(setModalType(''));
+    };
     return (
         <div className='main-modal'>
             {/* <Modal show={modalVisibility} onHide={() => dispatch(hideModal())}>
@@ -44,7 +47,7 @@ function InfoModal() {
             </Modal> */}
 
             <ToastContainer position="top-end" className="m-2 pt-5 position-fixed" style={{ zIndex: 1065 }}>
-                <Toast delay={4000} autohide={true} onClose={() => dispatch(hideModal())} show={modalVisibility}>
+                <Toast delay={4000} autohide={true} onClose={() => onClose()} show={modalVisibility}>
                     <Toast.Header style={{ backgroundColor: modalColor, color: '#ffffff' }}>
                         <strong className="me-auto">{modalTitle}</strong>
                     </Toast.Header>
