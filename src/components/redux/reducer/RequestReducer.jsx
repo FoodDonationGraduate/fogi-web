@@ -133,6 +133,14 @@ export const postDonorRequest = (data, user, navigate) => {
                     dispatch(setModalMessage('Tài khoản bạn đang bị hạn chế. Bạn không thể tạo yêu cầu!'))
                     dispatch(setModalType('danger'));
                     dispatch(showModal())
+                } else if (err.response.data.exit_code === 208) {
+                    dispatch(setModalMessage('Ngày bắt đầu phải sớm hơn ngày kết thúc!'))
+                    dispatch(setModalType('danger'));
+                    dispatch(showModal())
+                } else if (err.response.data.exit_code === 209) {
+                    dispatch(setModalMessage('Ngày kết thúc phải sớm hơn ngày hết hạn của thực phẩm'))
+                    dispatch(setModalType('danger'));
+                    dispatch(showModal())
                 } else {
                     console.log(err)
                     dispatch(setModalMessage('Tạo yêu cầu mới không thành công!'))

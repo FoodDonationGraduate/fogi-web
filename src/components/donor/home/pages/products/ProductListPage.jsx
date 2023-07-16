@@ -10,6 +10,9 @@ import CreateRequestModal from './components/CreateRequestModal';
 import ProductList from './components/ProductList';
 
 const ProductListPage = () => {
+  // Product List
+  const [minExpiredDate, setMinExpiredDate] = useState('');
+
   // Post Product Modal
   const [showAddFood, setShowAddFood] = useState(false);
   const onCloseAddFood = () => setShowAddFood(false);
@@ -25,10 +28,10 @@ const ProductListPage = () => {
       <div>
         <ListTitle onShowAddFood={onShowAddFood} onShowCreateRequest={onShowCreateRequest} />
         <LocationCard />
-        <ProductList />
+        <ProductList setMinExpiredDate={setMinExpiredDate}/>
       </div>
       <PostProductModal show={showAddFood} onClose={onCloseAddFood} />
-      <CreateRequestModal show={showCreateRequest} onClose={onCloseCreateRequest} />
+      <CreateRequestModal show={showCreateRequest} onClose={onCloseCreateRequest} minExpiredDate={minExpiredDate}/>
     </>
   );
 };

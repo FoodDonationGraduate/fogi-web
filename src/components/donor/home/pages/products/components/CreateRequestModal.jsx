@@ -24,7 +24,8 @@ import 'assets/css/Authentication.css';
 
 const CreateRequestModal = ({
   show,
-  onClose
+  onClose,
+  minExpiredDate
 }) => {
   const userInfo = useSelector(state => state.authenticationReducer.user);
   const userToken = useSelector(state => state.authenticationReducer.token);
@@ -44,12 +45,8 @@ const CreateRequestModal = ({
   const { errors } = formState;
 
   const createRequest = (data) =>  {
-    if (data.available_start_date > data.available_end_date) {
+    if (data.available_start_date >= data.available_end_date) {
       dispatch(setModalMessage('Ngày bắt đầu phải sớm hơn ngày kết thúc'));
-      dispatch(setModalType('danger'));
-      dispatch(showModal());
-    } else if (data.available_start_time >= data.available_end_time) {
-      dispatch(setModalMessage('Thời gian bắt đầu phải sớm hơn thời gian kết thúc'));
       dispatch(setModalType('danger'));
       dispatch(showModal());
     } else {
@@ -66,6 +63,7 @@ const CreateRequestModal = ({
     }
   };
 
+  console.log(minExpiredDate)
   return (
     <>
       <Modal
@@ -92,7 +90,7 @@ const CreateRequestModal = ({
               </Form.Label>
               <Form.Control 
                 type='date' 
-                min={new Date().toISOString().slice(0,10)} 
+                min={new Date().toISOString().slice(0,10)}
                 {...register('available_start_date')} />
               {errors.available_start_date && errors.available_start_date.type === 'required' && (
                 <p className="mt-2 error">
@@ -108,7 +106,7 @@ const CreateRequestModal = ({
               </Form.Label>
               <Form.Control 
                 type='date' 
-                min={new Date().toISOString().slice(0,10)} 
+                max={minExpiredDate !== '' ? new Date(minExpiredDate).toISOString().slice(0,10) : '2099-12-31'} 
                 {...register('available_end_date')} />
               {errors.available_end_date && errors.available_end_date.type === 'required' && (
                 <p className="mt-2 error">
