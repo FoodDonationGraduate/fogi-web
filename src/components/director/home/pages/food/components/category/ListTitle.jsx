@@ -33,7 +33,7 @@ const ListTitle = ({
               onClick={showAddCategoryModal}
             >
               {size > 1 ? 
-                <>Thêm Phân loại</> : 
+                <>Thêm Hạng mục</> : 
                 <MdAddCircle className='mb-1' />
               }
             </Button>

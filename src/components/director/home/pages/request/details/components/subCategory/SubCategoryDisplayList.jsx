@@ -23,7 +23,7 @@ const SubCategoryDisplayList = ({
       {Object.keys(subCategoryList).length !== 0 && 
       <>
       <Container>
-        <ListTitle title={'Thực phẩm Đại diện'} />
+        <ListTitle title={'Hạng mục con'} />
         <Row xs={1}>
           {subCategoryList.map((subCategory, idx) => (
             <Col className='mb-3' key={idx}>

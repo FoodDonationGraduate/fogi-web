@@ -49,7 +49,7 @@ const sideMenuInfoList = [
       { idx: 0, label: 'Thống kê', link: 'dashboard', icon: MdOutlineAnalytics },
       { idx: 1, label: 'Yêu cầu', link: 'requests', icon: MdOutlineArticle },
       { idx: 3, label: 'Hạng mục', link: 'categories', icon: MdOutlineCategory },
-      { idx: 4, label: 'Thực phẩm Đại diện', link: 'parent-food', icon: MdOutlineShoppingBag },
+      { idx: 4, label: 'Hạng mục con', link: 'parent-food', icon: MdOutlineShoppingBag },
       { idx: 5, label: 'Xét duyệt', link: 'approve', icon: MdCheckCircleOutline },
       { idx: 6, label: 'Người dùng', link: 'users', icon: MdOutlineGroup }
     ]
@@ -60,7 +60,7 @@ const sideMenuInfoList = [
       { idx: 1, label: 'Yêu cầu', link: 'requests', icon: MdOutlineArticle },
       { idx: 2, label: 'Phân loại Thực phẩm', link: 'unsorted-food', icon: MdOutlineFastfood },
       { idx: 3, label: 'Hạng mục', link: 'categories', icon: MdOutlineCategory },
-      { idx: 4, label: 'Thực phẩm Đại diện', link: 'parent-food', icon: MdOutlineShoppingBag }
+      { idx: 4, label: 'Hạng mục con', link: 'parent-food', icon: MdOutlineShoppingBag }
     ]
   }
 ];
