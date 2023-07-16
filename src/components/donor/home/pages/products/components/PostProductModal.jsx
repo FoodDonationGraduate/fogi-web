@@ -136,7 +136,7 @@ const PostProductModal = ({
               <Form.Label style={{ fontWeight: 'bold' }}>
                 Ngày hết hạn
               </Form.Label>
-              <Form.Control type='date' min={new Date((new Date()).setDate((new Date()).getDate() + 2)).toISOString().split('T')[0]} {...register('expired_time')} />
+              <Form.Control type='date' min={new Date((new Date()).setDate((new Date()).getDate() + 1)).toISOString().split('T')[0]} {...register('expired_time')} />
               {errors.expired_time && errors.expired_time.type === 'required' && (
                 <p className="mt-2 error">
                   <FaExclamationTriangle className="mx-2" />
@@ -153,7 +153,7 @@ const PostProductModal = ({
                 <Col className='ps-0' sm={8} md={8} lg={8}>
                   <Form.Control
                     type='number'
-                    step='0.01'
+                    step='0.01' min={0}
                     {...register('stock')}
                   />
                   {errors.stock && errors.stock.type === 'required' && (
