@@ -32,9 +32,11 @@ const SideMenuUser = () => {
         </div>
       )}
       {size === 2 && (
-        <Stack className='side-menu-profile-item align-items-center' direction='vertical'>
-          <img className='profile-logo-sm' src={`https://bachkhoi.online/static/${userInfo.avatar}?${date.getTime()}`} alt='donor logo'/>
-        </Stack>
+        <div className='side-menu-profile-item' onClick={toProfilePage}>
+          <Stack className='align-items-center' direction='vertical'>
+            <img className='profile-logo-sm' src={`https://bachkhoi.online/static/${userInfo.avatar}?${date.getTime()}`} alt='donor logo'/>
+          </Stack>
+        </div>
       )}
     </>
   );
