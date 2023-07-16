@@ -65,16 +65,18 @@ const RequestDetailsPage = () => {
     const parentFoodList = request.products.map(p => { return { ...p, foodList: [] } });
     setSubCategoryList(parentFoodList);
 
-    dispatch(retrieveInitialParentFood(
-      {
-        request_id: id,
-        setSubCategoryList,
-        setChildList,
-        setOldChildList
-      },
-      { userInfo, userToken },
-      navigate
-    ));
+    if (userInfo.user_type === 'director') {
+      dispatch(retrieveInitialParentFood(
+        {
+          request_id: id,
+          setSubCategoryList,
+          setChildList,
+          setOldChildList
+        },
+        { userInfo, userToken },
+        navigate
+      ));
+    }
   }, [request]);
 
   // Volunteer handling

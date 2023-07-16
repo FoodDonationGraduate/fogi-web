@@ -72,6 +72,11 @@ export const getState = ({ request, step }) => {
       content.pass = content.pass.replace(`{director_name}`, request.director.name);
       content.text = content.text.replace(`{director_name}`, request.director.name);
     }
+
+    // if (request.status === 'canceled') {
+    //   content.text = content.text.replace(`{user_role}`, request.cancel_user_role);
+    //   content.text = content.text.replace(`{user_role_name}`, request.cancel_user_name);
+    // }
   }
   
 
