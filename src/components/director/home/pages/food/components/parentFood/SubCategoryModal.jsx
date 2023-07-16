@@ -131,7 +131,7 @@ const SubCategoryModal = ({
       <Modal show={show} onShow={onOpen} onHide={onHide}>
         <Modal.Header closeButton>
           <Modal.Title>
-            {subCategory ? "Chỉnh sửa" : "Thêm"} Thực phẩm Đại diện
+            {subCategory ? "Chỉnh sửa" : "Thêm"} Hạng mục con
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -147,7 +147,7 @@ const SubCategoryModal = ({
                 />
               )}
               <Button variant="outline-secondary" onClick={onShowImage}>
-                Đăng tải Ảnh Thực phẩm Đại diện
+                Đăng tải Ảnh Hạng mục con
               </Button>
             </Stack>
             {!image && submitted && (
@@ -159,13 +159,13 @@ const SubCategoryModal = ({
 
             <Form.Group className="mb-3">
               <Form.Label style={{ fontWeight: "bold" }}>
-                Tên Thực phẩm Đại diện
+                Tên Hạng mục con
               </Form.Label>
               <Form.Control {...register("name")} />
               {errors.name && errors.name.type === "required" && (
                 <p className="mt-2 error">
                   <FaExclamationTriangle className="mx-2" />
-                  Bạn chưa điền tên Thực phẩm Đại diện
+                  Bạn chưa điền tên Hạng mục con
                 </p>
               )}
             </Form.Group>
@@ -216,7 +216,7 @@ const SubCategoryModal = ({
                   type="submit"
                   onClick={() => setSubmitted(true)}
                 >
-                  Thêm Phân loại
+                  Thêm Hạng mục
                 </Button>
               ) : (
                 <Button className="fogi" variant="primary">

@@ -120,7 +120,7 @@ const SubCategoryList = ({
         <Row className='mb-4'>
           <Col>
             <div className='d-flex justify-content-between align-items-center'>
-              <h2 className='fw-bold'>Thực phẩm Đại diện</h2>
+              <h2 className='fw-bold'>Hạng mục con</h2>
               <span>
                 <OverlayTrigger
                   placement={'left'}

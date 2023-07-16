@@ -33,7 +33,7 @@ const CategoryImageModal = ({ showImage, onClose, setImage }) => {
         onHide={onCloseImage}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Thay đổi Ảnh phân loại</Modal.Title>
+          <Modal.Title>Thay đổi Ảnh Hạng mục</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div>

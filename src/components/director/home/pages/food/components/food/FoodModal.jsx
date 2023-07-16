@@ -179,7 +179,7 @@ const FoodModal = ({
               {!isMatchUnit && (
                 <p className="mt-2 error">
                   <FaExclamationTriangle className="mx-2" />
-                  Đơn vị đã chọn không tương ứng với Đơn vị của Thực phẩm Đại diện
+                  Đơn vị đã chọn không tương ứng với Đơn vị của Hạng mục con
                 </p>
               )}
             </Form.Group>
@@ -189,7 +189,7 @@ const FoodModal = ({
                 <Col className='ps-0'>
                   <div className='d-flex justify-content-between'>
                     <Form.Label style={{ fontWeight: 'bold' }}>
-                      Phân loại
+                      Hạng mục
                     </Form.Label>
                     <div className='tag' onClick={() => {
                       onCatShow(); onClose();
@@ -213,7 +213,7 @@ const FoodModal = ({
                 <Col className='pe-0'>
                   <div className='d-flex justify-content-between'>
                     <Form.Label style={{ fontWeight: 'bold' }}>
-                      Thực phẩm Đại diện
+                      Hạng mục con
                     </Form.Label>
                     <div className='tag' onClick={() => {
                       onSubShow(); onClose();

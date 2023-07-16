@@ -134,7 +134,7 @@ const ParentFoodPage = () => {
           <Row>
             <Col className='ps-0'>
               <div className='d-flex justify-content-between'>
-                <ListTitle title={'Thực phẩm Đại diện'} />
+                <ListTitle title={'Hạng mục con'} />
                 <Dropdown onSelect={onSelect}>
                   <Dropdown.Toggle variant="outline-secondary">
                     {Object.keys(currentCategory).length > 0 ? currentCategory.name : 'Tất cả'}
@@ -189,7 +189,7 @@ const ParentFoodPage = () => {
             </EqualHeight>
           </Row>
           {(Object.keys(allParentFood).length === 0 || allParentFood.total_products === 0) && 
-            <CommonNotFoundBody title='Chưa có Thực phẩm Đại diện nào'/>
+            <CommonNotFoundBody title='Chưa có Hạng mục con nào'/>
           }
         </Col>
       </Row>
