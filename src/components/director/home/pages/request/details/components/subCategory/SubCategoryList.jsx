@@ -1,7 +1,6 @@
 // Essentials
-import React, { useState, useEffect, useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { Button, Container, Col, OverlayTrigger, Row, Tooltip } from 'react-bootstrap';
 import axiosInstance from 'services/axios/axiosConfig.js';
 
@@ -25,6 +24,12 @@ const SubCategoryList = ({
   const onChangePage = async (idx) => {
     setPage(idx);
   };
+
+  // Shown SubCategories
+  const [shownSubCategories, setShownSubCategories] = useState([]);
+  useEffect(() => {
+    setShownSubCategories(subCategoryList.slice(page * SUB_CATEGORY_COUNT, (page + 1) * SUB_CATEGORY_COUNT));
+  }, [page, subCategoryList]);
 
   // Automatic Food Distribution
   const [auto, setAuto] = useState(false)
@@ -112,50 +117,50 @@ const SubCategoryList = ({
   return (
     <>
       {Object.keys(subCategoryList).length !== 0 && 
-      <>
-      <Container>
-        <Row className='mb-4'>
-          <Col>
-            <div className='d-flex justify-content-between align-items-center'>
-              <h2 className='fw-bold'>Hạng mục con</h2>
-              <span>
-                <OverlayTrigger
-                  placement={'left'}
-                  overlay={
-                    <Tooltip style={{ position: 'fixed '}}>
-                      Hệ thống sẽ tự động chọn những Thực phẩm gần hết hạn
-                    </Tooltip>
-                }>
-                  <Button variant='dark' onClick={onAutoDistribute}>
-                    Tự động Điều phối
-                  </Button>
-                </OverlayTrigger>
-              </span>
-            </div>
-          </Col>
-        </Row>
-        <Row xs={1}>
-          {subCategoryList.map((subCategory, idx) => (
-            <Col className='mb-3' key={idx}>
-              <SubCategoryCard
-                subCategory={subCategory}
-                subCategoryList={subCategoryList} setSubCategoryList={setSubCategoryList}
-                childList={childList} setChildList={setChildList} oldChildList={oldChildList}
-                isError={isError} setIsError={setIsError}
-                auto={auto} setAuto={setAuto}
+        <>
+          <Container>
+            <Row className='mb-4'>
+              <Col>
+                <div className='d-flex justify-content-between align-items-center'>
+                  <h2 className='fw-bold'>Hạng mục con</h2>
+                  <span>
+                    <OverlayTrigger
+                      placement={'left'}
+                      overlay={
+                        <Tooltip style={{ position: 'fixed '}}>
+                          Hệ thống sẽ tự động chọn những Thực phẩm gần hết hạn
+                        </Tooltip>
+                    }>
+                      <Button variant='dark' onClick={onAutoDistribute}>
+                        Tự động Điều phối
+                      </Button>
+                    </OverlayTrigger>
+                  </span>
+                </div>
+              </Col>
+            </Row>
+            <Row xs={1}>
+              {shownSubCategories.map((subCategory, idx) => (
+                <Col className='mb-3' key={idx}>
+                  <SubCategoryCard
+                    subCategory={subCategory}
+                    subCategoryList={subCategoryList} setSubCategoryList={setSubCategoryList}
+                    childList={childList} setChildList={setChildList} oldChildList={oldChildList}
+                    isError={isError} setIsError={setIsError}
+                    auto={auto} setAuto={setAuto}
+                  />
+                </Col>
+              ))}
+            </Row>
+            <div className='d-flex justify-content-center mt-2'>
+              <Pagination
+                pageCount={Math.ceil(subCategoryList.length / SUB_CATEGORY_COUNT)}
+                activeIdx={page}
+                onChangePage={onChangePage}
               />
-            </Col>
-          ))}
-        </Row>
-      </Container>
-      <div className='d-flex justify-content-center mt-2'>
-        <Pagination
-          pageCount={Math.ceil(subCategoryList.length / SUB_CATEGORY_COUNT)}
-          activeIdx={page}
-          onChangePage={onChangePage}
-        />
-      </div>
-      </>
+            </div>
+          </Container>
+        </>
       }
     </>
   )

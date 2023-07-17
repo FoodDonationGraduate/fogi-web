@@ -69,8 +69,6 @@ const RequestDetailsPage = () => {
     }
   }, [request]);
 
-
-  
   useEffect(() => {
     dispatch(retrieveCurrentRequest(
       {
@@ -267,7 +265,7 @@ const RequestDetailsPage = () => {
             <div className='mb-4'>
               {request.user.user_type === 'donor' ?
                 <FoodList
-                  foodList={request.products}
+                  request={request}
                 />
                 :
                 <>
