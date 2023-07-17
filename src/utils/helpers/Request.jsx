@@ -52,7 +52,7 @@ export const getState = ({ request, step }) => {
 
     if (current.condition.length === 0 ||
       current.condition.find(c => c.user_type == condition.user_type && c.delivery_type == condition.delivery_type)) {
-      content = current;
+      content = structuredClone(current);
       break;
     }
   }
