@@ -32,14 +32,6 @@ const FoodList = ({
           ))}
         </Row>
       </Container>
-      <div className='d-flex justify-content-center mt-2'>
-        <Pagination
-          pageCount={Math.ceil(foodList.length / FOOD_COUNT)}
-          // pageCount={Math.ceil(allRequests.total_requests / REQUEST_COUNT)}
-          activeIdx={page}
-          onChangePage={onChangePage}
-        />
-      </div>
     </>
   )
 };

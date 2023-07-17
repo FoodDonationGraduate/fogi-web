@@ -108,7 +108,7 @@
           "condition": [{ "user_type": "director", "delivery_type": "give" }],
           "chip": "Đang giao",
           "not_pass": "Nhập kho",
-          "pass": "Người giữ kho {warehouse_keeper_name} đã nhập kho",
+          "pass": "Nhập kho thành công",
           "text": "Tình nguyện viên {volunteer_name} đang giao thực phẩm tới kho"
         },
         {
@@ -147,9 +147,9 @@
         {
           "condition": [{ "user_type": "director", "delivery_type": "give" }],
           "chip": "Thành công",
-          "not_pass": "Nhập kho thành công",
-          "pass": "Nhập kho thành công",
-          "text": "Thực phẩm được nhập kho bởi Người giữ kho {warehouse_keeper_name} thành công"
+          "not_pass": "Hoàn tất",
+          "pass": "Hoàn tất",
+          "text": "Thực phẩm được nhập kho thành công"
         },
         {
           "condition": [{ "user_type": "director", "delivery_type": "delivery" }],
