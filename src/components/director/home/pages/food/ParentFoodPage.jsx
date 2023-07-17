@@ -14,7 +14,7 @@ import * as Yup from 'yup';
 import CommonNotFoundBody from 'components/common/CommonNotFoundBody';
 import SubCategoryCard from 'components/common/category/SubCategoryCard';
 import SearchBar from 'components/common/search/SearchBar';
-import SortByButton from 'components/common/search/SortByButton';
+import CompactDropdown from 'components/common/search/CompactDropdown';
 import ListTitle from 'components/common/ListTitle';
 import Pagination from 'components/common/pagination/Pagination';
 
@@ -74,21 +74,12 @@ const ParentFoodPage = () => {
   
   // Filter
   const [activeFilterIdx, setActiveFilterIdx] = useState(0);
-  const filterList = ['updated_time', 'created_time'];
-  const getFilterLabel = (filter) => {
-    switch (filter) {
-      case 'updated_time':
-        return 'Thời gian cập nhật';
-      case 'created_time':
-        return 'Thời gian tạo';
-    }
-  };
-  
-  const onSelectFilter = (eventKey, event) => {
-    setActiveFilterIdx(eventKey);
-  };
+  const filterList = [
+    { value: 'updated_time', label: 'Thời gian cập nhật' },
+    { value: 'created_time', label: 'Thời gian tạo' }
+  ];
 
-  const [isAsc, setIsAsc] = useState(false);
+  const [sortBy, setSortBy] = useState('desc');
 
   // Parent Food
   const allParentFood = useSelector(state => state.directorReducer.allParentFood);
@@ -111,8 +102,8 @@ const ParentFoodPage = () => {
       offset: page * PARENT_FOOD_COUNT,
       category_id: categoryId,
       search_query: queryData,
-      sort_field: filterList[activeFilterIdx],
-      sort_by: isAsc ? 'asc' : 'desc'
+      sort_field: filterList[activeFilterIdx].value,
+      sort_by: sortBy
     };
 
     dispatch(retrieveAllParentFood(
@@ -120,7 +111,7 @@ const ParentFoodPage = () => {
       { userInfo, userToken },
       navigate
     ))
-  }, [categoryId, page, queryData, activeFilterIdx, isAsc]);
+  }, [categoryId, page, queryData, activeFilterIdx, sortBy]);
 
   // SubCategory Modal
   const [show, setShow] = useState(false);
@@ -162,17 +153,11 @@ const ParentFoodPage = () => {
             <Col>
               <Stack className='d-flex justify-content-end' direction='horizontal' gap={2}>
                 <SearchBar register={register} query={'query'} onSubmit={handleSubmit(onSubmit)} />
-                <Dropdown onSelect={onSelectFilter}>
-                  <Dropdown.Toggle variant="outline-secondary">
-                    {getFilterLabel(filterList[activeFilterIdx])}
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu>
-                    {filterList.map((filter, idx) => (
-                      <Dropdown.Item key={idx} eventKey={idx}>{getFilterLabel(filter)}</Dropdown.Item>
-                    ))}
-                  </Dropdown.Menu>
-                </Dropdown>
-                <SortByButton isAsc={isAsc} setIsAsc={setIsAsc} />
+                <CompactDropdown
+                  activeIdx={activeFilterIdx} setActiveIdx={setActiveFilterIdx}
+                  list={filterList}
+                  sortBy={sortBy} setSortBy={setSortBy}
+                />
               </Stack>
             </Col>
           </Row>

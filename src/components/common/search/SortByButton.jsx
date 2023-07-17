@@ -6,13 +6,13 @@ import { Button } from 'react-bootstrap';
 import { MdArrowUpward, MdArrowDownward } from 'react-icons/md';
 
 const SortByButton = ({
-  isAsc, setIsAsc
+  sortBy, setSortBy
 }) => {
 
   return (
     <>
-      <Button variant='outline-secondary' onClick={() => setIsAsc(!isAsc)}>
-        {isAsc ? <MdArrowUpward className='mb-1' /> : <MdArrowDownward className='mb-1' />}
+      <Button className='fogi' variant='primary' onClick={() => setSortBy(sortBy === 'desc' ? 'asc' : 'desc')}>
+        {sortBy === 'desc' ? <MdArrowDownward className='mb-1' /> : <MdArrowUpward className='mb-1' />}
       </Button>
     </>
   );

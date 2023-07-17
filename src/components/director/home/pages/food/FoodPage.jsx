@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Col, Dropdown, Row, Stack } from 'react-bootstrap';
+import { Col, Row, Stack } from 'react-bootstrap';
 import { EqualHeight } from 'react-equal-height';
 
 // Form handling
@@ -17,7 +17,7 @@ import Pagination from 'components/common/pagination/Pagination';
 import CommonNotFoundBody from 'components/common/CommonNotFoundBody';
 import SubCategoryInfoCard from './components/parentFood/SubCategoryInfoCard';
 import SearchBar from 'components/common/search/SearchBar';
-import SortByButton from 'components/common/search/SortByButton';
+import CompactDropdown from 'components/common/search/CompactDropdown';
 import FoodCard from './components/food/FoodCard';
 import FoodModal from './components/food/FoodModal';
 // Reducers
@@ -59,19 +59,12 @@ const FoodPage = () => {
   
   // Filter
   const [activeFilterIdx, setActiveFilterIdx] = useState(0);
-  const filterList = ['stock'];
-  const getFilterLabel = (filter) => {
-    switch (filter) {
-      case 'stock':
-        return 'Tồn kho';
-    }
-  };
-  
-  const onSelectFilter = (eventKey, event) => {
-    setActiveFilterIdx(eventKey);
-  };
+  const filterList = [
+    { value: 'stock', label: 'Tồn kho' },
+    { value: 'expired_time', label: 'Ngày hết hạn' }
+  ];
 
-  const [isAsc, setIsAsc] = useState(false);
+  const [sortBy, setSortBy] = useState('desc');
 
   // Food
   const foodList = useSelector(state => state.directorReducer.allFood);
@@ -93,13 +86,13 @@ const FoodPage = () => {
         offset: page * FOOD_COUNT,
         parent_id: parentFoodId,
         search_query: queryData,
-        sort_field: filterList[activeFilterIdx],
-        sort_by: isAsc ? 'asc' : 'desc'
+        sort_field: filterList[activeFilterIdx].value,
+        sort_by: sortBy
       },
       { userInfo, userToken },
       navigate
     ))
-  }, [page, queryData, activeFilterIdx, isAsc]);
+  }, [page, queryData, activeFilterIdx, sortBy]);
 
   return (
     <>
@@ -127,17 +120,11 @@ const FoodPage = () => {
                 <Col>
                   <Stack className='d-flex justify-content-end' direction='horizontal' gap={2}>
                     <SearchBar register={register} query={'query'} onSubmit={handleSubmit(onSubmit)} />
-                    <Dropdown onSelect={onSelectFilter}>
-                      <Dropdown.Toggle variant="outline-secondary">
-                        {getFilterLabel(filterList[activeFilterIdx])}
-                      </Dropdown.Toggle>
-                      <Dropdown.Menu>
-                        {filterList.map((filter, idx) => (
-                          <Dropdown.Item key={idx} eventKey={idx}>{getFilterLabel(filter)}</Dropdown.Item>
-                        ))}
-                      </Dropdown.Menu>
-                    </Dropdown>
-                    <SortByButton isAsc={isAsc} setIsAsc={setIsAsc} />
+                    <CompactDropdown
+                      activeIdx={activeFilterIdx} setActiveIdx={setActiveFilterIdx}
+                      list={filterList}
+                      sortBy={sortBy} setSortBy={setSortBy}
+                    />
                   </Stack>
                 </Col>
               </Row>
