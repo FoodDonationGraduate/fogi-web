@@ -2,24 +2,25 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
-import { Col, Row } from 'react-bootstrap';
+import { Col, Row, Stack } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 
 // Components & Pages
 import SideMenu from 'components/common/management/sideMenu/SideMenu';
-// import SideMenu from 'components/common/sideMenu/SideMenu';
-// import SideMenuOffCanvas from 'components/common/sideMenu/SideMenuOffCanvas';
+import Title from 'components/common/management/common/Title';
 import InfoModal from 'components/layout/InfoModal.jsx';
 import ConfirmModal from 'components/layout/ConfirmModal.jsx';
 
-import DashboardPage from './pages/dashboard/DashboardPage';
+// import DashboardPage from './pages/dashboard/DashboardPage';
+// import RequestPage from './pages/request/RequestPage';
+// import UnsortedFoodPage from './pages/food/UnsortedFoodPage';
+// import CategoryPage from './pages/food/CategoryPage';
+// import ParentFoodPage from './pages/food/ParentFoodPage';
+// import FoodPage from './pages/food/FoodPage';
+// import ApproveListPage from './pages/approve/ApproveListPage';
+// import ManageUserPage from './pages/manage/ManageUserPage';
+
 import RequestPage from './pages/request/RequestPage';
-import UnsortedFoodPage from './pages/food/UnsortedFoodPage';
-import CategoryPage from './pages/food/CategoryPage';
-import ParentFoodPage from './pages/food/ParentFoodPage';
-import FoodPage from './pages/food/FoodPage';
-import ApproveListPage from './pages/approve/ApproveListPage';
-import ManageUserPage from './pages/manage/ManageUserPage';
 
 // Assets
 import {
@@ -72,7 +73,6 @@ const HomePage = ({
   activeIdx
 }) => {
   const userInfo = useSelector(state => state.authenticationReducer.user);
-  let size = useResizer();
   const { categoryId, parentFoodId } = useParams();
 
   // for SideMenu Offcanvas
@@ -95,9 +95,14 @@ const HomePage = ({
             userType={userInfo.user_type}
           />
           <Col>
-            <Row className='mn-workspace py-4'>
+            <Row className='mn-workspace'>
               <Col>
-                {userInfo.user_type === 'director' && <>
+                <Stack direction='vertical' gap={3}>
+                  <Title title='Quản lý Yêu cầu' />
+
+                  <RequestPage />
+                </Stack>
+                {/* {userInfo.user_type === 'director' && <>
                   {activeIdx === 0 && <DashboardPage />}
                   {activeIdx === 5 && <ApproveListPage />}
                   {activeIdx === 6 && <ManageUserPage />}
@@ -107,7 +112,8 @@ const HomePage = ({
                 </>}
                 {activeIdx === 1 && <RequestPage />}
                 {activeIdx === 3 && <CategoryPage />}
-                {activeIdx === 4 && (!parentFoodId ? <ParentFoodPage /> : <FoodPage />)}
+                {activeIdx === 4 && (!parentFoodId ? <ParentFoodPage /> : <FoodPage />)} */}
+
               </Col>
             </Row>
           </Col>

@@ -1,3 +1,4 @@
+/* SIDE MENU */
 .mn-menu {
   background-color: #82CD47;
   padding: 24px 8px;
@@ -51,8 +52,46 @@
     width: 36px; height: 36px;
   }
 
+/* WORKSPACE */
 .mn-workspace {
-  display: flex;
   height: 100vh;
+  padding: 24px 0;
   overflow-y: scroll;
 }
+.mn-title {
+  color: black;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* TABLE */
+.mn-table {
+  background-color: white;
+  border-radius: 8px;
+  padding: 16px 0px;
+}
+.mn-table-header {
+  color: black;
+  font-size: 12px;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: clip;
+  white-space: nowrap;
+}
+
+.mn-table-item-avatar-container {
+  border-radius: 2px;
+  width: 16px; height: 16px;
+}
+  .mn-table-item-avatar-container:hover {
+    background-color: #CCC;
+  }
+  .mn-table-item-avatar-container:active {
+    background-color: #999;
+  }
+  .mn-table-item-avatar {
+    border-radius: 50%;
+    position: relative;
+    top: 0px;
+    width: 16px; height: 16px;
+  }

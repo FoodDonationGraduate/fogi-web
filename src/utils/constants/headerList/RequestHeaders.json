@@ -1,0 +1,40 @@
+{
+  "allHeaders": [{
+      "label": "Yêu cầu",
+      "size": 1,
+      "content": ["avatar", "title"]
+    },{
+      "label": "Loại",
+      "size": 1,
+      "content": ["icon", "icon", "icon"]
+    },{
+      "label": "Trạng thái",
+      "size": 1,
+      "content": ["tag"]
+    },{
+      "label": "Thực phẩm",
+      "size": 1,
+      "content": ["text"]
+    },{
+      "label": "Nhân sự phụ trách",
+      "size": 2,
+      "content": ["icon", "avatar", "icon", "avatar", "icon", "avatar"]
+    },{
+      "label": "Ngày tạo",
+      "size": 2,
+      "content": ["text"]
+    },{
+      "label": "Cập nhật",
+      "size": 2,
+      "content": ["text"]
+    },{
+      "label": "Khoảng cách",
+      "size": 1,
+      "content": ["text"]
+    },{
+      "label": "Thao tác",
+      "size": 1,
+      "content": ["action"]
+    }
+  ]
+}
