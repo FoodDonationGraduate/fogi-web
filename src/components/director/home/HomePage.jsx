@@ -6,8 +6,9 @@ import { Col, Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 
 // Components & Pages
-import SideMenu from 'components/common/sideMenu/SideMenu';
-import SideMenuOffCanvas from 'components/common/sideMenu/SideMenuOffCanvas';
+import SideMenu from 'components/common/management/sideMenu/SideMenu';
+// import SideMenu from 'components/common/sideMenu/SideMenu';
+// import SideMenuOffCanvas from 'components/common/sideMenu/SideMenuOffCanvas';
 import InfoModal from 'components/layout/InfoModal.jsx';
 import ConfirmModal from 'components/layout/ConfirmModal.jsx';
 
@@ -86,28 +87,15 @@ const HomePage = ({
 
   return (
     <>
-      <SideMenuOffCanvas
-        activeIdx={activeIdx}
-        show={show} onHide={onHide}
-        sideMenuInfoList={menu}
-        userType={userInfo.user_type}
-      />
       <div className='bg'>
         <Row>
-          {size > 1 && (
-            <SideMenu
-              activeIdx={activeIdx}
-              sideMenuInfoList={menu}
-              userType={userInfo.user_type}
-            />
-          )}
-          {size <= 1 && (
-            <div className='side-menu-sm' onClick={onShow}>
-              <MdMenu className='side-menu-icon-sm' />
-            </div>
-          )}
+          <SideMenu
+            activeIdx={activeIdx}
+            sideMenuInfoList={menu}
+            userType={userInfo.user_type}
+          />
           <Col>
-            <Row className={`${size >= 2 ? 'workspace' : ''} py-4`}>
+            <Row className='mn-workspace py-4'>
               <Col>
                 {userInfo.user_type === 'director' && <>
                   {activeIdx === 0 && <DashboardPage />}
