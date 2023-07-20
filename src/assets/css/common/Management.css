@@ -5,6 +5,8 @@
   width: 64px; height: 100vh;
 }
 .mn-menu-item {
+  display: flex;
+  justify-content: center;
   background-color: #82CD47;
   border-radius: 4px;
   color: white;
@@ -71,7 +73,6 @@
   padding: 16px 0px;
 }
 .mn-table-header {
-  color: black;
   font-size: 12px;
   font-weight: 700;
   overflow: hidden;
@@ -79,19 +80,72 @@
   white-space: nowrap;
 }
 
-.mn-table-item-avatar-container {
-  border-radius: 2px;
+.mn-table-item {
+  padding: 4px 4px;
+}
+.mn-table-item-col {
+  align-items: center;
+  display: flex;
+}
+.mn-table-item-avatar {
+  border-radius: 50%;
+  object-fit: cover;
+  position: relative;
+  top: 0px;
   width: 16px; height: 16px;
 }
-  .mn-table-item-avatar-container:hover {
-    background-color: #CCC;
+  .mn-table-item-avatar:hover {
+    border: 2px solid #82CD47;
+    cursor: pointer;
   }
-  .mn-table-item-avatar-container:active {
-    background-color: #999;
+  .mn-table-item-avatar-overlay {
+    border-radius: 8px;
   }
-  .mn-table-item-avatar {
-    border-radius: 50%;
-    position: relative;
-    top: 0px;
-    width: 16px; height: 16px;
-  }
+    .mn-table-item-avatar-overlay-avatar {
+      border-radius: 50%;
+      width: 32px; height: 32px;
+    }
+    .mn-table-item-avatar-overlay-name {
+      font-size: 14px;
+    }
+    .mn-table-item-avatar-overlay-email {
+      color: #999;
+      font-size: 12px;
+    }
+.mn-table-item-title {
+  font-size: 14px;
+}
+.mn-table-item-icon {
+  color: #999;
+  width: 16px; height: 16px;
+}
+.mn-table-item-tag {
+  border-radius: 4px;
+  color: white;
+  font-size: 12px;
+  padding: 4px 8px;
+}
+.mn-table-item-text {
+  color: #666;
+  font-size: 12px;
+}
+
+/* STYLING */
+.mn-bg-green {
+  background-color: #82CD47;
+}
+.mn-bg-yellow {
+  background-color: #FEB934;
+}
+.mn-bg-red {
+  background-color: #FF5A5F;
+}
+.mn-bg-blue {
+  background-color: #6293F2;
+}
+.mn-bg-grey {
+  background-color: #999;
+}
+.mn-bg-light {
+  background-color: #F2F2F2;
+}

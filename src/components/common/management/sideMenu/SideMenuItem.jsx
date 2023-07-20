@@ -25,7 +25,9 @@ const SideMenuItem = ({
       <OverlayTrigger
         placement='right'
         overlay={
-          <Tooltip>{sideMenuInfo.label}</Tooltip>
+          <Tooltip style={{ position: 'fixed' }}>
+            {sideMenuInfo.label}
+          </Tooltip>
         }
       >
         <div className={`mn-menu-item${style} mb-2`} onClick={handleOnClick}>

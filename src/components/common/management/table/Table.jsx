@@ -18,7 +18,7 @@ const Table = ({
         <TableHeader headerList={headerList} />
         <TableDivider />
         {itemList && itemList.map((item, idx) => (
-          <TableItem key={idx} item={item} type={type} />
+          <TableItem key={idx} idx={idx} item={item} type={type} />
         ))}
       </div>
     </>
