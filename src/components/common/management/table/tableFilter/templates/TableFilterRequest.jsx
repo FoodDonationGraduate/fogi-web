@@ -9,6 +9,7 @@ import {
 
 // Components
 import TableFilterUser from '../components/TableFilterUser';
+import { TableFilterText } from '../components/TableFilterInput';
 
 // Utility
 import { getState } from 'utils/helpers/Request';
@@ -25,6 +26,10 @@ const TableFilterRequest = ({
             user={filterList[0].state} setUser={filterList[0].setState}
             userType={filterList[0].userType}
             tip='Lọc Người dùng'
+          />
+          <TableFilterText
+            input={filterList[1].state} setInput={filterList[1].setState}
+            placeholder='ID'
           />
         </Stack>
       </Col>

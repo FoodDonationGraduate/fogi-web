@@ -51,7 +51,7 @@ export const UserModalItem = ({
 
 export const UserFilterModal = ({
   show, onHide,
-  setUser,
+  user, setUser,
   userType
 }) => {
   // Constants
@@ -109,6 +109,11 @@ export const UserFilterModal = ({
           </Stack>
         </Form>
         <Stack className='mt-2' gap={2}>
+          {user &&
+            <div className='mn-table-item-action' onClick={() => { setUser(null); onHide(); }}>
+              Bỏ chọn
+            </div>
+          }
           {Object.keys(manageUsers).length > 0 && manageUsers.users.map((user, idx) => (
             <UserModalItem key={idx}
               user={user} setUser={setUser}
@@ -161,7 +166,7 @@ const TableFilterUser = ({
         </Popover>
       }
     >
-      <div onClick={onShow}>
+      <div className='d-flex align-items-center' onClick={onShow}>
         <img
           className='mn-table-item-avatar' 
           src={
@@ -173,7 +178,7 @@ const TableFilterUser = ({
     </OverlayTrigger>
     <UserFilterModal
       show={show} onHide={onHide}
-      setUser={setUser}
+      user={user} setUser={setUser}
       userType={userType}
     />
   </>);

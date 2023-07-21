@@ -306,7 +306,7 @@ export const retrieveAllRequests = (data, director, navigate) => {
       if (director.userInfo.user_type === 'director') {
         currentData.request_from = data.request_from;
       }
-      if (data.search_query !== '') {currentData.search_query = data.search_query}
+      if (data.id_query !== '') {currentData.id_query = data.id_query}
       if (data.delivery_type !== '') {currentData.delivery_type = data.delivery_type}
       if (data.user_email && data.user_email !== '') {currentData.user_email = data.user_email}
 

@@ -15,6 +15,13 @@ const Table = ({
   type='request'
 }) => {
 
+  const getEmptyText = () => {
+    switch (type) {
+      case 'request': return 'Yêu cầu'
+      default: return 'Dữ liệu';
+    };
+  };
+
   return (
     <>
       <div className='mn-table'>
@@ -26,6 +33,9 @@ const Table = ({
           {itemList && itemList.map((item, idx) => (
             <TableItem key={idx} idx={idx} item={item} type={type} />
           ))}
+          {(!itemList || itemList.length === 0) &&
+            <div className='text-center'>Không có {getEmptyText()} nào để hiển thị</div>
+          }
         </Container>
       </div>
     </>

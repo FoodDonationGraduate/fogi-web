@@ -21,6 +21,7 @@ const RequestListPage = () => {
 
   // Filters
   const [user, setUser] = useState(null);
+  const [requestId, setRequestId] = useState('');
 
   // Pagination handling
   const REQUEST_COUNT = 16; // per page
@@ -38,7 +39,7 @@ const RequestListPage = () => {
       request_status: '',
       sort_field: 'created_time',
       sort_by: 'desc',
-      search_query: '',
+      id_query: requestId,
       delivery_type: '',
       user_email: user ? user.email : ''
     };
@@ -48,14 +49,15 @@ const RequestListPage = () => {
       { userInfo, userToken },
       navigate
     ));
-  }, [user]);
+  }, [user, requestId]);
 
   return (
     <>
       <Table
         headerList={RequestHeaders.takeHeaders}
         filterList={[
-          { state: user, setState: setUser, userType: 'donee' }
+          { state: user, setState: setUser, userType: 'donee' },
+          { state: requestId, setState: setRequestId }
         ]}
         itemList={allRequests.requests}
         type='request'
