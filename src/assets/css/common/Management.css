@@ -143,6 +143,19 @@
     width: 32px;
   }
 
+.mn-table-filter-icon {
+  color: #ccc;
+  width: 16px; height: 16px;
+  cursor: pointer;
+}
+  .mn-table-filter-icon:hover {
+    color: #999;
+  }
+  .mn-table-filter-icon-active {
+    color: #5A9829;
+    width: 16px; height: 16px;
+  }
+
 /* STYLING */
 .mn-bg-green {
   background-color: #82CD47;
