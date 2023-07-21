@@ -54,10 +54,10 @@ const TableItemRequest = ({
         <TableItemText text={request.products.length} />
       </Col>
       <Col className='mn-table-item-col' xs={1}>
-        <TableItemText text={request.sum_item} />
+        <TableItemText text={`${request.sum_item} cái`} />
       </Col>
       <Col className='mn-table-item-col' xs={1}>
-        <TableItemText text={request.sum_kg} />
+        <TableItemText text={`${request.sum_kg} kg`} />
       </Col>
       <Col className='mn-table-item-col' xs={2}>
         <Stack direction='horizontal' gap={2}>
@@ -85,7 +85,7 @@ const TableItemRequest = ({
         <TableItemDate datetime={request.last_updated_state_time} type='relative' />
       </Col>
       <Col className='mn-table-item-col' xs={1}>
-
+        <TableItemText text={`${Math.round(request.distance * 100) / 100} km`} />
       </Col>
       <Col className='mn-table-item-col' xs={1}>
         <TableItemAction label='Xem chi tiết' onClick={() => {}} />

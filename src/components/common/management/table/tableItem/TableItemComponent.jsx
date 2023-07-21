@@ -15,20 +15,20 @@ export const TableItemAvatar = ({
       placement={'top'}
       overlay={
         <Popover
-          className='mn-table-item-avatar-overlay'
+          className='mn-user-item-static'
           style={{ position: 'fixed' }}
         >
           <Popover.Body>
             <Stack direction='horizontal' gap={2}>
               <img
-                className='mn-table-item-avatar-overlay-avatar'
+                className='mn-user-item-avatar'
                 src={`https://bachkhoi.online/static/${user.avatar}`}
               />
               <Stack>
-                <div className='mn-table-item-avatar-overlay-name'>
+                <div className='mn-user-item-name'>
                   {user.name}
                 </div>
-                <div className='mn-table-item-avatar-overlay-email'>
+                <div className='mn-user-item-email'>
                   {user.email}
                 </div>
               </Stack>

@@ -19,6 +19,9 @@ const RequestListPage = () => {
   const userToken = useSelector(state => state.authenticationReducer.token);
   const dispatch = useDispatch(); const navigate = useNavigate();
 
+  // Filters
+  const [user, setUser] = useState(null);
+
   // Pagination handling
   const REQUEST_COUNT = 16; // per page
   const [page, setPage] = useState(0); // a.k.a activeIdx
@@ -36,7 +39,8 @@ const RequestListPage = () => {
       sort_field: 'created_time',
       sort_by: 'desc',
       search_query: '',
-      delivery_type: ''
+      delivery_type: '',
+      user_email: user ? user.email : ''
     };
 
     dispatch(retrieveAllRequests(
@@ -44,12 +48,15 @@ const RequestListPage = () => {
       { userInfo, userToken },
       navigate
     ));
-  }, []);
+  }, [user]);
 
   return (
     <>
       <Table
         headerList={RequestHeaders.takeHeaders}
+        filterList={[
+          { state: user, setState: setUser, userType: 'donee' }
+        ]}
         itemList={allRequests.requests}
         type='request'
       />

@@ -122,7 +122,8 @@ export const retrieveManageUsers = (data, director, navigate) => {
         offset: data.offset
       }
       if (data.search_query !== '') {currentData.search_query = data.search_query}
-      await axiosInstance.get(`/director/profile`, { params: currentData}).then((res) => {
+      await axiosInstance.get(`/director/profile`, { params: currentData })
+      .then((res) => {
         dispatch(setManageUsers(res.data));
       }).catch((err) => {
         if (handleExpiredToken(err.response.data, dispatch, navigate)) {

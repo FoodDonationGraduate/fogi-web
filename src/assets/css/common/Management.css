@@ -1,8 +1,8 @@
 /* SIDE MENU */
 .mn-menu {
   background-color: #82CD47;
-  padding: 24px 8px;
-  width: 64px; height: 100vh;
+  padding: 16px 4px;
+  width: 48px; height: 100vh;
 }
 .mn-menu-item {
   display: flex;
@@ -29,10 +29,10 @@
     padding: 6px 8px;
   }
 .mn-menu-icon {
-  width: 32px; height: 32px;
+  width: 24px; height: 24px;
 }
   .mn-menu-icon-active {
-    width: 32px; height: 32px;
+    width: 24px; height: 24px;
     color: #82CD47;
   }
 
@@ -51,7 +51,7 @@
   .mn-menu-profile-avatar {
     border: 2px solid white;
     border-radius: 50%;
-    width: 36px; height: 36px;
+    width: 28px; height: 28px;
   }
 
 /* WORKSPACE */
@@ -98,21 +98,6 @@
     border: 2px solid #82CD47;
     cursor: pointer;
   }
-  .mn-table-item-avatar-overlay {
-    border-radius: 8px;
-  }
-    .mn-table-item-avatar-overlay-avatar {
-      border-radius: 50%;
-      object-fit: cover;
-      width: 32px; height: 32px;
-    }
-    .mn-table-item-avatar-overlay-name {
-      font-size: 14px;
-    }
-    .mn-table-item-avatar-overlay-email {
-      color: #999;
-      font-size: 12px;
-    }
 .mn-table-item-title {
   font-size: 14px;
 }
@@ -166,4 +151,31 @@
 }
 .mn-bg-light {
   background-color: #F2F2F2;
+}
+
+/* Others */
+.mn-user-item {
+  border-radius: 8px;
+  cursor: pointer;
+}
+  .mn-user-item:hover {
+    background-color: #F2F2F2;
+  }
+  .mn-user-item:active {
+    background-color: #CCC;
+  }
+  .mn-user-item-avatar {
+    border-radius: 50%;
+    object-fit: cover;
+    width: 32px; height: 32px;
+  }
+  .mn-user-item-name {
+    font-size: 14px;
+  }
+  .mn-user-item-email {
+    color: #999;
+    font-size: 12px;
+  }
+.mn-user-item-static {
+  border-radius: 8px;
 }
