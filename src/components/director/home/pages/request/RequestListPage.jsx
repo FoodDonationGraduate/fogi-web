@@ -49,7 +49,7 @@ const RequestListPage = () => {
   return (
     <>
       <Table
-        headerList={RequestHeaders.allHeaders}
+        headerList={RequestHeaders.takeHeaders}
         itemList={allRequests.requests}
         type='request'
       />

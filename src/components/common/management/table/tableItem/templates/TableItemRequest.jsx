@@ -13,7 +13,9 @@ import {
   TableItemTitle,
   TableItemIcon,
   TableItemTag,
-  TableItemText
+  TableItemText,
+  TableItemDate,
+  TableItemAction
 } from '../TableItemComponent';
 
 // Utility
@@ -45,14 +47,17 @@ const TableItemRequest = ({
           </>}
         </Stack>
       </Col>
-      <Col className='mn-table-item-col' xs={2}>
+      <Col className='mn-table-item-col' xs={1}>
         <TableItemTag color={color} label={content.chip} />
       </Col>
       <Col className='mn-table-item-col' xs={1}>
         <TableItemText text={request.products.length} />
       </Col>
       <Col className='mn-table-item-col' xs={1}>
-        <TableItemText text={request.products.length} />
+        <TableItemText text={request.sum_item} />
+      </Col>
+      <Col className='mn-table-item-col' xs={1}>
+        <TableItemText text={request.sum_kg} />
       </Col>
       <Col className='mn-table-item-col' xs={2}>
         <Stack direction='horizontal' gap={2}>
@@ -74,10 +79,16 @@ const TableItemRequest = ({
         </Stack>
       </Col>
       <Col className='mn-table-item-col' xs={1}>
-        <TableItemText text={request.created_time} />
+        <TableItemDate datetime={request.created_time} />
       </Col>
       <Col className='mn-table-item-col' xs={1}>
-        <TableItemText text={request.last_updated_state_time} />
+        <TableItemDate datetime={request.last_updated_state_time} type='relative' />
+      </Col>
+      <Col className='mn-table-item-col' xs={1}>
+
+      </Col>
+      <Col className='mn-table-item-col' xs={1}>
+        <TableItemAction label='Xem chi tiết' onClick={() => {}} />
       </Col>
     </>
   );

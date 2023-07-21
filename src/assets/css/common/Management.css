@@ -103,6 +103,7 @@
   }
     .mn-table-item-avatar-overlay-avatar {
       border-radius: 50%;
+      object-fit: cover;
       width: 32px; height: 32px;
     }
     .mn-table-item-avatar-overlay-name {
@@ -122,13 +123,30 @@
 .mn-table-item-tag {
   border-radius: 4px;
   color: white;
-  font-size: 12px;
-  padding: 4px 8px;
+  font-size: 10px;
+  overflow: hidden;
+  padding: 4px 6px;
+  text-overflow: clip;
+  white-space: nowrap;
 }
 .mn-table-item-text {
   color: #666;
   font-size: 12px;
 }
+.mn-table-item-date {
+  color: #666;
+  font-size: 12px;
+  text-decoration: underline;
+}
+.mn-table-item-action {
+  color: #82CD47;
+  cursor: pointer;
+  font-size: 12px;
+  text-decoration: underline;
+}
+  .mn-table-item-action:hover {
+    color: #5A9829;
+  }
 
 /* STYLING */
 .mn-bg-green {

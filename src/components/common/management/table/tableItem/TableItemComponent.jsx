@@ -2,6 +2,9 @@
 import React from 'react';
 import { OverlayTrigger, Popover, Stack, Tooltip } from 'react-bootstrap';
 
+// Utility
+import { getRelativeTime, getShortDate } from 'utils/helpers/Time.jsx';
+
 // Main Components
 export const TableItemAvatar = ({
   user
@@ -11,7 +14,10 @@ export const TableItemAvatar = ({
     <OverlayTrigger
       placement={'top'}
       overlay={
-        <Popover className='mn-table-item-avatar-overlay'>
+        <Popover
+          className='mn-table-item-avatar-overlay'
+          style={{ position: 'fixed' }}
+        >
           <Popover.Body>
             <Stack direction='horizontal' gap={2}>
               <img
@@ -57,7 +63,7 @@ export const TableItemIcon = ({
     <OverlayTrigger
       placement='top'
       overlay={
-        <Tooltip>{icon.tip}</Tooltip>
+        <Tooltip style={{ position: 'fixed' }}>{icon.tip}</Tooltip>
       }
     >
       <div className='d-flex align-items-center'>
@@ -86,6 +92,37 @@ export const TableItemText = ({
   return (<>
     <div className='mn-table-item-text'>
       {text}
+    </div>
+  </>);
+};
+
+export const TableItemDate = ({
+  datetime,
+  type='short'
+}) => {
+
+  return (<>
+    <OverlayTrigger
+      placement='top'
+      overlay={
+        <Tooltip style={{ position: 'fixed' }}>{datetime}</Tooltip>
+      }
+    >
+      <div className='mn-table-item-date'>
+        {type === 'relative' ? getRelativeTime(datetime) : getShortDate(datetime)}
+      </div>
+    </OverlayTrigger>
+  </>);
+};
+
+export const TableItemAction = ({
+  label,
+  onClick
+}) => {
+
+  return (<>
+    <div className='mn-table-item-action' onClick={onClick}>
+      {label}
     </div>
   </>);
 };
