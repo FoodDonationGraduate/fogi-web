@@ -23,11 +23,13 @@ const RequestListPage = () => {
   const [user, setUser] = useState(null); // User type
   const [requestId, setRequestId] = useState(''); // Request ID
   const [from, setFrom] = useState(['donor', '']);
+  const [status, setStatus] = useState({ value: '', label: 'Tất cả' });
 
   // Filters reset
   useEffect(() => {
     setUser(null);
     setRequestId('');
+    setStatus({ value: '', label: 'Tất cả' });
   }, [from]);
 
   // Pagination handling
@@ -43,7 +45,7 @@ const RequestListPage = () => {
       limit: REQUEST_COUNT,
       offset: page * REQUEST_COUNT,
       request_from: from[0],
-      request_status: '',
+      request_status: status.value,
       sort_field: 'created_time',
       sort_by: 'desc',
       id_query: requestId,
@@ -56,16 +58,17 @@ const RequestListPage = () => {
       { userInfo, userToken },
       navigate
     ));
-  }, [user, requestId, from]);
+  }, [user, requestId, from, status]);
 
   return (
     <>
       <Table
-        headerList={RequestHeaders.takeHeaders}
+        headerList={from[0] === 'donee' ? RequestHeaders.takeHeaders : RequestHeaders.giveHeaders}
         filterList={[
           { state: user, setState: setUser },
           { state: requestId, setState: setRequestId },
-          { state: from, setState: setFrom }
+          { state: from, setState: setFrom },
+          { state: status, setState: setStatus }
         ]}
         itemList={allRequests.requests}
         type='request'
