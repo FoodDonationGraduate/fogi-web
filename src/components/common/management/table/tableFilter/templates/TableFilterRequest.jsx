@@ -9,7 +9,7 @@ import {
 
 // Components
 import TableFilterUser from '../components/TableFilterUser';
-import { TableFilterText } from '../components/TableFilterInput';
+import { TableFilterText, TableFilterRange } from '../components/TableFilterInput';
 import TableFilterRadio from '../components/TableFilterRadio';
 import TableFilterSelect from '../components/TableFilterSelect';
 
@@ -76,7 +76,7 @@ const TableFilterRequest = ({
           />
           <TableFilterText
             input={filterList[1].state} setInput={filterList[1].setState}
-            placeholder='ID'
+            placeholder='ID' type='int'
           />
         </Stack>
       </Col>
@@ -90,6 +90,12 @@ const TableFilterRequest = ({
         <TableFilterSelect
           activeOption={filterList[3].state} setActiveOption={filterList[3].setState}
           optionList={statusList.find(list => list.from === filterList[2].state[0] && list.delivery_type === filterList[2].state[1]).statusList}
+        />
+      </Col>
+      <Col className='mn-table-item-col' xs={1}>
+        <TableFilterRange
+          range={filterList[4].state} setRange={filterList[4].setState}
+          placeholder='Tất cả'
         />
       </Col>
     </>

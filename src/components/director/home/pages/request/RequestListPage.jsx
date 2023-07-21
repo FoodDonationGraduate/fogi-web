@@ -24,6 +24,7 @@ const RequestListPage = () => {
   const [requestId, setRequestId] = useState(''); // Request ID
   const [from, setFrom] = useState(['donor', '']);
   const [status, setStatus] = useState({ value: '', label: 'Tất cả' });
+  const [numProduct, setNumProduct] = useState([]);
 
   // Filters reset
   useEffect(() => {
@@ -50,7 +51,8 @@ const RequestListPage = () => {
       sort_by: 'desc',
       id_query: requestId,
       delivery_type: from[1],
-      user_email: user ? user.email : ''
+      user_email: user ? user.email : '',
+      num_product_filter: numProduct
     };
 
     dispatch(retrieveAllRequests(
@@ -68,7 +70,8 @@ const RequestListPage = () => {
           { state: user, setState: setUser },
           { state: requestId, setState: setRequestId },
           { state: from, setState: setFrom },
-          { state: status, setState: setStatus }
+          { state: status, setState: setStatus },
+          { state: numProduct, setState: setNumProduct }
         ]}
         itemList={allRequests.requests}
         type='request'
