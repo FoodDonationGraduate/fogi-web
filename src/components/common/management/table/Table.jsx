@@ -27,7 +27,7 @@ const Table = ({
       <div className='mn-table'>
         <Container fluid>
           <TableHeader headerList={headerList} />
-          <div className='mt-2' />
+          <TableDivider />
           <TableFilter filterList={filterList} type={type} />
           <TableDivider />
           {itemList && itemList.map((item, idx) => (

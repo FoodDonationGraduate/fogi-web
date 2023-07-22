@@ -8,7 +8,7 @@ const TableDivider = () => {
     <>
       <Row>
         <Col>
-          <hr />
+          <hr className='my-2' />
         </Col>
       </Row>
     </>

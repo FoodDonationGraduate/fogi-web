@@ -12,6 +12,7 @@ import TableFilterUser from '../components/TableFilterUser';
 import { TableFilterText, TableFilterRange } from '../components/TableFilterInput';
 import TableFilterRadio from '../components/TableFilterRadio';
 import TableFilterSelect from '../components/TableFilterSelect';
+import TableFilterDate from '../components/TableFilterDate';
 
 import { TableItemIcon } from 'components/common/management/table/tableItem/TableItemComponent';
 
@@ -135,7 +136,9 @@ const TableFilterRequest = ({
         </Stack>
       </Col>
       <Col className='mn-table-item-col' xs={1}>
-        
+        <TableFilterDate
+          date={filterList[10].state} setDate={filterList[10].setState}
+        />
       </Col>
       <Col className='mn-table-item-col' xs={1}>
         

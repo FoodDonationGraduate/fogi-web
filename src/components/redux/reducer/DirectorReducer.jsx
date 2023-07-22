@@ -362,7 +362,9 @@ export const retrieveAllRequests = (data, director, navigate) => {
         distance_filter: data.distance_filter,
         director_email: data.director_email,
         keeper_email: data.keeper_email,
-        volunteer_email: data.volunteer_email
+        volunteer_email: data.volunteer_email,
+        min_created_date: data.min_created_date,
+        max_created_date: data.max_created_date
       }
       if (director.userInfo.user_type === 'director') {
         currentData.request_from = data.request_from;

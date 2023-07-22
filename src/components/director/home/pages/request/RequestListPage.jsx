@@ -28,9 +28,10 @@ const RequestListPage = () => {
   const [sumKg, setSumKg] = useState([]);
   const [sumItem, setSumItem] = useState([]);
   const [distance, setDistance] = useState([]);
-  const [director, setDirector] = useState(null); // User type
-  const [warehouseKeeper, setWarehouseKeeper] = useState(null); // User type
-  const [volunteer, setVolunteer] = useState(null); // User type
+  const [director, setDirector] = useState(null);
+  const [warehouseKeeper, setWarehouseKeeper] = useState(null);
+  const [volunteer, setVolunteer] = useState(null);
+  const [createdDate, setCreatedDate] = useState({ min: '', max: '' });
 
   // Filters reset
   useEffect(() => {
@@ -44,6 +45,7 @@ const RequestListPage = () => {
     setDirector(null);
     setWarehouseKeeper(null);
     setVolunteer(null);
+    setCreatedDate({ min: '', max: '' });
   }, [from]);
 
   // Pagination handling
@@ -71,7 +73,9 @@ const RequestListPage = () => {
       distance_filter: JSON.stringify(distance),
       director_email: director ? director.email : '',
       keeper_email: warehouseKeeper ? warehouseKeeper.email : '',
-      volunteer_email: volunteer ? volunteer.email : ''
+      volunteer_email: volunteer ? volunteer.email : '',
+      min_created_date: createdDate.min,
+      max_created_date: createdDate.max
     };
 
     dispatch(retrieveAllRequests(
@@ -80,11 +84,12 @@ const RequestListPage = () => {
       navigate
     ));
   }, [user, requestId, from, status, numProduct, sumKg, sumItem, distance,
-    director, warehouseKeeper, volunteer
+    director, warehouseKeeper, volunteer, createdDate 
   ]);
 
   return (
-    <>
+    <>  
+      {JSON.stringify(createdDate)}
       <Table
         headerList={from[0] === 'donee' ? RequestHeaders.takeHeaders : RequestHeaders.giveHeaders}
         filterList={[
@@ -98,7 +103,8 @@ const RequestListPage = () => {
           { state: director, setState: setDirector },
           { state: warehouseKeeper, setState: setWarehouseKeeper },
           { state: volunteer, setState: setVolunteer },
-          {}, {},
+          { state: createdDate, setState: setCreatedDate },
+          {},
           { state: distance, setState: setDistance }
         ]}
         itemList={allRequests.requests}

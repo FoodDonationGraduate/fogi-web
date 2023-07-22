@@ -155,6 +155,20 @@
     width: 16px; height: 16px;
   }
 
+.mn-table-filter-date {
+  color: #999;
+  font-size: 9px;
+}
+.mn-table-filter-date-input {
+  border: 1px solid #999;
+  border-radius: 4px;
+  width: 100%;
+}
+  .form-control.mn-table-filter-date-input {
+    font-size: 10px;
+    padding: 0px;
+  }
+
 .mn-table-filter-helper {
   width: 16px; height: 16px;
 }
