@@ -198,15 +198,15 @@ a.fogi:active {
     }
 
 .chip {
-  padding: 4px 8px;
-  border-radius: 8px;
-  font-weight: 600;
+  padding: 4px 6px;
+  border-radius: 6px;
+  font-weight: 500;
   user-select: none;
 }
   .chip-title {
     color: #999;
     font-weight: bold;
-    font-size: 16px;
+    font-size: 14px;
   }
   .chip-inactive {
     background: #fff;

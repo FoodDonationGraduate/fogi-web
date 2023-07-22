@@ -7,7 +7,6 @@ import { useParams } from 'react-router-dom';
 
 // Components & Pages
 import SideMenu from 'components/common/management/sideMenu/SideMenu';
-import Title from 'components/common/management/common/Title';
 import InfoModal from 'components/layout/InfoModal.jsx';
 import ConfirmModal from 'components/layout/ConfirmModal.jsx';
 
@@ -104,10 +103,7 @@ const HomePage = ({
                   {userInfo.user_type === 'warehouse_keeper' && <>
                     {activeIdx === 2 && <UnsortedFoodPage />}
                   </>}
-                  {activeIdx === 1 && <>
-                    <Title title='Quản lý Yêu cầu' />
-                    <RequestPage />
-                  </>}
+                  {activeIdx === 1 && <RequestPage />}
                   {activeIdx === 3 && <CategoryPage />}
                   {activeIdx === 4 && (!parentFoodId ? <ParentFoodPage /> : <FoodPage />)}
                 </Stack>
