@@ -2,12 +2,12 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
-import { Col, Row } from 'react-bootstrap';
+import { Col, Row, Stack } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 
 // Components & Pages
-import SideMenu from 'components/common/sideMenu/SideMenu';
-import SideMenuOffCanvas from 'components/common/sideMenu/SideMenuOffCanvas';
+import SideMenu from 'components/common/management/sideMenu/SideMenu';
+import Title from 'components/common/management/common/Title';
 import InfoModal from 'components/layout/InfoModal.jsx';
 import ConfirmModal from 'components/layout/ConfirmModal.jsx';
 
@@ -71,7 +71,6 @@ const HomePage = ({
   activeIdx
 }) => {
   const userInfo = useSelector(state => state.authenticationReducer.user);
-  let size = useResizer();
   const { categoryId, parentFoodId } = useParams();
 
   // for SideMenu Offcanvas
@@ -86,40 +85,32 @@ const HomePage = ({
 
   return (
     <>
-      <SideMenuOffCanvas
-        activeIdx={activeIdx}
-        show={show} onHide={onHide}
-        sideMenuInfoList={menu}
-        userType={userInfo.user_type}
-      />
       <div className='bg'>
         <Row>
-          {size > 1 && (
-            <SideMenu
-              activeIdx={activeIdx}
-              sideMenuInfoList={menu}
-              userType={userInfo.user_type}
-            />
-          )}
-          {size <= 1 && (
-            <div className='side-menu-sm' onClick={onShow}>
-              <MdMenu className='side-menu-icon-sm' />
-            </div>
-          )}
+          <SideMenu
+            activeIdx={activeIdx}
+            sideMenuInfoList={menu}
+            userType={userInfo.user_type}
+          />
           <Col>
-            <Row className={`${size >= 2 ? 'workspace' : ''} py-4`}>
+            <Row className='mn-workspace'>
               <Col>
-                {userInfo.user_type === 'director' && <>
-                  {activeIdx === 0 && <DashboardPage />}
-                  {activeIdx === 5 && <ApproveListPage />}
-                  {activeIdx === 6 && <ManageUserPage />}
-                </>}
-                {userInfo.user_type === 'warehouse_keeper' && <>
-                  {activeIdx === 2 && <UnsortedFoodPage />}
-                </>}
-                {activeIdx === 1 && <RequestPage />}
-                {activeIdx === 3 && <CategoryPage />}
-                {activeIdx === 4 && (!parentFoodId ? <ParentFoodPage /> : <FoodPage />)}
+                <Stack direction='vertical' gap={3}>
+                  {userInfo.user_type === 'director' && <>
+                    {activeIdx === 0 && <DashboardPage />}
+                    {activeIdx === 5 && <ApproveListPage />}
+                    {activeIdx === 6 && <ManageUserPage />}
+                  </>}
+                  {userInfo.user_type === 'warehouse_keeper' && <>
+                    {activeIdx === 2 && <UnsortedFoodPage />}
+                  </>}
+                  {activeIdx === 1 && <>
+                    <Title title='Quản lý Yêu cầu' />
+                    <RequestPage />
+                  </>}
+                  {activeIdx === 3 && <CategoryPage />}
+                  {activeIdx === 4 && (!parentFoodId ? <ParentFoodPage /> : <FoodPage />)}
+                </Stack>
               </Col>
             </Row>
           </Col>

@@ -22,7 +22,7 @@
             { "user_type": "donee", "delivery_type": "pickup" },
             { "user_type": "warehouse_keeper", "delivery_type": "give" }
           ],
-          "chip": "Đang Xác nhận",
+          "chip": "Chờ Xác nhận",
           "not_pass": "Chờ xác nhận",
           "pass": "Đã xác nhận bởi Điều phối viên {director_name}",
           "text": "Yêu cầu đã được xác nhận bởi Điều phối viên {director_name}"
