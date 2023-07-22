@@ -35,20 +35,7 @@ const TableItemRequest = ({
       <Col className='mn-table-item-col' xs={1}>
         <Stack direction='horizontal' gap={2}>
           <TableItemAvatar user={request.user} />
-          <TableItemTitle title={request.id} />
-        </Stack>
-      </Col>
-      <Col className='mn-table-item-col' xs={1}>
-        <Stack direction='horizontal' gap={2}>
-          {!request.delivery_type ? <>
-            <TableItemIcon icon={{ icon: MdUpload, tip: 'Cho' }} />
-          </> : <>
-            <TableItemIcon icon={{ icon: MdDownload, tip: 'Nhận' }} />
-            {request.delivery_type === 'delivery' ?
-              <TableItemIcon icon={{ icon: MdLocalShipping, tip: 'Giao hàng' }} /> :
-              <TableItemIcon icon={{ icon: MdWarehouse, tip: 'Nhận tại kho' }}   />
-            }
-          </>}
+          <TableItemTitle title={request.id} onClick={() => { navigate(`/${userInfo.user_type}/request/${request.user.user_type}/${request.id}`) }} />
         </Stack>
       </Col>
       <Col className='mn-table-item-col' xs={1}>
@@ -82,17 +69,17 @@ const TableItemRequest = ({
           }
         </Stack>
       </Col>
-      <Col className='mn-table-item-col' xs={1}>
+      <Col className='mn-table-item-col' xs={2}>
         <TableItemDate datetime={request.created_time} />
       </Col>
-      <Col className='mn-table-item-col' xs={1}>
+      <Col className='mn-table-item-col' xs={2}>
         <TableItemDate datetime={request.last_updated_state_time} type='relative' />
       </Col>
       <Col className='mn-table-item-col' xs={1}>
         <TableItemText text={`${request.distance} km`} />
       </Col>
       <Col className='mn-table-item-col' xs={1}>
-        <TableItemAction label='Xem chi tiết' onClick={() => { navigate(`/${userInfo.user_type}/request/${request.user.user_type}/${request.id}`) }} />
+        
       </Col>
     </>
   );

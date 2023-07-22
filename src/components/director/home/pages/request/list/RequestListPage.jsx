@@ -1,13 +1,16 @@
 // Essentials
 import React, { useState, useEffect } from 'react';
+import { Stack } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 
 // Constants
+import ChipList from 'components/common/chip/ChipList';
 import RequestHeaders from 'utils/constants/headerList/RequestHeaders.json';
 
 // Components
 import Table from 'components/common/management/table/Table';
+import Title from 'components/common/management/common/Title';
 
 // Reducers
 import { retrieveAllRequests } from 'components/redux/reducer/DirectorReducer';
@@ -19,10 +22,25 @@ const RequestListPage = () => {
   const userToken = useSelector(state => state.authenticationReducer.token);
   const dispatch = useDispatch(); const navigate = useNavigate();
 
+  // Chip List - for Filter
+  const [activeFromIdx, setActiveFromIdx] = useState(0);
+  const fromList = [['donor', ''], ['donee', 'delivery'], ['donee', 'pickup']];
+  const getFromLabel = (from) => {
+    switch (from[0]) {
+      case 'donor':
+        return 'Cho';
+      case 'donee-delivery':
+        return 'Nhận (Giao hàng)';
+      default:
+        return 'Nhận (Tại kho)';
+    }
+  };
+  const fromStyleList = ['success', 'success', 'success'];
+
   // Filters
+  const [from, setFrom] = useState(['donor', '']);
   const [user, setUser] = useState(null);
   const [requestId, setRequestId] = useState('');
-  const [from, setFrom] = useState(['donor', '']);
   const [status, setStatus] = useState({ value: '', label: 'Tất cả' });
   const [numProduct, setNumProduct] = useState([]);
   const [sumKg, setSumKg] = useState([]);
@@ -39,6 +57,7 @@ const RequestListPage = () => {
 
   // Filters reset
   useEffect(() => {
+    setFrom(fromList[activeFromIdx]);
     setUser(null);
     setRequestId('');
     setStatus({ value: '', label: 'Tất cả' });
@@ -51,7 +70,7 @@ const RequestListPage = () => {
     setVolunteer(null);
     setCreatedTime({ min: '', max: '' });
     setUpdatedTime({ min: '', max: '' });
-  }, [from]);
+  }, [activeFromIdx]);
 
   // Pagination handling
   const REQUEST_COUNT = 16; // per page
@@ -96,6 +115,16 @@ const RequestListPage = () => {
 
   return (
     <>
+      <Stack direction='horizontal' gap={2}>
+        <Title title='Quản lý Yêu cầu' />
+        <ChipList
+          activeStatusIdx={activeFromIdx}
+          setActiveStatusIdx={setActiveFromIdx}
+          statusList={fromList}
+          getStatusLabel={getFromLabel}
+          styleList={fromStyleList}
+        />
+      </Stack>
       <Table
         headerList={from[0] === 'donee' ? RequestHeaders.takeHeaders : RequestHeaders.giveHeaders}
         filterList={[

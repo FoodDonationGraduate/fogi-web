@@ -24,11 +24,11 @@ const TableFilterRequest = ({
 }) => {
 
   // Constants
-  const fromList = [
-    { value: ['donor', ''], icon: MdUpload, tip: 'Cho' },
-    { value: ['donee', 'delivery'], icon: MdLocalShipping, tip: 'Nhận (Giao hàng)' },
-    { value: ['donee', 'pickup'], icon: MdWarehouse, tip: 'Nhận (Tại kho)' }
-  ];
+  // const fromList = [
+  //   { value: ['donor', ''], icon: MdUpload, tip: 'Cho' },
+  //   { value: ['donee', 'delivery'], icon: MdLocalShipping, tip: 'Nhận (Giao hàng)' },
+  //   { value: ['donee', 'pickup'], icon: MdWarehouse, tip: 'Nhận (Tại kho)' }
+  // ];
 
   const statusList = [
     {
@@ -83,12 +83,12 @@ const TableFilterRequest = ({
           />
         </Stack>
       </Col>
-      <Col className='mn-table-item-col' xs={1}>
+      {/* <Col className='mn-table-item-col' xs={1}>
         <TableFilterRadio
           activeRadioValue={filterList[2].state} setActiveRadioValue={filterList[2].setState}
           radioList={fromList}
         />
-      </Col>
+      </Col> */}
       <Col className='mn-table-item-col' xs={1}>
         <TableFilterSelect
           activeOption={filterList[3].state} setActiveOption={filterList[3].setState}
@@ -135,12 +135,12 @@ const TableFilterRequest = ({
           />
         </Stack>
       </Col>
-      <Col className='mn-table-item-col' xs={1}>
+      <Col className='mn-table-item-col' xs={2}>
         <TableFilterTime
           date={filterList[10].state} setDate={filterList[10].setState}
         />
       </Col>
-      <Col className='mn-table-item-col' xs={1}>
+      <Col className='mn-table-item-col' xs={2}>
         <TableFilterTime
           date={filterList[11].state} setDate={filterList[11].setState}
         />

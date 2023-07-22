@@ -22,15 +22,15 @@ const TableFilterTime = ({
   })};
 
   return (<>
-    <div className='w-100'>
+    <div className='me-2'>
       <div className='mn-table-filter-date'>
         <Row className='d-flex align-items-center'>
-          <Col className='px-0' xs={3}>
+          <Col className='px-0' xs={2}>
             <div className='mn-table-filter-date'>
               Từ
             </div>
           </Col>
-          <Col className='px-0' xs={9}>
+          <Col className='px-0' xs={10}>
             <Form.Control
               className='mn-table-filter-date-input'
               onChange={onChangeMin}
@@ -40,12 +40,12 @@ const TableFilterTime = ({
           </Col>
         </Row>
         <Row className='d-flex align-items-center'>
-          <Col className='px-0' xs={3}>
+          <Col className='px-0' xs={2}>
             <div className='mn-table-filter-date'>
               Đến
             </div>
           </Col>
-          <Col className='px-0' xs={9}>
+          <Col className='px-0' xs={10}>
             <Form.Control
               className='mn-table-filter-date-input'
               onChange={onChangeMax}

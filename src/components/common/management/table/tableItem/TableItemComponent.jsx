@@ -46,11 +46,12 @@ export const TableItemAvatar = ({
 };
 
 export const TableItemTitle = ({
-  title
+  title,
+  onClick
 }) => {
 
   return (<>
-    <div className='mn-table-item-title'>
+    <div className='mn-table-item-title' onClick={onClick}>
       {title}
     </div>
   </>);
