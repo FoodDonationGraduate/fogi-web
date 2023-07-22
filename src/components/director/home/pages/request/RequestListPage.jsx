@@ -31,7 +31,8 @@ const RequestListPage = () => {
   const [director, setDirector] = useState(null);
   const [warehouseKeeper, setWarehouseKeeper] = useState(null);
   const [volunteer, setVolunteer] = useState(null);
-  const [createdDate, setCreatedDate] = useState({ min: '', max: '' });
+  const [createdTime, setCreatedTime] = useState({ min: '', max: '' });
+  const [updatedTime, setUpdatedTime] = useState({ min: '', max: '' });
 
   // Filters reset
   useEffect(() => {
@@ -45,7 +46,8 @@ const RequestListPage = () => {
     setDirector(null);
     setWarehouseKeeper(null);
     setVolunteer(null);
-    setCreatedDate({ min: '', max: '' });
+    setCreatedTime({ min: '', max: '' });
+    setUpdatedTime({ min: '', max: '' });
   }, [from]);
 
   // Pagination handling
@@ -74,8 +76,10 @@ const RequestListPage = () => {
       director_email: director ? director.email : '',
       keeper_email: warehouseKeeper ? warehouseKeeper.email : '',
       volunteer_email: volunteer ? volunteer.email : '',
-      min_created_date: createdDate.min,
-      max_created_date: createdDate.max
+      min_created_time: createdTime.min,
+      max_created_time: createdTime.max,
+      min_updated_time: updatedTime.min,
+      max_updated_time: updatedTime.max
     };
 
     dispatch(retrieveAllRequests(
@@ -84,12 +88,13 @@ const RequestListPage = () => {
       navigate
     ));
   }, [user, requestId, from, status, numProduct, sumKg, sumItem, distance,
-    director, warehouseKeeper, volunteer, createdDate 
+    director, warehouseKeeper, volunteer, createdTime, updatedTime
   ]);
 
   return (
-    <>  
-      {JSON.stringify(createdDate)}
+    <>
+      {JSON.stringify(createdTime)}
+      {JSON.stringify(updatedTime)}
       <Table
         headerList={from[0] === 'donee' ? RequestHeaders.takeHeaders : RequestHeaders.giveHeaders}
         filterList={[
@@ -103,8 +108,8 @@ const RequestListPage = () => {
           { state: director, setState: setDirector },
           { state: warehouseKeeper, setState: setWarehouseKeeper },
           { state: volunteer, setState: setVolunteer },
-          { state: createdDate, setState: setCreatedDate },
-          {},
+          { state: createdTime, setState: setCreatedTime },
+          { state: updatedTime, setState: setUpdatedTime },
           { state: distance, setState: setDistance }
         ]}
         itemList={allRequests.requests}

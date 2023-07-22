@@ -363,8 +363,10 @@ export const retrieveAllRequests = (data, director, navigate) => {
         director_email: data.director_email,
         keeper_email: data.keeper_email,
         volunteer_email: data.volunteer_email,
-        min_created_date: data.min_created_date,
-        max_created_date: data.max_created_date
+        min_created_time: data.min_created_time,
+        max_created_time: data.max_created_time,
+        min_updated_time: data.min_updated_time,
+        max_updated_time: data.max_updated_time
       }
       if (director.userInfo.user_type === 'director') {
         currentData.request_from = data.request_from;

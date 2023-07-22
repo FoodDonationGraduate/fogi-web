@@ -141,7 +141,9 @@ const TableFilterRequest = ({
         />
       </Col>
       <Col className='mn-table-item-col' xs={1}>
-        
+        <TableFilterDate
+          date={filterList[11].state} setDate={filterList[11].setState}
+        />
       </Col>
       <Col className='mn-table-item-col' xs={1}>
         <TableFilterRange

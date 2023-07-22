@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export const distanceTime = (datetime) => {
     var startDate = new Date();
     var endDate = new Date(datetime)
@@ -45,4 +47,10 @@ export const convertToString = (date, type) => {
     } else if (type === 'LocaleTimeString') {
         return newDate.toLocaleTimeString();
     }
+}
+
+export const formatDateTime = (date, format) => {
+    const d = new Date(date);
+    const dt = moment(d).format(format);
+    return dt;
 }
