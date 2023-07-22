@@ -70,7 +70,7 @@ export const TableFilterRange = ({
     for (let i = 0; i < str.length; i++) {
       const c = str[i];
 
-      if ('0123456789'.includes(c)) continue;
+      if ('0123456789.'.includes(c)) continue;
       if ('[('.includes(c) && i === 0 && '0123456789'.includes(str[1])) {
         minChar = c;
         continue;
@@ -89,6 +89,7 @@ export const TableFilterRange = ({
     // String only contains 1 number
     if (commaCount === 0) {
       const value = Number(str.slice(!minChar ? 0 : 1, str.length - (!maxChar ? 0 : 1)));
+      if (isNaN(Number(value))) return null;
       let operator = '=';
       if (minChar && !maxChar) operator = (minChar === '[' ? '>=' : '>');
       else if (!minChar && maxChar) operator = (maxChar === ']' ? '<=' : '<');
@@ -101,6 +102,7 @@ export const TableFilterRange = ({
         left: Number(s[0].slice(1)),
         right: Number(s[1].slice(0, s[1].length - 1))
       };
+      if (isNaN(Number(values.left)) || isNaN(Number(values.right))) return null;
       const operators = {
         left: minChar === '[' ? '>=' : '>',
         right: maxChar === ']' ? '<=' : '<'
@@ -122,10 +124,10 @@ export const TableFilterRange = ({
     const result = convertToRange(str);
     if (!result) {
       setIsError(true);
+      if (timeoutId) clearTimeout(timeoutId);
       return;
     } else setIsError(false);
 
-    if (timeoutId) clearTimeout(timeoutId);
     const newTimeoutId = setTimeout(() => {
       setRange(result);
     }, 500);
