@@ -115,8 +115,23 @@ const TableFilterRequest = ({
       <Col className='mn-table-item-col' xs={2}>
         <Stack direction='horizontal' gap={2}>
           <TableItemIcon icon={{ icon: MdComputer, tip: 'Điều phối viên' }} />
+          <TableFilterUser
+            user={filterList[7].state} setUser={filterList[7].setState}
+            userType={'director'}
+            tip='Lọc Điều phối viên'
+          />
           <TableItemIcon icon={{ icon: MdWarehouse, tip: 'Quản lý kho' }} />
+          <TableFilterUser
+            user={filterList[8].state} setUser={filterList[8].setState}
+            userType={'keeper'}
+            tip='Lọc Quản lý kho'
+          />
           <TableItemIcon icon={{ icon: MdLocalShipping, tip: 'Tình nguyện viên' }} />
+          <TableFilterUser
+            user={filterList[9].state} setUser={filterList[9].setState}
+            userType={'volunteer'}
+            tip='Lọc Tình nguyện viên'
+          />
         </Stack>
       </Col>
       <Col className='mn-table-item-col' xs={1}>

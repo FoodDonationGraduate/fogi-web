@@ -11,6 +11,7 @@ const TableHeader = ({
       <Row>
         {headerList && headerList.map((header, idx) => (
           <OverlayTrigger
+            key={idx}
             placement='top'
             overlay={header.tip ?
               <Tooltip style={{ position: 'fixed' }}>
@@ -19,7 +20,6 @@ const TableHeader = ({
             }
           >
             <Col
-              key={idx}
               className={`mn-table-header ${header.tip ? 'mn-underline' : ''}`}
               xs={header.size}
             >

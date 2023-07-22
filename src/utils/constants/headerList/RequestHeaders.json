@@ -37,40 +37,40 @@
     }
   ],
   "takeHeaders": [{
-    "label": "Yêu cầu",
-    "size": 1
-  },{
-    "label": "Loại",
-    "size": 1
-  },{
-    "label": "Trạng thái",
-    "size": 1
-  },{
-    "label": "Hạng mục con",
-    "size": 1,
-    "tip": "Số hạng mục con trong túi của Người nhận"
-  },{
-    "label": "Khối lượng (kg)",
-    "size": 1
-  },{
-    "label": "Số lượng (cái)",
-    "size": 1
-  },{
-    "label": "Nhân sự phụ trách",
-    "size": 2
-  },{
-    "label": "Ngày tạo",
-    "size": 1
-  },{
-    "label": "Cập nhật",
-    "size": 1
-  },{
-    "label": "Khoảng cách",
-    "size": 1,
-    "tip": "Từ Người nhận đến Kho"
-  },{
-    "label": "Thao tác",
-    "size": 1
-  }
-]
+      "label": "Yêu cầu",
+      "size": 1
+    },{
+      "label": "Loại",
+      "size": 1
+    },{
+      "label": "Trạng thái",
+      "size": 1
+    },{
+      "label": "Hạng mục con",
+      "size": 1,
+      "tip": "Số hạng mục con trong túi của Người nhận"
+    },{
+      "label": "Khối lượng (kg)",
+      "size": 1
+    },{
+      "label": "Số lượng (cái)",
+      "size": 1
+    },{
+      "label": "Nhân sự phụ trách",
+      "size": 2
+    },{
+      "label": "Ngày tạo",
+      "size": 1
+    },{
+      "label": "Cập nhật",
+      "size": 1
+    },{
+      "label": "Khoảng cách",
+      "size": 1,
+      "tip": "Từ Người nhận đến Kho"
+    },{
+      "label": "Thao tác",
+      "size": 1
+    }
+  ]
 }

@@ -20,14 +20,17 @@ const RequestListPage = () => {
   const dispatch = useDispatch(); const navigate = useNavigate();
 
   // Filters
-  const [user, setUser] = useState(null); // User type
-  const [requestId, setRequestId] = useState(''); // Request ID
+  const [user, setUser] = useState(null);
+  const [requestId, setRequestId] = useState('');
   const [from, setFrom] = useState(['donor', '']);
   const [status, setStatus] = useState({ value: '', label: 'Tất cả' });
   const [numProduct, setNumProduct] = useState([]);
   const [sumKg, setSumKg] = useState([]);
   const [sumItem, setSumItem] = useState([]);
   const [distance, setDistance] = useState([]);
+  const [director, setDirector] = useState(null); // User type
+  const [warehouseKeeper, setWarehouseKeeper] = useState(null); // User type
+  const [volunteer, setVolunteer] = useState(null); // User type
 
   // Filters reset
   useEffect(() => {
@@ -38,6 +41,9 @@ const RequestListPage = () => {
     setSumKg([]);
     setSumItem([]);
     setDistance([]);
+    setDirector(null);
+    setWarehouseKeeper(null);
+    setVolunteer(null);
   }, [from]);
 
   // Pagination handling
@@ -62,7 +68,10 @@ const RequestListPage = () => {
       num_product_filter: JSON.stringify(numProduct),
       sum_kg_filter: JSON.stringify(sumKg),
       sum_item_filter: JSON.stringify(sumItem),
-      distance_filter: JSON.stringify(distance)
+      distance_filter: JSON.stringify(distance),
+      director_email: director ? director.email : '',
+      keeper_email: warehouseKeeper ? warehouseKeeper.email : '',
+      volunteer_email: volunteer ? volunteer.email : ''
     };
 
     dispatch(retrieveAllRequests(
@@ -70,7 +79,9 @@ const RequestListPage = () => {
       { userInfo, userToken },
       navigate
     ));
-  }, [user, requestId, from, status, numProduct, sumKg, sumItem, distance]);
+  }, [user, requestId, from, status, numProduct, sumKg, sumItem, distance,
+    director, warehouseKeeper, volunteer
+  ]);
 
   return (
     <>
@@ -84,7 +95,10 @@ const RequestListPage = () => {
           { state: numProduct, setState: setNumProduct },
           { state: sumKg, setState: setSumKg },
           { state: sumItem, setState: setSumItem },
-          {}, {}, {}, {}, {},
+          { state: director, setState: setDirector },
+          { state: warehouseKeeper, setState: setWarehouseKeeper },
+          { state: volunteer, setState: setVolunteer },
+          {}, {},
           { state: distance, setState: setDistance }
         ]}
         itemList={allRequests.requests}

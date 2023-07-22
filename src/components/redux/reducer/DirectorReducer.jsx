@@ -12,6 +12,11 @@ const initialState = {
   reports: {},
   user_type: 'donee',
 
+  allUsers: {},
+  allDirectors: {},
+  allKeepers: {},
+  allVolunteers: {},
+
   allRequests: {},
   currentRequest: null,
   availableVolunteers: {},
@@ -39,6 +44,19 @@ const directorReducer = createSlice({
     },
     setTypeOfUser: (state, action) => {
       state.user_type = action.payload;
+    },
+
+    setAllUsers: (state, action) => {
+      state.allUsers = action.payload;
+    },
+    setAllDirectors: (state, action) => {
+      state.allDirectors = action.payload;
+    },
+    setAllKeepers: (state, action) => {
+      state.allKeepers = action.payload;
+    },
+    setAllVolunteers: (state, action) => {
+      state.allVolunteers = action.payload;
     },
 
     setAllRequests: (state, action) => {
@@ -72,6 +90,8 @@ const directorReducer = createSlice({
 
 export const {
   setUnverifiedUsers, setManageUsers, setReports, setTypeOfUser,
+
+  setAllUsers, setAllDirectors, setAllKeepers, setAllVolunteers,
 
   setAllRequests, setCurrentRequest, setAvailableVolunteers,
 
@@ -125,6 +145,40 @@ export const retrieveManageUsers = (data, director, navigate) => {
       await axiosInstance.get(`/director/profile`, { params: currentData })
       .then((res) => {
         dispatch(setManageUsers(res.data));
+      }).catch((err) => {
+        if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+        } else {
+          console.log(err.response.data);
+          dispatch(setModalMessage("Đã xảy ra lỗi!"))
+          dispatch(setModalType('danger'))
+          dispatch(showModal())
+       }
+      });
+    } catch (err) {
+      console.log(err);
+      navigate('/');
+    }
+  }
+}
+
+export const retrieveAllUsers = (data, director, navigate) => {
+  return async dispatch => {
+    try {
+      console.log(`retrieve list of ${data.user_type}s`);
+      let currentData = {
+        email: director.userInfo.email,
+        token: director.userToken,
+        user_type: data.user_type,
+        limit: data.limit,
+        offset: data.offset
+      }
+      if (data.search_query !== '') {currentData.search_query = data.search_query}
+      await axiosInstance.get(`/director/profile`, { params: currentData })
+      .then((res) => {
+        if (data.user_type === 'director') dispatch(setAllDirectors(res.data));
+        else if (data.user_type === 'keeper') dispatch(setAllKeepers(res.data));
+        else if (data.user_type === 'volunteer') dispatch(setAllVolunteers(res.data));
+        else dispatch(setAllUsers(res.data));
       }).catch((err) => {
         if (handleExpiredToken(err.response.data, dispatch, navigate)) {
         } else {
@@ -305,7 +359,10 @@ export const retrieveAllRequests = (data, director, navigate) => {
         num_product_filter: data.num_product_filter,
         sum_kg_filter: data.sum_kg_filter,
         sum_item_filter: data.sum_item_filter,
-        distance_filter: data.distance_filter
+        distance_filter: data.distance_filter,
+        director_email: data.director_email,
+        keeper_email: data.keeper_email,
+        volunteer_email: data.volunteer_email
       }
       if (director.userInfo.user_type === 'director') {
         currentData.request_from = data.request_from;

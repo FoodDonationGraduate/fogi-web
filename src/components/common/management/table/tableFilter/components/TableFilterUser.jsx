@@ -14,7 +14,7 @@ import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 
 // Reducers
-import { retrieveManageUsers } from 'components/redux/reducer/DirectorReducer';
+import { retrieveAllUsers } from 'components/redux/reducer/DirectorReducer';
 
 // Utility
 import { getUserTypeLabel } from 'utils/helpers/User.jsx';
@@ -79,15 +79,19 @@ export const UserFilterModal = ({
   };
 
   // Users
-  const manageUsers = useSelector(state => state.directorReducer.manageUsers);
+  const allUsers = useSelector(state => state.directorReducer.allUsers);
+  const allDirectors = useSelector(state => state.directorReducer.allDirectors);
+  const allKeepers = useSelector(state => state.directorReducer.allKeepers);
+  const allVolunteers = useSelector(state => state.directorReducer.allVolunteers);
   useEffect(() => {
+    console.log(`${userType}`)
     let data = {
       user_type: userType,
       limit: 10,
       offset: 0,
       search_query: queryData
     };
-    dispatch(retrieveManageUsers(data, { userInfo, userToken }, navigate));
+    dispatch(retrieveAllUsers(data, { userInfo, userToken }, navigate));
   }, [userType, queryData]);
   
   
@@ -114,7 +118,25 @@ export const UserFilterModal = ({
               Bỏ chọn
             </div>
           }
-          {Object.keys(manageUsers).length > 0 && manageUsers.users.map((user, idx) => (
+          {(userType === 'donee' || userType === 'donor' ) && Object.keys(allUsers).length > 0 && allUsers.users.map((user, idx) => (
+            <UserModalItem key={idx}
+              user={user} setUser={setUser}
+              onHide={onHide}
+            />
+          ))}
+          {userType === 'director' && Object.keys(allDirectors).length > 0 && allDirectors.users.map((user, idx) => (
+            <UserModalItem key={idx}
+              user={user} setUser={setUser}
+              onHide={onHide}
+            />
+          ))}
+          {userType === 'keeper' && Object.keys(allKeepers).length > 0 && allKeepers.users.map((user, idx) => (
+            <UserModalItem key={idx}
+              user={user} setUser={setUser}
+              onHide={onHide}
+            />
+          ))}
+          {userType === 'volunteer' && Object.keys(allVolunteers).length > 0 && allVolunteers.users.map((user, idx) => (
             <UserModalItem key={idx}
               user={user} setUser={setUser}
               onHide={onHide}
