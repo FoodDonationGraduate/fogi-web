@@ -1,6 +1,6 @@
 // Essentials
 import React from 'react';
-import { Col, Row } from 'react-bootstrap';
+import { Col, OverlayTrigger, Row, Tooltip } from 'react-bootstrap';
 
 const TableHeader = ({
   headerList
@@ -10,13 +10,22 @@ const TableHeader = ({
     <>
       <Row>
         {headerList && headerList.map((header, idx) => (
-          <Col
-            key={idx}
-            className='mn-table-header'
-            xs={header.size}
+          <OverlayTrigger
+            placement='top'
+            overlay={header.tip ?
+              <Tooltip style={{ position: 'fixed' }}>
+                {header.tip}
+              </Tooltip> : <></>
+            }
           >
-            {header.label}
-          </Col>
+            <Col
+              key={idx}
+              className={`mn-table-header ${header.tip ? 'mn-underline' : ''}`}
+              xs={header.size}
+            >
+              {header.label}
+            </Col>
+          </OverlayTrigger>
         ))}
       </Row>
     </>

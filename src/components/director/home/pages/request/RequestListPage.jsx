@@ -27,6 +27,7 @@ const RequestListPage = () => {
   const [numProduct, setNumProduct] = useState([]);
   const [sumKg, setSumKg] = useState([]);
   const [sumItem, setSumItem] = useState([]);
+  const [distance, setDistance] = useState([]);
 
   // Filters reset
   useEffect(() => {
@@ -36,6 +37,7 @@ const RequestListPage = () => {
     setNumProduct([]);
     setSumKg([]);
     setSumItem([]);
+    setDistance([]);
   }, [from]);
 
   // Pagination handling
@@ -59,7 +61,8 @@ const RequestListPage = () => {
       user_email: user ? user.email : '',
       num_product_filter: JSON.stringify(numProduct),
       sum_kg_filter: JSON.stringify(sumKg),
-      sum_item_filter: JSON.stringify(sumItem)
+      sum_item_filter: JSON.stringify(sumItem),
+      distance_filter: JSON.stringify(distance)
     };
 
     dispatch(retrieveAllRequests(
@@ -67,7 +70,7 @@ const RequestListPage = () => {
       { userInfo, userToken },
       navigate
     ));
-  }, [user, requestId, from, status, numProduct, sumKg, sumItem]);
+  }, [user, requestId, from, status, numProduct, sumKg, sumItem, distance]);
 
   return (
     <>
@@ -80,7 +83,9 @@ const RequestListPage = () => {
           { state: status, setState: setStatus },
           { state: numProduct, setState: setNumProduct },
           { state: sumKg, setState: setSumKg },
-          { state: sumItem, setState: setSumItem }
+          { state: sumItem, setState: setSumItem },
+          {}, {}, {}, {}, {},
+          { state: distance, setState: setDistance }
         ]}
         itemList={allRequests.requests}
         type='request'

@@ -119,12 +119,12 @@ export const TableFilterRange = ({
 
   // --------------------------------------------------------------------------
   const onChange = (event) => {
+    if (timeoutId) clearTimeout(timeoutId);
     let str = event.target.value;
     setTempRange(str);
     const result = convertToRange(str);
     if (!result) {
       setIsError(true);
-      if (timeoutId) clearTimeout(timeoutId);
       return;
     } else setIsError(false);
 

@@ -108,7 +108,7 @@ export const TableItemDate = ({
         <Tooltip style={{ position: 'fixed' }}>{datetime}</Tooltip>
       }
     >
-      <div className='mn-table-item-date'>
+      <div className='mn-table-item-date mn-underline'>
         {type === 'relative' ? getRelativeTime(datetime) : getShortDate(datetime)}
       </div>
     </OverlayTrigger>

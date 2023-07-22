@@ -121,7 +121,6 @@
 .mn-table-item-date {
   color: #666;
   font-size: 12px;
-  text-decoration: underline;
 }
 .mn-table-item-action {
   color: #82CD47;
@@ -184,6 +183,9 @@
 }
 .mn-bg-light {
   background-color: #F2F2F2;
+}
+.mn-underline {
+  text-decoration: underline;
 }
 
 /* Others */

@@ -13,6 +13,8 @@ import { TableFilterText, TableFilterRange } from '../components/TableFilterInpu
 import TableFilterRadio from '../components/TableFilterRadio';
 import TableFilterSelect from '../components/TableFilterSelect';
 
+import { TableItemIcon } from 'components/common/management/table/tableItem/TableItemComponent';
+
 // Utility
 import { getState } from 'utils/helpers/Request';
 
@@ -107,6 +109,25 @@ const TableFilterRequest = ({
       <Col className='mn-table-item-col' xs={1}>
         <TableFilterRange
           range={filterList[6].state} setRange={filterList[6].setState}
+          placeholder='Tất cả'
+        />
+      </Col>
+      <Col className='mn-table-item-col' xs={2}>
+        <Stack direction='horizontal' gap={2}>
+          <TableItemIcon icon={{ icon: MdComputer, tip: 'Điều phối viên' }} />
+          <TableItemIcon icon={{ icon: MdWarehouse, tip: 'Quản lý kho' }} />
+          <TableItemIcon icon={{ icon: MdLocalShipping, tip: 'Tình nguyện viên' }} />
+        </Stack>
+      </Col>
+      <Col className='mn-table-item-col' xs={1}>
+        
+      </Col>
+      <Col className='mn-table-item-col' xs={1}>
+        
+      </Col>
+      <Col className='mn-table-item-col' xs={1}>
+        <TableFilterRange
+          range={filterList[12].state} setRange={filterList[12].setState}
           placeholder='Tất cả'
         />
       </Col>

@@ -10,12 +10,13 @@
       "size": 1
     },{
       "label": "Thực phẩm",
+      "size": 1,
+      "tip": "Số loại Thực phẩm mà Người quyên góp cho"
+    },{
+      "label": "Khối lượng (kg)",
       "size": 1
     },{
-      "label": "Khối lượng",
-      "size": 1
-    },{
-      "label": "Số lượng",
+      "label": "Số lượng (cái)",
       "size": 1
     },{
       "label": "Nhân sự phụ trách",
@@ -28,7 +29,8 @@
       "size": 1
     },{
       "label": "Khoảng cách",
-      "size": 1
+      "size": 1,
+      "tip": "Từ Người quyên góp đến Kho"
     },{
       "label": "Thao tác",
       "size": 1
@@ -45,12 +47,13 @@
     "size": 1
   },{
     "label": "Hạng mục con",
+    "size": 1,
+    "tip": "Số hạng mục con trong túi của Người nhận"
+  },{
+    "label": "Khối lượng (kg)",
     "size": 1
   },{
-    "label": "Khối lượng",
-    "size": 1
-  },{
-    "label": "Số lượng",
+    "label": "Số lượng (cái)",
     "size": 1
   },{
     "label": "Nhân sự phụ trách",
@@ -63,7 +66,8 @@
     "size": 1
   },{
     "label": "Khoảng cách",
-    "size": 1
+    "size": 1,
+    "tip": "Từ Người nhận đến Kho"
   },{
     "label": "Thao tác",
     "size": 1
