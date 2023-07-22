@@ -1,5 +1,7 @@
 // Essentials
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { Col, Stack } from 'react-bootstrap';
 
 // Assets
@@ -24,6 +26,8 @@ import { getState } from 'utils/helpers/Request';
 const TableItemRequest = ({
   request
 }) => {
+  const navigate = useNavigate();
+  const userInfo = useSelector(state => state.authenticationReducer.user);
   const { color, content } = getState({ request });
 
   return (
@@ -88,7 +92,7 @@ const TableItemRequest = ({
         <TableItemText text={`${request.distance} km`} />
       </Col>
       <Col className='mn-table-item-col' xs={1}>
-        <TableItemAction label='Xem chi tiết' onClick={() => {}} />
+        <TableItemAction label='Xem chi tiết' onClick={() => { navigate(`/${userInfo.user_type}/request/${request.user.user_type}/${request.id}`) }} />
       </Col>
     </>
   );

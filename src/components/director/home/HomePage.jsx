@@ -11,16 +11,14 @@ import Title from 'components/common/management/common/Title';
 import InfoModal from 'components/layout/InfoModal.jsx';
 import ConfirmModal from 'components/layout/ConfirmModal.jsx';
 
-// import DashboardPage from './pages/dashboard/DashboardPage';
-// import RequestPage from './pages/request/RequestPage';
-// import UnsortedFoodPage from './pages/food/UnsortedFoodPage';
-// import CategoryPage from './pages/food/CategoryPage';
-// import ParentFoodPage from './pages/food/ParentFoodPage';
-// import FoodPage from './pages/food/FoodPage';
-// import ApproveListPage from './pages/approve/ApproveListPage';
-// import ManageUserPage from './pages/manage/ManageUserPage';
-
+import DashboardPage from './pages/dashboard/DashboardPage';
 import RequestPage from './pages/request/RequestPage';
+import UnsortedFoodPage from './pages/food/UnsortedFoodPage';
+import CategoryPage from './pages/food/CategoryPage';
+import ParentFoodPage from './pages/food/ParentFoodPage';
+import FoodPage from './pages/food/FoodPage';
+import ApproveListPage from './pages/approve/ApproveListPage';
+import ManageUserPage from './pages/manage/ManageUserPage';
 
 // Assets
 import {
@@ -98,22 +96,21 @@ const HomePage = ({
             <Row className='mn-workspace'>
               <Col>
                 <Stack direction='vertical' gap={3}>
-                  <Title title='Quản lý Yêu cầu' />
-
-                  <RequestPage />
+                  {userInfo.user_type === 'director' && <>
+                    {activeIdx === 0 && <DashboardPage />}
+                    {activeIdx === 5 && <ApproveListPage />}
+                    {activeIdx === 6 && <ManageUserPage />}
+                  </>}
+                  {userInfo.user_type === 'warehouse_keeper' && <>
+                    {activeIdx === 2 && <UnsortedFoodPage />}
+                  </>}
+                  {activeIdx === 1 && <>
+                    <Title title='Quản lý Yêu cầu' />
+                    <RequestPage />
+                  </>}
+                  {activeIdx === 3 && <CategoryPage />}
+                  {activeIdx === 4 && (!parentFoodId ? <ParentFoodPage /> : <FoodPage />)}
                 </Stack>
-                {/* {userInfo.user_type === 'director' && <>
-                  {activeIdx === 0 && <DashboardPage />}
-                  {activeIdx === 5 && <ApproveListPage />}
-                  {activeIdx === 6 && <ManageUserPage />}
-                </>}
-                {userInfo.user_type === 'warehouse_keeper' && <>
-                  {activeIdx === 2 && <UnsortedFoodPage />}
-                </>}
-                {activeIdx === 1 && <RequestPage />}
-                {activeIdx === 3 && <CategoryPage />}
-                {activeIdx === 4 && (!parentFoodId ? <ParentFoodPage /> : <FoodPage />)} */}
-
               </Col>
             </Row>
           </Col>
