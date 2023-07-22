@@ -55,7 +55,7 @@ const TableItemRequest = ({
         <TableItemTag color={color} label={content.chip} />
       </Col>
       <Col className='mn-table-item-col' xs={1}>
-        <TableItemText text={request.products.length} />
+        <TableItemText text={request.num_product} />
       </Col>
       <Col className='mn-table-item-col' xs={1}>
         <TableItemText text={`${request.sum_kg} kg`} />

@@ -34,6 +34,9 @@ const RequestListPage = () => {
   const [createdTime, setCreatedTime] = useState({ min: '', max: '' });
   const [updatedTime, setUpdatedTime] = useState({ min: '', max: '' });
 
+  // Sort Field
+  const [sortField, setSortField] = useState('created_time');
+
   // Filters reset
   useEffect(() => {
     setUser(null);
@@ -111,6 +114,7 @@ const RequestListPage = () => {
           { state: distance, setState: setDistance }
         ]}
         itemList={allRequests.requests}
+        sortField={sortField} setSortField={setSortField}
         type='request'
       />
     </>

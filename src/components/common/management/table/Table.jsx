@@ -12,6 +12,7 @@ const Table = ({
   headerList,
   filterList,
   itemList,
+  sortField, setSortField,
   type='request'
 }) => {
 
@@ -26,7 +27,7 @@ const Table = ({
     <>
       <div className='mn-table'>
         <Container fluid>
-          <TableHeader headerList={headerList} />
+          <TableHeader headerList={headerList} sortField={sortField} setSortField={setSortField} />
           <TableDivider />
           <TableFilter filterList={filterList} type={type} />
           <TableDivider />

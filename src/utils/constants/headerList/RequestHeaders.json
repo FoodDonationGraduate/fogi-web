@@ -1,7 +1,8 @@
 {
   "giveHeaders": [{
       "label": "Yêu cầu",
-      "size": 1
+      "size": 1,
+      "sort_field": "id"
     },{
       "label": "Loại",
       "size": 1
@@ -11,25 +12,31 @@
     },{
       "label": "Thực phẩm",
       "size": 1,
+      "sort_field": "num_product",
       "tip": "Số loại Thực phẩm mà Người quyên góp cho"
     },{
-      "label": "Khối lượng (kg)",
-      "size": 1
+      "label": "Khối lượng",
+      "size": 1,
+      "sort_field": "sum_kg"
     },{
-      "label": "Số lượng (cái)",
-      "size": 1
+      "label": "Số lượng",
+      "size": 1,
+      "sort_field": "sum_item"
     },{
       "label": "Nhân sự phụ trách",
       "size": 2
     },{
       "label": "Ngày tạo",
-      "size": 1
+      "size": 1,
+      "sort_field": "created_time"
     },{
       "label": "Cập nhật",
-      "size": 1
+      "size": 1,
+      "sort_field": "last_updated_state_time"
     },{
       "label": "Khoảng cách",
       "size": 1,
+      "sort_field": "distance",
       "tip": "Từ Người quyên góp đến Kho"
     },{
       "label": "Thao tác",
@@ -38,7 +45,8 @@
   ],
   "takeHeaders": [{
       "label": "Yêu cầu",
-      "size": 1
+      "size": 1,
+      "sort_field": "id"
     },{
       "label": "Loại",
       "size": 1
@@ -48,25 +56,31 @@
     },{
       "label": "Hạng mục con",
       "size": 1,
-      "tip": "Số hạng mục con trong túi của Người nhận"
+      "sort_field": "num_product",
+      "tip": "Số Hạng mục con mà Người nhận đã yêu cầu"
     },{
-      "label": "Khối lượng (kg)",
-      "size": 1
+      "label": "Khối lượng",
+      "size": 1,
+      "sort_field": "sum_kg"
     },{
-      "label": "Số lượng (cái)",
-      "size": 1
+      "label": "Số lượng",
+      "size": 1,
+      "sort_field": "sum_item"
     },{
       "label": "Nhân sự phụ trách",
       "size": 2
     },{
       "label": "Ngày tạo",
-      "size": 1
+      "size": 1,
+      "sort_field": "created_time"
     },{
       "label": "Cập nhật",
-      "size": 1
+      "size": 1,
+      "sort_field": "last_updated_state_time"
     },{
       "label": "Khoảng cách",
       "size": 1,
+      "sort_field": "distance",
       "tip": "Từ Người nhận đến Kho"
     },{
       "label": "Thao tác",

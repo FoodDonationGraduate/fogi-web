@@ -72,13 +72,37 @@
   border-radius: 8px;
   padding: 16px 0px;
 }
-.mn-table-header {
+.mn-table-header-static {
   font-size: 12px;
   font-weight: 700;
   overflow: hidden;
   text-overflow: clip;
   white-space: nowrap;
 }
+.mn-table-header-active {
+  background-color: #D9F0C7;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: clip;
+  white-space: nowrap;
+}
+.mn-table-header {
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: clip;
+  white-space: nowrap;
+}
+  .mn-table-header:hover {
+    background-color: #F2F2F2;
+  }
+  .mn-table-header:active {
+    background-color: #CCC;
+  }
 
 .mn-table-item {
   padding: 4px 4px;
