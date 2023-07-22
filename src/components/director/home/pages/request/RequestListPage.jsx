@@ -93,8 +93,6 @@ const RequestListPage = () => {
 
   return (
     <>
-      {JSON.stringify(createdTime)}
-      {JSON.stringify(updatedTime)}
       <Table
         headerList={from[0] === 'donee' ? RequestHeaders.takeHeaders : RequestHeaders.giveHeaders}
         filterList={[

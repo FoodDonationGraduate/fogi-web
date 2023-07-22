@@ -8,7 +8,7 @@ import { MdHelp } from 'react-icons/md';
 // Utility
 import { formatDateTime } from 'utils/helpers/Time';
 
-const TableFilterDate = ({
+const TableFilterTime = ({
   date, setDate
 }) => {
   const onChangeMin = (event) => {
@@ -71,4 +71,4 @@ const TableFilterDate = ({
   </>);
 };
 
-export default TableFilterDate;
+export default TableFilterTime;
