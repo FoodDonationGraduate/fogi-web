@@ -54,10 +54,10 @@ const TableItemRequest = ({
         <TableItemText text={request.products.length} />
       </Col>
       <Col className='mn-table-item-col' xs={1}>
-        <TableItemText text={`${request.sum_item} cái`} />
+        <TableItemText text={`${request.sum_kg} kg`} />
       </Col>
       <Col className='mn-table-item-col' xs={1}>
-        <TableItemText text={`${request.sum_kg} kg`} />
+        <TableItemText text={`${request.sum_item} cái`} />
       </Col>
       <Col className='mn-table-item-col' xs={2}>
         <Stack direction='horizontal' gap={2}>

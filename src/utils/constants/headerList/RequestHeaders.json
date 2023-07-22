@@ -12,10 +12,10 @@
       "label": "Thực phẩm",
       "size": 1
     },{
-      "label": "Số lượng",
+      "label": "Khối lượng",
       "size": 1
     },{
-      "label": "Khối lượng",
+      "label": "Số lượng",
       "size": 1
     },{
       "label": "Nhân sự phụ trách",
@@ -47,10 +47,10 @@
     "label": "Hạng mục con",
     "size": 1
   },{
-    "label": "Số lượng",
+    "label": "Khối lượng",
     "size": 1
   },{
-    "label": "Khối lượng",
+    "label": "Số lượng",
     "size": 1
   },{
     "label": "Nhân sự phụ trách",

@@ -156,7 +156,17 @@
     width: 16px; height: 16px;
   }
 
+.mn-table-filter-helper {
+  width: 16px; height: 16px;
+}
+
 /* STYLING */
+.mn-green {
+  color: #82CD47;
+}
+.mn-red {
+  color: #FF5A5F;
+}
 .mn-bg-green {
   background-color: #82CD47;
 }

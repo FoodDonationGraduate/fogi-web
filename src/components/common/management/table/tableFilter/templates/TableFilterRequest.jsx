@@ -98,6 +98,18 @@ const TableFilterRequest = ({
           placeholder='Tất cả'
         />
       </Col>
+      <Col className='mn-table-item-col' xs={1}>
+        <TableFilterRange
+          range={filterList[5].state} setRange={filterList[5].setState}
+          placeholder='Tất cả'
+        />
+      </Col>
+      <Col className='mn-table-item-col' xs={1}>
+        <TableFilterRange
+          range={filterList[6].state} setRange={filterList[6].setState}
+          placeholder='Tất cả'
+        />
+      </Col>
     </>
   );
 };

@@ -25,12 +25,17 @@ const RequestListPage = () => {
   const [from, setFrom] = useState(['donor', '']);
   const [status, setStatus] = useState({ value: '', label: 'Tất cả' });
   const [numProduct, setNumProduct] = useState([]);
+  const [sumKg, setSumKg] = useState([]);
+  const [sumItem, setSumItem] = useState([]);
 
   // Filters reset
   useEffect(() => {
     setUser(null);
     setRequestId('');
     setStatus({ value: '', label: 'Tất cả' });
+    setNumProduct([]);
+    setSumKg([]);
+    setSumItem([]);
   }, [from]);
 
   // Pagination handling
@@ -52,7 +57,9 @@ const RequestListPage = () => {
       id_query: requestId,
       delivery_type: from[1],
       user_email: user ? user.email : '',
-      num_product_filter: numProduct
+      num_product_filter: JSON.stringify(numProduct),
+      sum_kg_filter: JSON.stringify(sumKg),
+      sum_item_filter: JSON.stringify(sumItem)
     };
 
     dispatch(retrieveAllRequests(
@@ -60,7 +67,7 @@ const RequestListPage = () => {
       { userInfo, userToken },
       navigate
     ));
-  }, [user, requestId, from, status]);
+  }, [user, requestId, from, status, numProduct, sumKg, sumItem]);
 
   return (
     <>
@@ -71,7 +78,9 @@ const RequestListPage = () => {
           { state: requestId, setState: setRequestId },
           { state: from, setState: setFrom },
           { state: status, setState: setStatus },
-          { state: numProduct, setState: setNumProduct }
+          { state: numProduct, setState: setNumProduct },
+          { state: sumKg, setState: setSumKg },
+          { state: sumItem, setState: setSumItem }
         ]}
         itemList={allRequests.requests}
         type='request'

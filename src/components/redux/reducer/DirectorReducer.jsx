@@ -302,7 +302,9 @@ export const retrieveAllRequests = (data, director, navigate) => {
         sort_field: data.sort_field,
         sort_by: data.sort_by,
         request_status: data.request_status,
-        num_product_filter: data.num_product_filter
+        num_product_filter: data.num_product_filter,
+        sum_kg_filter: data.sum_kg_filter,
+        sum_item_filter: data.sum_item_filter
       }
       if (director.userInfo.user_type === 'director') {
         currentData.request_from = data.request_from;
