@@ -1,16 +1,13 @@
 // Essentials
 import React, { useState, useEffect } from 'react';
-import { Stack } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 
 // Constants
-import ChipList from 'components/common/chip/ChipList';
 import RequestHeaders from 'utils/constants/headerList/RequestHeaders.json';
 
 // Components
 import Table from 'components/common/management/table/Table';
-import Title from 'components/common/management/common/Title';
 
 // Reducers
 import { retrieveAllRequests } from 'components/redux/reducer/DirectorReducer';
@@ -22,25 +19,10 @@ const RequestListPage = () => {
   const userToken = useSelector(state => state.authenticationReducer.token);
   const dispatch = useDispatch(); const navigate = useNavigate();
 
-  // Chip List - for Filter
-  const [activeFromIdx, setActiveFromIdx] = useState(0);
-  const fromList = [['donor', ''], ['donee', 'delivery'], ['donee', 'pickup']];
-  const getFromLabel = (from) => {
-    switch (from[0]) {
-      case 'donor':
-        return 'Cho';
-      case 'donee-delivery':
-        return 'Nhận (Giao hàng)';
-      default:
-        return 'Nhận (Tại kho)';
-    }
-  };
-  const fromStyleList = ['success', 'success', 'success'];
-
   // Filters
-  const [from, setFrom] = useState(['donor', '']);
   const [user, setUser] = useState(null);
   const [requestId, setRequestId] = useState('');
+  const [from, setFrom] = useState(['donor', '']);
   const [status, setStatus] = useState({ value: '', label: 'Tất cả' });
   const [numProduct, setNumProduct] = useState([]);
   const [sumKg, setSumKg] = useState([]);
@@ -52,14 +34,8 @@ const RequestListPage = () => {
   const [createdTime, setCreatedTime] = useState({ min: '', max: '' });
   const [updatedTime, setUpdatedTime] = useState({ min: '', max: '' });
 
-  // Sort Field
-  const [sortFields, setSortFields] = useState([]);
-
   // Filters reset
   useEffect(() => {
-    setFrom(fromList[activeFromIdx]);
-    setSortFields([]);
-
     setUser(null);
     setRequestId('');
     setStatus({ value: '', label: 'Tất cả' });
@@ -72,7 +48,7 @@ const RequestListPage = () => {
     setVolunteer(null);
     setCreatedTime({ min: '', max: '' });
     setUpdatedTime({ min: '', max: '' });
-  }, [activeFromIdx]);
+  }, [from]);
 
   // Pagination handling
   const REQUEST_COUNT = 16; // per page
@@ -88,6 +64,8 @@ const RequestListPage = () => {
       offset: page * REQUEST_COUNT,
       request_from: from[0],
       request_status: status.value,
+      sort_field: 'created_time',
+      sort_by: 'desc',
       id_query: requestId,
       delivery_type: from[1],
       user_email: user ? user.email : '',
@@ -101,8 +79,7 @@ const RequestListPage = () => {
       min_created_time: createdTime.min,
       max_created_time: createdTime.max,
       min_updated_time: updatedTime.min,
-      max_updated_time: updatedTime.max,
-      sorts: JSON.stringify(sortFields)
+      max_updated_time: updatedTime.max
     };
 
     dispatch(retrieveAllRequests(
@@ -111,21 +88,11 @@ const RequestListPage = () => {
       navigate
     ));
   }, [user, requestId, from, status, numProduct, sumKg, sumItem, distance,
-    director, warehouseKeeper, volunteer, createdTime, updatedTime, sortFields
+    director, warehouseKeeper, volunteer, createdTime, updatedTime
   ]);
 
   return (
     <>
-      <Stack direction='horizontal' gap={2}>
-        <Title title='Quản lý Yêu cầu' />
-        <ChipList
-          activeStatusIdx={activeFromIdx}
-          setActiveStatusIdx={setActiveFromIdx}
-          statusList={fromList}
-          getStatusLabel={getFromLabel}
-          styleList={fromStyleList}
-        />
-      </Stack>
       <Table
         headerList={from[0] === 'donee' ? RequestHeaders.takeHeaders : RequestHeaders.giveHeaders}
         filterList={[
@@ -144,7 +111,6 @@ const RequestListPage = () => {
           { state: distance, setState: setDistance }
         ]}
         itemList={allRequests.requests}
-        sortFields={sortFields} setSortFields={setSortFields}
         type='request'
       />
     </>

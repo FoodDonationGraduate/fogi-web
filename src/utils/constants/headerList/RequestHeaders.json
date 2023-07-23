@@ -1,0 +1,80 @@
+{
+  "giveHeaders": [{
+      "label": "Yêu cầu",
+      "size": 1,
+      "sort_field": "id"
+    },{
+      "label": "Trạng thái",
+      "size": 1
+    },{
+      "label": "Thực phẩm",
+      "size": 1,
+      "sort_field": "total_products",
+      "tip": "Số loại Thực phẩm mà Người quyên góp cho"
+    },{
+      "label": "Khối lượng",
+      "size": 1,
+      "sort_field": "sum_kg"
+    },{
+      "label": "Số lượng",
+      "size": 1,
+      "sort_field": "sum_item"
+    },{
+      "label": "Nhân sự phụ trách",
+      "size": 2
+    },{
+      "label": "Ngày tạo",
+      "size": 2,
+      "sort_field": "created_time"
+    },{
+      "label": "Cập nhật",
+      "size": 2,
+      "sort_field": "last_updated_state_time",
+      "isReversed": true
+    },{
+      "label": "Khoảng cách",
+      "size": 1,
+      "sort_field": "distance",
+      "tip": "Từ Người quyên góp đến Kho"
+    }
+  ],
+  "takeHeaders": [{
+      "label": "Yêu cầu",
+      "size": 1,
+      "sort_field": "id"
+    },{
+      "label": "Trạng thái",
+      "size": 1
+    },{
+      "label": "Hạng mục con",
+      "size": 1,
+      "sort_field": "total_products",
+      "tip": "Số Hạng mục con mà Người nhận đã yêu cầu"
+    },{
+      "label": "Khối lượng",
+      "size": 1,
+      "sort_field": "sum_kg"
+    },{
+      "label": "Số lượng",
+      "size": 1,
+      "sort_field": "sum_item"
+    },{
+      "label": "Nhân sự phụ trách",
+      "size": 2
+    },{
+      "label": "Ngày tạo",
+      "size": 2,
+      "sort_field": "created_time"
+    },{
+      "label": "Cập nhật",
+      "size": 2,
+      "sort_field": "last_updated_state_time",
+      "isReversed": true
+    },{
+      "label": "Khoảng cách",
+      "size": 1,
+      "sort_field": "distance",
+      "tip": "Từ Người nhận đến Kho"
+    }
+  ]
+}

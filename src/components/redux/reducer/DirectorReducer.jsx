@@ -12,6 +12,11 @@ const initialState = {
   reports: {},
   user_type: 'donee',
 
+  allUsers: {},
+  allDirectors: {},
+  allKeepers: {},
+  allVolunteers: {},
+
   allRequests: {},
   currentRequest: null,
   availableVolunteers: {},
@@ -39,6 +44,19 @@ const directorReducer = createSlice({
     },
     setTypeOfUser: (state, action) => {
       state.user_type = action.payload;
+    },
+
+    setAllUsers: (state, action) => {
+      state.allUsers = action.payload;
+    },
+    setAllDirectors: (state, action) => {
+      state.allDirectors = action.payload;
+    },
+    setAllKeepers: (state, action) => {
+      state.allKeepers = action.payload;
+    },
+    setAllVolunteers: (state, action) => {
+      state.allVolunteers = action.payload;
     },
 
     setAllRequests: (state, action) => {
@@ -72,6 +90,8 @@ const directorReducer = createSlice({
 
 export const {
   setUnverifiedUsers, setManageUsers, setReports, setTypeOfUser,
+
+  setAllUsers, setAllDirectors, setAllKeepers, setAllVolunteers,
 
   setAllRequests, setCurrentRequest, setAvailableVolunteers,
 
@@ -122,8 +142,43 @@ export const retrieveManageUsers = (data, director, navigate) => {
         offset: data.offset
       }
       if (data.search_query !== '') {currentData.search_query = data.search_query}
-      await axiosInstance.get(`/director/profile`, { params: currentData}).then((res) => {
+      await axiosInstance.get(`/director/profile`, { params: currentData })
+      .then((res) => {
         dispatch(setManageUsers(res.data));
+      }).catch((err) => {
+        if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+        } else {
+          console.log(err.response.data);
+          dispatch(setModalMessage("Đã xảy ra lỗi!"))
+          dispatch(setModalType('danger'))
+          dispatch(showModal())
+       }
+      });
+    } catch (err) {
+      console.log(err);
+      navigate('/');
+    }
+  }
+}
+
+export const retrieveAllUsers = (data, director, navigate) => {
+  return async dispatch => {
+    try {
+      console.log(`retrieve list of ${data.user_type}s`);
+      let currentData = {
+        email: director.userInfo.email,
+        token: director.userToken,
+        user_type: data.user_type,
+        limit: data.limit,
+        offset: data.offset
+      }
+      if (data.search_query !== '') {currentData.search_query = data.search_query}
+      await axiosInstance.get(`/director/profile`, { params: currentData })
+      .then((res) => {
+        if (data.user_type === 'director') dispatch(setAllDirectors(res.data));
+        else if (data.user_type === 'keeper') dispatch(setAllKeepers(res.data));
+        else if (data.user_type === 'volunteer') dispatch(setAllVolunteers(res.data));
+        else dispatch(setAllUsers(res.data));
       }).catch((err) => {
         if (handleExpiredToken(err.response.data, dispatch, navigate)) {
         } else {
@@ -298,14 +353,24 @@ export const retrieveAllRequests = (data, director, navigate) => {
         token: director.userToken,
         limit: data.limit,
         offset: data.offset,
-        sort_field: data.sort_field,
-        sort_by: data.sort_by,
-        request_status: data.request_status
+        request_status: data.request_status,
+        num_product_filter: data.num_product_filter,
+        sum_kg_filter: data.sum_kg_filter,
+        sum_item_filter: data.sum_item_filter,
+        distance_filter: data.distance_filter,
+        director_email: data.director_email,
+        keeper_email: data.keeper_email,
+        volunteer_email: data.volunteer_email,
+        min_created_time: data.min_created_time,
+        max_created_time: data.max_created_time,
+        min_updated_time: data.min_updated_time,
+        max_updated_time: data.max_updated_time,
+        sorts: data.sorts
       }
       if (director.userInfo.user_type === 'director') {
         currentData.request_from = data.request_from;
       }
-      if (data.search_query !== '') {currentData.search_query = data.search_query}
+      if (data.id_query !== '') {currentData.id_query = data.id_query}
       if (data.delivery_type !== '') {currentData.delivery_type = data.delivery_type}
       if (data.user_email && data.user_email !== '') {currentData.user_email = data.user_email}
 

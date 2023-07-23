@@ -152,7 +152,7 @@ const ParentFoodPage = () => {
             </Col>
             <Col>
               <Stack className='d-flex justify-content-end' direction='horizontal' gap={2}>
-                <SearchBar register={register} query={'query'} onSubmit={handleSubmit(onSubmit)} />
+                <SearchBar type='search' register={register} query={'query'} onSubmit={handleSubmit(onSubmit)} />
                 <CompactDropdown
                   activeIdx={activeFilterIdx} setActiveIdx={setActiveFilterIdx}
                   list={filterList}
