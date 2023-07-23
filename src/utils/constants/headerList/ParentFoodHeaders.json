@@ -7,7 +7,7 @@
     },{
       "label": "Hạng mục",
       "size": 3,
-      "sort_field": "category_id"
+      "sort_field": "category_name"
     },{
       "label": "Tồn kho",
       "size": 2,
@@ -19,7 +19,8 @@
     },{
       "label": "Cập nhật",
       "size": 2,
-      "sort_field": "updated_time"
+      "sort_field": "updated_time",
+      "isReversed": true
     }
   ]
 }

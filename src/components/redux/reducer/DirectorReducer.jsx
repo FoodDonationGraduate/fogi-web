@@ -603,7 +603,8 @@ export const retrieveAllParentFood = (data, director, navigate) => {
         min_created_time: data.min_created_time,
         max_created_time: data.max_created_time,
         min_updated_time: data.min_updated_time,
-        max_updated_time: data.max_updated_time
+        max_updated_time: data.max_updated_time,
+        sorts: data.sorts
       }
       if (data.search_query !== '') { currentData.search_query = data.search_query }
 

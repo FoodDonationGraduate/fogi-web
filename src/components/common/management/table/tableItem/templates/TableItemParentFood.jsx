@@ -30,7 +30,7 @@ const TableItemParentFood = ({
       <Col className='mn-table-item-col' xs={3}>
         <Stack direction='horizontal' gap={2}>
           <TableItemImage image={parentFood.category_image_filename} size='sm' />
-          <TableItemHeader header={parentFood.category_name} onClick={() => { navigate(`/${userInfo.user_type}/category/${parentFood.category_id}`) }} />
+          <TableItemText text={parentFood.category_name} />
         </Stack>
       </Col>
       <Col className='mn-table-item-col' xs={2}>

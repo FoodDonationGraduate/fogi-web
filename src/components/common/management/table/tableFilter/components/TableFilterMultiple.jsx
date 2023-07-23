@@ -34,7 +34,7 @@ export const MultipleItem = ({
   return (<>
     <Stack direction='horizontal' gap={2}>
       <Form.Check
-        checked={activeOptionList.find(option => option.value == currentOption.value)}
+        checked={activeOptionList.find(option => option.value == currentOption.value) ? true : false}
         onChange={onChange}
       />
       {currentOption.image &&
@@ -94,6 +94,7 @@ export const MultipleFilterModal = ({
       <Modal.Body>
         {optionList.map((option, idx) => (
           <MultipleItem
+            key={idx}
             activeOptionList={activeOptionList} setActiveOptionList={setActiveOptionList}
             currentOption={option}
           />
@@ -115,14 +116,14 @@ const TableFilterMultiple = ({
 
   return (<>
     <Stack className='d-flex align-items-center' direction='horizontal'>
-      {activeOptionList && activeOptionList.map((option, idx) => (<>
+      {activeOptionList && activeOptionList.map((option, idx) => (<div key={idx}>
         {option.image &&
           <MultipleDisplayItem 
             activeOptionList={activeOptionList} setActiveOptionList={setActiveOptionList}
             currentOption={option}
           />
         }
-      </>))}
+      </div>))}
       <div
         style={{ cursor: 'pointer' }}
         onClick={onShow}
