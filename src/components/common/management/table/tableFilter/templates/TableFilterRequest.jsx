@@ -4,7 +4,7 @@ import { Col, Stack } from 'react-bootstrap';
 
 // Assets
 import {
-  MdUpload, MdLocalShipping, MdWarehouse, MdComputer
+  MdUpload, MdLocalShipping, MdWarehouse, MdComputer, MdClear
 } from 'react-icons/md';
 
 // Components
@@ -133,6 +133,18 @@ const TableFilterRequest = ({
             userType={'volunteer'}
             tip='Lọc Tình nguyện viên'
           />
+          {(filterList[7].state || filterList[8].state || filterList[9].state) &&
+            <div
+              style={{ cursor: 'pointer' }}
+              onClick={() => {
+                filterList[7].setState(null);
+                filterList[8].setState(null);
+                filterList[9].setState(null);
+              }}
+            >
+              <TableItemIcon icon={{ icon: MdClear, tip: 'Bỏ chọn tất cả' }} />
+            </div>
+          }
         </Stack>
       </Col>
       <Col className='mn-table-item-col' xs={2}>
