@@ -95,16 +95,16 @@ function Notification({style={}}) {
             {(userInfo.user_type === 'director' || userInfo.user_type === 'warehouse_keeper') && 
               <div className="notification-chip">
                 <Stack direction="horizontal">
-                  <Button 
+                  <div 
                     className={`notification-chip-button notification-chip-button-${noti_type === 1 ? 'active' : ''}`}
                     onClick={() => setNotiType(1)}>
                     {noti_type === 1 ? `Quyên góp (${allNotifications.num_of_unseen})` : 'Quyên góp'}
-                  </Button>
-                  <Button 
+                  </div>
+                  <div 
                     className={`notification-chip-button notification-chip-button-${noti_type === 2 ? 'active' : ''}`}
                     onClick={() => setNotiType(2)}>
                     {noti_type === 2 ? `Nhận quyên góp (${allNotifications.num_of_unseen})` : 'Nhận quyên góp'}
-                  </Button>
+                  </div>
                 </Stack>
               </div>
             }
