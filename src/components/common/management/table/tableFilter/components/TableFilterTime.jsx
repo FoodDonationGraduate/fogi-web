@@ -24,7 +24,7 @@ const TableFilterTime = ({
   return (<>
     <div className='me-2'>
       <div className='mn-table-filter-date'>
-        <Row className='d-flex align-items-center'>
+        <Row className='d-flex align-items-center mb-1'>
           <Col className='px-0' xs={2}>
             <div className='mn-table-filter-date'>
               Từ

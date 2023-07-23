@@ -53,11 +53,13 @@ const RequestListPage = () => {
   const [updatedTime, setUpdatedTime] = useState({ min: '', max: '' });
 
   // Sort Field
-  const [sortField, setSortField] = useState('created_time');
+  const [sortFields, setSortFields] = useState([]);
 
   // Filters reset
   useEffect(() => {
     setFrom(fromList[activeFromIdx]);
+    setSortFields([]);
+
     setUser(null);
     setRequestId('');
     setStatus({ value: '', label: 'Tất cả' });
@@ -86,8 +88,6 @@ const RequestListPage = () => {
       offset: page * REQUEST_COUNT,
       request_from: from[0],
       request_status: status.value,
-      sort_field: 'created_time',
-      sort_by: 'desc',
       id_query: requestId,
       delivery_type: from[1],
       user_email: user ? user.email : '',
@@ -101,7 +101,8 @@ const RequestListPage = () => {
       min_created_time: createdTime.min,
       max_created_time: createdTime.max,
       min_updated_time: updatedTime.min,
-      max_updated_time: updatedTime.max
+      max_updated_time: updatedTime.max,
+      sorts: JSON.stringify(sortFields)
     };
 
     dispatch(retrieveAllRequests(
@@ -110,7 +111,7 @@ const RequestListPage = () => {
       navigate
     ));
   }, [user, requestId, from, status, numProduct, sumKg, sumItem, distance,
-    director, warehouseKeeper, volunteer, createdTime, updatedTime
+    director, warehouseKeeper, volunteer, createdTime, updatedTime, sortFields
   ]);
 
   return (
@@ -143,7 +144,7 @@ const RequestListPage = () => {
           { state: distance, setState: setDistance }
         ]}
         itemList={allRequests.requests}
-        sortField={sortField} setSortField={setSortField}
+        sortFields={sortFields} setSortFields={setSortFields}
         type='request'
       />
     </>

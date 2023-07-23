@@ -353,8 +353,6 @@ export const retrieveAllRequests = (data, director, navigate) => {
         token: director.userToken,
         limit: data.limit,
         offset: data.offset,
-        sort_field: data.sort_field,
-        sort_by: data.sort_by,
         request_status: data.request_status,
         num_product_filter: data.num_product_filter,
         sum_kg_filter: data.sum_kg_filter,
@@ -366,7 +364,8 @@ export const retrieveAllRequests = (data, director, navigate) => {
         min_created_time: data.min_created_time,
         max_created_time: data.max_created_time,
         min_updated_time: data.min_updated_time,
-        max_updated_time: data.max_updated_time
+        max_updated_time: data.max_updated_time,
+        sorts: data.sorts
       }
       if (director.userInfo.user_type === 'director') {
         currentData.request_from = data.request_from;
