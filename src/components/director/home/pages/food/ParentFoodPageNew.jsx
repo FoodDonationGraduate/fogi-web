@@ -23,9 +23,9 @@ const ParentFoodPage = () => {
 
   // Filters
   const [query, setQuery] = useState(null);
-  
+  const [categoryList, setCategoryList] = useState([]);
   const [stock, setStock] = useState([]);
-
+  const [unit, setUnit] = useState({ value: '', label: 'Tất cả' })
   const [createdTime, setCreatedTime] = useState({ min: '', max: '' });
   const [updatedTime, setUpdatedTime] = useState({ min: '', max: '' });
 
@@ -42,7 +42,16 @@ const ParentFoodPage = () => {
   // Get requests
   useEffect(() => { 
     var data = {
-      search_query: query
+      limit: REQUEST_COUNT,
+      offset: page * REQUEST_COUNT,
+      search_query: query,
+      stock_filter: JSON.stringify(stock),
+      unit: unit.value,
+      category_ids: JSON.stringify(categoryList.map(category => category.value)),
+      min_created_time: createdTime.min,
+      max_created_time: createdTime.max,
+      min_updated_time: updatedTime.min,
+      max_updated_time: updatedTime.max
     };
 
     dispatch(retrieveAllParentFood(
@@ -50,19 +59,19 @@ const ParentFoodPage = () => {
       { userInfo, userToken },
       navigate
     ));
-  }, [query, stock, createdTime, updatedTime
-  ]);
+  }, [query, categoryList, stock, unit, createdTime, updatedTime]);
 
   return (
     <>
+      {JSON.stringify(categoryList.map(category => category.value))}
       <Title title='Quản lý Yêu cầu' />
       <Table
         headerList={ParentFoodHeaders.allHeaders}
         filterList={[
           { state: query, setState: setQuery },
-          {},
+          { state: categoryList, setState: setCategoryList },
           { state: stock, setState: setStock },
-          {},
+          { state: unit, setState: setUnit },
           { state: createdTime, setState: setCreatedTime },
           { state: updatedTime, setState: setUpdatedTime }
         ]}

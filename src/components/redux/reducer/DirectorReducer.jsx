@@ -597,9 +597,13 @@ export const retrieveAllParentFood = (data, director, navigate) => {
         token: director.userToken,
         limit: data.limit,
         offset: data.offset,
-        category_id: data.category_id,
-        sort_field: data.sort_field,
-        sort_by: data.sort_by
+        category_ids: data.category_ids,
+        stock_filter: data.stock_filter,
+        unit: data.unit,
+        min_created_time: data.min_created_time,
+        max_created_time: data.max_created_time,
+        min_updated_time: data.min_updated_time,
+        max_updated_time: data.max_updated_time
       }
       if (data.search_query !== '') { currentData.search_query = data.search_query }
 

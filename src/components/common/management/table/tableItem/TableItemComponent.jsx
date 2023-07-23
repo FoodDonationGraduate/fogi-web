@@ -3,7 +3,7 @@ import React from 'react';
 import { OverlayTrigger, Popover, Stack, Tooltip } from 'react-bootstrap';
 
 // Utility
-import { getRelativeTime, getShortDate } from 'utils/helpers/Time.jsx';
+import { getRelativeTime, getShortDate, formatDateTime } from 'utils/helpers/Time.jsx';
 
 // Main Components
 export const TableItemAvatar = ({
@@ -147,14 +147,14 @@ export const TableItemDate = ({
     <OverlayTrigger
       placement='top'
       overlay={type !== 'default' ?
-        <Tooltip style={{ position: 'fixed' }}>{datetime}</Tooltip>
+        <Tooltip style={{ position: 'fixed' }}>{formatDateTime(datetime, 'DD/MM/YYYY • HH:mm:ss')}</Tooltip>
         : <></>
       }
     >
       <div className={`mn-table-item-date ${type !== 'default' ? 'mn-underline' : ''}`}>
         {type === 'relative' && getRelativeTime(datetime)}
         {type === 'short' && getShortDate(datetime)}
-        {type === 'default' && datetime}
+        {type === 'default' && formatDateTime(datetime, 'DD/MM/YYYY • HH:mm:ss')}
       </div>
     </OverlayTrigger>
   </>);
