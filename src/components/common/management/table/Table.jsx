@@ -18,7 +18,8 @@ const Table = ({
 
   const getEmptyText = () => {
     switch (type) {
-      case 'request': return 'Yêu cầu'
+      case 'request': return 'Yêu cầu';
+      case 'parent-food': return 'Hạng mục con';
       default: return 'Dữ liệu';
     };
   };

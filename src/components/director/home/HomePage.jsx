@@ -15,6 +15,7 @@ import RequestPage from './pages/request/RequestPage';
 import UnsortedFoodPage from './pages/food/UnsortedFoodPage';
 import CategoryPage from './pages/food/CategoryPage';
 import ParentFoodPage from './pages/food/ParentFoodPage';
+import ParentFoodPageNew from './pages/food/ParentFoodPageNew';
 import FoodPage from './pages/food/FoodPage';
 import ApproveListPage from './pages/approve/ApproveListPage';
 import ManageUserPage from './pages/manage/ManageUserPage';
@@ -105,7 +106,7 @@ const HomePage = ({
                   </>}
                   {activeIdx === 1 && <RequestPage />}
                   {activeIdx === 3 && <CategoryPage />}
-                  {activeIdx === 4 && (!parentFoodId ? <ParentFoodPage /> : <FoodPage />)}
+                  {activeIdx === 4 && (!parentFoodId ? <ParentFoodPageNew /> : <FoodPage />)}
                 </Stack>
               </Col>
             </Row>

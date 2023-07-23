@@ -45,6 +45,35 @@ export const TableItemAvatar = ({
   </>);
 };
 
+export const TableItemImage = ({
+  image,
+  size='md'
+}) => {
+
+  return (<>
+    <OverlayTrigger
+      placement={'top'}
+      overlay={
+        <Popover
+          style={{ position: 'fixed' }}
+        >
+          <Popover.Body>
+            <img
+              className='mn-table-item-image-lg'
+              src={`https://bachkhoi.online/static/${image}`}
+            />
+          </Popover.Body>
+        </Popover>
+      }
+    >
+      <img
+        className={`mn-table-item-image-${size}`} 
+        src={`https://bachkhoi.online/static/${image}`}
+      />
+    </OverlayTrigger>
+  </>);
+};
+
 export const TableItemTitle = ({
   title,
   onClick
@@ -53,6 +82,18 @@ export const TableItemTitle = ({
   return (<>
     <div className='mn-table-item-title' onClick={onClick}>
       {title}
+    </div>
+  </>);
+};
+
+export const TableItemHeader = ({
+  header,
+  onClick
+}) => {
+
+  return (<>
+    <div className='mn-table-item-header' onClick={onClick}>
+      {header}
     </div>
   </>);
 };

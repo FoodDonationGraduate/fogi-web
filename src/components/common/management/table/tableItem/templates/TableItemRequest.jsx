@@ -78,9 +78,6 @@ const TableItemRequest = ({
       <Col className='mn-table-item-col' xs={1}>
         <TableItemText text={`${request.distance} km`} />
       </Col>
-      <Col className='mn-table-item-col' xs={1}>
-        
-      </Col>
     </>
   );
 };

@@ -1,0 +1,25 @@
+{
+  "allHeaders": [
+    {
+      "label": "Tên",
+      "size": 3,
+      "sort_field": "name"
+    },{
+      "label": "Hạng mục",
+      "size": 3,
+      "sort_field": "category_id"
+    },{
+      "label": "Tồn kho",
+      "size": 2,
+      "sort_field": "stock"
+    },{
+      "label": "Ngày tạo",
+      "size": 2,
+      "sort_field": "created_time"
+    },{
+      "label": "Cập nhật",
+      "size": 2,
+      "sort_field": "updated_time"
+    }
+  ]
+}
