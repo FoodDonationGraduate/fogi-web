@@ -21,15 +21,19 @@ export const getRelativeTime = (datetime) => {
     var startDate = new Date();
     var endDate = new Date(datetime);
     var seconds = (startDate.getTime() - endDate.getTime()) / 1000;
+
+    var result = '';
+
     if (seconds < 60) {
-        return seconds + ' giây'
+        result += seconds + ' giây'
     } else if (seconds <= 3600) {
-        return Math.floor(seconds/60) + ' phút'
+        result += Math.floor(seconds/60) + ' phút'
     } else if (seconds <= 86400) {
-        return Math.floor(seconds/3600) + ' giờ'
+        result += Math.floor(seconds/3600) + ' giờ'
     } else {
-        return Math.floor(seconds/86400) + ' ngày'
+        result += Math.floor(seconds/86400) + ' ngày'
     }
+    return result + ' trước'
 };
 
 export const getShortDate = (datetime) => {

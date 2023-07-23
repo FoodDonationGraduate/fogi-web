@@ -82,12 +82,19 @@
 .mn-table-header-active {
   background-color: #D9F0C7;
   border-radius: 4px;
+  cursor: pointer;
   font-size: 12px;
   font-weight: 700;
   overflow: hidden;
   text-overflow: clip;
   white-space: nowrap;
 }
+  .mn-table-header-active:hover {
+    background-color: #ADDE87;
+  }
+  .mn-table-header-active:active {
+    background-color: #82CD47;
+  }
 .mn-table-header {
   border-radius: 4px;
   cursor: pointer;
@@ -198,7 +205,7 @@
 }
   .form-control.mn-table-filter-date-input {
     font-size: 10px;
-    padding: 0px;
+    padding: 0px 2px;
   }
 
 .mn-table-filter-helper {

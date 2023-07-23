@@ -99,18 +99,21 @@ export const TableItemText = ({
 
 export const TableItemDate = ({
   datetime,
-  type='short'
+  type='default'
 }) => {
 
   return (<>
     <OverlayTrigger
       placement='top'
-      overlay={
+      overlay={type !== 'default' ?
         <Tooltip style={{ position: 'fixed' }}>{datetime}</Tooltip>
+        : <></>
       }
     >
-      <div className='mn-table-item-date mn-underline'>
-        {type === 'relative' ? getRelativeTime(datetime) : getShortDate(datetime)}
+      <div className={`mn-table-item-date ${type !== 'default' ? 'mn-underline' : ''}`}>
+        {type === 'relative' && getRelativeTime(datetime)}
+        {type === 'short' && getShortDate(datetime)}
+        {type === 'default' && datetime}
       </div>
     </OverlayTrigger>
   </>);
