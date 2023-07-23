@@ -63,7 +63,6 @@ const ParentFoodPage = () => {
 
   return (
     <>
-      {JSON.stringify(categoryList.map(category => category.value))}
       <Title title='Quản lý Yêu cầu' />
       <Table
         headerList={ParentFoodHeaders.allHeaders}
@@ -76,6 +75,7 @@ const ParentFoodPage = () => {
           { state: updatedTime, setState: setUpdatedTime }
         ]}
         itemList={allParentFood.products}
+        total={allParentFood.total_products}
         sortFields={sortFields} setSortFields={setSortFields}
         type='parent-food'
       />

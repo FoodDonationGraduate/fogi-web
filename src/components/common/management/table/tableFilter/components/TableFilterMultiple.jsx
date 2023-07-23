@@ -1,6 +1,6 @@
 // Essentials
 import React, { useState } from 'react';
-import { Form, Modal, OverlayTrigger, Popover, Tooltip, Stack } from 'react-bootstrap';
+import { Form, Modal, OverlayTrigger, Tooltip, Stack } from 'react-bootstrap';
 
 // Assets
 import { MdAdd } from 'react-icons/md';
@@ -18,7 +18,6 @@ export const MultipleItem = ({
 
   const onChange = (event) => {
     const currentIdx = activeOptionList.map(option => option.value).indexOf(currentOption.value);
-    console.log(activeOptionList.map(option => option.value))
     if (activeOptionList.find(option => option.value === currentOption.value)) {
       setActiveOptionList([
         ...activeOptionList.slice(0, currentIdx),
@@ -44,6 +43,40 @@ export const MultipleItem = ({
       <div>{currentOption.label}</div>
     </Stack>
     </>);
+};
+
+export const MultipleDisplayItem = ({
+  activeOptionList, setActiveOptionList,
+  currentOption
+}) => {
+
+  const onClick = () => {
+    const currentIdx = activeOptionList.map(option => option.value).indexOf(currentOption.value);
+    setActiveOptionList([
+      ...activeOptionList.slice(0, currentIdx),
+      ...activeOptionList.slice(currentIdx + 1)
+    ]);
+  };
+
+  return (<>
+    <OverlayTrigger
+      placement='top'
+      overlay={
+        <Tooltip style={{ position: 'fixed' }}>Bỏ chọn {currentOption.label}</Tooltip>
+      }
+    >
+      <div
+        className='d-flex align-items-center'
+        style={{ cursor: 'pointer' }}
+        onClick={onClick}
+      >
+        <img
+          className='mn-table-item-image-sm'
+          src={`https://bachkhoi.online/static/${currentOption.image}`}
+        />
+      </div>
+    </OverlayTrigger>
+  </>);
 };
 
 export const MultipleFilterModal = ({
@@ -81,12 +114,22 @@ const TableFilterMultiple = ({
   const onHide = () => setShow(false);
 
   return (<>
-    <div
-      style={{ cursor: 'pointer' }}
-      onClick={onShow}
-    >
-      <TableItemIcon icon={{ icon: MdAdd, tip: addTip }} />
-    </div>
+    <Stack className='d-flex align-items-center' direction='horizontal'>
+      {activeOptionList && activeOptionList.map((option, idx) => (<>
+        {option.image &&
+          <MultipleDisplayItem 
+            activeOptionList={activeOptionList} setActiveOptionList={setActiveOptionList}
+            currentOption={option}
+          />
+        }
+      </>))}
+      <div
+        style={{ cursor: 'pointer' }}
+        onClick={onShow}
+      >
+        <TableItemIcon icon={{ icon: MdAdd, tip: addTip }} />
+      </div>
+    </Stack>
     <MultipleFilterModal
       show={show} onHide={onHide}
       title={title}

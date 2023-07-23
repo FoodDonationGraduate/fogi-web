@@ -7,12 +7,14 @@ import TableHeader from './TableHeader';
 import TableFilter from './TableFilter';
 import TableDivider from './TableDivider';
 import TableItem from './TableItem';
+import TableSubHeader from './TableSubHeader';
 
 const Table = ({
   headerList,
   filterList,
   itemList,
   sortFields, setSortFields,
+  total=null,
   type='request'
 }) => {
 
@@ -32,6 +34,7 @@ const Table = ({
           <TableDivider />
           <TableFilter filterList={filterList} type={type} />
           <TableDivider />
+          {total && <TableSubHeader text={`Tổng: ${total}`} /> }
           {itemList && itemList.map((item, idx) => (
             <TableItem key={idx} idx={idx} item={item} type={type} />
           ))}

@@ -41,7 +41,7 @@ const TableFilterParentFood = ({
         <TableFilterMultiple
           title='Lọc theo hạng mục'
           activeOptionList={filterList[1].state} setActiveOptionList={filterList[1].setState}
-          optionList={allCategories.categories ? allCategories.categories.map((category) => { return { value: category.id, label: category.name } }) : []}
+          optionList={allCategories.categories ? allCategories.categories.map((category) => { return { value: category.id, image: category.image, label: category.name } }) : []}
           addTip='Thêm hạng mục vào danh sách lọc'
         />
       </Col>

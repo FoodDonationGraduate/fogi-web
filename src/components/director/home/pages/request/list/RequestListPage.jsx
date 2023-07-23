@@ -144,6 +144,7 @@ const RequestListPage = () => {
           { state: distance, setState: setDistance }
         ]}
         itemList={allRequests.requests}
+        total={allRequests.total}
         sortFields={sortFields} setSortFields={setSortFields}
         type='request'
       />
