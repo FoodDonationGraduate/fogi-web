@@ -33,7 +33,7 @@ const ParentFoodPage = () => {
   const [sortFields, setSortFields] = useState([]);
 
   // Pagination handling
-  const REQUEST_COUNT = 16; // per page
+  const FOOD_COUNT = 16; // per page
   const [page, setPage] = useState(0); // a.k.a activeIdx
   const onChangePage = (idx) => {
     setPage(idx);
@@ -42,8 +42,8 @@ const ParentFoodPage = () => {
   // Get requests
   useEffect(() => { 
     var data = {
-      limit: REQUEST_COUNT,
-      offset: page * REQUEST_COUNT,
+      limit: FOOD_COUNT,
+      offset: page * FOOD_COUNT,
       search_query: query,
       stock_filter: JSON.stringify(stock),
       unit: unit.value,
@@ -59,7 +59,7 @@ const ParentFoodPage = () => {
       { userInfo, userToken },
       navigate
     ));
-  }, [query, categoryList, stock, unit, createdTime, updatedTime]);
+  }, [page, query, categoryList, stock, unit, createdTime, updatedTime]);
 
   return (
     <>
@@ -75,7 +75,7 @@ const ParentFoodPage = () => {
           { state: updatedTime, setState: setUpdatedTime }
         ]}
         itemList={allParentFood.products}
-        total={allParentFood.total_products}
+        total={allParentFood.total_products} pageCount={FOOD_COUNT} page={page} setPage={setPage}
         sortFields={sortFields} setSortFields={setSortFields}
         type='parent-food'
       />

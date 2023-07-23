@@ -77,9 +77,6 @@ const RequestListPage = () => {
   // Pagination handling
   const REQUEST_COUNT = 16; // per page
   const [page, setPage] = useState(0); // a.k.a activeIdx
-  const onChangePage = (idx) => {
-    setPage(idx);
-  };
 
   // Get requests
   useEffect(() => { 
@@ -110,7 +107,7 @@ const RequestListPage = () => {
       { userInfo, userToken },
       navigate
     ));
-  }, [user, requestId, from, status, numProduct, sumKg, sumItem, distance,
+  }, [page, user, requestId, from, status, numProduct, sumKg, sumItem, distance,
     director, warehouseKeeper, volunteer, createdTime, updatedTime, sortFields
   ]);
 
@@ -144,7 +141,7 @@ const RequestListPage = () => {
           { state: distance, setState: setDistance }
         ]}
         itemList={allRequests.requests}
-        total={allRequests.total}
+        total={allRequests.total} pageCount={REQUEST_COUNT} page={page} setPage={setPage}
         sortFields={sortFields} setSortFields={setSortFields}
         type='request'
       />

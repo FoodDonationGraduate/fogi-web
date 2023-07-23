@@ -11,18 +11,21 @@ import { useResizer } from 'utils/helpers/Resizer.jsx';
 const Pill = ({
   idx,
   isActive,
-  onChangePage
+  onChangePage,
+  pillSize=null
 }) => {
   const handleOnClick = (idx) => {
     onChangePage(idx);
   };
 
   let size = useResizer();
+
+  const style = `fogi pagination-pill${(pillSize === 'sm' || size < 1) ? '-sm' : ''}`;
   
   return (
     <>
       <Button
-        className={size < 1 ? 'fogi pagination-pill-sm' : 'fogi pagination-pill'}
+        className={style}
         variant={(isActive ? 'primary' : 'outline-secondary')}
         onClick={() => { if (idx !== -1) handleOnClick(idx); }}
         key={idx}

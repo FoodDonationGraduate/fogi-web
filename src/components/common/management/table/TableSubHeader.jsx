@@ -9,7 +9,7 @@ const TableSubHeader = ({
   return (
     <>
       <Row className='mb-2'>
-        <Col className='mn-table-header'>
+        <Col className='mn-table-header-static'>
           <div>{text}</div>
         </Col>
       </Row>
