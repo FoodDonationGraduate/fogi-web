@@ -469,7 +469,9 @@ export const retrieveAvailableVolunteers = (data, director, navigate) => {
         email: director.userInfo.email,
         token: director.userToken,
         limit: data.limit,
-        offset: data.offset
+        offset: data.offset,
+        request_from: data.request_from,
+        request_id: data.request_id
       }}).then((res) => {
         dispatch(setAvailableVolunteers(res.data));
       }).catch((err) => {

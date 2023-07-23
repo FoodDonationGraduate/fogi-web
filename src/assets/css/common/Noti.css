@@ -1,0 +1,11 @@
+.notification-chip-button {
+    background-color: white;
+    color: #666666;
+    border: none;
+}
+
+.notification-chip-button-active {
+    background-color: white;
+    border: none;
+    color: #ADDE87;
+}

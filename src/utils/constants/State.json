@@ -9,7 +9,8 @@
           "chip": "Chờ duyệt",
           "not_pass": "Chờ duyệt",
           "pass": "Đã duyệt bởi Điều phối viên {director_name}",
-          "text": "Đang chờ một Điều phối viên xét duyệt"
+          "text": "Đang chờ một Điều phối viên xét duyệt",
+          "short": "Đang chờ một Điều phối viên xét duyệt"
         }
       ]
     },{
@@ -20,12 +21,13 @@
           "condition": [
             { "user_type": "director", "delivery_type": "pickup" },
             { "user_type": "donee", "delivery_type": "pickup" },
-            { "user_type": "warehouse_keeper", "delivery_type": "give" }
+            { "user_type": "warehouse_keeper", "delivery_type": "pickup" }
           ],
           "chip": "Đang Xác nhận",
           "not_pass": "Chờ xác nhận",
           "pass": "Đã xác nhận bởi Điều phối viên {director_name}",
-          "text": "Yêu cầu đã được xác nhận bởi Điều phối viên {director_name}"
+          "text": "Yêu cầu đã được xác nhận bởi Điều phối viên {director_name}",
+          "short": "Yêu cầu đã được xác nhận bởi Điều phối viên {director_name}"
         }
       ]
     },{
@@ -38,12 +40,14 @@
             { "user_type": "director", "delivery_type": "delivery" },
             { "user_type": "donor", "delivery_type": "give" },
             { "user_type": "donee", "delivery_type": "delivery" },
-            { "user_type": "warehouse_keeper", "delivery_type": "give" }
+            { "user_type": "warehouse_keeper", "delivery_type": "give" },
+            { "user_type": "warehouse_keeper", "delivery_type": "delivery" }
           ],
           "chip": "Đang điều phối",
           "not_pass": "Chờ điều phối",
           "pass": "Đã được Điều phối bởi Điều phối viên {director_name}",
-          "text": "Yêu cầu đã được xác nhận và điều phối bởi Điều phối viên {director_name}"
+          "text": "Yêu cầu đã được xác nhận và điều phối bởi Điều phối viên {director_name}",
+          "short": "Yêu cầu đã được xác nhận và điều phối bởi Điều phối viên {director_name}"
         }
       ]
     },{
@@ -55,49 +59,72 @@
           "chip": "Đang nhận",
           "not_pass": "Nhận thực phẩm",
           "pass": "Tình nguyện viên {volunteer_name} đã lấy thực phẩm",
-          "text": "Tình nguyện viên {volunteer_name} đang đi đến Người quyên góp {donor_name} lấy thực phẩm"
+          "text": "Tình nguyện viên {volunteer_name} đang đi đến Người quyên góp {donor_name} lấy thực phẩm",
+          "short": "Tình nguyện viên {volunteer_name} đang đi đến Người quyên góp lấy thực phẩm"
         },
         {
           "condition": [{ "user_type": "director", "delivery_type": "delivery" }],
           "chip": "Đang nhận",
           "not_pass": "Lấy thực phẩm từ kho",
           "pass": "Tình nguyện viên {volunteer_name} đã lấy thực phẩm từ kho",
-          "text": "Tình nguyện viên {volunteer_name} đang đi đến kho lấy thực phẩm"
+          "text": "Tình nguyện viên {volunteer_name} đang đi đến kho lấy thực phẩm",
+          "short": "Tình nguyện viên {volunteer_name} đang đi đến kho lấy thực phẩm"
         },
         {
           "condition": [{ "user_type": "director", "delivery_type": "pickup" }],
           "chip": "Đang nhận",
           "not_pass": "Lấy thực phẩm từ kho",
           "pass": "Người nhận {donee_name} đã lấy thực phẩm từ kho ",
-          "text": "Người nhận {donee_name} đang đi đến kho lấy thực phẩm"
+          "text": "Người nhận {donee_name} đang đi đến kho lấy thực phẩm",
+          "short": "Người nhận {donee_name} đang đi đến kho lấy thực phẩm"
         },
         {
           "condition": [{ "user_type": "donor", "delivery_type": "give" }],
           "chip": "Đang nhận",
           "not_pass": "Tình nguyện viên đang tới chỗ bạn",
           "pass": "Tình nguyện viên {volunteer_name} đã nhận được thực phẩm từ bạn",
-          "text": "Tình nguyện viên {volunteer_name} đang tới chỗ bạn để nhận thực phẩm"
+          "text": "Tình nguyện viên {volunteer_name} đang tới chỗ bạn để nhận thực phẩm",
+          "short": "Tình nguyện viên {volunteer_name} đang tới chỗ bạn để nhận thực phẩm"
         },
         {
           "condition": [{ "user_type": "donee", "delivery_type": "pickup" }],
           "chip": "Đang nhận",
           "not_pass": "Đang tới kho để nhận",
           "pass": "Bạn đã nhận thực phẩm",
-          "text": "Bạn đang tới nhận thực phẩm"
+          "text": "Bạn đang tới nhận thực phẩm",
+          "short": "Bạn đang tới nhận thực phẩm"
         },
         {
           "condition": [{ "user_type": "donee", "delivery_type": "delivery" }],
           "chip": "Đang nhận",
           "not_pass": "Tình nguyện viên đi lấy thực phẩm ở kho",
           "pass": "Tình nguyện viên {volunteer_name} đã lấy thực phẩm ở kho",
-          "text": "Tình nguyện viên {volunteer_name} đang đi lấy thực phẩm ở kho và giao đến bạn"
+          "text": "Tình nguyện viên {volunteer_name} đang đi lấy thực phẩm ở kho và giao đến bạn",
+          "short": "Tình nguyện viên {volunteer_name} đang đi lấy thực phẩm ở kho và giao đến bạn"
         },
         {
           "condition": [{ "user_type": "warehouse_keeper", "delivery_type": "give" }],
           "chip": "Đang nhận",
           "not_pass": "Tình nguyện viên đang tới Người quyên góp",
           "pass": "Tình nguyện viên {volunteer_name} đã nhận được thực phẩm từ Người quyên góp {donor_name}",
-          "text": "Tình nguyện viên {volunteer_name} đang tới Người quyên góp {donor_name} để nhận thực phẩm"
+          "text": "Tình nguyện viên {volunteer_name} đang tới Người quyên góp {donor_name} để nhận thực phẩm",
+          "short": "Tình nguyện viên {volunteer_name} đang tới Người quyên góp để nhận thực phẩm"
+        },
+        {
+          "condition": [{ "user_type": "warehouse_keeper", "delivery_type": "delivery" }],
+          "chip": "Đang nhận",
+          "not_pass": "Lấy thực phẩm từ kho",
+          "pass": "Tình nguyện viên {volunteer_name} đã lấy thực phẩm từ kho",
+          "text": "Tình nguyện viên {volunteer_name} đang đi đến kho lấy thực phẩm",
+          "short": "Tình nguyện viên {volunteer_name} đang đi đến kho lấy thực phẩm"
+        },
+        {
+          "condition": [{ "user_type": "warehouse_keeper", "delivery_type": "pickup" }],
+          "chip": "Đang nhận",
+          "not_pass": "Lấy thực phẩm từ kho",
+          "pass": "Người nhận {donee_name} đã lấy thực phẩm từ kho ",
+          "text": "Người nhận {donee_name} đang đi đến kho lấy thực phẩm",
+          "short": "Người nhận {donee_name} đang đi đến kho lấy thực phẩm"
         }
       ]
     },{
@@ -109,35 +136,48 @@
           "chip": "Đang giao",
           "not_pass": "Nhập kho",
           "pass": "Nhập kho thành công",
-          "text": "Tình nguyện viên {volunteer_name} đang giao thực phẩm tới kho"
+          "text": "Tình nguyện viên {volunteer_name} đang giao thực phẩm tới kho",
+          "short": "Tình nguyện viên {volunteer_name} đang giao thực phẩm tới kho"
         },
         {
           "condition": [{ "user_type": "director", "delivery_type": "delivery" }],
           "chip": "Đang giao",
           "not_pass": "Giao thực phẩm",
           "pass": "Tình nguyện viên {volunteer_name} đã giao thực phẩm",
-          "text": "Tình nguyện viên {volunteer_name} đang giao thực phẩm tới Người nhận {donee_name}"
+          "text": "Tình nguyện viên {volunteer_name} đang giao thực phẩm tới Người nhận {donee_name}",
+          "short": "Quản lý kho {warehouse_keeper_name} đã xác nhận giao thực phẩm cho Tình nguyện viên"
         },
         {
           "condition": [{ "user_type": "donor", "delivery_type": "give" }],
           "chip": "Đang giao",
           "not_pass": "Tình nguyện viên giao thực phẩm tới kho",
           "pass": "Tình nguyện viên {volunteer_name} đã giao thực phẩm tới kho",
-          "text": "Tình nguyện viên {volunteer_name} đang giao thực phẩm của bạn đến kho"
+          "text": "Tình nguyện viên {volunteer_name} đang giao thực phẩm của bạn đến kho",
+          "short": "Tình nguyện viên {volunteer_name} đang giao thực phẩm của bạn đến kho"
         },
         {
           "condition": [{ "user_type": "donee", "delivery_type": "delivery" }],
           "chip": "Đang giao",
           "not_pass": "Tình nguyện viên giao thực phẩm tới bạn",
           "pass": "Tình nguyện viên {volunteer_name} đã giao thực phẩm tới bạn",
-          "text": "Tình nguyện viên {volunteer_name} đang trên đường giao thực phẩm tới bạn."
+          "text": "Tình nguyện viên {volunteer_name} đang trên đường giao thực phẩm tới bạn",
+          "short": "Tình nguyện viên đang trên đường giao thực phẩm tới bạn"
         },
         {
           "condition": [{ "user_type": "warehouse_keeper", "delivery_type": "give" }],
           "chip": "Đang giao",
           "not_pass": "Tình nguyện viên giao thực phẩm tới kho",
           "pass": "Kho đã nhận được thực phẩm từ Tình nguyện viên {volunteer_name}",
-          "text": "Tình nguyện viên {volunteer_name} đang giao thực phẩm đến kho"
+          "text": "Tình nguyện viên {volunteer_name} đang giao thực phẩm đến kho",
+          "short": "Tình nguyện viên {volunteer_name} đang giao thực phẩm đến kho"
+        },
+        {
+          "condition": [{ "user_type": "warehouse_keeper", "delivery_type": "delivery" }],
+          "chip": "Đang giao",
+          "not_pass": "Giao thực phẩm",
+          "pass": "Tình nguyện viên {volunteer_name} đã giao thực phẩm",
+          "text": "Tình nguyện viên {volunteer_name} đang giao thực phẩm tới Người nhận {donee_name}",
+          "short": "Quản lý kho {warehouse_keeper_name} đã xác nhận giao thực phẩm cho Tình nguyện viên"
         }
       ]
     },{
@@ -149,28 +189,32 @@
           "chip": "Thành công",
           "not_pass": "Hoàn tất",
           "pass": "Hoàn tất",
-          "text": "Thực phẩm được nhập kho thành công"
+          "text": "Thực phẩm được nhập kho thành công",
+          "short": "Thực phẩm được nhập kho thành công"
         },
         {
           "condition": [{ "user_type": "director", "delivery_type": "delivery" }],
           "chip": "Thành công",
           "not_pass": "Giao thực phẩm thành công",
           "pass": "Giao thực phẩm thành công",
-          "text": "Tình nguyện viên {volunteer_name} đã xác nhận giao thực phẩm tới Người nhận {donee_name} thành công"
+          "text": "Tình nguyện viên {volunteer_name} đã xác nhận giao thực phẩm tới Người nhận {donee_name} thành công",
+          "short": "Tình nguyện viên {volunteer_name} đã xác nhận giao thực phẩm tới Người nhận thành công"
         },
         {
           "condition": [{ "user_type": "director", "delivery_type": "pickup" }],
           "chip": "Thành công",
           "not_pass": "Giao thực phẩm thành công",
           "pass": "Giao thực phẩm thành công",
-          "text": "Điều phối viên {director_name} đã xác nhận yêu cầu thành công"
+          "text": "Quản lý kho {warehouse_keeper_name} đã xác nhận yêu cầu thành công",
+          "short": "Quản lý kho {warehouse_keeper_name} đã xác nhận yêu cầu thành công"
         },
         {
           "condition": [{ "user_type": "donor", "delivery_type": "give" }],
           "chip": "Thành công",
           "not_pass": "Quyên góp thực phẩm thành công",
           "pass": "Quyên góp thực phẩm thành công",
-          "text": "Thực phẩm bạn quyên góp đã được nhận bởi hệ thống. Xin cảm ơn bạn."
+          "text": "Thực phẩm bạn quyên góp đã được nhận bởi hệ thống. Xin cảm ơn bạn.",
+          "short": "Thực phẩm bạn quyên góp đã được nhận bởi hệ thống. Xin cảm ơn bạn."
         },
         {
           "condition": [
@@ -180,17 +224,35 @@
           "chip": "Thành công",
           "not_pass": "Nhận thực phẩm quyên góp thành công",
           "pass": "Nhận thực phẩm quyên góp thành công",
-          "text": "Thực phẩm quyên góp đã tới tay bạn. Xin cảm ơn bạn đã sử dụng hệ thống."
+          "text": "Thực phẩm quyên góp đã tới tay bạn. Xin cảm ơn bạn đã sử dụng hệ thống.",
+          "short": "Thực phẩm quyên góp đã tới tay bạn. Xin cảm ơn bạn đã sử dụng hệ thống."
         },
         {
           "condition": [{ "user_type": "warehouse_keeper", "delivery_type": "give" }],
           "chip": "Thành công",
           "not_pass": "Giao thực phẩm thành công",
           "pass": "Giao thực phẩm thành công",
-          "text": "Thực phẩm quyên góp từ Người quyên góp {donor_name} đã được Tình nguyện viên {volunteer_name} gửi đến kho"
+          "text": "Thực phẩm quyên góp từ Người quyên góp {donor_name} đã được Tình nguyện viên {volunteer_name} gửi đến kho.",
+          "short": "Thực phẩm quyên góp từ Người quyên góp đã được gửi đến kho."
+        },
+        {
+          "condition": [{ "user_type": "warehouse_keeper", "delivery_type": "delivery" }],
+          "chip": "Thành công",
+          "not_pass": "Giao thực phẩm thành công",
+          "pass": "Giao thực phẩm thành công",
+          "text": "Tình nguyện viên {volunteer_name} đã xác nhận giao thực phẩm tới Người nhận {donee_name} thành công",
+          "short": "Tình nguyện viên {volunteer_name} đã xác nhận giao thực phẩm tới Người nhận thành công"
+        },
+        {
+          "condition": [{ "user_type": "warehouse_keeper", "delivery_type": "pickup" }],
+          "chip": "Thành công",
+          "not_pass": "Giao thực phẩm thành công",
+          "pass": "Giao thực phẩm thành công",
+          "text": "Quản lý kho {warehouse_keeper_name} đã xác nhận yêu cầu thành công",
+          "short": "Quản lý kho {warehouse_keeper_name} đã xác nhận yêu cầu thành công"
         }
       ]
-    },{
+    }, {
       "id": 6, "color": "red",
       "status": "canceled",
       "content": [
@@ -199,7 +261,30 @@
           "chip": "Đã hủy",
           "not_pass": "Đã hủy",
           "pass": "Đã hủy",
-          "text": "Yêu cầu đã bị huỷ bởi {user_role} {user_role_name}"
+          "text": "Yêu cầu đã bị huỷ bởi {user_role} {user_role_name}",
+          "short": "Yêu cầu đã bị huỷ bởi {user_role} {user_role_name}"
+        }
+      ]
+    },
+    {
+      "id": 7, "color": "red",
+      "status": "rejected",
+      "content": [
+        {
+          "condition": [{ "user_type": "director", "delivery_type": "give" }],
+          "chip": "Đã từ chối",
+          "not_pass": "Đã từ chối",
+          "pass": "Đã từ chối",
+          "text":  "Yêu cầu đã bị huỷ bởi {user_role} {user_role_name}",
+          "short":  "Yêu cầu đã bị huỷ bởi {user_role} {user_role_name}"
+        },
+        {
+          "condition": [{ "user_type": "director", "delivery_type": "delivery" }],
+          "chip": "Đã từ chối",
+          "not_pass": "Đã từ chối",
+          "pass": "Đã từ chối",
+          "text":  "Yêu cầu đã bị từ chối bởi {user_role} {user_role_name}",
+          "short": "Yêu cầu đã bị từ chối bởi {user_role} {user_role_name}"
         }
       ]
     }

@@ -98,10 +98,9 @@
     overflow-y: 'auto';
     height: 100%;
 }
-
-.notification-element {
-    height: 80px;
-}
+    .notification-element:hover {
+        background-color: #F2F2F2;
+    }
 
 .nav-element {
     display: flex;

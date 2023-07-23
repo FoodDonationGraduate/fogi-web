@@ -1,8 +1,9 @@
 // Essentials
 import React, { useState, useEffect } from 'react';
-import { Container, Col, Row } from 'react-bootstrap';
+import { Container, Col, Row, Stack, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router';
+import { useParams } from 'react-router-dom';
 
 // Components
 import ListTitle from 'components/common/ListTitle';
@@ -14,11 +15,14 @@ import VolunteerCard from './VolunteerCard';
 import { retrieveAvailableVolunteers } from 'components/redux/reducer/DirectorReducer';
 
 const VolunteerList = ({
-  targetVolunteer, setTargetVolunteer
+  targetVolunteer, 
+  setTargetVolunteer,
+  autoDistributed=false
 }) => {
   const availableVolunteers = useSelector(state => state.directorReducer.availableVolunteers);
   const userInfo = useSelector(state => state.authenticationReducer.user);
   const userToken = useSelector(state => state.authenticationReducer.token);
+  const { from, id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -43,7 +47,9 @@ const VolunteerList = ({
     dispatch(retrieveAvailableVolunteers(
       {
         limit: VOLUNTEER_COUNT,
-        offset: 0
+        offset: 0,
+        request_from: from,
+        request_id: id
       },
       { userInfo, userToken },
       navigate
@@ -53,7 +59,11 @@ const VolunteerList = ({
   return (
     <>
       <Container>
-        <ListTitle title={'Chọn Tình nguyện viên'} />
+        <Stack direction='horizontal' className='mb-4'>
+          <h2 className='fw-bold me-auto'>Chọn Tình nguyện viên</h2>
+          <Button disabled={autoDistributed}>{autoDistributed ? 'Đã điều phối tự động' : 'Điều phối tự động'}</Button>
+        </Stack>
+        
         <Row xs={1}>
           {Object.keys(availableVolunteers).length !== 0
           && availableVolunteers.volunteers.map((volunteer, idx) => (

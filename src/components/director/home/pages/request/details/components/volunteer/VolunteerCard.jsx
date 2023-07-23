@@ -53,18 +53,18 @@ const VolunteerCard = ({
                         <h5 className='fw-bold'>
                           {volunteer.name}
                         </h5>
-                        <small style={{ color: '#999' }}>
+                        <div style={{ color: '#999' }}>
                           <MdOutlinePhone /> {volunteer.phone}
-                        </small>
-                        <small style={{ color: '#999' }}>
-                          <MdSocialDistance /> {volunteer.distance}
-                        </small>
+                        </div>
+                        <div style={{ color: '#999' }}>
+                          <MdSocialDistance /> {volunteer.distance} km
+                        </div>
                       </div>
-                      {!request && 
+                      {/* {!request && 
                         <span className={size > 0 ? 'long-product-type' : 'long-product-type-sm'}>
                           Sẵn sàng
                         </span>
-                      }
+                      } */}
                     </Stack> 
                 </Stack>
               </div>

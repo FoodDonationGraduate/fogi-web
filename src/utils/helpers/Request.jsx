@@ -9,6 +9,16 @@ export const getStatusIdx = (status) => {
   return state.id;
 };
 
+export const getStatusTitle = (status) => {
+  const state = State.allStates.find(s => s.status == status);
+  return state.content[0].chip;
+};
+
+export const getStatusColor = (status) => {
+  const state = State.allStates.find(s => s.status == status);
+  return state.color;
+};
+
 export const getStepStatus = (step) => {
   const state = State.allStates.find(s => s.id == step);
   return state.status;
@@ -66,6 +76,7 @@ export const getState = ({ request, step }) => {
         case 'donor': role = 'Người quyên góp'; break;
         case 'donee': role = 'Người nhận'; break;
         case 'volunteer': role = 'Tình nguyện viên'; break;
+        case 'warehouse_keeper': role = 'Quản lý kho'; break;
       }
 
       content.text = content.text.replace(`{user_role}`, role);
@@ -85,6 +96,11 @@ export const getState = ({ request, step }) => {
       if (request.director) {
         content.pass = content.pass.replace(`{director_name}`, request.director.name);
         content.text = content.text.replace(`{director_name}`, request.director.name);
+      }
+
+      if (request.warehouse_keeper) {
+        content.pass = content.pass.replace(`{warehouse_keeper_name}`, request.warehouse_keeper.name);
+        content.text = content.text.replace(`{warehouse_keeper_name}`, request.warehouse_keeper.name);
       }
     }
   }
