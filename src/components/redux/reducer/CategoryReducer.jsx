@@ -28,11 +28,23 @@ export default categoryReducer.reducer
 
 // ----------- THUNK ----------------------
 
-export const retrieveAllCategories = (navigate) => {
+export const retrieveAllCategories = (data, navigate) => {
     return async dispatch => {
         try {
+            var currentData = {
+                limit: data.limit,
+                offset: data.offset,
+                search_query: data.query,
+                num_product_filter: data.num_product_filter,
+                min_created_time: data.min_created_time,
+                max_created_time: data.max_created_time,
+                min_updated_time: data.min_updated_time,
+                max_updated_time: data.max_updated_time,
+                sorts: data.sorts
+            }
             console.log("retrieve all categories")
-            await axiosInstance.get(`/category`).then((res) => {
+            await axiosInstance.get(`/category`, { params: currentData })
+            .then((res) => {
                 dispatch(setAllCategories(res.data))
             })
             .catch((err) => {

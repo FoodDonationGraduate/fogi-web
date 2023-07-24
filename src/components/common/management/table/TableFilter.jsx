@@ -4,7 +4,9 @@ import { Row } from 'react-bootstrap';
 
 // Components
 import TableFilterRequest from './tableFilter/templates/TableFilterRequest';
-import TableFilterUser from './tableFilter/templates/TableFilterUser';
+import TableFilterParentFood from './tableFilter/templates/TableFilterParentFood';
+import TableFilterCategory from './tableFilter/templates/TableFilterCategory';
+
 const TableFilter = ({
   filterList,
   type
@@ -13,7 +15,8 @@ const TableFilter = ({
   return (
     <Row className='mn-table-item'>
       {type === 'request' && <TableFilterRequest filterList={filterList} />}
-      {type === 'user' && <TableFilterUser filterList={filterList} />}
+      {type === 'parent-food' && <TableFilterParentFood filterList={filterList} />}
+      {type === 'category' && <TableFilterCategory filterList={filterList} />}
     </Row>
   );
 }
