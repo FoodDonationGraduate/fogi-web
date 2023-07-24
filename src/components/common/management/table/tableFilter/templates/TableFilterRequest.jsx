@@ -10,7 +10,6 @@ import {
 // Components
 import TableFilterUser from '../components/TableFilterUser';
 import { TableFilterText, TableFilterRange } from '../components/TableFilterInput';
-import TableFilterRadio from '../components/TableFilterRadio';
 import TableFilterSelect from '../components/TableFilterSelect';
 import TableFilterTime from '../components/TableFilterTime';
 

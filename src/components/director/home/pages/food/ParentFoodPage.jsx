@@ -65,7 +65,11 @@ const ParentFoodPage = () => {
     navigate(`/${userInfo.user_type}/parent-food`);
   }, [categoryList]);
 
-  // Get requests
+  // Get parent food
+  useEffect(() => {
+    setPage(0);
+  }, [query, categoryList, stock, unit, createdTime, updatedTime, sortFields]);
+
   useEffect(() => { 
     var data = {
       limit: FOOD_COUNT,

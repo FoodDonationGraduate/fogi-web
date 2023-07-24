@@ -32,6 +32,10 @@ const CategoryPage = () => {
   const [page, setPage] = useState(0); // a.k.a activeIdx
 
   // Get requests
+  useEffect(() => {
+    setPage(0);
+  }, [query, parentFoodCount, createdTime, updatedTime, sortFields]);
+
   useEffect(() => { 
     var data = {
       limit: CATEGORY_COUNT,
