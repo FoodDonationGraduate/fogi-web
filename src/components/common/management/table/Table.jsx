@@ -15,6 +15,7 @@ const Table = ({
   filterList,
   itemList,
   sortFields, setSortFields,
+  actionList,
   total, pageCount, page, setPage, // Pagination
   type='request'
 }) => {
@@ -38,7 +39,7 @@ const Table = ({
           <TableDivider />
           <TableSubHeader text={`Tổng: ${total}`} />
           {itemList && itemList.map((item, idx) => (
-            <TableItem key={idx} idx={idx} item={item} type={type} />
+            <TableItem key={idx} idx={idx} item={item} type={type} actionList={actionList} />
           ))}
           {(!itemList || itemList.length === 0) &&
             <div className='text-center'>Không có {getEmptyText()} nào để hiển thị</div>

@@ -17,7 +17,7 @@ export const distanceTime = (datetime) => {
     }
 };
 
-export const getRelativeTime = (datetime) => {
+export const getRelativeTime = (datetime, postfix) => {
     var startDate = new Date();
     var endDate = new Date(datetime);
     var seconds = (startDate.getTime() - endDate.getTime()) / 1000;
@@ -33,7 +33,7 @@ export const getRelativeTime = (datetime) => {
     } else {
         result += Math.floor(seconds/86400) + ' ngày'
     }
-    return result + ' trước'
+    return result + ' ' + postfix;
 };
 
 export const getShortDate = (datetime) => {

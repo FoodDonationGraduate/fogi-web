@@ -159,7 +159,6 @@ const FoodPage = () => {
       {targetFood &&
         <FoodModal
           food={targetFood}
-          foodList={foodList}
           isSorted={true}
           show={foodShow} onShow={onFoodShow} onClose={onFoodClose}
           limit={FOOD_COUNT} offset={page * FOOD_COUNT}

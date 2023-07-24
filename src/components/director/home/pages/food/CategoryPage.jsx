@@ -1,5 +1,6 @@
 // Essentials
 import React, { useState, useEffect } from 'react';
+import { Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 
@@ -9,6 +10,7 @@ import CategoryHeaders from 'utils/constants/headerList/CategoryHeaders.json';
 // Components
 import Table from 'components/common/management/table/Table';
 import Title from 'components/common/management/common/Title';
+import CategoryModal from 'components/director/home/pages/food/components/category/CategoryModal';
 
 // Reducers
 import { retrieveAllCategories } from 'components/redux/reducer/CategoryReducer';
@@ -17,6 +19,11 @@ const CategoryPage = () => {
   // Constants
   const allCategories = useSelector(state => state.categoryReducer.allCategories);
   const dispatch = useDispatch(); const navigate = useNavigate();
+
+  // Parent Food Modal
+  const [show, setShow] = useState(false);
+  const onShow = () => { setShow(true); }
+  const onClose = () => { setShow(false); }
 
   // Filters
   const [query, setQuery] = useState(null);
@@ -54,7 +61,15 @@ const CategoryPage = () => {
 
   return (
     <>
-      <Title title='Quản lý Hạng mục' />
+      <div className='d-flex justify-content-between'>
+        <Title title='Quản lý Hạng mục' />
+        <Button 
+          className='fogi' variant='primary'
+          onClick={onShow}
+        >
+          Thêm Hạng mục
+        </Button>
+      </div>
       <Table
         headerList={CategoryHeaders.allHeaders}
         filterList={[
@@ -67,6 +82,9 @@ const CategoryPage = () => {
         total={allCategories.total_categories} pageCount={CATEGORY_COUNT} page={page} setPage={setPage}
         sortFields={sortFields} setSortFields={setSortFields}
         type='category'
+      />
+      <CategoryModal
+        show={show} onShow={onShow} onClose={onClose}
       />
     </>
   );
