@@ -31,12 +31,12 @@ const Table = ({
           <TableDivider />
           <TableFilter filterList={filterList} type={type} />
           <TableDivider />
-          {itemList && itemList.map((item, idx) => (
+          {/* {itemList && itemList.map((item, idx) => (
             <TableItem key={idx} idx={idx} item={item} type={type} />
           ))}
           {(!itemList || itemList.length === 0) &&
             <div className='text-center'>Không có {getEmptyText()} nào để hiển thị</div>
-          }
+          } */}
         </Container>
       </div>
     </>

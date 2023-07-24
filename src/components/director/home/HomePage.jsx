@@ -18,7 +18,7 @@ import ParentFoodPage from './pages/food/ParentFoodPage';
 import FoodPage from './pages/food/FoodPage';
 import ApproveListPage from './pages/approve/ApproveListPage';
 import ManageUserPage from './pages/manage/ManageUserPage';
-
+import UserListPage from './pages/manage/UserListPage'
 // Assets
 import {
   MdMenu,
@@ -98,7 +98,7 @@ const HomePage = ({
                   {userInfo.user_type === 'director' && <>
                     {activeIdx === 0 && <DashboardPage />}
                     {activeIdx === 5 && <ApproveListPage />}
-                    {activeIdx === 6 && <ManageUserPage />}
+                    {activeIdx === 6 && <UserListPage />}
                   </>}
                   {userInfo.user_type === 'warehouse_keeper' && <>
                     {activeIdx === 2 && <UnsortedFoodPage />}
