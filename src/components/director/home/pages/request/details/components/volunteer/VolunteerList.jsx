@@ -17,7 +17,8 @@ import { retrieveAvailableVolunteers } from 'components/redux/reducer/DirectorRe
 const VolunteerList = ({
   targetVolunteer, 
   setTargetVolunteer,
-  autoDistributed=false
+  auto_assign_volunteer=false,
+  onUpdate
 }) => {
   const availableVolunteers = useSelector(state => state.directorReducer.availableVolunteers);
   const userInfo = useSelector(state => state.authenticationReducer.user);
@@ -56,12 +57,18 @@ const VolunteerList = ({
     ));
   }, []);
 
+  // auto distribute volunteer
+  const handleClick = () => {
+    if (!auto_assign_volunteer) {
+      onUpdate(true);
+    }
+  }
   return (
     <>
       <Container>
         <Stack direction='horizontal' className='mb-4'>
           <h2 className='fw-bold me-auto'>Chọn Tình nguyện viên</h2>
-          <Button disabled={autoDistributed}>{autoDistributed ? 'Đã điều phối tự động' : 'Điều phối tự động'}</Button>
+          <Button disabled={auto_assign_volunteer} onClick={() => handleClick()}>{auto_assign_volunteer ? 'Đã điều phối tự động' : 'Điều phối tự động'}</Button>
         </Stack>
         
         <Row xs={1}>
