@@ -52,6 +52,7 @@ const RequestDetailsPage = () => {
   //
   useEffect(() => {
     if (!request) return;
+    if (request.status !== 'pending') {setIsDistributed(true);} else {setIsDistributed(false);}
     const parentFoodList = request.products.map(p => { return { ...p, foodList: [] } });
     setSubCategoryList(parentFoodList);
 
@@ -88,7 +89,6 @@ const RequestDetailsPage = () => {
 
   const [isError, setIsError] = useState(false);
   const [isDistributed, setIsDistributed] = useState(false);
-
   const tooltip = (tip) => {
     return (
       <Tooltip style={{ position: 'fixed' }}>{tip}</Tooltip>
@@ -105,8 +105,7 @@ const RequestDetailsPage = () => {
           tip: 'Bạn chưa chọn Tình nguyện viên'
         };
         case 'finding':
-          if (request.volunteer) return undefined;
-          else return {
+          return {
             condition: targetVolunteer,
             label: 'Chọn lại Tình nguyện viên',
             tip: 'Bạn chưa chọn Tình nguyện viên'
@@ -141,8 +140,7 @@ const RequestDetailsPage = () => {
             }
           }
         case 'finding':
-          if (request.volunteer) return undefined;
-          else return {
+          return {
             condition: targetVolunteer,
             label: 'Chọn lại Tình nguyện viên',
             tip: 'Bạn chưa chọn Tình nguyện viên'
@@ -166,17 +164,22 @@ const RequestDetailsPage = () => {
   }
 
   // On Update
-  const onUpdate = () => {
-
+  const onUpdate = (autoDistributeVolunteer = false) => {
     if (request.user.user_type === 'donor') {
       // default: donor
-      var data = (request.status === 'pending' || (request.status === 'finding' && !request.volunteer)) ? {
-        request_status: 'finding',
+      var newStatus = 'finding';
+      switch (request.status) {
+        case 'finding': newStatus = (targetVolunteer || autoDistributeVolunteer) ? 'finding' : 'receiving'; break;
+        case 'receiving': newStatus ='shipping'; break;
+        case 'shipping': newStatus = 'success'; break;
+      }
+      var data = ((request.status === 'pending' || request.status === 'finding') && !autoDistributeVolunteer) ? {
+        request_status: newStatus,
         request_id: request.id,
         request_from: request.user.user_type,
         volunteer_email: targetVolunteer.email
       } : {
-        request_status: 'success',
+        request_status: newStatus,
         request_id: request.id,
         request_from: request.user.user_type,
       }
@@ -186,14 +189,14 @@ const RequestDetailsPage = () => {
     if (request.user.user_type === 'donee') {
       var newStatus = (request.delivery_type === 'pickup') ? 'accepted' : 'finding';
       switch (request.status) {
-        case 'finding': newStatus = !request.volunteer ? 'finding' : 'receiving'; break;
+        case 'finding': newStatus = (targetVolunteer || autoDistributeVolunteer) ? 'finding' : 'receiving'; break;
         case 'accepted': newStatus = 'success'; break;
         case 'receiving': newStatus = (request.delivery_type && request.delivery_type === 'pickup') ? 'success' : 'shipping'; break;
         case 'shipping': newStatus = 'success'; break;
       }
-      data =
-      ((request.status === 'pending' && request.delivery_type !== 'pickup') ||
-      (request.status === 'finding' && !request.volunteer))
+        data =
+      (((request.status === 'pending' && request.delivery_type !== 'pickup' ) ||
+      (request.status === 'finding')) && !autoDistributeVolunteer)
       ? {
         request_status: newStatus,
         request_id: request.id,
@@ -241,9 +244,7 @@ const RequestDetailsPage = () => {
   const [show, setShow] = useState(false);
   const onShow = () => setShow(true);
   const onClose = () => setShow(false);
-
   // --------------------------------------------
-
   return (
     <>
       {(request && Object.keys(request).length !== 0) ?
@@ -287,18 +288,8 @@ const RequestDetailsPage = () => {
                 </>
               }
             </div>
-            {!request.volunteer ?
-              <>
-                {
-                ((((request.delivery_type && request.delivery_type !== 'pickup' ) && (['pending', 'finding'].includes(request.status))) && isDistributed)
-                || (request.user.user_type === 'donor')) && request.status !== 'canceled' &&
-                  <VolunteerList
-                    targetVolunteer={targetVolunteer} setTargetVolunteer={setTargetVolunteer}
-                  />
-                }
-              </>
-              :
-              <Container>
+            {(request.volunteer) && 
+              <Container className='mb-4'>
                 <ListTitle title={'Tình nguyện viên'} />
                 <Row>
                   <Col>
@@ -309,7 +300,18 @@ const RequestDetailsPage = () => {
                 </Row>
               </Container>
             }
-
+            <>
+              {
+              ((((request.delivery_type && request.delivery_type !== 'pickup' ) && (['pending', 'finding'].includes(request.status))) && isDistributed)
+              || (request.user.user_type === 'donor')) && request.status !== 'canceled' &&
+                <VolunteerList
+                  targetVolunteer={targetVolunteer} 
+                  setTargetVolunteer={setTargetVolunteer} 
+                  auto_assign_volunteer={request.auto_assign_volunteer}
+                  onUpdate={onUpdate}
+                />
+              }
+            </>
             <Container>
               <Row>
                 <div className='d-flex justify-content-end mt-4'>
@@ -336,8 +338,8 @@ const RequestDetailsPage = () => {
                       <Button
                         className='fogi' variant='primary'
                         onClick={
-                          (request.delivery_type && request.status === 'pending' && !isDistributed) ?
-                          onDistributeChild : onUpdate
+                          () => (request.delivery_type && request.status === 'pending' && !isDistributed) ?
+                          onDistributeChild() : onUpdate()
                         }
                       >
                         {getNextCondition().label}

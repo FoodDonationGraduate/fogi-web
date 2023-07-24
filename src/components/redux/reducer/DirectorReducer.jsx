@@ -427,7 +427,7 @@ export const updateRequest = (data, director, navigate) => {
   return async dispatch => {
     try {
       console.log('update request');
-      await axiosInstance.patch(`/request/${director.userInfo.user_type}`, {
+      const body = {
         email: director.userInfo.email,
         token: director.userToken,
         request_status: data.request_status,
@@ -435,7 +435,9 @@ export const updateRequest = (data, director, navigate) => {
         request_from: data.request_from,
         volunteer_email: data.volunteer_email,
         cancel_reason: data.cancel_reason
-      }).then((res) => {
+      };
+      if (data.volunteer_email) {body.volunteer_email=data.volunteer_email};
+      await axiosInstance.patch(`/request/${director.userInfo.user_type}`, body).then((res) => {
         if (director.userInfo.user_type === 'director') {
           dispatch(retrieveCurrentRequest(data, director, navigate));
         } else {
@@ -534,7 +536,9 @@ export const retrieveAvailableVolunteers = (data, director, navigate) => {
         email: director.userInfo.email,
         token: director.userToken,
         limit: data.limit,
-        offset: data.offset
+        offset: data.offset,
+        request_from: data.request_from,
+        request_id: data.request_id
       }}).then((res) => {
         dispatch(setAvailableVolunteers(res.data));
       }).catch((err) => {
