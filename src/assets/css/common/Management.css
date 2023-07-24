@@ -145,6 +145,11 @@ width: 160px; height: 160px;
     cursor: pointer;
   }
 
+.mn-table-item-title-static {
+  color: black;
+  font-size: 14px;
+  font-weight: bold;
+}
 .mn-table-item-title {
   color: #82CD47;
   cursor: pointer;
@@ -152,9 +157,25 @@ width: 160px; height: 160px;
   font-weight: bold;
   text-decoration: underline;
 }
-  .mn-table-item-title:hover {
+.mn-table-item-title:hover {
+  color: #5A9829;
+}
+.mn-table-item-header-static {
+  color: black;
+  font-size: 12px;
+  font-weight: 500;
+}
+.mn-table-item-header {
+  color: #82CD47;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+  text-decoration: underline;
+}
+  .mn-table-item-header:hover {
     color: #5A9829;
   }
+  
 .mn-table-item-header {
   color: #82CD47;
   cursor: pointer;

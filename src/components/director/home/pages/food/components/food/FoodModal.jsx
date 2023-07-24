@@ -87,7 +87,7 @@ const FoodModal = ({
   };
 
   useEffect(() => {
-    dispatch(retrieveAllCategories(navigate));
+    dispatch(retrieveAllCategories({}, navigate));
     dispatch(setAllParentFood({}));
   }, []);
 

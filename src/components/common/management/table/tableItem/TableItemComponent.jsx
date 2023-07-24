@@ -76,15 +76,17 @@ export const TableItemImage = ({
 
 export const TableItemTitle = ({
   title,
-  onClick
+  onClick=null,
+  size='default'
 }) => {
+  const style = onClick ? '' : '-static';
+  const sizeStyle = size === 'sm' ? 'header' : 'title';
 
   return (<>
-    <div className='mn-table-item-title' onClick={onClick}>
+    <div className={`mn-table-item-${sizeStyle}${style}`} onClick={onClick ? onClick : () => {}}>
       {title}
     </div>
-  </>);
-};
+  </>);};
 
 export const TableItemHeader = ({
   header,

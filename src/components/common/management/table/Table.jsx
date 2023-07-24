@@ -23,6 +23,7 @@ const Table = ({
     switch (type) {
       case 'request': return 'Yêu cầu';
       case 'parent-food': return 'Hạng mục con';
+      case 'category': return 'Hạng mục';
       default: return 'Dữ liệu';
     };
   };

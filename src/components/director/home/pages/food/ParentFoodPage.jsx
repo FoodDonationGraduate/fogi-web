@@ -1,8 +1,7 @@
 // Essentials
 import React, { useState, useEffect } from 'react';
-import { Stack } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 
 // Constants
 import ParentFoodHeaders from 'utils/constants/headerList/ParentFoodHeaders.json';
@@ -13,13 +12,16 @@ import Title from 'components/common/management/common/Title';
 
 // Reducers
 import { retrieveAllParentFood } from 'components/redux/reducer/DirectorReducer';
+import { retrieveAllCategories } from 'components/redux/reducer/CategoryReducer';
 
 const ParentFoodPage = () => {
   // Constants
   const allParentFood = useSelector(state => state.directorReducer.allParentFood);
+  const allCategories = useSelector(state => state.categoryReducer.allCategories);
   const userInfo = useSelector(state => state.authenticationReducer.user);
   const userToken = useSelector(state => state.authenticationReducer.token);
   const dispatch = useDispatch(); const navigate = useNavigate();
+  const { categoryId } = useParams();
 
   // Filters
   const [query, setQuery] = useState(null);
@@ -35,6 +37,33 @@ const ParentFoodPage = () => {
   // Pagination handling
   const FOOD_COUNT = 16; // per page
   const [page, setPage] = useState(0); // a.k.a activeIdx
+
+  // Get category if endpoint is like '/category/:categoryId'
+  useEffect(() => {
+    if (!categoryId) return;
+    dispatch(retrieveAllCategories({}, navigate));
+  }, [categoryId]);
+
+  useEffect(() => {
+    if (!allCategories.categories) return;
+
+    const category = allCategories.categories.find(c => c.id === parseInt(categoryId));
+    if (category) {
+      setCategoryList([{
+        value: category.id,
+        image: category.image,
+        label: category.name
+      }])
+    }
+  }, [allCategories]);
+
+  const [first, setFirst] = useState(false);
+  useEffect(() => { // Redirect to '/parent-food' from '/category/categoryId'
+    if (!first) { setFirst(true); return; }
+    if (!categoryId) return;
+    if (categoryList.length === 1) return;
+    navigate(`/${userInfo.user_type}/parent-food`);
+  }, [categoryList]);
 
   // Get requests
   useEffect(() => { 

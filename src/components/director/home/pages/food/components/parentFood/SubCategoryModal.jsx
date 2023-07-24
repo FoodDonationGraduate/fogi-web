@@ -38,7 +38,7 @@ const SubCategoryModal = ({
     (state) => state.categoryReducer.allCategories
   );
   useEffect(() => {
-    dispatch(retrieveAllCategories(navigate));
+    dispatch(retrieveAllCategories({}, navigate));
   }, []);
   const { categoryId } = useParams();
 

@@ -326,7 +326,7 @@ export const addCategory = (data, director, navigate) => {
         description: data.name,
         image: data.image
       }).then((res) => {
-        dispatch(retrieveAllCategories(navigate));
+        dispatch(retrieveAllCategories({}, navigate));
         dispatch(setModalMessage("Thêm Hạng mục thành công!"));
         dispatch(showModal());
       }).catch((err) => {

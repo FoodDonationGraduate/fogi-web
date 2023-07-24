@@ -20,7 +20,7 @@ const TableFilterParentFood = ({
   const dispatch = useDispatch(); const navigate = useNavigate();
   const allCategories = useSelector(state => state.categoryReducer.allCategories);
   useEffect(() => {
-    dispatch(retrieveAllCategories(navigate));
+    dispatch(retrieveAllCategories({}, navigate));
   }, []);
 
   const unitList = [
