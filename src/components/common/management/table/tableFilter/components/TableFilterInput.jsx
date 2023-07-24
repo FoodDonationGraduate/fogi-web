@@ -40,7 +40,7 @@ export const TableFilterText = ({
       onChange={onChange}
       placeholder={placeholder}
       size='sm'
-      value={tempInput}
+      value={tempInput ? tempInput : ''}
     />
   </>);
 };

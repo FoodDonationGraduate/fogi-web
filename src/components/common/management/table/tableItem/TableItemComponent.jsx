@@ -3,7 +3,7 @@ import React from 'react';
 import { OverlayTrigger, Popover, Stack, Tooltip } from 'react-bootstrap';
 
 // Utility
-import { getRelativeTime, getShortDate } from 'utils/helpers/Time.jsx';
+import { getRelativeTime, getShortDate, formatDateTime } from 'utils/helpers/Time.jsx';
 
 // Main Components
 export const TableItemAvatar = ({
@@ -45,14 +45,57 @@ export const TableItemAvatar = ({
   </>);
 };
 
+export const TableItemImage = ({
+  image,
+  size='md'
+}) => {
+
+  return (<>
+    <OverlayTrigger
+      placement={'top'}
+      overlay={
+        <Popover
+          style={{ position: 'fixed' }}
+        >
+          <Popover.Body>
+            <img
+              className='mn-table-item-image-lg'
+              src={`https://bachkhoi.online/static/${image}`}
+            />
+          </Popover.Body>
+        </Popover>
+      }
+    >
+      <img
+        className={`mn-table-item-image-${size}`} 
+        src={`https://bachkhoi.online/static/${image}`}
+      />
+    </OverlayTrigger>
+  </>);
+};
+
 export const TableItemTitle = ({
   title,
+  onClick=null,
+  size='default'
+}) => {
+  const style = onClick ? '' : '-static';
+  const sizeStyle = size === 'sm' ? 'header' : 'title';
+
+  return (<>
+    <div className={`mn-table-item-${sizeStyle}${style}`} onClick={onClick ? onClick : () => {}}>
+      {title}
+    </div>
+  </>);};
+
+export const TableItemHeader = ({
+  header,
   onClick
 }) => {
 
   return (<>
-    <div className='mn-table-item-title' onClick={onClick}>
-      {title}
+    <div className='mn-table-item-header' onClick={onClick}>
+      {header}
     </div>
   </>);
 };
@@ -106,14 +149,14 @@ export const TableItemDate = ({
     <OverlayTrigger
       placement='top'
       overlay={type !== 'default' ?
-        <Tooltip style={{ position: 'fixed' }}>{datetime}</Tooltip>
+        <Tooltip style={{ position: 'fixed' }}>{formatDateTime(datetime, 'DD/MM/YYYY • HH:mm:ss')}</Tooltip>
         : <></>
       }
     >
       <div className={`mn-table-item-date ${type !== 'default' ? 'mn-underline' : ''}`}>
         {type === 'relative' && getRelativeTime(datetime)}
         {type === 'short' && getShortDate(datetime)}
-        {type === 'default' && datetime}
+        {type === 'default' && formatDateTime(datetime, 'DD/MM/YYYY • HH:mm:ss')}
       </div>
     </OverlayTrigger>
   </>);

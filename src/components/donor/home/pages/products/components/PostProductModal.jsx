@@ -87,7 +87,7 @@ const PostProductModal = ({
   };
 
   useEffect(() => {
-    dispatch(retrieveAllCategories(navigate));
+    dispatch(retrieveAllCategories({}, navigate));
     var newImages = [];
     for (let i = 0; i < images.length; i++) {
       const image = images[i];

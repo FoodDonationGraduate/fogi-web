@@ -15,7 +15,8 @@ const UtilityPill = ({
   idx,
   activeIdx,
   pageCount,
-  onChangePage
+  onChangePage,
+  pillSize=null
 }) => {
 
   let size = useResizer();
@@ -25,11 +26,14 @@ const UtilityPill = ({
     if (idx === -2 && activeIdx > 0) onChangePage(activeIdx - 1);
     else if (idx === -3 && activeIdx < pageCount - 1) onChangePage(activeIdx + 1);
   }
+
+  const isSmall = (pillSize === 'sm' || size < 1);
+  const style = `fogi pagination-pill${isSmall ? '-sm' : ''}`;
   
   return (
     <>
       <Button
-        className={`d-flex justify-content-center align-items-center ${size < 1 ? 'fogi pagination-pill-sm' : 'fogi pagination-pill'}`}
+        className={`d-flex justify-content-center align-items-center ${style}`}
         variant={(idx !== -1 ? 'primary' : 'outline-secondary')}
         onClick={handleOnClick}
         key={idx}
@@ -38,7 +42,7 @@ const UtilityPill = ({
           '...'
           :
           <>
-            {idx === -2 ? <MdArrowLeft size={28} /> : <MdArrowRight size={28} />}
+            {idx === -2 ? <MdArrowLeft size={!isSmall ? 28 : 16} /> : <MdArrowRight size={!isSmall ? 28 : 16} />}
           </>
         }
       </Button>

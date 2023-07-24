@@ -1,0 +1,26 @@
+{
+  "allHeaders": [
+    {
+      "label": "Tên",
+      "size": 3,
+      "sort_field": "name"
+    },{
+      "label": "Mô tả",
+      "size": 4
+    },{
+      "label": "Số HMC",
+      "size": 1,
+      "sort_field": "total_products",
+      "tip": "Số Hạng mục con"
+      },{
+      "label": "Ngày tạo",
+      "size": 2,
+      "sort_field": "created_time"
+    },{
+      "label": "Cập nhật",
+      "size": 2,
+      "sort_field": "updated_time",
+      "isReversed": true
+    }
+  ]
+}

@@ -16,7 +16,8 @@ import { useResizer } from 'utils/helpers/Resizer.jsx';
 const Pagination = ({
   pageCount,
   activeIdx,
-  onChangePage
+  onChangePage,
+  pillSize=null
 }) => {
   let size = useResizer();
 
@@ -83,6 +84,7 @@ const Pagination = ({
                   idx={pillIdx}
                   isActive={pillIdx === activeIdx}
                   onChangePage={onChangePage}
+                  pillSize={pillSize}
                 />
                 :
                 <UtilityPill
@@ -90,6 +92,7 @@ const Pagination = ({
                   activeIdx={activeIdx}
                   pageCount={pageCount}
                   onChangePage={onChangePage}
+                  pillSize={pillSize}
                 />
               }
             </div>
