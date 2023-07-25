@@ -31,8 +31,10 @@ const RequestListPage = () => {
         return 'Cho';
       case 'donee-delivery':
         return 'Nhận (Giao hàng)';
-      default:
+      case 'donee-pickup':
         return 'Nhận (Tại kho)';
+      default:
+        return 'Cho';
     }
   };
   const fromStyleList = ['success', 'success', 'success'];

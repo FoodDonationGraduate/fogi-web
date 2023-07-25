@@ -1,0 +1,21 @@
+{
+  "allHeaders": [
+    {
+      "label": "Tên",
+      "size": 5,
+      "sort_field": "name"
+    },{
+      "label": "Còn",
+      "size": 3,
+      "sort_field": "expired_time",
+      "tip": "Số ngày còn lại trước khi hết hạn"
+      },{
+      "label": "Tồn kho",
+      "size": 3,
+      "sort_field": "stock"
+    },{
+      "label": "Thao tác",
+      "size": 1
+    }
+  ]
+}

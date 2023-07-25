@@ -23,7 +23,6 @@ import { retrieveAllCategories } from 'components/redux/reducer/CategoryReducer'
 
 const FoodModal = ({
   food,
-  foodList,
   isSorted=false,
   show, onShow, onClose,
   limit, offset
@@ -76,7 +75,6 @@ const FoodModal = ({
         child_unit: data.unit,
         limit: limit,
         offset: offset,
-        food_list_length: foodList.total_products,
         is_sorted: isSorted
       },
       { userInfo, userToken },

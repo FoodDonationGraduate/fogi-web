@@ -1,138 +1,152 @@
 // Essentials
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { Form, Button, Container, Row, Stack } from 'react-bootstrap';
-import { MdOutlineSouth, MdOutlineNorth } from 'react-icons/md';
+import { Stack } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
+
+// Constants
+import ChipList from 'components/common/chip/ChipList';
+import RequestHeaders from 'utils/constants/headerList/RequestHeaders.json';
 
 // Components
-import ChipList from 'components/common/chip/ChipList';
-import DropdownList from 'components/common/dropdown/DropdownList';
-import RequestListForKeeper from './components/RequestListForKeeper';
+import Table from 'components/common/management/table/Table';
+import Title from 'components/common/management/common/Title';
 
-// Form handling
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from 'react-hook-form';
-import * as Yup from 'yup';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
+// Reducers
+import { retrieveAllRequests } from 'components/redux/reducer/DirectorReducer';
 
-const RequestListForKeeperPage = () => {
-  // Request attributes
-  const requestAttributes = JSON.parse(localStorage.getItem('requestAttributes'));
+const RequestListPage = () => {
+  // Constants
+  const allRequests = useSelector(state => state.directorReducer.allRequests);
   const userInfo = useSelector(state => state.authenticationReducer.user);
+  const userToken = useSelector(state => state.authenticationReducer.token);
+  const dispatch = useDispatch(); const navigate = useNavigate();
 
-  // Chip List - Request status
-  const statusList = [
-    '', 'shipping', 'success', 'canceled'
-  ];
-  const getStatusLabel = (status) => {
-    switch (status) {
-      case 'shipping':
-        return 'Đang giao';
-      case 'canceled':
-        return 'Đã hủy';
-      case 'success':
-        return 'Thành công';
+  // Chip List - for Filter
+  const [activeFromIdx, setActiveFromIdx] = useState(0);
+  const fromList = [['donor', ''], ['donee', 'delivery'], ['donee', 'pickup']];
+  const getFromLabel = (from) => {
+    switch (from[1]) {
+      case 'delivery':
+        return 'Nhận (Giao hàng)';
+      case 'pickup':
+        return 'Nhận (Tại kho)';
       default:
-        return 'Tất cả';
+        return 'Cho';
     }
   };
-  const styleList = [
-    'success', 'warning', 'success', 'danger'
-  ];
-  const [activeStatusIdx, setActiveStatusIdx] = useState((requestAttributes && requestAttributes.status) ? statusList.indexOf(requestAttributes.status) : 0);
-  
-  // Chip List - Request filter
-  const filterList = ['last_updated_state_time', 'created_time'];
-  const getFilterLabel = (status) => {
-    switch (status) {
-      case 'last_updated_state_time':
-        return 'Thời gian cập nhật';
-      case 'created_time':
-        return 'Thời gian khởi tạo';
-    }
-  };
-  const filterStyleList = ['success', 'success'];
-  const [activeFilterIdx, setActiveFilterIdx] = useState((requestAttributes && requestAttributes.filter) ? filterList.indexOf(requestAttributes.filter) : 0);
+  const fromStyleList = ['success', 'success', 'success'];
 
-  // Reqest filter sort
-  const [sortBy, setSortBy] = useState(requestAttributes ? requestAttributes.sort_by : 'desc');
+  // Filters
+  const [from, setFrom] = useState(['donor', '']);
+  const [user, setUser] = useState(null);
+  const [requestId, setRequestId] = useState('');
+  const [status, setStatus] = useState({ value: '', label: 'Tất cả' });
+  const [numProduct, setNumProduct] = useState([]);
+  const [sumKg, setSumKg] = useState([]);
+  const [sumItem, setSumItem] = useState([]);
+  const [distance, setDistance] = useState([]);
+  const [director, setDirector] = useState(null);
+  const [warehouseKeeper, setWarehouseKeeper] = useState(null);
+  const [volunteer, setVolunteer] = useState(null);
+  const [createdTime, setCreatedTime] = useState({ min: '', max: '' });
+  const [updatedTime, setUpdatedTime] = useState({ min: '', max: '' });
 
-  // Handle search request
-  const [queryData, setQueryData] = useState(requestAttributes ? requestAttributes.query : '');
-  const formSchema = Yup.object().shape({
-    query: Yup.string().required('')
-  });
-  const formOptions = { resolver: yupResolver(formSchema) };
-  const { register, watch, handleSubmit } = useForm(formOptions);
-  const onSubmit = (data) => {
-    setQueryData(data.query);
-  }
+  // Sort Field
+  const [sortFields, setSortFields] = useState([]);
+
+  // Filters reset
   useEffect(() => {
-    let data = watch('query');
-    if (data === '') {
-      setQueryData(data);
-    }
-  }, [watch('query')]);
-  
+    setFrom(fromList[activeFromIdx]);
+    setSortFields([]);
+
+    setUser(null);
+    setRequestId('');
+    setStatus({ value: '', label: 'Tất cả' });
+    setNumProduct([]);
+    setSumKg([]);
+    setSumItem([]);
+    setDistance([]);
+    setDirector(null);
+    setWarehouseKeeper(null);
+    setVolunteer(null);
+    setCreatedTime({ min: '', max: '' });
+    setUpdatedTime({ min: '', max: '' });
+  }, [activeFromIdx]);
+
+  // Pagination handling
+  const REQUEST_COUNT = 16; // per page
+  const [page, setPage] = useState(0); // a.k.a activeIdx
+
+  // Get requests
+  useEffect(() => { 
+    var data = {
+      limit: REQUEST_COUNT,
+      offset: page * REQUEST_COUNT,
+      request_from: from[0],
+      request_status: status.value,
+      id_query: requestId,
+      delivery_type: from[1],
+      user_email: user ? user.email : '',
+      num_product_filter: JSON.stringify(numProduct),
+      sum_kg_filter: JSON.stringify(sumKg),
+      sum_item_filter: JSON.stringify(sumItem),
+      distance_filter: JSON.stringify(distance),
+      director_email: director ? director.email : '',
+      keeper_email: warehouseKeeper ? warehouseKeeper.email : '',
+      volunteer_email: volunteer ? volunteer.email : '',
+      min_created_time: createdTime.min,
+      max_created_time: createdTime.max,
+      min_updated_time: updatedTime.min,
+      max_updated_time: updatedTime.max,
+      sorts: JSON.stringify(sortFields)
+    };
+
+    dispatch(retrieveAllRequests(
+      data,
+      { userInfo, userToken },
+      navigate
+    ));
+  }, [page, user, requestId, from, status, numProduct, sumKg, sumItem, distance,
+    director, warehouseKeeper, volunteer, createdTime, updatedTime, sortFields
+  ]);
+
   return (
     <>
-      <Container>
-        <Row className='mb-4'>
-          {/* --- Top Section --- */}
-          <Stack direction='horizontal' className='mb-2 d-flex' gap={3}>
-            <h2 className='fw-bold me-auto'>Quản lý Yêu cầu</h2>
-            <Form className="search-form d-flex justify-content-right" onSubmit={handleSubmit(onSubmit)}>
-              <Form.Control
-                type="search"
-                placeholder="Tìm kiếm"
-                className="search-box"
-                aria-label="Search"
-                defaultValue={queryData}
-                {...register("query")}
-              />
-              <Button className='px-4 search-btn' type='submit' variant='dark'>
-                <FontAwesomeIcon icon={faSearch} />
-              </Button>
-            </Form>
-          </Stack>
-          <ChipList
-            activeStatusIdx={activeStatusIdx}
-            setActiveStatusIdx={setActiveStatusIdx}
-            statusList={statusList}
-            getStatusLabel={getStatusLabel}
-            styleList={styleList}
-            title={'Trạng thái'}
-            style={'mb-2'}
-          />
-          <Stack direction='horizontal' className='mb-2 d-flex' gap={3}>
-            <DropdownList
-              activeStatusIdx={activeFilterIdx}
-              setActiveStatusIdx={setActiveFilterIdx}
-              statusList={filterList}
-              getStatusLabel={getFilterLabel}
-              styleList={filterStyleList}
-              title={'Sắp xếp'}
-            />
-            <Button onClick={() => {setSortBy(sortBy === 'desc' ? 'asc' : 'desc')}}>
-              {sortBy === 'desc' ? <MdOutlineSouth/> : <MdOutlineNorth/>}
-            </Button>
-          </Stack>
-        </Row>
-
-        {/* --- Request List --- */}
-        <div>
-          <RequestListForKeeper
-            currentStatus={statusList[activeStatusIdx]}
-            currentFilter={filterList[activeFilterIdx]}
-            currentSortBy={sortBy}
-            queryData={queryData}
-          />
-        </div>
-
-      </Container>
+      <Stack direction='horizontal' gap={2}>
+        <Title title='Quản lý Yêu cầu' />
+        <ChipList
+          activeStatusIdx={activeFromIdx}
+          setActiveStatusIdx={setActiveFromIdx}
+          statusList={fromList}
+          getStatusLabel={getFromLabel}
+          styleList={fromStyleList}
+        />
+      </Stack>
+      <Table
+        headerList={from[0] === 'donee' ? RequestHeaders.takeHeaders : RequestHeaders.giveHeaders}
+        filterList={[
+          { state: user, setState: setUser },
+          { state: requestId, setState: setRequestId },
+          { state: from, setState: setFrom },
+          { state: status, setState: setStatus },
+          { state: numProduct, setState: setNumProduct },
+          { state: sumKg, setState: setSumKg },
+          { state: sumItem, setState: setSumItem },
+          { state: director, setState: setDirector },
+          { state: warehouseKeeper, setState: setWarehouseKeeper },
+          { state: volunteer, setState: setVolunteer },
+          { state: createdTime, setState: setCreatedTime },
+          { state: updatedTime, setState: setUpdatedTime },
+          { state: distance, setState: setDistance }
+        ]}
+        itemList={allRequests.requests}
+        total={allRequests.total} pageCount={REQUEST_COUNT} page={page} setPage={setPage}
+        sortFields={sortFields} setSortFields={setSortFields}
+        type='request-keeper'
+      />
     </>
-  )
+  );
 };
 
-export default RequestListForKeeperPage;
+export default RequestListPage;
