@@ -73,7 +73,7 @@ const TableItemRequest = ({
         <TableItemDate datetime={request.created_time} />
       </Col>
       <Col className='mn-table-item-col' xs={2}>
-        <TableItemDate datetime={request.last_updated_state_time} type='relative' />
+        <TableItemDate datetime={request.last_updated_state_time} />
       </Col>
       <Col className='mn-table-item-col' xs={1}>
         <TableItemText text={`${request.distance} km`} />

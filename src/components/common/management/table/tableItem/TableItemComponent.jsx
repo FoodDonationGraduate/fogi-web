@@ -143,18 +143,19 @@ export const TableItemText = ({
 export const TableItemDate = ({
   datetime,
   postfix='trước',
-  type='default'
+  type='default',
+  hasTip=false
 }) => {
 
   return (<>
     <OverlayTrigger
       placement='top'
-      overlay={type !== 'default' ?
+      overlay={hasTip ?
         <Tooltip style={{ position: 'fixed' }}>{formatDateTime(datetime, 'DD/MM/YYYY • HH:mm:ss')}</Tooltip>
         : <></>
       }
     >
-      <div className={`mn-table-item-date ${type !== 'default' ? 'mn-underline' : ''}`}>
+      <div className={`mn-table-item-date ${hasTip ? 'mn-underline' : ''}`}>
         {type === 'relative' && getRelativeTime(datetime, postfix)}
         {type === 'relative-alt' && distanceTime(datetime)}
         {type === 'short' && getShortDate(datetime)}

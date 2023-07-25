@@ -96,7 +96,7 @@ const FoodModal = ({
   const getAllParentFood = (event) => {
     const category_id = event.target.value;
     setValue('category', category_id);
-    dispatch(retrieveAllParentFood({ category_id }, { userInfo, userToken }, navigate));
+    dispatch(retrieveAllParentFood({ category_ids: JSON.stringify([Number(category_id)]) }, { userInfo, userToken }, navigate));
   };
 
   // Category Modal

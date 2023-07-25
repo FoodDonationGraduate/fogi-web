@@ -5,10 +5,9 @@
       "size": 5,
       "sort_field": "name"
     },{
-      "label": "Còn",
+      "label": "Ngày hết hạn",
       "size": 3,
-      "sort_field": "expired_time",
-      "tip": "Số ngày còn lại trước khi hết hạn"
+      "sort_field": "expired_time"
       },{
       "label": "Tồn kho",
       "size": 3,

@@ -40,7 +40,7 @@ const TableItemParentFood = ({
         <TableItemDate datetime={parentFood.created_time} />
       </Col>
       <Col className='mn-table-item-col' xs={2}>
-        <TableItemDate datetime={parentFood.updated_time} type='relative' />
+        <TableItemDate datetime={parentFood.updated_time} />
       </Col>
     </>
   );

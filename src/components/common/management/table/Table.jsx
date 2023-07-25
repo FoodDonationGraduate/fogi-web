@@ -38,7 +38,7 @@ const Table = ({
           <TableFilter filterList={filterList} type={type} />
           <TableDivider />
           
-          <TableSubHeader text={`Tổng: ${total}`} />
+          <TableSubHeader text={`Tổng: ${total ? total : '-'}`} />
           {itemList && itemList.map((item, idx) => (
             <TableItem key={idx} idx={idx} item={item} type={type} actionList={actionList} />
           ))}

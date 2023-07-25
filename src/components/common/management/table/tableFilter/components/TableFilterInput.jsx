@@ -134,6 +134,24 @@ export const TableFilterRange = ({
     setTimeoutId(newTimeoutId);
   };
 
+  // Popover
+  const PopoverContent = () => {
+    return (<>
+      <div className='fw-bold'>Các định dạng đúng:</div>
+      <div>• {'\"x\": Bằng x'}</div>
+      <div>• {'\"(x\" / \"x)\": Lớn/bé hơn x'}</div>
+      <div>• {'\"[x\" / \"x]\": Lớn/bé hơn hoặc bằng x'}</div>
+      <div>• {'\"[x,y]\" / \"(x,y)\": Từ x đến y'}</div>
+      <div className='fw-bold'>Một số ví dụ:</div>
+      <div>• 3: Bằng 3</div>
+      <div>• {'(3'}: Lớn hơn 3</div>
+      <div>• {'5]'}: Bé hơn hoặc bằng 5</div>
+      <div>• {'[3,5)'}: Lớn hơn hoặc bằng 3 và bé hơn 5</div>
+      <div className='fw-bold'>Lưu ý:</div>
+      <div>• Không được điền dấu cách</div>
+    </>);
+  };
+
   // --------------------------------------------------------------------------
   return (<>
     <Stack direction='horizontal' gap={2}>
@@ -166,13 +184,7 @@ export const TableFilterRange = ({
               style={{ position: 'fixed' }}
             >
               <Popover.Body>
-                <div className='fw-bold'>Các định dạng đúng:</div>
-                <div>• {'\"x\": Bằng x'}</div>
-                <div>• {'\"(x\" / \"x)\": Lớn/bé hơn x'}</div>
-                <div>• {'\"[x\" / \"x]\": Lớn/bé hơn hoặc bằng x'}</div>
-                <div>• {'\"[x,y]\" / \"(x,y)\": Từ x đến y'}</div>
-                <div className='fw-bold'>Lưu ý:</div>
-                <div>• Không được điền dấu cách</div>
+                <PopoverContent />
               </Popover.Body>
             </Popover>
           }
