@@ -302,8 +302,10 @@ const RequestDetailsPage = () => {
             }
             <>
               {
-              ((((request.delivery_type && request.delivery_type !== 'pickup' ) && (['pending', 'finding'].includes(request.status))) && isDistributed)
-              || (request.user.user_type === 'donor')) && request.status !== 'canceled' &&
+              ((
+                ((request.delivery_type && request.delivery_type !== 'pickup' ) || (request.user.user_type === 'donor'))
+                && (['pending', 'finding'].includes(request.status))) && isDistributed)
+                &&
                 <VolunteerList
                   targetVolunteer={targetVolunteer} 
                   setTargetVolunteer={setTargetVolunteer} 
