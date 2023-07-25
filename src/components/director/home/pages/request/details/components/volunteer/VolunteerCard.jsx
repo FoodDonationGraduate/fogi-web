@@ -56,9 +56,12 @@ const VolunteerCard = ({
                         <div style={{ color: '#999' }}>
                           <MdOutlinePhone /> {volunteer.phone}
                         </div>
-                        <div style={{ color: '#999' }}>
-                          <MdSocialDistance /> {volunteer.distance} km
-                        </div>
+                        {volunteer.distance &&
+                          <div style={{ color: '#999' }}>
+                            <MdSocialDistance /> {volunteer.distance} km
+                          </div>
+                        }
+                        
                       </div>
                       {/* {!request && 
                         <span className={size > 0 ? 'long-product-type' : 'long-product-type-sm'}>

@@ -59,7 +59,7 @@ const TableHeader = ({
     }
     return <MdSort />;
   };
-  
+  console.log(sortFields)
   return (
     <>
       <Row>

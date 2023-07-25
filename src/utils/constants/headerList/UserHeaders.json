@@ -1,0 +1,79 @@
+{
+  "DoneeHeaders": [{
+      "label": "Tên",
+      "size": 1
+    },{
+      "label": "Email",
+      "size": 1
+    },{
+      "label": "Số yêu cầu",
+      "size": 1,
+      "sort_field": "total_request"
+    },{
+      "label": "Khối lượng kg",
+      "size": 1,
+      "sort_field": "sum_item",
+      "tip" : "Tổng khối lượng thực phẩm người dùng nhận quyên góp"
+    },{
+      "label": "Số lượng",
+      "size": 1,
+      "sort_field": "sum_item",
+      "tip" : "Tổng số lượng thực phẩm người dùng nhận quyên góp"
+    },{
+      "label": "Bị báo cáo",
+      "size": 2,
+      "sort_field": "total_report"
+    },{
+      "label": "Trạng thái",
+      "size": 2
+    }
+  ],
+  "DonorHeaders": [{
+      "label": "Tên",
+      "size": 1
+    },{
+      "label": "Email",
+      "size": 1
+    },{
+      "label": "Số yêu cầu",
+      "size": 1,
+      "sort_field": "total_request"
+    },{
+      "label": "Khối lượng kg",
+      "size": 1,
+      "sort_field": "sum_item",
+      "tip" : "Tổng khối lượng thực phẩm người dùng quyên góp"
+    },{
+      "label": "Số lượng",
+      "size": 1,
+      "sort_field": "sum_item",
+      "tip" : "Tổng số lượng thực phẩm người dùng quyên góp"
+    },{
+      "label": "Bị báo cáo",
+      "size": 2,
+      "sort_field": "total_report"
+    },{
+      "label": "Trạng thái",
+      "size": 2
+    }
+  ],
+  "VolunteerHeaders": [{
+      "label": "Tên",
+      "size": 1
+    },{
+      "label": "Email",
+      "size": 1
+    },{
+      "label": "Số yêu cầu",
+      "size": 1,
+      "sort_field": "total_request"
+    },{
+      "label": "Bị báo cáo",
+      "size": 2,
+      "sort_field": "total_report"
+    },{
+      "label": "Trạng thái",
+      "size": 2
+    }
+  ]
+}

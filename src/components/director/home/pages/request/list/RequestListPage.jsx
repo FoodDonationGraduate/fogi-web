@@ -26,8 +26,10 @@ const RequestListPage = () => {
   const [activeFromIdx, setActiveFromIdx] = useState(0);
   const fromList = [['donor', ''], ['donee', 'delivery'], ['donee', 'pickup']];
   const getFromLabel = (from) => {
-    switch (from[1]) {
-      case 'delivery':
+    switch (from[0]+'-'+from[1]) {
+      case 'donor-':
+        return 'Cho';
+      case 'donee-delivery':
         return 'Nhận (Giao hàng)';
       case 'pickup':
         return 'Nhận (Tại kho)';

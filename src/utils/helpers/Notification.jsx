@@ -228,7 +228,7 @@ export const exportNotiElementContent = (data, userInfo, delivery_type) => {
   const state = State.allStates.find(s => findCondition(s));
   const condition = {
     user_type: user_type,
-    delivery_type: data.noti_type === 'give' ? data.noti_type : (data.delivery_type === 'delivery' ? data.delivery_type : 'pickup')
+    delivery_type: data.noti_type === 'give_request_state_change' ? 'give' : (data.delivery_type === 'delivery' ? data.delivery_type : 'pickup')
   };
 
   for (let i = 0; i < state.content.length; i++) {
@@ -240,7 +240,7 @@ export const exportNotiElementContent = (data, userInfo, delivery_type) => {
       break;
     }
   }
-
+  console.log(condition)
   if (request_status === 'canceled' || request_status === 'rejected') {
     let role = '';
     switch (sender_role) {
@@ -254,7 +254,7 @@ export const exportNotiElementContent = (data, userInfo, delivery_type) => {
     content.short = content.short.replace(`{user_role}`, role);
     content.short = content.short.replace(`{user_role_name}`, sender_name);
   } else {
-    if (content.short.includes(`{${sender_role}_name}`)) {
+    if (content.short && content.short.includes(`{${sender_role}_name}`)) {
       content.short = content.short.replace(`{${sender_role}_name}`, sender_name);
     }
   }
