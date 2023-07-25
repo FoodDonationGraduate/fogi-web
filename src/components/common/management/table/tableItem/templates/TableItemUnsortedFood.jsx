@@ -25,7 +25,7 @@ const TableItemUnsortedFood = ({
         </Stack>
       </Col>
       <Col className='mn-table-item-col' xs={3}>
-        <TableItemDate datetime={food.expired_time} />
+        <TableItemDate datetime={food.expired_time} type='short' />
       </Col>
       <Col className='mn-table-item-col' xs={3}>
         <TableItemText text={`${food.stock} ${food.unit === 'kg' ? 'Kg' : 'Cái'}`} />

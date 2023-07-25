@@ -39,7 +39,7 @@ export const getRelativeTime = (datetime, postfix) => {
 export const getShortDate = (datetime) => {
     const [date, time] = datetime.split(' ');
     const [yyyy, mm, dd] = date.split('-');
-    return `${dd}/${mm}/${yyyy.slice(2, 4)}`
+    return `${dd}/${mm}/${yyyy}`
 }
 
 export const convertToString = (date, type) => {
