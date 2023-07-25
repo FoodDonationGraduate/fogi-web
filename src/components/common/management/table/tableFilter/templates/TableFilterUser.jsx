@@ -31,41 +31,9 @@ const TableFilterRequest = ({
   // ];
 
   const statusList = [
-    {
-      from: 'donor', delivery_type: '',
-      statusList: [
-        { value: '', label: 'Tất cả' },
-        { value: 'pending', label: 'Chờ duyệt' },
-        { value: 'finding', label: 'Đang điều phối' },
-        { value: 'receiving', label: 'Đang nhận' },
-        { value: 'shipping', label: 'Đang giao' },
-        { value: 'success', label: 'Thành công' },
-        { value: 'canceled', label: 'Đã hủy' }
-      ]
-    },
-    {
-      from: 'donee', delivery_type: 'delivery',
-      statusList: [
-        { value: '', label: 'Tất cả' },
-        { value: 'pending', label: 'Chờ duyệt' },
-        { value: 'finding', label: 'Đang điều phối' },
-        { value: 'receiving', label: 'Đang nhận' },
-        { value: 'shipping', label: 'Đang giao' },
-        { value: 'success', label: 'Thành công' },
-        { value: 'canceled', label: 'Đã hủy' }
-      ]
-    },
-    {
-      from: 'donee', delivery_type: 'pickup',
-      statusList: [
-        { value: '', label: 'Tất cả' },
-        { value: 'pending', label: 'Chờ duyệt' },
-        { value: 'accepted', label: 'Đã xác nhận' },
-        { value: 'receiving', label: 'Đang nhận' },
-        { value: 'success', label: 'Thành công' },
-        { value: 'canceled', label: 'Đã hủy' }
-      ]
-    }
+      { value: '', label: 'Tất cả' },
+      { value: 'locked', label: 'Bị khóa' },
+      { value: 'limited', label: 'Bị hạn chế' },
   ];
 
   return (
@@ -112,10 +80,10 @@ const TableFilterRequest = ({
         />
       </Col>
 
-      <Col className='mn-table-item-col' xs={1}>
+      <Col className='mn-table-item-col' xs={2}>
         <TableFilterSelect
           activeOption={filterList[7].state} setActiveOption={filterList[7].setState}
-          optionList={statusList.find(list => list.from === filterList[2].state[0] && list.delivery_type === filterList[2].state[1]).statusList}
+          optionList={statusList}
         />
       </Col>
 

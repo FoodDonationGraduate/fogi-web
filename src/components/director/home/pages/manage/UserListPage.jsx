@@ -45,6 +45,7 @@ const RequestListPage = () => {
   const [sumKg, setSumKg] = useState([]);
   const [sumItem, setSumItem] = useState([]);
   const [numReport, setNumReport] = useState([]);
+  const [status, setStatus] = useState({value: '', label: 'Tất cả'});
 
   // Sort Field
   const [sortFields, setSortFields] = useState([]);
@@ -60,6 +61,7 @@ const RequestListPage = () => {
     setSumKg([]);
     setSumItem([]);
     setNumReport([]);
+    setStatus({ value: '', label: 'Tất cả' });
   }, [activeFromIdx]);
 
   // Pagination handling
@@ -81,6 +83,7 @@ const RequestListPage = () => {
       sum_kg_filter: JSON.stringify(sumKg),
       sum_item_filter: JSON.stringify(sumItem),
       num_report_filter: JSON.stringify(numReport),
+      status_filter: status.value,
       sorts: JSON.stringify(sortFields)
     };
 
@@ -114,6 +117,7 @@ const RequestListPage = () => {
           { state: sumKg, setState: setSumKg },
           { state: sumItem, setState: setSumItem },
           { state: numReport, setState: setNumReport },
+          { state: status, setState: setStatus }
         ]}
         itemList={allRequests.requests}
         sortFields={sortFields} setSortFields={setSortFields}
