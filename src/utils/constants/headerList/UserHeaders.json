@@ -1,16 +1,16 @@
 {
   "DoneeHeaders": [{
       "label": "Tên",
-      "size": 1
+      "size": 2
     },{
       "label": "Email",
-      "size": 1
+      "size": 2
     },{
       "label": "Số yêu cầu",
-      "size": 1,
+      "size": 2,
       "sort_field": "total_request"
     },{
-      "label": "Khối lượng kg",
+      "label": "Khối lượng",
       "size": 1,
       "sort_field": "sum_item",
       "tip" : "Tổng khối lượng thực phẩm người dùng nhận quyên góp"
@@ -30,16 +30,16 @@
   ],
   "DonorHeaders": [{
       "label": "Tên",
-      "size": 1
+      "size": 2
     },{
       "label": "Email",
-      "size": 1
+      "size": 2
     },{
       "label": "Số yêu cầu",
-      "size": 1,
+      "size": 2,
       "sort_field": "total_request"
     },{
-      "label": "Khối lượng kg",
+      "label": "Khối lượng",
       "size": 1,
       "sort_field": "sum_item",
       "tip" : "Tổng khối lượng thực phẩm người dùng quyên góp"
@@ -59,13 +59,13 @@
   ],
   "VolunteerHeaders": [{
       "label": "Tên",
-      "size": 1
+      "size": 2
     },{
       "label": "Email",
-      "size": 1
+      "size": 2
     },{
       "label": "Số yêu cầu",
-      "size": 1,
+      "size": 2,
       "sort_field": "total_request"
     },{
       "label": "Bị báo cáo",

@@ -124,7 +124,7 @@ export const UserFilterModal = ({
               onHide={onHide}
             />
           ))}
-          {userType === 'director' && Object.keys(allDirectors).length > 0 && allDirectors.users.map((user, idx) => (
+          {userType === 'director' && Object.keys(allDirectors).length > 0 && allDirectors.users && allDirectors.users.map((user, idx) => (
             <UserModalItem key={idx}
               user={user} setUser={setUser}
               onHide={onHide}

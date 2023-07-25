@@ -70,19 +70,27 @@ const TableFilterRequest = ({
 
   return (
     <>
-      <Col className='mn-table-item-col' xs={1}>
+      <Col className='mn-table-item-col' xs={2}>
        <TableFilterText
           input={filterList[1].state} setInput={filterList[1].setState}
-          placeholder='ID' type='int'
+          placeholder='Tất cả' type='text'
         />
       </Col>
-      <Col className='mn-table-item-col' xs={1}>
-        <TableFilterSelect
-          activeOption={filterList[3].state} setActiveOption={filterList[3].setState}
-          optionList={statusList.find(list => list.from === filterList[2].state[0] && list.delivery_type === filterList[2].state[1]).statusList}
+      <Col className='mn-table-item-col' xs={2}>
+       <TableFilterText
+          input={filterList[2].state} setInput={filterList[2].setState}
+          placeholder='Tất cả' type='text'
         />
       </Col>
-      <Col className='mn-table-item-col' xs={1}>
+      <Col className='mn-table-item-col' xs={2}>
+        <TableFilterRange
+          range={filterList[3].state} setRange={filterList[3].setState}
+          placeholder='Tất cả'
+        />
+      </Col>
+      {filterList[0].state !== 'volunteer' && 
+        <>
+        <Col className='mn-table-item-col' xs={1}>
         <TableFilterRange
           range={filterList[4].state} setRange={filterList[4].setState}
           placeholder='Tất cả'
@@ -94,12 +102,24 @@ const TableFilterRequest = ({
           placeholder='Tất cả'
         />
       </Col>
-      <Col className='mn-table-item-col' xs={1}>
+        </>
+      }
+      
+      <Col className='mn-table-item-col' xs={2}>
         <TableFilterRange
           range={filterList[6].state} setRange={filterList[6].setState}
           placeholder='Tất cả'
         />
       </Col>
+
+      <Col className='mn-table-item-col' xs={1}>
+        <TableFilterSelect
+          activeOption={filterList[7].state} setActiveOption={filterList[7].setState}
+          optionList={statusList.find(list => list.from === filterList[2].state[0] && list.delivery_type === filterList[2].state[1]).statusList}
+        />
+      </Col>
+
+      {/* 
       <Col className='mn-table-item-col' xs={2}>
         <Stack direction='horizontal' gap={2}>
           <TableItemIcon icon={{ icon: MdComputer, tip: 'Điều phối viên' }} />
@@ -149,7 +169,7 @@ const TableFilterRequest = ({
           range={filterList[12].state} setRange={filterList[12].setState}
           placeholder='Tất cả'
         />
-      </Col>
+      </Col> */}
     </>
   );
 };
