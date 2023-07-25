@@ -13,11 +13,12 @@ import Title from 'components/common/management/common/Title';
 import ChipList from 'components/common/chip/ChipList';
 
 // Reducers
-import { retrieveAllRequests } from 'components/redux/reducer/DirectorReducer';
+import { retrieveAllUsers } from 'components/redux/reducer/DirectorReducer';
 
 const RequestListPage = () => {
   // Constants
-  const allRequests = useSelector(state => state.directorReducer.allRequests);
+  const allUsers = useSelector(state => state.directorReducer.allUsers);
+  const allVolunteers = useSelector(state => state.directorReducer.allVolunteers);
   const userInfo = useSelector(state => state.authenticationReducer.user);
   const userToken = useSelector(state => state.authenticationReducer.token);
   const dispatch = useDispatch(); const navigate = useNavigate();
@@ -41,7 +42,8 @@ const RequestListPage = () => {
   const [from, setFrom] = useState('donee');
   const [name, setName ] = useState('');
   const [email, setEmail] = useState('');
-  const [numRequest, setNumRequest] = useState([]);
+  const [numGiveRequest, setNumGiveRequest] = useState([]);
+  const [numTakeRequest, setNumTakeRequest] = useState([]);
   const [sumKg, setSumKg] = useState([]);
   const [sumItem, setSumItem] = useState([]);
   const [numReport, setNumReport] = useState([]);
@@ -52,12 +54,14 @@ const RequestListPage = () => {
 
   // Filters reset
   useEffect(() => {
+    console.log(activeFromIdx)
     setFrom(fromList[activeFromIdx]);
     setSortFields([]);
 
     setName('')
     setEmail('');
-    setNumRequest([]);
+    setNumGiveRequest([]);
+    setNumTakeRequest([]);
     setSumKg([]);
     setSumItem([]);
     setNumReport([]);
@@ -77,24 +81,25 @@ const RequestListPage = () => {
       limit: REQUEST_COUNT,
       offset: page * REQUEST_COUNT,
       user_type: from,
-      user_name: name ? name : '',
-      user_email: email ? email : '',
-      num_request_filter: JSON.stringify(numRequest),
+      name_query: name ? name : '',
+      email_query: email ? email : '',
+      num_give_request_filter: JSON.stringify(numGiveRequest),
+      num_take_request_filter: JSON.stringify(numTakeRequest),
       sum_kg_filter: JSON.stringify(sumKg),
       sum_item_filter: JSON.stringify(sumItem),
-      num_report_filter: JSON.stringify(numReport),
-      status_filter: status.value,
-      sorts: JSON.stringify(sortFields)
+      being_reported_filter: JSON.stringify(numReport),
+      // status_filter: status.value,
+      // sorts: JSON.stringify(sortFields)
     };
-
-    // dispatch(retrieveAllRequests(
-    //   data,
-    //   { userInfo, userToken },
-    //   navigate
-    // ));
-  }, [name, email, from, numRequest, sumKg, sumItem, numReport, sortFields, page
+    if (from === 'donor') { delete data.num_take_request_filter} else if (from === 'donee') {delete data.num_give_request_filter;}
+    dispatch(retrieveAllUsers(
+      data,
+      { userInfo, userToken },
+      navigate
+    ));
+  }, [name, email, from, numGiveRequest, numTakeRequest, sumKg, sumItem, numReport, sortFields, page
   ]);
-
+  console.log(from)
   return (
     <>
       <Stack direction='horizontal' gap={2}>
@@ -113,13 +118,14 @@ const RequestListPage = () => {
           { state: from, setState: setFrom },
           { state: name, setState: setName },
           { state: email, setState: setEmail },
-          { state: numRequest, setState: setNumRequest },
+          { state: numGiveRequest, setState: setNumGiveRequest },
+          { state: numTakeRequest, setState: setNumTakeRequest },
           { state: sumKg, setState: setSumKg },
           { state: sumItem, setState: setSumItem },
           { state: numReport, setState: setNumReport },
           { state: status, setState: setStatus }
         ]}
-        itemList={allRequests.requests}
+        itemList={from === 'volunteer' ? allVolunteers.users : allUsers.users} total={allUsers.num_of_users}
         sortFields={sortFields} setSortFields={setSortFields}
         type='user'
       />

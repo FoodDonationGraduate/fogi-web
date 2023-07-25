@@ -170,9 +170,15 @@ export const retrieveAllUsers = (data, director, navigate) => {
         token: director.userToken,
         user_type: data.user_type,
         limit: data.limit,
-        offset: data.offset
+        offset: data.offset,
+        name_query: data.name_query,
+        email_query: data.email_query,
+        sum_kg_filter: data.sum_kg_filter,
+        sum_item_filter: data.sum_item_filter,
+        being_reported_filter: data.being_reported_filter
       }
-      if (data.search_query !== '') {currentData.search_query = data.search_query}
+      if (data.num_take_request_filter) {currentData.num_take_request_filter = data.num_take_request_filter}
+      if (data.num_give_request_filter) {currentData.num_give_request_filter = data.num_give_request_filter}
       await axiosInstance.get(`/${director.userInfo.user_type}/user`, { params: currentData })
       .then((res) => {
         if (data.user_type === 'director') dispatch(setAllDirectors(res.data));
@@ -187,6 +193,7 @@ export const retrieveAllUsers = (data, director, navigate) => {
           dispatch(setModalType('danger'))
           dispatch(showModal())
        }
+       dispatch(setAllUsers({}));
       });
     } catch (err) {
       console.log(err);

@@ -6,7 +6,7 @@
       "label": "Email",
       "size": 2
     },{
-      "label": "Số yêu cầu",
+      "label": "Số yêu cầu nhận",
       "size": 2,
       "sort_field": "total_request"
     },{
@@ -35,7 +35,7 @@
       "label": "Email",
       "size": 2
     },{
-      "label": "Số yêu cầu",
+      "label": "Số yêu cầu cho",
       "size": 2,
       "sort_field": "total_request"
     },{
@@ -64,7 +64,11 @@
       "label": "Email",
       "size": 2
     },{
-      "label": "Số yêu cầu",
+      "label": "Số yêu cầu cho",
+      "size": 2,
+      "sort_field": "total_request"
+    },{
+      "label": "Số yêu cầu nhận",
       "size": 2,
       "sort_field": "total_request"
     },{
