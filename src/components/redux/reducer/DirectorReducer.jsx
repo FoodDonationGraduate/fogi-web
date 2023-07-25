@@ -142,7 +142,7 @@ export const retrieveManageUsers = (data, director, navigate) => {
         offset: data.offset
       }
       if (data.search_query !== '') {currentData.search_query = data.search_query}
-      await axiosInstance.get(`/director/profile`, { params: currentData })
+      await axiosInstance.get(`/director/user`, { params: currentData })
       .then((res) => {
         dispatch(setManageUsers(res.data));
       }).catch((err) => {
@@ -173,7 +173,7 @@ export const retrieveAllUsers = (data, director, navigate) => {
         offset: data.offset
       }
       if (data.search_query !== '') {currentData.search_query = data.search_query}
-      await axiosInstance.get(`/director/profile`, { params: currentData })
+      await axiosInstance.get(`/${director.userInfo.user_type}/user`, { params: currentData })
       .then((res) => {
         if (data.user_type === 'director') dispatch(setAllDirectors(res.data));
         else if (data.user_type === 'keeper') dispatch(setAllKeepers(res.data));
@@ -353,6 +353,7 @@ export const retrieveAllRequests = (data, director, navigate) => {
         token: director.userToken,
         limit: data.limit,
         offset: data.offset,
+        request_from: data.request_from,
         request_status: data.request_status,
         num_product_filter: data.num_product_filter,
         sum_kg_filter: data.sum_kg_filter,
@@ -366,9 +367,6 @@ export const retrieveAllRequests = (data, director, navigate) => {
         min_updated_time: data.min_updated_time,
         max_updated_time: data.max_updated_time,
         sorts: data.sorts
-      }
-      if (director.userInfo.user_type === 'director') {
-        currentData.request_from = data.request_from;
       }
       if (data.id_query !== '') {currentData.id_query = data.id_query}
       if (data.delivery_type !== '') {currentData.delivery_type = data.delivery_type}

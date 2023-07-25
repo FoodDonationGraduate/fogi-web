@@ -6,6 +6,7 @@ import { Row } from 'react-bootstrap';
 import TableFilterRequest from './tableFilter/templates/TableFilterRequest';
 import TableFilterParentFood from './tableFilter/templates/TableFilterParentFood';
 import TableFilterCategory from './tableFilter/templates/TableFilterCategory';
+import TableFilterUnsortedFood from './tableFilter/templates/TableFilterUnsortedFood';
 
 const TableFilter = ({
   filterList,
@@ -14,9 +15,10 @@ const TableFilter = ({
   
   return (
     <Row className='mn-table-item'>
-      {type === 'request' && <TableFilterRequest filterList={filterList} />}
+      {(type === 'request' || type === 'request-keeper') && <TableFilterRequest filterList={filterList} />}
       {type === 'parent-food' && <TableFilterParentFood filterList={filterList} />}
       {type === 'category' && <TableFilterCategory filterList={filterList} />}
+      {type === 'unsorted-food' && <TableFilterUnsortedFood filterList={filterList} />}
     </Row>
   );
 }

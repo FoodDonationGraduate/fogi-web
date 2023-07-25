@@ -6,18 +6,21 @@ import { Row } from 'react-bootstrap';
 import TableItemRequest from './tableItem/templates/TableItemRequest';
 import TableItemParentFood from './tableItem/templates/TableItemParentFood';
 import TableItemCategory from './tableItem/templates/TableItemCategory';
+import TableItemUnsortedFood from './tableItem/templates/TableItemUnsortedFood';
 
 const TableItem = ({
   idx,
   item,
-  type
+  type,
+  actionList
 }) => {
   
   return (
     <Row className={`mn-table-item ${idx % 2 === 0 ? 'mn-bg-light' : ''}`}>
-      {type === 'request' && <TableItemRequest request={item} />}
+      {(type === 'request' || type === 'request-keeper') && <TableItemRequest request={item} />}
       {type === 'parent-food' && <TableItemParentFood parentFood={item} />}
       {type === 'category' && <TableItemCategory category={item} />}
+      {type === 'unsorted-food' && <TableItemUnsortedFood food={item} actionList={actionList} />}
     </Row>
   );
 }

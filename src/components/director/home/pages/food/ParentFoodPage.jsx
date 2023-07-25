@@ -1,5 +1,6 @@
 // Essentials
 import React, { useState, useEffect } from 'react';
+import { Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router';
 
@@ -9,6 +10,7 @@ import ParentFoodHeaders from 'utils/constants/headerList/ParentFoodHeaders.json
 // Components
 import Table from 'components/common/management/table/Table';
 import Title from 'components/common/management/common/Title';
+import SubCategoryModal from 'components/director/home/pages/food/components/parentFood/SubCategoryModal';
 
 // Reducers
 import { retrieveAllParentFood } from 'components/redux/reducer/DirectorReducer';
@@ -22,6 +24,11 @@ const ParentFoodPage = () => {
   const userToken = useSelector(state => state.authenticationReducer.token);
   const dispatch = useDispatch(); const navigate = useNavigate();
   const { categoryId } = useParams();
+
+  // SubCategory Modal
+  const [show, setShow] = useState(false);
+  const onShow = () => { setShow(true); }
+  const onClose = () => { setShow(false); }
 
   // Filters
   const [query, setQuery] = useState(null);
@@ -65,7 +72,11 @@ const ParentFoodPage = () => {
     navigate(`/${userInfo.user_type}/parent-food`);
   }, [categoryList]);
 
-  // Get requests
+  // Get parent food
+  useEffect(() => {
+    setPage(0);
+  }, [query, categoryList, stock, unit, createdTime, updatedTime, sortFields]);
+
   useEffect(() => { 
     var data = {
       limit: FOOD_COUNT,
@@ -90,7 +101,15 @@ const ParentFoodPage = () => {
 
   return (
     <>
-      <Title title='Quản lý Hạng mục con' />
+      <div className='d-flex justify-content-between'>
+        <Title title='Quản lý Hạng mục con' />
+        <Button 
+          className='fogi' variant='primary'
+          onClick={onShow}
+        >
+          Thêm Hạng mục con
+        </Button>
+      </div>
       <Table
         headerList={ParentFoodHeaders.allHeaders}
         filterList={[
@@ -105,6 +124,9 @@ const ParentFoodPage = () => {
         total={allParentFood.total_products} pageCount={FOOD_COUNT} page={page} setPage={setPage}
         sortFields={sortFields} setSortFields={setSortFields}
         type='parent-food'
+      />
+      <SubCategoryModal
+        show={show} onShow={onShow} onClose={onClose}
       />
     </>
   );

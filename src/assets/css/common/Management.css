@@ -242,7 +242,7 @@ width: 160px; height: 160px;
 
 .mn-table-filter-date {
   color: #999;
-  font-size: 9px;
+  font-size: 12px;
 }
 .mn-table-filter-date-input {
   border: 1px solid #999;
@@ -250,7 +250,7 @@ width: 160px; height: 160px;
   width: 100%;
 }
   .form-control.mn-table-filter-date-input {
-    font-size: 10px;
+    font-size: 12px;
     padding: 0px 2px;
   }
 

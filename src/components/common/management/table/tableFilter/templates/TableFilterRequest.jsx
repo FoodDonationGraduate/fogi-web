@@ -1,5 +1,6 @@
 // Essentials
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Col, Stack } from 'react-bootstrap';
 
 // Assets
@@ -10,7 +11,6 @@ import {
 // Components
 import TableFilterUser from '../components/TableFilterUser';
 import { TableFilterText, TableFilterRange } from '../components/TableFilterInput';
-import TableFilterRadio from '../components/TableFilterRadio';
 import TableFilterSelect from '../components/TableFilterSelect';
 import TableFilterTime from '../components/TableFilterTime';
 
@@ -22,6 +22,7 @@ import { getState } from 'utils/helpers/Request';
 const TableFilterRequest = ({
   filterList
 }) => {
+  const userInfo = useSelector(state => state.authenticationReducer.user);
 
   // Constants
   // const fromList = [
@@ -30,7 +31,35 @@ const TableFilterRequest = ({
   //   { value: ['donee', 'pickup'], icon: MdWarehouse, tip: 'Nhận (Tại kho)' }
   // ];
 
-  const statusList = [
+  const statusList = userInfo.user_type === 'warehouse_keeper' ? [
+    {
+      from: 'donor', delivery_type: '',
+      statusList: [
+        { value: '', label: 'Tất cả' },
+        { value: 'shipping', label: 'Đang giao' },
+        { value: 'success', label: 'Thành công' },
+        { value: 'canceled', label: 'Đã hủy' }
+      ]
+    },
+    {
+      from: 'donee', delivery_type: 'delivery',
+      statusList: [
+        { value: '', label: 'Tất cả' },
+        { value: 'receiving', label: 'Đang nhận' },
+        { value: 'success', label: 'Thành công' },
+        { value: 'canceled', label: 'Đã hủy' }
+      ]
+    },
+    {
+      from: 'donee', delivery_type: 'pickup',
+      statusList: [
+        { value: '', label: 'Tất cả' },
+        { value: 'receiving', label: 'Đang nhận' },
+        { value: 'success', label: 'Thành công' },
+        { value: 'canceled', label: 'Đã hủy' }
+      ]
+    }
+  ] : [
     {
       from: 'donor', delivery_type: '',
       statusList: [
