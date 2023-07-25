@@ -36,7 +36,7 @@ const TableItemCategory = ({
         <TableItemDate datetime={category.created_time} />
       </Col>
       <Col className='mn-table-item-col' xs={2}>
-        <TableItemDate datetime={category.updated_time} type='relative' />
+        <TableItemDate datetime={category.updated_time} />
       </Col>
     </>
   );
