@@ -142,7 +142,7 @@ export const retrieveManageUsers = (data, director, navigate) => {
         offset: data.offset
       }
       if (data.search_query !== '') {currentData.search_query = data.search_query}
-      await axiosInstance.get(`/director/profile`, { params: currentData })
+      await axiosInstance.get(`/director/user`, { params: currentData })
       .then((res) => {
         dispatch(setManageUsers(res.data));
       }).catch((err) => {
@@ -173,7 +173,7 @@ export const retrieveAllUsers = (data, director, navigate) => {
         offset: data.offset
       }
       if (data.search_query !== '') {currentData.search_query = data.search_query}
-      await axiosInstance.get(`/${director.user_type}/profile`, { params: currentData })
+      await axiosInstance.get(`/${director.userInfo.user_type}/user`, { params: currentData })
       .then((res) => {
         if (data.user_type === 'director') dispatch(setAllDirectors(res.data));
         else if (data.user_type === 'keeper') dispatch(setAllKeepers(res.data));
