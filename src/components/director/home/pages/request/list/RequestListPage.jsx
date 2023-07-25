@@ -31,7 +31,7 @@ const RequestListPage = () => {
         return 'Cho';
       case 'donee-delivery':
         return 'Nhận (Giao hàng)';
-      case 'pickup':
+      case 'donee-pickup':
         return 'Nhận (Tại kho)';
       default:
         return 'Cho';
