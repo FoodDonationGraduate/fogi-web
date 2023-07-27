@@ -34,21 +34,21 @@ const CancelModal = ({ show, onClose, request }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const cancelRequest = (data) => {
-    if (userInfo.user_type != 'director')
-      dispatch(updateRequest(
+    if (userInfo.user_type === 'director' || userInfo.user_type === 'warehouse_keeper')
+      dispatch(cancelRequestDir(
         {
           request_id: request.id,
-          request_status: 'canceled',
+          request_from: request.user.user_type,
           cancel_reason: data.reason
         },
         {userInfo, userToken},
         navigate
       ));
     else
-      dispatch(cancelRequestDir(
+      dispatch(updateRequest(
         {
           request_id: request.id,
-          request_from: request.user.user_type,
+          request_status: 'canceled',
           cancel_reason: data.reason
         },
         {userInfo, userToken},

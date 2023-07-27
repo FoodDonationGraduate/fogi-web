@@ -20,10 +20,10 @@ const RequestListPage = () => {
   const allRequests = useSelector(state => state.directorReducer.allRequests);
   const userInfo = useSelector(state => state.authenticationReducer.user);
   const userToken = useSelector(state => state.authenticationReducer.token);
+  const requestAttributes = JSON.parse(localStorage.getItem('requestAttributes'));
   const dispatch = useDispatch(); const navigate = useNavigate();
 
   // Chip List - for Filter
-  const [activeFromIdx, setActiveFromIdx] = useState(0);
   const fromList = [['donor', ''], ['donee', 'delivery'], ['donee', 'pickup']];
   const getFromLabel = (from) => {
     switch (from[0]+'-'+from[1]) {
@@ -38,7 +38,9 @@ const RequestListPage = () => {
     }
   };
   const fromStyleList = ['success', 'success', 'success'];
-
+  const [activeFromIdx, setActiveFromIdx] = useState((requestAttributes && requestAttributes.status) 
+    ? (requestAttributes.status[0] === 'donor' ? 0 : (requestAttributes.status[1] === 'pickup' ? 2 : 1))
+    : 0);
   // Filters
   const [from, setFrom] = useState(['donor', '']);
   const [user, setUser] = useState(null);
@@ -109,6 +111,9 @@ const RequestListPage = () => {
       { userInfo, userToken },
       navigate
     ));
+    localStorage.setItem('requestAttributes', JSON.stringify({
+      status: from,
+    }));
   }, [page, user, requestId, from, status, numProduct, sumKg, sumItem, distance,
     director, warehouseKeeper, volunteer, createdTime, updatedTime, sortFields
   ]);

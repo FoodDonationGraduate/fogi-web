@@ -105,18 +105,18 @@ const RequestDetailsPage = () => {
           tip: ''
         };
       } else if (request.user.user_type === 'donee') {
-        if (request.delivery === 'delivery' && request.status === 'receiving') {
+        if (request.delivery_type === 'delivery' && request.status === 'receiving') {
           return {
             condition: true,
             label: 'Đã giao thực phẩm cho tình nguyện viên'
           }
-        } else if (request.delivery === 'pickup' && request.status === 'accepted') {
+        } else if (request.delivery_type === 'pickup' && request.status === 'accepted') {
           return {
             condition: true,
             label: 'Chuyển trạng thái',
             tip: 'Lập tức hoàn thành yêu cầu'
           }
-        } else if (request.delivery === 'pickup' && request.status === 'receiving') {
+        } else if (request.delivery_type === 'pickup' && request.status === 'receiving') {
           return {
             condition: true,
             label: 'Đã giao thực phẩm cho người nhận'
@@ -143,7 +143,7 @@ const RequestDetailsPage = () => {
       } else {
         switch (request.status) {
           case 'pending':
-            if (request.delivery === 'delivery') {
+            if (request.delivery_type === 'delivery') {
               return !isDistributed ? {
                 condition: !isError && isEnough(),
                 label: 'Xác nhận điều phối',
@@ -327,8 +327,13 @@ const RequestDetailsPage = () => {
               <Row>
                 <div className='d-flex justify-content-end mt-4'>
                   <Stack direction='horizontal' gap={2}>
-                    {['pending', 'accepted', 'finding', 'receiving', 'shipping']
-                    .includes(request.status) && userInfo.user_type === 'director' &&
+                    {(
+                      (['pending', 'accepted', 'finding', 'receiving', 'shipping']
+                      .includes(request.status) && userInfo.user_type === 'director') || 
+                      (userInfo.user_type === 'warehouse_keeper' 
+                        && ((request.user.user_type === 'donor' && request.status === 'shipping') 
+                          || (request.user.user_type === 'donee' && request.status === 'receiving')))
+                    ) &&
                       <Button variant='outline-danger' onClick={onShow}>
                         Hủy Yêu cầu
                       </Button>

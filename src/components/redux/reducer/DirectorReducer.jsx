@@ -507,7 +507,7 @@ export const cancelRequest = (data, director, navigate) => {
   return async dispatch => {
     try {
       console.log('cancel request');
-      await axiosInstance.patch(`/request/director`, {
+      await axiosInstance.patch(`/request/${director.userInfo.user_type}`, {
         email: director.userInfo.email,
         token: director.userToken,
         request_status: 'canceled',

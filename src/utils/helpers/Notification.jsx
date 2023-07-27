@@ -240,7 +240,6 @@ export const exportNotiElementContent = (data, userInfo, delivery_type) => {
       break;
     }
   }
-  console.log(condition)
   if (request_status === 'canceled' || request_status === 'rejected') {
     let role = '';
     switch (sender_role) {

@@ -46,6 +46,7 @@ const TableFilterRequest = ({
       statusList: [
         { value: '', label: 'Tất cả' },
         { value: 'receiving', label: 'Đang nhận' },
+        { value: 'shipping', label: 'Đang giao' },
         { value: 'success', label: 'Thành công' },
         { value: 'canceled', label: 'Đã hủy' }
       ]
@@ -54,6 +55,7 @@ const TableFilterRequest = ({
       from: 'donee', delivery_type: 'pickup',
       statusList: [
         { value: '', label: 'Tất cả' },
+        { value: 'accepted', label: 'Đã xác nhận' },
         { value: 'receiving', label: 'Đang nhận' },
         { value: 'success', label: 'Thành công' },
         { value: 'canceled', label: 'Đã hủy' }

@@ -22,6 +22,7 @@ const RequestList = ({
   const allRequests = useSelector(state => state.directorReducer.allRequests);
   const userInfo = useSelector(state => state.authenticationReducer.user);
   const userToken = useSelector(state => state.authenticationReducer.token);
+  const requestAttributes = JSON.parse(localStorage.getItem('requestAttributes'));
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -56,9 +57,6 @@ const RequestList = ({
     
     localStorage.setItem('requestAttributes', JSON.stringify({
       status: currentStatus,
-      filter: currentFilter,
-      sort_by: currentSortBy,
-      query: queryData
     }));
   }, [page, currentStatus, currentFilter, currentSortBy, queryData]);
 
