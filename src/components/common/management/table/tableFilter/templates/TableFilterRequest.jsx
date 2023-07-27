@@ -153,7 +153,7 @@ const TableFilterRequest = ({
           <TableItemIcon icon={{ icon: MdWarehouse, tip: 'Quản lý kho' }} />
           <TableFilterUser
             user={filterList[8].state} setUser={filterList[8].setState}
-            userType={'keeper'}
+            userType={'warehouse_keeper'}
             tip='Lọc Quản lý kho'
           />
           <TableItemIcon icon={{ icon: MdLocalShipping, tip: 'Tình nguyện viên' }} />

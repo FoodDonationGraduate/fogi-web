@@ -182,7 +182,7 @@ export const retrieveAllUsers = (data, director, navigate) => {
       await axiosInstance.get(`/${director.userInfo.user_type}/user`, { params: currentData })
       .then((res) => {
         if (data.user_type === 'director') dispatch(setAllDirectors(res.data));
-        else if (data.user_type === 'keeper') dispatch(setAllKeepers(res.data));
+        else if (data.user_type === 'warehouse_keeper') dispatch(setAllKeepers(res.data));
         else if (data.user_type === 'volunteer') dispatch(setAllVolunteers(res.data));
         else dispatch(setAllUsers(res.data));
       }).catch((err) => {
