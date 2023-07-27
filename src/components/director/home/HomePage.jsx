@@ -1,7 +1,6 @@
 // Essentials
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Col, Row, Stack } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 
@@ -17,11 +16,11 @@ import CategoryPage from './pages/food/CategoryPage';
 import ParentFoodPage from './pages/food/ParentFoodPage';
 import FoodPage from './pages/food/FoodPage';
 import ApproveListPage from './pages/approve/ApproveListPage';
-import ManageUserPage from './pages/manage/ManageUserPage';
 import UserListPage from './pages/manage/UserListPage'
+import UserPage from './pages/manage/UserPage';
+
 // Assets
 import {
-  MdMenu,
   MdOutlineAnalytics,
   MdOutlineArticle,
   MdOutlineCategory,
@@ -30,9 +29,6 @@ import {
   MdCheckCircleOutline,
   MdOutlineGroup // 4
 } from 'react-icons/md';
-
-// Utility
-import { useResizer } from 'utils/helpers/Resizer.jsx';
 
 // Redux
 import { setTypeOfUser } from 'components/redux/reducer/DirectorReducer';
@@ -50,7 +46,7 @@ const sideMenuInfoList = [
       { idx: 3, label: 'Hạng mục', link: 'categories', icon: MdOutlineCategory },
       { idx: 4, label: 'Hạng mục con', link: 'parent-food', icon: MdOutlineShoppingBag },
       { idx: 5, label: 'Xét duyệt', link: 'approve', icon: MdCheckCircleOutline },
-      { idx: 6, label: 'Người dùng', link: 'users', icon: MdOutlineGroup }
+      { idx: 6, label: 'Người dùng', link: 'users', icon: MdOutlineGroup },
     ]
   },
   {
@@ -70,13 +66,9 @@ const HomePage = ({
   activeIdx
 }) => {
   const userInfo = useSelector(state => state.authenticationReducer.user);
-  const { categoryId, parentFoodId } = useParams();
+  const { parentFoodId, userEmail } = useParams();
 
-  // for SideMenu Offcanvas
-  const [show, setShow] = useState(false);
-  const onShow = () => setShow(true);
-  const onHide = () => setShow(false);
-  const menu = sideMenuInfoList.find(m => m.user_type == userInfo.user_type).menu;
+  const menu = sideMenuInfoList.find(m => m.user_type === userInfo.user_type).menu;
 
   useEffect(() => {
     setTypeOfUser('donee');
@@ -98,7 +90,7 @@ const HomePage = ({
                   {userInfo.user_type === 'director' && <>
                     {activeIdx === 0 && <DashboardPage />}
                     {activeIdx === 5 && <ApproveListPage />}
-                    {activeIdx === 6 && <UserListPage />}
+                    {activeIdx === 6 && (!userEmail ? <UserListPage /> : <UserPage />)}
                   </>}
                   {userInfo.user_type === 'warehouse_keeper' && <>
                     {activeIdx === 2 && <UnsortedFoodPage />}

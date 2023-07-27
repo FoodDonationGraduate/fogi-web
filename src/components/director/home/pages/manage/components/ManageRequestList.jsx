@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import {  Col, Row } from 'react-bootstrap';
-import { EqualHeight } from 'react-equal-height';
+import { EqualHeight, EqualHeightElement } from 'react-equal-height';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
@@ -18,7 +18,7 @@ const ManageRequestList = ({ user }) => {
   const directorInfo = useSelector(state => state.authenticationReducer.user);
   const directorToken = useSelector(state => state.authenticationReducer.token);
 
-  const REQUESTS_COUNT = 4; // per page
+  const REQUESTS_COUNT = 8; // per page
   const [page, setPage] = useState(0);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -60,17 +60,19 @@ const ManageRequestList = ({ user }) => {
 
   return (
     <>
-        <ChipList
-            activeStatusIdx={activeFromIdx}
-            setActiveStatusIdx={setActiveFromIdx}
-            statusList={typeList}
-            getStatusLabel={getTypeLabel}
-            styleList={typeStyleList}
-            title={'Loại yêu cầu'}
-            style={'mb-2'}
-        />
+        {user.user_type === 'volunteer' &&
+          <ChipList
+              activeStatusIdx={activeFromIdx}
+              setActiveStatusIdx={setActiveFromIdx}
+              statusList={typeList}
+              getStatusLabel={getTypeLabel}
+              styleList={typeStyleList}
+              title={'Loại yêu cầu'}
+              style={'mb-2'}
+          />
+        }
         {(Object.keys(allRequests).length !== 0 && allRequests.total !== 0) && 
-            <Row className='mb-2' xs={1} md={2}>
+            <Row className='mb-2' xs={1} md={2} lg={4}>
                 <EqualHeight>
                     {Object.keys(allRequests).length !== 0 &&
                     allRequests.requests.map((request) => (
@@ -78,10 +80,12 @@ const ManageRequestList = ({ user }) => {
                         <div
                             className='order-item'
                             onClick={() => navigate(`/director/request/${user.user_type !== 'volunteer' ? user.user_type : typeList[activeFromIdx]}/${request.id}`)}
-                        >
+                        > 
+                          <EqualHeightElement>
                             <RequestCard
                                 request={request}
                             />
+                          </EqualHeightElement>
                         </div>
                     </Col>
                     ))}

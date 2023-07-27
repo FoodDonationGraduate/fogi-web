@@ -33,7 +33,7 @@ const TableFilterRequest = ({
   const statusList = [
       { value: '', label: 'Tất cả' },
       { value: 'locked', label: 'Bị khóa' },
-      { value: 'limited', label: 'Bị hạn chế' },
+      { value: 'not_info_verified', label: 'Bị hạn chế' },
   ];
 
   return (

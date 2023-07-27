@@ -52,7 +52,7 @@ const RequestDetailsPage = () => {
   //
   useEffect(() => {
     if (!request) return;
-    if (request.status !== 'pending') {setIsDistributed(true);} else {setIsDistributed(false);}
+    if (request.status === 'pending' && request.user.user_type === 'donee') {setIsDistributed(false);} else {setIsDistributed(true);}
     const parentFoodList = request.products.map(p => { return { ...p, foodList: [] } });
     setSubCategoryList(parentFoodList);
 
@@ -97,68 +97,77 @@ const RequestDetailsPage = () => {
 
   // Update
   const getNextCondition = () => {
-    if (request.user.user_type === 'donor') {
-      switch (request.status) {
-        case 'pending': return {
-          condition: targetVolunteer,
-          label: 'Duyệt Yêu cầu',
-          tip: 'Bạn chưa chọn Tình nguyện viên'
+    if (userInfo.user_type === 'warehouse_keeper') {
+      if (request.user.user_type === 'donor' && request.status === 'shipping') {
+        return {
+          condition: true,
+          label: 'Đã nhận Túi Quyên góp',
+          tip: ''
         };
-        case 'finding':
-          return {
-            condition: targetVolunteer,
-            label: 'Chọn lại Tình nguyện viên',
-            tip: 'Bạn chưa chọn Tình nguyện viên'
-          }
-        case 'shipping': 
-          if (userInfo.user_type === 'director') return undefined;
+      } else if (request.user.user_type === 'donee') {
+        if (request.delivery === 'delivery' && request.status === 'receiving') {
           return {
             condition: true,
-            label: 'Đã nhận Túi Quyên góp',
-            tip: ''
-          };
-        default: return undefined;
+            label: 'Đã giao thực phẩm cho tình nguyện viên'
+          }
+        } else if (request.delivery === 'pickup' && request.status === 'accepted') {
+          return {
+            condition: true,
+            label: 'Chuyển trạng thái',
+            tip: 'Lập tức hoàn thành yêu cầu'
+          }
+        } else if (request.delivery === 'pickup' && request.status === 'receiving') {
+          return {
+            condition: true,
+            label: 'Đã giao thực phẩm cho người nhận'
+          }
+        }
       }
+      return undefined;
     } else {
-      switch (request.status) {
-        case 'pending':
-          if (request.delivery === 'delivery') {
-            return !isDistributed ? {
-              condition: !isError && isEnough(),
-              label: 'Xác nhận điều phối',
-              tip: 'Bạn chưa phân phối đủ Thực phẩm'
-            } : {
+      if (request.user.user_type === 'donor') {
+        switch (request.status) {
+          case 'pending': return {
+            condition: targetVolunteer,
+            label: 'Duyệt Yêu cầu',
+            tip: 'Bạn chưa chọn Tình nguyện viên'
+          };
+          case 'finding':
+            return {
               condition: targetVolunteer,
-              label: 'Duyệt Yêu cầu',
+              label: 'Chọn lại Tình nguyện viên',
               tip: 'Bạn chưa chọn Tình nguyện viên'
             }
-          } else {
-            return {
-              condition: !isError && isEnough(),
-              label: 'Duyệt Yêu cầu',
-              tip: 'Bạn chưa phân phối đủ Thực phẩm'
-            }
-          }
-        case 'finding':
-          return {
-            condition: targetVolunteer,
-            label: 'Chọn lại Tình nguyện viên',
-            tip: 'Bạn chưa chọn Tình nguyện viên'
-          }
-        case 'accepted': return {
-          condition: true,
-          label: 'Chuyển trạng thái',
-          tip: ''
+          default: return undefined;
         }
-        case 'receiving':
-        if (request.delivery_type && request.delivery_type === 'pickup') {
-          return {
-              condition: true,
-              label: 'Nhận thành công',
-              tip: ''
+      } else {
+        switch (request.status) {
+          case 'pending':
+            if (request.delivery === 'delivery') {
+              return !isDistributed ? {
+                condition: !isError && isEnough(),
+                label: 'Xác nhận điều phối',
+                tip: 'Bạn chưa phân phối đủ Thực phẩm'
+              } : {
+                condition: targetVolunteer,
+                label: 'Duyệt Yêu cầu',
+                tip: 'Bạn chưa chọn Tình nguyện viên'
+              }
+            } else {
+              return {
+                condition: !isError && isEnough(),
+                label: 'Duyệt Yêu cầu',
+                tip: 'Bạn chưa phân phối đủ Thực phẩm'
+              }
             }
-        } else return undefined;
-        default: return undefined;
+          case 'finding':
+            return {
+              condition: targetVolunteer,
+              label: 'Chọn lại Tình nguyện viên',
+              tip: 'Bạn chưa chọn Tình nguyện viên'
+            }
+          default: return undefined;
+        }
       }
     }
   }

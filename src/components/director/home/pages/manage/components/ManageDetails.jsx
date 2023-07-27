@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { Accordion, Col, Row, Stack } from 'react-bootstrap';
-import { EqualHeight } from 'react-equal-height';
+import { EqualHeight, EqualHeightElement } from 'react-equal-height';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
@@ -14,8 +14,9 @@ import ReportItem from './ReportItem';
 import Pagination from 'components/common/pagination/Pagination';
 import BackButton from 'components/common/BackButton';
 import ManageRequestList from './ManageRequestList';
+import ManageStatistics from './ManageStatistics';
 
-const ManageDetails = ({ user, setTargetUser }) => {
+const ManageDetails = ({ user }) => {
   const reports = useSelector(state => state.directorReducer.reports);
   const directorInfo = useSelector(state => state.authenticationReducer.user);
   const directorToken = useSelector(state => state.authenticationReducer.token);
@@ -27,17 +28,6 @@ const ManageDetails = ({ user, setTargetUser }) => {
   const navigate = useNavigate();
   const onChangePage = async (idx) => {
     setPage(idx);
-    await dispatch(retrieveReports(
-      {
-        limit: REPORT_COUNT,
-        offset: idx * REPORT_COUNT,
-        reportee_email: user.email
-      }, {
-        userInfo: directorInfo,
-        userToken: directorToken
-      },
-      navigate
-    ));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   };
   
@@ -46,7 +36,7 @@ const ManageDetails = ({ user, setTargetUser }) => {
     dispatch(retrieveReports(
       {
         limit: REPORT_COUNT,
-        offset: 0,
+        offset: page * REPORT_COUNT,
         reportee_email: user.email
       }, {
         userInfo: directorInfo,
@@ -55,7 +45,7 @@ const ManageDetails = ({ user, setTargetUser }) => {
       navigate
     ));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [page]);
 
   return (
     <Row>
@@ -63,13 +53,13 @@ const ManageDetails = ({ user, setTargetUser }) => {
         <Row className='mb-4'>
           <Col>
             <div className='mb-2'>
-              <BackButton setTargetList={[{ setTarget: setTargetUser, isReducer: false }]} />
+              <BackButton setTargetList={[]} />
             </div>
-            <ManageInfoCard
+            {/* <ManageInfoCard
               user={user}
               userInfo={directorInfo}
               userToken={directorToken}
-            />
+            /> */}
           </Col>
         </Row>
         
@@ -77,19 +67,32 @@ const ManageDetails = ({ user, setTargetUser }) => {
           <Col>
             <Accordion>
               
-              <Accordion.Item eventKey="0">
+              <Accordion.Item eventKey="0" className='mt-4'>
+                <Accordion.Header>
+                  <h3>Thống kê</h3>
+                </Accordion.Header>
+                <Accordion.Body className='bg'>
+                  <ManageStatistics user={user}/>
+                </Accordion.Body>
+              </Accordion.Item>
+
+
+              <Accordion.Item eventKey="1" className='mt-4'>
                 <Accordion.Header>
                   <h3>Báo cáo ({reports.total_reports})</h3>
                 </Accordion.Header>
                 <Accordion.Body className='bg'>
-                  <Row className='mb-2' xs={1} md={2}>
+                  <Row className='mb-2' xs={1} md={2} >
                     <EqualHeight>
                       {Object.keys(reports).length !== 0 &&
                       reports.reports.map((report) => (
                         <Col className='mb-4' key={report.id}>
-                          <ReportItem
-                            report={report}
-                          />
+                          <EqualHeightElement>
+                            <ReportItem
+                              report={report}
+                            />
+                          </EqualHeightElement>
+                          
                         </Col>
                       ))}
                     </EqualHeight>
@@ -106,7 +109,7 @@ const ManageDetails = ({ user, setTargetUser }) => {
                 </Accordion.Body>
               </Accordion.Item>
               
-              <Accordion.Item eventKey="1" className='mt-4'>
+              <Accordion.Item eventKey="2" className='mt-4'>
                 <Accordion.Header>
                   <h3>Danh sách yêu cầu</h3>
                 </Accordion.Header>

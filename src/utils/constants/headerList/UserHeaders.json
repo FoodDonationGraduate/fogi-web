@@ -8,11 +8,11 @@
     },{
       "label": "Số yêu cầu nhận",
       "size": 2,
-      "sort_field": "total_request"
+      "sort_field": "num_take_request"
     },{
       "label": "Khối lượng",
       "size": 1,
-      "sort_field": "sum_item",
+      "sort_field": "sum_kg",
       "tip" : "Tổng khối lượng thực phẩm người dùng nhận quyên góp"
     },{
       "label": "Số lượng",
@@ -22,7 +22,7 @@
     },{
       "label": "Bị báo cáo",
       "size": 2,
-      "sort_field": "total_report"
+      "sort_field": "num_being_reported"
     },{
       "label": "Trạng thái",
       "size": 2
@@ -37,11 +37,11 @@
     },{
       "label": "Số yêu cầu cho",
       "size": 2,
-      "sort_field": "total_request"
+      "sort_field": "num_give_request"
     },{
       "label": "Khối lượng",
       "size": 1,
-      "sort_field": "sum_item",
+      "sort_field": "sum_kg",
       "tip" : "Tổng khối lượng thực phẩm người dùng quyên góp"
     },{
       "label": "Số lượng",
@@ -51,7 +51,7 @@
     },{
       "label": "Bị báo cáo",
       "size": 2,
-      "sort_field": "total_report"
+      "sort_field": "num_being_reported"
     },{
       "label": "Trạng thái",
       "size": 2
@@ -66,15 +66,15 @@
     },{
       "label": "Số yêu cầu cho",
       "size": 2,
-      "sort_field": "total_request"
+      "sort_field": "num_give_request"
     },{
       "label": "Số yêu cầu nhận",
       "size": 2,
-      "sort_field": "total_request"
+      "sort_field": "num_take_request"
     },{
       "label": "Bị báo cáo",
       "size": 2,
-      "sort_field": "total_report"
+      "sort_field": "num_being_reported"
     },{
       "label": "Trạng thái",
       "size": 2

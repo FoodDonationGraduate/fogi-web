@@ -175,7 +175,9 @@ export const retrieveAllUsers = (data, director, navigate) => {
         email_query: data.email_query,
         sum_kg_filter: data.sum_kg_filter,
         sum_item_filter: data.sum_item_filter,
-        being_reported_filter: data.being_reported_filter
+        being_reported_filter: data.being_reported_filter,
+        account_status_filter: data.account_status_filter,
+        sorts: data.sorts
       }
       if (data.num_take_request_filter) {currentData.num_take_request_filter = data.num_take_request_filter}
       if (data.num_give_request_filter) {currentData.num_give_request_filter = data.num_give_request_filter}

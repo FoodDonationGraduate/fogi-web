@@ -88,8 +88,8 @@ const RequestListPage = () => {
       sum_kg_filter: JSON.stringify(sumKg),
       sum_item_filter: JSON.stringify(sumItem),
       being_reported_filter: JSON.stringify(numReport),
-      // status_filter: status.value,
-      // sorts: JSON.stringify(sortFields)
+      account_status_filter: JSON.stringify([status.value]),
+      sorts: JSON.stringify(sortFields)
     };
     if (from === 'donor') { delete data.num_take_request_filter} else if (from === 'donee') {delete data.num_give_request_filter;}
     dispatch(retrieveAllUsers(
@@ -97,9 +97,10 @@ const RequestListPage = () => {
       { userInfo, userToken },
       navigate
     ));
-  }, [name, email, from, numGiveRequest, numTakeRequest, sumKg, sumItem, numReport, sortFields, page
+  }, [name, email, from, numGiveRequest, numTakeRequest, sumKg, sumItem, numReport, sortFields, page, status
   ]);
-  console.log(from)
+  const [targetUser, setTargetUser] = useState(null);
+  console.log([status.value])
   return (
     <>
       <Stack direction='horizontal' gap={2}>
@@ -130,6 +131,7 @@ const RequestListPage = () => {
         type='user'
       />
     </>
+
   );
 };
 

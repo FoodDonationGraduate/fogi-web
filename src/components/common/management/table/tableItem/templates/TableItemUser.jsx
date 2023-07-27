@@ -28,7 +28,7 @@ const TableItemUser = ({
       <Col className='mn-table-item-col' xs={2}>
         <Stack direction='horizontal' gap={2}>
           <TableItemImage image={user.avatar} />
-          <TableItemTitle title={user.name} onClick={() => { navigate(`/${userInfo.user_type}/parent-food/${user.email}`) }} />
+          <TableItemTitle title={user.name} onClick={() => { navigate(`/${userInfo.user_type}/user/${user.user_type}/${user.email}`) }} />
         </Stack>
       </Col>
       <Col className='mn-table-item-col' xs={2}>

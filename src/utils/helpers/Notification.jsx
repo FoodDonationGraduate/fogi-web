@@ -272,6 +272,7 @@ export const exportNotiElementLink = (data, userInfo) => {
     let request_from = data.noti_type === 'take_request_state_change' ? 'donee' : 'donor';
     return `/director/request/${request_from}/${request_id}`;
   } else {
-    return `/director/request/${data.request_from}/${request_id}`;
+    let request_from = data.noti_type === 'take_request_state_change' ? 'donee' : 'donor';
+    return `/warehouse_keeper/request/${request_from}/${request_id}`;
   }
 }
