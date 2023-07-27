@@ -14,7 +14,8 @@ import {
   TableItemImage,
   TableItemTitle,
   TableItemText,
-  TableItemIcon
+  TableItemIcon,
+  TableItemTag
 } from '../TableItemComponent';
 
 const TableItemUser = ({
@@ -68,10 +69,13 @@ const TableItemUser = ({
       <Col className='mn-table-item-col' xs={2}>
         <Stack direction='horizontal' gap={2}>
           {user.is_locked && 
-            <TableItemIcon icon={{ icon: MdOutlineLock, tip: 'Bị khóa' }} />
+            <TableItemTag color='red' label='Bị khóa' />
           }
           {!user.is_approved && 
-            <TableItemIcon icon={{ icon: MdGppMaybe, tip: 'Bị hạn chế' }} />
+            <TableItemTag color='yellow' label='Bị hạn chế' />
+          }
+          {!user.is_locked && user.is_approved &&
+            <TableItemTag color='green' label='Bình thường' />
           }
         </Stack>
       </Col>

@@ -184,7 +184,7 @@ export const retrieveAllUsers = (data, director, navigate) => {
       await axiosInstance.get(`/${director.userInfo.user_type}/user`, { params: currentData })
       .then((res) => {
         if (data.user_type === 'director') dispatch(setAllDirectors(res.data));
-        else if (data.user_type === 'keeper') dispatch(setAllKeepers(res.data));
+        else if (data.user_type === 'warehouse_keeper') dispatch(setAllKeepers(res.data));
         else if (data.user_type === 'volunteer') dispatch(setAllVolunteers(res.data));
         else dispatch(setAllUsers(res.data));
       }).catch((err) => {
@@ -369,7 +369,7 @@ export const retrieveAllRequests = (data, director, navigate) => {
         sum_item_filter: data.sum_item_filter,
         distance_filter: data.distance_filter,
         director_email: data.director_email,
-        keeper_email: data.keeper_email,
+        warehouse_keeper_email: data.warehouse_keeper_email,
         volunteer_email: data.volunteer_email,
         min_created_time: data.min_created_time,
         max_created_time: data.max_created_time,

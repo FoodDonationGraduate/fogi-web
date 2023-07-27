@@ -93,7 +93,7 @@ const RequestListPage = () => {
       sum_item_filter: JSON.stringify(sumItem),
       distance_filter: JSON.stringify(distance),
       director_email: director ? director.email : '',
-      keeper_email: warehouseKeeper ? warehouseKeeper.email : '',
+      warehouse_keeper_email: warehouseKeeper ? warehouseKeeper.email : '',
       volunteer_email: volunteer ? volunteer.email : '',
       min_created_time: createdTime.min,
       max_created_time: createdTime.max,

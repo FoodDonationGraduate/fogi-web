@@ -4,7 +4,7 @@ export const getUserTypeLabel = (userType) => {
     case 'donor': return 'Người cho';
     case 'volunteer': return 'Tình nguyện viên';
     case 'director': return 'Điều phối viên';
-    case 'keeper': return 'Quản lý kho';
+    case 'warehouse_keeper': return 'Quản lý kho';
     default: return undefined;
   }
 };

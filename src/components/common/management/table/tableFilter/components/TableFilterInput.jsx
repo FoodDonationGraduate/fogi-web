@@ -122,11 +122,12 @@ export const TableFilterRange = ({
     if (timeoutId) clearTimeout(timeoutId);
     let str = event.target.value;
     setTempRange(str);
-    const result = convertToRange(str);
+    let result = convertToRange(str);
     if (!result) {
       setIsError(true);
       return;
-    } else setIsError(false);
+    }
+    setIsError(false);
 
     const newTimeoutId = setTimeout(() => {
       setRange(result);

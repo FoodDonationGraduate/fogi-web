@@ -119,13 +119,22 @@ export const TableItemIcon = ({
 
 export const TableItemTag = ({
   color,
-  label
+  label,
+  tip=null
 }) => {
 
   return (<>
-    <div className={`mn-table-item-tag mn-bg-${color}`}>
-      {label}
-    </div>
+    <OverlayTrigger
+      placement='top'
+      overlay={
+        tip ? <Tooltip style={{ position: 'fixed' }}>{tip}</Tooltip>
+        : <></>
+      }
+    >
+      <div className={`mn-table-item-tag mn-bg-${color}`}>
+        {label}
+      </div>
+    </OverlayTrigger>
   </>);
 };
 

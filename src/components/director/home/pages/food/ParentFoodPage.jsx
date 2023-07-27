@@ -102,7 +102,7 @@ const ParentFoodPage = () => {
   return (
     <>
       <div className='d-flex justify-content-between'>
-        <Title title='Quản lý Hạng mục con' />
+        <Title title={!categoryId ? 'Quản lý Hạng mục con' : (categoryList.length > 0 ? categoryList[0].label : '')} />
         <Button 
           className='fogi' variant='primary'
           onClick={onShow}

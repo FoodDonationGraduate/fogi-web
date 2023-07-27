@@ -130,7 +130,7 @@ export const UserFilterModal = ({
               onHide={onHide}
             />
           ))}
-          {userType === 'keeper' && Object.keys(allKeepers).length > 0 && allKeepers.users.map((user, idx) => (
+          {userType === 'warehouse_keeper' && Object.keys(allKeepers).length > 0 && allKeepers.users.map((user, idx) => (
             <UserModalItem key={idx}
               user={user} setUser={setUser}
               onHide={onHide}
