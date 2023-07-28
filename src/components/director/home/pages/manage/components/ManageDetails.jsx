@@ -20,7 +20,6 @@ const ManageDetails = ({ user }) => {
   const reports = useSelector(state => state.directorReducer.reports);
   const directorInfo = useSelector(state => state.authenticationReducer.user);
   const directorToken = useSelector(state => state.authenticationReducer.token);
-
   const REPORT_COUNT = 4; // per page
   const [page, setPage] = useState(0);
 
@@ -55,11 +54,11 @@ const ManageDetails = ({ user }) => {
             <div className='mb-2'>
               <BackButton setTargetList={[]} />
             </div>
-            {/* <ManageInfoCard
+            <ManageInfoCard
               user={user}
               userInfo={directorInfo}
               userToken={directorToken}
-            /> */}
+            />
           </Col>
         </Row>
         
@@ -72,7 +71,10 @@ const ManageDetails = ({ user }) => {
                   <h3>Thống kê</h3>
                 </Accordion.Header>
                 <Accordion.Body className='bg'>
-                  <ManageStatistics user={user}/>
+                  <ManageStatistics 
+                    user={user}
+                    userInfo={directorInfo}
+                    userToken={directorToken}/>
                 </Accordion.Body>
               </Accordion.Item>
 

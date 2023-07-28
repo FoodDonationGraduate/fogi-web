@@ -21,10 +21,10 @@ const RequestListPage = () => {
   const allVolunteers = useSelector(state => state.directorReducer.allVolunteers);
   const userInfo = useSelector(state => state.authenticationReducer.user);
   const userToken = useSelector(state => state.authenticationReducer.token);
+  const usersAttributes = JSON.parse(localStorage.getItem('usersAttributes'));
   const dispatch = useDispatch(); const navigate = useNavigate();
 
   // Chip List - for Filter
-  const [activeFromIdx, setActiveFromIdx] = useState(0);
   const fromList = ['donee', 'donor', 'volunteer'];
   const getFromLabel = (from) => {
     switch (from) {
@@ -37,7 +37,9 @@ const RequestListPage = () => {
     }
   };
   const fromStyleList = ['success', 'success', 'success'];
-
+  const [activeFromIdx, setActiveFromIdx] = useState((usersAttributes && usersAttributes.status) 
+  ? (usersAttributes.status === 'donee' ? 0 : (usersAttributes.status === 'donor' ? 1 : 2))
+  : 0);
   // Filters
   const [from, setFrom] = useState('donee');
   const [name, setName ] = useState('');
@@ -97,6 +99,9 @@ const RequestListPage = () => {
       { userInfo, userToken },
       navigate
     ));
+    localStorage.setItem('usersAttributes', JSON.stringify({
+      status: from,
+    }));
   }, [name, email, from, numGiveRequest, numTakeRequest, sumKg, sumItem, numReport, sortFields, page, status
   ]);
   const [targetUser, setTargetUser] = useState(null);
