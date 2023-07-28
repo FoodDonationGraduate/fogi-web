@@ -7,9 +7,6 @@ import { useParams } from 'react-router-dom';
 // Components
 import ManageDetails from './components/ManageDetails';
 
-// Redux
-import { setTypeOfUser } from 'components/redux/reducer/DirectorReducer';
-
 const UserPage = () => {
   const dispatch = useDispatch();
   const { userType, userEmail } = useParams();

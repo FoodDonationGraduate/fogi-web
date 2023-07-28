@@ -26,7 +26,11 @@ const initialState = {
   currentParentFood: null,
   allFood: {},
 
-  initialParentFood: {}
+  initialParentFood: {},
+
+  currentUser: {},
+  currentStats: {},
+  currentChart: {}
 };
 
 const directorReducer = createSlice({
@@ -84,7 +88,17 @@ const directorReducer = createSlice({
 
     setInitialParentFood: (state, action) => {
       state.initialParentFood = action.payload;
-    }
+    },
+
+    setCurrrentUser: (state, action) => {
+      state.currentUser = action.payload;
+    },
+    setCurrrentStats: (state, action) => {
+      state.currentStats = action.payload;
+    },
+    setCurrrentChart: (state, action) => {
+      state.currentChart = action.payload;
+    },
   }
 });
 
@@ -97,7 +111,7 @@ export const {
 
   setAllUnsortedFood, setAllParentFood, setCurrentParentFood, setAllFood,
 
-  setInitialParentFood
+  setInitialParentFood, setCurrrentUser, setCurrrentStats, setCurrrentChart
 } = directorReducer.actions
 
 export default directorReducer.reducer
@@ -264,19 +278,18 @@ export const verifyUser = (data, director, navigate) => {
 
 export const approveUser = (data, director, navigate) => {
   return async dispatch => {
-    var result = false;
     try {
       console.log(`${data.action} user`);
       await axiosInstance.patch(`/verify/info`, {
         email: director.userInfo.email,
         token: director.userToken,
-        user_email: data.email,
+        user_email: data.user_email,
         action: data.action
       }).then((res) => {
         handleExpiredToken(res, dispatch, navigate);
         dispatch(setModalMessage(`${data.action === 'approve' ? 'Chấp thuận ' : 'Hạn chế '}người dùng thành công!"`));
         dispatch(showModal());
-        result = true;
+        dispatch(retrieveCurrentUser({user_email: data.user_email}, director, navigate));
       }).catch((err) => {
         if (handleExpiredToken(err.response.data, dispatch, navigate)) {
         } else {
@@ -290,7 +303,6 @@ export const approveUser = (data, director, navigate) => {
       console.log(err);
       navigate('/');
     }
-    return result;
   }
 }
 
@@ -305,9 +317,9 @@ export const lockUser = (data, director, navigate) => {
         action: `${!data.isLock ? 'un' : ''}lock`
       }).then((res) => {
         handleExpiredToken(res, dispatch, navigate);
-        data.setIsLocked(data.isLock)
         dispatch(setModalMessage(`${!data.isLock ? 'Mở k' : 'K'}hóa tài khoản thành công!`));
         dispatch(showModal());
+        dispatch(retrieveCurrentUser({user_email: data.user_email}, director, navigate))
       }).catch((err) => {
         if (handleExpiredToken(err.response.data, dispatch, navigate)) {
         } else {
@@ -856,6 +868,92 @@ export const retrieveInitialParentFood = (data, director, navigate) => {
           dispatch(setModalType('danger'))
           dispatch(showModal())
        }
+      });
+    } catch (err) {
+      console.log(err);
+      navigate('/');
+    }
+  }
+}
+
+export const retrieveCurrentUser = (data, director, navigate) => {
+  return async dispatch => {
+    try {
+      console.log(`retrieve user with email ${data.user_email}`);
+      await axiosInstance.get(`/director/user`, { params: {
+        email: director.userInfo.email,
+        token: director.userToken,
+        user_email: data.user_email
+      }}).then((res) => {
+        dispatch(setCurrrentUser(res.data));
+      }).catch((err) => {
+        if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+        } else {
+          console.log(err.response.data);
+          dispatch(setModalMessage("Đã xảy ra lỗi!"))
+          dispatch(setModalType('danger'))
+          dispatch(showModal())
+       }
+       dispatch(setCurrrentUser({}));
+      });
+    } catch (err) {
+      console.log(err);
+      navigate('/');
+    }
+  }
+}
+
+export const retrieveCurrentStats = (data, director, navigate) => {
+  return async dispatch => {
+    try {
+      console.log(`retrieve user's stats with email ${data.user_email}`);
+      await axiosInstance.get(`/director/user/stats`, { params: {
+        email: director.userInfo.email,
+        token: director.userToken,
+        user_email: data.user_email,
+        stats_type: data.stats_type
+      }}).then((res) => {
+        dispatch(setCurrrentStats(res.data));
+      }).catch((err) => {
+        if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+        } else {
+          console.log(err.response.data);
+          dispatch(setModalMessage("Đã xảy ra lỗi!"))
+          dispatch(setModalType('danger'))
+          dispatch(showModal())
+       }
+       dispatch(setCurrrentStats({}));
+      });
+    } catch (err) {
+      console.log(err);
+      navigate('/');
+    }
+  }
+}
+
+export const retrieveCurrentChart = (data, director, navigate) => {
+  return async dispatch => {
+    try {
+      console.log(`retrieve user's chart with email ${data.user_email}`);
+      const currentParams = {
+        email: director.userInfo.email,
+        token: director.userToken,
+        user_email: data.user_email,
+        chart_type: data.chart_type,
+        time_type: data.time_type
+      };
+      if (data.chart_type === 'food') {currentParams.unit = data.unit}
+      await axiosInstance.get(`/director/user/chart`, { params: currentParams}).then((res) => {
+        dispatch(setCurrrentChart(res.data));
+      }).catch((err) => {
+        if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+        } else {
+          console.log(err.response.data);
+          dispatch(setModalMessage("Đã xảy ra lỗi!"))
+          dispatch(setModalType('danger'))
+          dispatch(showModal())
+       }
+       dispatch(setCurrrentChart({}));
       });
     } catch (err) {
       console.log(err);
