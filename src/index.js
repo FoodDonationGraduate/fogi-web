@@ -56,7 +56,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         
         <Route path="*" element={<NotFoundPage />} />
         
-        <Route path="/category/:name" element={<CategoryProductListPage />} />
+        <Route path="/category/:id" element={<CategoryProductListPage />} />
         <Route path="/product/:id" element={<ProductDetailsPage />} />
 
         <Route path="/login" element={<UserLogin />} />
