@@ -35,6 +35,7 @@ const CreateRequestModal = ({
 
   // Form handling
   const formSchema = Yup.object().shape({
+    request_name: Yup.string().required(''),
     available_start_date: Yup.string().required(''),
     available_start_time: Yup.string().required(''),
     available_end_date: Yup.string().required(''),
@@ -52,6 +53,7 @@ const CreateRequestModal = ({
     } else {
       dispatch(postDonorRequest({
         ...selectedAddress,
+        request_name: data.request_name,
         available_start_date: data.available_start_date,
         available_start_time: data.available_start_time + ':00',
         available_end_date: data.available_end_date,
@@ -75,6 +77,20 @@ const CreateRequestModal = ({
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleSubmit(createRequest)}>
+
+            <Form.Group className='mb-3'>
+              <Form.Label style={{ fontWeight: 'bold' }}>
+                Tên Yêu cầu
+              </Form.Label>
+              <Form.Control{...register('request_name')} />
+              {errors.request_name && errors.request_name.type === 'required' && (
+                <p className="mt-2 error">
+                  <FaExclamationTriangle className="mx-2" />
+                  Bạn chưa điền tên Yêu cầu
+                </p>
+              )}
+            </Form.Group>
+
             <Form.Group className='mb-3'>
               <Form.Label style={{ fontWeight: 'bold'}}>
                 Địa chỉ

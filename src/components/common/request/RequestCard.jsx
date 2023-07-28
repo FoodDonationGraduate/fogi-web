@@ -39,13 +39,16 @@ const RequestCard = ({
         {content.chip}
       </span>
         
-        <div className='mt-3 mb-1'>
-          <h4 className='order-item-date'>
-            Yêu cầu {request.id}
-          </h4>
-        </div>
-
-        <EqualHeightElement name="request-food-list">
+        <EqualHeightElement name="request-food-name">
+          <div className='mt-3 mb-1'>
+            <small className='order-item-secondary'>
+              Yêu cầu {request.id}
+            </small>
+            <h5 className='order-item-date'>
+              {request.name ? request.name : `Yêu cầu ${request.from === 'donor' ? 'cho' : 'nhận'}`}
+            </h5>
+          </div>
+          
           {request.products.slice(0, productListDisplayLength()).map((product, idx) => (
             <header className='order-item-secondary my-1' key={idx}>
               • {product.name} ({product.quantity} {getUnit(product.unit)})
