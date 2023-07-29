@@ -590,11 +590,13 @@ export const retrieveAllUnsortedFood = (data, director, navigate) => {
         filter: 'in_stock',
       }
       if (data.search_query !== '') { currentData.search_query = data.search_query }
+      if (data.setIsLoading) data.setIsLoading(true);
 
       console.log('retrieve unsorted food');
       await axiosInstance.get(`/child/product/director`, { params: currentData })
       .then((res) => {
         dispatch(setAllUnsortedFood(res.data));
+        if (data.setIsLoading) data.setIsLoading(false);
       }).catch((err) => {
         if (handleExpiredToken(err.response.data, dispatch, navigate)) {
           
@@ -772,11 +774,13 @@ export const retrieveAllFood = (data, director, navigate) => {
         parent_id: data.parent_id
       }
       if (data.search_query !== '') { currentData.search_query = data.search_query }
+      if (data.setIsLoading) data.setIsLoading(true);
 
       console.log('retrieve food');
       await axiosInstance.get(`/child/product/director`, { params: currentData})
       .then((res) => {
         dispatch(setAllFood(res.data));
+        if (data.setIsLoading) data.setIsLoading(false);
       }).catch((err) => {
         if (handleExpiredToken(err.response.data, dispatch, navigate)) {
           

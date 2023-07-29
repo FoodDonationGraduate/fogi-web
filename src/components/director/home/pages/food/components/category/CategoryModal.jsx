@@ -97,7 +97,6 @@ const CategoryModal = ({
 
   // Edit handling
   useEffect(() => {
-    console.log(JSON.stringify(category))
     if (category) {
       setImage(`https://bachkhoi.online/static/${category.image}`);
     } else {

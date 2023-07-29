@@ -37,9 +37,9 @@ const SubCategoryModal = ({
   const allCategories = useSelector(
     (state) => state.categoryReducer.allCategories
   );
-  useEffect(() => {
-    dispatch(retrieveAllCategories({}, navigate));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(retrieveAllCategories({}, navigate));
+  // }, []);
   const { categoryId } = useParams();
 
   // Form handling
@@ -118,7 +118,6 @@ const SubCategoryModal = ({
 
   // Edit handling
   useEffect(() => {
-    console.log(JSON.stringify(subCategory));
     if (subCategory) {
       setImage(`https://bachkhoi.online/static/${subCategory.image}`);
     } else {

@@ -25,6 +25,8 @@ const ParentFoodPage = () => {
   const userToken = useSelector(state => state.authenticationReducer.token);
   const dispatch = useDispatch(); const navigate = useNavigate();
   const { categoryId } = useParams();
+
+  // Spinner
   const [isLoading, setIsLoading] = useState(false);
 
   // SubCategory Modal
@@ -49,9 +51,8 @@ const ParentFoodPage = () => {
 
   // Get category if endpoint is like '/category/:categoryId'
   useEffect(() => {
-    if (!categoryId) return;
     dispatch(retrieveAllCategories({}, navigate));
-  }, [categoryId]);
+  }, []);
 
   useEffect(() => {
     if (!allCategories.categories) return;
@@ -64,13 +65,12 @@ const ParentFoodPage = () => {
         label: category.name
       }])
     }
-  }, [allCategories]);
+  }, [categoryId, allCategories]);
 
   const [first, setFirst] = useState(false);
   useEffect(() => { // Redirect to '/parent-food' from '/category/categoryId'
     if (!first) { setFirst(true); return; }
-    if (!categoryId) return;
-    if (categoryList.length === 1) return;
+    if (!categoryId || categoryList.length === 1) return;
     navigate(`/${userInfo.user_type}/parent-food`);
   }, [categoryList]);
 

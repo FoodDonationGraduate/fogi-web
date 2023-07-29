@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router';
 import CategoryHeaders from 'utils/constants/headerList/CategoryHeaders.json';
 
 // Components
+import Spinner from 'components/common/Spinner';
 import Table from 'components/common/management/table/Table';
 import Title from 'components/common/management/common/Title';
 import CategoryModal from 'components/director/home/pages/food/components/category/CategoryModal';
@@ -19,6 +20,9 @@ const CategoryPage = () => {
   // Constants
   const allCategories = useSelector(state => state.categoryReducer.allCategories);
   const dispatch = useDispatch(); const navigate = useNavigate();
+
+  // Spinner
+  const [isLoading, setIsLoading] = useState(false);
 
   // Parent Food Modal
   const [show, setShow] = useState(false);
@@ -53,7 +57,9 @@ const CategoryPage = () => {
       max_created_time: createdTime.max,
       min_updated_time: updatedTime.min,
       max_updated_time: updatedTime.max,
-      sorts: JSON.stringify(sortFields)
+      sorts: JSON.stringify(sortFields),
+
+      setIsLoading
     };
 
     dispatch(retrieveAllCategories(data, navigate));
@@ -61,6 +67,7 @@ const CategoryPage = () => {
 
   return (
     <>
+      {isLoading && <Spinner />}
       <div className='d-flex justify-content-between'>
         <Title title='Quản lý Hạng mục' />
         <Button 

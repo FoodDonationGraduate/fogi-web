@@ -43,9 +43,12 @@ export const retrieveAllCategories = (data, navigate) => {
                 sorts: data.sorts
             }
             console.log("retrieve all categories")
+            if (data.setIsLoading) data.setIsLoading(true);
+
             await axiosInstance.get(`/category`, { params: currentData })
             .then((res) => {
                 dispatch(setAllCategories(res.data))
+                if (data.setIsLoading) data.setIsLoading(false);
             })
             .catch((err) => {
                 console.log(err)
