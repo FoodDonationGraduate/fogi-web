@@ -58,8 +58,11 @@ const RequestInfoCard = ({ request }) => {
               </span>
 
               <div className='mt-3 mb-1'>
-                <h4 className='order-item-date'>
+                <div className='order-item-secondary mt-3'>
                   Yêu cầu {request.id}
+                </div>
+                <h4 className='order-item-date'>
+                  {request.name ? request.name : `Yêu cầu ${request.user.user_type === 'donor' ? 'cho' : 'nhận'}`}
                 </h4>
               </div>
               

@@ -46,6 +46,7 @@ const RequestInfoCard = (
 
   // Form handling
   const formSchema = Yup.object().shape({
+    request_name: Yup.string().required(''),
     reason: Yup.string().required(''),
     currentAddress: Yup.object().required('')
   });
@@ -55,6 +56,7 @@ const RequestInfoCard = (
   
   const onSubmit = (data) => {
     dispatch(postDoneeRequest({
+      request_name: data.request_name,
       reason: data.reason, 
       delivery_type: activeStatusIdx === 0 ? 'pickup' : 'delivery',
       address: data.currentAddress.address,
@@ -109,6 +111,21 @@ const RequestInfoCard = (
                   </header>
                   
                   <Form className='mt-4' onSubmit={handleSubmit(onSubmit)}>
+                    <Form.Group className='mb-3'>
+                      <Form.Label style={{ fontWeight: 'bold' }}>
+                        Tên Yêu cầu
+                      </Form.Label>
+                      <Form.Control
+                        {...register('request_name')}
+                      />
+                      {errors.request_name && errors.request_name.type === 'required' && (
+                        <p className="mt-2 error">
+                          <FaExclamationTriangle className="mx-2" />
+                          Bạn chưa điền tên yêu cầu
+                        </p>
+                      )}
+                    </Form.Group>
+
                     <Form.Group className='mb-3'>
                       <Form.Label style={{ fontWeight: 'bold' }}>
                         Lí do đặt Thực phẩm

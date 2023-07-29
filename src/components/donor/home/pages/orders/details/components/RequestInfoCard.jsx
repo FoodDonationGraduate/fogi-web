@@ -70,9 +70,12 @@ const RequestInfoCard = ({ request }) => {
                 {content.chip}
               </span>
 
-              <h3 className='order-item-date mt-3'>
+              <div className='order-item-secondary mt-3'>
                 Yêu cầu {request.id}
-              </h3>
+              </div>
+              <h4 className='order-item-date'>
+                {request.name ? request.name : `Yêu cầu ${request.user.user_type === 'donor' ? 'cho' : 'nhận'}`}
+              </h4>
 
               <div className='mt-2'>
                 <Stack direction={size > 2 ? 'horizontal' : 'veritical'} gap={3}>

@@ -23,7 +23,7 @@ const CategoryCard = ({
   const userInfo = useSelector(state => state.authenticationReducer.user);
 
   const toCategoryPage = () => { // for Donee
-    navigate(`/category/${category.name}`);
+    navigate(`/category/${category.id}`);
   };
 
   const toSubCategoryPage = () => { // for Director

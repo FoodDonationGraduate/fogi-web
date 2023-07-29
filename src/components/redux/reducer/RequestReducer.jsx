@@ -114,6 +114,7 @@ export const postDonorRequest = (data, user, navigate) => {
                 address: data.address,
                 lat: data.lat,
                 long: data.long,
+                name: data.request_name,
                 available_start_date: data.available_start_date,
                 available_end_date: data.available_end_date,
                 available_start_time: data.available_start_time,
@@ -160,6 +161,7 @@ export const postDoneeRequest = (data, user, navigate) => {
         try {
             console.log("post donee's request")
             let body = {
+                name: data.request_name,
                 reason: data.reason,
                 delivery_type: data.delivery_type,
             }

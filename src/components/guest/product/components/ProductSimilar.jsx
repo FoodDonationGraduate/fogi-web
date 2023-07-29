@@ -49,7 +49,7 @@ const ProductSimilar = ({ product }) => {
   }, [size, product, products]);
 
   const toProductList = () => {
-    navigate(`/category/${product.category.name}`);
+    navigate(`/category/${product.category.id}`);
   };
 
   return (
