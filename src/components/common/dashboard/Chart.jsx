@@ -6,10 +6,9 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recha
 import ChartTooltip from 'components/common/dashboard/ChartTooltip';
 
 const Chart = ({ chart }) => {
-  
   return (
     <>
-      {chart &&
+      {Object.keys(chart).length !== 0 &&
         <>
           <ResponsiveContainer width='95%' height='100%'>
             <BarChart

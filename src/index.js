@@ -43,6 +43,8 @@ import DirectorHome from "./components/director/home/HomePage.jsx";
 
 import TestPage from "./components/TestPage.jsx";
 
+import Darkreader from "react-darkreader";
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
     <BrowserRouter>
