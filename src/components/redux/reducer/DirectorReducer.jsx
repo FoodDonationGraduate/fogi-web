@@ -630,12 +630,13 @@ export const retrieveAllParentFood = (data, director, navigate) => {
         sorts: data.sorts
       }
       if (data.search_query !== '') { currentData.search_query = data.search_query }
+      if (data.setIsLoading) data.setIsLoading(true);
 
       console.log('retrieve parent food');
       await axiosInstance.get(`/parent/product/director`, { params: currentData })
       .then((res) => {
         dispatch(setAllParentFood(res.data));
-        console.log(JSON.stringify(directorReducer))
+        if (data.setIsLoading) data.setIsLoading(false);
       }).catch((err) => {
         if (handleExpiredToken(err.response.data, dispatch, navigate)) {
           

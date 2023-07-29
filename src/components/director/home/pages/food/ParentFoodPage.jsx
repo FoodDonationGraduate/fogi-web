@@ -8,6 +8,7 @@ import { useNavigate, useParams } from 'react-router';
 import ParentFoodHeaders from 'utils/constants/headerList/ParentFoodHeaders.json';
 
 // Components
+import Spinner from 'components/common/Spinner';
 import Table from 'components/common/management/table/Table';
 import Title from 'components/common/management/common/Title';
 import SubCategoryModal from 'components/director/home/pages/food/components/parentFood/SubCategoryModal';
@@ -24,6 +25,7 @@ const ParentFoodPage = () => {
   const userToken = useSelector(state => state.authenticationReducer.token);
   const dispatch = useDispatch(); const navigate = useNavigate();
   const { categoryId } = useParams();
+  const [isLoading, setIsLoading] = useState(false);
 
   // SubCategory Modal
   const [show, setShow] = useState(false);
@@ -89,7 +91,9 @@ const ParentFoodPage = () => {
       max_created_time: createdTime.max,
       min_updated_time: updatedTime.min,
       max_updated_time: updatedTime.max,
-      sorts: JSON.stringify(sortFields)
+      sorts: JSON.stringify(sortFields),
+
+      setIsLoading
     };
 
     dispatch(retrieveAllParentFood(
@@ -101,8 +105,9 @@ const ParentFoodPage = () => {
 
   return (
     <>
+      {isLoading && <Spinner />}
       <div className='d-flex justify-content-between'>
-        <Title title={!categoryId ? 'Quản lý Hạng mục con' : (categoryList.length > 0 ? categoryList[0].label : '')} />
+        <Title title={!categoryId ? 'Quản lý Hạng mục con' : (categoryList.length > 0 ? categoryList[0].label : 'Quản lý Hạng mục con')} />
         <Button 
           className='fogi' variant='primary'
           onClick={onShow}

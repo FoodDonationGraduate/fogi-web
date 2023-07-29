@@ -308,3 +308,15 @@ a.fogi:active {
   .tag:active {
     color: #5A9829;
   }
+
+.spinner-container {
+  background-color: black;
+  display: flex;
+    align-items: center;
+    justify-content: center;
+  opacity: 0.5;
+  position: fixed;
+    left: 0; top: 0;
+  width: 100vw; height: 100vh;
+  z-index: 100;
+}
