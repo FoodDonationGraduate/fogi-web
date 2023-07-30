@@ -46,6 +46,7 @@ import TestPage from "./components/TestPage.jsx";
 import Darkreader from "react-darkreader";
 
 ReactDOM.createRoot(document.getElementById('root')).render(
+  <>
   <Provider store={store}>
     <BrowserRouter>
       <Routes>
@@ -132,6 +133,15 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       </Routes>
     </BrowserRouter >
   </Provider>
+  <div style={{position: "fixed", bottom: "0px", right: "0px", zIndex: "1000", padding: "10px"}}>
+    <Darkreader
+      {...(localStorage.getItem("darkMode") === "true" ? {defaultDarken: true} : {})}
+      onChange={(darkMode) => {
+        localStorage.setItem("darkMode", darkMode);
+      }}
+    />
+  </div>
+  </>
 );
 
 function Auth ({ allowedRoles }) {
