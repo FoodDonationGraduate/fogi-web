@@ -195,12 +195,15 @@ export const retrieveAllUsers = (data, director, navigate) => {
       }
       if (data.num_take_request_filter) {currentData.num_take_request_filter = data.num_take_request_filter}
       if (data.num_give_request_filter) {currentData.num_give_request_filter = data.num_give_request_filter}
+      if (data.setIsLoading) data.setIsLoading(true);
+
       await axiosInstance.get(`/${director.userInfo.user_type}/user`, { params: currentData })
       .then((res) => {
         if (data.user_type === 'director') dispatch(setAllDirectors(res.data));
         else if (data.user_type === 'warehouse_keeper') dispatch(setAllKeepers(res.data));
         else if (data.user_type === 'volunteer') dispatch(setAllVolunteers(res.data));
         else dispatch(setAllUsers(res.data));
+        if (data.setIsLoading) data.setIsLoading(false);
       }).catch((err) => {
         if (handleExpiredToken(err.response.data, dispatch, navigate)) {
         } else {
@@ -392,11 +395,13 @@ export const retrieveAllRequests = (data, director, navigate) => {
       if (data.id_query !== '') {currentData.id_query = data.id_query}
       if (data.delivery_type !== '') {currentData.delivery_type = data.delivery_type}
       if (data.user_email && data.user_email !== '') {currentData.user_email = data.user_email}
+      if (data.setIsLoading) data.setIsLoading(true);
 
       console.log('retrieve requests for director');
       await axiosInstance.get(`/request/${director.userInfo.user_type}`, { params: currentData })
       .then((res) => {
         dispatch(setAllRequests(res.data));
+        if (data.setIsLoading) data.setIsLoading(false);
       }).catch((err) => {
         if (handleExpiredToken(err.response.data, dispatch, navigate)) {
         } else {

@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router';
 
 // Constants
 import ChipList from 'components/common/chip/ChipList';
+import Spinner from 'components/common/Spinner';
 import RequestHeaders from 'utils/constants/headerList/RequestHeaders.json';
 
 // Components
@@ -22,6 +23,9 @@ const RequestListPage = () => {
   const userToken = useSelector(state => state.authenticationReducer.token);
   const requestAttributes = JSON.parse(localStorage.getItem('requestAttributes'));
   const dispatch = useDispatch(); const navigate = useNavigate();
+
+  // Spinner
+  const [isLoading, setIsLoading] = useState(false);
 
   // Chip List - for Filter
   const fromList = [['donor', ''], ['donee', 'delivery'], ['donee', 'pickup']];
@@ -102,7 +106,9 @@ const RequestListPage = () => {
       max_created_time: createdTime.max,
       min_updated_time: updatedTime.min,
       max_updated_time: updatedTime.max,
-      sorts: JSON.stringify(sortFields)
+      sorts: JSON.stringify(sortFields),
+
+      setIsLoading
     };
 
     dispatch(retrieveAllRequests(
@@ -119,6 +125,7 @@ const RequestListPage = () => {
 
   return (
     <>
+      {isLoading && <Spinner />}
       <Stack direction='horizontal' gap={2}>
         <Title title='Quản lý Yêu cầu' />
         <ChipList
