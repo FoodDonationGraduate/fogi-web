@@ -10,7 +10,6 @@ import CategoryImageModal from "../CategoryImageModal";
 // Reducer
 import { retrieveAllCategories } from "components/redux/reducer/CategoryReducer";
 import {
-  addCategory,
   addParentFood,
 } from "components/redux/reducer/DirectorReducer";
 
@@ -39,6 +38,7 @@ const SubCategoryModal = ({
   );
   useEffect(() => {
     dispatch(retrieveAllCategories({}, navigate));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const { categoryId } = useParams();
 
@@ -118,7 +118,6 @@ const SubCategoryModal = ({
 
   // Edit handling
   useEffect(() => {
-    console.log(JSON.stringify(subCategory));
     if (subCategory) {
       setImage(`https://bachkhoi.online/static/${subCategory.image}`);
     } else {

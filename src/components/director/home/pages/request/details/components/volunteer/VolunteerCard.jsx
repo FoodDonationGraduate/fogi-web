@@ -8,16 +8,12 @@ import {
 } from 'react-icons/md';
 import PlaceHolder from 'assets/images/avatar.png';
 
-// Utility
-import { useResizer } from 'utils/helpers/Resizer.jsx';
-
 const VolunteerCard = ({
   request=undefined,
   volunteer,
   targetVolunteer,
   setTargetVolunteer
 }) => {
-  let size = useResizer();
 
   const isSelected = () => { return targetVolunteer ? (volunteer.email === targetVolunteer.email) : false; }
   

@@ -42,11 +42,13 @@ const ProductList = ({ setIsError }) => {
       }
     }
     if (overStock.length > 0) setIsError(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps  
   }, [allProducts]);
 
   useEffect(() => {
     if (overStock.length === 0) setIsError(false);
     else setIsError(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps  
   }, [overStock]);
 
   return (

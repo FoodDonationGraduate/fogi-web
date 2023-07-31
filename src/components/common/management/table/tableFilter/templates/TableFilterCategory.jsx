@@ -1,12 +1,9 @@
 // Essentials
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { Col, Row } from 'react-bootstrap';
+import React from 'react';
+import { Col } from 'react-bootstrap';
 
 // Components
 import { TableFilterText, TableFilterRange } from '../components/TableFilterInput';
-import TableFilterSelect from '../components/TableFilterSelect';
 import TableFilterTime from '../components/TableFilterTime';
 
 const TableFilterCategory = ({
@@ -21,7 +18,7 @@ const TableFilterCategory = ({
           placeholder='Tên Hạng mục'
         />
       </Col>
-      <Col className='mn-table-item-col' xs={4}>
+      <Col className='mn-table-item-col' xs={2}>
         
       </Col>
       <Col className='mn-table-item-col' xs={1}>
@@ -39,6 +36,9 @@ const TableFilterCategory = ({
         <TableFilterTime
           date={filterList[3].state} setDate={filterList[3].setState}
         />
+      </Col>
+      <Col className='mn-table-item-col' xs={2}>
+        
       </Col>
     </>
   );

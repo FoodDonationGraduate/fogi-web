@@ -18,7 +18,6 @@ const OrderList = ({
   queryData=''
 }) => {
   const allRequests = useSelector(state => state.requestReducer.allRequests)
-  const sort = useSelector(state => state.requestReducer.sort)
   const userInfo = useSelector(state => state.authenticationReducer.user)
   const userToken = useSelector(state => state.authenticationReducer.token)
   

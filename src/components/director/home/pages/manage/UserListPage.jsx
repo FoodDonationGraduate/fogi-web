@@ -68,14 +68,12 @@ const RequestListPage = () => {
     setSumItem([]);
     setNumReport([]);
     setStatus({ value: '', label: 'Tất cả' });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeFromIdx]);
 
   // Pagination handling
   const REQUEST_COUNT = 16; // per page
   const [page, setPage] = useState(0); // a.k.a activeIdx
-  const onChangePage = (idx) => {
-    setPage(idx);
-  };
 
   // Get requests
   useEffect(() => { 
@@ -102,10 +100,9 @@ const RequestListPage = () => {
     localStorage.setItem('usersAttributes', JSON.stringify({
       status: from,
     }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [name, email, from, numGiveRequest, numTakeRequest, sumKg, sumItem, numReport, sortFields, page, status
   ]);
-  const [targetUser, setTargetUser] = useState(null);
-  console.log([status.value])
   return (
     <>
       <Stack direction='horizontal' gap={2}>
@@ -131,7 +128,8 @@ const RequestListPage = () => {
           { state: numReport, setState: setNumReport },
           { state: status, setState: setStatus }
         ]}
-        itemList={from === 'volunteer' ? allVolunteers.users : allUsers.users} total={allUsers.num_of_users}
+        itemList={from === 'volunteer' ? allVolunteers.users : allUsers.users} 
+        total={allUsers.num_of_users} pageCount={REQUEST_COUNT} page={page} setPage={setPage}
         sortFields={sortFields} setSortFields={setSortFields}
         type='user'
       />

@@ -1,7 +1,7 @@
 // Essentials
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router';
+import { useNavigate } from 'react-router';
 
 // Constants
 import UnsortedFoodHeaders from 'utils/constants/headerList/UnsortedFoodHeaders.json';
@@ -60,6 +60,7 @@ const ParentFoodPage = () => {
       { userInfo, userToken },
       navigate
     ));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, query, stock, expiredTime, sortFields]);
 
   return (

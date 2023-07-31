@@ -1,7 +1,6 @@
 // Essentials
 import React, { useState } from 'react';
 import { Button, Stack } from 'react-bootstrap';
-import { useNavigate } from "react-router-dom";
 import { useSelector } from 'react-redux';
 
 // Components
@@ -19,7 +18,6 @@ const VolunteerInfo = ({
   order=undefined
 }) => {
   let size = useResizer();
-  const navigate = useNavigate(); 
   const [show, setShow] = useState(false);
   const onClose = () => setShow(false);
   const onShow = () => setShow(true);

@@ -1,12 +1,11 @@
 // Essentials
 import * as React from 'react';
-import { Button, Card, Stack } from 'react-bootstrap';
+import { Button, Card } from 'react-bootstrap';
 import { useNavigate } from 'react-router';
 import { EqualHeightElement } from 'react-equal-height';
 import { useDispatch, useSelector } from 'react-redux';
 
 // Sources
-import { FaRegClock } from 'react-icons/fa';
 import { MdAllInbox } from 'react-icons/md';
 
 // Styling
@@ -14,7 +13,6 @@ import 'assets/css/common/Card.css';
 
 // Helper
 import { reduceString } from 'utils/helpers/String';
-import { distanceTime } from 'utils/helpers/Time';
 import { getUnit } from 'utils/helpers/Food';
 
 // Components

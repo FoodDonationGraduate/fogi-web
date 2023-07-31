@@ -21,6 +21,7 @@ const TableFilterParentFood = ({
   const allCategories = useSelector(state => state.categoryReducer.allCategories);
   useEffect(() => {
     dispatch(retrieveAllCategories({}, navigate));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const unitList = [

@@ -1,7 +1,7 @@
 // Essentials
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { Accordion, Col, Row, Stack } from 'react-bootstrap';
+import { Accordion, Col, Row } from 'react-bootstrap';
 import { EqualHeight, EqualHeightElement } from 'react-equal-height';
 
 import { useDispatch, useSelector } from 'react-redux';

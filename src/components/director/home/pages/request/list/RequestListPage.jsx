@@ -76,6 +76,7 @@ const RequestListPage = () => {
     setVolunteer(null);
     setCreatedTime({ min: '', max: '' });
     setUpdatedTime({ min: '', max: '' });
+    // eslint-disable-next-line react-hooks/exhaustive-deps  
   }, [activeFromIdx]);
 
   // Pagination handling
@@ -114,6 +115,7 @@ const RequestListPage = () => {
     localStorage.setItem('requestAttributes', JSON.stringify({
       status: from,
     }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps  
   }, [page, user, requestId, from, status, numProduct, sumKg, sumItem, distance,
     director, warehouseKeeper, volunteer, createdTime, updatedTime, sortFields
   ]);

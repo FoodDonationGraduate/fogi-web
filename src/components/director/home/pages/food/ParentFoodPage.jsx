@@ -1,6 +1,6 @@
 // Essentials
 import React, { useState, useEffect } from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, Stack } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router';
 
@@ -49,6 +49,7 @@ const ParentFoodPage = () => {
   useEffect(() => {
     if (!categoryId) return;
     dispatch(retrieveAllCategories({}, navigate));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categoryId]);
 
   useEffect(() => {
@@ -62,6 +63,7 @@ const ParentFoodPage = () => {
         label: category.name
       }])
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allCategories]);
 
   const [first, setFirst] = useState(false);
@@ -70,6 +72,7 @@ const ParentFoodPage = () => {
     if (!categoryId) return;
     if (categoryList.length === 1) return;
     navigate(`/${userInfo.user_type}/parent-food`);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categoryList]);
 
   // Get parent food
@@ -97,18 +100,22 @@ const ParentFoodPage = () => {
       { userInfo, userToken },
       navigate
     ));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, query, categoryList, stock, unit, createdTime, updatedTime, sortFields]);
 
   return (
     <>
       <div className='d-flex justify-content-between'>
         <Title title={!categoryId ? 'Quản lý Hạng mục con' : (categoryList.length > 0 ? categoryList[0].label : '')} />
-        <Button 
-          className='fogi' variant='primary'
-          onClick={onShow}
-        >
-          Thêm Hạng mục con
-        </Button>
+        <Stack direction='horizontal'>
+          <Button 
+            className='fogi' variant='primary'
+            onClick={onShow}
+          >
+            Thêm Hạng mục con
+          </Button>
+        </Stack>
+        
       </div>
       <Table
         headerList={ParentFoodHeaders.allHeaders}

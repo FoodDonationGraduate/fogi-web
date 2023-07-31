@@ -6,7 +6,7 @@ import { Col, Stack } from 'react-bootstrap';
 
 // Assets
 import {
-  MdUpload, MdDownload, MdLocalShipping, MdWarehouse, MdComputer
+  MdLocalShipping, MdWarehouse, MdComputer
 } from 'react-icons/md';
 
 // Components
@@ -17,7 +17,6 @@ import {
   TableItemTag,
   TableItemText,
   TableItemDate,
-  TableItemAction
 } from '../TableItemComponent';
 
 // Utility

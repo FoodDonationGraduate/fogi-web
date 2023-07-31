@@ -1,6 +1,6 @@
 import { getToken } from 'firebase/messaging';
 import firebaseInstance from "services/axios/firebaseConfig";
-import { getMessaging, onMessage } from "firebase/messaging";
+import { getMessaging } from "firebase/messaging";
 
 import { retrieveAllNotifications, sendDeviceToken } from 'components/redux/reducer/NotificationReducer';
 import { retrieveRequest } from 'components/redux/reducer/RequestReducer';
@@ -208,10 +208,10 @@ export const handleNotificationReload = (data, userInfo, userToken, location, di
     dispatch(retrieveRequest({request_id: request_id}, {userInfo, userToken}, navigate));
   } else if (user_type === 'director' && location === `/director/request/${data.request_from}/${request_id}` && data.code === '400') {
     dispatch(retrieveCurrentRequest({request_from: data.request_from, request_id: request_id}, {userInfo, userToken}, navigate));
-    noti_type = data.request_from === 'donor' ? 'give' : 'take' + '_request_state_change';
+    noti_type = (data.request_from === 'donor' ? 'give' : 'take') + '_request_state_change';
   } else {
     dispatch(retrieveCurrentRequest({request_from: data.request_from, request_id: request_id}, {userInfo, userToken}, navigate))
-    noti_type = data.request_from === 'donor' ? 'give' : 'take' + '_request_state_change';
+    noti_type = (data.request_from === 'donor' ? 'give' : 'take') + '_request_state_change';
   }
   dispatch(retrieveAllNotifications({limit: 20, offset: 0, noti_type: noti_type}, {userInfo, userToken}, navigate))
 }
@@ -223,7 +223,7 @@ export const exportNotiElementContent = (data, userInfo, delivery_type) => {
   var user_type = userInfo.user_type;
   let content = {};
   const findCondition = (s) => {
-    return s.status == data.request_status;
+    return s.status === data.request_status;
   };
   const state = State.allStates.find(s => findCondition(s));
   const condition = {
@@ -235,7 +235,7 @@ export const exportNotiElementContent = (data, userInfo, delivery_type) => {
     const current = state.content[i]; // current content
 
     if (current.condition.length === 0 ||
-      current.condition.find(c => c.user_type == condition.user_type && c.delivery_type == condition.delivery_type)) {
+      current.condition.find(c => c.user_type === condition.user_type && c.delivery_type === condition.delivery_type)) {
       content = structuredClone(current);
       break;
     }
@@ -247,7 +247,7 @@ export const exportNotiElementContent = (data, userInfo, delivery_type) => {
       case 'donor': role = 'Người quyên góp'; break;
       case 'donee': role = 'Người nhận'; break;
       case 'volunteer': role = 'Tình nguyện viên'; break;
-      case 'warehouse_keeper': role = 'Quản lý kho'; break;
+      default: role = 'Quản lý kho';
     }
 
     content.short = content.short.replace(`{user_role}`, role);

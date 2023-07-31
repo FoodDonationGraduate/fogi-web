@@ -1,6 +1,6 @@
 // Essentials
-import React, { useState, useEffect } from 'react';
-import { Accordion, Button, Card, Col, Row, Stack } from 'react-bootstrap';
+import React from 'react';
+import { Card, Col, Row, Stack } from 'react-bootstrap';
 import { getUnit } from 'utils/helpers/Food';
 
 // Utility

@@ -1,14 +1,12 @@
 // Essentials
-import React, { useState, useEffect } from 'react';
-import { Container, Row, Stack, Form, Button } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
+import { Container } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 
 // Components
 import ManageDetails from './components/ManageDetails';
 
 const UserPage = () => {
-  const dispatch = useDispatch();
   const { userType, userEmail } = useParams();
 
   useEffect(() => {

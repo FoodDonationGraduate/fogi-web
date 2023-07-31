@@ -1,23 +1,10 @@
 // Essentials
 import React from 'react';
-import { Col, Stack } from 'react-bootstrap';
-
-// Assets
-import {
-  MdUpload, MdLocalShipping, MdWarehouse, MdComputer, MdClear
-} from 'react-icons/md';
+import { Col } from 'react-bootstrap';
 
 // Components
-import TableFilterUser from '../components/TableFilterUser';
 import { TableFilterText, TableFilterRange } from '../components/TableFilterInput';
-import TableFilterRadio from '../components/TableFilterRadio';
 import TableFilterSelect from '../components/TableFilterSelect';
-import TableFilterTime from '../components/TableFilterTime';
-
-import { TableItemIcon } from 'components/common/management/table/tableItem/TableItemComponent';
-
-// Utility
-import { getState } from 'utils/helpers/Request';
 
 const TableFilterRequest = ({
   filterList
@@ -111,58 +98,6 @@ const TableFilterRequest = ({
           optionList={statusList}
         />
       </Col>
-
-      {/* 
-      <Col className='mn-table-item-col' xs={2}>
-        <Stack direction='horizontal' gap={2}>
-          <TableItemIcon icon={{ icon: MdComputer, tip: 'Điều phối viên' }} />
-          <TableFilterUser
-            user={filterList[7].state} setUser={filterList[7].setState}
-            userType={'director'}
-            tip='Lọc Điều phối viên'
-          />
-          <TableItemIcon icon={{ icon: MdWarehouse, tip: 'Quản lý kho' }} />
-          <TableFilterUser
-            user={filterList[8].state} setUser={filterList[8].setState}
-            userType={'keeper'}
-            tip='Lọc Quản lý kho'
-          />
-          <TableItemIcon icon={{ icon: MdLocalShipping, tip: 'Tình nguyện viên' }} />
-          <TableFilterUser
-            user={filterList[9].state} setUser={filterList[9].setState}
-            userType={'volunteer'}
-            tip='Lọc Tình nguyện viên'
-          />
-          {(filterList[7].state || filterList[8].state || filterList[9].state) &&
-            <div
-              style={{ cursor: 'pointer' }}
-              onClick={() => {
-                filterList[7].setState(null);
-                filterList[8].setState(null);
-                filterList[9].setState(null);
-              }}
-            >
-              <TableItemIcon icon={{ icon: MdClear, tip: 'Bỏ chọn tất cả' }} />
-            </div>
-          }
-        </Stack>
-      </Col>
-      <Col className='mn-table-item-col' xs={2}>
-        <TableFilterTime
-          date={filterList[10].state} setDate={filterList[10].setState}
-        />
-      </Col>
-      <Col className='mn-table-item-col' xs={2}>
-        <TableFilterTime
-          date={filterList[11].state} setDate={filterList[11].setState}
-        />
-      </Col>
-      <Col className='mn-table-item-col' xs={1}>
-        <TableFilterRange
-          range={filterList[12].state} setRange={filterList[12].setState}
-          placeholder='Tất cả'
-        />
-      </Col> */}
     </>
   );
 };

@@ -34,7 +34,7 @@ export const MultipleItem = ({
   return (<>
     <Stack direction='horizontal' gap={2}>
       <Form.Check
-        checked={activeOptionList.find(option => option.value == currentOption.value) ? true : false}
+        checked={activeOptionList.find(option => option.value === currentOption.value) ? true : false}
         onChange={onChange}
       />
       {currentOption.image &&
@@ -73,6 +73,7 @@ export const MultipleDisplayItem = ({
         <img
           className='mn-table-item-image-sm'
           src={`https://bachkhoi.online/static/${currentOption.image}`}
+          alt='current option'
         />
       </div>
     </OverlayTrigger>

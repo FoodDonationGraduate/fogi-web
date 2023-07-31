@@ -1,10 +1,9 @@
 // Essentials
 import React from 'react';
-import { Accordion, Button, Card, Col, Row, Stack } from 'react-bootstrap';
+import { Card, Col, Row, Stack } from 'react-bootstrap';
 import { getUnit } from 'utils/helpers/Food';
 
 // Assets
-import { FaExclamationTriangle } from "react-icons/fa";
 import PlaceHolder from 'assets/images/placeholder.jpg';
 
 // Utility
