@@ -4,17 +4,11 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Col, Stack } from 'react-bootstrap';
 
-// Assets
-import {
-  MdOutlineLock, MdGppMaybe
-} from 'react-icons/md';
-
 // Components
 import {
   TableItemImage,
   TableItemTitle,
   TableItemText,
-  TableItemIcon,
   TableItemTag
 } from '../TableItemComponent';
 

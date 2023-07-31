@@ -28,6 +28,8 @@ const ApproveList = () => {
       case 'donee': return 'Người nhận';
       case 'donor': return 'Người quyên góp';
       case 'volunteer': return 'Tình nguyện viên';
+      case 'warehouse_keeper': return 'Quản lý kho';
+      default: return 'Điều phối viên'
     }
   };
 

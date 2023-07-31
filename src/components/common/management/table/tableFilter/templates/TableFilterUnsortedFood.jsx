@@ -1,24 +1,13 @@
 // Essentials
 import React from 'react';
-import { Col, Row } from 'react-bootstrap';
+import { Col } from 'react-bootstrap';
 
 // Components
-import { TableFilterText, TableFilterRange } from '../components/TableFilterInput';
-import TableFilterSelect from '../components/TableFilterSelect';
-import TableFilterMultiple from '../components/TableFilterMultiple';
-import TableFilterTime from '../components/TableFilterTime';
-
-// Reducer
-import { retrieveAllCategories } from 'components/redux/reducer/CategoryReducer';
+import { TableFilterText } from '../components/TableFilterInput';
 
 const TableFilterUnsortedFood = ({
   filterList
 }) => {
-  const unitList = [
-    { value: '', label: 'Tất cả' },
-    { value: 'kg', label: 'Kg' },
-    { value: 'item', label: 'Cái' }
-  ];
 
   return (
     <>

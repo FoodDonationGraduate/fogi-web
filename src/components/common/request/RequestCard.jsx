@@ -1,7 +1,6 @@
 // Essentials
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Stack } from 'react-bootstrap';
 import { EqualHeightElement } from 'react-equal-height';
 
 // Assets
@@ -16,13 +15,9 @@ import { reduceString } from 'utils/helpers/String';
 import { convertToString } from 'utils/helpers/Time';
 import { getUnit } from 'utils/helpers/Food';
 
-// Utility
-import { useResizer } from 'utils/helpers/Resizer.jsx';
-
 const RequestCard = ({
   request
 }) => {
-  const size = useResizer();
   const userInfo = useSelector(state => state.authenticationReducer.user);
 
   const productListDisplayLength = () => {

@@ -1,5 +1,5 @@
 // Essentials
-import React, { useState } from 'react';
+import React from 'react';
 import { Button, Card, Col, Row, Stack, Form } from 'react-bootstrap';
 import { getUnit } from 'utils/helpers/Food';
 
@@ -38,7 +38,7 @@ const FoodSelectCard = ({
   };
   const onSelect = () => {
     setFoodList([...foodList, { content: food.content, quantity: 1 }]);
-    if (oldChildList.children.length > 0 && oldChildList.children.find(oc => oc.child_id == food.content.id)) {
+    if (oldChildList.children.length > 0 && oldChildList.children.find(oc => oc.child_id === food.content.id)) {
       updateChild(1);
     } else
     setChildList({ children: [...childList.children, {
@@ -48,12 +48,12 @@ const FoodSelectCard = ({
     }]});
   };
   const onDeselect = () => {
-    setFoodList(foodList.filter(f => f.content.id != food.content.id));
+    setFoodList(foodList.filter(f => f.content.id !== food.content.id));
     
-    if (oldChildList.children.length > 0 && oldChildList.children.find(oc => oc.child_id == food.content.id)) {
+    if (oldChildList.children.length > 0 && oldChildList.children.find(oc => oc.child_id === food.content.id)) {
       updateChild(0);
     } else
-    setChildList({ children: childList.children.filter(f => f.child_id != food.content.id)});
+    setChildList({ children: childList.children.filter(f => f.child_id !== food.content.id)});
   };
   const onChangeQuantity = (quantity) => {
     const idx = foodList.findIndex(f => f.content.id === food.content.id);

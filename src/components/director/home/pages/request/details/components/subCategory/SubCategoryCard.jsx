@@ -1,7 +1,5 @@
 // Essentials
 import React, { useState, useEffect, useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { Accordion, Button, Card, Col, Row, Stack } from 'react-bootstrap';
 import { getUnit } from 'utils/helpers/Food';
 
@@ -12,9 +10,6 @@ import { FaExclamationTriangle } from "react-icons/fa";
 import FoodSelectCard from './FoodSelectCard';
 
 import FoodSelectListModal from './FoodSelectListModal';
-
-// Reducers
-import { retrieveAllFood } from 'components/redux/reducer/DirectorReducer';
 
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
@@ -59,6 +54,7 @@ const SubCategoryCard = ({
         ...subCategoryList.slice(idx + 1)
       ]);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [foodList]);
 
   // Change foodList after auto-distribution
@@ -73,6 +69,7 @@ const SubCategoryCard = ({
       setFoodList(subCategory.foodList);
       first.current = true;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [subCategory]);
 
   // Modal handling

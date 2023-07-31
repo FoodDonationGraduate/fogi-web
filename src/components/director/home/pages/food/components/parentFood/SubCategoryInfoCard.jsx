@@ -1,6 +1,6 @@
 // Essentials
-import React, { useState } from 'react';
-import { Button, Col, Row, Stack } from 'react-bootstrap';
+import React from 'react';
+import { Col, Row, Stack } from 'react-bootstrap';
 import { getUnit } from 'utils/helpers/Food';
 
 // Style

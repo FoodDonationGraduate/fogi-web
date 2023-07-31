@@ -11,7 +11,6 @@ import NewProductListPage from './components/guest/product/NewProductListPage.js
 import AmootProductListPage from './components/guest/product/AmootProductListPage.jsx';
 import ProductDetailsPage from './components/guest/product/ProductDetailsPage.jsx';
 import CategoryProductListPage from './components/guest/product/CategoryProductListPage.jsx';
-import VolunteerProductListPage from './components/guest/product/VolunteerProductListPage.jsx';
 import DonorListPage from './components/guest/donor/DonorListPage.jsx';
 import EmptyProductListPage from './components/guest/product/EmptyProductListPage.jsx';
 import NotFoundPage from './components/common/PageNotFoundPage.jsx';

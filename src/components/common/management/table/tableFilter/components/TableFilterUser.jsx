@@ -35,6 +35,7 @@ export const UserModalItem = ({
         <img
           className='mn-user-item-avatar'
           src={`https://bachkhoi.online/static/${user.avatar}`}
+          alt='user avatar'
         />
         <Stack>
           <div className='mn-user-item-name'>
@@ -92,6 +93,7 @@ export const UserFilterModal = ({
       search_query: queryData
     };
     dispatch(retrieveAllUsers(data, { userInfo, userToken }, navigate));
+    // eslint-disable-next-line react-hooks/exhaustive-deps  
   }, [userType, queryData]);
   
   
@@ -174,6 +176,7 @@ const TableFilterUser = ({
               <img
                 className='mn-user-item-avatar'
                 src={`https://bachkhoi.online/static/${user.avatar}`}
+                alt='user avatar'
               />
               <Stack>
                 <div className='mn-user-item-name'>
@@ -195,6 +198,7 @@ const TableFilterUser = ({
             user ? `https://bachkhoi.online/static/${user.avatar}`
             : DefaultAvatar
           }
+          alt='user avatar'
         />
       </div>
     </OverlayTrigger>

@@ -1,6 +1,6 @@
 // Essentials
 import React from 'react';
-import { Stack, DropdownButton, Dropdown  } from 'react-bootstrap';
+import { Stack, Dropdown  } from 'react-bootstrap';
 
 // Components
 import DropdownItem from './DropdownItem';

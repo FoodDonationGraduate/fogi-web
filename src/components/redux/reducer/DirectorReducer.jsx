@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { useSelector } from 'react-redux';
 import axiosInstance from 'services/axios/axiosConfig.js';
 import { handleExpiredToken } from './AuthenticationReducer';
 import { setModalMessage, showModal ,setModalType } from './ModalReducer';
@@ -635,7 +634,6 @@ export const retrieveAllParentFood = (data, director, navigate) => {
       await axiosInstance.get(`/parent/product/director`, { params: currentData })
       .then((res) => {
         dispatch(setAllParentFood(res.data));
-        console.log(JSON.stringify(directorReducer))
       }).catch((err) => {
         if (handleExpiredToken(err.response.data, dispatch, navigate)) {
           

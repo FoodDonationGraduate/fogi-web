@@ -4,7 +4,6 @@ import { Card, Form, Col, Row, Stack } from 'react-bootstrap';
 
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
-import { distanceTime } from 'utils/helpers/Time';
 import { getUnit } from 'utils/helpers/Food';
 
 const ProductItem = ({

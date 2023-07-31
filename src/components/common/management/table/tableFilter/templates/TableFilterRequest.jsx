@@ -5,7 +5,7 @@ import { Col, Stack } from 'react-bootstrap';
 
 // Assets
 import {
-  MdUpload, MdLocalShipping, MdWarehouse, MdComputer, MdClear
+  MdLocalShipping, MdWarehouse, MdComputer, MdClear
 } from 'react-icons/md';
 
 // Components
@@ -15,9 +15,6 @@ import TableFilterSelect from '../components/TableFilterSelect';
 import TableFilterTime from '../components/TableFilterTime';
 
 import { TableItemIcon } from 'components/common/management/table/tableItem/TableItemComponent';
-
-// Utility
-import { getState } from 'utils/helpers/Request';
 
 const TableFilterRequest = ({
   filterList

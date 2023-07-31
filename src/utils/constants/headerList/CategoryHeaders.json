@@ -6,7 +6,7 @@
       "sort_field": "name"
     },{
       "label": "Mô tả",
-      "size": 4
+      "size": 2
     },{
       "label": "Số HMC",
       "size": 1,
@@ -21,6 +21,9 @@
       "size": 2,
       "sort_field": "updated_time",
       "isReversed": true
+    },{
+      "label": "Điều chỉnh",
+      "size": 2
     }
   ]
 }

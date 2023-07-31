@@ -8,9 +8,6 @@ import { EqualHeightElement } from 'react-equal-height';
 // Asset
 import PlaceHolder from 'assets/images/placeholder.jpg';
 
-// Components
-import EditButton from './EditButton';
-
 // Styling
 import 'assets/css/common/Card.css';
 import 'assets/css/common/Category.css';

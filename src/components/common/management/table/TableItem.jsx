@@ -19,7 +19,7 @@ const TableItem = ({
     <Row className={`mn-table-item ${idx % 2 === 0 ? 'mn-bg-light' : ''}`}>
       {(type === 'request' || type === 'request-keeper') && <TableItemRequest request={item} />}
       {type === 'parent-food' && <TableItemParentFood parentFood={item} />}
-      {type === 'category' && <TableItemCategory category={item} />}
+      {type === 'category' && <TableItemCategory category={item} actionList={actionList}/>}
       {type === 'unsorted-food' && <TableItemUnsortedFood food={item} actionList={actionList} />}
       {type === 'user' && <TableItemUser user={item} actionList={actionList} />}
     </Row>

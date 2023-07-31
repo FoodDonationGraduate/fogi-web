@@ -1,5 +1,5 @@
 // Essentials
-import React, { useState } from 'react';
+import React from 'react';
 import { Container, Col, Row, Stack } from 'react-bootstrap';
 
 // Assets
@@ -21,11 +21,6 @@ const RequestInfoCard = ({ request }) => {
   const { content, color } = getState({ request });
 
   // handle pickup map
-  const [isHovering, setIsHovering] = useState(false);
-  const handleClick = (address) => {
-    let newAdress = address.replaceAll(' ', '+')
-    window.open(`https://www.google.com/maps/dir/?api=1&destination=${newAdress}`, '_blank', 'noopener,noreferrer');
-  }
 
   return (
     <>

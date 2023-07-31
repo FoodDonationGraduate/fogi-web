@@ -34,7 +34,7 @@ const SubCategoryList = ({
   // Automatic Food Distribution
   const [auto, setAuto] = useState(false)
   const autoDistributeFood = (cloneSubCategoryList, { resultAllFood, resultAllChild }) => {
-    const currentSubCategory = cloneSubCategoryList.find(sc => sc.id == resultAllFood.parent_id);
+    const currentSubCategory = cloneSubCategoryList.find(sc => sc.id === resultAllFood.parent_id);
     const max_quantity = currentSubCategory.quantity; // so luong toi da
 
     let resultList = []; let total_quantity = 0;
@@ -69,7 +69,7 @@ const SubCategoryList = ({
         resultAllChild = [...resultAllChild, nextChild];
       }
 
-      if (total_quantity == max_quantity) {
+      if (total_quantity === max_quantity) {
         const idx = cloneSubCategoryList.findIndex(c => c.id === currentSubCategory.id);
         cloneSubCategoryList[idx] = 
           {

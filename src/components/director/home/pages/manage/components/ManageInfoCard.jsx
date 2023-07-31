@@ -1,5 +1,5 @@
 // Essentials
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Button, Stack } from 'react-bootstrap';
 import { useNavigate } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
@@ -75,6 +75,7 @@ const ManageInfoCard = ({
       userToken: userToken
     },
     navigate));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
