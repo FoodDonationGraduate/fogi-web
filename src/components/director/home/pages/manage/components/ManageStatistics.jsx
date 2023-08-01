@@ -98,7 +98,7 @@ const ManageStatistics = ({ user, userInfo, userToken }) => {
             navigate
         ));
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [activeStatusIdx, activeUnitIdx, activeTimeIdx]);
+    }, [activeStatusIdx, activeUnitIdx, activeTimeIdx, activeFromIdx]);
     return (
         <div>
         {/* TỔNG QUAN */}
