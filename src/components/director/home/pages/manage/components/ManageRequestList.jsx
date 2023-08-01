@@ -68,7 +68,7 @@ const ManageRequestList = ({ user }) => {
               getStatusLabel={getTypeLabel}
               styleList={typeStyleList}
               title={'Loại yêu cầu'}
-              style={'mb-2'}
+              currrentStyle={'mb-2'}
           />
         }
         {(Object.keys(allRequests).length !== 0 && allRequests.total !== 0) && 

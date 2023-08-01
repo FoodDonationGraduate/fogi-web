@@ -103,7 +103,7 @@ const OrderListPage = () => {
               getStatusLabel={getStatusLabel}
               styleList={styleList}
               title={'Trạng thái'}
-              style={'mb-2'}
+              currrentStyle={'mb-2'}
             />
             <Stack direction='horizontal' className='mb-2 d-flex' gap={3}>
               <DropdownList

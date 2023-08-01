@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import { Button, Form, Modal, Stack } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
-import axios from 'axios';
 
 // Components
 import CategoryImageModal from '../CategoryImageModal';

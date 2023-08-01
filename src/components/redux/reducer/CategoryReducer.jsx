@@ -32,8 +32,11 @@ export const retrieveAllCategories = (data, navigate) => {
     return async dispatch => {
         try {
             var currentData = {
-                limit: data.limit,
-                offset: data.offset,
+                limit: data.limit ? data.limit : 16,
+                offset: data.offset ? data.offset : 0,
+            }
+            currentData = {
+                ...currentData,
                 search_query: data.query,
                 num_product_filter: data.num_product_filter,
                 min_created_time: data.min_created_time,
@@ -96,6 +99,7 @@ export const deleteCategory = (data, user, navigate) => {
             }}).then((res) => {
                 dispatch(setModalMessage(`Xóa thành công!`))
                 dispatch(showModal())
+                dispatch(retrieveAllCategories({}, navigate))
             })
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {}
@@ -134,6 +138,7 @@ export const updateCategory = (data, user, navigate) => {
             await axiosInstance.patch(`/category`, currentData).then((res) => {
                 dispatch(setModalMessage(`Cập nhật thành công!`))
                 dispatch(showModal())
+                dispatch(retrieveAllCategories({}, navigate))
             })
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {}
