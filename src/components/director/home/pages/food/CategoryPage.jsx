@@ -32,7 +32,9 @@ const CategoryPage = () => {
   const [show, setShow] = useState(false);
   const onShow = () => { setShow(true); }
   const onClose = () => { setShow(false); }
+  const [filterData, setFilterData] = useState({});
   const [currentCategory, setCurrrentCategory] = useState(undefined);
+
   const updateCategory = (category) => {
     setCurrrentCategory(category);
     onShow();
@@ -43,14 +45,13 @@ const CategoryPage = () => {
   }
   const deleteCate = (category) => {
     setCurrrentCategory(category);
-    dispatch(setModalQuestion("Bạn có muốn xóa hạng mục này không?"))
-    dispatch(showQuestionModal())
-    
+    dispatch(setModalQuestion("Bạn có muốn xóa hạng mục này không?"));
+    dispatch(showQuestionModal());
   }
   useEffect(() => {
     if (modalLogic) {
         dispatch(cancelQuestionModal())
-        dispatch(deleteCategory({id: currentCategory.id}, { userInfo, userToken }, navigate));
+        dispatch(deleteCategory({id: currentCategory.id, filterData}, { userInfo, userToken }, navigate));
     }
   })
 
@@ -87,6 +88,8 @@ const CategoryPage = () => {
       setIsLoading
     };
 
+    setFilterData(data);
+
     dispatch(retrieveAllCategories(data, navigate));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, query, parentFoodCount, createdTime, updatedTime, sortFields]);
@@ -122,6 +125,7 @@ const CategoryPage = () => {
       />
       <CategoryModal
         show={show} onShow={onShow} onClose={onClose} category={currentCategory}
+        filterData={filterData}
       />
     </>
   );

@@ -24,7 +24,8 @@ const CategoryModal = ({
   foodModal=undefined, onFoodShow=undefined, // for FoodModal
   show,
   onShow,
-  onClose
+  onClose,
+  filterData
 }) => {
   const userInfo = useSelector(state => state.authenticationReducer.user);
   const userToken = useSelector(state => state.authenticationReducer.token);
@@ -92,7 +93,8 @@ const CategoryModal = ({
         {
           name: data.name,
           description: data.description,
-          image: image.split('base64,')[1]
+          image: image.split('base64,')[1],
+          filterData
         },
         { userInfo, userToken },
         navigate
@@ -101,7 +103,8 @@ const CategoryModal = ({
       data = {
         id: category.id,
         name: data.name,
-        description: data.description
+        description: data.description,
+        filterData
       };
       if (!image.includes('http')) {data.image = image.split('base64,')[1]};
       dispatch(updateCategory(
