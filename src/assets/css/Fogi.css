@@ -308,3 +308,20 @@ a.fogi:active {
   .tag:active {
     color: #5A9829;
   }
+
+.spinner-background {
+  display: flex;
+    align-items: center;
+    justify-content: center;
+  position: fixed;
+    left: 0; top: 0;
+  width: 100vw; height: 100vh;
+  z-index: 100;
+}
+.spinner-container {
+  background-color: black;
+  border-radius: 8px;
+  opacity: 0.8;
+  padding: 16px;
+  z-index: 100;
+}

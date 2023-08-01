@@ -8,9 +8,10 @@ import { useNavigate } from 'react-router';
 import UserHeaders from 'utils/constants/headerList/UserHeaders.json';
 
 // Components
+import ChipList from 'components/common/chip/ChipList';
+import Spinner from 'components/common/Spinner';
 import Table from 'components/common/management/table/Table';
 import Title from 'components/common/management/common/Title';
-import ChipList from 'components/common/chip/ChipList';
 
 // Reducers
 import { retrieveAllUsers } from 'components/redux/reducer/DirectorReducer';
@@ -23,6 +24,9 @@ const RequestListPage = () => {
   const userToken = useSelector(state => state.authenticationReducer.token);
   const usersAttributes = JSON.parse(localStorage.getItem('usersAttributes'));
   const dispatch = useDispatch(); const navigate = useNavigate();
+
+  // Spinner
+  const [isLoading, setIsLoading] = useState(false);
 
   // Chip List - for Filter
   const fromList = ['donee', 'donor', 'volunteer'];
@@ -89,7 +93,9 @@ const RequestListPage = () => {
       sum_item_filter: JSON.stringify(sumItem),
       being_reported_filter: JSON.stringify(numReport),
       account_status_filter: JSON.stringify([status.value]),
-      sorts: JSON.stringify(sortFields)
+      sorts: JSON.stringify(sortFields),
+
+      setIsLoading
     };
     if (from === 'donor') { delete data.num_take_request_filter} else if (from === 'donee') {delete data.num_give_request_filter;}
     dispatch(retrieveAllUsers(
@@ -103,8 +109,10 @@ const RequestListPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [name, email, from, numGiveRequest, numTakeRequest, sumKg, sumItem, numReport, sortFields, page, status
   ]);
+  
   return (
     <>
+      {isLoading && <Spinner />}
       <Stack direction='horizontal' gap={2}>
         <Title title='Quản lý Người dùng' />
         <ChipList

@@ -117,6 +117,15 @@ const CategoryModal = ({
     onHide();
   };
 
+  // Edit handling
+  useEffect(() => {
+    if (category) {
+      setImage(`https://bachkhoi.online/static/${category.image}`);
+    } else {
+      setImage(undefined);
+    }
+  }, [category]);
+
   return (
     <>
       <Modal
