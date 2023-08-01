@@ -32,7 +32,7 @@ export const retrieveAllCategories = (data, navigate) => {
     return async dispatch => {
         try {
             var currentData = {
-                limit: data.limit ? data.limit : 100,
+                limit: data.limit ? data.limit : 16,
                 offset: data.offset ? data.offset : 0,
                 search_query: data.query,
                 num_product_filter: data.num_product_filter,
@@ -97,6 +97,7 @@ export const deleteCategory = (data, user, navigate) => {
                 dispatch(retrieveAllCategories(data.filterData ? data.filterData : {}, navigate));
                 dispatch(setModalMessage(`Xóa thành công!`))
                 dispatch(showModal())
+                dispatch(retrieveAllCategories({}, navigate))
             })
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {}
@@ -136,6 +137,7 @@ export const updateCategory = (data, user, navigate) => {
                 dispatch(retrieveAllCategories(data.filterData ? data.filterData : {}, navigate));
                 dispatch(setModalMessage(`Cập nhật thành công!`))
                 dispatch(showModal())
+                dispatch(retrieveAllCategories({}, navigate))
             })
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {}
