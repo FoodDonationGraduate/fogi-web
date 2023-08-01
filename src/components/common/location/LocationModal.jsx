@@ -75,7 +75,9 @@ const LocationModal = ({ show, onClose }) => {
 
   // Address handling
   React.useEffect(() => {
-    dispatch(retrieveAllAddresses({userInfo, userToken}, navigate))
+    if (['donee', 'donor'].includes(userInfo.user_type)) {
+      dispatch(retrieveAllAddresses({userInfo, userToken}, navigate))
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   React.useEffect(() => {
