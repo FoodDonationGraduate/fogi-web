@@ -32,8 +32,8 @@ export const retrieveAllCategories = (data, navigate) => {
     return async dispatch => {
         try {
             var currentData = {
-                limit: data.limit,
-                offset: data.offset,
+                limit: data.limit ? data.limit : 16,
+                offset: data.offset ? data.offset : 0,
                 search_query: data.query,
                 num_product_filter: data.num_product_filter,
                 min_created_time: data.min_created_time,
@@ -43,9 +43,12 @@ export const retrieveAllCategories = (data, navigate) => {
                 sorts: data.sorts
             }
             console.log("retrieve all categories")
+            if (data.setIsLoading) data.setIsLoading(true);
+
             await axiosInstance.get(`/category`, { params: currentData })
             .then((res) => {
                 dispatch(setAllCategories(res.data))
+                if (data.setIsLoading) data.setIsLoading(false);
             })
             .catch((err) => {
                 console.log(err)
@@ -88,8 +91,10 @@ export const deleteCategory = (data, user, navigate) => {
                 email: user.userInfo.email,
                 token: user.userToken
             }}).then((res) => {
+                dispatch(retrieveAllCategories(data.filterData ? data.filterData : {}, navigate));
                 dispatch(setModalMessage(`Xóa thành công!`))
                 dispatch(showModal())
+                dispatch(retrieveAllCategories({}, navigate))
             })
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {}
@@ -126,8 +131,10 @@ export const updateCategory = (data, user, navigate) => {
             };
             if (data.image) {currentData.image = data.image}
             await axiosInstance.patch(`/category`, currentData).then((res) => {
+                dispatch(retrieveAllCategories(data.filterData ? data.filterData : {}, navigate));
                 dispatch(setModalMessage(`Cập nhật thành công!`))
                 dispatch(showModal())
+                dispatch(retrieveAllCategories({}, navigate))
             })
             .catch((err) => {
                 if (handleExpiredToken(err.response.data, dispatch, navigate)) {}

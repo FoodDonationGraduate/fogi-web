@@ -36,7 +36,7 @@ const LocationBar = () => {
 
   return (
     <>
-      {Object.keys(userInfo).length !== 0 &&
+      {(Object.keys(userInfo).length !== 0 && ['donee', 'donor'].includes(userInfo.user_type)) &&
         <div>
           <LocationModal show={show} onClose={onClose} />
           <div style={{ backgroundColor: 'white' }}>

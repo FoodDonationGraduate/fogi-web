@@ -180,11 +180,12 @@ export const TableItemDate = ({
 
 export const TableItemAction = ({
   label,
-  onClick
+  onClick,
+  color='green'
 }) => {
 
   return (<>
-    <div className='mn-table-item-action' onClick={onClick}>
+    <div className={`mn-table-item-action mn-${color}`} onClick={onClick}>
       {label}
     </div>
   </>);

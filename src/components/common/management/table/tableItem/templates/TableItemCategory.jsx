@@ -41,8 +41,10 @@ const TableItemCategory = ({
         <TableItemDate datetime={category.updated_time} />
       </Col>
       <Col className='mn-table-item-col' xs={2}>
-        <TableItemAction label='Chỉnh sửa' onClick={() => { actionList[0].action(category) }} />
-        <TableItemAction label='Xóa' onClick={() => { actionList[1].action(category) }} />
+        <Stack direction='horizontal' gap={2}>
+          <TableItemAction label='Chỉnh sửa' onClick={() => { actionList[0].action(category) }} />
+          <TableItemAction label='Xóa' color='red' onClick={() => { actionList[1].action(category) }} />
+        </Stack>
       </Col>
     </>
   );

@@ -183,8 +183,9 @@ const RequestDetailsPage = () => {
         case 'finding': newStatus = (targetVolunteer || autoDistributeVolunteer) ? 'finding' : 'receiving'; break;
         case 'receiving': newStatus ='shipping'; break;
         case 'shipping': newStatus = 'success'; break;
-        default: return;
+        case 'success' : return;
       }
+
       var data = ((request.status === 'pending' || request.status === 'finding') && !autoDistributeVolunteer) ? {
         request_status: newStatus,
         request_id: request.id,
@@ -205,7 +206,7 @@ const RequestDetailsPage = () => {
         case 'accepted': newStatus = 'success'; break;
         case 'receiving': newStatus = (request.delivery_type && request.delivery_type === 'pickup') ? 'success' : 'shipping'; break;
         case 'shipping': newStatus = 'success'; break;
-        default: return;
+        case 'success' : return;
       }
         data =
       (((request.status === 'pending' && request.delivery_type !== 'pickup' ) ||

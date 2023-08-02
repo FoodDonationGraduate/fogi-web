@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router';
 import CategoryHeaders from 'utils/constants/headerList/CategoryHeaders.json';
 
 // Components
+import Spinner from 'components/common/Spinner';
 import Table from 'components/common/management/table/Table';
 import Title from 'components/common/management/common/Title';
 import CategoryModal from 'components/director/home/pages/food/components/category/CategoryModal';
@@ -24,11 +25,16 @@ const CategoryPage = () => {
   const modalLogic = useSelector(state => state.modalReducer.logic);
   const dispatch = useDispatch(); const navigate = useNavigate();
 
+  // Spinner
+  const [isLoading, setIsLoading] = useState(false);
+
   // Parent Food Modal
   const [show, setShow] = useState(false);
   const onShow = () => { setShow(true); }
   const onClose = () => { setShow(false); }
+  const [filterData, setFilterData] = useState({});
   const [currentCategory, setCurrrentCategory] = useState(undefined);
+
   const updateCategory = (category) => {
     setCurrrentCategory(category);
     onShow();
@@ -39,14 +45,13 @@ const CategoryPage = () => {
   }
   const deleteCate = (category) => {
     setCurrrentCategory(category);
-    dispatch(setModalQuestion("Bạn có muốn xóa hạng mục này không?"))
-    dispatch(showQuestionModal())
-    
+    dispatch(setModalQuestion("Bạn có muốn xóa hạng mục này không?"));
+    dispatch(showQuestionModal());
   }
   useEffect(() => {
     if (modalLogic) {
         dispatch(cancelQuestionModal())
-        dispatch(deleteCategory({id: currentCategory.id}, { userInfo, userToken }, navigate));
+        dispatch(deleteCategory({id: currentCategory.id, filterData}, { userInfo, userToken }, navigate));
     }
   })
 
@@ -78,8 +83,12 @@ const CategoryPage = () => {
       max_created_time: createdTime.max,
       min_updated_time: updatedTime.min,
       max_updated_time: updatedTime.max,
-      sorts: JSON.stringify(sortFields)
+      sorts: JSON.stringify(sortFields),
+
+      setIsLoading
     };
+
+    setFilterData(data);
 
     dispatch(retrieveAllCategories(data, navigate));
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -87,6 +96,7 @@ const CategoryPage = () => {
 
   return (
     <>
+      {isLoading && <Spinner />}
       <div className='d-flex justify-content-between'>
         <Title title='Quản lý Hạng mục' />
         <Button 
@@ -115,6 +125,7 @@ const CategoryPage = () => {
       />
       <CategoryModal
         show={show} onShow={onShow} onClose={onClose} category={currentCategory}
+        filterData={filterData}
       />
     </>
   );

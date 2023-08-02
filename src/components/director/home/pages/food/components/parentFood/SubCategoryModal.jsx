@@ -36,10 +36,9 @@ const SubCategoryModal = ({
   const allCategories = useSelector(
     (state) => state.categoryReducer.allCategories
   );
-  useEffect(() => {
-    dispatch(retrieveAllCategories({}, navigate));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //   dispatch(retrieveAllCategories({}, navigate));
+  // }, []);
   const { categoryId } = useParams();
 
   // Form handling

@@ -142,7 +142,7 @@ const OrderListPage = () => {
               getStatusLabel={getTypeLabel}
               styleList={typeStyleList}
               title={'Loại yêu cầu'}
-              style={'mb-2'}
+              currrentStyle={'mb-2'}
             />
             <ChipList
               activeStatusIdx={activeStatusIdx}
@@ -151,7 +151,7 @@ const OrderListPage = () => {
               getStatusLabel={getStatusLabel}
               styleList={styleList[activeFromIdx]}
               title={'Trạng thái'}
-              style={'mb-2'}
+              currrentStyle={'mb-2'}
             />
             <Stack direction='horizontal' className='mb-2 d-flex' gap={3}>
               <DropdownList

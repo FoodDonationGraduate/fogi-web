@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router';
 import UnsortedFoodHeaders from 'utils/constants/headerList/UnsortedFoodHeaders.json';
 
 // Components
+import Spinner from 'components/common/Spinner';
 import Table from 'components/common/management/table/Table';
 import Title from 'components/common/management/common/Title';
 import FoodModal from 'components/director/home/pages/food/components/food/FoodModal';
@@ -20,6 +21,9 @@ const ParentFoodPage = () => {
   const userInfo = useSelector(state => state.authenticationReducer.user);
   const userToken = useSelector(state => state.authenticationReducer.token);
   const dispatch = useDispatch(); const navigate = useNavigate();
+
+  // Spinner
+  const [isLoading, setIsLoading] = useState(false);
 
   // Unsorted Food Modal
   const [targetFood, setTargetFood] = useState(null);
@@ -52,7 +56,9 @@ const ParentFoodPage = () => {
     var data = {
       limit: FOOD_COUNT,
       offset: page * FOOD_COUNT,
-      search_query: query
+      search_query: query,
+
+      setIsLoading
     };
 
     dispatch(retrieveAllUnsortedFood(
@@ -65,6 +71,7 @@ const ParentFoodPage = () => {
 
   return (
     <>
+      {isLoading && <Spinner />}
       <Title title='Phân loại Thực phẩm' />
       <Table
         headerList={UnsortedFoodHeaders.allHeaders}

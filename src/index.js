@@ -45,6 +45,7 @@ import TestPage from "./components/TestPage.jsx";
 import Darkreader from "react-darkreader";
 
 ReactDOM.createRoot(document.getElementById('root')).render(
+  <>
   <Provider store={store}>
     <BrowserRouter>
       <Routes>
@@ -73,7 +74,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 
         <Route path="/donor/signup" element={<DonorSignup/>} />
         <Route path="/donor/accountinfo" element={<DonorAccountInfo/>} />
-        
+
         <Route path="/" element={
             <Auth allowedRoles={["donee", "donor", "director", "warehouse_keeper"]} />}
         >
@@ -89,48 +90,61 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/requests" element={<OrderListPage />} />
           <Route path="/request/:id"  element={<OrderDetailsPage />} />
         </Route>
-        
-        <Route path="/donor" element={
-            <Auth allowedRoles={["donor"]} />}
-        >
-          <Route path="/donor/dashboard" element={ <DonorHome activeIdx={0} /> } />
-          <Route path="/donor/donate-bag" element={ <DonorHome activeIdx={1} /> } />
-          <Route path="/donor/requests" element={ <DonorHome activeIdx={2} /> } />
 
-          <Route path="/donor/request/:id" element={ <DonorOrderDetailsPage/> } />
-        </Route>
+          <Route path="/donor" element={
+              <Auth allowedRoles={["donor"]} />}
+          >
+            <Route path="/donor/dashboard" element={ <DonorHome activeIdx={0} /> } />
+            <Route path="/donor/donate-bag" element={ <DonorHome activeIdx={1} /> } />
+            <Route path="/donor/requests" element={ <DonorHome activeIdx={2} /> } />
 
-        <Route path="/director" element={
-            <Auth allowedRoles={["director"]} />}
-        >
-          <Route path="/director/dashboard" element={ <DirectorHome activeIdx={0} /> } />
-          <Route path="/director/requests" element={ <DirectorHome activeIdx={1} /> } />
-          <Route path="/director/request/:from/:id" element={ <DirectorHome activeIdx={1} /> } />
-          <Route path="/director/categories" element={ <DirectorHome activeIdx={3} /> } />
-          <Route path="/director/category/:categoryId" element={ <DirectorHome activeIdx={4} /> } />
-          <Route path="/director/parent-food" element={ <DirectorHome activeIdx={4} /> } />
-          <Route path="/director/parent-food/:parentFoodId" element={ <DirectorHome activeIdx={4} /> } />
-          <Route path="/director/approve" element={ <DirectorHome activeIdx={5} /> } />
-          <Route path="/director/users" element={ <DirectorHome activeIdx={6} /> } />
-          <Route path="/director/user/:userType/:userEmail" element={ <DirectorHome activeIdx={6} /> } />
-        </Route>
+            <Route path="/donor/request/:id" element={ <DonorOrderDetailsPage/> } />
+          </Route>
 
-        <Route path="/warehouse_keeper" element={
-            <Auth allowedRoles={["warehouse_keeper"]} />}
-        >
-          <Route path="/warehouse_keeper/requests" element={ <DirectorHome activeIdx={1} /> } />
-          <Route path="/warehouse_keeper/request/:from/:id" element={ <DirectorHome activeIdx={1} /> } />
-          <Route path="/warehouse_keeper/unsorted-food" element={ <DirectorHome activeIdx={2} /> } />
-          <Route path="/warehouse_keeper/categories" element={ <DirectorHome activeIdx={3} /> } />
-          <Route path="/warehouse_keeper/category/:categoryId" element={ <DirectorHome activeIdx={4} /> } />
-          <Route path="/warehouse_keeper/parent-food" element={ <DirectorHome activeIdx={4} /> } />
-          <Route path="/warehouse_keeper/parent-food/:parentFoodId" element={ <DirectorHome activeIdx={4} /> } />
-        </Route>
+          <Route path="/director" element={
+              <Auth allowedRoles={["director"]} />}
+          >
+            <Route path="/director/dashboard" element={ <DirectorHome activeIdx={0} /> } />
+            <Route path="/director/requests" element={ <DirectorHome activeIdx={1} /> } />
+            <Route path="/director/request/:from/:id" element={ <DirectorHome activeIdx={1} /> } />
+            <Route path="/director/categories" element={ <DirectorHome activeIdx={3} /> } />
+            <Route path="/director/category/:categoryId" element={ <DirectorHome activeIdx={4} /> } />
+            <Route path="/director/parent-food" element={ <DirectorHome activeIdx={4} /> } />
+            <Route path="/director/parent-food/:parentFoodId" element={ <DirectorHome activeIdx={4} /> } />
+            <Route path="/director/approve" element={ <DirectorHome activeIdx={5} /> } />
+            <Route path="/director/users" element={ <DirectorHome activeIdx={6} /> } />
+            <Route path="/director/user/:userType/:userEmail" element={ <DirectorHome activeIdx={6} /> } />
+          </Route>
 
-        <Route path="/test" element={ <TestPage /> } />
-      </Routes>
-    </BrowserRouter >
-  </Provider>
+          <Route path="/warehouse_keeper" element={
+              <Auth allowedRoles={["warehouse_keeper"]} />}
+          >
+            <Route path="/warehouse_keeper/requests" element={ <DirectorHome activeIdx={1} /> } />
+            <Route path="/warehouse_keeper/request/:from/:id" element={ <DirectorHome activeIdx={1} /> } />
+            <Route path="/warehouse_keeper/unsorted-food" element={ <DirectorHome activeIdx={2} /> } />
+            <Route path="/warehouse_keeper/categories" element={ <DirectorHome activeIdx={3} /> } />
+            <Route path="/warehouse_keeper/category/:categoryId" element={ <DirectorHome activeIdx={4} /> } />
+            <Route path="/warehouse_keeper/parent-food" element={ <DirectorHome activeIdx={4} /> } />
+            <Route path="/warehouse_keeper/parent-food/:parentFoodId" element={ <DirectorHome activeIdx={4} /> } />
+          </Route>
+
+          <Route path="/test" element={ <TestPage /> } />
+        </Routes>
+      </BrowserRouter >
+    </Provider>
+    {/* for darkmode */}
+    <div
+      style={{
+        position: "fixed",
+        bottom: "0",
+        right: "0",
+        zIndex: "999",
+        padding: "10px",
+      }}
+    >
+      <Darkreader />
+    </div>
+  </>
 );
 
 function Auth ({ allowedRoles }) {

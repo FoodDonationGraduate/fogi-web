@@ -87,6 +87,7 @@ const PostProductModal = ({
   };
 
   useEffect(() => {
+    console.log('a')
     dispatch(retrieveAllCategories({}, navigate));
     var newImages = [];
     for (let i = 0; i < images.length; i++) {

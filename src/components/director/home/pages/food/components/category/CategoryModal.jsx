@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import { Button, Form, Modal, Stack } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
-import axios from 'axios';
 
 // Components
 import CategoryImageModal from '../CategoryImageModal';
@@ -24,7 +23,8 @@ const CategoryModal = ({
   foodModal=undefined, onFoodShow=undefined, // for FoodModal
   show,
   onShow,
-  onClose
+  onClose,
+  filterData
 }) => {
   const userInfo = useSelector(state => state.authenticationReducer.user);
   const userToken = useSelector(state => state.authenticationReducer.token);
@@ -92,7 +92,8 @@ const CategoryModal = ({
         {
           name: data.name,
           description: data.description,
-          image: image.split('base64,')[1]
+          image: image.split('base64,')[1],
+          filterData
         },
         { userInfo, userToken },
         navigate
@@ -101,7 +102,8 @@ const CategoryModal = ({
       data = {
         id: category.id,
         name: data.name,
-        description: data.description
+        description: data.description,
+        filterData
       };
       if (!image.includes('http')) {data.image = image.split('base64,')[1]};
       dispatch(updateCategory(
@@ -116,6 +118,15 @@ const CategoryModal = ({
 
     onHide();
   };
+
+  // Edit handling
+  useEffect(() => {
+    if (category) {
+      setImage(`https://bachkhoi.online/static/${category.image}`);
+    } else {
+      setImage(undefined);
+    }
+  }, [category]);
 
   return (
     <>

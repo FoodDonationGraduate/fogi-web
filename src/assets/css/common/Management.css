@@ -208,14 +208,10 @@ width: 160px; height: 160px;
   font-size: 12px;
 }
 .mn-table-item-action {
-  color: #82CD47;
   cursor: pointer;
   font-size: 12px;
   text-decoration: underline;
 }
-  .mn-table-item-action:hover {
-    color: #5A9829;
-  }
 
 /* FILTER */
 .mn-table-filter-input {
@@ -259,12 +255,10 @@ width: 160px; height: 160px;
 }
 
 /* STYLING */
-.mn-green {
-  color: #82CD47;
-}
-.mn-red {
-  color: #FF5A5F;
-}
+.mn-green { color: #82CD47; }
+  .mn-green:hover { color: #5A9829; }
+.mn-red { color: #FF5A5F; }
+  .mn-red:hover { color: #FF5A5F; }
 .mn-bg-green {
   background-color: #82CD47;
 }

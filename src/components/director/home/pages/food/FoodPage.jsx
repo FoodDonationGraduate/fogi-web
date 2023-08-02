@@ -15,6 +15,7 @@ import BackButton from 'components/common/BackButton';
 import ListTitle from 'components/common/ListTitle';
 import Pagination from 'components/common/pagination/Pagination';
 import CommonNotFoundBody from 'components/common/CommonNotFoundBody';
+import Spinner from 'components/common/Spinner';
 import SubCategoryInfoCard from './components/parentFood/SubCategoryInfoCard';
 import SearchBar from 'components/common/search/SearchBar';
 import CompactDropdown from 'components/common/search/CompactDropdown';
@@ -29,6 +30,9 @@ const FoodPage = () => {
   const userToken = useSelector(state => state.authenticationReducer.token);
   const dispatch = useDispatch(); const navigate = useNavigate();
   const { parentFoodId } = useParams();
+
+  // Spinner
+  const [isLoading, setIsLoading] = useState(false);
 
   // Parent Food
   const currentParentFood = useSelector(state => state.directorReducer.currentParentFood);
@@ -89,7 +93,8 @@ const FoodPage = () => {
         parent_id: parentFoodId,
         search_query: queryData,
         sort_field: filterList[activeFilterIdx].value,
-        sort_by: sortBy
+        sort_by: sortBy,
+        setIsLoading
       },
       { userInfo, userToken },
       navigate
@@ -99,6 +104,7 @@ const FoodPage = () => {
 
   return (
     <>
+      {isLoading && <Spinner />}
       <Row>
         <Col className='px-0'>
           <Row className='mb-4'>

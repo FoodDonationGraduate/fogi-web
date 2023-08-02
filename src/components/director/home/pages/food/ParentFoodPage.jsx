@@ -8,6 +8,7 @@ import { useNavigate, useParams } from 'react-router';
 import ParentFoodHeaders from 'utils/constants/headerList/ParentFoodHeaders.json';
 
 // Components
+import Spinner from 'components/common/Spinner';
 import Table from 'components/common/management/table/Table';
 import Title from 'components/common/management/common/Title';
 import SubCategoryModal from 'components/director/home/pages/food/components/parentFood/SubCategoryModal';
@@ -24,6 +25,9 @@ const ParentFoodPage = () => {
   const userToken = useSelector(state => state.authenticationReducer.token);
   const dispatch = useDispatch(); const navigate = useNavigate();
   const { categoryId } = useParams();
+
+  // Spinner
+  const [isLoading, setIsLoading] = useState(false);
 
   // SubCategory Modal
   const [show, setShow] = useState(false);
@@ -47,10 +51,9 @@ const ParentFoodPage = () => {
 
   // Get category if endpoint is like '/category/:categoryId'
   useEffect(() => {
-    if (!categoryId) return;
     dispatch(retrieveAllCategories({}, navigate));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [categoryId]);
+  }, []);
 
   useEffect(() => {
     if (!allCategories.categories) return;
@@ -64,13 +67,12 @@ const ParentFoodPage = () => {
       }])
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [allCategories]);
+  }, [categoryId, allCategories]);
 
   const [first, setFirst] = useState(false);
   useEffect(() => { // Redirect to '/parent-food' from '/category/categoryId'
     if (!first) { setFirst(true); return; }
-    if (!categoryId) return;
-    if (categoryList.length === 1) return;
+    if (!categoryId || categoryList.length === 1) return;
     navigate(`/${userInfo.user_type}/parent-food`);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categoryList]);
@@ -92,7 +94,9 @@ const ParentFoodPage = () => {
       max_created_time: createdTime.max,
       min_updated_time: updatedTime.min,
       max_updated_time: updatedTime.max,
-      sorts: JSON.stringify(sortFields)
+      sorts: JSON.stringify(sortFields),
+
+      setIsLoading
     };
 
     dispatch(retrieveAllParentFood(
@@ -105,17 +109,15 @@ const ParentFoodPage = () => {
 
   return (
     <>
+      {isLoading && <Spinner />}
       <div className='d-flex justify-content-between'>
-        <Title title={!categoryId ? 'Quản lý Hạng mục con' : (categoryList.length > 0 ? categoryList[0].label : '')} />
-        <Stack direction='horizontal'>
-          <Button 
-            className='fogi' variant='primary'
-            onClick={onShow}
-          >
-            Thêm Hạng mục con
-          </Button>
-        </Stack>
-        
+        <Title title={!categoryId ? 'Quản lý Hạng mục con' : (categoryList.length > 0 ? categoryList[0].label : 'Quản lý Hạng mục con')} />
+        <Button 
+          className='fogi' variant='primary'
+          onClick={onShow}
+        >
+          Thêm Hạng mục con
+        </Button>
       </div>
       <Table
         headerList={ParentFoodHeaders.allHeaders}
