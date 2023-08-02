@@ -1,5 +1,5 @@
 // Essentials
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Button, Col, Form,
   Modal, Row, Stack
@@ -87,6 +87,7 @@ const PostProductModal = ({
   };
 
   useEffect(() => {
+    console.log('a')
     dispatch(retrieveAllCategories({}, navigate));
     var newImages = [];
     for (let i = 0; i < images.length; i++) {

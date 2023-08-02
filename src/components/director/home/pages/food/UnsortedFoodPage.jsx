@@ -66,6 +66,7 @@ const ParentFoodPage = () => {
       { userInfo, userToken },
       navigate
     ));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, query, stock, expiredTime, sortFields]);
 
   return (

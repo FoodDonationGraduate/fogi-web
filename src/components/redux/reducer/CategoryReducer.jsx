@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import axiosInstance from "services/axios/axiosConfig.js";
 import { setModalMessage, showModal, setModalType } from './ModalReducer';
-
+import { handleExpiredToken } from './AuthenticationReducer';
 const initialState = {
     allCategories: {},
     currentCategory: {}
@@ -32,8 +32,8 @@ export const retrieveAllCategories = (data, navigate) => {
     return async dispatch => {
         try {
             var currentData = {
-                limit: data.limit,
-                offset: data.offset,
+                limit: data.limit ? data.limit : 16,
+                offset: data.offset ? data.offset : 0,
                 search_query: data.query,
                 num_product_filter: data.num_product_filter,
                 min_created_time: data.min_created_time,
@@ -77,6 +77,86 @@ export const retrieveCategory = (data, navigate) => {
                 dispatch(setModalMessage(`Đã xảy ra lỗi!`))
                 dispatch(setModalType('danger'))
                 dispatch(showModal())
+            });
+        } catch (err) {
+            console.log(err)
+            navigate('/')
+        }
+    }
+}
+
+export const deleteCategory = (data, user, navigate) => {
+    return async dispatch => {
+        try {
+            console.log("delete category id: " + data.id)
+            await axiosInstance.delete(`/category`, {params: {
+                id: data.id,
+                email: user.userInfo.email,
+                token: user.userToken
+            }}).then((res) => {
+                dispatch(retrieveAllCategories(data.filterData ? data.filterData : {}, navigate));
+                dispatch(setModalMessage(`Xóa thành công!`))
+                dispatch(showModal())
+                dispatch(retrieveAllCategories({}, navigate))
+            })
+            .catch((err) => {
+                if (handleExpiredToken(err.response.data, dispatch, navigate)) {}
+                else if (err.response.data.exit_code === 801) {
+                    dispatch(setModalMessage(`Không thể xóa hạng mục này!`))
+                    dispatch(setModalType('danger'))
+                    dispatch(showModal())
+                }
+                else {
+                    console.log(err)
+                    dispatch(setModalMessage(`Đã xảy ra lỗi!`))
+                    dispatch(setModalType('danger'))
+                    dispatch(showModal())
+                }
+            });
+        } catch (err) {
+            console.log(err)
+            navigate('/')
+        }
+    }
+}
+
+export const updateCategory = (data, user, navigate) => {
+    return async dispatch => {
+        try {
+            console.log("update category id: " + data.id);
+            var currentData = {
+                id: data.id,
+                email: user.userInfo.email,
+                token: user.userToken,
+                name: data.name,
+                description: data.description,
+                image: data.image
+            };
+            if (data.image) {currentData.image = data.image}
+            await axiosInstance.patch(`/category`, currentData).then((res) => {
+                dispatch(retrieveAllCategories(data.filterData ? data.filterData : {}, navigate));
+                dispatch(setModalMessage(`Cập nhật thành công!`))
+                dispatch(showModal())
+                dispatch(retrieveAllCategories({}, navigate))
+            })
+            .catch((err) => {
+                if (handleExpiredToken(err.response.data, dispatch, navigate)) {}
+                else if (err.response.data.exit_code === 800) {
+                    dispatch(setModalMessage(`Không tìm thấy hạng mục này!`))
+                    dispatch(setModalType('danger'))
+                    dispatch(showModal())
+                }
+                else if (err.response.data.exit_code === 300) {
+                    dispatch(setModalMessage(`Tên hạng mục đã tồn tại!`))
+                    dispatch(setModalType('danger'))
+                    dispatch(showModal())
+                }
+                else {
+                    console.log(err)
+                    dispatch(setModalMessage(`Đã xảy ra lỗi!`))
+                    dispatch(setModalType('danger'))
+                    dispatch(showModal())
+                }
             });
         } catch (err) {
             console.log(err)

@@ -23,6 +23,7 @@ export const TableItemAvatar = ({
               <img
                 className='mn-user-item-avatar'
                 src={`https://bachkhoi.online/static/${user.avatar}`}
+                alt='user avatar'
               />
               <Stack>
                 <div className='mn-user-item-name'>
@@ -40,6 +41,7 @@ export const TableItemAvatar = ({
       <img
         className='mn-table-item-avatar' 
         src={`https://bachkhoi.online/static/${user.avatar}`}
+        alt='user avatar'
       />
     </OverlayTrigger>
   </>);
@@ -61,6 +63,7 @@ export const TableItemImage = ({
             <img
               className='mn-table-item-image-lg'
               src={`https://bachkhoi.online/static/${image}`}
+              alt='img'
             />
           </Popover.Body>
         </Popover>
@@ -69,6 +72,7 @@ export const TableItemImage = ({
       <img
         className={`mn-table-item-image-${size}`} 
         src={`https://bachkhoi.online/static/${image}`}
+        alt='img'
       />
     </OverlayTrigger>
   </>);
@@ -176,11 +180,12 @@ export const TableItemDate = ({
 
 export const TableItemAction = ({
   label,
-  onClick
+  onClick,
+  color='green'
 }) => {
 
   return (<>
-    <div className='mn-table-item-action' onClick={onClick}>
+    <div className={`mn-table-item-action mn-${color}`} onClick={onClick}>
       {label}
     </div>
   </>);

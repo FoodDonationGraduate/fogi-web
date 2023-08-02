@@ -1,5 +1,5 @@
 // Essentials
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Form } from 'react-bootstrap';
 
 const TableFilterSelect = ({

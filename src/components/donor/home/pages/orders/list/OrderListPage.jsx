@@ -49,7 +49,7 @@ const OrderListPage = () => {
     switch (status) {
       case 'last_updated_state_time':
         return 'Thời gian cập nhật';
-      case 'created_time':
+      default:
         return 'Thời gian khởi tạo';
     }
   };
@@ -74,6 +74,7 @@ const OrderListPage = () => {
     if (data === '') {
       setQueryData(data)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps  
   }, [watch('query')])
   return (
     <>
@@ -102,7 +103,7 @@ const OrderListPage = () => {
               getStatusLabel={getStatusLabel}
               styleList={styleList}
               title={'Trạng thái'}
-              style={'mb-2'}
+              currrentStyle={'mb-2'}
             />
             <Stack direction='horizontal' className='mb-2 d-flex' gap={3}>
               <DropdownList

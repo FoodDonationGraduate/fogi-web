@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router';
 import { useParams } from 'react-router-dom';
 
 // Components
-import ListTitle from 'components/common/ListTitle';
 import Pagination from 'components/common/pagination/Pagination';
 
 import VolunteerCard from './VolunteerCard';
@@ -55,6 +54,7 @@ const VolunteerList = ({
       { userInfo, userToken },
       navigate
     ));
+    // eslint-disable-next-line react-hooks/exhaustive-deps  
   }, []);
 
   // auto distribute volunteer

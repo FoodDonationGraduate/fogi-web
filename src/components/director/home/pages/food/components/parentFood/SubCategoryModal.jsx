@@ -10,7 +10,6 @@ import CategoryImageModal from "../CategoryImageModal";
 // Reducer
 import { retrieveAllCategories } from "components/redux/reducer/CategoryReducer";
 import {
-  addCategory,
   addParentFood,
 } from "components/redux/reducer/DirectorReducer";
 

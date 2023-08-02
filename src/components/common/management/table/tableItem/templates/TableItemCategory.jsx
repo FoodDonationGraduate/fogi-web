@@ -9,11 +9,13 @@ import {
   TableItemImage,
   TableItemTitle,
   TableItemText,
-  TableItemDate
+  TableItemDate,
+  TableItemAction
 } from '../TableItemComponent';
 
 const TableItemCategory = ({
-  category
+  category,
+  actionList
 }) => {
   const navigate = useNavigate();
   const userInfo = useSelector(state => state.authenticationReducer.user);
@@ -26,7 +28,7 @@ const TableItemCategory = ({
           <TableItemTitle title={category.name} onClick={() => { navigate(`/${userInfo.user_type}/category/${category.id}`) }} />
         </Stack>
       </Col>
-      <Col className='mn-table-item-col' xs={4}>
+      <Col className='mn-table-item-col' xs={2}>
         <TableItemText text={category.description} />
       </Col>
       <Col className='mn-table-item-col' xs={1}>
@@ -37,6 +39,12 @@ const TableItemCategory = ({
       </Col>
       <Col className='mn-table-item-col' xs={2}>
         <TableItemDate datetime={category.updated_time} />
+      </Col>
+      <Col className='mn-table-item-col' xs={2}>
+        <Stack direction='horizontal' gap={2}>
+          <TableItemAction label='Chỉnh sửa' onClick={() => { actionList[0].action(category) }} />
+          <TableItemAction label='Xóa' color='red' onClick={() => { actionList[1].action(category) }} />
+        </Stack>
       </Col>
     </>
   );

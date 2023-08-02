@@ -68,6 +68,7 @@ const RequestDetailsPage = () => {
         navigate
       ));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [request]);
 
   useEffect(() => {
@@ -79,6 +80,7 @@ const RequestDetailsPage = () => {
       { userInfo, userToken },
       navigate
     ));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   
   // Volunteer handling
@@ -176,12 +178,14 @@ const RequestDetailsPage = () => {
   const onUpdate = (autoDistributeVolunteer = false) => {
     if (request.user.user_type === 'donor') {
       // default: donor
-      var newStatus = 'finding';
+      let newStatus = 'finding';
       switch (request.status) {
         case 'finding': newStatus = (targetVolunteer || autoDistributeVolunteer) ? 'finding' : 'receiving'; break;
         case 'receiving': newStatus ='shipping'; break;
         case 'shipping': newStatus = 'success'; break;
+        case 'success' : return;
       }
+
       var data = ((request.status === 'pending' || request.status === 'finding') && !autoDistributeVolunteer) ? {
         request_status: newStatus,
         request_id: request.id,
@@ -196,12 +200,13 @@ const RequestDetailsPage = () => {
 
     // change if is donee
     if (request.user.user_type === 'donee') {
-      var newStatus = (request.delivery_type === 'pickup') ? 'accepted' : 'finding';
+      let newStatus = (request.delivery_type === 'pickup') ? 'accepted' : 'finding';
       switch (request.status) {
         case 'finding': newStatus = (targetVolunteer || autoDistributeVolunteer) ? 'finding' : 'receiving'; break;
         case 'accepted': newStatus = 'success'; break;
         case 'receiving': newStatus = (request.delivery_type && request.delivery_type === 'pickup') ? 'success' : 'shipping'; break;
         case 'shipping': newStatus = 'success'; break;
+        case 'success' : return;
       }
         data =
       (((request.status === 'pending' && request.delivery_type !== 'pickup' ) ||

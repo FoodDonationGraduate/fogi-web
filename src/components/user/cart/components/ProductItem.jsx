@@ -9,7 +9,6 @@ import { FaExclamationTriangle } from 'react-icons/fa';
 
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
-import { distanceTime } from 'utils/helpers/Time';
 import { updateProduct, deleteProduct } from 'components/redux/reducer/CartReducer';
 import { getUnit } from 'utils/helpers/Food';
 import { showQuestionModal, cancelQuestionModal, setModalQuestion } from 'components/redux/reducer/ModalReducer';

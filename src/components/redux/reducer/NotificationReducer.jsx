@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
 import axiosInstance from "services/axios/axiosConfig.js";
-import { setModalMessage, setModalType, showModal } from './ModalReducer';
 import { handleExpiredToken } from './AuthenticationReducer';
 
 const initialState = {

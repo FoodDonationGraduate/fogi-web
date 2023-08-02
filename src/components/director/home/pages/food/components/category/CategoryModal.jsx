@@ -8,8 +8,8 @@ import { useNavigate } from "react-router-dom";
 import CategoryImageModal from '../CategoryImageModal';
 
 // Reducer
-import { addCategory, addParentFood } from 'components/redux/reducer/DirectorReducer';
-
+import { addCategory } from 'components/redux/reducer/DirectorReducer';
+import { updateCategory } from 'components/redux/reducer/CategoryReducer';
 // Form handling
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from 'react-hook-form';
@@ -23,7 +23,8 @@ const CategoryModal = ({
   foodModal=undefined, onFoodShow=undefined, // for FoodModal
   show,
   onShow,
-  onClose
+  onClose,
+  filterData
 }) => {
   const userInfo = useSelector(state => state.authenticationReducer.user);
   const userToken = useSelector(state => state.authenticationReducer.token);
@@ -45,11 +46,11 @@ const CategoryModal = ({
   const [showImage, setShowImage] = useState(false); // image modal
   const onCloseImage = () => {
     setShowImage(false);
-    onShow();
+    //onShow();
   };
   const onShowImage = () => {
     setShowImage(true);
-    onClose();
+    //onClose();
   };
 
   const onOpen = () => {
@@ -58,11 +59,19 @@ const CategoryModal = ({
         name: category.name,
         description: category.description
       });
+      setImage(`https://bachkhoi.online/static/${category.image}`);
+    } else {
+      reset({
+        name: '',
+        description: ''
+      });
+      setImage(undefined);
     }
     onShow();
   };
 
   const onHide = () => {
+    console.log('hide');
     reset(
       {
         name: '',
@@ -78,17 +87,32 @@ const CategoryModal = ({
 
   const onSubmit = (data) => {
     if (!image) return;
-
-    dispatch(addCategory(
-      {
+    if (!category) {
+      dispatch(addCategory(
+        {
+          name: data.name,
+          description: data.description,
+          image: image.split('base64,')[1],
+          filterData
+        },
+        { userInfo, userToken },
+        navigate
+      ));
+    } else {
+      data = {
+        id: category.id,
         name: data.name,
         description: data.description,
-        image: image.split('base64,')[1]
-      },
-      { userInfo, userToken },
-      navigate
-    ));
-    
+        filterData
+      };
+      if (!image.includes('http')) {data.image = image.split('base64,')[1]};
+      dispatch(updateCategory(
+        data,
+        { userInfo, userToken },
+        navigate
+      ));
+    }
+
     setImage(undefined);
     setSubmitted(false);
 
@@ -183,6 +207,8 @@ const CategoryModal = ({
                 <Button
                   className='fogi'
                   variant='primary'
+                  type='submit'
+                  onClick={() => setSubmitted(true)}
                 >
                   Lưu thay đổi
                 </Button>

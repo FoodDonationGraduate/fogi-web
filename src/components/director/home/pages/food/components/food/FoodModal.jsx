@@ -87,10 +87,12 @@ const FoodModal = ({
   useEffect(() => {
     dispatch(retrieveAllCategories({}, navigate));
     dispatch(setAllParentFood({}));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     setValue('parentFood', -1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getValues('category')]);
 
   const getAllParentFood = (event) => {

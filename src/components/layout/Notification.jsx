@@ -1,6 +1,6 @@
 import React from "react";
 import { MdOutlineNotificationsNone } from 'react-icons/md';
-import { Button, Offcanvas, Stack } from 'react-bootstrap';
+import { Offcanvas, Stack } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux'
 import { onMessage } from "firebase/messaging";
 import { useLocation } from "react-router";
@@ -18,30 +18,6 @@ import { setModalMessage, showModal } from 'components/redux/reducer/ModalReduce
 import { getStatusColor, getStatusTitle } from "utils/helpers/Request";
 import { retrieveAllNotifications, updateNotification } from "components/redux/reducer/NotificationReducer";
 
-const array = [
-  {
-    id: 1,
-    sender_name: 'aaa',
-    sender_role: 'volunteer',
-    request_id: '124',
-    request_status: 'success',
-    noti_type: 'take',
-    delivery_type: 'pickup',
-    request_status_updated_time: "2023-07-20 00:23:03",
-    noti_status: 'unseen'
-  },
-  {
-    id: 2,
-    sender_name: 'aaa',
-    sender_role: 'volunteer',
-    request_id: '125',
-    request_status: 'success',
-    noti_type: 'take',
-    delivery_type: 'pickup',
-    request_status_updated_time: "2023-07-20 00:23:03",
-    noti_status: 'seen'
-  }
-]
 function Notification({style={}}) {
   const userToken = useSelector(state => state.authenticationReducer.token);
   const userInfo = useSelector(state => state.authenticationReducer.user);
@@ -78,6 +54,7 @@ function Notification({style={}}) {
 
   React.useEffect(() => {
     dispatch(retrieveAllNotifications({limit: 20, offset: 0, noti_type: noti_type_list[noti_type]}, {userInfo, userToken}, navigate));
+    // eslint-disable-next-line react-hooks/exhaustive-deps  
   }, [show, noti_type])
 
   const onClickNotificationElement = (data) => {

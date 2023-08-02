@@ -68,6 +68,7 @@ const OrderListPage = () => {
   const [activeStatusIdx, setActiveStatusIdx] = useState(requestAttributes ? statusList[typeList.indexOf(requestAttributes.delivery_type)].indexOf(requestAttributes.status) : 0);
   useEffect(() => {
     if (activeStatusIdx > statusList[activeFromIdx].length) { setActiveStatusIdx(0); }
+    // eslint-disable-next-line react-hooks/exhaustive-deps  
   }, [activeFromIdx])
   
   // Chip List - Request filter
@@ -76,7 +77,7 @@ const OrderListPage = () => {
     switch (status) {
       case 'last_updated_state_time':
         return 'Thời gian cập nhật';
-      case 'created_time':
+      default:
         return 'Thời gian khởi tạo';
     }
   };
@@ -101,6 +102,7 @@ const OrderListPage = () => {
     if (data === '') {
       setQueryData(data)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps  
   }, [watch('query')])
 
   // Reset status list if type is changed
@@ -140,7 +142,7 @@ const OrderListPage = () => {
               getStatusLabel={getTypeLabel}
               styleList={typeStyleList}
               title={'Loại yêu cầu'}
-              style={'mb-2'}
+              currrentStyle={'mb-2'}
             />
             <ChipList
               activeStatusIdx={activeStatusIdx}
@@ -149,7 +151,7 @@ const OrderListPage = () => {
               getStatusLabel={getStatusLabel}
               styleList={styleList[activeFromIdx]}
               title={'Trạng thái'}
-              style={'mb-2'}
+              currrentStyle={'mb-2'}
             />
             <Stack direction='horizontal' className='mb-2 d-flex' gap={3}>
               <DropdownList

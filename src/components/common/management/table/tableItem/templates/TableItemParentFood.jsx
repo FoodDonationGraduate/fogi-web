@@ -9,7 +9,6 @@ import {
   TableItemImage,
   TableItemTitle,
   TableItemText,
-  TableItemHeader,
   TableItemDate
 } from '../TableItemComponent';
 

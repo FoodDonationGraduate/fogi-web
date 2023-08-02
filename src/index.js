@@ -11,7 +11,6 @@ import NewProductListPage from './components/guest/product/NewProductListPage.js
 import AmootProductListPage from './components/guest/product/AmootProductListPage.jsx';
 import ProductDetailsPage from './components/guest/product/ProductDetailsPage.jsx';
 import CategoryProductListPage from './components/guest/product/CategoryProductListPage.jsx';
-import VolunteerProductListPage from './components/guest/product/VolunteerProductListPage.jsx';
 import DonorListPage from './components/guest/donor/DonorListPage.jsx';
 import EmptyProductListPage from './components/guest/product/EmptyProductListPage.jsx';
 import NotFoundPage from './components/common/PageNotFoundPage.jsx';
@@ -47,50 +46,50 @@ import Darkreader from "react-darkreader";
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <>
-    <Provider store={store}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<HomePage/>} />        
-          <Route path="/products" element={<ProductListPage />} /> 
-          <Route path="/donors" element={<DonorListPage />} /> 
-          <Route path="/new-products" element={<NewProductListPage />} />  
-          <Route path="/almost-out-of-stock-products" element={<AmootProductListPage />} />  
-          <Route path="/empty-products" element={<EmptyProductListPage />} />  
+  <Provider store={store}>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage/>} />        
+        <Route path="/products" element={<ProductListPage />} /> 
+        <Route path="/donors" element={<DonorListPage />} /> 
+        <Route path="/new-products" element={<NewProductListPage />} />  
+        <Route path="/almost-out-of-stock-products" element={<AmootProductListPage />} />  
+        <Route path="/empty-products" element={<EmptyProductListPage />} />  
+        
+        <Route path="*" element={<NotFoundPage />} />
+        
+        <Route path="/category/:id" element={<CategoryProductListPage />} />
+        <Route path="/product/:id" element={<ProductDetailsPage />} />
 
-          <Route path="*" element={<NotFoundPage />} />
+        <Route path="/login" element={<UserLogin />} />
+        <Route path="/accounttype" element={<AccountType />} />
+        <Route path="/signup" element={<UserSignup />} />
+        <Route path="/accountinfo" element={<UserAccountInfo />} />
+        <Route path="/signupsuccess" element={<SuccessSignup />} />
+        <Route path="/verification" element={<Verification />} />
+        <Route path="/verifyemail" element={<VerifyEmail />} />
+        <Route path="/verifysuccess" element={<SuccessVerify />} />
+        <Route path="/forgotpassword" element={<ForgotPassword />} />
+        <Route path="/callback/forgotpassword" element={<ChangePassword />} />
 
-          <Route path="/category/:name" element={<CategoryProductListPage />} />
-          <Route path="/product/:id" element={<ProductDetailsPage />} />
+        <Route path="/donor/signup" element={<DonorSignup/>} />
+        <Route path="/donor/accountinfo" element={<DonorAccountInfo/>} />
 
-          <Route path="/login" element={<UserLogin />} />
-          <Route path="/accounttype" element={<AccountType />} />
-          <Route path="/signup" element={<UserSignup />} />
-          <Route path="/accountinfo" element={<UserAccountInfo />} />
-          <Route path="/signupsuccess" element={<SuccessSignup />} />
-          <Route path="/verification" element={<Verification />} />
-          <Route path="/verifyemail" element={<VerifyEmail />} />
-          <Route path="/verifysuccess" element={<SuccessVerify />} />
-          <Route path="/forgotpassword" element={<ForgotPassword />} />
-          <Route path="/callback/forgotpassword" element={<ChangePassword />} />
+        <Route path="/" element={
+            <Auth allowedRoles={["donee", "donor", "director", "warehouse_keeper"]} />}
+        >
+          <Route path="/profile" element={
+            <Monitor allowedPages={[<ProfileUserPage/>, <ProfileDonorPage/>, <ProfileDirectorPage/>, <ProfileDirectorPage/>]}/> } 
+          />
+        </Route>
 
-          <Route path="/donor/signup" element={<DonorSignup/>} />
-          <Route path="/donor/accountinfo" element={<DonorAccountInfo/>} />
-
-          <Route path="/" element={
-              <Auth allowedRoles={["donee", "donor", "director", "warehouse_keeper"]} />}
-          >
-            <Route path="/profile" element={
-              <Monitor allowedPages={[<ProfileUserPage/>, <ProfileDonorPage/>, <ProfileDirectorPage/>, <ProfileDirectorPage/>]}/> } 
-            />
-          </Route>
-
-          <Route path="/" element={
-              <Auth allowedRoles={["donee"]} />}
-          >
-            <Route path="/donate-bag" element={<CartPage />} />
-            <Route path="/requests" element={<OrderListPage />} />
-            <Route path="/request/:id"  element={<OrderDetailsPage />} />
-          </Route>
+        <Route path="/" element={
+            <Auth allowedRoles={["donee"]} />}
+        >
+          <Route path="/donate-bag" element={<CartPage />} />
+          <Route path="/requests" element={<OrderListPage />} />
+          <Route path="/request/:id"  element={<OrderDetailsPage />} />
+        </Route>
 
           <Route path="/donor" element={
               <Auth allowedRoles={["donor"]} />}

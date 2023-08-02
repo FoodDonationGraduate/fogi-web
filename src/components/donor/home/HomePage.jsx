@@ -19,8 +19,6 @@ import {
   MdOutlineAnalytics, // 0
   MdOutlineArticle, // 1
   MdOutlineShoppingBag, // 2
-  MdCheckCircleOutline, // 3
-  MdOutlineGroup // 4
 } from 'react-icons/md';
 
 // Utility

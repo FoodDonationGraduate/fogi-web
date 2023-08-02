@@ -12,7 +12,6 @@ import ProductCard from 'components/guest/common/cards/ProductCard';
 import FogiPagination from 'components/common/pagination/Pagination';
 import { retrieveCategoryProductsById } from 'components/redux/reducer/ProductReducer';
 import EmptyProductBody from './EmptyProductBody';
-import ListTitle from './ListTitle';
 
 // Reducer
 import { retrieveCategory } from 'components/redux/reducer/CategoryReducer';
@@ -40,6 +39,7 @@ const ProductList = () => {
 
   React.useEffect(() => {
     dispatch(retrieveCategory({ id }, navigate));
+    // eslint-disable-next-line react-hooks/exhaustive-deps  
   }, [id]);
   return (
     <div className='bg'>

@@ -1,6 +1,6 @@
 // Essentials
 import React, { useState, useEffect } from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, Stack } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router';
 
@@ -52,6 +52,7 @@ const ParentFoodPage = () => {
   // Get category if endpoint is like '/category/:categoryId'
   useEffect(() => {
     dispatch(retrieveAllCategories({}, navigate));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -65,6 +66,7 @@ const ParentFoodPage = () => {
         label: category.name
       }])
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categoryId, allCategories]);
 
   const [first, setFirst] = useState(false);
@@ -72,6 +74,7 @@ const ParentFoodPage = () => {
     if (!first) { setFirst(true); return; }
     if (!categoryId || categoryList.length === 1) return;
     navigate(`/${userInfo.user_type}/parent-food`);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categoryList]);
 
   // Get parent food
@@ -101,6 +104,7 @@ const ParentFoodPage = () => {
       { userInfo, userToken },
       navigate
     ));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, query, categoryList, stock, unit, createdTime, updatedTime, sortFields]);
 
   return (

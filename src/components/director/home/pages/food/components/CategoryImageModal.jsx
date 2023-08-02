@@ -16,7 +16,6 @@ const CategoryImageModal = ({ showImage, onClose, setImage }) => {
 
   const onSubmit = () => {
     if (preview) {
-      console.log('set image');
       setImage(preview);
     }
     onClose();

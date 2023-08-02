@@ -42,6 +42,7 @@ const FoodPage = () => {
       { userInfo, userToken },
       navigate
     ));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Search
@@ -59,6 +60,7 @@ const FoodPage = () => {
     if (data === '') {
       setQueryData(data);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [watch('query')]);
   
   // Filter
@@ -97,6 +99,7 @@ const FoodPage = () => {
       { userInfo, userToken },
       navigate
     ))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, queryData, activeFilterIdx, sortBy]);
 
   return (
