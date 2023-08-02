@@ -144,9 +144,6 @@ export const retrieveCategoryProducts = (data, navigate) => {
             })
             .catch((err) => {
                 console.log(err.response.data)
-                dispatch(setModalMessage("Đã xảy ra lỗi!"))
-                dispatch(setModalType('danger'));
-                dispatch(showModal())
                 dispatch(setCategoryProducts({}))
             });
         } catch (err) {

@@ -71,9 +71,6 @@ export const retrieveCategory = (data, navigate) => {
             })
             .catch((err) => {
                 console.log(err)
-                dispatch(setModalMessage(`Đã xảy ra lỗi!`))
-                dispatch(setModalType('danger'))
-                dispatch(showModal())
             });
         } catch (err) {
             console.log(err)
