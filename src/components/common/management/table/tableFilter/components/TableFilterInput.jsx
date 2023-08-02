@@ -136,8 +136,11 @@ export const TableFilterRange = ({
   };
 
   // Popover
+  /* eslint-disable */
+
   const PopoverContent = () => {
     return (<>
+
       <div className='fw-bold'>Các định dạng đúng:</div>
       <div>• {'\"x\": Bằng x'}</div>
       <div>• {'\"(x\" / \"x)\": Lớn/bé hơn x'}</div>
@@ -152,6 +155,8 @@ export const TableFilterRange = ({
       <div>• Không được điền dấu cách</div>
     </>);
   };
+
+/* eslint-enable */
 
   // --------------------------------------------------------------------------
   return (<>
