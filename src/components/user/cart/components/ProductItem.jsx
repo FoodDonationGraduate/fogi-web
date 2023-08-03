@@ -27,7 +27,7 @@ const ProductItem = ({
   const navigate = useNavigate();
 
   let size = useResizer();
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(1);
   const [oldCount, setOldCount] = useState(count);
   const [currentProduct, setCurrentProduct] = useState('');
 
@@ -79,7 +79,7 @@ const ProductItem = ({
 
     if (checkOverStock(newCount)) return;
 
-    setTimer(window.setTimeout(updateCount, 1000, newCount));
+    setTimer(window.setTimeout(updateCount, 500, newCount));
   };
 
   const deleteProductModal = (id) => { 
@@ -164,7 +164,7 @@ const ProductItem = ({
                         </Button>
                       }
                     </Stack>
-                    {(count == 0 || count > product.stock) ?
+                    {(count <= 0 || count > product.stock) ?
                       <small className='error'>
                         <FaExclamationTriangle className='mb-1' />
                         Tồn kho: {product.stock} ({count == 0 && 'Không thể bằng 0'}{count > product.stock && 'Không thể vượt quá số lượng tồn kho'})
