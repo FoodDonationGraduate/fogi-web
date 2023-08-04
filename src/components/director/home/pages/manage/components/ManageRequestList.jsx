@@ -18,7 +18,7 @@ const ManageRequestList = ({ user }) => {
   const directorInfo = useSelector(state => state.authenticationReducer.user);
   const directorToken = useSelector(state => state.authenticationReducer.token);
 
-  const REQUESTS_COUNT = 8; // per page
+  const REQUESTS_COUNT = 4; // per page
   const [page, setPage] = useState(0);
   const dispatch = useDispatch();
   const navigate = useNavigate();

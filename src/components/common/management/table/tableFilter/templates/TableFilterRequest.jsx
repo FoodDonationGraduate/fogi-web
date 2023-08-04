@@ -79,6 +79,7 @@ const TableFilterRequest = ({
         { value: 'finding', label: 'Đang điều phối' },
         { value: 'receiving', label: 'Đang nhận' },
         { value: 'shipping', label: 'Đang giao' },
+        { value: 'success', label: 'Thành công' },
         { value: 'canceled', label: 'Đã hủy' }
       ]
     },

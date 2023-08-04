@@ -2,6 +2,7 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
 import { useSelector } from 'react-redux';
+import Notification from 'components/layout/Notification';
 
 const SideMenuUser = () => {
   const userInfo = useSelector(state => state.authenticationReducer.user);
@@ -10,11 +11,15 @@ const SideMenuUser = () => {
   const toProfilePage = () => { navigate('/profile'); };
       
   const date = new Date();
-  
+  const styleNoti={
+    visibility: "hidden",
+    display: "none"
+  }
   return (
     <>
       <div className='mn-menu-profile' onClick={toProfilePage}>
         <img className='mn-menu-profile-avatar' src={`https://bachkhoi.online/static/${userInfo.avatar}?${date.getTime()}`} alt='director logo'/>
+        <Notification style={styleNoti} />
       </div>
     </>
   );
