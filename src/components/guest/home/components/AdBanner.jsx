@@ -38,39 +38,41 @@ const AdBanner = () => {
 
   return (
     <div className='ad-banner-body'>
-      <Container className='ad-banner mx-6'>
-        <div style={{ position: 'relative' }}>
-          {size > 1 &&
-            <CarouselButton isLeft={true} onClick={onPrevClick} />
-          }
-          <Row>
-            <Carousel ref={ref} variant='light' controls={false}>
-              {Object.keys(allNews).length > 0 && allNews.news.map((newsItem, idx) => (
-                <Carousel.Item key={idx} interval={40000}>
-                  <div className='ad-banner-image-container' onClick={() => { window.open(newsItem.url); }}>
-                    <img
-                      className="d-block w-100 ad-banner-image"
-                      src={`https://bachkhoi.online/static/${newsItem.image}`}
-                      alt={newsItem.title}
-                    />
-                  </div>
-                </Carousel.Item>
-              ))}
-            </Carousel>
-          </Row>
-          {size > 1 &&
-            <CarouselButton isLeft={false} onClick={onNextClick} />
-          }
-        </div>
-        {size <= 1 &&
-          <div className='d-flex justify-content-center mt-3'>
-            <Stack direction='horizontal' gap={3}>
-              <CarouselButton isLeft={true} onClick={onPrevClick} isAbsolute={false} />
-              <CarouselButton isLeft={false} onClick={onNextClick} isAbsolute={false} />
-            </Stack>
+      {Object.keys(allNews).length > 0 && allNews.news.length > 0 && 
+        <Container className='ad-banner mx-6'>
+          <div style={{ position: 'relative' }}>
+            {size > 1 &&
+              <CarouselButton isLeft={true} onClick={onPrevClick} />
+            }
+            <Row>
+              <Carousel ref={ref} variant='light' controls={false}>
+                {allNews.news.map((newsItem, idx) => (
+                  <Carousel.Item key={idx} interval={40000}>
+                    <div className='ad-banner-image-container' onClick={() => { window.open(newsItem.url); }}>
+                      <img
+                        className="d-block w-100 ad-banner-image"
+                        src={`https://bachkhoi.online/static/${newsItem.image}`}
+                        alt={newsItem.title}
+                      />
+                    </div>
+                  </Carousel.Item>
+                ))}
+              </Carousel>
+            </Row>
+            {size > 1 &&
+              <CarouselButton isLeft={false} onClick={onNextClick} />
+            }
           </div>
-        }
-      </Container>
+          {size <= 1 &&
+            <div className='d-flex justify-content-center mt-3'>
+              <Stack direction='horizontal' gap={3}>
+                <CarouselButton isLeft={true} onClick={onPrevClick} isAbsolute={false} />
+                <CarouselButton isLeft={false} onClick={onNextClick} isAbsolute={false} />
+              </Stack>
+            </div>
+          }
+        </Container>
+      }
     </div>
   );
 };

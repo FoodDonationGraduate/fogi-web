@@ -38,7 +38,7 @@ const TableItemNews = ({
       <Col className='mn-table-item-col' xs={2}>
         <Stack direction='horizontal' gap={2}>
           <TableItemAction label='Chỉnh sửa' onClick={() => {  }} />
-          <TableItemAction label='Xóa' color='red' onClick={() => {  }} />
+          <TableItemAction label='Xóa' color='red' onClick={() => { actionList[2].action(news) }} />
         </Stack>
       </Col>
     </>

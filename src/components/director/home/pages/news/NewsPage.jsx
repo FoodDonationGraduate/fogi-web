@@ -14,7 +14,8 @@ import Title from 'components/common/management/common/Title';
 import NewsModal from './components/NewsModal';
 
 // Reducers
-import { retrieveAllNews } from 'components/redux/reducer/NewsReducer';
+import { retrieveAllNews, deleteNews } from 'components/redux/reducer/NewsReducer';
+import { cancelQuestionModal, setModalQuestion, showQuestionModal } from 'components/redux/reducer/ModalReducer';
 
 const NewsPage = () => {
   // Constants
@@ -22,6 +23,7 @@ const NewsPage = () => {
   const userInfo = useSelector(state => state.authenticationReducer.user);
   const userToken = useSelector(state => state.authenticationReducer.token);
   const dispatch = useDispatch(); const navigate = useNavigate();
+  const modalLogic = useSelector(state => state.modalReducer.logic);
 
   // Spinner
   const [isLoading, setIsLoading] = useState(false);
@@ -72,6 +74,19 @@ const NewsPage = () => {
   const onShow = () => setShow(true);
   const onHide = () => setShow(false);
 
+  const onDeleteNews = (news) => {
+    setTargetNews(news);
+    dispatch(setModalQuestion("Bạn có muốn xóa tin này không?"));
+    dispatch(showQuestionModal());
+  }
+  
+  useEffect(() => {
+    if (modalLogic) {
+        dispatch(cancelQuestionModal())
+        dispatch(deleteNews({ id: targetNews.id, filterData }, { userInfo, userToken }, navigate));
+    }
+  });
+
   return (
     <>
       {isLoading && <Spinner />}
@@ -98,7 +113,8 @@ const NewsPage = () => {
         type='news'
         actionList={[
           { action: (news) => { setTargetNews(news); setModalType('read'); } },
-          { action: () => onShow() }
+          { action: () => onShow() },
+          { action: (news) => { onDeleteNews(news); }}
         ]}
       />
       {modalType &&

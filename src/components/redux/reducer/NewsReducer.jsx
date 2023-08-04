@@ -95,3 +95,32 @@ export const createNews = (data, director, navigate) => {
         }
     }
 }
+
+export const deleteNews = (data, user, navigate) => {
+    return async dispatch => {
+        try {
+            console.log("delete category id: " + data.id)
+            await axiosInstance.delete(`/news`, {params: {
+                id: data.id,
+                email: user.userInfo.email,
+                token: user.userToken
+            }}).then((res) => {
+                dispatch(retrieveAllNews(data.filterData ? data.filterData : {}, navigate));
+                dispatch(setModalMessage(`Xóa thành công!`));
+                dispatch(showModal());
+            })
+            .catch((err) => {
+                if (handleExpiredToken(err.response.data, dispatch, navigate)) {}
+                else {
+                    console.log(err)
+                    dispatch(setModalMessage(`Đã xảy ra lỗi!`))
+                    dispatch(setModalType('danger'))
+                    dispatch(showModal())
+                }
+            });
+        } catch (err) {
+            console.log(err)
+            navigate('/')
+        }
+    }
+}
