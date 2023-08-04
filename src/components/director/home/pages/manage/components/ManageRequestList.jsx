@@ -39,17 +39,19 @@ const ManageRequestList = ({ user }) => {
   };
   
   useEffect(() => {
-    
+    let data = {
+      limit: REQUESTS_COUNT,
+      offset: page * REQUESTS_COUNT,
+      sort_field: 'last_updated_state_time',
+      sort_by: 'desc',
+      request_status: '',
+      request_from: user.user_type !== 'volunteer' ? user.user_type : typeList[activeFromIdx],
+      user_email: user.email,
+      volunteer_email: user.email
+    };
+    if (user.user_type !== 'volunteer') {delete data.volunteer_email;} else {delete data.user_email;}
     dispatch(retrieveAllRequests(
-      {
-        limit: REQUESTS_COUNT,
-        offset: page * REQUESTS_COUNT,
-        sort_field: 'last_updated_state_time',
-        sort_by: 'desc',
-        request_status: '',
-        request_from: user.user_type !== 'volunteer' ? user.user_type : typeList[activeFromIdx],
-        user_email: user.email
-      }, {
+      data, {
         userInfo: directorInfo,
         userToken: directorToken
       },
