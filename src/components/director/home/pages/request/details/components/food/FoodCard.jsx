@@ -8,6 +8,7 @@ import PlaceHolder from 'assets/images/placeholder.jpg';
 
 // Utility
 import { useResizer } from 'utils/helpers/Resizer.jsx';
+import { distanceTime } from 'utils/helpers/Time';
 
 const FoodCard = ({
   food
@@ -43,7 +44,7 @@ const FoodCard = ({
                   <Col className={`d-flex ${size < 3 ? 'ps-0' : ''} ${size < 2 ? 'mt-2' : ''}`} xs={6}>
                     <div>
                       <header className='long-product-label'>Còn</header>
-                      <h5 className='mt-2'>2 ngày</h5>
+                      <h5 className='mt-2'>{distanceTime(food.expired_time)}</h5>
                     </div>
                   </Col>
                   <Col className={`d-flex ${size < 3 ? 'ps-0' : ''} ${size < 2 ? 'mt-2' : ''}`} xs={6}>
