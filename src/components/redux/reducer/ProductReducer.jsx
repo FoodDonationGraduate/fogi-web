@@ -190,9 +190,6 @@ export const retrieveCurrentProduct = (data, navigate) => {
             })
             .catch((err) => {
                 console.log(err.response.data)
-                dispatch(setModalMessage("Đã xảy ra lỗi!"))
-                dispatch(setModalType('danger'));
-                dispatch(showModal())
                 dispatch(setCurrentProduct({}))
             });
         } catch (err) {

@@ -116,8 +116,7 @@ const OrderListPage = () => {
         <TopBar searchFlag={false}/>
       </div>
       <div className='bg'>
-        <div className='pt-2' />
-        <Container>
+        <Container className='pb-4'>
           <Row className='mb-4'>
             <Stack direction='horizontal' className='mb-2 d-flex' gap={3}>
               <h2 className='fw-bold mt-4 me-auto'>Yêu cầu của bạn</h2>

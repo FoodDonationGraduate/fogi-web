@@ -46,6 +46,7 @@ const CreateRequestModal = ({
   const { errors } = formState;
 
   const createRequest = (data) =>  {
+    console.log(data);
     if (data.available_start_date >= data.available_end_date) {
       dispatch(setModalMessage('Ngày bắt đầu phải sớm hơn ngày kết thúc'));
       dispatch(setModalType('danger'));
@@ -65,7 +66,6 @@ const CreateRequestModal = ({
     }
   };
 
-  console.log(minExpiredDate)
   return (
     <>
       <Modal
@@ -117,22 +117,6 @@ const CreateRequestModal = ({
             </Form.Group>
 
             <Form.Group className='mb-3'>
-              <Form.Label style={{ fontWeight: 'bold' }}>
-                Ngày kết thúc giao thực phẩm
-              </Form.Label>
-              <Form.Control 
-                type='date' 
-                max={minExpiredDate !== '' ? new Date(minExpiredDate).toISOString().slice(0,10) : '2099-12-31'} 
-                {...register('available_end_date')} />
-              {errors.available_end_date && errors.available_end_date.type === 'required' && (
-                <p className="mt-2 error">
-                  <FaExclamationTriangle className="mx-2" />
-                  Bạn chưa điền ngày kết thúc
-                </p>
-              )}
-            </Form.Group>
-
-            <Form.Group className='mb-3'>
               <Form.Label style={{ fontWeight: 'bold'}}>
                 Thời gian bắt đầu{' '}
                 <Tooltip tip={'Thời gian Tình nguyện viên có thể bắt đầu nhận thực phẩm'} />
@@ -145,6 +129,22 @@ const CreateRequestModal = ({
                 <p className="mt-2 error">
                   <FaExclamationTriangle className="mx-2" />
                   Bạn chưa điền thời gian bắt đầu
+                </p>
+              )}
+            </Form.Group>
+
+            <Form.Group className='mb-3'>
+              <Form.Label style={{ fontWeight: 'bold' }}>
+                Ngày kết thúc giao thực phẩm
+              </Form.Label>
+              <Form.Control 
+                type='date' 
+                min={new Date((new Date()).setDate((new Date()).getDate() + 1)).toISOString().split('T')[0]}
+                {...register('available_end_date')} />
+              {errors.available_end_date && errors.available_end_date.type === 'required' && (
+                <p className="mt-2 error">
+                  <FaExclamationTriangle className="mx-2" />
+                  Bạn chưa điền ngày kết thúc
                 </p>
               )}
             </Form.Group>

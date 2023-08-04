@@ -65,7 +65,7 @@ const OrderList = ({
       <Container>
         <Row>
           <Col className='px-0'>
-            <Row className='mb-4' xs={1} md={2} lg={3}>
+            <Row xs={1} md={2} lg={3}>
               <EqualHeight>
                 {allRequests.requests.map((request) => (
                   <Col className='mb-4' key={request.id}>

@@ -15,7 +15,6 @@ import * as Yup from 'yup';
 // Components
 import UploadButton from 'components/common/UploadButton';
 import Tooltip from 'components/common/Tooltip';
-import { retrieveAllCategories } from 'components/redux/reducer/CategoryReducer';
 import { postNewProduct } from 'components/redux/reducer/ProductReducer';
 import { setModalMessage, showModal } from 'components/redux/reducer/ModalReducer';
 
@@ -67,12 +66,13 @@ const PostProductModal = ({
   // Submit
   const onSubmit = (data) => {
     console.log('post item');
-    console.log(JSON.stringify(data));
     if (images.length === 0) {
       dispatch(setModalMessage('Bạn cần phải đính kèm hình ảnh thực phẩm'));
       dispatch(showModal());
       return;
     }
+    data.expired_time = data.expired_time.split('T')[0] + ' 23:59:59';
+    console.log(data)
     dispatch(postNewProduct({...data, images: base64Images}, {userInfo, userToken}, navigate));
     reset({
       name: '',
@@ -87,8 +87,6 @@ const PostProductModal = ({
   };
 
   useEffect(() => {
-    console.log('a')
-    dispatch(retrieveAllCategories({}, navigate));
     var newImages = [];
     for (let i = 0; i < images.length; i++) {
       const image = images[i];
@@ -137,7 +135,7 @@ const PostProductModal = ({
               <Form.Label style={{ fontWeight: 'bold' }}>
                 Ngày hết hạn
               </Form.Label>
-              <Form.Control type='date' min={new Date((new Date()).setDate((new Date()).getDate() + 1)).toISOString().split('T')[0]} {...register('expired_time')} />
+              <Form.Control type='date' min={new Date((new Date()).setDate((new Date()).getDate() + 2)).toISOString().split('T')[0]} {...register('expired_time')} />
               {errors.expired_time && errors.expired_time.type === 'required' && (
                 <p className="mt-2 error">
                   <FaExclamationTriangle className="mx-2" />

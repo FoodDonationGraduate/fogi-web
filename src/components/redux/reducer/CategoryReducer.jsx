@@ -32,7 +32,7 @@ export const retrieveAllCategories = (data, navigate) => {
     return async dispatch => {
         try {
             var currentData = {
-                limit: data.limit ? data.limit : 16,
+                limit: data.limit ? data.limit : 100,
                 offset: data.offset ? data.offset : 0,
                 search_query: data.query,
                 num_product_filter: data.num_product_filter,

@@ -89,8 +89,8 @@ function Notification({style={}}) {
             <div className="notification-list">
               {(Object.keys(allNotifications).length !== 0 && allNotifications.total !== 0) && allNotifications.notifications.map((data, index) => (
               // { array.map((data, index) => (
-                <Stack direction='vertical' className="notification-element px-2 pt-1" 
-                  style={data.noti_status === 'unseen' ? {backgroundColor: '#D9F0C7'} : {}}
+                <Stack direction='vertical' 
+                  className={`${data.noti_status === 'unseen' ? 'notification-element-active' : 'notification-element-unactive'}` + ' notification-element px-3 py-2'}
                   key={index}
                   onClick={() => onClickNotificationElement(data)}>
                     <div className="d-flex justify-content-left">

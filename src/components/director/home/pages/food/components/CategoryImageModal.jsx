@@ -40,10 +40,11 @@ const CategoryImageModal = ({ showImage, onClose, setImage }) => {
               width={'100%'}
               height={320}
               onCrop={(pv) => setPreview(pv)}
-              exportAsSquare
               onClose={() => setPreview(null)}
               onBeforeFileLoad={onBeforeFileLoad}
               src={null}
+              exportAsSquare={true}
+              cropRadius={0}
             />
           </div>
 

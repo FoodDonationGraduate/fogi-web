@@ -98,9 +98,19 @@
     overflow-y: 'auto';
     height: 100%;
 }
-    .notification-element:hover {
-        background-color: #F2F2F2;
+    .notification-element-unactive {
+        background-color: white
     }
+    .notification-element-active {
+        background-color: #D9F0C7
+    }
+    .notification-element {
+        border-bottom: 1px solid rgb(204, 202, 202);
+    }
+    .notification-element:hover {
+        background-color: #b8b6b6;
+    }
+
 
 .nav-element {
     display: flex;

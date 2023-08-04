@@ -87,8 +87,8 @@ const RequestInfoCard = ({ request }) => {
                   </header>
                 </Stack>
                 <header className='order-item-secondary'>
-                  <MdLocalShipping /> Thời gian giao: {convertToString(request.available_start_date, 'LocaleDateString')}, {request.available_start_time.slice(0,5)} 
-                  {' '}- {convertToString(request.available_end_date, 'LocaleDateString')}, {request.available_end_time.slice(0,5)} 
+                  <MdLocalShipping /> Thời gian giao: {request.available_start_time.slice(0,5)} {convertToString(request.available_start_date, 'LocaleDateString')} 
+                  {' '}- {request.available_end_time.slice(0,5)} {convertToString(request.available_end_date, 'LocaleDateString')} 
                 </header>
                 <header className='order-item-secondary'>
                   <MdOutlineLocationOn /> {reduceString(request.address, 80)}
