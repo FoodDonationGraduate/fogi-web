@@ -40,7 +40,6 @@ export function enableNotification (dispatch, navigate, user) {
 }
 
 export const handleNotificationPayload = (payload, dispatch, setModalMessage, showModal) => {
-  console.log(payload);
   if (payload && payload.data) {
     var data = payload.data;
     var request_id = data.request_id;

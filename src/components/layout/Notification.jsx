@@ -36,7 +36,9 @@ function Notification({style={}}) {
   }
 
   const func = async () => {
+    console.log('listen to server');
     await onMessage(getMessagingObject(), (payload) => {
+      console.log(payload);
       var userInfo = localStorage.getItem("user") !== "undefined" 
       && localStorage.getItem("user") !== null 
       ? JSON.parse(localStorage.getItem("user")) : {};
@@ -88,7 +90,6 @@ function Notification({style={}}) {
             
             <div className="notification-list">
               {(Object.keys(allNotifications).length !== 0 && allNotifications.total !== 0) && allNotifications.notifications.map((data, index) => (
-              // { array.map((data, index) => (
                 <Stack direction='vertical' 
                   className={`${data.noti_status === 'unseen' ? 'notification-element-active' : 'notification-element-unactive'}` + ' notification-element px-3 py-2'}
                   key={index}
@@ -107,7 +108,7 @@ function Notification({style={}}) {
                     </div>
                     <div className="d-flex justify-content-end pt-1">
                       <div style={{fontSize: '12px'}}>
-                      Cập nhật vào lúc {data.request_status_updated_time.slice(11,16)} ngày {convertToString(data.request_status_updated_time, 'LocaleString').slice(9)}
+                      Cập nhật vào lúc {data.request_status_updated_time.slice(11,16)} ngày {convertToString(data.request_status_updated_time.slice(0,10), 'LocaleDateString')}
                       </div>
                     </div>
                 </Stack>

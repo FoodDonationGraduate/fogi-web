@@ -37,7 +37,6 @@ const RequestInfoCard = ({ request }) => {
 
   // Re-create request
   const recreateRequest = (products, request_id) => {
-    console.log(products.every((product) => {return distanceTime(product.expired_time) !== 'Đã hết hạn'}))
     if (!products.every((product) => {return distanceTime(product.expired_time) !== 'Đã hết hạn'})) {
       dispatch(setModalMessage('Một trong những thực phẩm của yêu cầu đã hết hạn!'))
       dispatch(showModal())

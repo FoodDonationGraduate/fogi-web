@@ -71,7 +71,6 @@ const CategoryModal = ({
   };
 
   const onHide = () => {
-    console.log('hide');
     reset(
       {
         name: '',

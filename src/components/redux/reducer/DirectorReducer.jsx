@@ -135,6 +135,7 @@ export const retrieveUnverifiedUsers = (data, director, navigate) => {
           dispatch(setModalType('danger'))
           dispatch(showModal())
        }
+       dispatch(setUnverifiedUsers({}));
       });
     } catch (err) {
       console.log(err);
@@ -166,6 +167,7 @@ export const retrieveManageUsers = (data, director, navigate) => {
           dispatch(setModalType('danger'))
           dispatch(showModal())
        }
+       dispatch(setManageUsers({}));
       });
     } catch (err) {
       console.log(err);
@@ -240,6 +242,7 @@ export const retrieveReports = (data, director, navigate) => {
           dispatch(setModalType('danger'))
           dispatch(showModal())
        }
+       dispatch(setReports({}));
       });
     } catch (err) {
       console.log(err);
@@ -350,7 +353,6 @@ export const addCategory = (data, director, navigate) => {
         image: data.image
       }).then((res) => {
         dispatch(retrieveAllCategories(data.filterData ? data.filterData : {}, navigate));
-
         dispatch(setModalMessage("Thêm Hạng mục thành công!"));
         dispatch(showModal());
       }).catch((err) => {
@@ -532,12 +534,11 @@ export const cancelRequest = (data, director, navigate) => {
         request_from: data.request_from,
         cancel_reason: data.cancel_reason
       }).then((res) => {
-        dispatch(setCurrentRequest(null));
         dispatch(setModalMessage(`Hủy Yêu cầu ${data.request_id} thành công`));
         dispatch(showModal());
+        dispatch(retrieveCurrentRequest(data, director, navigate));
       }).catch((err) => {
         if (handleExpiredToken(err.response.data, dispatch, navigate)) {
-          
         } else {
           console.log(err.response.data);
           dispatch(setModalMessage("Đã xảy ra lỗi!"))
@@ -574,6 +575,7 @@ export const retrieveAvailableVolunteers = (data, director, navigate) => {
           dispatch(setModalType('danger'))
           dispatch(showModal())
        }
+       dispatch(setAvailableVolunteers({}));
       });
     } catch (err) {
       console.log(err);
@@ -611,6 +613,7 @@ export const retrieveAllUnsortedFood = (data, director, navigate) => {
           dispatch(setModalType('danger'))
           dispatch(showModal())
        }
+       dispatch(setAllUnsortedFood({}));
       });
     } catch (err) {
       console.log(err);
@@ -653,6 +656,7 @@ export const retrieveAllParentFood = (data, director, navigate) => {
           dispatch(setModalType('danger'))
           dispatch(showModal())
        }
+       dispatch(setAllParentFood({}));
       });
     } catch (err) {
       console.log(err);
@@ -683,6 +687,7 @@ export const retrieveCurrentParentFood = (data, director, navigate) => {
           dispatch(setModalType('danger'))
           dispatch(showModal())
        }
+       dispatch(setCurrentParentFood({}));
       });
     } catch (err) {
       console.log(err);
@@ -795,6 +800,7 @@ export const retrieveAllFood = (data, director, navigate) => {
           dispatch(setModalType('danger'))
           dispatch(showModal())
        }
+       dispatch(setAllFood({}));
       });
     } catch (err) {
       console.log(err);
@@ -824,6 +830,8 @@ export const updateFood = (data, director, navigate) => {
           ...data,
           offset: (data.food_list_length % data.offset !== 1) ? data.offset : 0
         }, director, navigate));
+        dispatch(setModalMessage("Phân phối thực phẩm thành công!"))
+        dispatch(showModal())
       }).catch((err) => {
         if (handleExpiredToken(err.response.data, dispatch, navigate)) {
           
@@ -833,6 +841,7 @@ export const updateFood = (data, director, navigate) => {
           dispatch(setModalType('danger'))
           dispatch(showModal())
        }
+       
       });
     } catch (err) {
       console.log(err);
