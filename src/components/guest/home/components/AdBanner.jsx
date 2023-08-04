@@ -28,8 +28,9 @@ const AdBanner = () => {
 
   useEffect(() => { 
     var data = {
-      limit: 3,
-      offset: 0
+      limit: 5,
+      offset: 0,
+      is_headline: true
     };
 
     dispatch(retrieveAllNews(data, navigate));
@@ -53,6 +54,7 @@ const AdBanner = () => {
                         className="d-block w-100 ad-banner-image"
                         src={`https://bachkhoi.online/static/${newsItem.image}`}
                         alt={newsItem.title}
+                        height={(size + 1) * 64}
                       />
                     </div>
                   </Carousel.Item>

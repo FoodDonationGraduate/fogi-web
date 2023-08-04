@@ -2,11 +2,8 @@
   "allHeaders": [
     {
       "label": "Tiêu đề",
-      "size": 5,
+      "size": 6,
       "sort_field": "title"
-    },{
-      "label": "Tin nổi bật",
-      "size": 1
     },{
       "label": "Ngày tạo",
       "size": 2,

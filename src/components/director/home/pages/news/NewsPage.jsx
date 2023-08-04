@@ -112,8 +112,8 @@ const NewsPage = () => {
         sortFields={sortFields} setSortFields={setSortFields}
         type='news'
         actionList={[
-          { action: (news) => { setTargetNews(news); setModalType('read'); } },
-          { action: () => onShow() },
+          { action: (news) => { setTargetNews(news); setModalType('read'); onShow(); } },
+          { action: (news) => { setTargetNews(news); setModalType('edit'); onShow(); } },
           { action: (news) => { onDeleteNews(news); }}
         ]}
       />

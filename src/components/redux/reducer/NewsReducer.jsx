@@ -35,6 +35,7 @@ export const retrieveAllNews = (data, navigate) => {
                 max_created_time: data.max_created_time,
                 min_updated_time: data.min_updated_time,
                 max_updated_time: data.max_updated_time,
+                is_headline: data.is_headline,
                 sorts: data.sorts
             }
             console.log("retrieve all news")
@@ -67,8 +68,8 @@ export const createNews = (data, director, navigate) => {
                 title: data.title,
                 content: data.content,
                 url: data.url,
-                is_headline: false,
-                image: data.image
+                image: data.image,
+                is_headline: data.is_headline
             }
 
             console.log('Create news');
@@ -96,10 +97,50 @@ export const createNews = (data, director, navigate) => {
     }
 }
 
+export const updateNews = (data, director, navigate) => {
+    return async dispatch => {
+        try {
+            var currentData = {
+                email: director.userInfo.email,
+                token: director.userToken,
+                id: data.id,
+                is_headline: data.is_headline,
+                title: data.title,
+                content: data.content,
+                url: data.url,
+                is_headline: data.is_headline
+            }
+            if (data.image) currentData.image = data.image;
+
+            console.log('Update news');
+            axiosInstance.patch(`/news`, currentData)
+            .then((res) => {
+                dispatch(retrieveAllNews(data.filterData ? data.filterData : {}, navigate));
+        
+                dispatch(setModalMessage("Cập nhật Tin tức thành công!"));
+                dispatch(showModal());
+            })
+            .catch((err) => {
+                if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+
+                } else {
+                    console.log(err.response.data);
+                    dispatch(setModalMessage("Cập nhật Tin tức không thành công!"))
+                    dispatch(setModalType('danger'))
+                    dispatch(showModal())
+                }
+            });
+        } catch (err) {
+            console.log(err);
+            navigate('/');
+        }
+    }
+}
+
 export const deleteNews = (data, user, navigate) => {
     return async dispatch => {
         try {
-            console.log("delete category id: " + data.id)
+            console.log('Delete news');
             await axiosInstance.delete(`/news`, {params: {
                 id: data.id,
                 email: user.userInfo.email,

@@ -12,14 +12,11 @@ const TableFilterNews = ({
 
   return (
     <>
-      <Col className='mn-table-item-col' xs={5}>
+      <Col className='mn-table-item-col' xs={6}>
         <TableFilterText
           input={filterList[0].state} setInput={filterList[0].setState}
           placeholder='Tiêu đề Tin tức'
         />
-      </Col>
-      <Col className='mn-table-item-col' xs={1}>
-        
       </Col>
       <Col className='mn-table-item-col' xs={2}>
         <TableFilterTime
