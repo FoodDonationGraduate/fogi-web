@@ -20,12 +20,13 @@ const TableItemNews = ({
     <>
       <Col className='mn-table-item-col' xs={5}>
         <Stack direction='horizontal' gap={2}>
-          <TableItemTitle title={news.title} />
+          <TableItemTitle title={news.title} onClick={() => { actionList[0].action(news); actionList[1].action() }} />
         </Stack>
       </Col>
       <Col className='mn-table-item-col' xs={1}>
         <Form.Check
           checked={news.is_headline}
+          readOnly
         />
       </Col>
       <Col className='mn-table-item-col' xs={2}>

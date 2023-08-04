@@ -8,8 +8,7 @@ import { useNavigate } from "react-router-dom";
 import CategoryImageModal from '../CategoryImageModal';
 
 // Reducer
-import { addCategory } from 'components/redux/reducer/DirectorReducer';
-import { updateCategory } from 'components/redux/reducer/CategoryReducer';
+import { addCategory, updateCategory } from 'components/redux/reducer/CategoryReducer';
 // Form handling
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from 'react-hook-form';

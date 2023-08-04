@@ -340,37 +340,6 @@ export const lockUser = (data, director, navigate) => {
   }
 }
 
-export const addCategory = (data, director, navigate) => {
-  return async dispatch => {
-    try {
-      console.log('add category');
-      axiosInstance.post(`/category`, {
-        email: director.userInfo.email,
-        token: director.userToken,
-        name: data.name,
-        description: data.name,
-        image: data.image
-      }).then((res) => {
-        dispatch(retrieveAllCategories(data.filterData ? data.filterData : {}, navigate));
-
-        dispatch(setModalMessage("Thêm Hạng mục thành công!"));
-        dispatch(showModal());
-      }).catch((err) => {
-        if (handleExpiredToken(err.response.data, dispatch, navigate)) {
-        } else {
-          console.log(err.response.data);
-          dispatch(setModalMessage("Thêm Hạng mục không thành công!"))
-          dispatch(setModalType('danger'))
-          dispatch(showModal())
-       }
-      });
-    } catch (err) {
-      console.log(err);
-      navigate('/');
-    }
-  }
-}
-
 export const retrieveAllRequests = (data, director, navigate) => {
   return async dispatch => {
     try {

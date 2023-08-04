@@ -24,7 +24,7 @@ const UploadButton = ({
   };
 
   const handleDisplayFileDetails = () => {
-    console.log(inputRef.current.files)
+    console.log(inputRef.current.files);
     inputRef.current?.files && setFileName(inputRef.current.files[0].name);
     const files = inputRef.current.files;
     

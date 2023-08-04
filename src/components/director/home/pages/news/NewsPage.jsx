@@ -11,6 +11,7 @@ import NewsHeaders from 'utils/constants/headerList/NewsHeaders.json';
 import Spinner from 'components/common/Spinner';
 import Table from 'components/common/management/table/Table';
 import Title from 'components/common/management/common/Title';
+import NewsModal from './components/NewsModal';
 
 // Reducers
 import { retrieveAllNews } from 'components/redux/reducer/NewsReducer';
@@ -64,6 +65,13 @@ const NewsPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, query, createdTime, updatedTime, sortFields]);
 
+  // Details modal
+  const [targetNews, setTargetNews] = useState(null);
+  const [show, setShow] = useState(false);
+  const [modalType, setModalType] = useState(null);
+  const onShow = () => setShow(true);
+  const onHide = () => setShow(false);
+
   return (
     <>
       {isLoading && <Spinner />}
@@ -71,7 +79,7 @@ const NewsPage = () => {
         <Title title='Quản lý Tin tức' />
         <Button 
           className='fogi' variant='primary'
-          onClick={() => {}}
+          onClick={() => { onShow(); setModalType('create') }}
         >
           Thêm Tin tức
         </Button>
@@ -89,8 +97,18 @@ const NewsPage = () => {
         sortFields={sortFields} setSortFields={setSortFields}
         type='news'
         actionList={[
+          { action: (news) => { setTargetNews(news); setModalType('read'); } },
+          { action: () => onShow() }
         ]}
       />
+      {modalType &&
+        <NewsModal
+          news={targetNews}
+          show={show} onHide={onHide}
+          type={modalType}
+          filterData={filterData}
+        />
+      }
     </>
   );
 };

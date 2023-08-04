@@ -57,3 +57,41 @@ export const retrieveAllNews = (data, navigate) => {
         }
     }
 }
+
+export const createNews = (data, director, navigate) => {
+    return async dispatch => {
+        try {
+            var currentData = {
+                email: director.userInfo.email,
+                token: director.userToken,
+                title: data.title,
+                content: data.content,
+                url: data.url,
+                is_headline: false,
+                image: data.image
+            }
+
+            console.log('Create news');
+            axiosInstance.post(`/news`, currentData)
+            .then((res) => {
+                dispatch(retrieveAllNews(data.filterData ? data.filterData : {}, navigate));
+        
+                dispatch(setModalMessage("Thêm Tin tức thành công!"));
+                dispatch(showModal());
+            })
+            .catch((err) => {
+                if (handleExpiredToken(err.response.data, dispatch, navigate)) {
+
+                } else {
+                    console.log(err.response.data);
+                    dispatch(setModalMessage("Thêm Tin tức không thành công!"))
+                    dispatch(setModalType('danger'))
+                    dispatch(showModal())
+                }
+            });
+        } catch (err) {
+            console.log(err);
+            navigate('/');
+        }
+    }
+}
