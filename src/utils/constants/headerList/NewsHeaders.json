@@ -1,0 +1,24 @@
+{
+  "allHeaders": [
+    {
+      "label": "Tiêu đề",
+      "size": 5,
+      "sort_field": "title"
+    },{
+      "label": "Tin nổi bật",
+      "size": 1
+    },{
+      "label": "Ngày tạo",
+      "size": 2,
+      "sort_field": "created_time"
+    },{
+      "label": "Cập nhật",
+      "size": 2,
+      "sort_field": "updated_time",
+      "isReversed": true
+    },{
+      "label": "Điều chỉnh",
+      "size": 2
+    }
+  ]
+}

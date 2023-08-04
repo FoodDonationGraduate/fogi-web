@@ -114,6 +114,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             <Route path="/director/approve" element={ <DirectorHome activeIdx={5} /> } />
             <Route path="/director/users" element={ <DirectorHome activeIdx={6} /> } />
             <Route path="/director/user/:userType/:userEmail" element={ <DirectorHome activeIdx={6} /> } />
+            <Route path="/director/news" element={ <DirectorHome activeIdx={7} /> } />
           </Route>
 
           <Route path="/warehouse_keeper" element={

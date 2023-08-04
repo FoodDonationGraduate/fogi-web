@@ -29,7 +29,9 @@ const initialState = {
 
   currentUser: {},
   currentStats: {},
-  currentChart: {}
+  currentChart: {},
+
+  allNews: {}
 };
 
 const directorReducer = createSlice({

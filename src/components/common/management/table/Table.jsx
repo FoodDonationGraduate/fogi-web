@@ -25,6 +25,8 @@ const Table = ({
       case 'request': return 'Yêu cầu';
       case 'parent-food': return 'Hạng mục con';
       case 'category': return 'Hạng mục';
+      case 'news': return 'Tin tức';
+      case 'user': return 'Người dùng';
       default: return 'Dữ liệu';
     };
   };

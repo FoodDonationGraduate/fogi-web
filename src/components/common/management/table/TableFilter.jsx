@@ -8,6 +8,7 @@ import TableFilterParentFood from './tableFilter/templates/TableFilterParentFood
 import TableFilterCategory from './tableFilter/templates/TableFilterCategory';
 import TableFilterUser from './tableFilter/templates/TableFilterUser';
 import TableFilterUnsortedFood from './tableFilter/templates/TableFilterUnsortedFood';
+import TableFilterNews from './tableFilter/templates/TableFilterNews';
 
 const TableFilter = ({
   filterList,
@@ -21,6 +22,7 @@ const TableFilter = ({
       {type === 'category' && <TableFilterCategory filterList={filterList} />}
       {type === 'user' && <TableFilterUser filterList={filterList} />}
       {type === 'unsorted-food' && <TableFilterUnsortedFood filterList={filterList} />}
+      {type === 'news' && <TableFilterNews filterList={filterList} />}
     </Row>
   );
 }

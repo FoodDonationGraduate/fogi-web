@@ -18,6 +18,7 @@ import FoodPage from './pages/food/FoodPage';
 import ApproveListPage from './pages/approve/ApproveListPage';
 import UserListPage from './pages/manage/UserListPage'
 import UserPage from './pages/manage/UserPage';
+import NewsPage from './pages/news/NewsPage';
 
 // Assets
 import {
@@ -27,7 +28,8 @@ import {
   MdOutlineShoppingBag,
   MdOutlineFastfood,
   MdCheckCircleOutline,
-  MdOutlineGroup // 4
+  MdOutlineGroup,
+  MdNewspaper
 } from 'react-icons/md';
 
 // Redux
@@ -42,11 +44,12 @@ const sideMenuInfoList = [
     user_type: 'director',
     menu: [
       { idx: 0, label: 'Thống kê', link: 'dashboard', icon: MdOutlineAnalytics },
-      { idx: 1, label: 'Yêu cầu', link: 'requests', icon: MdOutlineArticle },
-      { idx: 3, label: 'Hạng mục', link: 'categories', icon: MdOutlineCategory },
-      { idx: 4, label: 'Hạng mục con', link: 'parent-food', icon: MdOutlineShoppingBag },
-      { idx: 5, label: 'Xét duyệt', link: 'approve', icon: MdCheckCircleOutline },
-      { idx: 6, label: 'Người dùng', link: 'users', icon: MdOutlineGroup },
+      { idx: 1, label: 'Quản lý Yêu cầu', link: 'requests', icon: MdOutlineArticle },
+      { idx: 3, label: 'Quản lý Hạng mục', link: 'categories', icon: MdOutlineCategory },
+      { idx: 4, label: 'Quản lý Hạng mục con', link: 'parent-food', icon: MdOutlineShoppingBag },
+      { idx: 5, label: 'Xét duyệt Người dùng', link: 'approve', icon: MdCheckCircleOutline },
+      { idx: 6, label: 'Quản lý Người dùng', link: 'users', icon: MdOutlineGroup },
+      { idx: 7, label: 'Quản lý Tin tức', link: 'news', icon: MdNewspaper },
     ]
   },
   {
@@ -91,6 +94,7 @@ const HomePage = ({
                     {activeIdx === 0 && <DashboardPage />}
                     {activeIdx === 5 && <ApproveListPage />}
                     {activeIdx === 6 && (!userEmail ? <UserListPage /> : <UserPage />)}
+                    {activeIdx === 7 && <NewsPage />}
                   </>}
                   {userInfo.user_type === 'warehouse_keeper' && <>
                     {activeIdx === 2 && <UnsortedFoodPage />}
