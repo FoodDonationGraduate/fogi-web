@@ -36,10 +36,10 @@ const AccountType = () => {
                 <div className='mb-3'>
                   <div className='d-grid'>
                     <Button className='fogi mt-2' variant='primary' onClick={toSignupForUser}>
-                      Donee
+                      Người nhận quyên góp
                     </Button>
                     <Button className='fogi mt-2' variant='primary' onClick={toSignupForDonor}>
-                      Donor
+                      Người quyên góp
                     </Button>
                   </div>
                 </div>
