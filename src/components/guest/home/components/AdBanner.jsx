@@ -56,13 +56,17 @@ const AdBanner = () => {
               <CarouselButton isLeft={true} onClick={onPrevClick} />
             }
             <Row>
-              <Carousel ref={ref} variant='light' controls={false}>
+              <Carousel
+                ref={ref}
+                variant='light'
+                controls={false}
+                onMouseEnter={handleOnOver}
+                onMouseLeave={handleOnLeave}
+              >
                 {allNews.news.map((newsItem, idx) => (
                   <Carousel.Item
                     key={idx}
                     interval={40000}
-                    onMouseOver={handleOnOver}
-                    onMouseLeave={handleOnLeave}
                   >
                     <div
                       className='ad-banner-image-container'
