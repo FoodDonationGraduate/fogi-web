@@ -30,7 +30,7 @@ const CategorySection = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(retrieveAllCategories({}, navigate))
+    dispatch(retrieveAllCategories({limit: 100, offset: 0}, navigate))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

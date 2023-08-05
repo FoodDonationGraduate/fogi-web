@@ -1,6 +1,6 @@
 // Essentials
 import React, { useState, useEffect } from 'react';
-import { Button, Stack } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router';
 

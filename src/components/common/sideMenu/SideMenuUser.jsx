@@ -18,7 +18,8 @@ const SideMenuUser = () => {
     
   const date = new Date();
   const styleNoti={
-    visibility: "hidden"
+    visibility: "hidden",
+    display: "none"
   }
   return (
     <>
@@ -35,6 +36,7 @@ const SideMenuUser = () => {
         <div className='side-menu-profile-item' onClick={toProfilePage}>
           <Stack className='align-items-center' direction='vertical'>
             <img className='profile-logo-sm' src={`https://bachkhoi.online/static/${userInfo.avatar}?${date.getTime()}`} alt='donor logo'/>
+            <Notification style={styleNoti} />
           </Stack>
         </div>
       )}

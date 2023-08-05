@@ -8,9 +8,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import CategoryImageModal from "../CategoryImageModal";
 
 // Reducer
-import { retrieveAllCategories } from "components/redux/reducer/CategoryReducer";
 import {
-  addParentFood,
+  addParentFood
 } from "components/redux/reducer/DirectorReducer";
 
 // Form handling
@@ -36,9 +35,6 @@ const SubCategoryModal = ({
   const allCategories = useSelector(
     (state) => state.categoryReducer.allCategories
   );
-  // useEffect(() => {
-  //   dispatch(retrieveAllCategories({}, navigate));
-  // }, []);
   const { categoryId } = useParams();
 
   // Form handling

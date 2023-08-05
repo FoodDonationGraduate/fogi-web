@@ -73,7 +73,7 @@ const ProductList = () => {
         </Container>
       }
       {(Object.keys(categoryProducts).length === 0 || categoryProducts.total_products === 0) && 
-        <EmptyProductBody/>
+        <EmptyProductBody text={'Không thể tìm được Hạng mục bạn tìm kiếm'}/>
       }
     </div>
   );
