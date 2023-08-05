@@ -58,12 +58,18 @@ const AdBanner = () => {
             <Row>
               <Carousel ref={ref} variant='light' controls={false}>
                 {allNews.news.map((newsItem, idx) => (
-                  <Carousel.Item key={idx} interval={40000}>
-                    <div className='ad-banner-image-container' onClick={() => { window.open(newsItem.url); }}>
+                  <Carousel.Item
+                    key={idx}
+                    interval={40000}
+                    onMouseOver={handleOnOver}
+                    onMouseLeave={handleOnLeave}
+                  >
+                    <div
+                      className='ad-banner-image-container'
+                      onClick={() => { window.open(newsItem.url); }}
+                    >
                       <img
                         className="d-block w-100 ad-banner-image"
-                        onMouseOver={handleOnOver}
-                        onMouseLeave={handleOnLeave}
                         src={`https://bachkhoi.online/static/${newsItem.image}`}
                         alt={newsItem.title}
                         height={(size + 1) * 64}
