@@ -37,6 +37,7 @@ const AdBanner = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  
   return (
     <div className='ad-banner-body'>
       {Object.keys(allNews).length > 0 && allNews.news.length > 0 && 
