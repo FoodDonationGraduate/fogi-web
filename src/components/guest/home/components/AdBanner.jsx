@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Carousel, Container, Row, Stack } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
@@ -37,7 +37,16 @@ const AdBanner = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  
+  const [imageStyle, setImageStyle] = useState({});
+  const handleOnOver = () => {
+    setImageStyle({
+      filter: 'brightness(0.25)'
+    });
+  };
+  const handleOnLeave = () => {
+    setImageStyle({});
+  };
+
   return (
     <div className='ad-banner-body'>
       {Object.keys(allNews).length > 0 && allNews.news.length > 0 && 
@@ -53,11 +62,20 @@ const AdBanner = () => {
                     <div className='ad-banner-image-container' onClick={() => { window.open(newsItem.url); }}>
                       <img
                         className="d-block w-100 ad-banner-image"
+                        onMouseOver={handleOnOver}
+                        onMouseLeave={handleOnLeave}
                         src={`https://bachkhoi.online/static/${newsItem.image}`}
                         alt={newsItem.title}
                         height={(size + 1) * 64}
+                        style={imageStyle}
                       />
                     </div>
+                    {Object.keys(imageStyle).length > 0 &&
+                      <Carousel.Caption>
+                        <h5>{newsItem.title}</h5>
+                        <div>{newsItem.content}</div>
+                      </Carousel.Caption>
+                    }
                   </Carousel.Item>
                 ))}
               </Carousel>

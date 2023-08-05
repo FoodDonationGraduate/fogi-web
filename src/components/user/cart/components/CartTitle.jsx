@@ -66,7 +66,7 @@ const CartTitle = ({
                   </div>
                   <div>
                     {
-                      (allProducts.total_cart_items > 0 && selectedAddress.address === 'Địa chỉ của bạn')
+                      (selectedAddress.address === 'Địa chỉ của bạn')
                       && 'Vui lòng chọn địa điểm mặc định'
                     }
                   </div>
@@ -78,7 +78,7 @@ const CartTitle = ({
                 <Button
                   className='fogi'
                   variant='primary'
-                  disabled={isError || allProducts.total_cart_items == 0 || overStockPage.length > 0}
+                  disabled={isError || allProducts.total_cart_items == 0 || overStockPage.length > 0 || selectedAddress.address === 'Địa chỉ của bạn'}
                   onClick={() => createRequest()}
                 >
                   Tạo Yêu cầu
