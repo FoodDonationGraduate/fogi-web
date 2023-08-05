@@ -40,7 +40,7 @@ const AdBanner = () => {
   const [imageStyle, setImageStyle] = useState({});
   const handleOnOver = () => {
     setImageStyle({
-      filter: 'brightness(0.25)'
+      filter: 'brightness(0.4) blur(1px)',
     });
   };
   const handleOnLeave = () => {
