@@ -1,3 +1,12 @@
 .ad-banner-body {
-    padding-top: 25px;
+    border-radius: 8px;
+}
+
+.ad-banner-image-container {
+    cursor: pointer;
+}
+
+.ad-banner-image {
+    object-fit: cover;
+    border-radius: 8px;
 }

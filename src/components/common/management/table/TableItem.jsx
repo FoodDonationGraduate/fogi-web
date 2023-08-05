@@ -8,6 +8,7 @@ import TableItemParentFood from './tableItem/templates/TableItemParentFood';
 import TableItemCategory from './tableItem/templates/TableItemCategory';
 import TableItemUnsortedFood from './tableItem/templates/TableItemUnsortedFood';
 import TableItemUser from './tableItem/templates/TableItemUser';
+import TableItemNews from './tableItem/templates/TableItemNews';
 const TableItem = ({
   idx,
   item,
@@ -22,6 +23,7 @@ const TableItem = ({
       {type === 'category' && <TableItemCategory category={item} actionList={actionList}/>}
       {type === 'unsorted-food' && <TableItemUnsortedFood food={item} actionList={actionList} />}
       {type === 'user' && <TableItemUser user={item} actionList={actionList} />}
+      {type === 'news' && <TableItemNews news={item} actionList={actionList} />}
     </Row>
   );
 }
