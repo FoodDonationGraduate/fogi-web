@@ -375,10 +375,10 @@ export const changePassword = (data, user, navigate) => {
     return async dispatch => {
         try {
             console.log("change password")
-            axiosInstance.post(`/change_password`, {
+            axiosInstance.patch(`/password`, {
                 email: user.userInfo.email,
                 token: user.userToken,
-                password: data.password,
+                old_password: data.password,
                 new_password: data.new_password
             }).then((res) => {
                 dispatch(logout(navigate))
