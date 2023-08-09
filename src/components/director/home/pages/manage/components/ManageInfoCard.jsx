@@ -1,5 +1,5 @@
 // Essentials
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Stack } from 'react-bootstrap';
 import { useNavigate } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
@@ -20,6 +20,10 @@ import {
   MdOutlinePhone
 } from 'react-icons/md';
 
+// Components
+import DocumentModal from '../../approve/components/DocumentModal';
+import BackgroundModal from '../../approve/components/BackgroundModal';
+
 const getUserType = (user_type) => {
   switch (user_type) {
     case 'donee': return 'Người nhận';
@@ -38,6 +42,15 @@ const ManageInfoCard = ({
   const currentUser = useSelector(state => state.directorReducer.currentUser)
 
   let size = useResizer();
+
+  // Identity Document Modal
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  // Backgound Document Modal
+  const [backgoundShow, setBackgoundShow] = useState(false);
+  const handleBackgroundClose = () => setBackgoundShow(false);
 
   const handleLock = (isLock) => {
     dispatch(lockUser(
@@ -83,6 +96,8 @@ const ManageInfoCard = ({
     {
       (currentUser && currentUser.user) &&
       <div className='manage-card'>
+        <DocumentModal user={currentUser.user} show={show} handleClose={handleClose} />
+        <BackgroundModal user={currentUser.user} show={backgoundShow} handleClose={handleBackgroundClose} />
         <Stack direction='horizontal' gap={4}>
           <img className='manage-details-profile-logo' src={`https://bachkhoi.online/static/${currentUser.user.avatar}`} alt='director logo'/>
           <Stack direction='vertical' gap={2}>
@@ -106,6 +121,12 @@ const ManageInfoCard = ({
                 {currentUser.user.phone}
               </Stack>
             </header>
+            <div className='manage-card-link' onClick={handleShow}>
+              Giấy tờ tùy thân
+            </div>
+            <div className='manage-card-link' onClick={() => setBackgoundShow(true)}>
+              Hoàn cảnh cá nhân
+            </div>
           </Stack>
         </Stack>
 
