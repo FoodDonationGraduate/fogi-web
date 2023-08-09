@@ -1,9 +1,8 @@
 // Essentials
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
-import { getUnit } from 'utils/helpers/Food';
 
 // Assets
 import { FaExclamationTriangle } from 'react-icons/fa';
@@ -11,6 +10,7 @@ import { FaExclamationTriangle } from 'react-icons/fa';
 // Components
 import CategoryModal from '../category/CategoryModal';
 import SubCategoryModal from '../parentFood/SubCategoryModal';
+import Select from 'react-select';
 
 // Form handling
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -47,15 +47,19 @@ const FoodModal = ({
   const formOptions = { resolver: yupResolver(formSchema) };
   const { register, getValues, setValue, handleSubmit, formState, reset } = useForm(formOptions);
   const { errors } = formState;
+  const categoryRef = useRef(null);
+  const parentRef = useRef(null);
 
   const onOpen = () => {
     reset({
       name: food.name,
       stock: food.stock,
       unit: food.unit,
-      category: -1,
-      parentFood: -1
+      category: food.donor_parent && food.donor_parent.category_name != 'Khác' ? Number(food.donor_parent.category_id) : -1,
+      parentFood: food.donor_parent && food.donor_parent.name != 'Khác' ? Number(food.donor_parent.id) : -1
     });
+    categoryRef.current.setValue(food.donor_parent && food.donor_parent.category_name != 'Khác' ? { value: food.donor_parent.category_id, label: food.donor_parent.category_name } : null);
+    parentRef.current.setValue(food.donor_parent && food.donor_parent.name != 'Khác' ? { value: food.donor_parent.id, label: food.donor_parent.name } : null);
     onShow();
   };
 
@@ -90,14 +94,13 @@ const FoodModal = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    setValue('parentFood', -1);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getValues('category')]);
+  const getAllParentFood = (value) => {
+    if (!value) return;
 
-  const getAllParentFood = (event) => {
-    const category_id = event.target.value;
+    const category_id = value.value;
     setValue('category', category_id);
+    setValue('parentFood', null);
+    parentRef.current.setValue(null);
     dispatch(retrieveAllParentFood({ category_ids: JSON.stringify([Number(category_id)]) }, { userInfo, userToken }, navigate));
   };
 
@@ -122,7 +125,6 @@ const FoodModal = ({
           <Modal.Title>Thực phẩm</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-
           <img
             src={`https://bachkhoi.online/static/${food.image_filename}`}
             className='rounded-circle mb-2'
@@ -197,17 +199,16 @@ const FoodModal = ({
                       Tạo mới
                     </div>
                   </div>
-                  <Form.Select
-                    default-value={-1}
-                    onChange={(event) => getAllParentFood(event)}
-                  >
-                    <option value={-1}>-</option>
-                    {Object.keys(allCategories).length > 0 && allCategories.categories.map((category, idx) => (
-                      <option value={category.id} key={idx}>
-                        {category.name}
-                      </option>
-                    ))}
-                  </Form.Select>
+                  <Select 
+                    options={Object.keys(allCategories).length > 0 && allCategories.categories.map((category) => {
+                      return {
+                        value: category.id, label: category.name
+                      }
+                    })}
+                    menuPlacement='auto'
+                    onChange={(value) => { getAllParentFood(value) }} 
+                    ref={categoryRef}
+                  />
                 </Col>
 
                 <Col className='pe-0'>
@@ -221,18 +222,18 @@ const FoodModal = ({
                       Tạo mới
                     </div>
                   </div>
-                  <Form.Select
-                    default-value={-1}
+                  <Select 
                     {...register('parentFood')}
-                    disabled={getValues('category') === -1}
-                  >
-                    <option value={-1}>-</option>
-                    {Object.keys(allParentFood).length > 0 && allParentFood.products.map((parentOption, idx) => (
-                      <option value={parentOption.id} key={idx}>
-                        {parentOption.name} ({getUnit(parentOption.unit)})
-                      </option>
-                    ))}
-                  </Form.Select>
+                    options={Object.keys(allParentFood).length > 0 && allParentFood.products.map((parentOption) => {
+                      return {
+                        value: parentOption.id, label: parentOption.name
+                      }
+                    })}
+                    menuPlacement='auto'
+                    onChange={(value) => { if (!value) return; setValue('parentFood', value.value); }}
+                    isDisabled={getValues('category') < 0}
+                    ref={parentRef}
+                  />
                 </Col>
               </Row>
               {errors.parentFood && errors.parentFood.type === 'min' && (

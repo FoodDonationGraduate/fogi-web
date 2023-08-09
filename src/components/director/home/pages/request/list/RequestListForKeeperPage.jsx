@@ -58,6 +58,7 @@ const RequestListPage = () => {
   const [volunteer, setVolunteer] = useState(null);
   const [createdTime, setCreatedTime] = useState({ min: '', max: '' });
   const [updatedTime, setUpdatedTime] = useState({ min: '', max: '' });
+  const [getTrigger, setGetTrigger] = useState(false);
 
   // Sort Field
   const [sortFields, setSortFields] = useState([]);
@@ -87,6 +88,15 @@ const RequestListPage = () => {
   const [page, setPage] = useState(0); // a.k.a activeIdx
 
   // Get requests
+
+  // Get requests
+  useEffect(() => {
+    setPage(0);
+    setGetTrigger(!getTrigger);
+  }, [user, requestId, from, status, numProduct, sumKg, sumItem, distance,
+    director, warehouseKeeper, volunteer, createdTime, updatedTime, sortFields
+  ]);
+
   useEffect(() => { 
     var data = {
       limit: REQUEST_COUNT,
@@ -121,9 +131,7 @@ const RequestListPage = () => {
       status: from,
     }));
     // eslint-disable-next-line react-hooks/exhaustive-deps  
-  }, [page, user, requestId, from, status, numProduct, sumKg, sumItem, distance,
-    director, warehouseKeeper, volunteer, createdTime, updatedTime, sortFields
-  ]);
+  }, [page, getTrigger]);
 
   return (
     <>

@@ -105,12 +105,14 @@
   }
   .step-text-current {
     color: black;
-    font-weight: 500;
+    font-weight: bold;
   }
   .step-text-unfinished {
     color: #ccc;
+    font-weight: 500;
   }
   .step-text-finished {
-    color: #82CD47;
+    color: #5A9829;
+    font-weight: 500;
   }
 

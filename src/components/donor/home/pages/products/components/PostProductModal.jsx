@@ -1,5 +1,5 @@
 // Essentials
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Button, Col, Form,
   Modal, Row, Stack
@@ -17,10 +17,15 @@ import UploadButton from 'components/common/UploadButton';
 import Tooltip from 'components/common/Tooltip';
 import { postNewProduct } from 'components/redux/reducer/ProductReducer';
 import { setModalMessage, showModal } from 'components/redux/reducer/ModalReducer';
+import Select from 'react-select';
 
 // Assets imports
 import { FaExclamationTriangle } from 'react-icons/fa';
 import { MdClose } from 'react-icons/md';
+
+// Reducers
+import { retrieveAllParentFood, setAllParentFood } from 'components/redux/reducer/DirectorReducer';
+import { retrieveAllCategories } from 'components/redux/reducer/CategoryReducer';
 
 // Style imports
 import 'assets/css/Authentication.css';
@@ -31,9 +36,13 @@ const PostProductModal = ({
 }) => {
   const userInfo = useSelector(state => state.authenticationReducer.user);
   const userToken = useSelector(state => state.authenticationReducer.token);
+  const allParentFood = useSelector(state => state.directorReducer.allParentFood);
+  const allCategories = useSelector(state => state.categoryReducer.allCategories);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const [isMatchUnit, setIsMatchUnit] = useState(true);
 
   // Form handling
   const formSchema = Yup.object().shape({
@@ -41,11 +50,14 @@ const PostProductModal = ({
     description: Yup.string().required(''),
     expired_time: Yup.string().required(''),
     stock: Yup.number().required(''),
-    unit: Yup.string().required('')
+    unit: Yup.string().required(''),
+    category: Yup.number().required().min(0),
+    parentFood: Yup.number().required().min(0)
   });
   const formOptions = { resolver: yupResolver(formSchema) };
-  const { register, handleSubmit, formState, reset } = useForm(formOptions);
+  const { register, getValues, setValue, handleSubmit, formState, reset } = useForm(formOptions);
   const { errors } = formState;
+  const parentRef = useRef(null);
   const [submitted, setSubmitted] = useState(false);
 
   // Image handling
@@ -65,6 +77,12 @@ const PostProductModal = ({
 
   // Submit
   const onSubmit = (data) => {
+    if (data.unit !== allParentFood.products.find(f => f.id === data.parentFood).unit) {
+      setIsMatchUnit(false);
+      return;
+    }
+    setIsMatchUnit(true);
+
     console.log('post item');
     if (images.length === 0) {
       dispatch(setModalMessage('Bạn cần phải đính kèm hình ảnh thực phẩm'));
@@ -79,11 +97,32 @@ const PostProductModal = ({
       description: '',
       expired_time: '',
       stock: null,
-      unit: 'item'
+      unit: 'item',
+      category: -1,
+      parentFood: -1
     });
     setImages([]);
     setSubmitted(false);
     onClose();
+  };
+
+  useEffect(() => {
+    dispatch(retrieveAllCategories({}, navigate));
+    dispatch(setAllParentFood({}));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    setValue('parentFood', -1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [getValues('category')]);
+
+  const getAllParentFood = (value) => {
+    const category_id = value.value;
+    setValue('category', category_id);
+    setValue('parentFood', null);
+    parentRef.current.setValue(null);
+    dispatch(retrieveAllParentFood({ category_ids: JSON.stringify([Number(category_id)]) }, { userInfo, userToken }, navigate));
   };
 
   useEffect(() => {
@@ -171,6 +210,58 @@ const PostProductModal = ({
                   </Form.Select>
                 </Col>
               </Row>
+              {!isMatchUnit && (
+                <p className="mt-2 error">
+                  <FaExclamationTriangle className="mx-2" />
+                  Đơn vị đã chọn không tương ứng với Đơn vị của Hạng mục con
+                </p>
+              )}
+            </Form.Group>
+
+            <Form.Group className='mb-3'>
+              <Row>
+                <Col className='ps-0'>
+                  <div className='d-flex justify-content-between'>
+                    <Form.Label style={{ fontWeight: 'bold' }}>
+                      Hạng mục
+                    </Form.Label>
+                  </div>
+                  <Select 
+                    options={Object.keys(allCategories).length > 0 && allCategories.categories.map((category) => {
+                      return {
+                        value: category.id, label: category.name
+                      }
+                    })}
+                    menuPlacement='auto'
+                    onChange={(value) => { getAllParentFood(value) }} 
+                  />
+                </Col>
+
+                <Col className='pe-0'>
+                  <div className='d-flex justify-content-between'>
+                    <Form.Label style={{ fontWeight: 'bold' }}>
+                      Hạng mục con
+                    </Form.Label>
+                  </div>
+                  <Select 
+                    {...register('parentFood')}
+                    options={Object.keys(allParentFood).length > 0 && allParentFood.products.map((parentOption) => {
+                      return {
+                        value: parentOption.id, label: parentOption.name
+                      }
+                    })}
+                    menuPlacement='auto'
+                    onChange={(value) => { if (!value) return; setValue('parentFood', value.value); }}
+                    ref={parentRef}
+                  />
+                </Col>
+              </Row>
+              {errors.parentFood && errors.parentFood.type === 'min' && (
+                <p className="mt-2 error">
+                  <FaExclamationTriangle className="mx-2" />
+                  Bạn chưa phân loại Thực phẩm
+                </p>
+              )}
             </Form.Group>
             
             <Form.Group className='mb-3'>

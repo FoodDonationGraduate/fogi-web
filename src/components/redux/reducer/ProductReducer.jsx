@@ -240,7 +240,8 @@ export const postNewProduct = (data, user, navigate) => {
                 unit: data.unit,
                 expired_time: data.expired_time,
                 stock: data.stock,
-                images: data.images
+                images: data.images,
+                parent_id: data.parentFood
             }).then((res) => {
                 dispatch(setModalMessage("Tạo thực phẩm thành công!"))
                 dispatch(showModal())
