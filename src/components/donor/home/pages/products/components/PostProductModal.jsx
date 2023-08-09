@@ -60,6 +60,10 @@ const PostProductModal = ({
   const parentRef = useRef(null);
   const [submitted, setSubmitted] = useState(false);
 
+  useEffect(() => {
+    reset({ category: -1 });
+  }, []);
+
   // Image handling
   const imageOnly = 'image/png, image/gif, image/jpeg';
   const [images, setImages] = useState([]);
@@ -122,7 +126,7 @@ const PostProductModal = ({
     setValue('category', category_id);
     setValue('parentFood', null);
     parentRef.current.setValue(null);
-    dispatch(retrieveAllParentFood({ category_ids: JSON.stringify([Number(category_id)]) }, { userInfo, userToken }, navigate));
+    dispatch(retrieveAllParentFood({ category_ids: JSON.stringify([Number(category_id)]), limit: 100, offset: 0 }, { userInfo, userToken }, navigate));
   };
 
   useEffect(() => {
@@ -252,6 +256,7 @@ const PostProductModal = ({
                     })}
                     menuPlacement='auto'
                     onChange={(value) => { if (!value) return; setValue('parentFood', value.value); }}
+                    isDisabled={getValues('category') < 0}
                     ref={parentRef}
                   />
                 </Col>

@@ -600,8 +600,8 @@ export const retrieveAllParentFood = (data, director, navigate) => {
       var currentData = {
         email: director.userInfo.email,
         token: director.userToken,
-        limit: data.limit,
-        offset: data.offset,
+        limit: data.limit ? data.limit : 16,
+        offset: data.offset ? data.offset: 0,
         category_ids: data.category_ids,
         stock_filter: data.stock_filter,
         unit: data.unit,
