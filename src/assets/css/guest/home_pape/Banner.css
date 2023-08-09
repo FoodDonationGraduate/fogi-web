@@ -9,4 +9,5 @@
 .ad-banner-image {
     object-fit: cover;
     border-radius: 8px;
+    transition: filter 0.2s;
 }

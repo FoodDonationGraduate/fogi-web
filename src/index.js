@@ -141,7 +141,12 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         padding: "10px",
       }}
     >
-      <Darkreader />
+      <Darkreader 
+        {...(localStorage.getItem("fogi_darkmode") === "true" ? {defaultDarken: true} : {})}
+        onChange={(fogi_darkmode) => {
+          localStorage.setItem("fogi_darkmode", fogi_darkmode);
+        }}
+      />
     </div>
   </>
 );
