@@ -27,7 +27,7 @@ const ProductItem = ({
   const navigate = useNavigate();
 
   let size = useResizer();
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(1);
   const [oldCount, setOldCount] = useState(count);
   const [currentProduct, setCurrentProduct] = useState('');
 
@@ -48,13 +48,13 @@ const ProductItem = ({
   };
   const checkOverStock = (newCount) => {
     if (!overStock.includes(product.id)) {
-      if (newCount < 1 || newCount > product.stock) {
+      if (newCount == 0 || newCount > product.stock) {
         setOverStock([...overStock, product.id]);
         return true; // if true, return
       }
       return false;
     }
-    if (newCount >= 1 && newCount <= product.stock) {
+    if (newCount > 0 && newCount <= product.stock) {
       setOverStock(overStock.filter(p => p !== product.id));
       return false;
     }
@@ -69,13 +69,17 @@ const ProductItem = ({
     setTimer(window.setTimeout(updateCount, 1000, count + amount));
   };
   const onUpdateInput = (event) => {
-    let newCount = Number(event.target.value);
-    setCount(newCount);
+    let newCount = event.target.value;
+
+    if ((product.unit == 'kg' && newCount.length > 0 && !'1234567890.'.includes(newCount[newCount.length - 1]))
+    || (product.unit == 'item' && !Number.isInteger(Number(newCount)))) return;
+
+    setCount(Number(newCount));
     window.clearTimeout(timer);
 
     if (checkOverStock(newCount)) return;
 
-    setTimer(window.setTimeout(updateCount, 1000, newCount));
+    setTimer(window.setTimeout(updateCount, 500, newCount));
   };
 
   const deleteProductModal = (id) => { 
@@ -125,8 +129,7 @@ const ProductItem = ({
 
             <Col md={6} className={size < 3 && 'ps-0 py-3'}>
               <Row>
-
-                <Col className={`d-flex ${size < 3 && 'ps-0'} ${size < 2 && 'mt-2'}`} xs={12} md={5}>
+                <Col className={`${size < 3 && 'ps-0'} ${size < 2 && 'mt-2'}`} xs={12} md={5}>
                   <Stack direction='vertical' gap={2}>
                     <header className='long-product-label'>{`${product.unit === 'kg' ? 'Khối' : 'Số'} lượng (${getUnit(product.unit)})`}</header>
                     <Stack direction='horizontal'>
@@ -144,8 +147,8 @@ const ProductItem = ({
                         <Form.Control
                           className='count-input'
                           type='number'
-                          step='0.01'
-                          value={Number(count).toString()}
+                          step={`${1/(product.unit == 'kg' ? 100 : 1 )}`}
+                          value={count}
                           style={{ textAlign: 'center' }}
                           onChange={(e) => onUpdateInput(e) }
                         />
@@ -161,10 +164,10 @@ const ProductItem = ({
                         </Button>
                       }
                     </Stack>
-                    {(count < 1 || count > product.stock) ?
+                    {(count <= 0 || count > product.stock) ?
                       <small className='error'>
                         <FaExclamationTriangle className='mb-1' />
-                        Tồn kho: {product.stock} ({count < 1 && 'Không thể ít hơn 1'}{count > product.stock && 'Không thể vượt quá số lượng tồn kho'})
+                        Tồn kho: {product.stock} ({count == 0 && 'Không thể bằng 0'}{count > product.stock && 'Không thể vượt quá số lượng tồn kho'})
                       </small>
                       :
                       <small className='small-text'>Tồn kho: {product.stock}</small>

@@ -112,6 +112,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             <Route path="/director/approve" element={ <DirectorHome activeIdx={5} /> } />
             <Route path="/director/users" element={ <DirectorHome activeIdx={6} /> } />
             <Route path="/director/user/:userType/:userEmail" element={ <DirectorHome activeIdx={6} /> } />
+            <Route path="/director/news" element={ <DirectorHome activeIdx={7} /> } />
           </Route>
 
           <Route path="/warehouse_keeper" element={
@@ -140,7 +141,12 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         padding: "10px",
       }}
     >
-      <Darkreader />
+      <Darkreader 
+        {...(localStorage.getItem("fogi_darkmode") === "true" ? {defaultDarken: true} : {})}
+        onChange={(fogi_darkmode) => {
+          localStorage.setItem("fogi_darkmode", fogi_darkmode);
+        }}
+      />
     </div>
   </>
 );

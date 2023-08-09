@@ -48,6 +48,7 @@ const CategoryPage = () => {
     dispatch(setModalQuestion("Bạn có muốn xóa hạng mục này không?"));
     dispatch(showQuestionModal());
   }
+  
   useEffect(() => {
     if (modalLogic) {
         dispatch(cancelQuestionModal())

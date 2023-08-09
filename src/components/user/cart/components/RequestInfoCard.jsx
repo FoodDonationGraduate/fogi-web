@@ -110,7 +110,7 @@ const RequestInfoCard = (
                     </Stack>
                   </header>
                   
-                  <Form className='mt-4' onSubmit={handleSubmit(onSubmit)}>
+                  <Form className='mt-3' onSubmit={handleSubmit(onSubmit)}>
                     <Form.Group className='mb-3'>
                       <Form.Label style={{ fontWeight: 'bold' }}>
                         Tên Yêu cầu

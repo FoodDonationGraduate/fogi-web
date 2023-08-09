@@ -11,7 +11,6 @@ import ProductList from './components/ProductList';
 
 const ProductListPage = () => {
   // Product List
-  const [minExpiredDate, setMinExpiredDate] = useState('');
 
   // Post Product Modal
   const [showAddFood, setShowAddFood] = useState(false);
@@ -26,12 +25,20 @@ const ProductListPage = () => {
   return (
     <>
       <div>
-        <ListTitle onShowAddFood={onShowAddFood} onShowCreateRequest={onShowCreateRequest} />
+        <ListTitle 
+          onShowAddFood={onShowAddFood} 
+          onShowCreateRequest={onShowCreateRequest} />
         <LocationCard />
-        <ProductList setMinExpiredDate={setMinExpiredDate}/>
+        <ProductList/>
       </div>
-      <PostProductModal show={showAddFood} onClose={onCloseAddFood} />
-      <CreateRequestModal show={showCreateRequest} onClose={onCloseCreateRequest} minExpiredDate={minExpiredDate}/>
+      <PostProductModal 
+        show={showAddFood} 
+        onClose={onCloseAddFood} 
+      />
+      <CreateRequestModal 
+        show={showCreateRequest} 
+        onClose={onCloseCreateRequest}
+      />
     </>
   );
 };
