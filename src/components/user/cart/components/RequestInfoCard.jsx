@@ -51,7 +51,7 @@ const RequestInfoCard = (
     currentAddress: Yup.object().required('')
   });
   const formOptions = { resolver: yupResolver(formSchema) };
-  const { register, handleSubmit, setValue, formState } = useForm(formOptions);
+  const { register, handleSubmit, setValue, reset, formState } = useForm(formOptions);
   const { errors } = formState;
   
   const onSubmit = (data) => {
@@ -76,6 +76,12 @@ const RequestInfoCard = (
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeStatusIdx])
+
+  useEffect(() => {
+    reset({
+      request_name: 'Yêu cầu nhận thực phẩm ngày ' + new Date().toLocaleDateString()
+    })
+  }, [isActive])
 
   return (
       <Container  >
@@ -110,7 +116,7 @@ const RequestInfoCard = (
                     </Stack>
                   </header>
                   
-                  <Form className='mt-4' onSubmit={handleSubmit(onSubmit)}>
+                  <Form className='mt-3' onSubmit={handleSubmit(onSubmit)}>
                     <Form.Group className='mb-3'>
                       <Form.Label style={{ fontWeight: 'bold' }}>
                         Tên Yêu cầu

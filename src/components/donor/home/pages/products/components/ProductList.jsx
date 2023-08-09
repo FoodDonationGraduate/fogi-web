@@ -11,7 +11,7 @@ import FogiPagination from 'components/common/pagination/Pagination';
 import { retrieveDonorProducts } from 'components/redux/reducer/ProductReducer';
 import CommonNotFoundBody from 'components/common/CommonNotFoundBody';
 
-const ProductList = ({setMinExpiredDate}) => {
+const ProductList = () => {
   const userInfo = useSelector(state => state.authenticationReducer.user)
   const userToken = useSelector(state => state.authenticationReducer.token)
   const donorProducts = useSelector(state => state.productReducer.donorProducts)
@@ -31,16 +31,6 @@ const ProductList = ({setMinExpiredDate}) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  React.useEffect(()=>{
-    if (Object.keys(donorProducts).length !== 0 && donorProducts.total_products !== 0) {
-      setMinExpiredDate(donorProducts.products.reduce((min, product)=>{
-        return product.expired_time < min.expired_time ? product : min 
-      }).expired_time)
-    } else {
-      setMinExpiredDate('')
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [donorProducts])
 
   return (
     <Row>
