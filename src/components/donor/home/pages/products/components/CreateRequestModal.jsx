@@ -24,8 +24,7 @@ import 'assets/css/Authentication.css';
 
 const CreateRequestModal = ({
   show,
-  onClose,
-  minExpiredDate
+  onClose
 }) => {
   const userInfo = useSelector(state => state.authenticationReducer.user);
   const userToken = useSelector(state => state.authenticationReducer.token);
@@ -42,7 +41,7 @@ const CreateRequestModal = ({
     available_end_time: Yup.string().required('')
   });
   const formOptions = { resolver: yupResolver(formSchema) };
-  const { register, handleSubmit, formState } = useForm(formOptions);
+  const { register, handleSubmit, reset, formState } = useForm(formOptions);
   const { errors } = formState;
 
   const createRequest = (data) =>  {
@@ -117,23 +116,6 @@ const CreateRequestModal = ({
             </Form.Group>
 
             <Form.Group className='mb-3'>
-              <Form.Label style={{ fontWeight: 'bold'}}>
-                Thời gian bắt đầu{' '}
-                <Tooltip tip={'Thời gian Tình nguyện viên có thể bắt đầu nhận thực phẩm'} />
-              </Form.Label>
-              <Form.Control
-                type='time'
-                {...register('available_start_time')}
-              />
-              {errors.available_start_time && errors.available_start_time.type === 'required' && (
-                <p className="mt-2 error">
-                  <FaExclamationTriangle className="mx-2" />
-                  Bạn chưa điền thời gian bắt đầu
-                </p>
-              )}
-            </Form.Group>
-
-            <Form.Group className='mb-3'>
               <Form.Label style={{ fontWeight: 'bold' }}>
                 Ngày kết thúc giao thực phẩm
               </Form.Label>
@@ -151,7 +133,24 @@ const CreateRequestModal = ({
 
             <Form.Group className='mb-3'>
               <Form.Label style={{ fontWeight: 'bold'}}>
-                Thời gian kết thúc{' '}
+                Thời gian bắt đầu mỗi ngày{' '}
+                <Tooltip tip={'Thời gian Tình nguyện viên có thể bắt đầu nhận thực phẩm'} />
+              </Form.Label>
+              <Form.Control
+                type='time'
+                {...register('available_start_time')}
+              />
+              {errors.available_start_time && errors.available_start_time.type === 'required' && (
+                <p className="mt-2 error">
+                  <FaExclamationTriangle className="mx-2" />
+                  Bạn chưa điền thời gian bắt đầu
+                </p>
+              )}
+            </Form.Group>
+
+            <Form.Group className='mb-3'>
+              <Form.Label style={{ fontWeight: 'bold'}}>
+                Thời gian kết thúc mỗi ngày{' '}
                 <Tooltip tip={'Thời gian Tình nguyên viên không thể nhận thực phẩm nữa'} />
               </Form.Label>
               <Form.Control

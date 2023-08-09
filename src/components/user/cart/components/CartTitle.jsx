@@ -50,7 +50,7 @@ const CartTitle = ({
             <OverlayTrigger
               placement={'bottom'}
               overlay={
-                (isError || allProducts.total_cart_items == 0 || overStockPage.length > 0) ?
+                (isError || allProducts.total_cart_items == 0 || overStockPage.length > 0 || selectedAddress) ?
                 <Tooltip style={{ position: 'fixed' }}>
                   <div>
                     {
