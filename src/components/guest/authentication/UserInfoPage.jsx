@@ -19,64 +19,69 @@ import UploadButton from 'components/common/UploadButton';
 
 // Assets imports
 import { FaExclamationTriangle } from "react-icons/fa";
+import { MdClose } from 'react-icons/md';
 
 // Style imports
 import 'assets/css/Authentication.css';
 import 'assets/css/Fogi.css';
 
-const AccountInfo = () => {
+const UserInfo = () => {
   const registeredUser = useSelector(state => state.authenticationReducer.registeredUser)
-  
-  const imageOnly = 'image/png, image/gif, image/jpeg';
-  const [frontImage, setFrontImage] = React.useState(undefined);
-  const [backImage, setBackImage] = React.useState(undefined);
-  const [id_front, setFrontImgBase64] = React.useState('');
-  const [id_back, setBackImgBase64] = React.useState('');
 
   const formSchema = Yup.object().shape({
-    name: Yup.string().required(''),
-    dob: Yup.string().required(''),
-    phone: Yup.string().required('')
+    background: Yup.string().required('')
   });
   const formOptions = { resolver: yupResolver(formSchema) };
   const { register, handleSubmit, formState } = useForm(formOptions);
   const { errors } = formState;
+  const [submitted, setSubmitted] = React.useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
  
   const onSubmit = async (data) => {
-    if (id_front !== '' && id_back !== '') {
+    if (images.length !== 0) {
       await dispatch(signupUserInfo(data))
-      await dispatch(signupUserInfo({id_front, id_back}))
-      navigate('/userinfo')
+      await dispatch(signupUserInfo({background_images: base64Images}))
+      console.log(JSON.parse(localStorage.getItem("registeredUser")))
+      dispatch(signup(JSON.parse(localStorage.getItem("registeredUser")), navigate))
+      setImages([]);
     } else {
-      dispatch(setModalMessage('Bạn cần phải đính kèm ảnh chụp thẻ căn cước công dân/ hộ chiếu!'))
+      dispatch(setModalMessage('Bạn cần phải đính kèm hình ảnh chứng minh!'))
       dispatch(showModal())
     }
   };
 
-  React.useEffect(() => {
-    if ( frontImage !== undefined ) {
-      const reader = new FileReader();
-      reader.onload = function () {
-        var base64String = reader.result.replace("data:", "")
-            .replace(/^.+,/, "");
-        setFrontImgBase64(base64String)
+  // Image handling
+  const imageOnly = 'image/png, image/gif, image/jpeg';
+  const [images, setImages] = React.useState([]);
+  const [base64Images, setBase64Images] =  React.useState([]);
+  const removeImageAtIdx = (idx) => {
+    const newImages = new DataTransfer();
+    for (let i = 0; i < images.length; i++) {
+      const image = images[i];
+      if (idx !== i) {
+        newImages.items.add(image);
       }
-      reader.readAsDataURL(frontImage);
     }
-    if (backImage !== undefined) {
-      const reader = new FileReader();
-      reader.onload = function () {
-        var base64String = reader.result.replace("data:", "")
-            .replace(/^.+,/, "");
-        setBackImgBase64(base64String)
-      }
-      reader.readAsDataURL(backImage);
-    }
-  })
+    setImages(newImages.files);
+  };
 
+  React.useEffect(() => {
+    var newImages = [];
+    for (let i = 0; i < images.length; i++) {
+      const image = images[i];
+      const reader = new FileReader();
+      reader.onload = function () {
+        var base64String = reader.result.replace("data:", "")
+            .replace(/^.+,/, "");
+        newImages.push(base64String);
+      }
+      reader.readAsDataURL(image);
+    }
+    setBase64Images(newImages);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [images]);
   return (
     <Container fluid className='fogi-bg authen-bg authen-bg-user'>
       <Row className='py-4 d-flex justify-content-center align-items-center'>
@@ -87,76 +92,63 @@ const AccountInfo = () => {
                 <Stack className='mb-4' direction='horizontal' gap={4}>
                   <Logo usertype={0} />
                   <h2 className='fw-bold'>
-                    Thông tin Tài khoản
+                    Thông tin Người dùng
                   </h2>
                 </Stack>
                 <div className='mb-3'>
                   <Form onSubmit={handleSubmit(onSubmit)}>
                     <Form.Group className='mb-3'>
                       <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
-                        Họ tên
+                        Hoàn cảnh
                       </Form.Label>
                       <Form.Control
                         type='text'
+                        as='textarea'
                         defaultValue={registeredUser.name ? registeredUser.name : ''}
-                        {...register("name")} />
+                        {...register("background")} />
                       {errors.name && errors.name.type === "required" && (
                         <p className="mt-2 error">
                           <FaExclamationTriangle className="mx-2" />
-                          Bạn chưa nhập họ tên
+                          Bạn chưa nhập hoàn cảnh
                         </p>
                       )}
                     </Form.Group>
 
                     <Form.Group className='mb-3'>
-                      <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
-                        Ngày sinh
+                      <Form.Label style={{ fontWeight: 'bold' }}>
+                        Hình ảnh chứng minh{' '}
+                        <Tooltip tip={'Ít nhất 1 hình ảnh'} />
                       </Form.Label>
-                      <Form.Control
-                        type='date'
-                        defaultValue={registeredUser.dob ? registeredUser.dob : ''}
-                        placeholders='Select Date of Birth'
-                        {...register("dob")}
+                      <UploadButton
+                        label='Upload'
+                        type={imageOnly}
+                        setValue={setImages}
+                        allowMultiple={true}
                       />
-                      {errors.dob && errors.dob.type === "required" && (
+                      <div className='mt-2'>
+                        {images && Array.from({ length: images.length }).map((_, idx) => (
+                          <Stack className='upload-tag' direction='horizontal' key={idx}>
+                            {idx}_{images[idx].name}
+                            <MdClose
+                              className='upload-tag-close'
+                              onClick={() => {
+                                removeImageAtIdx(idx);
+                              }}
+                            />
+                          </Stack>
+                        ))}
+                      </div>
+                      {submitted && images.length === 0 && (
                         <p className="mt-2 error">
                           <FaExclamationTriangle className="mx-2" />
-                          Bạn chưa nhập ngày sinh
+                          Bạn chưa đăng hình ảnh chứng minh
                         </p>
                       )}
-                    </Form.Group>
-
-                    <Form.Group className='mb-3'>
-                      <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
-                        Số điện thoại
-                      </Form.Label>
-                      <Form.Control
-                        type='number'
-                        defaultValue={registeredUser.phone ? registeredUser.phone : ''}
-                        {...register("phone")}
-                      />
-                      {errors.phone && errors.phone.type === "required" && (
-                        <p className="mt-2 error">
-                          <FaExclamationTriangle className="mx-2" />
-                          Bạn chưa nhập số điện thoại
-                        </p>
-                      )}
-                    </Form.Group>
-
-                    <Form.Group className='mb-3'>
-                      <Form.Label className='text-center' style={{ fontWeight: 'bold' }}>
-                        Giấy tờ tùy thân{' '}
-                        <Tooltip tip={'CMND/CCCD/Hộ chiếu'} />
-                      </Form.Label>
-                      <Stack direction='horizontal' gap={2}>
-                        <UploadButton label='Tải lên mặt trước' type={imageOnly} setValue={setFrontImage}/>
-                        <UploadButton label='Tải lên mặt sau' type={imageOnly} setValue={setBackImage}/>
-                      </Stack>
                     </Form.Group>
 
                     <div className='d-grid'>
-                      <Button className='fogi' variant='primary' type='submit'>
-                        Tiếp tục
+                      <Button className='fogi' variant='primary' type='submit' onClick={() => { setSubmitted(true); }}>
+                        Đăng ký
                       </Button>
                       <Button className='mt-2' variant='outline-secondary' onClick={() => navigate(-1)}>
                         Quay về
@@ -174,4 +166,4 @@ const AccountInfo = () => {
   );
 };
 
-export default AccountInfo;
+export default UserInfo;

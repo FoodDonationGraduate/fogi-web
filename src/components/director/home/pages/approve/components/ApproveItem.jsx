@@ -8,7 +8,7 @@ import { verifyUser } from 'components/redux/reducer/DirectorReducer.jsx';
 
 // Components
 import DocumentModal from './DocumentModal';
-
+import BackgroundModal from './BackgroundModal';
 // Style
 import 'assets/css/director/HomePage.css';
 
@@ -36,6 +36,10 @@ const ApproveItem = ({
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  // Backgound Document Modal
+  const [backgoundShow, setBackgoundShow] = useState(false);
+  const handleBackgroundClose = () => setBackgoundShow(false);
+  
   // Approval handling
   const handleVerify = (action) => {
     dispatch(verifyUser(
@@ -56,6 +60,7 @@ const ApproveItem = ({
   return (
     <>
       <DocumentModal user={approve} show={show} handleClose={handleClose} />
+      <BackgroundModal user={approve} show={backgoundShow} handleClose={handleBackgroundClose} />
       <div className='manage-card' id='manage-card'>
         <EqualHeightElement name='manage-content'>
           <h4 className='manage-card-name'>
@@ -97,7 +102,9 @@ const ApproveItem = ({
         <div className='manage-card-link' onClick={handleShow}>
           Giấy tờ tùy thân
         </div>
-
+        <div className='manage-card-link' onClick={() => setBackgoundShow(true)}>
+          Hoàn cảnh cá nhân
+        </div>
         <hr />
 
         <div>

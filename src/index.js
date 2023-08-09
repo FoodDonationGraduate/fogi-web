@@ -16,7 +16,8 @@ import NotFoundPage from './components/common/PageNotFoundPage.jsx';
 
 import UserLogin from "./components/guest/authentication/LoginPage.jsx";
 import UserSignup from "./components/guest/authentication/SignupPage.jsx";
-import UserAccountInfo from "./components/guest/authentication/AccountInfoPage.jsx";
+import AccountInfo from "./components/guest/authentication/AccountInfoPage.jsx";
+import UserInfo from "./components/guest/authentication/UserInfoPage.jsx";
 import SuccessSignup from "./components/guest/authentication/SuccessSignupPage.jsx";
 import SuccessVerify from "./components/guest/authentication/SuccessVerifyPage.jsx";
 import Verification from "./components/guest/authentication/VerificationPage.jsx";
@@ -62,7 +63,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/login" element={<UserLogin />} />
         <Route path="/accounttype" element={<AccountType />} />
         <Route path="/signup" element={<UserSignup />} />
-        <Route path="/accountinfo" element={<UserAccountInfo />} />
+        <Route path="/accountinfo" element={<AccountInfo />} />
+        <Route path="/userinfo" element={<UserInfo />} />
         <Route path="/signupsuccess" element={<SuccessSignup />} />
         <Route path="/verification" element={<Verification />} />
         <Route path="/verifyemail" element={<VerifyEmail />} />
