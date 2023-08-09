@@ -50,6 +50,10 @@ const CreateRequestModal = ({
       dispatch(setModalMessage('Ngày bắt đầu phải sớm hơn ngày kết thúc'));
       dispatch(setModalType('danger'));
       dispatch(showModal());
+    } else if (data.available_start_time >= data.available_end_time) {
+      dispatch(setModalMessage('Thời gian bắt đầu phải sớm hơn thời gian kết thúc'));
+      dispatch(setModalType('danger'));
+      dispatch(showModal());
     } else {
       dispatch(postDonorRequest({
         ...selectedAddress,
@@ -64,6 +68,12 @@ const CreateRequestModal = ({
       onClose();
     }
   };
+
+  React.useEffect(() => {
+    reset({
+      request_name: 'Yêu cầu nhận thực phẩm ngày ' + new Date().toLocaleDateString()
+    })
+  }, [show])
 
   return (
     <>
