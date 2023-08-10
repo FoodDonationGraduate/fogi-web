@@ -192,7 +192,9 @@ export const signup = (data, navigate) => {
                 name: data.name,
                 avatar: '',
                 id_front: data.id_front,
-                id_back: data.id_back
+                id_back: data.id_back,
+                background: data.background,
+                background_images: data.background_images
             }).then((res) => {
                 navigate('/signupsuccess')
                 dispatch(removeRegisterdUser())
