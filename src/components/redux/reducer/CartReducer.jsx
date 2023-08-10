@@ -137,6 +137,7 @@ export const deleteProduct = (data, user, navigate) => {
             }}).then((res) => {
                 dispatch(retrieveAllProducts({}, user, navigate))
                 dispatch(setModalMessage('Xóa thực phẩm thành công'))
+                dispatch(setModalType('default'))
                 dispatch(showModal())
             })
             .catch((err) => {

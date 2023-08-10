@@ -37,27 +37,15 @@ const ListTitle = ({
               }
             </Button>
             {(donorProducts.total_products > 0 && selectedAddress.address !== 'Địa chỉ của bạn')?
-              
-              <OverlayTrigger
-                placement={'bottom'}
-                overlay={
-                  <Tooltip style={{ position: 'fixed '}}>
-                    Mọi thực phẩm phải có thời gian hết hạn hơn 1 ngày khi tạo yêu cầu
-                  </Tooltip>
-                }
+              <Button
+                variant='outline-dark'
+                onClick={onShowCreateRequest}
               >
-                <span>
-                  <Button
-                    variant='outline-dark'
-                    onClick={onShowCreateRequest}
-                  >
-                    {size > 1 ? 
-                      <>Tạo yêu cầu</> : 
-                      <MdAssignment className='mb-1' />
-                    }
-                  </Button>
-                </span>
-              </OverlayTrigger>
+                {size > 1 ? 
+                  <>Tạo yêu cầu</> : 
+                  <MdAssignment className='mb-1' />
+                }
+              </Button>
               :
               <OverlayTrigger
                 placement={'bottom'}

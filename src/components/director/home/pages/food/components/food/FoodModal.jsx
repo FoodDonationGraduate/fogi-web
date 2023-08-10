@@ -226,7 +226,7 @@ const FoodModal = ({
                     {...register('parentFood')}
                     options={Object.keys(allParentFood).length > 0 && allParentFood.products.map((parentOption) => {
                       return {
-                        value: parentOption.id, label: parentOption.name
+                        value: parentOption.id, label: `${parentOption.name}(${parentOption.unit == 'kg' ? 'Kg' : 'Cái'})`
                       }
                     })}
                     menuPlacement='auto'
