@@ -102,9 +102,12 @@ const ApproveItem = ({
         <div className='manage-card-link' onClick={handleShow}>
           Giấy tờ tùy thân
         </div>
-        <div className='manage-card-link' onClick={() => setBackgoundShow(true)}>
-          Hoàn cảnh cá nhân
-        </div>
+        {user_type === 'donee' &&
+            <div className='manage-card-link' onClick={() => setBackgoundShow(true)}>
+              Hoàn cảnh cá nhân
+            </div>
+        }
+        
         <hr />
 
         <div>
